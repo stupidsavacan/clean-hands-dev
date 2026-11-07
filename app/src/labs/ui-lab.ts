@@ -92,7 +92,7 @@ function planChecks(plan:PlanScreen):Check[]{
  // 5. Esc closes the choices; the start button stays on screen with every slot's choices open.
  click('[data-slot="pistol"]');plan.root.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}));
  out.push({name:'Esc で選択肢を閉じる',ok:!plan.slot,detail:plan.slot?'閉じない':'閉じた'});
- const hidden:string[]=[];for(const s of ['start','pistol','gear0','gear1','pickup']){plan.open({tools:['coin'],pistol:'pistol_silenced',start:'S1',pickup:''});click(`[data-slot="${s}"]`);sheet.scrollTop=0;
+ const hidden:string[]=[];for(const s of ['start','pistol','case','gear0','gear1','pickup']){plan.open({tools:['coin'],pistol:'pistol_silenced',start:'S1',pickup:''});click(`[data-slot="${s}"]`);sheet.scrollTop=0;
   const r=go.getBoundingClientRect();if(r.bottom>innerHeight+.5||r.bottom>sheet.getBoundingClientRect().bottom+.5)hidden.push(s);}
  out.push({name:'どの選択肢を開いても「作戦開始」が見える',ok:!hidden.length,detail:hidden.length?`隠れる：${hidden.join('、')}`:'すべて見える'});
  // 6. Layout, on the first view and with the largest picker open.

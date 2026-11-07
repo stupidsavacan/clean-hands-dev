@@ -62,7 +62,8 @@ test('S08 row 97 large SMG: two-handed and taken on the map, not chosen before t
 // Not built yet.
 test.todo('S08 row 3 crowbar: opens locked things (施錠物の操作にも使われる)');
 test.todo('S08 row 2 wrench: used on machinery (設備とのインタラクションにも使われる) beyond the hotel\'s set pieces');
-test.todo('HD11 S08 row 21 briefcase: can be chosen before the mission (ケース選択／大型装備の持込に付随)');
+test('HD11 S08 row 21 briefcase: can be chosen before the mission (ケース選択), and is still found on the map',()=>{cite(21,'可能（ケース選択','装備選択で持込／ステージ内のケースを拾得');
+ assert.ok((mission.cases??[]).some((c:{id:string})=>c.id==='briefcase'),'a loadout choice in the club');assert.ok(placed.has('briefcase'),'and placed on the map');});
 test('HD12 S08 row 22 toolbox case: a second case like the briefcase, picked up on the map, with its own lid',()=>{cite(22,'工具箱型ケース','内部に別のアイテムを収納・取り出す','ケース本体＋開閉状態＋収納物');
  assert.ok(placed.has('toolbox'),'placed in the club');assert.equal(club.items.toolbox?.legality,'normal');
  const glb=readFileSync(here('../../assets/toolbox/models/toolbox/toolbox.glb')),len=glb.readUInt32LE(12),gl=JSON.parse(glb.subarray(20,20+len).toString('utf8'));

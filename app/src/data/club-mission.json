@@ -81,6 +81,13 @@
    "floor": 0
   }
  ],
+ "cases": [
+  {
+   "id": "briefcase",
+   "label": "ブリーフケース",
+   "note": "手に持って始める。殴る・投げる・銃を1丁入れられる"
+  }
+ ],
  "cleaners": [
   "cleaner"
  ],

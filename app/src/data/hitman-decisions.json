@@ -183,14 +183,15 @@
     "S08 row 21"
    ],
    "hitman": "開始前にケースを選べる。大きい銃を選ぶと、ケースに入って始まる。",
-   "ours": "ケースは地図に置いてあるだけ。開始前には選べない。",
+   "ours": "開始前にブリーフケースを選べる（今の作戦準備と UI ラボの両方）。選ぶと手に持って始まり、銃を中に入れておける（見えないが検査では見つかる）。地図にも置いてある。",
    "decision": "align",
    "by": "claude",
    "date": "2026-11-07",
-   "status": "todo",
-   "reason": "資料に明記。作戦準備の画面は UI ラボで作る（app/src/loadout.ts に決まりを足す）。",
+   "status": "done",
+   "reason": "資料に明記。利用者の指示で、UI ラボと今の作戦準備の両方で選べるようにした。大型の銃は無いので、「大型装備の持込に付随」は対象外。",
    "tests": [
-    "tests/item-spec.test.ts"
+    "tests/item-spec.test.ts",
+    "tests/loadout.test.ts"
    ]
   },
   {

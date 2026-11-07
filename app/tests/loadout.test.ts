@@ -5,15 +5,15 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {cleanLoadout,choose,blockedReason,defaultLoadout,loadoutGuns,GUN_LIMIT,type LoadoutMission,type Loadout} from '../src/loadout.ts';
+import {cleanLoadout,choose,blockedReason,defaultLoadout,loadoutGuns,GUN_LIMIT,IN_CASE,type LoadoutMission,type Loadout} from '../src/loadout.ts';
 
 const club=JSON.parse(readFileSync(new URL('../src/data/club-mission.json',import.meta.url),'utf8')) as LoadoutMission;
 const party=JSON.parse(readFileSync(new URL('../src/data/party-mission.json',import.meta.url),'utf8')) as LoadoutMission;
-const SLOTS=['pistol','pickup','gear0','gear1','start'] as const;
-const options=(m:LoadoutMission,slot:typeof SLOTS[number])=>slot==='pistol'?m.pistols.map(p=>p.id):slot==='pickup'?['',...(m.pickups??[]).map(p=>p.id)]:slot==='start'?m.starts.map(s=>s.id):['',...m.tools.map(t=>t.id)];
+const SLOTS=['pistol','pickup','gear0','gear1','start','case'] as const;
+const options=(m:LoadoutMission,slot:typeof SLOTS[number])=>slot==='pistol'?m.pistols.map(p=>p.id):slot==='pickup'?['',IN_CASE,...(m.pickups??[]).map(p=>p.id)]:slot==='case'?['',...(m.cases??[]).map(c=>c.id)]:slot==='start'?m.starts.map(s=>s.id):['',...m.tools.map(t=>t.id)];
 const valid=(l:Loadout,m:LoadoutMission)=>{
  assert.ok(loadoutGuns(l).length<=GUN_LIMIT,`two guns: ${JSON.stringify(l)}`);
- assert.ok(!l.pickup||l.pistol,'a pickup with no gun');
+ assert.ok(!l.pickup||l.pistol,'a pickup with no gun');assert.ok(l.pickup!==IN_CASE||l.case,'a gun in a case with no case');
  assert.equal(new Set(l.tools).size,l.tools.length,'the same tool twice');
  assert.ok(l.tools.length<=m.toolSlots);
  assert.ok(m.starts.some(s=>s.id===l.start&&s.open!==false));};
@@ -42,9 +42,9 @@ test('club: the two gear slots never hold the same tool',()=>{
  assert.deepEqual(choose(l,club,'gear1','').tools,['coin']);});
 
 test('a loadout saved by the earlier screen (gun + another gun at the pickup) is cleaned to one gun',()=>{
- assert.deepEqual(cleanLoadout({tools:['coin'],pistol:'pistol_silenced',start:'S1',pickup:'P1',pickupItem:'tranq_pistol'},club),{tools:['coin'],pistol:'pistol_silenced',start:'S1',pickup:''});
- assert.deepEqual(cleanLoadout({tools:[],pistol:'',start:'S1',pickup:'P3',pickupItem:'tranq_pistol'},club),{tools:[],pistol:'tranq_pistol',start:'S1',pickup:'P3'});
- assert.deepEqual(cleanLoadout({tools:['coin','coin','x','poison_lethal'],pistol:'bazooka',start:'S9',pickup:'P1'},club),{tools:['coin','poison_lethal'],pistol:'',start:'S1',pickup:''});
+ assert.deepEqual(cleanLoadout({tools:['coin'],pistol:'pistol_silenced',start:'S1',pickup:'P1',pickupItem:'tranq_pistol'},club),{tools:['coin'],pistol:'pistol_silenced',start:'S1',pickup:'',case:''});
+ assert.deepEqual(cleanLoadout({tools:[],pistol:'',start:'S1',pickup:'P3',pickupItem:'tranq_pistol'},club),{tools:[],pistol:'tranq_pistol',start:'S1',pickup:'P3',case:''});
+ assert.deepEqual(cleanLoadout({tools:['coin','coin','x','poison_lethal'],pistol:'bazooka',start:'S9',pickup:'P1'},club),{tools:['coin','poison_lethal'],pistol:'',start:'S1',pickup:'',case:''});
  assert.deepEqual(cleanLoadout(null,club),defaultLoadout(club));});
 
 test('party (no pickups): a pickup id is dropped',()=>{
@@ -55,3 +55,18 @@ test('the game itself still brings one gun: the pistol is stashed at the pickup 
  const src=readFileSync(new URL('../src/engine/game.ts',import.meta.url),'utf8');
  assert.ok(!src.includes('pickupItem'),'the second-gun field is gone from the game');
  assert.match(src,/if\(loadout\.pistol\)\{const at=pickups\.find\(p=>p\.id===loadout\.pickup\);if\(at\)combat\.stash\(loadout\.pistol,[^;]+;else combat\.equip\(loadout\.pistol\);\}/);});
+
+// HD11 (2026-11-07; 194-item table row 21): the briefcase is a loadout choice; the one gun may wait inside it.
+test('HD11: the briefcase can be chosen, and the gun can go inside it (still one gun)',()=>{
+ assert.ok(club.cases?.some(c=>c.id==='briefcase'),'the club offers the briefcase');
+ let l=choose(defaultLoadout(club),club,'pistol','pistol_silenced');
+ assert.match(blockedReason(l,club,'pickup',IN_CASE),/ケース/);assert.equal(choose(l,club,'pickup',IN_CASE).pickup,'','no case yet: the gun cannot go in one');
+ l=choose(l,club,'case','briefcase');assert.equal(l.case,'briefcase');l=choose(l,club,'pickup',IN_CASE);
+ assert.deepEqual(loadoutGuns(l),[{id:'pistol_silenced',at:IN_CASE}]);
+ l=choose(l,club,'case','');assert.equal(l.pickup,'','dropping the case takes the gun back onto the body');assert.deepEqual(loadoutGuns(l),[{id:'pistol_silenced',at:'carried'}]);
+ assert.equal(cleanLoadout({tools:[],pistol:'',start:'S1',pickup:'',case:'toolbox'},club).case,'','only the cases the mission offers');});
+
+test('HD11: the game starts with the case in hand and the gun inside when chosen',()=>{
+ const src=readFileSync(new URL('../src/engine/game.ts',import.meta.url),'utf8');
+ assert.match(src,/if\(loadout\.case\)\{detection\.held=loadout\.case;if\(loadout\.pistol&&loadout\.pickup===IN_CASE\)/);
+ assert.match(src,/loadout=cleanLoadout\(\{tools:picked\('tool'\),pistol:picked\('pistol'\)\[0\]\?\?'',start:picked\('start'\)\[0\]\?\?'S1',pickup:picked\('pickup'\)\[0\]\?\?'',case:picked\('case'\)\[0\]\?\?''\},loadoutMission\)/,'the current prep screen goes through the same rules');});

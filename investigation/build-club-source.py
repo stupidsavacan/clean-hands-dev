@@ -169,6 +169,8 @@ for name in ['rules','detection','mission','actions']:
    pickups=[dict(id='P1',label='喫煙所の植え込み',note='客も出入りする所。入口の検査の内側',x=3.0,z=8.0,floor=0),
     dict(id='P2',label='搬入口の木箱',note='裏の職員区域',x=4.3,z=39.3,floor=0),
     dict(id='P3',label='トイレの洗面台の下',note='客が使う所。検査の内側',x=37,z=7.4,floor=0)],
+   # 2026-11-07 (HD11; 194-item table row 21 「可能（ケース選択…）」): the briefcase can be brought in from the start.
+   cases=[dict(id='briefcase',label='ブリーフケース',note='手に持って始める。殴る・投げる・銃を1丁入れられる')],
    # 2026-11-06 (ROADMAP H15): a radio on a crate at the loading dock; switched on, kitchen staff come out to switch it off.
    # 2026-11-06 (H06): who cleans up messes (the dishwasher, in cleaner's clothes), with the corridor vacuum.
    cleaners=['cleaner'],
