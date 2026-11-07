@@ -14,7 +14,10 @@
  const TARGETS = CLUB ? ['investor'] : PARTY ? ['host'] : ['wine_merchant', 'lawyer', 'investor'];
  let partyActs = [];
  if (PARTY) fetch('/api/actions?map=' + MAP).then(r => r.json()).then(j => { partyActs = j.acts ?? []; }).catch(() => {});
- const HAND = ['wrench', 'lockpick', 'bottle', 'mop', 'camera', 'tray'];
+ // Things to put in the hand: every item in this map's rules except guns and the ones that are not held (2026-11-08: read
+ // from the game's own table, so new items such as the hammer, the katana or the cases appear without editing this file).
+ const NOT_HELD = ['wire', 'poison_lethal', 'keycard', 'cellar_key', 'coin'];
+ const handItems = (items, weapons) => Object.keys(items).filter(id => !NOT_HELD.includes(id) && !(weapons && weapons[id]));
  const STATE = {patrol: '通常', curious: '気になる', investigate: '調べに来る', distracted: '音を見に', verify: '顔を確認', alert: '警戒', search: '捜索', report: '通報', combat: '戦闘', flee: '逃走'};
  const LIFE = {active: '', unconscious: '気絶', dead: '死亡'};
  // Chance steps done beside a person: whom to go to (m57.ts BESIDE).
@@ -153,7 +156,7 @@
   ${PARTY ? '' : `<div class="row"><span class="l">セラーの鍵</span><button class="b${m53.cellarKey ? ' on' : ''}" data-a="cellarKey">${m53.cellarKey ? '持っている' : 'なし'}</button></div>
   <div class="row"><span class="l">ペントハウスのカードキー</span><button class="b${m57.keycard ? ' on' : ''}" data-a="keycard">${m57.keycard ? '持っている' : 'なし'}</button></div>`}
   <div class="row"><span class="l">コイン</span><small>${c.state().coins} 枚（ゲームの外からは変えられません）</small></div>
-  <h3>手に持つ物</h3><button class="b${!det.held ? ' on' : ''}" data-a="held" data-id="">なし</button>${HAND.filter(id => items[id]).map(id => `<button class="b${det.held === id ? ' on' : ''}" data-a="held" data-id="${id}">${esc(items[id].label)}</button>`).join('')}
+  <h3>手に持つ物</h3><button class="b${!det.held ? ' on' : ''}" data-a="held" data-id="">なし</button>${handItems(items, cb.weapons).map(id => `<button class="b${det.held === id ? ' on' : ''}" data-a="held" data-id="${id}">${esc(items[id].label)}</button>`).join('')}
   <h3>銃</h3>${guns.map(([id, w]) => { const g = cb.guns.find(g => g.id === id); return `<div class="row"><span class="l">${esc(w.label)}${g ? `<small>　${g.mag}/${w.mag}・予備 ${g.reserve}</small>` : ''}</span>${g ? `<button class="b" data-a="ammo" data-id="${id}">弾を満タン</button><button class="b" data-a="ungun" data-id="${id}">外す</button>` : `<button class="b" data-a="gun" data-id="${id}">持つ</button>`}</div>`; }).join('')}
   <small>手に構えるのはゲームのキーで（銃の持ち替え）。</small>`;
  }
