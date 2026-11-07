@@ -40,7 +40,7 @@ export class CombatView{
   else if(c.reloadT>0){kind='reload';t=1-c.reloadT/c.rules.reloadSeconds;}
   else if(a.kind==='draw'&&since<COMBAT_SECONDS.draw){kind='draw';t=since/COMBAT_SECONDS.draw;}
   else if(a.kind==='fire'&&since<COMBAT_SECONDS.fire){kind='fire';t=since/COMBAT_SECONDS.fire;}
-  poseCombat(rig,actor,model,sampleCombat(kind,cls,t),w,crouch);w.object.visible=weaponVisible(kind,cls,t,true);
+  poseCombat(rig,actor,model,sampleCombat(kind,cls,t,true),w,crouch);w.object.visible=weaponVisible(kind,cls,t,true);
   if(this.flash&&a.kind==='fire'&&since<.06){this.flash.visible=true;this.flash.position.copy(muzzle(w));this.flash.quaternion.copy(w.object.quaternion);this.flash.scale.setScalar(cls==='long'?1.4:1);}}
  /** Hooked into NpcView: guards in a fight aim their own gun; bystanders run with their arms over their heads, then cower. */
  npc(view:NpcView,time:number){const n=view.npc;let w=this.npcGuns.get(view);

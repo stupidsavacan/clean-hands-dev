@@ -62,76 +62,90 @@ const HOLD={
 // ---------- upper bodies (layered over the legs) ----------
 // Arms are only roughly placed (elbows down and out); IK brings the hands onto the weapon.
 const PISTOL_AIM:Bones={chest:[.02,-.08,0],neck:[.06,.05,0],head:[.10,.04,0],clavicler:[0,.12,0],claviclel:[0,-.08,0],upperarmr:[-1.30,0,.55],upperarml:[-1.25,0,-.30],forearmr:[0,.25,0],forearml:[0,-.85,0]};
+const AGENT_PISTOL_AIM:Bones={chest:[.02,-.08,0],neck:[.06,.05,0],head:[.10,.04,0],clavicler:[0,.12,0],upperarmr:[-1.48,0,.20],forearmr:[0,.20,0]};
 const LONG_AIM:Bones={chest:[.04,-.48,0],neck:[.10,.25,0],head:[.12,.22,.06],clavicler:[0,.15,-.10],claviclel:[0,-.15,0],upperarmr:[-.30,0,.55],upperarml:[-.95,0,-1.05],forearmr:[0,1.75,0],forearml:[0,-.95,0]};
+const SUPPORT_GRIP:NonNullable<Key['l']>=['GRIP_L',1];
+type AimStance={bones:Bones;hold:Hold;recoil:Hold;reload:Hold;l?:Key['l']};
+const AIM_STANCE:Record<WeaponClass|'agentPistol',AimStance>={
+ pistol:{bones:PISTOL_AIM,hold:HOLD.pistol.aim,recoil:HOLD.pistol.recoil,reload:HOLD.pistol.reload,l:SUPPORT_GRIP},
+ agentPistol:{
+  bones:AGENT_PISTOL_AIM,
+  hold:{...HOLD.pistol.aim,pos:[-.18,1.38,.56]},
+  recoil:{...HOLD.pistol.recoil,pos:[-.18,1.40,.51]},
+  reload:HOLD.pistol.reload,
+ },
+ long:{bones:LONG_AIM,hold:HOLD.long.aim,recoil:HOLD.long.recoil,reload:HOLD.long.reload,l:SUPPORT_GRIP},
+};
 const HANG:Bones={};
 const REACH_HIP:Bones={chest:[.03,.06,0],upperarmr:[.20,0,1.20],forearmr:[0,1.0,0]};
 const LONG_LOW:Bones={chest:[.03,-.30,0],neck:[.02,.14,0],head:[.04,.12,0],upperarmr:[-.10,0,1.0],upperarml:[-.85,0,-1.0],forearmr:[0,1.55,0],forearml:[0,-1.20,0]};
 
-function draw(cls:WeaponClass,t:number):CombatFrame{
+function draw(cls:WeaponClass,t:number,stance:AimStance):CombatFrame{
  if(cls==='pistol'){const h=HOLD.pistol;return sample([
   {t:0,bones:HANG,hold:h.holster,r:['GRIP_R',0]},
   {t:.30,bones:REACH_HIP,hold:h.holster,r:['GRIP_R',1]},
-  {t:.55,bones:{...PISTOL_AIM,upperarmr:[-.55,0,.95],forearmr:[0,1.0,0],upperarml:[-.40,0,-1.1]},hold:h.lift,r:['GRIP_R',1],l:['GRIP_L',0]},
-  {t:.82,bones:PISTOL_AIM,hold:h.aim,r:['GRIP_R',1],l:['GRIP_L',1]},
-  {t:1,bones:PISTOL_AIM,hold:h.aim,r:['GRIP_R',1],l:['GRIP_L',1]}],t,true);}
+  {t:.55,bones:{...stance.bones,upperarmr:[-.55,0,.95],forearmr:[0,1.0,0],...(stance.l?{upperarml:[-.40,0,-1.1] as Angles}:{})},hold:h.lift,r:['GRIP_R',1]},
+  {t:.82,bones:stance.bones,hold:stance.hold,r:['GRIP_R',1],l:stance.l},
+  {t:1,bones:stance.bones,hold:stance.hold,r:['GRIP_R',1],l:stance.l}],t,true);}
  const h=HOLD.long;return sample([
   {t:0,bones:LONG_LOW,hold:h.low,r:['GRIP_R',1],l:['GRIP_L',1]},
   {t:.75,bones:LONG_AIM,hold:h.aim,r:['GRIP_R',1],l:['GRIP_L',1]},
   {t:1,bones:LONG_AIM,hold:h.aim,r:['GRIP_R',1],l:['GRIP_L',1]}],t,true);
 }
-function aimLoop(cls:WeaponClass,t:number):CombatFrame{
+function aimLoop(cls:WeaponClass,t:number,stance:AimStance):CombatFrame{
  // Breathing: the sights drift a few millimetres on a 3 s cycle; loops exactly at t = 0/1.
- const f=draw(cls,1),w=Math.sin(t*Math.PI*2),v=Math.sin(t*Math.PI*4)*.5;
+ const f=draw(cls,1,stance),w=Math.sin(t*Math.PI*2),v=Math.sin(t*Math.PI*4)*.5;
  if(f.weapon){f.weapon={...f.weapon,pos:[f.weapon.pos[0]+.004*v,f.weapon.pos[1]+.006*w,f.weapon.pos[2]],rot:[f.weapon.rot[0]-.012*w,f.weapon.rot[1]+.008*v,f.weapon.rot[2]]};}
  f.pose.bones.chest=[f.pose.bones.chest[0]+.012*w,f.pose.bones.chest[1],f.pose.bones.chest[2]];return f;
 }
-function fire(cls:WeaponClass,t:number):CombatFrame{
- const h=HOLD[cls],aim=cls==='pistol'?PISTOL_AIM:LONG_AIM,kick={...aim,chest:[aim.chest[0]-.05,aim.chest[1],0] as Angles,head:[aim.head[0]-.04,aim.head[1],aim.head[2]] as Angles};
- return sample([{t:0,bones:aim,hold:h.aim,r:['GRIP_R',1],l:['GRIP_L',1]},{t:.18,bones:kick,hold:h.recoil,r:['GRIP_R',1],l:['GRIP_L',1]},{t:1,bones:aim,hold:h.aim,r:['GRIP_R',1],l:['GRIP_L',1]}],t,true);
+function fire(t:number,stance:AimStance):CombatFrame{
+ const {bones:aim,hold,recoil,l}=stance,kick={...aim,chest:[aim.chest[0]-.05,aim.chest[1],0] as Angles,head:[aim.head[0]-.04,aim.head[1],aim.head[2]] as Angles};
+ return sample([{t:0,bones:aim,hold,r:['GRIP_R',1],l},{t:.18,bones:kick,hold:recoil,r:['GRIP_R',1],l},{t:1,bones:aim,hold,r:['GRIP_R',1],l}],t,true);
 }
-function reload(cls:WeaponClass,t:number):CombatFrame{
- const h=HOLD[cls],aim=cls==='pistol'?PISTOL_AIM:LONG_AIM,look={...aim,neck:[.30,aim.neck[1]*.5,0] as Angles,head:[.25,aim.head[1]*.5,0] as Angles,chest:[.10,aim.chest[1]*.7,0] as Angles};
+function reload(t:number,stance:AimStance):CombatFrame{
+ const {bones:aim,hold,reload,l}=stance,look={...aim,neck:[.30,aim.neck[1]*.5,0] as Angles,head:[.25,aim.head[1]*.5,0] as Angles,chest:[.10,aim.chest[1]*.7,0] as Angles};
  const pouch={...look,upperarml:[-.20,0,-1.15] as Angles,forearml:[0,-1.2,0] as Angles,chest:[.10,aim.chest[1]*.7-.10,0] as Angles};
  return sample([
-  {t:0,bones:aim,hold:h.aim,r:['GRIP_R',1],l:['GRIP_L',1]},
-  {t:.12,bones:look,hold:h.reload,r:['GRIP_R',1],l:['MAG',1]},
-  {t:.22,bones:look,hold:h.reload,r:['GRIP_R',1],l:['MAG',1]},
-  {t:.40,bones:pouch,hold:h.reload,r:['GRIP_R',1],l:['POUCH',1]},
-  {t:.48,bones:pouch,hold:h.reload,r:['GRIP_R',1],l:['POUCH',1]},
-  {t:.64,bones:look,hold:h.reload,r:['GRIP_R',1],l:['MAG',1]},
-  {t:.72,bones:look,hold:h.reload,r:['GRIP_R',1],l:['MAG',1]},
-  {t:.82,bones:look,hold:h.reload,r:['GRIP_R',1],l:['SLIDE',1]},
-  {t:.88,bones:look,hold:{...h.reload,pos:[h.reload.pos[0],h.reload.pos[1],h.reload.pos[2]+.03]},r:['GRIP_R',1],l:['SLIDE',1]},
-  {t:1,bones:aim,hold:h.aim,r:['GRIP_R',1],l:['GRIP_L',1]}],t,true);
+  {t:0,bones:aim,hold,r:['GRIP_R',1],l},
+  {t:.12,bones:look,hold:reload,r:['GRIP_R',1],l:['MAG',1]},
+  {t:.22,bones:look,hold:reload,r:['GRIP_R',1],l:['MAG',1]},
+  {t:.40,bones:pouch,hold:reload,r:['GRIP_R',1],l:['POUCH',1]},
+  {t:.48,bones:pouch,hold:reload,r:['GRIP_R',1],l:['POUCH',1]},
+  {t:.64,bones:look,hold:reload,r:['GRIP_R',1],l:['MAG',1]},
+  {t:.72,bones:look,hold:reload,r:['GRIP_R',1],l:['MAG',1]},
+  {t:.82,bones:look,hold:reload,r:['GRIP_R',1],l:['SLIDE',1]},
+  {t:.88,bones:look,hold:{...reload,pos:[reload.pos[0],reload.pos[1],reload.pos[2]+.03]},r:['GRIP_R',1],l:['SLIDE',1]},
+  {t:1,bones:aim,hold,r:['GRIP_R',1],l}],t,true);
 }
 // ---------- full body ----------
-function hit(cls:WeaponClass,t:number):CombatFrame{
- const h=HOLD[cls],aim=cls==='pistol'?PISTOL_AIM:LONG_AIM;
+function hit(t:number,stance:AimStance):CombatFrame{
+ const {bones:aim,hold,l}=stance;
  const jolt:Bones={...aim,spine:[-.11,.08,0],chest:[-.14,aim.chest[1]+.18,.05],neck:[-.05,0,0],head:[-.13,-.08,0],thighl:[.10,0,-.08],thighr:[-.22,0,.08],shinl:[.30,0,0],shinr:[.42,0,0],footl:[-.30,0,0],footr:[-.20,0,0]};
   // The weapon goes back with the body (root z) so the arms keep their reach.
- const shifted=(dx:number,dy:number,dz:number,rx:number,ry:number):Hold=>({...h.aim,pos:[h.aim.pos[0]+dx,h.aim.pos[1]+dy,h.aim.pos[2]+dz],rot:[h.aim.rot[0]+rx,h.aim.rot[1]+ry,h.aim.rot[2]]});
+ const shifted=(dx:number,dy:number,dz:number,rx:number,ry:number):Hold=>({...hold,pos:[hold.pos[0]+dx,hold.pos[1]+dy,hold.pos[2]+dz],rot:[hold.rot[0]+rx,hold.rot[1]+ry,hold.rot[2]]});
  return sample([
-  {t:0,bones:aim,hold:h.aim,r:['GRIP_R',1],l:['GRIP_L',1]},
-  {t:.22,root:{y:-.05,z:-.07,pitch:-.03},bones:jolt,hold:shifted(.05,.03,-.14,-.32,.24),r:['GRIP_R',1],l:['GRIP_L',.35]},
-  {t:.55,root:{y:-.06,z:-.10,pitch:-.02},bones:{...jolt,chest:[-.08,aim.chest[1]+.10,.02],head:[-.06,-.04,0]},hold:shifted(.02,-.02,-.12,-.12,.10),r:['GRIP_R',1],l:['GRIP_L',.8]},
-  {t:1,bones:aim,hold:h.aim,r:['GRIP_R',1],l:['GRIP_L',1]}],t,false);
+  {t:0,bones:aim,hold,r:['GRIP_R',1],l},
+  {t:.22,root:{y:-.05,z:-.07,pitch:-.03},bones:jolt,hold:shifted(.05,.03,-.14,-.32,.24),r:['GRIP_R',1],l:l&&['GRIP_L',.35]},
+  {t:.55,root:{y:-.06,z:-.10,pitch:-.02},bones:{...jolt,chest:[-.08,aim.chest[1]+.10,.02],head:[-.06,-.04,0]},hold:shifted(.02,-.02,-.12,-.12,.10),r:['GRIP_R',1],l:l&&['GRIP_L',.8]},
+  {t:1,bones:aim,hold,r:['GRIP_R',1],l}],t,false);
 }
 // Kneeling behind low cover (~1 m): right knee down, left foot planted, weapon at the chest ready to come up.
 const KNEEL:Bones={pelvis:[-.05,0,0],thighl:[-1.45,0,-.10],shinl:[1.55,0,0],footl:[-.10,0,0],thighr:[-.20,0,.12],shinr:[2.10,0,0],footr:[1.00,0,0],spine:[.28,0,0],neck:[-.18,0,0],head:[-.12,0,0]};
 const KNEEL_ROOT={y:-.43,z:-.02};
-function cover(cls:WeaponClass,t:number):CombatFrame{
+function cover(cls:WeaponClass,t:number,stance:AimStance):CombatFrame{
  const w=Math.sin(t*Math.PI*2),root={...KNEEL_ROOT,y:KNEEL_ROOT.y+.006*w};
- if(cls==='pistol'){const hold:Hold={anchor:'GRIP_R',pos:[-.05,.80,.28],rot:[-.95,.15,0]};
-  return sample([{t:0,root,bones:{...KNEEL,chest:[.05+.01*w,-.05,0],upperarmr:[-.70,0,.90],forearmr:[0,1.6,0],upperarml:[-.70,0,-.90],forearml:[0,-1.5,0]},hold,r:['GRIP_R',1],l:['GRIP_L',1]}],0,false);}
+ if(cls==='pistol'){const hold:Hold={anchor:'GRIP_R',pos:[stance.l?-.05:-.18,.80,.28],rot:[-.95,.15,0]};
+  const left:Bones=stance.l?{upperarml:[-.70,0,-.90],forearml:[0,-1.5,0]}:{};
+  return sample([{t:0,root,bones:{...KNEEL,chest:[.05+.01*w,-.05,0],upperarmr:[-.70,0,.90],forearmr:[0,1.6,0],...left},hold,r:['GRIP_R',1],l:stance.l}],0,false);}
  const hold:Hold={anchor:'STOCK',pos:[-.12,.82,.08],rot:[-.95,.35,0]};
  return sample([{t:0,root,bones:{...KNEEL,chest:[.05+.01*w,-.20,0],upperarmr:[-.20,0,1.0],forearmr:[0,1.6,0],upperarml:[-.80,0,-.80],forearml:[0,-1.2,0]},hold,r:['GRIP_R',1],l:['GRIP_L',1]}],0,false);
 }
 // Rising from the kneel to aim over the cover top: the legs half-straighten, the upper body is the normal aim.
-function coverAim(cls:WeaponClass,t:number):CombatFrame{
- const start=cover(cls,0),h=HOLD[cls],aim=cls==='pistol'?PISTOL_AIM:LONG_AIM,lift=-.12;
- const up:Hold={...h.aim,pos:[h.aim.pos[0],h.aim.pos[1]+lift,h.aim.pos[2]]};
+function coverAim(cls:WeaponClass,t:number,stance:AimStance):CombatFrame{
+ const start=cover(cls,0,stance),{bones:aim,hold,l}=stance,lift=-.12;
+ const up:Hold={...hold,pos:[hold.pos[0],hold.pos[1]+lift,hold.pos[2]]};
  const legs:Bones={pelvis:[-.02,0,0],thighl:[-.62,0,-.10],shinl:[.60,0,0],footl:[.02,0,0],thighr:[.10,0,.10],shinr:[.55,0,0],footr:[-.30,0,0],spine:[.06,0,0]};
- return sample([{t:0,root:start.pose.root,bones:start.pose.bones as Bones,hold:start.weapon,r:['GRIP_R',1],l:['GRIP_L',1]},{t:1,root:{y:lift,z:-.01},bones:{...legs,...aim},hold:up,r:['GRIP_R',1],l:['GRIP_L',1]}],t,false);
+ return sample([{t:0,root:start.pose.root,bones:start.pose.bones as Bones,hold:start.weapon,r:['GRIP_R',1],l},{t:1,root:{y:lift,z:-.01},bones:{...legs,...aim},hold:up,r:['GRIP_R',1],l}],t,false);
 }
 // ---------- bystanders (no weapon) ----------
 function flee(t:number):CombatFrame{
@@ -146,17 +160,18 @@ function duck(t:number):CombatFrame{
  return sample([{t:0,bones:{}},{t:1,root:{y:-.47,z:.02,pitch:0},bones:down}],u,false);
 }
 
-export function sampleCombat(kind:CombatKind,cls:WeaponClass,progress:number):CombatFrame{
+export function sampleCombat(kind:CombatKind,cls:WeaponClass,progress:number,agent=false):CombatFrame{
  const loop=COMBAT_LOOPS.includes(kind),t=loop?((progress%1)+1)%1:clamp(progress);
+ const stance=AIM_STANCE[agent&&cls==='pistol'?'agentPistol':cls];
  switch(kind){
-  case 'draw':return draw(cls,t);
-  case 'holster':return draw(cls,1-t);
-  case 'aim':return aimLoop(cls,t);
-  case 'fire':return fire(cls,t);
-  case 'reload':return reload(cls,t);
-  case 'hit':return hit(cls,t);
-  case 'cover':return cover(cls,t);
-  case 'coverAim':return coverAim(cls,t);
+  case 'draw':return draw(cls,t,stance);
+  case 'holster':return draw(cls,1-t,stance);
+  case 'aim':return aimLoop(cls,t,stance);
+  case 'fire':return fire(t,stance);
+  case 'reload':return reload(t,stance);
+  case 'hit':return hit(t,stance);
+  case 'cover':return cover(cls,t,stance);
+  case 'coverAim':return coverAim(cls,t,stance);
   case 'flee':return flee(t);
   case 'duck':return duck(t);
  }

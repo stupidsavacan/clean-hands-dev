@@ -247,6 +247,25 @@
    "tests": [
     "tests/surrender.test.ts"
    ]
+  },
+  {
+   "id": "HD15",
+   "topic": "拳銃の片手構え",
+   "refs": [
+    "S08 row 26",
+    "S08 row 97",
+    "ROADMAP F05"
+   ],
+   "hitman": "消音型拳銃は片手で構え、大型の短機関銃は両手で構える。",
+   "ours": "エージェント07は拳銃を右手だけで構える。NPCの拳銃と長物は両手で構える。07も弾込め中は左手を使う。",
+   "decision": "align",
+   "by": "codex",
+   "date": "2026-11-08",
+   "status": "done",
+   "reason": "利用者の指示で07だけを片手持ちにし、構えるときは右腕を前に伸ばす。",
+   "tests": [
+    "tests/combat-motion.test.ts"
+   ]
   }
  ]
 }

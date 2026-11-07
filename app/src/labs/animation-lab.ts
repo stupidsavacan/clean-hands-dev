@@ -200,7 +200,7 @@ function poseActor(a:Actor,clip:Clip,t:number){
   if(role==='giver'&&clip.m3!=='fall')plantedFeet(rig,group,()=>0);
   if(role==='receiver'){if(['drag','drop','pickup'].includes(clip.m3))groundBody(model,0);if(clip.m3==='fall')groundBody(model,0,T.MathUtils.smoothstep(progress,.65,1));}
   return;}
- if(clip.combat){const frame=sampleCombat(clip.combat,cls,progress),wp=a.weapons[gun.id]??null;
+ if(clip.combat){const frame=sampleCombat(clip.combat,cls,progress,a.def.id==='agent'),wp=a.weapons[gun.id]??null;
   if(frame.upperOnly){const speed=clip.combat==='flee'?RUN_SPEED:0;rig.apply(gait(speed,0));}else a.sim=-1;
   if(wp)wp.object.visible=weaponVisible(clip.combat,cls,progress,false);
   poseCombat(rig,group,model,frame,wp,0);
