@@ -4,6 +4,16 @@
 import {writeFileSync,mkdirSync} from 'node:fs';
 import {CONTROLS} from '../src/controls.ts';
 import {itemsMarkdown} from './spec-items.ts';
+import {readFileSync} from 'node:fs';
+
+export type Decision={id:string;topic:string;refs:string[];hitman:string;ours:string;decision:'align'|'differ'|'pending';by:string;date:string;status:'done'|'todo';kind?:string;reason?:string;question?:string;options?:string[];tests:string[]};
+export const decisions=():Decision[]=>JSON.parse(readFileSync(new URL('../src/data/hitman-decisions.json',import.meta.url),'utf8')).decisions;
+const DECISION={align:'合わせる',differ:'わざと違える',pending:'利用者に聞く'},BY:Record<string,string>={user:'利用者',claude:'Claude','':'—'};
+export function decisionsMarkdown(){const list=decisions();
+ return ['# HITMAN との食い違いの台帳','','このページは `app/src/data/hitman-decisions.json` から作っています。決め方は [HITMAN-ALIGNMENT.md](HITMAN-ALIGNMENT.md)。','',
+  `合わせる ${list.filter(d=>d.decision==='align').length} · わざと違える ${list.filter(d=>d.decision==='differ').length} · 利用者に聞く ${list.filter(d=>d.decision==='pending').length} · まだ作っていない ${list.filter(d=>d.status==='todo'&&d.decision!=='pending').length}`,'',
+  '| id | こと | HITMAN | CLEAN HANDS | 決め | 状態 | 理由・質問 | 試験 |','|---|---|---|---|---|---|---|---|',
+  ...list.map(d=>`| ${d.id} | ${cell(d.topic)}<br><small>${cell(d.refs.join('、'))}</small> | ${cell(d.hitman)} | ${cell(d.ours)} | ${DECISION[d.decision]}（${BY[d.by]??d.by}${d.date?' '+d.date:''}） | ${d.status==='done'?'済み':'まだ'} | ${cell(d.decision==='pending'?`${d.question}<br>${(d.options??[]).map((o,i)=>`${i+1}. ${o}`).join('<br>')}`:d.reason??'')} | ${d.tests.map(t=>'`'+t.replace('tests/','')+'`').join(' ')} |`),''].join('\n');}
 
 const OWNER_LABEL:Record<string,string>={game:'engine/game.ts',m3:'m3.ts（背後・格闘）',m4:'m4.ts（変装・検査・ワイヤー）',m53:'m53.ts（会話・突き落とし）',m57:'m57.ts',move:'移動（全体）'};
 const keyName=(code:string)=>code.replace(/^Key/,'').replace(/^Digit/,'').replace('ShiftLeft','Shift').replace('ShiftRight','Shift(右)').replace(/^Arrow/,'↑↓←→ ').replace('Escape','Esc');
@@ -20,4 +30,5 @@ if(import.meta.url===`file:///${process.argv[1]?.replace(/\\/g,'/').replace(/^\/
  mkdirSync(here,{recursive:true});
  writeFileSync(new URL('controls.md',here),controlsMarkdown());
  writeFileSync(new URL('items.md',here),itemsMarkdown());
- console.log('docs/controls.md, docs/items.md written');}
+ writeFileSync(new URL('hitman-decisions.md',here),decisionsMarkdown());
+ console.log('docs/controls.md, docs/items.md, docs/hitman-decisions.md written');}

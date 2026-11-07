@@ -1,3 +1,5 @@
+// HD01 (hitman-decisions.json): one gun at most — the user's rule, kept even when aligning with HITMAN.
+// HD13 (todo): a tool may be left at the pickup too, still with one gun at most.
 // 2026-11-06: the loadout rules (src/loadout.ts). User report: the HITMAN-style planning screen let a gun be carried in
 // AND another be left at the pickup — two guns. One gun at most, wherever it waits.
 import test from 'node:test';

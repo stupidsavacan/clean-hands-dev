@@ -43,9 +43,11 @@ test('S08 row 21 briefcase: picked up on the map; its body, an opening lid and t
  // The model's nodes: a LID that turns on the hinge and a CONTENT mark for what is stored (assets/briefcase).
  const glb=readFileSync(here('../../assets/briefcase/models/briefcase/briefcase.glb')),len=glb.readUInt32LE(12),gl=JSON.parse(glb.subarray(20,20+len).toString('utf8'));
  const names=gl.nodes.map((n:{name:string})=>n.name);for(const n of ['LID','CONTENT','GRIP_R','HINGE'])assert.ok(names.includes(n),n);});
+// HD05
 test('S09 rows 52/53: what is in the case is hidden from view but still found by a frisk',async()=>{cite09('内容物の表示とケースの認識は独立','違法判定とアイテム可視は個別管理');
  const game=readFileSync(here('../src/engine/game.ts'),'utf8');assert.match(game,/detection\.held==='briefcase'&&detection\.caseGun\?\[detection\.caseGun\.id\]/,'the frisk inventory includes the case contents');
  const {DetectionSystem}=await import('../src/detection.ts');assert.ok('caseGun' in DetectionSystem.prototype||true);});
+// HD04
 test('S09 rows 32/64/120: only swords go on the back, two at most, and hand and back are never the same one',()=>{cite09('2025-09-25からKatanaとKali Sticks限定で背面2アイテム装備に対応','複数背面スロットを全アイテムに開放しない');
  assert.deepEqual(BACK_ITEMS,['katana']);assert.equal(BACK_MAX,2);});
 test('S03 M14/M15: the sword has its own front and behind motions, both lethal',()=>{const m=MELEE.katana;assert.equal(m.kind,'blade');assert.ok(m.swing&&m.swing!==m.kind,'front and behind differ');});
@@ -58,8 +60,8 @@ test('S08 row 97 large SMG: two-handed and taken on the map, not chosen before t
 // Not built yet.
 test.todo('S08 row 3 crowbar: opens locked things (施錠物の操作にも使われる)');
 test.todo('S08 row 2 wrench: used on machinery (設備とのインタラクションにも使われる) beyond the hotel\'s set pieces');
-test.todo('S08 row 21 briefcase: can be chosen before the mission (ケース選択／大型装備の持込に付随)');
-test.todo('S08 row 22 toolbox case: a second case like the briefcase (工具箱型ケース)');
+test.todo('HD11 S08 row 21 briefcase: can be chosen before the mission (ケース選択／大型装備の持込に付随)');
+test.todo('HD12 S08 row 22 toolbox case: a second case like the briefcase (工具箱型ケース)');
 test.todo('S08 rows 193/194 earphones and measuring tape: wire-type melee only (イヤホン型・メジャー型ワイヤー)');
 test.todo('S09 row 62: ladders and climbing re-check what is in view (はしご・よじ登り中)');
 test.todo('S09 rows 32/120: Kali Sticks share the two back slots (刀・Kali Sticks)');

@@ -3,6 +3,7 @@
 - 手順と仕様の正本の一覧：[docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)
 - 実装の状態：[ROADMAP.md](ROADMAP.md)（I / P / A / D）
 - 操作の一覧：[docs/controls.md](docs/controls.md)（正本は `app/src/controls.ts`）
+- HITMAN との食い違い：[docs/HITMAN-ALIGNMENT.md](docs/HITMAN-ALIGNMENT.md)（決め方）と [docs/hitman-decisions.md](docs/hitman-decisions.md)（台帳。正本は `app/src/data/hitman-decisions.json`）
 - 持ち物の一覧：[docs/items.md](docs/items.md)（正本はモデル・持ち方・武器・各地図の表。`app/scripts/spec-items.ts` がまとめる）
 
 ## 決まり

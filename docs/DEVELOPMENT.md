@@ -25,6 +25,7 @@
 | キーとタッチのボタン | `app/src/controls.ts` | [controls.md](controls.md) | `tests/controls.test.ts` |
 | 持ち物（モデル・持ち方・武器・合法かどうか・置き場所） | 下の「持ち物を足す」の各表 | [items.md](items.md) | `tests/items.test.ts` |
 | 持ち込みの装備（銃は1丁まで） | `app/src/loadout.ts` | — | `tests/loadout.test.ts` |
+| HITMAN との食い違いと、その決め | `app/src/data/hitman-decisions.json` | [hitman-decisions.md](hitman-decisions.md)（決め方は [HITMAN-ALIGNMENT.md](HITMAN-ALIGNMENT.md)） | `tests/hitman-decisions.test.ts` |
 | HITMAN 資料の決まり（194項目の表） | `investigation/material-audit-20261106/sources/08-weapon-models-194.csv` | — | `tests/item-spec.test.ts` |
 | 実装の状態（I / P / A / D） | [ROADMAP.md](../ROADMAP.md) | 同じ | `tests/project.test.ts`（書いてあるファイルがあるか） |
 | ページと作り方 | `app/*.html`、`app/vite.*.config.ts`、`scripts/build-all.mjs` | — | `tests/project.test.ts` |

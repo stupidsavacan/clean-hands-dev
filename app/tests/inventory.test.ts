@@ -1,3 +1,4 @@
+// HD10 (hitman-decisions.json, todo in the game): small things go in a pocket; on in the UI lab, off in the game for now.
 // 2026-11-06: the HITMAN-style inventory — small things in a pocket (out of sight, found by a frisk), large ones in hand.
 import test from 'node:test';
 import assert from 'node:assert/strict';

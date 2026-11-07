@@ -27,6 +27,7 @@ test('the white gauge needs the front view within 8 m and at the post; crowds hi
  assert.equal(run(o=>{for(const [i,x] of [-9,-8.6,-7.4].entries())o.d.npcs.push(new Npc({id:'crowd'+i,role:'guest',label:'客',floor:0,route:[[x,12.4,600]],look:[x,13]},map,o.d.compromised));return player(-8,12,'guard');}),0);
  assert.ok(run(()=>player(-8,12,'guard'))>0);
  assert.ok(run(()=>player(-8,9,'suit'))===0);});
+// HD06 (hitman-decisions.json, ROADMAP D02): a blown outfit is known to everyone, as in HITMAN.
 test('a blown outfit is recognised by everyone until changed out of and left 30 m behind unseen',()=>{const {m,d,observer}=setup();d.compromised.add('suit');assert.ok(m.compromised);
  const other=d.npcs[1];other.pos={x:-8,y:0,z:6};other.heading=0;other.route.splice(0,1,[-8,6,600]);other.look?.splice(0,2,-8,9);for(let i=0;i<12;i++)d.step(1/60,player(-8,8.5));assert.equal(other.state,'alert');
  m.disguise='guard';for(const n of d.npcs)n.visibility=0;const at=(z:number)=>m.step(1/60,{...player(0,z),disguise:m.disguise},0,new Set());

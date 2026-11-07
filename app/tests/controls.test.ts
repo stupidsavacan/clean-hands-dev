@@ -1,3 +1,4 @@
+// HD03 (hitman-decisions.json): CLEAN HANDS's own key layout, one key per action.
 // 2026-11-07: the controls table (src/controls.ts) is the spec for every key and touch button. Replaces keys.test.ts
 // (2026-11-06: the frisk B and the briefcase, the wire H and the sword once shared keys).
 import test from 'node:test';
