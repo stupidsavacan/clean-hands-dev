@@ -20,6 +20,8 @@ export class HotelAlert{
 }
 
 // Simulation state is independent of meshes and render frame rate.
+// HD09: how many guards answer a body found, and what a floor of stairs counts as in metres when picking the nearest.
+export const BODY_BACKUP=2,BACKUP_FLOOR_M=8;
 export class M3System{
  onAccidentFound?: (body:Npc,witness:Npc)=>void;
  // Every body's first discovery (unconscious or dead, accident or not), for scoring.
@@ -147,8 +149,14 @@ export class M3System{
     if(n.state!=='alert'&&n.state!=='search'){if(n.guard)n.radio(body.pos,this.director.rules);else{n.state='report';n.timer=this.director.rules.timers.report;this.director.reports++;if(body.life==='dead'&&body.deathKind==='murder')n.witness={what:'body',at:{...body.pos},key:body.id};}
      this.onReaction?.(n,n.guard?'investigate':n.witness?'report':'alert',body.life==='dead'?'body':'unconscious_body',body.pos);}
     // radio() leaves a guard alone who is fighting or already on the way to this body (2026-11-04, AI report P0-A/P1-A).
-    if(n.guard)for(const g of this.director.npcs)if(g.active&&!g.busy&&g.guard&&g.state!=='alert'&&g.state!=='search'&&flat(g.pos,n.pos)<this.director.rules.radio)g.radio(body.pos,this.director.rules);
+    // HD09 (2026-11-07, the user's choice): backup comes from any floor of the building — the two nearest free guards
+    // (a floor apart counts as BACKUP_FLOOR_M metres), instead of everyone within a flat radio radius.
+    if(n.guard)for(const g of this.backup(n,body.pos))g.radio(body.pos,this.director.rules);
    }}}
+ /** The guards who answer a body radio call: the nearest free ones, any floor (HD09). */
+ backup(caller:Npc,at:Position,count=BODY_BACKUP){const floorGap=(g:Npc)=>Math.abs(Math.round((g.pos.y-at.y)/3));
+  return this.director.npcs.filter(g=>g.active&&!g.busy&&g.guard&&g!==caller&&g.state!=='alert'&&g.state!=='search'&&g.state!=='combat')
+   .map(g=>({g,d:flat(g.pos,at)+floorGap(g)*BACKUP_FLOOR_M})).sort((a,b)=>a.d-b.d).slice(0,count).map(x=>x.g);}
  bodyFits(p:Position,heading:number){for(const t of [-.6,-.3,0,.3,.6]){const x=p.x+Math.sin(heading)*t,z=p.z+Math.cos(heading)*t,y=this.director.world.surface(x,z,p.y);if(y===null||Math.abs(y-p.y)>.3||this.director.world.blocked(x,y,z,.5))return false;}return true;}
  constrainMove(from:Position,to:Position,heading:number):Position{if(!this.dragged)return to;const n=this.dragged,w=this.director.world;
   // The drag anchor follows the path, not a teleport behind a sharply turned player.

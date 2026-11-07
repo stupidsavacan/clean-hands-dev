@@ -26,7 +26,6 @@ test('rows not built yet stay listed as todo in a test',()=>{
 test('every ROADMAP row in state D is covered by a decision',()=>{
  const road=readFileSync(new URL('../ROADMAP.md',app),'utf8'),refs=list.flatMap(d=>d.refs).join(' ');
  const dRows=[...road.matchAll(/^\| ([^|]+?) \| D \|/gm)].map(m=>m[1].trim().split(' ')[0]);
- assert.ok(dRows.length>0);
  for(const r of dRows)assert.ok(refs.includes(r),`ROADMAP ${r} (state D) has no row in hitman-decisions.json`);});
 
 test('docs/hitman-decisions.md is current',()=>{

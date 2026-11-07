@@ -1,83 +1,233 @@
 {
  "_note": "HITMAN との食い違いの台帳（2026-11-07）。決め方は docs/HITMAN-ALIGNMENT.md。decision: align（合わせる）/ differ（わざと違える）/ pending（利用者に聞く）。status: done（ゲームにある）/ todo（まだ）。tests に書いた試験ファイルには、この id が書いてある（試験で固定）。docs/hitman-decisions.md はここから作る。",
  "decisions": [
-  {"id":"HD01","topic":"持ち込める銃の数","refs":["ROADMAP H46","UI 作戦準備"],
-   "hitman":"身につける銃とは別に、持ち込み（事前配置）にも物を置ける。銃を2丁持ち込める。",
-   "ours":"銃は1丁まで。持ち込みは、その1丁を先に置いておく場所。",
-   "decision":"differ","by":"user","date":"2026-11-06","status":"done",
-   "reason":"利用者の指示（「銃と持ち込みで二丁持っていけちゃうぞ」）。HITMAN に合わせる作業でも戻さない。",
-   "tests":["tests/loadout.test.ts"]},
-  {"id":"HD02","topic":"見た目・名前・モデル","refs":["方針"],
-   "hitman":"HITMAN 独自の色・文字・名前・人物・モデル。",
-   "ours":"仕組み・配置・情報の見せ方だけを合わせ、色・文字・名前・モデルは CLEAN HANDS のもの。",
-   "decision":"differ","by":"user","date":"2026-11-06","status":"done","kind":"policy",
-   "reason":"利用者の方針。特定のゲームの作り直しにはしない。","tests":[]},
-  {"id":"HD03","topic":"キーの割り当て","refs":["docs/controls.md"],
-   "hitman":"HITMAN の PC 版の割り当て。",
-   "ours":"CLEAN HANDS の割り当て（app/src/controls.ts）。1つのキーに1つの操作。",
-   "decision":"differ","by":"claude","date":"2026-11-07","status":"done",
-   "reason":"割り当ては遊び方の差が小さく、重なり（B・H の重なり）を防ぐ方が大事。",
-   "tests":["tests/controls.test.ts"]},
-  {"id":"HD04","topic":"刀は背中に背負う","refs":["S09 rows 32/64/120","S08 row 189"],
-   "hitman":"刀（と Kali Sticks）だけを背中に2本まで背負える。",
-   "ours":"同じ。刀だけ、2本まで。",
-   "decision":"align","by":"claude","date":"2026-11-06","status":"done",
-   "reason":"資料に明記。","tests":["tests/item-spec.test.ts"]},
-  {"id":"HD05","topic":"ケースの中身は見えないが、検査で見つかる","refs":["S09 rows 52/53"],
-   "hitman":"ケースの中の物は見えない。違法かどうかの判定は別で、検査では見つかる。",
-   "ours":"同じ。",
-   "decision":"align","by":"claude","date":"2026-11-06","status":"done",
-   "reason":"資料に明記。","tests":["tests/item-spec.test.ts"]},
-  {"id":"HD06","topic":"ばれた変装は全員に知られる","refs":["ROADMAP D02","S02 F07/F08"],
-   "hitman":"変装が発覚すると、その服はその後だれにでも見破られる（着替えるまで）。",
-   "ours":"同じ。無線が届かない人にも共有される。",
-   "decision":"align","by":"claude","date":"2026-11-06","status":"done",
-   "reason":"旧仕様（S02）は局所の伝達を求めたが、HITMAN の「変装の発覚」と同じ今の形を採った。",
-   "tests":["tests/m4.test.ts"]},
-  {"id":"HD07","topic":"違法な物を持って検査を受けた時","refs":["ROADMAP F04","S02 F04"],
-   "hitman":"検査で違法な物が見つかると、警備が敵対する（その場で捕まえようとする・撃ち合いになる）。",
-   "ours":"違法な物を持っていると、検査そのものを始めない（B を押しても進まない）。",
-   "decision":"pending","by":"","date":"","status":"todo",
-   "question":"違法な物を持って検査を受けた時、どうしますか？",
-   "options":["HITMAN に合わせる：検査は始まり、見つかると警備が敵対する","今のまま：違法な物があると検査を始めない"],
-   "tests":[]},
-  {"id":"HD08","topic":"敵対区域で見つかった時","refs":["ROADMAP S04:G-02"],
-   "hitman":"敵対区域（警備だけの所）では、警告なしに攻撃される。",
-   "ours":"警告なしに拘束しようとするが、すぐ撃つとは限らない。",
-   "decision":"pending","by":"","date":"","status":"todo",
-   "question":"敵対区域で見つかった時、警備はどうしますか？",
-   "options":["HITMAN に合わせる：警告なしで撃つ","今のまま：警告なしで捕まえようとし、逆らうと撃つ"],
-   "tests":[]},
-  {"id":"HD09","topic":"遺体の知らせで別の階から応援が来るか","refs":["ROADMAP S07:別階応援","H38"],
-   "hitman":"遺体が見つかると、近くの警備が集まり、周りの警戒が上がる（階は問わない）。",
-   "ours":"無線は水平の距離だけで決まる。何人・どこから・どの階から来るかの決まりがない。",
-   "decision":"pending","by":"","date":"","status":"todo",
-   "question":"遺体が見つかった時、別の階の警備も応援に来ますか？",
-   "options":["来る：同じ建物なら階を問わず、近い順に2人","来ない：同じ階の警備だけ"],
-   "tests":[]},
-  {"id":"HD10","topic":"小さい物はポケットに入れて見えなくする","refs":["S09 row 67（優先：最優先）","S09 row 68"],
-   "hitman":"拳銃や小さい道具は見えない持ち物に入る。大きい物は入らない。",
-   "ours":"仕組み（DetectionSystem.pockets）と持ち物の列は UI ラボにある。ゲームでは切ってある。",
-   "decision":"align","by":"claude","date":"2026-11-07","status":"todo",
-   "reason":"資料で最優先。画面ができてから、UI ラボと一緒にゲームに入れる（利用者の確認が要る）。",
-   "tests":["tests/inventory.test.ts"]},
-  {"id":"HD11","topic":"ブリーフケースを開始前の装備で選べる","refs":["S08 row 21"],
-   "hitman":"開始前にケースを選べる。大きい銃を選ぶと、ケースに入って始まる。",
-   "ours":"ケースは地図に置いてあるだけ。開始前には選べない。",
-   "decision":"align","by":"claude","date":"2026-11-07","status":"todo",
-   "reason":"資料に明記。作戦準備の画面は UI ラボで作る（app/src/loadout.ts に決まりを足す）。",
-   "tests":["tests/item-spec.test.ts"]},
-  {"id":"HD12","topic":"工具箱型ケース","refs":["S08 row 22","ROADMAP N23"],
-   "hitman":"ブリーフケースと同じく、殴る・投げると気絶。中に別の物を入れて出し入れできる。",
-   "ours":"同じ。クラブの搬入口に置いてある。I で銃を1丁しまう・出す（蓋が開く）。ケースごとに中身を持つ。",
-   "decision":"align","by":"claude","date":"2026-11-07","status":"done",
-   "reason":"資料に明記。ブリーフケースと同じ仕組みで作った（assets/toolbox）。",
-   "tests":["tests/item-spec.test.ts","tests/cases.test.ts"]},
-  {"id":"HD13","topic":"持ち込みに道具も置ける","refs":["ROADMAP H46"],
-   "hitman":"持ち込み（事前配置）には、銃以外の道具も置ける。",
-   "ours":"持ち込みは銃の置き場所だけ。",
-   "decision":"align","by":"claude","date":"2026-11-07","status":"todo",
-   "reason":"HD01（銃は1丁まで）を守ったまま、道具なら置けるようにする。作戦準備の画面は UI ラボで作る。",
-   "tests":["tests/loadout.test.ts"]}
+  {
+   "id": "HD01",
+   "topic": "持ち込める銃の数",
+   "refs": [
+    "ROADMAP H46",
+    "UI 作戦準備"
+   ],
+   "hitman": "身につける銃とは別に、持ち込み（事前配置）にも物を置ける。銃を2丁持ち込める。",
+   "ours": "銃は1丁まで。持ち込みは、その1丁を先に置いておく場所。",
+   "decision": "differ",
+   "by": "user",
+   "date": "2026-11-06",
+   "status": "done",
+   "reason": "利用者の指示（「銃と持ち込みで二丁持っていけちゃうぞ」）。HITMAN に合わせる作業でも戻さない。",
+   "tests": [
+    "tests/loadout.test.ts"
+   ]
+  },
+  {
+   "id": "HD02",
+   "topic": "見た目・名前・モデル",
+   "refs": [
+    "方針"
+   ],
+   "hitman": "HITMAN 独自の色・文字・名前・人物・モデル。",
+   "ours": "仕組み・配置・情報の見せ方だけを合わせ、色・文字・名前・モデルは CLEAN HANDS のもの。",
+   "decision": "differ",
+   "by": "user",
+   "date": "2026-11-06",
+   "status": "done",
+   "kind": "policy",
+   "reason": "利用者の方針。特定のゲームの作り直しにはしない。",
+   "tests": []
+  },
+  {
+   "id": "HD03",
+   "topic": "キーの割り当て",
+   "refs": [
+    "docs/controls.md"
+   ],
+   "hitman": "HITMAN の PC 版の割り当て。",
+   "ours": "CLEAN HANDS の割り当て（app/src/controls.ts）。1つのキーに1つの操作。",
+   "decision": "differ",
+   "by": "claude",
+   "date": "2026-11-07",
+   "status": "done",
+   "reason": "割り当ては遊び方の差が小さく、重なり（B・H の重なり）を防ぐ方が大事。",
+   "tests": [
+    "tests/controls.test.ts"
+   ]
+  },
+  {
+   "id": "HD04",
+   "topic": "刀は背中に背負う",
+   "refs": [
+    "S09 rows 32/64/120",
+    "S08 row 189"
+   ],
+   "hitman": "刀（と Kali Sticks）だけを背中に2本まで背負える。",
+   "ours": "同じ。刀だけ、2本まで。",
+   "decision": "align",
+   "by": "claude",
+   "date": "2026-11-06",
+   "status": "done",
+   "reason": "資料に明記。",
+   "tests": [
+    "tests/item-spec.test.ts"
+   ]
+  },
+  {
+   "id": "HD05",
+   "topic": "ケースの中身は見えないが、検査で見つかる",
+   "refs": [
+    "S09 rows 52/53"
+   ],
+   "hitman": "ケースの中の物は見えない。違法かどうかの判定は別で、検査では見つかる。",
+   "ours": "同じ。",
+   "decision": "align",
+   "by": "claude",
+   "date": "2026-11-06",
+   "status": "done",
+   "reason": "資料に明記。",
+   "tests": [
+    "tests/item-spec.test.ts"
+   ]
+  },
+  {
+   "id": "HD06",
+   "topic": "ばれた変装は全員に知られる",
+   "refs": [
+    "ROADMAP D02",
+    "S02 F07/F08"
+   ],
+   "hitman": "変装が発覚すると、その服はその後だれにでも見破られる（着替えるまで）。",
+   "ours": "同じ。無線が届かない人にも共有される。",
+   "decision": "align",
+   "by": "claude",
+   "date": "2026-11-06",
+   "status": "done",
+   "reason": "旧仕様（S02）は局所の伝達を求めたが、HITMAN の「変装の発覚」と同じ今の形を採った。",
+   "tests": [
+    "tests/m4.test.ts"
+   ]
+  },
+  {
+   "id": "HD07",
+   "topic": "違法な物を持って検査を受けた時",
+   "refs": [
+    "ROADMAP F04",
+    "S02 F04"
+   ],
+   "hitman": "検査で違法な物が見つかると、警備が敵対する（その場で捕まえようとする・撃ち合いになる）。",
+   "ours": "HITMAN と同じ。違法な物を持っていても検査は始まり、見つかると警備が捕まえに来て、変装がばれる（逆らう・銃を出すと撃ち合い）。",
+   "decision": "align",
+   "by": "user",
+   "date": "2026-11-07",
+   "status": "done",
+   "tests": [
+    "tests/m4.test.ts"
+   ],
+   "reason": "利用者が選んだ（「HITMAN に合わせる」）。前の F04（検査を始めない）は置き換えた。"
+  },
+  {
+   "id": "HD08",
+   "topic": "敵対区域で見つかった時",
+   "refs": [
+    "ROADMAP S04:G-02"
+   ],
+   "hitman": "敵対区域（警備だけの所）では、警告なしに攻撃される。",
+   "ours": "HITMAN と同じ。敵対区域で捕まえに来た警備は、そのまま撃ってくる。ほかの立入禁止の所では、今まで通り警告と拘束。",
+   "decision": "align",
+   "by": "user",
+   "date": "2026-11-07",
+   "status": "done",
+   "tests": [
+    "tests/hostile-area.test.ts"
+   ],
+   "reason": "利用者が選んだ（「HITMAN に合わせる」）。"
+  },
+  {
+   "id": "HD09",
+   "topic": "遺体の知らせで別の階から応援が来るか",
+   "refs": [
+    "ROADMAP S07:別階応援",
+    "H38"
+   ],
+   "hitman": "遺体が見つかると、近くの警備が集まり、周りの警戒が上がる（階は問わない）。",
+   "ours": "遺体を見つけた警備のほかに、階を問わず近い順に2人の警備が来る（1階の差は8m と数える）。",
+   "decision": "align",
+   "by": "user",
+   "date": "2026-11-07",
+   "status": "done",
+   "tests": [
+    "tests/body-backup.test.ts"
+   ],
+   "reason": "利用者が選んだ（「来る：近い順に2人」）。前は水平の距離の中の全員だった。"
+  },
+  {
+   "id": "HD10",
+   "topic": "小さい物はポケットに入れて見えなくする",
+   "refs": [
+    "S09 row 67（優先：最優先）",
+    "S09 row 68"
+   ],
+   "hitman": "拳銃や小さい道具は見えない持ち物に入る。大きい物は入らない。",
+   "ours": "仕組み（DetectionSystem.pockets）と持ち物の列は UI ラボにある。ゲームでは切ってある。",
+   "decision": "align",
+   "by": "claude",
+   "date": "2026-11-07",
+   "status": "todo",
+   "reason": "資料で最優先。画面ができてから、UI ラボと一緒にゲームに入れる（利用者の確認が要る）。",
+   "tests": [
+    "tests/inventory.test.ts"
+   ]
+  },
+  {
+   "id": "HD11",
+   "topic": "ブリーフケースを開始前の装備で選べる",
+   "refs": [
+    "S08 row 21"
+   ],
+   "hitman": "開始前にケースを選べる。大きい銃を選ぶと、ケースに入って始まる。",
+   "ours": "ケースは地図に置いてあるだけ。開始前には選べない。",
+   "decision": "align",
+   "by": "claude",
+   "date": "2026-11-07",
+   "status": "todo",
+   "reason": "資料に明記。作戦準備の画面は UI ラボで作る（app/src/loadout.ts に決まりを足す）。",
+   "tests": [
+    "tests/item-spec.test.ts"
+   ]
+  },
+  {
+   "id": "HD12",
+   "topic": "工具箱型ケース",
+   "refs": [
+    "S08 row 22",
+    "ROADMAP N23"
+   ],
+   "hitman": "ブリーフケースと同じく、殴る・投げると気絶。中に別の物を入れて出し入れできる。",
+   "ours": "同じ。クラブの搬入口に置いてある。I で銃を1丁しまう・出す（蓋が開く）。ケースごとに中身を持つ。",
+   "decision": "align",
+   "by": "claude",
+   "date": "2026-11-07",
+   "status": "done",
+   "reason": "資料に明記。ブリーフケースと同じ仕組みで作った（assets/toolbox）。",
+   "tests": [
+    "tests/item-spec.test.ts",
+    "tests/cases.test.ts"
+   ]
+  },
+  {
+   "id": "HD13",
+   "topic": "持ち込みに道具も置ける",
+   "refs": [
+    "ROADMAP H46"
+   ],
+   "hitman": "持ち込み（事前配置）には、銃以外の道具も置ける。",
+   "ours": "持ち込みは銃の置き場所だけ。",
+   "decision": "align",
+   "by": "claude",
+   "date": "2026-11-07",
+   "status": "todo",
+   "reason": "HD01（銃は1丁まで）を守ったまま、道具なら置けるようにする。作戦準備の画面は UI ラボで作る。",
+   "tests": [
+    "tests/loadout.test.ts"
+   ]
+  }
  ]
 }

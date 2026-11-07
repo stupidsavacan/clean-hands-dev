@@ -178,7 +178,8 @@ export class CombatSystem{
    // Being seen with a gun out, or noticed with a gun on the back (or by a guard while the fight is on, in the blown outfit) starts or joins the fight.
    if(n.visibility>0&&n.state!=='combat'){const armed=drawn||shown&&n.suspicion>=100;
     // A guard who saw the agent kill someone fights on sight (HITMAN report G-03, 2026-11-04).
-    if(n.guard&&(armed||n.sawViolence&&n.hasConfirmedIdentity(p)||this.fight&&n.hasConfirmedIdentity(p)))this.engage(n,p,time);
+    // HD08 (2026-11-07, the user's choice: as in HITMAN): in a hostile area the guard who goes for the agent shoots, no arrest first.
+    if(n.guard&&(armed||n.sawViolence&&n.hasConfirmedIdentity(p)||this.fight&&n.hasConfirmedIdentity(p)||n.arrest&&n.cause==='hostile'))this.engage(n,p,time);
     // A bystander who sees a gun out runs to tell a guard (M5.6 witness); once shots are flying they just run away.
     else if(!n.guard&&armed&&n.state!=='flee'&&!n.witness&&n.witnessCooldown<=0){this.director.reports++;this.director.onSpotted?.(n);n.knownDisguises.add(p.disguise);if(this.fight)this.flee(n,p);else{n.state='report';n.lastSeen={x:p.x,y:p.y,z:p.z};n.witness={what:'act',at:{x:p.x,y:p.y,z:p.z},key:'act:'+n.id,disguise:p.disguise};}this.onReaction?.(n,this.fight?'flee':'report',drawn?'gun_drawn':'visible_weapon','sight',p);}}
    if(n.state==='combat')this.fightStep(n,p,dt,time);

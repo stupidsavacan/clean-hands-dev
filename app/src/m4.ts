@@ -39,6 +39,8 @@ export class M4System{
  // F04 / HITMAN: an exempt outfit is waved through without a frisk, whatever it carries (only weaponPolicy can bar
  // it); others with contraband on them cannot start the frisk.
  requiresFrisk(c:Checkpoint){return !c.exempt?.includes(this.disguise);}
+ // Whether the agent would get through clean (nothing a frisk finds or the checkpoint bars). HD07 (2026-11-07): a frisk is
+ // started even when this is false, as in HITMAN; only an exempt outfit carrying something barred is turned back at once.
  mayStartFrisk(c:Checkpoint){return (this.requiresFrisk(c)?this.friskFinds(c):this.barred(c)).length===0;}
  private carried(){return [...this.inventory()].sort().join(',');}
  private clear(a:Position,b:Position){return Math.abs(a.y-b.y)<.35&&segmentClear(this.director.boxes,{...a,y:a.y+.6},{...b,y:b.y+.35});}
@@ -54,7 +56,7 @@ export class M4System{
  passed(c:Checkpoint){if(!this.requiresFrisk(c))return this.allowed(c)&&this.mayStartFrisk(c);const pass=this.passes.get(c.id);return !!pass&&pass.until>this.elapsed&&pass.disguise===this.disguise&&pass.carried===this.carried();}
  wireStash(p:Position){return this.stashes.find(s=>distance(s.pos,p)<1.25&&this.clear(p,s.pos)&&this.canPickUp(p,s.pos));}
  prompt(p:Position){if(this.action)return {text:this.action.kind==='change'?'T 着替えている…':'B 身体検査中…',progress:this.progress};
-  const c=this.checkpoint(p);if(c&&this.attendant(c)&&!this.passed(c))return {text:!this.allowed(c)?'この服では入れない。Tで制服を入手する。':!this.mayStartFrisk(c)?`${this.barredText(c)}。${this.advice(c)}。`:`B 長押し ${c.label}`,progress:0};
+  const c=this.checkpoint(p);if(c&&this.attendant(c)&&!this.passed(c))return {text:!this.allowed(c)?'この服では入れない。Tで制服を入手する。':!this.requiresFrisk(c)&&!this.mayStartFrisk(c)?`${this.barredText(c)}。${this.advice(c)}。`:`B 長押し ${c.label}`,progress:0};
   const source=this.source(p);if(source)return {text:`T 長押し ${this.director.rules.disguises[source.disguise]?.label??source.disguise}に着替える`,progress:0};
   if(this.wireStash(p)&&!this.hasWire)return {text:'H 預けたワイヤーを回収する',progress:0};return null;}
  cancel(){const a=this.action;if(a?.guard){a.guard.busy=false;if(a.guard.active&&['patrol','curious'].includes(a.guard.state)&&a.guardHome){a.guard.busy=true;this.returning.set(a.guard,{home:a.guardHome,path:this.director.nav.find(a.guard.pos,a.guardHome)??[]});}}this.action=null;}
@@ -65,7 +67,7 @@ export class M4System{
    if(suppressed||!keys.has(key)||moving||distance(a.start,p)>.15||Math.abs(p.y-a.start.y)>.2||a.kind==='frisk'&&(!a.guard?.active||!['patrol','curious'].includes(a.guard.state))||a.source?.npc&&(a.source.npc.active||!['ground','hidden'].includes(a.source.npc.bodyMode)))this.cancel();
    else{const ready=!a.guard||!a.guardTarget||this.walkGuard(a.guard,a.guardPath!,a.guardTarget,dt);if(ready){if(a.guard)a.guard.heading=Math.atan2(p.x-a.guard.pos.x,p.z-a.guard.pos.z);a.elapsed+=dt;}if(a.kind==='change')this.witnessChange(p,a);if(a.elapsed>=a.duration){this.complete(a,p);this.cancel();}}}
   else if(fresh('KeyT')&&!moving){const source=this.source(p);if(source)this.action={id:++this.nextId,kind:'change',elapsed:0,duration:this.rules.changeSeconds,start:{...p},source};else this.notices.push('近くの倒れた人か、置いた服から着替えられます。');}
-  else if(fresh('KeyB')&&!moving){const c=this.checkpoint(p),guard=c&&this.attendant(c);if(!c)this.notices.push('検問の線の前に立って B');else if(!guard)this.notices.push('検査担当の警備員が近くにいません。');else if(!this.allowed(c))this.notices.push('今の服ではこの区画へ入れません。');else if(this.passed(c))this.notices.push(this.requiresFrisk(c)?'検査は済んでいます。':'この服なら検査なしで通れます。');else if(!this.mayStartFrisk(c))this.notices.push(`${this.barredText(c)}。検査を受けられません。${this.advice(c)}。`);else{const guardHome=this.returning.get(guard)?.home??{...guard.pos},guardTarget=this.director.world.move(p,Math.sin(heading)*this.rules.friskStandDistance,Math.cos(heading)*this.rules.friskStandDistance);this.returning.delete(guard);this.action={id:++this.nextId,kind:'frisk',elapsed:0,duration:this.rules.friskSeconds,start:{...p},checkpoint:c,guard,guardHome,guardTarget,guardPath:this.director.nav.find(guard.pos,guardTarget)??[]};guard.busy=true;guard.speed=0;guard.heading=Math.atan2(p.x-guard.pos.x,p.z-guard.pos.z);}}
+  else if(fresh('KeyB')&&!moving){const c=this.checkpoint(p),guard=c&&this.attendant(c);if(!c)this.notices.push('検問の線の前に立って B');else if(!guard)this.notices.push('検査担当の警備員が近くにいません。');else if(!this.allowed(c))this.notices.push('今の服ではこの区画へ入れません。');else if(this.passed(c))this.notices.push(this.requiresFrisk(c)?'検査は済んでいます。':'この服なら検査なしで通れます。');else if(!this.requiresFrisk(c)&&!this.mayStartFrisk(c))this.notices.push(`${this.barredText(c)}。検査を受けられません。${this.advice(c)}。`);else{const guardHome=this.returning.get(guard)?.home??{...guard.pos},guardTarget=this.director.world.move(p,Math.sin(heading)*this.rules.friskStandDistance,Math.cos(heading)*this.rules.friskStandDistance);this.returning.delete(guard);this.action={id:++this.nextId,kind:'frisk',elapsed:0,duration:this.rules.friskSeconds,start:{...p},checkpoint:c,guard,guardHome,guardTarget,guardPath:this.director.nav.find(guard.pos,guardTarget)??[]};guard.busy=true;guard.speed=0;guard.heading=Math.atan2(p.x-guard.pos.x,p.z-guard.pos.z);}}
   else if(fresh('KeyH')){if(this.hasWire){const pos=this.director.world.move(p,Math.sin(heading)*.35,Math.cos(heading)*.35);this.stashes.push({id:++this.nextId,pos});this.hasWire=false;this.notices.push('ワイヤーを置いた。Hで回収できます。');}else{const stash=this.wireStash(p);if(stash){this.stashes.splice(this.stashes.indexOf(stash),1);this.hasWire=true;this.notices.push('ワイヤーを回収した。');}else this.notices.push('回収できるワイヤーが近くにありません。');}this.passes.clear();}
   this.releaseCompromised(p);
   this.held=new Set(keys);}
@@ -79,10 +81,11 @@ export class M4System{
  // How to get rid of them (playtest 2026-11-02: the way to pass was not told). The poison cannot be put down.
  private advice(c:Checkpoint){const ids=this.requiresFrisk(c)?this.friskFinds(c):this.barred(c),a:string[]=[];if(ids.some(id=>this.items[id]?.weapon))a.push('銃はQ長押しで捨てる');
   if(ids.some(id=>!this.items[id]?.weapon&&id!=='poison_lethal'))a.push('手の物はUで置く');if(ids.includes('poison_lethal'))a.push('毒は捨てられない。検査のない服なら通れる');return a.join('。');}
- // F04: the frisk is not started with contraband (above), so finishing it is a pass. Something found anyway (the
- // inventory changed during it) is turned back, not an arrest; no pass is issued.
- private complete(a:M4Action,p:PlayerView){if(a.kind==='frisk'){const found=this.friskFinds(a.checkpoint);this.stats.frisks++;void p;
-   if(found.length){this.stats.found++;this.notices.push(`${this.barredText(a.checkpoint!)}。通してもらえない。`);return;}
+ // HD07 (2026-11-07, the user's choice: as in HITMAN): something the frisk finds turns the guard on the agent at once — the
+ // outfit is blown and the guard moves to arrest (resisting or a gun out becomes a fight). No pass is issued.
+ private complete(a:M4Action,p:PlayerView){if(a.kind==='frisk'){const found=this.friskFinds(a.checkpoint);this.stats.frisks++;
+   if(found.length){this.stats.found++;const it=found.map(id=>this.items[id]?.label??id).join('・');this.notices.push(`検査で${it}が見つかった。警備が捕まえに来る。`);
+    if(a.guard?.active)this.director.accuse(a.guard,p,'crime');return;}
    this.notices.push(this.hasWire?'検査を通過した。ワイヤーは見つからなかった。':'検査を通過した。');this.passes.set(a.checkpoint!.id,{until:this.elapsed+this.rules.friskValidSeconds,disguise:this.disguise,carried:this.carried()});return;}
   const source=a.source!;if(source.npc)this.taken.add(source.npc.id);else{const i=this.clothes.findIndex(c=>c.id===source.id);if(i<0)return;this.clothes.splice(i,1);}
   this.clothes.push({id:'clothes-'+(++this.nextId),disguise:this.disguise,pos:{...p}});this.disguise=source.disguise;this.revision++;this.stats.changes++;this.passes.clear();this.notices.push(`${this.label}に着替えた。`);}
