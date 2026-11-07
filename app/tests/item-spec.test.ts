@@ -29,6 +29,7 @@ const MELEE_ROWS:[string,number,string[],'blunt'|'blade'][]=[
  ['brick',4,['レンガ','近接・投擲による気絶'],'blunt'],
  ['frying_pan',7,['フライパン','近接・投擲による気絶'],'blunt'],
  ['briefcase',21,['ブリーフケース','近接・投擲による気絶'],'blunt'],
+ ['toolbox',22,['工具箱型ケース','近接・投擲による気絶'],'blunt'],
  ['katana',189,['刀（Katana）','致死判定の近接・投擲武器'],'blade'],
  ['kitchen_knife',191,['ナイフ（小型刃物類の例）','致死判定の近接・投擲'],'blade'],
 ];
@@ -45,7 +46,8 @@ test('S08 row 21 briefcase: picked up on the map; its body, an opening lid and t
  const names=gl.nodes.map((n:{name:string})=>n.name);for(const n of ['LID','CONTENT','GRIP_R','HINGE'])assert.ok(names.includes(n),n);});
 // HD05
 test('S09 rows 52/53: what is in the case is hidden from view but still found by a frisk',async()=>{cite09('内容物の表示とケースの認識は独立','違法判定とアイテム可視は個別管理');
- const game=readFileSync(here('../src/engine/game.ts'),'utf8');assert.match(game,/detection\.held==='briefcase'&&detection\.caseGun\?\[detection\.caseGun\.id\]/,'the frisk inventory includes the case contents');
+ const game=readFileSync(here('../src/engine/game.ts'),'utf8');// HD12 (2026-11-07): any case in hand, not just the briefcase.
+ assert.match(game,/isCase\(detection\.held\)&&detection\.caseGun\?\[detection\.caseGun\.id\]/,'the frisk inventory includes the case contents');
  const {DetectionSystem}=await import('../src/detection.ts');assert.ok('caseGun' in DetectionSystem.prototype||true);});
 // HD04
 test('S09 rows 32/64/120: only swords go on the back, two at most, and hand and back are never the same one',()=>{cite09('2025-09-25からKatanaとKali Sticks限定で背面2アイテム装備に対応','複数背面スロットを全アイテムに開放しない');
@@ -61,7 +63,10 @@ test('S08 row 97 large SMG: two-handed and taken on the map, not chosen before t
 test.todo('S08 row 3 crowbar: opens locked things (施錠物の操作にも使われる)');
 test.todo('S08 row 2 wrench: used on machinery (設備とのインタラクションにも使われる) beyond the hotel\'s set pieces');
 test.todo('HD11 S08 row 21 briefcase: can be chosen before the mission (ケース選択／大型装備の持込に付随)');
-test.todo('HD12 S08 row 22 toolbox case: a second case like the briefcase (工具箱型ケース)');
+test('HD12 S08 row 22 toolbox case: a second case like the briefcase, picked up on the map, with its own lid',()=>{cite(22,'工具箱型ケース','内部に別のアイテムを収納・取り出す','ケース本体＋開閉状態＋収納物');
+ assert.ok(placed.has('toolbox'),'placed in the club');assert.equal(club.items.toolbox?.legality,'normal');
+ const glb=readFileSync(here('../../assets/toolbox/models/toolbox/toolbox.glb')),len=glb.readUInt32LE(12),gl=JSON.parse(glb.subarray(20,20+len).toString('utf8'));
+ const names=gl.nodes.map((n:{name:string})=>n.name);for(const n of ['LID','CONTENT','GRIP_R','HINGE'])assert.ok(names.includes(n),n);});
 test.todo('S08 rows 193/194 earphones and measuring tape: wire-type melee only (イヤホン型・メジャー型ワイヤー)');
 test.todo('S09 row 62: ladders and climbing re-check what is in view (はしご・よじ登り中)');
 test.todo('S09 rows 32/120: Kali Sticks share the two back slots (刀・Kali Sticks)');

@@ -139,6 +139,11 @@
    "label": "ブリーフケース",
    "legality": "normal",
    "concealable": false
+  },
+  "toolbox": {
+   "label": "工具箱",
+   "legality": "normal",
+   "concealable": false
   }
  },
  "worldItems": [
@@ -182,6 +187,13 @@
    "item": "briefcase",
    "x": 17.2,
    "z": 33.2,
+   "floor": 0
+  },
+  {
+   "id": "toolbox-loading",
+   "item": "toolbox",
+   "x": 6.6,
+   "z": 38.6,
    "floor": 0
   },
   {

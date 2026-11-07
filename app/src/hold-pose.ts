@@ -6,7 +6,7 @@ import {HIP_HEIGHT,type Pose} from './locomotion.ts';
 //  long:  long things held low (mop): arm forward and bent, almost no swing, the body leans a touch toward it.
 //  hang: carried by a handle, the arm straight down and swinging a little less (a briefcase, 2026-11-06).
 export type HoldKind='small'|'long'|'hang';
-export const HOLD_KIND:Record<string,HoldKind>={wrench:'small',bottle:'small',camera:'small',tray:'small',coin:'small',hammer:'small',kitchen_knife:'small',frying_pan:'small',brick:'small',mop:'long',crowbar:'long',katana:'hang',briefcase:'hang'};
+export const HOLD_KIND:Record<string,HoldKind>={wrench:'small',bottle:'small',camera:'small',tray:'small',coin:'small',hammer:'small',kitchen_knife:'small',frying_pan:'small',brick:'small',mop:'long',crowbar:'long',katana:'hang',briefcase:'hang',toolbox:'hang'};
 export const holdKind=(item:string):HoldKind=>HOLD_KIND[item]??'small';
 export function holdPose(p:Pose,kind:HoldKind){
  const a=p.arms[1];

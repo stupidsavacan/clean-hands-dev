@@ -28,7 +28,7 @@ test('a thrown blunt thing knocks out, a thrown blade kills, and a witness sees 
  const b=setup('kitchen_knife');b.d.npcs[1].heading=-Math.PI/2;b.m.thrownHit(b.n,p(),'kill','thrown_kitchen_knife');assert.equal(b.n.life,'dead');assert.equal(b.n.deathMethod,'thrown_kitchen_knife');assert.equal(b.d.npcs[1].state,'alert');assert.equal(b.d.npcs[1].sawViolence,true);});
 test('every melee thing has a model and a carry rule in the club',()=>{const det=json('club-detection.json');for(const id of Object.keys(MELEE).filter(id=>!['wrench','bottle'].includes(id)))assert.ok(det.items[id],id);assert.equal(meleeOf('kitchen_knife')?.kind,'blade');});
 test('the club tools lie on open floor where their work is',()=>{const det=json('club-detection.json'),club=json('club-map.json'),w=new CollisionWorld(club);
- assert.deepEqual(det.worldItems.map((i:{item:string})=>i.item).sort(),['brick','briefcase','crowbar','frying_pan','hammer','katana','kitchen_knife']);
+ assert.deepEqual(det.worldItems.map((i:{item:string})=>i.item).sort(),['brick','briefcase','crowbar','frying_pan','hammer','katana','kitchen_knife','toolbox']);// toolbox: HD12 (2026-11-07)
  for(const i of det.worldItems){const y=plateY(club,i.floor);assert.equal(w.blocked(i.x,y,i.z,.3),false,i.id);assert.notEqual(w.surface(i.x,i.z,y),null,i.id);}});
 test('M14/M15: a sword kills from the front with X; a briefcase knocks out with F (M09/M10)',()=>{const a=setup('katana');hold(a.m,'KeyX',1.05);assert.equal(a.n.life,'dead');assert.equal(a.n.deathMethod,'katana');
  const b=setup('briefcase');hold(b.m,'KeyF',.75);assert.equal(b.n.life,'unconscious');assert.equal(meleeOf('briefcase')?.throwable,true);});

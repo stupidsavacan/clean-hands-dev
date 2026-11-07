@@ -1,4 +1,5 @@
 import * as T from 'three';
+import {isCase} from './melee';
 import type {DetectionSystem} from './detection';
 import type {Rig} from './rig';
 import {plateY,type Level} from './world';
@@ -26,7 +27,7 @@ export function inHand(hand:T.Object3D,o:T.Object3D,item=''){o.scale.setScalar(1
  hand.add(o);return o;}
 // A sword on the back: the grip over one shoulder, the blade down across the back to the other hip, the edge outward;
 // the second one crosses it. Placed in the body's frame, then kept on the chest bone so it moves with the body.
-// How far the briefcase lid opens (radians, about its hinge).
+// How far a case lid opens (radians, about its hinge; the briefcase and the toolbox are built alike).
 export const CASE_OPEN=1.6;
 export const BACK_SLOTS=[{grip:[-.20,1.64,-.17],tip:[.36,.86,-.20]},{grip:[.20,1.64,-.19],tip:[-.36,.86,-.22]}];
 export function onBack(o:T.Object3D,avatar:T.Object3D,chest:T.Object3D,slot:number){const s=BACK_SLOTS[slot%2];avatar.updateMatrixWorld(true);
@@ -50,8 +51,8 @@ export class DetectionView{
   // The thing in hand rides on the right hand bone.
   // Re-attached when the body changes too (a change of clothes swaps the agent's model and its bones, 2026-11-06).
   const hand=rig?.joints.get('handr')?.bone;if(this.heldId!==det.held||this.held&&this.held.parent!==hand){this.held?.removeFromParent();this.held=undefined;this.heldId=det.held;if(det.held&&hand){this.held=itemMesh(det.held);inHand(hand,this.held,det.held);}}
-  // The briefcase lid (its LID node, turning on the hinge) swings open while something goes in or comes out.
-  if(this.held&&det.held==='briefcase'){const lid=this.held.getObjectByName('LID');if(lid){const s=(now-det.caseOpenedAt)/1000,e=(a:number,b:number)=>{const u=Math.min(1,Math.max(0,(s-a)/(b-a)));return u*u*(3-2*u);};lid.rotation.z=-CASE_OPEN*e(0,.25)*(1-e(.65,.9));}}
+  // A case lid (its LID node, turning on the hinge) swings open while something goes in or comes out.
+  if(this.held&&isCase(det.held)){const lid=this.held.getObjectByName('LID');if(lid){const s=(now-det.caseOpenedAt)/1000,e=(a:number,b:number)=>{const u=Math.min(1,Math.max(0,(s-a)/(b-a)));return u*u*(3-2*u);};lid.rotation.z=-CASE_OPEN*e(0,.25)*(1-e(.65,.9));}}
   const chest=rig?.joints.get('chest')?.bone;
   if(this.backs.some(o=>o.parent!==chest)){for(const o of this.backs)o.removeFromParent();this.backs=[];}
   while(this.backs.length>det.back.length)this.backs.pop()!.removeFromParent();

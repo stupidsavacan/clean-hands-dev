@@ -1,0 +1,40 @@
+[
+  {
+    "id": "toolbox",
+    "kind": "melee",
+    "csvRow": 22,
+    "label": "工具箱",
+    "triangles": 1004,
+    "bytes": 69448,
+    "size_m": [
+      0.18,
+      0.366,
+      0.44
+    ],
+    "anchors": {
+      "GRIP_R": [
+        0,
+        0,
+        0
+      ],
+      "CONTENT": [
+        -0.04,
+        -0.195,
+        0
+      ],
+      "HINGE": [
+        0,
+        -0.34,
+        0
+      ],
+      "TIP": [
+        0.0,
+        -0.34,
+        0
+      ]
+    },
+    "moving": {
+      "LID": "turns about its local Z (glTF) on the hinge; -1.9 rad = fully open"
+    }
+  }
+]

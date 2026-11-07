@@ -49,7 +49,7 @@ import {CombatView} from '../combat-view';
 import {buildCover,coveredIds} from '../cover-props';
 import {DetectionSystem,type Camera,type DetectionData} from '../detection';
 import {DetectionView,itemMesh} from '../detection-view';
-import {meleeOf,THROW_RANGE} from '../melee';
+import {meleeOf,THROW_RANGE,isCase} from '../melee';
 import {GesturePlayer} from '../gestures';
 const playerGestures=new GesturePlayer();
 import {RestartHold} from '../restart-hold';
@@ -299,7 +299,7 @@ function startMission(){director=onStage(new Director(mission,world,nav,boxes,ru
  // A body found in its underwear tells security whose uniform the intruder wears (Hitman 2: Silent Assassin; playtest
  // 2026-11-03: a stripped manager was found and the manager's suit still passed). Only guards learn it (compromisedBy).
   if(m4.taken.has(body.id)){const outfit=body.outfit??m4.rules.roleDisguise[body.role]??'suit';director.compromised.add(outfit);if(outfit===m4.disguise)toast(`服を奪われた${body.label}が見つかった。警備がこの服を疑っている。`);}};
- if(!loadout.tools.includes('poison_lethal'))m53.poison=0;const carried=m4.extraInventory;m4.extraInventory=()=>[...(carried?.()??[]),...(detection.held==='briefcase'&&detection.caseGun?[detection.caseGun.id]:[]),...detection.back,...detection.pocket,...combat.guns.map(g=>g.id),...(coins>0?['coin']:[]),...(detection.held?[detection.held]:[])];
+ if(!loadout.tools.includes('poison_lethal'))m53.poison=0;const carried=m4.extraInventory;m4.extraInventory=()=>[...(carried?.()??[]),...(isCase(detection.held)&&detection.caseGun?[detection.caseGun.id]:[]),...detection.back,...detection.pocket,...combat.guns.map(g=>g.id),...(coins>0?['coin']:[]),...(detection.held?[detection.held]:[])];
  combat=new CombatSystem(director,events,m3.hotel,combatRules,weaponDefs,map.reinforcements).stock();if(loadout.pistol){const at=pickups.find(p=>p.id===loadout.pickup);if(at)combat.stash(loadout.pistol,{x:at.x,y:plateY(map,at.floor),z:at.z});else combat.equip(loadout.pistol);}combatView.reset();detection=new DetectionSystem(director,events,m3.hotel,map.cameras as Camera[],detData,map);combat.items=itemTable;detection.items=itemTable;m4.items=itemTable;detectionView.reset();devices=new DeviceSystem(director,deviceDefs,f=>plateY(map,f));chores=new ChoreSystem(director,devices,cleanerIds);chores.onErrand=n=>schedule.states.delete(n.id);bindTrace();setBlackout(false);wasFighting=false;fireHeld=false;firePressed=false;
  for(const v of npcViews.splice(director.npcs.length))v.group.removeFromParent();npcViews.forEach((v,i)=>{v.bind(director.npcs[i]);v.npc.actionTime=i*.83;primeNpc(v);});panelProgress=0;panelDone=false;coins=loadout.tools.includes('coin')?rules.noise.coins:0;tampering=false;missionOver='';missionTime=0;peakSuspicion=0;clearCoinProps();(panelLamp.material as T.MeshStandardMaterial).color.set('#3fdc8c');(panelLamp.material as T.MeshStandardMaterial).emissive.set('#3fdc8c');$('#result-modal').classList.remove('open');}
 function setZoom(value:number){zoom=value;}
@@ -319,8 +319,8 @@ window.addEventListener('keydown',e=>{if(creatorOpen||prepOpen||(e.target instan
  if(e.code==='Space'){firePressed=true;fireHeld=true;return;}
  // K: the sword in hand onto the back (two at most), or the one on the back into the hand. (H is the wire, B the frisk.)
  if(e.code==='KeyK'&&!training){if(combat.hand&&!detection.held&&detection.back.length){combat.hand='';}const r=detection.holster();toast(r==='on'?`刀を背中に背負った（${detection.back.length}/2）。見えているので違法。`:r==='off'?'背中の刀を抜いた。':detection.held&&!detection.canHolster()?(detection.back.length>=2?'背中はもういっぱい（2本まで）。':'背中に背負えるのは刀だけ。'):'背中に何もない。');return;}
- // I with the briefcase in hand: the gun (the long one first) goes into it out of sight, or comes back out.
- if(e.code==='KeyI'&&!training){if(detection.held!=='briefcase'){toast('ブリーフケースを持っている時に使えます。');return;}
+ // I with a case (briefcase, toolbox) in hand: the gun (the long one first) goes into it out of sight, or comes back out.
+ if(e.code==='KeyI'&&!training){if(!isCase(detection.held)){toast('ブリーフケースか工具箱を持っている時に使えます。');return;}
   if(detection.caseGun){const g=detection.caseGun,cls=weaponDefs[g.id].class;if(combat.guns.some(x=>weaponDefs[x.id].class===cls)){toast('同じ種類の銃を持っているので出せない。');return;}combat.guns.push(g);detection.caseGun=null;detection.caseOpenedAt=performance.now();m4.revision++;toast(`ケースから${weaponDefs[g.id].label}を出した。`);return;}
   const g=combat.guns.find(x=>weaponDefs[x.id].class==='long')??combat.guns.find(x=>x.id===combat.hand)??combat.guns[0];if(!g){toast('しまう銃がない。');return;}
   combat.guns.splice(combat.guns.indexOf(g),1);if(combat.hand===g.id)combat.hand='';detection.caseGun=g;detection.caseOpenedAt=performance.now();m4.revision++;toast(`${weaponDefs[g.id].label}をケースにしまった。見えないが、検査では見つかる。`);return;}
@@ -573,11 +573,11 @@ function throwLanding(){let yaw=viewMode==='overhead'?heading:camYaw;if(viewMode
 const thrownInFlight:{obj:T.Object3D;from:T.Vector3;to:T.Vector3;t:number;land:()=>void}[]=[];
 function throwHeld(){const item=detection.held,m=meleeOf(item);if(!m?.throwable||combat.hand)return false;if(m3.locked||m3.dragged){toast('運搬・アクション中は投げられません。');return true;}
  const h=aimHit(),n=h.npc&&h.npc.active&&!h.npc.busy&&Math.hypot(h.npc.pos.x-position.x,h.npc.pos.z-position.z)<=THROW_RANGE&&Math.abs(h.npc.pos.y-position.y)<1?h.npc:null;
- const at=n?{x:n.pos.x,y:n.pos.y,z:n.pos.z}:throwLanding();detection.held='';const obj=itemMesh(item);scene.add(obj);
+ const at=n?{x:n.pos.x,y:n.pos.y,z:n.pos.z}:throwLanding();const {contents}=detection.releaseHeld();const obj=itemMesh(item);scene.add(obj);
  thrownInFlight.push({obj,from:new T.Vector3(position.x,position.y+1.4,position.z),to:new T.Vector3(at.x,at.y+(n?1.5:.05),at.z),t:0,land:()=>{
   if(n&&n.active){m3.thrownHit(n,playerView(),m.kind==='blunt'?'ko':'kill','thrown_'+item);toast(m.kind==='blunt'?`${m.label}が${n.label}に当たった。気絶した。`:`${m.label}が${n.label}に刺さった。`);for(const s of m3.notices)toast(s);}
   else{const near=director.noise({x:at.x,y:at.y,z:at.z},playerView());toast(near?`${m.label}の落ちる音。${near.label}が確かめに行く。`:`${m.label}が落ちた。`);}
-  detection.place(item,n?{x:n.pos.x+.4,y:n.pos.y,z:n.pos.z}:at);}});
+  detection.place(item,n?{x:n.pos.x+.4,y:n.pos.y,z:n.pos.z}:at,contents);}});
  trace.instant(clock.elapsed,playerView(),'throw',item);return true;}
 function landCoin(at:T.Vector3){director.lastThrowSeen=false;const n=director.noise({x:at.x,y:at.y,z:at.z},playerView());toast(n&&director.lastThrowSeen?`${n.label}に投げるところを見られた。`:n&&n.holdsPost&&!n.goal?`コインの音。${n.label}は持ち場から振り向いただけ。`:n?`コインの音。${n.label}が確かめに行く。`:'コインの音。誰にも聞こえなかった。');const ring=new T.Mesh(new T.RingGeometry(.2,.28,32),new T.MeshBasicMaterial({color:'#f2c14e',transparent:true,opacity:.9,depthWrite:false}));ring.rotation.x=-Math.PI/2;ring.position.set(at.x,at.y+.03,at.z);ring.userData.age=0;scene.add(ring);ripples.push(ring);}
 // Initialize before LOD or a paused frame can skip the first pose. Simulation time is unchanged.
@@ -679,7 +679,7 @@ function detectionPrompt():{text:string;progress:number}|null{const p=playerView
  if(d.blend)return {text:`溶け込み中：${d.blend.label} — E か移動でやめる`,progress:0};const f=d.nearestItem(position);if(f){const l=d.legality(f.item,p.disguise),it=d.data.items[f.item];return {text:`E 拾う：${it?.label??f.item}（${l.legality==='suspicious'?(l.ok?'この服なら持っていてよい':'この服では疑われる'):l.legality==='illegal'?'違法':'普通'}）`,progress:0};}
  const dv=devices.prompt(position);if(dv)return {text:dv,progress:0};
  if(d.canHolster())return {text:`K 刀を背中に背負う（${d.back.length}/2）`,progress:0};if(!d.held&&d.back.length&&!combat.hand)return {text:'K 背中の刀を抜く',progress:0};
- if(d.held==='briefcase'&&(d.caseGun||combat.guns.length))return {text:d.caseGun?`I ケースから${weaponDefs[d.caseGun.id].label}を出す`:'I 銃をケースにしまう',progress:0};
+ if(isCase(d.held)&&(d.caseGun||combat.guns.length))return {text:d.caseGun?`I ケースから${weaponDefs[d.caseGun.id].label}を出す`:'I 銃をケースにしまう',progress:0};
  const b=d.blendSpot(p);if(b)return {text:`E ${b.label}（溶け込む）`,progress:0};const o=d.otherBlend(p);if(o)return {text:`${o.label}：${o.disguises.map(x=>rules.disguises[x]?.label??x).join('・')}の服で溶け込める`,progress:0};
  if(d.nearRecorder(position)){const here=zoneAt(mission.zones,position.x,position.z,currentFloor);return {text:permission(rules,p.disguise,here)==='allow'?'E 長押し 録画の記録を消す（静か）':'E 長押し 録画機を壊す（音が出る）',progress:0};}return null;}
 function gunReticle(){const el=$('#gun-reticle'),on=!!combat.hand&&!missionOver&&!paused&&!training;el.classList.toggle('on',on);if(!on)return;const h=aimHit();

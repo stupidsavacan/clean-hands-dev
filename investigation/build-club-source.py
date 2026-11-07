@@ -153,7 +153,7 @@ for name in ['rules','detection','mission','actions']:
   a['worldItems']=[dict(id='hammer-equipment',item='hammer',x=34.6,z=31.0,floor=0),dict(id='crowbar-loading',item='crowbar',x=5.2,z=38.4,floor=0),
    dict(id='knife-kitchen',item='kitchen_knife',x=6.0,z=31.2,floor=0),dict(id='pan-kitchen',item='frying_pan',x=11.2,z=34.3,floor=0),
    dict(id='brick-smoking',item='brick',x=4.5,z=10.5,floor=0),
-   dict(id='briefcase-office',item='briefcase',x=17.2,z=33.2,floor=0),dict(id='katana-vip',item='katana',x=10.0,z=22.0,floor=1)]
+   dict(id='briefcase-office',item='briefcase',x=17.2,z=33.2,floor=0),dict(id='toolbox-loading',item='toolbox',x=6.6,z=38.6,floor=0),dict(id='katana-vip',item='katana',x=10.0,z=22.0,floor=1)]
   # 2026-11-05: the hand-held items with GLBs (assets/items); placed above (2026-11-06).
   a['items'].update(hammer=dict(label='ハンマー',legality='suspicious',concealable=False,allowedFor=['technician','cleaner']),
    crowbar=dict(label='バール',legality='suspicious',concealable=False,allowedFor=['technician']),
@@ -161,7 +161,9 @@ for name in ['rules','detection','mission','actions']:
    frying_pan=dict(label='フライパン',legality='suspicious',concealable=False,allowedFor=['chef']),
    brick=dict(label='レンガ',legality='normal',concealable=False),
    # 2026-11-06 (M09/M10, M14/M15): a sword is illegal for everyone; a briefcase is an ordinary thing to carry.
-   katana=dict(label='刀',legality='illegal',concealable=False),briefcase=dict(label='ブリーフケース',legality='normal',concealable=False))
+   katana=dict(label='刀',legality='illegal',concealable=False),briefcase=dict(label='ブリーフケース',legality='normal',concealable=False),
+   # 2026-11-07 (HD12): the toolbox case, ordinary to carry like the briefcase.
+   toolbox=dict(label='工具箱',legality='normal',concealable=False))
  if name=='mission':a.update(title='クラブを歩く',targets=[],briefing=[],tools=[dict(id='coin',label='コイン',note='3枚'),dict(id='poison_lethal',label='毒',note='検査を通る')],fixedTools=[dict(id='wire',label='ワイヤー',note='検査を通る')],pistols=[dict(id='',label='持ち込まない'),dict(id='pistol_silenced',label='消音ピストル',note='入口の検査で止められる'),dict(id='tranq_pistol',label='鎮静ダーツ銃',note='当てると数秒で眠る（殺さない）。1発ずつ、予備4発。入口の検査で止められる')],starts=[dict(id='S1',label='表通り',open=True,note='建物と光を確かめる')],
    # 2026-11-06 (ROADMAP H46): where the pistol can be left in advance instead of carried through the frisk.
    pickups=[dict(id='P1',label='喫煙所の植え込み',note='客も出入りする所。入口の検査の内側',x=3.0,z=8.0,floor=0),

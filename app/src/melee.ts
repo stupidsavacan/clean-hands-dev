@@ -18,12 +18,17 @@ export const MELEE:Record<string,MeleeDef>={
  // (overhead, swing) and stabs from behind (its own blade motion); it can be thrown. A briefcase is swung or thrown.
  katana:{kind:'blade',label:'刀',seconds:1.0,throwable:true,swing:'blunt'},
  briefcase:{kind:'blunt',label:'ブリーフケース',seconds:.7,throwable:true},
+ // HD12 (2026-11-07; 194-item table row 22): the toolbox case, a second case like the briefcase.
+ toolbox:{kind:'blunt',label:'工具箱',seconds:.7,throwable:true},
 };
 // Things carried on the back when not in hand (full spec rows 13/14/32/64/120): only the sword, up to two at once.
 // Not opened to other items.
 export const BACK_ITEMS=['katana'],BACK_MAX=2;
 // Too big for a pocket (HITMAN: nearly anything goes in the pockets except the large things): carried in hand or on the back.
-export const LARGE_ITEMS=['briefcase','katana','mop','tray'];
+export const LARGE_ITEMS=['briefcase','toolbox','katana','mop','tray'];
+// Cases (194-item table rows 21/22): each holds one gun out of sight (a frisk still finds it); the lid opens to put it in.
+export const CASE_ITEMS=['briefcase','toolbox'];
+export const isCase=(item:string)=>CASE_ITEMS.includes(item);
 export const meleeOf=(item:string|undefined):MeleeDef|undefined=>item?MELEE[item]:undefined;
 // How far a swing reaches and how far a thing can be thrown at someone.
 export const MELEE_REACH=1.4,THROW_RANGE=12;

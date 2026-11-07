@@ -50,7 +50,7 @@ const COMBAT:[CombatKind,string][]=[['draw','銃を出す'],['holster','しま�
 const CLIPS:Clip[]=[
  ...LOCO.map(([id,label,speed,crouch])=>({id:'loco-'+id,group:'移動',label,seconds:2,loop:true,loco:{speed,crouch}})),
  // 2026-11-05: carrying a tool (HITMAN WoA carry research): the same walk, the right arm holds it.
- ...[['wrench','スパナ'],['bottle','ボトル'],['mop','モップ'],['briefcase','ブリーフケース'],['katana','刀']].flatMap(([item,name])=>LOCO.map(([id,label,speed,crouch])=>({id:`item-${item}-${id}`,group:'持ち物',label:`${name}・${label}`,seconds:2,loop:true,loco:{speed,crouch},item}))),
+ ...[['wrench','スパナ'],['bottle','ボトル'],['mop','モップ'],['briefcase','ブリーフケース'],['toolbox','工具箱'],['katana','刀']].flatMap(([item,name])=>LOCO.map(([id,label,speed,crouch])=>({id:`item-${item}-${id}`,group:'持ち物',label:`${name}・${label}`,seconds:2,loop:true,loco:{speed,crouch},item}))),
  ...Object.entries(MELEE).map(([item,m])=>({id:'strike-'+item,group:'道具攻撃',label:`${m.label}で${m.kind==='blunt'?'殴る':m.swing?'斬る':'刺す'}`,seconds:m.seconds,loop:true,loco:{speed:0,crouch:0},item,strike:m.swing??m.kind})),
  // 2026-11-06: the fight with a guard (M02) and the single punch (M01), the agent and the first NPC facing each other.
  // M15: the sword from behind stabs instead of cutting (full spec row 14).

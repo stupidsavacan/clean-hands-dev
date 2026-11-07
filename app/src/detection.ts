@@ -4,7 +4,7 @@ import type {HotelAlert} from './m3.ts';
 import {segmentClear} from './sight.ts';
 import {defaultCarry,evaluateItemLegality,itemMaster,type ItemMaster} from './items.ts';
 import {floorOf,plateY,type Level,type Position} from './world.ts';
-import {BACK_ITEMS,BACK_MAX,LARGE_ITEMS} from './melee.ts';
+import {BACK_ITEMS,BACK_MAX,LARGE_ITEMS,isCase} from './melee.ts';
 /** M5.6 ways of being found, besides the face-knowers (M4, kept in ai.ts):
  * - witnesses: a bystander who saw a crime or a murdered body runs to the nearest guard; only on arrival does the
  *   hotel alert rise and the guard set off. Knocking them out on the way stops it. (Guards radio in at once.)
@@ -23,9 +23,11 @@ export type Act={illegal:boolean;trespass:boolean;carrying:boolean};
 const flat=(a:{x:number;z:number},b:{x:number;z:number})=>Math.hypot(a.x-b.x,a.z-b.z);
 const wrap=(a:number)=>Math.atan2(Math.sin(a),Math.cos(a));
 
+export type CaseGun={id:string;mag:number;reserve:number};
 export class DetectionSystem{
- // ROADMAP M09/N22 (2026-11-06): what the briefcase holds (one gun, out of sight; a frisk still finds it).
- caseGun:{id:string;mag:number;reserve:number}|null=null;
+ // ROADMAP M09/N22 (2026-11-06): what the case in hand holds (one gun, out of sight; a frisk still finds it).
+ // 2026-11-07: a case put down, thrown or swapped keeps its own gun (CaseGun on the floor entry), so two cases never share one.
+ caseGun:CaseGun|null=null;
  // When the case was last opened to put something in or take it out (performance.now ms; the view swings the lid).
  caseOpenedAt=-Infinity;
  // Swords on the agent's back (full spec rows 32/64/120): up to BACK_MAX, never the same one in hand and on the back.
@@ -40,7 +42,7 @@ export class DetectionSystem{
  /** Out of the pocket (or off the back) into the hand; what was in hand is put away first, or put down at p if it cannot be. */
  take(item:string,from:'pocket'|'back',p:Position){const list=from==='pocket'?this.pocket:this.back,i=list.lastIndexOf(item);if(i<0)return false;if(!this.stow())this.putDown(p);list.splice(i,1);this.held=item;return true;}
  held='';blend:BlendSpot|null=null;recorded=false;recordReason='';readonly destroyed=new Set<string>();
- readonly floor:{key:number;item:string;pos:Position}[]=[];action:{kind:'erase'|'break';elapsed:number;duration:number}|null=null;
+ readonly floor:{key:number;item:string;pos:Position;contents?:CaseGun|null}[]=[];action:{kind:'erase'|'break';elapsed:number;duration:number}|null=null;
  private tick=0;private nextKey=1;private lastReport=new Map<string,number>();private running=new Set<string>();
  readonly director:Director;readonly events:MissionEvents;readonly hotel:HotelAlert;readonly cameras:Camera[];readonly data:DetectionData;readonly level:Level;
  constructor(director:Director,events:MissionEvents,hotel:HotelAlert,cameras:Camera[],data:DetectionData,level:Level){
@@ -59,15 +61,17 @@ export class DetectionSystem{
  /** Picks up a thing; whatever was in hand is put down in its place. */
  pickup(p:Position){const f=this.nearestItem(p);if(!f)return null;this.floor.splice(this.floor.indexOf(f),1);
   // A sword in hand goes onto the back if there is room; anything else is left where the new thing lay.
-  if(this.held&&!(this.pockets?this.stow():this.canHolster()&&this.holster())){this.floor.push({key:this.nextKey++,item:this.held,pos:{...f.pos}});this.held='';}this.held=f.item;return this.data.items[f.item]?.label??f.item;}
+  if(this.held&&!(this.pockets?this.stow():this.canHolster()&&this.holster())){const {item,contents}=this.releaseHeld();this.floor.push({key:this.nextKey++,item,pos:{...f.pos},contents});}this.held=f.item;if(isCase(f.item))this.caseGun=f.contents??null;return this.data.items[f.item]?.label??f.item;}
  canHolster(){return BACK_ITEMS.includes(this.held)&&this.back.length<BACK_MAX;}
  /** The sword in hand onto the back, or (empty-handed) the last one off the back into the hand. */
  holster():'on'|'off'|null{if(this.canHolster()){this.back.push(this.held);this.held='';return 'on';}if(!this.held&&this.back.length){this.held=this.back.pop()!;return 'off';}return null;}
  /** An illegal thing in view that this outfit may not have: in hand (a knife, a sword) or on the back. */
  illegalShown(disguise:string){return [this.held,...this.back].some(i=>!!i&&this.legality(i,disguise).legality==='illegal'&&!this.legality(i,disguise).ok);}
  /** A thing left somewhere other than at the agent's feet (thrown, 2026-11-06). */
- place(item:string,pos:Position){this.floor.push({key:this.nextKey++,item,pos:{...pos}});}
- putDown(p:Position){if(!this.held)return null;const item=this.held;this.floor.push({key:this.nextKey++,item,pos:{x:p.x,y:p.y,z:p.z}});this.held='';return this.data.items[item]?.label??item;}
+ place(item:string,pos:Position,contents:CaseGun|null=null){this.floor.push({key:this.nextKey++,item,pos:{...pos},contents});}
+ /** The thing in hand leaves it (put down, thrown, swapped): a case takes what it holds along. */
+ releaseHeld(){const item=this.held,contents=isCase(item)?this.caseGun:null;if(isCase(item))this.caseGun=null;this.held='';return {item,contents};}
+ putDown(p:Position){if(!this.held)return null;const {item,contents}=this.releaseHeld();this.floor.push({key:this.nextKey++,item,pos:{x:p.x,y:p.y,z:p.z},contents});return this.data.items[item]?.label??item;}
  // ---- blending ----
  blendSpot(p:PlayerView){return this.data.blend.find(b=>b.disguises.includes(p.disguise)&&floorOf(p.y)===b.floor&&flat(b,p)<this.data.useRadius);}
  /** Spots near the agent for some other outfit (to tell the player why E does nothing there). */
