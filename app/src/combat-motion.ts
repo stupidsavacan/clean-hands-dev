@@ -62,18 +62,15 @@ const HOLD={
 // ---------- upper bodies (layered over the legs) ----------
 // Arms are only roughly placed (elbows down and out); IK brings the hands onto the weapon.
 const PISTOL_AIM:Bones={chest:[.02,-.08,0],neck:[.06,.05,0],head:[.10,.04,0],clavicler:[0,.12,0],claviclel:[0,-.08,0],upperarmr:[-1.30,0,.55],upperarml:[-1.25,0,-.30],forearmr:[0,.25,0],forearml:[0,-.85,0]};
-const AGENT_PISTOL_AIM:Bones={chest:[.02,-.08,0],neck:[.06,.05,0],head:[.10,.04,0],clavicler:[0,.12,0],upperarmr:[-1.48,0,.20],forearmr:[0,.20,0]};
+// Turn the shooting shoulder back and seed a low elbow before IK brings the wrist to the shared pistol grip.
+const AGENT_PISTOL_AIM:Bones={chest:[.02,-.58,0],neck:[.06,.31,0],head:[.10,.30,0],clavicler:[0,-.16,0],upperarmr:[-1.24,0,.62],forearmr:[0,.38,0]};
 const LONG_AIM:Bones={chest:[.04,-.48,0],neck:[.10,.25,0],head:[.12,.22,.06],clavicler:[0,.15,-.10],claviclel:[0,-.15,0],upperarmr:[-.30,0,.55],upperarml:[-.95,0,-1.05],forearmr:[0,1.75,0],forearml:[0,-.95,0]};
 const SUPPORT_GRIP:NonNullable<Key['l']>=['GRIP_L',1];
 type AimStance={bones:Bones;hold:Hold;recoil:Hold;reload:Hold;l?:Key['l']};
+const PISTOL_STANCE:AimStance={bones:PISTOL_AIM,hold:HOLD.pistol.aim,recoil:HOLD.pistol.recoil,reload:HOLD.pistol.reload,l:SUPPORT_GRIP};
 const AIM_STANCE:Record<WeaponClass|'agentPistol',AimStance>={
- pistol:{bones:PISTOL_AIM,hold:HOLD.pistol.aim,recoil:HOLD.pistol.recoil,reload:HOLD.pistol.reload,l:SUPPORT_GRIP},
- agentPistol:{
-  bones:AGENT_PISTOL_AIM,
-  hold:{...HOLD.pistol.aim,pos:[-.18,1.38,.56]},
-  recoil:{...HOLD.pistol.recoil,pos:[-.18,1.40,.51]},
-  reload:HOLD.pistol.reload,
- },
+ pistol:PISTOL_STANCE,
+ agentPistol:{...PISTOL_STANCE,bones:AGENT_PISTOL_AIM,l:undefined},
  long:{bones:LONG_AIM,hold:HOLD.long.aim,recoil:HOLD.long.recoil,reload:HOLD.long.reload,l:SUPPORT_GRIP},
 };
 const HANG:Bones={};
@@ -134,7 +131,7 @@ const KNEEL:Bones={pelvis:[-.05,0,0],thighl:[-1.45,0,-.10],shinl:[1.55,0,0],foot
 const KNEEL_ROOT={y:-.43,z:-.02};
 function cover(cls:WeaponClass,t:number,stance:AimStance):CombatFrame{
  const w=Math.sin(t*Math.PI*2),root={...KNEEL_ROOT,y:KNEEL_ROOT.y+.006*w};
- if(cls==='pistol'){const hold:Hold={anchor:'GRIP_R',pos:[stance.l?-.05:-.18,.80,.28],rot:[-.95,.15,0]};
+ if(cls==='pistol'){const hold:Hold={anchor:'GRIP_R',pos:[-.05,.80,.28],rot:[-.95,.15,0]};
   const left:Bones=stance.l?{upperarml:[-.70,0,-.90],forearml:[0,-1.5,0]}:{};
   return sample([{t:0,root,bones:{...KNEEL,chest:[.05+.01*w,-.05,0],upperarmr:[-.70,0,.90],forearmr:[0,1.6,0],...left},hold,r:['GRIP_R',1],l:stance.l}],0,false);}
  const hold:Hold={anchor:'STOCK',pos:[-.12,.82,.08],rot:[-.95,.35,0]};

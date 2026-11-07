@@ -40,7 +40,10 @@ test('HD15 (S08 rows 26 and 97): only the agent aims and fires a pistol one-hand
   }
   assert.deepEqual([...goals].sort(),oneHanded?['MAG','POUCH','SLIDE']:['GRIP_L','MAG','POUCH','SLIDE']);
  }
- assert.ok(sampleCombat('aim','pistol',0,true).weapon!.pos[2]>sampleCombat('aim','pistol',0).weapon!.pos[2]);
+ for(const kind of KINDS)for(let i=0;i<=20;i++){
+  const t=i/20;
+  assert.deepEqual(sampleCombat(kind,'pistol',t,true).weapon,sampleCombat(kind,'pistol',t).weapon,`${kind} at ${t}`);
+ }
 });
 
 test('M5.5 the agent pistol is concealed in the holster; long guns and the guard pistol stay visible; bystanders are unarmed',()=>{
