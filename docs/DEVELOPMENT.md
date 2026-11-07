@@ -61,6 +61,8 @@
 
 ## 動き（モーション）を直す
 
+- ほかの AI に頼む時は [MOTION-REQUEST.md](MOTION-REQUEST.md) のひな形を埋めて渡します。
+
 - 確かめる場所は [アニメーションラボ](../animation-lab.html) です。ゲームと同じ姿勢の関数を使っています。
 - 格闘：`app/src/brawl-motion.ts`。刀：`app/src/katana-motion.ts` と `app/src/katana-pose.ts`。持った時の腕：`app/src/hold-pose.ts`。
 - 足を地面に置く、手を相手に向ける処理は `app/src/motion-runtime.ts` です。
@@ -88,6 +90,8 @@
 - 仕上げで直すと分かっている所は、UI ラボの「残っている課題」に書いてあります。
 
 ## 確かめ方（ブラウザ）
+
+- 遊びながらの記録：`playtest/start.bat`（または `playtest` で `python server.py`）で http://127.0.0.1:8795/ が開きます。F8 でメモ（画面とその時の状態を JSON で `playtest/runs/` に保存）、F9 でデバッグ画面。ホテル・夜会・クラブの今のページで動きます。説明は `playtest/README.md`。
 
 - 確認用のサーバーは止めません（8796：このフォルダ、8797：画像の保存、8798：描画を止めない写し）。
 - ブラウザの画面が隠れていると描画が止まります。8798 の写し（`requestAnimationFrame` を時間で回す版）で確かめます。
