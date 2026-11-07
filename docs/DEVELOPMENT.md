@@ -92,6 +92,10 @@
 - ブラウザの画面が隠れていると描画が止まります。8798 の写し（`requestAnimationFrame` を時間で回す版）で確かめます。
 - 画面の画像は、Chrome のヘッドレスで撮れます（`--headless=new --screenshot=... --window-size=1280,720`）。1回ごとに別の `--user-data-dir` を使います。
 
-## 控え
+## 履歴（git）
 
-- このフォルダは git の管理外です。大きく変える前に、`backup-before-<内容>-<日付>/` に元のファイルを写します。
+- 2026-11-07 から、このフォルダ（`outputs/m5-prototype`）を git で管理しています。送り先は非公開の GitHub [stupidsavacan/clean-hands-dev](https://github.com/stupidsavacan/clean-hands-dev) です。
+- `stupidsavacan/clean-hands` は 11/3 に作った配布用（遊べるファイルだけ）です。ここには送りません。
+- 区切りのよい所でコミットして送ります。戻したい時は `git log` で場所を探し、`git diff` で何が変わったかを確かめてから戻します。
+- 作り直せるページ（`index.html`、`club-prototype.html`、`party-prototype.html`、`clean-hands-mobile.html`、4つのラボ）は入れていません。取り出した後は `app/` で `npm run build:all` を実行します。
+- `backup-before-…/` のフォルダは、git を使う前の控えです。新しい控えは作らず、git の履歴を使います。

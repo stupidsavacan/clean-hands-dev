@@ -13,7 +13,8 @@
 - 画面（UI）は UI ラボで仕上げてからゲームに入れる。ゲームの画面は、利用者がよいと言うまで変えない。
 - モバイルは iPad 第9世代の横持ち（1080×810）が対象。
 - 確認用のサーバー（8796 / 8797 / 8798）は止めない。
-- コミットしない（git の管理外）。大きく変える前は `backup-before-…/` に控えを取る。
+- 履歴は git で取る（2026-11-07 から）。区切りのよい所でコミットし、非公開の GitHub `stupidsavacan/clean-hands-dev` に送る。`stupidsavacan/clean-hands` は 11/3 の配布用なので触らない。
+- 作り直せるページ（index.html、club-prototype.html など8枚）は git に入れない。取り出した後は `npm run build:all` で作る。
 - 歩くゴーストの長い試験は最小限にする（`npm run test:fast` はそれを除く）。
 
 ## 仕上げの確かめ
