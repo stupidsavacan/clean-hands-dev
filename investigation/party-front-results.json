@@ -1,0 +1,42 @@
+[
+  {
+    "scene": "front",
+    "frontPassed": true,
+    "route": 1,
+    "disguise": "suit",
+    "clothingChanges": 0,
+    "distance": 5.94,
+    "caught": false,
+    "error": "",
+    "killed": false,
+    "escaped": false,
+    "ghost": false,
+    "ghostBrokenBy": [],
+    "spotted": [],
+    "host": {
+      "position": {
+        "x": -6.3519292204713,
+        "y": 0,
+        "z": 3.835136654767049
+      },
+      "state": "patrol"
+    },
+    "flags": [],
+    "legs": [
+      {
+        "at": {
+          "x": -12,
+          "y": 0,
+          "z": -17.1
+        }
+      },
+      {
+        "at": {
+          "x": -12,
+          "y": 0,
+          "z": -14
+        }
+      }
+    ]
+  }
+]

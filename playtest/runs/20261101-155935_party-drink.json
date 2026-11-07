@@ -1,0 +1,281 @@
+{
+ "meta": {
+  "id": "20261101-155935_party-drink",
+  "map": "party",
+  "scenario": "drink",
+  "scenarioTitle": "夜会 主寝室の飲み物",
+  "startTime": 0,
+  "lead": 420,
+  "startedAt": "2026-11-01T06:59:35.795Z",
+  "game": "CLEAN HANDS 夜会の私邸 試作",
+  "page": "http://127.0.0.1:8795/party",
+  "viewport": [
+   1440,
+   765
+  ],
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+  "loadout": {
+   "tools": [
+    "poison_lethal",
+    "coin"
+   ],
+   "pistol": "pistol_silenced",
+   "start": "S1"
+  },
+  "keyTime": {
+   "time": 0,
+   "why": "チャンスの時間 0:00〜30:00"
+  },
+  "appliedAt": {
+   "elapsed": 0,
+   "time": 0,
+   "cycle": 0,
+   "rate": 1,
+   "loop": 1800
+  }
+ },
+ "events": [
+  {
+   "play": 0,
+   "t": 0,
+   "clock": 0,
+   "type": "chance.updated",
+   "time": 0,
+   "id": "drink",
+   "value": 0,
+   "reason": "active",
+   "at": {
+    "x": -12,
+    "y": 0,
+    "z": -20
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 0,
+   "t": 0,
+   "clock": 0,
+   "type": "chance.updated",
+   "time": 0,
+   "id": "drink",
+   "value": 1,
+   "reason": "active",
+   "at": {
+    "x": -12,
+    "y": 0,
+    "z": -20
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 0,
+   "t": 0,
+   "clock": 0,
+   "type": "dialogue.heard",
+   "time": 0,
+   "id": "drink",
+   "at": {
+    "x": -12,
+    "y": 0,
+    "z": -20
+   },
+   "disguise": "suit"
+  }
+ ],
+ "samples": [
+  {
+   "play": 0,
+   "t": 0,
+   "clock": 0,
+   "pos": {
+    "x": -12,
+    "y": 0,
+    "z": -20
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": true,
+   "map": false,
+   "fps": 28,
+   "targets": {
+    "host": {
+     "x": -16,
+     "y": 0,
+     "z": -2,
+     "do": "",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "guard_front",
+     5.5,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  }
+ ],
+ "end": {
+  "why": "page closed",
+  "outcome": "page closed",
+  "phase": "targets",
+  "remaining": [
+   "host"
+  ],
+  "result": null,
+  "provisionalScore": {
+   "success": true,
+   "seconds": 0,
+   "lines": [
+    {
+     "key": "spotted",
+     "label": "見つかった",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "ko_found",
+     "label": "気絶した人の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "body_found",
+     "label": "死体の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "loud_shot_once",
+     "label": "銃声",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "combat",
+     "label": "撃ち合い",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "guard_kill",
+     "label": "警備員の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "civilian_kill",
+     "label": "ターゲット以外の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "recording_left",
+     "label": "監視カメラの記録",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "accident_kill",
+     "label": "事故に見せかけた排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "chance_complete",
+     "label": "チャンスの達成",
+     "count": 0,
+     "points": 0
+    }
+   ],
+   "timeBonus": 1000,
+   "total": 11000,
+   "rank": "A",
+   "ghost": true,
+   "ghostBrokenBy": []
+  },
+  "counts": {},
+  "kills": [],
+  "chances": [
+   {
+    "id": "chandelier",
+    "stage": 0,
+    "status": "undiscovered",
+    "title": "？？？",
+    "step": "",
+    "window": [
+     0,
+     1800
+    ],
+    "waitSeconds": 0,
+    "tracked": false
+   },
+   {
+    "id": "papers",
+    "stage": 0,
+    "status": "undiscovered",
+    "title": "？？？",
+    "step": "",
+    "window": [
+     0,
+     1800
+    ],
+    "waitSeconds": 0,
+    "tracked": false
+   },
+   {
+    "id": "drink",
+    "stage": 1,
+    "status": "active",
+    "title": "主寝室の飲み物",
+    "step": "E長押しで仕込む",
+    "window": [
+     0,
+     1800
+    ],
+    "waitSeconds": 0,
+    "tracked": true
+   }
+  ],
+  "detection": {
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "recordReason": "",
+   "destroyed": [],
+   "action": null,
+   "witnesses": [],
+   "floor": [],
+   "watching": []
+  },
+  "combat": {
+   "hp": 100,
+   "fights": [],
+   "waves": 0
+  },
+  "clock": {
+   "elapsed": 0,
+   "time": 0,
+   "cycle": 0,
+   "rate": 1,
+   "loop": 1800
+  },
+  "endedAt": "2026-11-01T06:59:38.387Z"
+ }
+}

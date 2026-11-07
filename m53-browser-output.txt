@@ -1,0 +1,12 @@
+A1 actual knockout and stolen sommelier uniform advances step 1 true
+A1 uniform acquisition has no witnesses or compromised outfit true
+A1 scripted greeting grants key and advances step 2 true
+A1 poisoned glass completes with an accident judgement true
+A2 barrel preparation consumes one dose and reaches step 2 true
+A2 actual scheduled tasting automatically kills only A and completes the chance true
+accident discovery creates a cordon without raising hotel alert true
+A1 actual knockout and stolen sommelier uniform advances step 1 true
+A1 uniform acquisition has no witnesses or compromised outfit true
+A1 scripted greeting grants key and advances step 2 true
+A1 private invitation and real wire attack complete the direct branch true
+generic push physically drops the staged ledge victim to ground true

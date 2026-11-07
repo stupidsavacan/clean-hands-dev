@@ -1,0 +1,14 @@
+clock advances in live frames true
+pause freezes mission time true
+map lists all three target schedules true
+map freezes mission time true
+four-times speed in live frames true
+A physically reaches the terrace and performs photo true
+A boards the yacht deck through the gangway true
+B speaks in the banquet hall true
+C phone subtitles complete and are recorded as heard true
+C receives massage beside the scheduled therapist true
+individual suspicion suspends schedule true
+calm resumes current time slot true
+hotel alert 2 stops subtitles true
+second loop restarts plans and clock true

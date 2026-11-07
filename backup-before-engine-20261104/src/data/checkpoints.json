@@ -1,0 +1,32 @@
+[
+ {
+  "id": "check-lobby",
+  "label": "大階段の身体検査",
+  "x": 8,
+  "y": 0,
+  "z": -3.8,
+  "normal": {
+   "x": 0,
+   "z": 1
+  },
+  "width": 4,
+  "zone": "public",
+  "guardId": "guard_check_lobby",
+  "exempt": ["guard"]
+ },
+ {
+  "id": "check-marina",
+  "label": "マリーナ入口の身体検査",
+  "x": -12.6,
+  "y": 0,
+  "z": 28,
+  "normal": {
+   "x": -1,
+   "z": 0
+  },
+  "width": 2,
+  "zone": "outer",
+  "guardId": "guard_check_marina",
+  "exempt": ["guard"]
+ }
+]

@@ -1,0 +1,140 @@
+{
+  "version": "2.0.0-dev.3.10",
+  "models": {
+    "ammo_pickup": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "messages": [
+        "2 NODE_EMPTY /nodes/1"
+      ]
+    },
+    "car_sedan_blue": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 4,
+      "messages": [
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/2",
+        "2 NODE_EMPTY /nodes/3",
+        "2 NODE_EMPTY /nodes/4"
+      ]
+    },
+    "car_sedan_grey": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 4,
+      "messages": [
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/2",
+        "2 NODE_EMPTY /nodes/3",
+        "2 NODE_EMPTY /nodes/4"
+      ]
+    },
+    "car_sedan_white": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 4,
+      "messages": [
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/2",
+        "2 NODE_EMPTY /nodes/3",
+        "2 NODE_EMPTY /nodes/4"
+      ]
+    },
+    "counter_bar_2m": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 4,
+      "messages": [
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/2",
+        "2 NODE_EMPTY /nodes/3",
+        "2 NODE_EMPTY /nodes/4"
+      ]
+    },
+    "crate": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 4,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/2",
+        "2 NODE_EMPTY /nodes/3"
+      ]
+    },
+    "muzzle_flash": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0"
+      ]
+    },
+    "pistol_guard": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 3,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/2"
+      ]
+    },
+    "pistol_silenced": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 3,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/2"
+      ]
+    },
+    "planter_1x1": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 4,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/2",
+        "2 NODE_EMPTY /nodes/3"
+      ]
+    },
+    "planter_3x1": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 4,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/2",
+        "2 NODE_EMPTY /nodes/3"
+      ]
+    },
+    "rifle_npc": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 4,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/2",
+        "2 NODE_EMPTY /nodes/4"
+      ]
+    },
+    "smg": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 4,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/2",
+        "2 NODE_EMPTY /nodes/4"
+      ]
+    }
+  }
+}

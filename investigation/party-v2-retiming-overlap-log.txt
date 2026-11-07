@@ -1,0 +1,1 @@
+{"samples":5580,"conflicts":[],"count":0,"scope":"3D capsule travel + landings; walls/furniture/hides/planned NPC feet/items across floors"}

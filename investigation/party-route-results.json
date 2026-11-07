@@ -1,0 +1,1069 @@
+[
+  {
+    "scene": "chandelier",
+    "frontPassed": false,
+    "route": 1,
+    "disguise": "bodyguard",
+    "clothingChanges": 2,
+    "distance": 245.45,
+    "caught": false,
+    "error": "",
+    "killed": true,
+    "escaped": true,
+    "ghost": true,
+    "ghostBrokenBy": [],
+    "spotted": [],
+    "host": {
+      "position": {
+        "x": -6.367140719871121,
+        "y": 0,
+        "z": 3.8861897536051666
+      },
+      "state": "patrol"
+    },
+    "flags": [
+      "chandelier",
+      "release"
+    ],
+    "legs": [
+      {
+        "at": {
+          "x": 22,
+          "y": 0,
+          "z": -19
+        }
+      },
+      {
+        "at": {
+          "x": 22,
+          "y": 0,
+          "z": -14
+        }
+      },
+      {
+        "at": {
+          "x": 8,
+          "y": 0,
+          "z": 8
+        }
+      },
+      {
+        "at": {
+          "x": -12,
+          "y": 0,
+          "z": -8
+        }
+      },
+      {
+        "at": {
+          "x": -12,
+          "y": 0,
+          "z": 2
+        }
+      },
+      {
+        "at": {
+          "x": -20,
+          "y": 3.5,
+          "z": 8
+        }
+      },
+      {
+        "at": {
+          "x": 22,
+          "y": 0,
+          "z": -19
+        }
+      },
+      {
+        "at": {
+          "x": -12,
+          "y": 0,
+          "z": -20
+        }
+      }
+    ]
+  },
+  {
+    "scene": "chandelier",
+    "frontPassed": false,
+    "route": 2,
+    "disguise": "bodyguard",
+    "clothingChanges": 2,
+    "distance": 245.95,
+    "caught": false,
+    "error": "",
+    "killed": true,
+    "escaped": true,
+    "ghost": true,
+    "ghostBrokenBy": [],
+    "spotted": [],
+    "host": {
+      "position": {
+        "x": -6.353071401528948,
+        "y": 0,
+        "z": 3.833267908641819
+      },
+      "state": "patrol"
+    },
+    "flags": [
+      "chandelier",
+      "release"
+    ],
+    "legs": [
+      {
+        "at": {
+          "x": 22,
+          "y": 0,
+          "z": -19
+        }
+      },
+      {
+        "at": {
+          "x": 22,
+          "y": 0,
+          "z": -14
+        }
+      },
+      {
+        "at": {
+          "x": 8,
+          "y": 0,
+          "z": 8
+        }
+      },
+      {
+        "at": {
+          "x": 0,
+          "y": 0,
+          "z": -10
+        }
+      },
+      {
+        "at": {
+          "x": 0,
+          "y": 0,
+          "z": 2
+        }
+      },
+      {
+        "at": {
+          "x": -20,
+          "y": 3.5,
+          "z": 8
+        }
+      },
+      {
+        "at": {
+          "x": 22,
+          "y": 0,
+          "z": -19
+        }
+      },
+      {
+        "at": {
+          "x": -12,
+          "y": 0,
+          "z": -20
+        }
+      }
+    ]
+  },
+  {
+    "scene": "chandelier",
+    "frontPassed": false,
+    "route": 3,
+    "disguise": "bodyguard",
+    "clothingChanges": 2,
+    "distance": 285.28,
+    "caught": false,
+    "error": "",
+    "killed": true,
+    "escaped": true,
+    "ghost": true,
+    "ghostBrokenBy": [],
+    "spotted": [],
+    "host": {
+      "position": {
+        "x": -6.366622046449516,
+        "y": 0,
+        "z": 3.886226005830379
+      },
+      "state": "patrol"
+    },
+    "flags": [
+      "chandelier",
+      "release"
+    ],
+    "legs": [
+      {
+        "at": {
+          "x": 22,
+          "y": 0,
+          "z": -19
+        }
+      },
+      {
+        "at": {
+          "x": 22,
+          "y": 0,
+          "z": -14
+        }
+      },
+      {
+        "at": {
+          "x": 8,
+          "y": 0,
+          "z": 8
+        }
+      },
+      {
+        "at": {
+          "x": 22,
+          "y": 0,
+          "z": 16
+        }
+      },
+      {
+        "at": {
+          "x": -8,
+          "y": 0,
+          "z": 16
+        }
+      },
+      {
+        "at": {
+          "x": -8,
+          "y": 0,
+          "z": 10
+        }
+      },
+      {
+        "at": {
+          "x": -20,
+          "y": 3.5,
+          "z": 8
+        }
+      },
+      {
+        "at": {
+          "x": 22,
+          "y": 0,
+          "z": -19
+        }
+      },
+      {
+        "at": {
+          "x": -12,
+          "y": 0,
+          "z": -20
+        }
+      }
+    ]
+  },
+  {
+    "scene": "papers",
+    "frontPassed": false,
+    "route": 1,
+    "disguise": "bodyguard",
+    "clothingChanges": 2,
+    "distance": 233.59,
+    "caught": false,
+    "error": "",
+    "killed": true,
+    "escaped": true,
+    "ghost": true,
+    "ghostBrokenBy": [],
+    "spotted": [],
+    "host": {
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 16
+      },
+      "state": "patrol"
+    },
+    "flags": [
+      "papers",
+      "push"
+    ],
+    "legs": [
+      {
+        "at": {
+          "x": 22,
+          "y": 0,
+          "z": -19
+        }
+      },
+      {
+        "at": {
+          "x": 22,
+          "y": 0,
+          "z": -14
+        }
+      },
+      {
+        "at": {
+          "x": 8,
+          "y": 0,
+          "z": 8
+        }
+      },
+      {
+        "at": {
+          "x": -20,
+          "y": 3.5,
+          "z": 4
+        }
+      },
+      {
+        "at": {
+          "x": -12,
+          "y": 3.5,
+          "z": 4
+        }
+      },
+      {
+        "at": {
+          "x": 0,
+          "y": 3.5,
+          "z": 6
+        }
+      },
+      {
+        "at": {
+          "x": 0,
+          "y": 3.5,
+          "z": 9
+        }
+      },
+      {
+        "at": {
+          "x": 0,
+          "z": 9,
+          "y": 3.5
+        }
+      },
+      {
+        "traversal": "36",
+        "reverse": false
+      },
+      {
+        "at": {
+          "x": 4,
+          "y": 3.5,
+          "z": 11
+        }
+      },
+      {
+        "at": {
+          "x": 0,
+          "y": 3.5,
+          "z": 11
+        }
+      },
+      {
+        "at": {
+          "x": 0,
+          "z": 11,
+          "y": 3.5
+        }
+      },
+      {
+        "traversal": "36",
+        "reverse": true
+      },
+      {
+        "at": {
+          "x": 22,
+          "y": 0,
+          "z": -19
+        }
+      },
+      {
+        "at": {
+          "x": -12,
+          "y": 0,
+          "z": -20
+        }
+      }
+    ]
+  },
+  {
+    "scene": "papers",
+    "frontPassed": false,
+    "route": 2,
+    "disguise": "bodyguard",
+    "clothingChanges": 2,
+    "distance": 205.65,
+    "caught": false,
+    "error": "",
+    "killed": true,
+    "escaped": true,
+    "ghost": true,
+    "ghostBrokenBy": [],
+    "spotted": [],
+    "host": {
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 16
+      },
+      "state": "patrol"
+    },
+    "flags": [
+      "papers",
+      "push"
+    ],
+    "legs": [
+      {
+        "at": {
+          "x": 22,
+          "y": 0,
+          "z": -19
+        }
+      },
+      {
+        "at": {
+          "x": 22,
+          "y": 0,
+          "z": -14
+        }
+      },
+      {
+        "at": {
+          "x": 8,
+          "y": 0,
+          "z": 8
+        }
+      },
+      {
+        "at": {
+          "x": 0,
+          "y": 3.5,
+          "z": -1
+        }
+      },
+      {
+        "at": {
+          "x": 0,
+          "y": 3.5,
+          "z": 6
+        }
+      },
+      {
+        "at": {
+          "x": 0,
+          "y": 3.5,
+          "z": 9
+        }
+      },
+      {
+        "at": {
+          "x": 0,
+          "z": 9,
+          "y": 3.5
+        }
+      },
+      {
+        "traversal": "36",
+        "reverse": false
+      },
+      {
+        "at": {
+          "x": 4,
+          "y": 3.5,
+          "z": 11
+        }
+      },
+      {
+        "at": {
+          "x": 0,
+          "y": 3.5,
+          "z": 11
+        }
+      },
+      {
+        "at": {
+          "x": 0,
+          "z": 11,
+          "y": 3.5
+        }
+      },
+      {
+        "traversal": "36",
+        "reverse": true
+      },
+      {
+        "at": {
+          "x": 22,
+          "y": 0,
+          "z": -19
+        }
+      },
+      {
+        "at": {
+          "x": -12,
+          "y": 0,
+          "z": -20
+        }
+      }
+    ]
+  },
+  {
+    "scene": "papers",
+    "frontPassed": false,
+    "route": 3,
+    "disguise": "bodyguard",
+    "clothingChanges": 2,
+    "distance": 208.8,
+    "caught": true,
+    "error": "",
+    "killed": true,
+    "escaped": false,
+    "ghost": false,
+    "ghostBrokenBy": [
+      "spotted"
+    ],
+    "spotted": [
+      {
+        "type": "player.spotted",
+        "time": 40.94999999999896,
+        "id": "party-46",
+        "position": {
+          "x": -16,
+          "y": 2.064999999999996,
+          "z": 12.640000000000004
+        },
+        "disguise": "bodyguard"
+      },
+      {
+        "type": "player.spotted",
+        "time": 40.966666666665624,
+        "id": "party-36",
+        "position": {
+          "x": -16,
+          "y": 2.0766666666666627,
+          "z": 12.626666666666672
+        },
+        "disguise": "bodyguard"
+      },
+      {
+        "type": "player.spotted",
+        "time": 830.9999999999172,
+        "id": "host",
+        "position": {
+          "x": 1.2600000000000002,
+          "z": 11,
+          "y": 3.5
+        },
+        "disguise": "bodyguard"
+      },
+      {
+        "type": "player.spotted",
+        "time": 832.783333333249,
+        "id": "captain",
+        "position": {
+          "x": 0.04500000000000029,
+          "z": 11,
+          "y": 3.5
+        },
+        "disguise": "bodyguard"
+      },
+      {
+        "type": "player.spotted",
+        "time": 833.499999999915,
+        "id": "captain",
+        "position": {
+          "x": 0.04500000000000029,
+          "z": 11,
+          "y": 3.5
+        },
+        "disguise": "bodyguard"
+      }
+    ],
+    "host": {
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 16
+      },
+      "state": "patrol"
+    },
+    "flags": [
+      "papers",
+      "push"
+    ],
+    "legs": [
+      {
+        "at": {
+          "x": 22,
+          "y": 0,
+          "z": -19
+        }
+      },
+      {
+        "at": {
+          "x": 22,
+          "y": 0,
+          "z": -14
+        }
+      },
+      {
+        "at": {
+          "x": 8,
+          "y": 0,
+          "z": 8
+        }
+      },
+      {
+        "at": {
+          "x": -16,
+          "y": 0,
+          "z": 15
+        }
+      },
+      {
+        "at": {
+          "x": -16,
+          "z": 15,
+          "y": 0
+        }
+      },
+      {
+        "traversal": "22",
+        "reverse": false
+      },
+      {
+        "at": {
+          "x": 0,
+          "z": 11,
+          "y": 3.5
+        }
+      },
+      {
+        "traversal": "36",
+        "reverse": true
+      },
+      {
+        "at": {
+          "x": 0,
+          "y": 3.5,
+          "z": 6
+        }
+      },
+      {
+        "at": {
+          "x": 0,
+          "y": 3.5,
+          "z": 9
+        }
+      },
+      {
+        "at": {
+          "x": 0,
+          "z": 9,
+          "y": 3.5
+        }
+      },
+      {
+        "traversal": "36",
+        "reverse": false
+      },
+      {
+        "at": {
+          "x": 4,
+          "y": 3.5,
+          "z": 11
+        }
+      },
+      {
+        "at": {
+          "x": 0,
+          "y": 3.5,
+          "z": 11
+        }
+      },
+      {
+        "at": {
+          "x": 0,
+          "z": 11,
+          "y": 3.5
+        }
+      },
+      {
+        "traversal": "36",
+        "reverse": true
+      },
+      {
+        "at": {
+          "x": 22,
+          "y": 0,
+          "z": -19
+        }
+      },
+      {
+        "at": {
+          "x": -12,
+          "y": 0,
+          "z": -20
+        }
+      }
+    ]
+  },
+  {
+    "scene": "drink",
+    "frontPassed": false,
+    "route": 1,
+    "disguise": "bodyguard",
+    "clothingChanges": 2,
+    "distance": 225.58,
+    "caught": false,
+    "error": "",
+    "killed": true,
+    "escaped": true,
+    "ghost": true,
+    "ghostBrokenBy": [],
+    "spotted": [],
+    "host": {
+      "position": {
+        "x": 12.073298644642605,
+        "y": 3.5,
+        "z": 4.522104263716471
+      },
+      "state": "patrol"
+    },
+    "flags": [
+      "drink"
+    ],
+    "legs": [
+      {
+        "at": {
+          "x": 22,
+          "y": 0,
+          "z": -19
+        }
+      },
+      {
+        "at": {
+          "x": 22,
+          "y": 0,
+          "z": -14
+        }
+      },
+      {
+        "at": {
+          "x": 8,
+          "y": 0,
+          "z": 8
+        }
+      },
+      {
+        "at": {
+          "x": -20,
+          "y": 3.5,
+          "z": 4
+        }
+      },
+      {
+        "at": {
+          "x": -12,
+          "y": 3.5,
+          "z": 4
+        }
+      },
+      {
+        "at": {
+          "x": 0,
+          "y": 3.5,
+          "z": 4
+        }
+      },
+      {
+        "at": {
+          "x": 12,
+          "y": 3.5,
+          "z": 6
+        }
+      },
+      {
+        "at": {
+          "x": 22,
+          "y": 0,
+          "z": -19
+        }
+      },
+      {
+        "at": {
+          "x": -12,
+          "y": 0,
+          "z": -20
+        }
+      }
+    ]
+  },
+  {
+    "scene": "drink",
+    "frontPassed": false,
+    "route": 2,
+    "disguise": "bodyguard",
+    "clothingChanges": 2,
+    "distance": 116.55,
+    "caught": true,
+    "error": "",
+    "killed": false,
+    "escaped": false,
+    "ghost": false,
+    "ghostBrokenBy": [
+      "spotted"
+    ],
+    "spotted": [
+      {
+        "type": "player.spotted",
+        "time": 43.26666666666549,
+        "id": "captain",
+        "position": {
+          "x": 3.3815235004176984,
+          "z": 3.2809536466490976,
+          "y": 3.5
+        },
+        "disguise": "bodyguard"
+      },
+      {
+        "type": "player.spotted",
+        "time": 1054.3333333333203,
+        "id": "host",
+        "position": {
+          "x": 11.954971551612596,
+          "z": 5.987529866846514,
+          "y": 3.5
+        },
+        "disguise": "bodyguard"
+      },
+      {
+        "type": "player.spotted",
+        "time": 1058.36666666665,
+        "id": "host",
+        "position": {
+          "x": 11.954971551612596,
+          "z": 5.987529866846514,
+          "y": 3.5
+        },
+        "disguise": "bodyguard"
+      },
+      {
+        "type": "player.spotted",
+        "time": 1062.3999999999796,
+        "id": "host",
+        "position": {
+          "x": 11.954971551612596,
+          "z": 5.987529866846514,
+          "y": 3.5
+        },
+        "disguise": "bodyguard"
+      },
+      {
+        "type": "player.spotted",
+        "time": 1066.4333333333093,
+        "id": "host",
+        "position": {
+          "x": 11.954971551612596,
+          "z": 5.987529866846514,
+          "y": 3.5
+        },
+        "disguise": "bodyguard"
+      }
+    ],
+    "host": {
+      "position": {
+        "x": 13.413651731705233,
+        "y": 3.5,
+        "z": -0.6262166763643731
+      },
+      "state": "report"
+    },
+    "flags": [
+      "drink"
+    ],
+    "legs": [
+      {
+        "at": {
+          "x": 22,
+          "y": 0,
+          "z": -19
+        }
+      },
+      {
+        "at": {
+          "x": 22,
+          "y": 0,
+          "z": -14
+        }
+      },
+      {
+        "at": {
+          "x": 8,
+          "y": 0,
+          "z": 8
+        }
+      },
+      {
+        "at": {
+          "x": 0,
+          "y": 3.5,
+          "z": -1
+        }
+      },
+      {
+        "at": {
+          "x": 12,
+          "y": 3.5,
+          "z": 6
+        }
+      }
+    ]
+  },
+  {
+    "scene": "drink",
+    "frontPassed": false,
+    "route": 3,
+    "disguise": "bodyguard",
+    "clothingChanges": 2,
+    "distance": 124.38,
+    "caught": true,
+    "error": "",
+    "killed": false,
+    "escaped": false,
+    "ghost": false,
+    "ghostBrokenBy": [
+      "spotted"
+    ],
+    "spotted": [
+      {
+        "type": "player.spotted",
+        "time": 40.94999999999896,
+        "id": "party-46",
+        "position": {
+          "x": -16,
+          "y": 2.064999999999996,
+          "z": 12.640000000000004
+        },
+        "disguise": "bodyguard"
+      },
+      {
+        "type": "player.spotted",
+        "time": 40.966666666665624,
+        "id": "party-36",
+        "position": {
+          "x": -16,
+          "y": 2.0766666666666627,
+          "z": 12.626666666666672
+        },
+        "disguise": "bodyguard"
+      },
+      {
+        "type": "player.spotted",
+        "time": 1044.1499999999962,
+        "id": "captain",
+        "position": {
+          "x": 12,
+          "z": 6.030000000000005,
+          "y": 3.5
+        },
+        "disguise": "bodyguard"
+      },
+      {
+        "type": "player.spotted",
+        "time": 1054.3666666666536,
+        "id": "host",
+        "position": {
+          "x": 12,
+          "z": 6.030000000000005,
+          "y": 3.5
+        },
+        "disguise": "bodyguard"
+      },
+      {
+        "type": "player.spotted",
+        "time": 1058.3999999999833,
+        "id": "host",
+        "position": {
+          "x": 12,
+          "z": 6.030000000000005,
+          "y": 3.5
+        },
+        "disguise": "bodyguard"
+      }
+    ],
+    "host": {
+      "position": {
+        "x": 13.3382569908135,
+        "y": 3.5,
+        "z": -0.5834762486994614
+      },
+      "state": "report"
+    },
+    "flags": [
+      "drink"
+    ],
+    "legs": [
+      {
+        "at": {
+          "x": 22,
+          "y": 0,
+          "z": -19
+        }
+      },
+      {
+        "at": {
+          "x": 22,
+          "y": 0,
+          "z": -14
+        }
+      },
+      {
+        "at": {
+          "x": 8,
+          "y": 0,
+          "z": 8
+        }
+      },
+      {
+        "at": {
+          "x": -16,
+          "y": 0,
+          "z": 15
+        }
+      },
+      {
+        "at": {
+          "x": -16,
+          "z": 15,
+          "y": 0
+        }
+      },
+      {
+        "traversal": "22",
+        "reverse": false
+      },
+      {
+        "at": {
+          "x": 12,
+          "z": 11,
+          "y": 3.5
+        }
+      },
+      {
+        "traversal": "38",
+        "reverse": true
+      },
+      {
+        "at": {
+          "x": 12,
+          "y": 3.5,
+          "z": 6
+        }
+      }
+    ]
+  }
+]

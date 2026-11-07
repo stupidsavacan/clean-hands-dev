@@ -1,0 +1,465 @@
+{
+ "a1": {
+  "title": "試飲会のソムリエ",
+  "target": "wine_merchant",
+  "trigger": {
+   "heard": "bar_sommelier_late"
+  },
+  "window": [
+   1140,
+   1440
+  ],
+  "steps": [
+   {
+    "text": "桟橋でソムリエの服を手に入れる",
+    "done": {
+     "disguise": "sommelier"
+    }
+   },
+   {
+    "text": "バーで給仕長に挨拶し、セラーの鍵を受け取る",
+    "done": {
+     "talked": "head_waiter"
+    }
+   },
+   {
+    "text": "19:00〜24:00、地下セラーの試飲会で、ワイン商に毒入りの一杯を出す／セラー奥へ誘って排除する",
+    "done": {
+     "any": [
+      {
+       "killed": "wine_merchant",
+       "by": "poison_glass"
+      },
+      {
+       "killed": "wine_merchant",
+       "at": "private_cellar"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "a2": {
+  "title": "限定ワインの樽",
+  "target": "wine_merchant",
+  "trigger": {
+   "heard": "loading_limited_wine"
+  },
+  "window": [
+   1140,
+   1440
+  ],
+  "steps": [
+   {
+    "text": "スタッフの服で地下セラーへ入る",
+    "done": {
+     "event": "cellar.entered"
+    }
+   },
+   {
+    "text": "限定ワインの樽に致死毒を仕込む（１９分まで）",
+    "done": {
+     "armed": "wine_barrel"
+    }
+   },
+   {
+    "text": "試飲会の最初の一杯を待つ",
+    "done": {
+     "killed": "wine_merchant",
+     "by": "wine_barrel"
+    }
+   }
+  ]
+ },
+ "a3": {
+  "title": "プールの照明",
+  "target": "wine_merchant",
+  "trigger": {
+   "heard": "pool_exposed_wire"
+  },
+  "window": [
+   900,
+   1140
+  ],
+  "steps": [
+   {
+    "text": "裏通路の配電盤をスパナで壊す",
+    "done": {
+     "armed": "pool_light"
+    }
+   },
+   {
+    "text": "プールサイドにワイン商が来るのを待つ",
+    "done": {
+     "flag": "wine_at_pool"
+    }
+   },
+   {
+    "text": "照明スタンドを水に倒す",
+    "done": {
+     "killed": "wine_merchant",
+     "by": "electrocution"
+    }
+   }
+  ]
+ },
+ "a4": {
+  "title": "テラスの記念撮影",
+  "target": "wine_merchant",
+  "trigger": {
+   "heard": "terrace_photo"
+  },
+  "window": [
+   360,
+   600
+  ],
+  "steps": [
+   {
+    "text": "カメラマンを気絶させ、服を奪う",
+    "done": {
+     "disguise": "photographer"
+    }
+   },
+   {
+    "text": "ワイン商を手すり際に立たせる",
+    "done": {
+     "flag": "wine_posed"
+    }
+   },
+   {
+    "text": "撮影中に背後から押す",
+    "done": {
+     "killed": "wine_merchant",
+     "by": "push"
+    }
+   }
+  ]
+ },
+ "a5": {
+  "title": "展示ヨットの見学",
+  "target": "wine_merchant",
+  "trigger": {
+   "heard": "marina_crane_loose"
+  },
+  "window": [
+   600,
+   900
+  ],
+  "steps": [
+   {
+    "text": "港湾係の服を手に入れる（港湾事務所）",
+    "done": {
+     "disguise": "fisher"
+    }
+   },
+   {
+    "text": "クレーンの固定ピンを抜いておく",
+    "done": {
+     "armed": "yacht_crane"
+    }
+   },
+   {
+    "text": "ワイン商が甲板に立ったら、操作盤で荷を落とす",
+    "done": {
+     "killed": "wine_merchant",
+     "by": "falling_object"
+    }
+   }
+  ]
+ },
+ "b1": {
+  "title": "スピーチとシャンデリア",
+  "target": "lawyer",
+  "trigger": {
+   "heard": "lobby_chandelier"
+  },
+  "window": [
+   300,
+   660
+  ],
+  "steps": [
+   {
+    "text": "スタッフの服で2Fの照明通路へ",
+    "done": {
+     "flag": "catwalk"
+    }
+   },
+   {
+    "text": "留め具をスパナで緩める",
+    "done": {
+     "armed": "chandelier"
+    }
+   },
+   {
+    "text": "スピーチ中に留め具を外す",
+    "done": {
+     "killed": "lawyer",
+     "by": "chandelier"
+    }
+   }
+  ]
+ },
+ "b2": {
+  "title": "料理長の試食会",
+  "target": "lawyer",
+  "trigger": {
+   "heard": "kitchen_tasting"
+  },
+  "window": [
+   660,
+   960
+  ],
+  "steps": [
+   {
+    "text": "シェフに変装する",
+    "done": {
+     "disguise": "chef"
+    }
+   },
+   {
+    "text": "料理長に吐き気の素を盛り、トイレへ行かせる",
+    "done": {
+     "flag": "chef_away"
+    }
+   },
+   {
+    "text": "代わりに試食を出す：毒の皿／ガス管を緩めてコンロに着火",
+    "done": {
+     "any": [
+      {
+       "killed": "lawyer",
+       "by": "poison_dish"
+      },
+      {
+       "killed": "lawyer",
+       "by": "gas_explosion"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "b3": {
+  "title": "護衛の交代時間",
+  "target": "lawyer",
+  "trigger": {
+   "heard": "bodyguard_change"
+  },
+  "window": [
+   960,
+   1200
+  ],
+  "steps": [
+   {
+    "text": "交代に来る護衛を気絶させ、服を奪う",
+    "done": {
+     "disguise": "bodyguard"
+    }
+   },
+   {
+    "text": "私設護衛としてBに付き添う",
+    "done": {
+     "flag": "escorting"
+    }
+   },
+   {
+    "text": "人のいない場所へ誘導して排除",
+    "done": {
+     "flag": "escort_kill"
+    }
+   }
+  ]
+ },
+ "b4": {
+  "title": "専属運転手",
+  "target": "lawyer",
+  "trigger": {
+   "heard": "parking_phone"
+  },
+  "window": [
+   1200,
+   1500
+  ],
+  "steps": [
+   {
+    "text": "弁護士の運転手を気絶させ、服を奪う",
+    "done": {
+     "disguise": "driver"
+    }
+   },
+   {
+    "text": "運転席に座って待つ（Bが後部座席に乗り込む）",
+    "done": {
+     "flag": "lawyer_in_car"
+    }
+   },
+   {
+    "text": "窓を閉めた車内で、二人きりのうちに排除",
+    "done": {
+     "killed": "lawyer",
+     "by": "car_wire"
+    }
+   }
+  ]
+ },
+ "c1": {
+  "title": "バルコニーの電話",
+  "target": "investor",
+  "trigger": {
+   "heard": "penthouse_phone_hint"
+  },
+  "window": [
+   420,
+   660
+  ],
+  "steps": [
+   {
+    "text": "ルームサービスのワゴンからカードキーを取る",
+    "done": {
+     "flag": "keycard"
+    }
+   },
+   {
+    "text": "ペントハウスに入り、手すりのボルトを外す",
+    "done": {
+     "armed": "balcony_rail"
+    }
+   },
+   {
+    "text": "電話中に寄りかかって転落する",
+    "done": {
+     "killed": "investor",
+     "by": "balcony_rail"
+    }
+   }
+  ]
+ },
+ "c2": {
+  "title": "避難ボート",
+  "target": "investor",
+  "trigger": {
+   "heard": "marina_escape"
+  },
+  "window": [
+   0,
+   1800
+  ],
+  "steps": [
+   {
+    "text": "燃料所で避難ボートの燃料に細工する",
+    "done": {
+     "armed": "boat_fuel"
+    }
+   },
+   {
+    "text": "警備室の非常ベルで投資家の避難を誘導する",
+    "done": {
+     "flag": "investor_evacuation"
+    }
+   },
+   {
+    "text": "投資家がボートで逃げ、エンジンが爆発する",
+    "done": {
+     "killed": "investor",
+     "by": "boat_explosion"
+    }
+   }
+  ]
+ },
+ "c3": {
+  "title": "屋上のヘリ到着",
+  "target": "investor",
+  "trigger": {
+   "heard": "investor_helicopter"
+  },
+  "window": [
+   1200,
+   1500
+  ],
+  "steps": [
+   {
+    "text": "19分に屋上でヘリを点検するパイロットを気絶させ、服を奪う",
+    "done": {
+     "disguise": "pilot"
+    }
+   },
+   {
+    "text": "投資家を屋上で出迎え、縁へ案内する",
+    "done": {
+     "flag": "investor_posed"
+    }
+   },
+   {
+    "text": "ヘリポートの縁で背後から押す",
+    "done": {
+     "killed": "investor",
+     "by": "push"
+    }
+   }
+  ]
+ },
+ "c4": {
+  "title": "出張マッサージ師",
+  "target": "investor",
+  "trigger": {
+   "heard": "reception_massage"
+  },
+  "window": [
+   660,
+   900
+  ],
+  "steps": [
+   {
+    "text": "搬入口に着いたマッサージ師を気絶させ、服を奪う",
+    "done": {
+     "disguise": "masseuse"
+    }
+   },
+   {
+    "text": "ペントハウスに招き入れられる",
+    "done": {
+     "flag": "masseuse_in"
+    }
+   },
+   {
+    "text": "施術中、護衛が部屋を出た隙にワイヤーで",
+    "done": {
+     "killed": "investor",
+     "by": "massage_wire"
+    }
+   }
+  ]
+ },
+ "c5": {
+  "title": "浜辺の花火",
+  "target": "investor",
+  "trigger": {
+   "heard": "beach_fireworks"
+  },
+  "window": [
+   900,
+   1200
+  ],
+  "steps": [
+   {
+    "text": "バーの裏で店員の服を手に入れる",
+    "done": {
+     "disguise": "beachbar"
+    }
+   },
+   {
+    "text": "花火の筒の向きを、投資家の席へ向ける",
+    "done": {
+     "armed": "fireworks"
+    }
+   },
+   {
+    "text": "点火の合図（18分）で花火が横に飛ぶ",
+    "done": {
+     "killed": "investor",
+     "by": "fireworks"
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,902 @@
+{
+ "actors": {
+  "host": {
+   "plan": [
+    {
+     "place": "B",
+     "from": 0,
+     "to": 240,
+     "do": "wait"
+    },
+    {
+     "place": "G",
+     "from": 240,
+     "to": 480,
+     "do": "wait"
+    },
+    {
+     "place": "B",
+     "from": 480,
+     "to": 720,
+     "do": "wait"
+    },
+    {
+     "place": "O",
+     "from": 720,
+     "to": 1020,
+     "do": "wait"
+    },
+    {
+     "place": "M",
+     "from": 1020,
+     "to": 1260,
+     "do": "wait"
+    },
+    {
+     "place": "B",
+     "from": 1260,
+     "to": 1500,
+     "do": "wait"
+    },
+    {
+     "place": "G",
+     "from": 1500,
+     "to": 1800,
+     "do": "wait"
+    }
+   ]
+  },
+  "party-10": {
+   "plan": [
+    {
+     "place": "K-10",
+     "from": 0,
+     "to": 900,
+     "do": "serve"
+    },
+    {
+     "place": "B-10",
+     "from": 900,
+     "to": 1800,
+     "do": "serve"
+    }
+   ]
+  },
+  "party-11": {
+   "plan": [
+    {
+     "place": "K-11",
+     "from": 0,
+     "to": 900,
+     "do": "serve"
+    },
+    {
+     "place": "B-11",
+     "from": 900,
+     "to": 1800,
+     "do": "serve"
+    }
+   ]
+  },
+  "party-12": {
+   "plan": [
+    {
+     "place": "K-12",
+     "from": 0,
+     "to": 900,
+     "do": "serve"
+    },
+    {
+     "place": "B-12",
+     "from": 900,
+     "to": 1800,
+     "do": "serve"
+    }
+   ]
+  },
+  "party-13": {
+   "plan": [
+    {
+     "place": "K-13",
+     "from": 0,
+     "to": 900,
+     "do": "serve"
+    },
+    {
+     "place": "B-13",
+     "from": 900,
+     "to": 1800,
+     "do": "serve"
+    }
+   ]
+  },
+  "party-14": {
+   "plan": [
+    {
+     "place": "K-14",
+     "from": 0,
+     "to": 900,
+     "do": "serve"
+    },
+    {
+     "place": "B-14",
+     "from": 900,
+     "to": 1800,
+     "do": "serve"
+    }
+   ]
+  },
+  "party-15": {
+   "plan": [
+    {
+     "place": "K-15",
+     "from": 0,
+     "to": 900,
+     "do": "serve"
+    },
+    {
+     "place": "B-15",
+     "from": 900,
+     "to": 1800,
+     "do": "serve"
+    }
+   ]
+  },
+  "party-16": {
+   "plan": [
+    {
+     "place": "K-16",
+     "from": 0,
+     "to": 900,
+     "do": "serve"
+    },
+    {
+     "place": "B-16",
+     "from": 900,
+     "to": 1800,
+     "do": "serve"
+    }
+   ]
+  },
+  "party-17": {
+   "plan": [
+    {
+     "place": "K-17",
+     "from": 0,
+     "to": 900,
+     "do": "serve"
+    },
+    {
+     "place": "B-17",
+     "from": 900,
+     "to": 1800,
+     "do": "serve"
+    }
+   ]
+  },
+  "party-18": {
+   "plan": [
+    {
+     "place": "K-18",
+     "from": 0,
+     "to": 900,
+     "do": "serve"
+    },
+    {
+     "place": "B-18",
+     "from": 900,
+     "to": 1800,
+     "do": "serve"
+    }
+   ]
+  },
+  "party-19": {
+   "plan": [
+    {
+     "place": "K-19",
+     "from": 0,
+     "to": 900,
+     "do": "serve"
+    },
+    {
+     "place": "B-19",
+     "from": 900,
+     "to": 1800,
+     "do": "serve"
+    }
+   ]
+  },
+  "party-20": {
+   "plan": [
+    {
+     "place": "K-20",
+     "from": 0,
+     "to": 900,
+     "do": "serve"
+    },
+    {
+     "place": "B-20",
+     "from": 900,
+     "to": 1800,
+     "do": "serve"
+    }
+   ]
+  },
+  "party-21": {
+   "plan": [
+    {
+     "place": "K-21",
+     "from": 0,
+     "to": 900,
+     "do": "serve"
+    },
+    {
+     "place": "B-21",
+     "from": 900,
+     "to": 1800,
+     "do": "serve"
+    }
+   ]
+  },
+  "party-30": {
+   "plan": [
+    {
+     "place": "G-30",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-30",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "B-30",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-31": {
+   "plan": [
+    {
+     "place": "B-31",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-31",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "G-31",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-32": {
+   "plan": [
+    {
+     "place": "G-32",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-32",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "B-32",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-33": {
+   "plan": [
+    {
+     "place": "B-33",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-33",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "G-33",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-34": {
+   "plan": [
+    {
+     "place": "G-34",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-34",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "B-34",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-35": {
+   "plan": [
+    {
+     "place": "B-35",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-35",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "G-35",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-36": {
+   "plan": [
+    {
+     "place": "G-36",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-36",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "B-36",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-37": {
+   "plan": [
+    {
+     "place": "B-37",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-37",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "G-37",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-38": {
+   "plan": [
+    {
+     "place": "G-38",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-38",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "B-38",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-39": {
+   "plan": [
+    {
+     "place": "B-39",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-39",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "G-39",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-40": {
+   "plan": [
+    {
+     "place": "G-40",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-40",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "B-40",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-41": {
+   "plan": [
+    {
+     "place": "B-41",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-41",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "G-41",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-42": {
+   "plan": [
+    {
+     "place": "G-42",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-42",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "B-42",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-43": {
+   "plan": [
+    {
+     "place": "B-43",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-43",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "G-43",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-44": {
+   "plan": [
+    {
+     "place": "G-44",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-44",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "B-44",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-45": {
+   "plan": [
+    {
+     "place": "B-45",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-45",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "G-45",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-46": {
+   "plan": [
+    {
+     "place": "G-46",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-46",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "B-46",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-47": {
+   "plan": [
+    {
+     "place": "B-47",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-47",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "G-47",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-48": {
+   "plan": [
+    {
+     "place": "G-48",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-48",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "B-48",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-49": {
+   "plan": [
+    {
+     "place": "B-49",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-49",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "G-49",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-50": {
+   "plan": [
+    {
+     "place": "G-50",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-50",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "B-50",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-51": {
+   "plan": [
+    {
+     "place": "B-51",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-51",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "G-51",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-52": {
+   "plan": [
+    {
+     "place": "G-52",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-52",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "B-52",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-53": {
+   "plan": [
+    {
+     "place": "B-53",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-53",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "G-53",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-54": {
+   "plan": [
+    {
+     "place": "G-54",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-54",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "B-54",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-55": {
+   "plan": [
+    {
+     "place": "B-55",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-55",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "G-55",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-56": {
+   "plan": [
+    {
+     "place": "G-56",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-56",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "B-56",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-57": {
+   "plan": [
+    {
+     "place": "B-57",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-57",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "G-57",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-58": {
+   "plan": [
+    {
+     "place": "G-58",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-58",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "B-58",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  },
+  "party-59": {
+   "plan": [
+    {
+     "place": "B-59",
+     "from": 0,
+     "to": 600,
+     "do": "chat"
+    },
+    {
+     "place": "D-59",
+     "from": 600,
+     "to": 1200,
+     "do": "chat"
+    },
+    {
+     "place": "G-59",
+     "from": 1200,
+     "to": 1800,
+     "do": "chat"
+    }
+   ]
+  }
+ }
+}

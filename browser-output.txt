@@ -1,0 +1,25 @@
+開始地点 80.2 fps
+ロビー 55.4 fps
+プール 59.5 fps
+テラス 60.7 fps
+宴会場 63.3 fps
+地下セラー 61.5 fps
+ペントハウス 63.6 fps
+ヘリポート 59.2 fps
+マリーナ 72.2 fps
+浜辺 74 fps
+駐車場 76 fps
+clock advances in live frames true
+pause freezes mission time true
+map lists all three target schedules true
+map freezes mission time true
+four-times speed in live frames true
+A physically reaches the terrace and performs photo true
+A boards the yacht deck through the gangway true
+B speaks in the banquet hall true
+C phone subtitles complete and are recorded as heard true
+C receives massage beside the scheduled therapist true
+individual suspicion suspends schedule true
+calm resumes current time slot true
+hotel alert 2 stops subtitles true
+second loop restarts plans and clock true

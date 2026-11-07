@@ -1,0 +1,62 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+BlenderMCP addon registered
+BlenderMCP addon unregistered
+23:20:14 | INFO: Data are loaded, start creating Blender stuff
+23:20:14 | INFO: Blender create Mesh node Cabinet_shell_and_hinges
+23:20:14 | INFO: Blender create Mesh node Door_leaf_3_vent_openings_and_handle
+23:20:14 | INFO: glTF import finished in 0.01s
+INFO Draco mesh compression is available, use library at C:\Program Files\Blender Foundation\Blender 4.2\4.2\python\lib\site-packages\extern_draco.dll
+23:20:15 | INFO: Starting glTF 2.0 export
+23:20:15 | INFO: Extracting primitive: Cylinder.005
+23:20:15 | INFO: Primitives created: 2
+23:20:15 | INFO: Extracting primitive: Cylinder.002
+23:20:15 | INFO: Primitives created: 2
+23:20:15 | INFO: Finished glTF 2.0 export in 0.013576984405517578 s
+Blender 4.2.16 LTS (hash 39502cae951c built 2025-11-18 01:34:37)
+Info: Total files 0 | Changed 0 | Failed 0
+Fra:1 Mem:48.17M (Peak 48.17M) | Time:00:02.84 | Rendering 1 / 64 samples
+Fra:1 Mem:48.17M (Peak 48.17M) | Time:00:03.18 | Rendering 25 / 64 samples
+Fra:1 Mem:48.17M (Peak 48.17M) | Time:00:03.40 | Rendering 50 / 64 samples
+Fra:1 Mem:48.17M (Peak 48.17M) | Time:00:03.51 | Rendering 64 / 64 samples
+Saved: 'C:\Users\gamit\Documents\Codex\2026-10-28\http-127-0-0-1-8768-2\outputs\m3-prototype\assets\wire\taut-front.png'
+Time: 00:03.70 (Saving: 00:00.18)
+
+Fra:1 Mem:48.17M (Peak 48.17M) | Time:00:00.06 | Rendering 1 / 64 samples
+Fra:1 Mem:48.17M (Peak 48.17M) | Time:00:00.22 | Rendering 25 / 64 samples
+Fra:1 Mem:48.17M (Peak 48.17M) | Time:00:00.38 | Rendering 50 / 64 samples
+Fra:1 Mem:48.17M (Peak 48.17M) | Time:00:00.48 | Rendering 64 / 64 samples
+Saved: 'C:\Users\gamit\Documents\Codex\2026-10-28\http-127-0-0-1-8768-2\outputs\m3-prototype\assets\wire\taut-back.png'
+Time: 00:00.54 (Saving: 00:00.05)
+
+Fra:1 Mem:48.17M (Peak 48.17M) | Time:00:00.03 | Rendering 1 / 64 samples
+Fra:1 Mem:48.17M (Peak 48.17M) | Time:00:00.19 | Rendering 25 / 64 samples
+Fra:1 Mem:48.17M (Peak 48.17M) | Time:00:00.35 | Rendering 50 / 64 samples
+Fra:1 Mem:48.17M (Peak 48.17M) | Time:00:00.46 | Rendering 64 / 64 samples
+Saved: 'C:\Users\gamit\Documents\Codex\2026-10-28\http-127-0-0-1-8768-2\outputs\m3-prototype\assets\wire\taut-side.png'
+Time: 00:00.51 (Saving: 00:00.04)
+
+Fra:1 Mem:48.20M (Peak 48.20M) | Time:00:00.03 | Rendering 1 / 64 samples
+Fra:1 Mem:48.20M (Peak 48.20M) | Time:00:00.20 | Rendering 25 / 64 samples
+Fra:1 Mem:48.20M (Peak 48.20M) | Time:00:00.38 | Rendering 50 / 64 samples
+Fra:1 Mem:48.20M (Peak 48.20M) | Time:00:00.50 | Rendering 64 / 64 samples
+Saved: 'C:\Users\gamit\Documents\Codex\2026-10-28\http-127-0-0-1-8768-2\outputs\m3-prototype\assets\wire\coiled-front.png'
+Time: 00:00.57 (Saving: 00:00.06)
+
+Fra:1 Mem:48.20M (Peak 48.20M) | Time:00:00.04 | Rendering 1 / 64 samples
+Fra:1 Mem:48.20M (Peak 48.20M) | Time:00:00.29 | Rendering 25 / 64 samples
+Fra:1 Mem:48.20M (Peak 48.20M) | Time:00:00.59 | Rendering 50 / 64 samples
+Fra:1 Mem:48.20M (Peak 48.20M) | Time:00:00.75 | Rendering 64 / 64 samples
+Saved: 'C:\Users\gamit\Documents\Codex\2026-10-28\http-127-0-0-1-8768-2\outputs\m3-prototype\assets\wire\coiled-back.png'
+Time: 00:00.83 (Saving: 00:00.06)
+
+Fra:1 Mem:48.20M (Peak 48.20M) | Time:00:00.04 | Rendering 1 / 64 samples
+Fra:1 Mem:48.20M (Peak 48.20M) | Time:00:00.31 | Rendering 25 / 64 samples
+Fra:1 Mem:48.20M (Peak 48.20M) | Time:00:00.51 | Rendering 50 / 64 samples
+Fra:1 Mem:48.20M (Peak 48.20M) | Time:00:00.61 | Rendering 64 / 64 samples
+Saved: 'C:\Users\gamit\Documents\Codex\2026-10-28\http-127-0-0-1-8768-2\outputs\m3-prototype\assets\wire\coiled-side.png'
+Time: 00:00.67 (Saving: 00:00.05)
+
+
+Info: Saved "wire.blend"
+
+Blender quit

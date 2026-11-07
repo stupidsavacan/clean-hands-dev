@@ -1,0 +1,131 @@
+{
+ "_note": "5.7からターゲット3人。starts は S1 だけ開放（他は熟練度でM6）。",
+ "title": "貸し切りの夜",
+ "targets": [
+  "investor"
+ ],
+ "briefing": [
+  {
+   "id": "investor",
+   "label": "投資家",
+   "text": "ファンドの成功を祝う今夜の主役。投資家を排除して脱出する。"
+  }
+ ],
+ "tools": [
+  {
+   "id": "coin",
+   "label": "コイン",
+   "note": "3枚"
+  },
+  {
+   "id": "poison_lethal",
+   "label": "毒",
+   "note": "検査を通る"
+  }
+ ],
+ "toolSlots": 2,
+ "fixedTools": [
+  {
+   "id": "wire",
+   "label": "ワイヤー",
+   "note": "検査を通る"
+  }
+ ],
+ "pistols": [
+  {
+   "id": "",
+   "label": "持ち込まない"
+  },
+  {
+   "id": "pistol_silenced",
+   "label": "消音ピストル",
+   "note": "入口の検査で止められる"
+  },
+  {
+   "id": "tranq_pistol",
+   "label": "鎮静ダーツ銃",
+   "note": "当てると数秒で眠る（殺さない）。1発ずつ、予備4発。入口の検査で止められる"
+  }
+ ],
+ "starts": [
+  {
+   "id": "S1",
+   "label": "表通り",
+   "open": true,
+   "note": "建物と光を確かめる"
+  }
+ ],
+ "pickups": [
+  {
+   "id": "P1",
+   "label": "喫煙所の植え込み",
+   "note": "客も出入りする所。入口の検査の内側",
+   "x": 3.0,
+   "z": 8.0,
+   "floor": 0
+  },
+  {
+   "id": "P2",
+   "label": "搬入口の木箱",
+   "note": "裏の職員区域",
+   "x": 4.3,
+   "z": 39.3,
+   "floor": 0
+  },
+  {
+   "id": "P3",
+   "label": "トイレの洗面台の下",
+   "note": "客が使う所。検査の内側",
+   "x": 37,
+   "z": 7.4,
+   "floor": 0
+  }
+ ],
+ "cleaners": [
+  "cleaner"
+ ],
+ "devices": [
+  {
+   "id": "radio-loading",
+   "kind": "radio",
+   "label": "ラジカセ",
+   "x": 3.3,
+   "z": 38.0,
+   "y": 1.2,
+   "floor": 0,
+   "heading": 1.5708,
+   "approach": {
+    "x": 4.5,
+    "z": 38.0
+   }
+  },
+  {
+   "id": "tv-office",
+   "kind": "tv",
+   "label": "テレビ",
+   "x": 14.6,
+   "z": 32.2,
+   "y": 0.8,
+   "floor": 0,
+   "heading": 1.5708,
+   "approach": {
+    "x": 16.0,
+    "z": 32.2
+   }
+  },
+  {
+   "id": "vacuum-corridor",
+   "kind": "vacuum",
+   "label": "掃除機",
+   "x": 30.0,
+   "z": 35.5,
+   "y": 0,
+   "floor": 0,
+   "heading": 3.1416,
+   "approach": {
+    "x": 30.0,
+    "z": 34.7
+   }
+  }
+ ]
+}

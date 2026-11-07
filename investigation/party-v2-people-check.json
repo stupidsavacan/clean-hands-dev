@@ -1,0 +1,11 @@
+{
+  "people": 60,
+  "fixed": [
+    "G01",
+    "G02"
+  ],
+  "moving": 58,
+  "expandedIntervals": 518,
+  "outsideZone": [],
+  "status": "design validation only; travel/vision unverified"
+}

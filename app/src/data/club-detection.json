@@ -1,0 +1,215 @@
+{
+ "_note": "M5実装ガイド「見つかる仕組みの追加」(5.6)。items は持ち物の分類（illegal 違法／suspicious 疑わしい／normal 普通、allowedFor の変装なら疑わしい物を持っていてよい）。バーテンダーとソムリエの服はゲームでは waiter／sommelier、港湾係は fisher、搬入業者は delivery、客は suit。ビーチバー店員の服(beachbar)は5.7で追加するので、その溶け込み場所はまだ使えない。worldItems は落ちている疑わしい物、blend は BLEND_ の場所、recorder は警備室の録画機。",
+ "items": {
+  "pistol_silenced": {
+   "label": "消音ピストル",
+   "legality": "illegal",
+   "concealable": true
+  },
+  "pistol_guard": {
+   "label": "警備の拳銃",
+   "legality": "illegal",
+   "concealable": true
+  },
+  "smg": {
+   "label": "短機関銃",
+   "legality": "illegal",
+   "concealable": false,
+   "allowedFor": [
+    "guard",
+    "bodyguard"
+   ]
+  },
+  "poison_lethal": {
+   "label": "致死毒",
+   "legality": "illegal",
+   "concealable": true
+  },
+  "lockpick": {
+   "label": "鍵開け具",
+   "legality": "illegal",
+   "concealable": true
+  },
+  "wire": {
+   "label": "ワイヤー",
+   "legality": "illegal",
+   "concealable": true
+  },
+  "wrench": {
+   "label": "スパナ",
+   "legality": "suspicious",
+   "concealable": false,
+   "allowedFor": [
+    "waiter",
+    "cleaner",
+    "guard",
+    "bodyguard"
+   ]
+  },
+  "bottle": {
+   "label": "ワインボトル",
+   "legality": "suspicious",
+   "concealable": false,
+   "allowedFor": [
+    "waiter",
+    "sommelier"
+   ]
+  },
+  "mop": {
+   "label": "モップ",
+   "legality": "suspicious",
+   "concealable": false,
+   "allowedFor": [
+    "cleaner"
+   ]
+  },
+  "camera": {
+   "label": "カメラ",
+   "legality": "suspicious",
+   "concealable": false,
+   "allowedFor": [
+    "suit",
+    "photographer"
+   ]
+  },
+  "coin": {
+   "label": "コイン",
+   "legality": "normal",
+   "concealable": true
+  },
+  "keycard": {
+   "label": "カードキー",
+   "legality": "normal",
+   "concealable": true
+  },
+  "cellar_key": {
+   "label": "セラーの鍵",
+   "legality": "normal",
+   "concealable": true
+  },
+  "tray": {
+   "label": "トレイ",
+   "legality": "normal",
+   "concealable": false
+  },
+  "hammer": {
+   "label": "ハンマー",
+   "legality": "suspicious",
+   "concealable": false,
+   "allowedFor": [
+    "technician",
+    "cleaner"
+   ]
+  },
+  "crowbar": {
+   "label": "バール",
+   "legality": "suspicious",
+   "concealable": false,
+   "allowedFor": [
+    "technician"
+   ]
+  },
+  "kitchen_knife": {
+   "label": "包丁",
+   "legality": "illegal",
+   "concealable": true,
+   "allowedFor": [
+    "chef"
+   ]
+  },
+  "frying_pan": {
+   "label": "フライパン",
+   "legality": "suspicious",
+   "concealable": false,
+   "allowedFor": [
+    "chef"
+   ]
+  },
+  "brick": {
+   "label": "レンガ",
+   "legality": "normal",
+   "concealable": false
+  },
+  "katana": {
+   "label": "刀",
+   "legality": "illegal",
+   "concealable": false
+  },
+  "briefcase": {
+   "label": "ブリーフケース",
+   "legality": "normal",
+   "concealable": false
+  }
+ },
+ "worldItems": [
+  {
+   "id": "hammer-equipment",
+   "item": "hammer",
+   "x": 34.6,
+   "z": 31.0,
+   "floor": 0
+  },
+  {
+   "id": "crowbar-loading",
+   "item": "crowbar",
+   "x": 5.2,
+   "z": 38.4,
+   "floor": 0
+  },
+  {
+   "id": "knife-kitchen",
+   "item": "kitchen_knife",
+   "x": 6.0,
+   "z": 31.2,
+   "floor": 0
+  },
+  {
+   "id": "pan-kitchen",
+   "item": "frying_pan",
+   "x": 11.2,
+   "z": 34.3,
+   "floor": 0
+  },
+  {
+   "id": "brick-smoking",
+   "item": "brick",
+   "x": 4.5,
+   "z": 10.5,
+   "floor": 0
+  },
+  {
+   "id": "briefcase-office",
+   "item": "briefcase",
+   "x": 17.2,
+   "z": 33.2,
+   "floor": 0
+  },
+  {
+   "id": "katana-vip",
+   "item": "katana",
+   "x": 10.0,
+   "z": 22.0,
+   "floor": 1
+  }
+ ],
+ "blend": [],
+ "recorder": {
+  "x": 1000,
+  "z": 1000,
+  "floor": 1,
+  "eraseSeconds": 3,
+  "breakSeconds": 1.5,
+  "noise": 12
+ },
+ "monitor": {
+  "id": "G06",
+  "radio": 35,
+  "reportEvery": 10
+ },
+ "witness": {
+  "reach": 1.8,
+  "repeatSeconds": 12
+ },
+ "cameraTick": 0.2,
+ "useRadius": 1.3
+}

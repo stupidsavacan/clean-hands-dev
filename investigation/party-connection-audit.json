@@ -1,0 +1,318 @@
+[
+  {
+    "id": "01",
+    "kind": "opening",
+    "a": "V",
+    "b": "H",
+    "clear": true
+  },
+  {
+    "id": "02",
+    "kind": "opening",
+    "a": "V",
+    "b": "C",
+    "clear": true
+  },
+  {
+    "id": "03",
+    "kind": "opening",
+    "a": "C",
+    "b": "J",
+    "clear": true
+  },
+  {
+    "id": "04",
+    "kind": "opening",
+    "a": "C",
+    "b": "K",
+    "clear": true
+  },
+  {
+    "id": "05",
+    "kind": "opening",
+    "a": "C",
+    "b": "S",
+    "clear": true
+  },
+  {
+    "id": "06",
+    "kind": "opening",
+    "a": "J",
+    "b": "G",
+    "clear": true
+  },
+  {
+    "id": "07",
+    "kind": "opening",
+    "a": "H",
+    "b": "D",
+    "clear": true
+  },
+  {
+    "id": "08",
+    "kind": "opening",
+    "a": "H",
+    "b": "K",
+    "clear": true
+  },
+  {
+    "id": "09",
+    "kind": "opening",
+    "a": "H",
+    "b": "B",
+    "clear": true
+  },
+  {
+    "id": "10",
+    "kind": "opening",
+    "a": "D",
+    "b": "B",
+    "clear": true
+  },
+  {
+    "id": "11",
+    "kind": "opening",
+    "a": "D",
+    "b": "N",
+    "clear": true
+  },
+  {
+    "id": "12",
+    "kind": "opening",
+    "a": "N",
+    "b": "G",
+    "clear": true
+  },
+  {
+    "id": "13",
+    "kind": "opening",
+    "a": "K",
+    "b": "S",
+    "clear": true
+  },
+  {
+    "id": "14",
+    "kind": "opening",
+    "a": "K",
+    "b": "B",
+    "clear": true
+  },
+  {
+    "id": "15",
+    "kind": "opening",
+    "a": "S",
+    "b": "B",
+    "clear": true
+  },
+  {
+    "id": "16",
+    "kind": "opening",
+    "a": "S",
+    "b": "G",
+    "clear": true
+  },
+  {
+    "id": "17",
+    "kind": "opening",
+    "a": "B",
+    "b": "G",
+    "clear": true
+  },
+  {
+    "id": "18",
+    "kind": "opening",
+    "a": "B",
+    "b": "P",
+    "clear": true
+  },
+  {
+    "id": "19",
+    "kind": "opening",
+    "a": "P",
+    "b": "G",
+    "clear": true
+  },
+  {
+    "id": "20",
+    "kind": "opening",
+    "a": "W",
+    "b": "T",
+    "clear": true
+  },
+  {
+    "id": "21",
+    "kind": "opening",
+    "a": "R",
+    "b": "U",
+    "clear": true
+  },
+  {
+    "id": "22",
+    "kind": "opening",
+    "a": "U",
+    "b": "Q",
+    "clear": true
+  },
+  {
+    "id": "23",
+    "kind": "opening",
+    "a": "U",
+    "b": "O",
+    "clear": true
+  },
+  {
+    "id": "24",
+    "kind": "opening",
+    "a": "U",
+    "b": "M",
+    "clear": true
+  },
+  {
+    "id": "25",
+    "kind": "opening",
+    "a": "Q",
+    "b": "O",
+    "clear": true
+  },
+  {
+    "id": "26",
+    "kind": "opening",
+    "a": "O",
+    "b": "M",
+    "clear": true
+  },
+  {
+    "id": "S1",
+    "kind": "stairs",
+    "a": "H",
+    "b": "R",
+    "clear": true,
+    "from": {
+      "x": 15.5,
+      "z": 10,
+      "y": 0
+    },
+    "to": {
+      "x": 24.5,
+      "z": 10,
+      "y": 3.5
+    }
+  },
+  {
+    "id": "S2",
+    "kind": "stairs",
+    "a": "D",
+    "b": "R",
+    "clear": true,
+    "from": {
+      "x": 35.5,
+      "z": 8,
+      "y": 0
+    },
+    "to": {
+      "x": 44.5,
+      "z": 8,
+      "y": 3.5
+    }
+  },
+  {
+    "id": "S3",
+    "kind": "stairs",
+    "a": "W",
+    "b": "K",
+    "clear": true,
+    "from": {
+      "x": 14,
+      "z": 17.5,
+      "y": -3.5
+    },
+    "to": {
+      "x": 14,
+      "z": 26.5,
+      "y": 0
+    }
+  },
+  {
+    "id": "S4",
+    "kind": "stairs",
+    "a": "T",
+    "b": "S",
+    "clear": true,
+    "from": {
+      "x": 14,
+      "z": 31.5,
+      "y": -3.5
+    },
+    "to": {
+      "x": 14,
+      "z": 38.5,
+      "y": 0
+    }
+  },
+  {
+    "id": "S5",
+    "kind": "stairs",
+    "a": "S",
+    "b": "U",
+    "clear": true,
+    "from": {
+      "x": 18.5,
+      "z": 31.5,
+      "y": 0
+    },
+    "to": {
+      "x": 18.5,
+      "z": 38.5,
+      "y": 3.5
+    }
+  },
+  {
+    "id": "X1",
+    "kind": "ledge",
+    "a": "V",
+    "b": "C",
+    "clear": true
+  },
+  {
+    "id": "X2",
+    "kind": "ladder",
+    "a": "C",
+    "b": "T",
+    "clear": true
+  },
+  {
+    "id": "X3",
+    "kind": "drainpipe",
+    "a": "G",
+    "b": "L",
+    "clear": true
+  },
+  {
+    "id": "X4",
+    "kind": "ladder",
+    "a": "S",
+    "b": "U",
+    "clear": true
+  },
+  {
+    "id": "X5",
+    "kind": "window",
+    "a": "L",
+    "b": "Q",
+    "clear": true
+  },
+  {
+    "id": "X6",
+    "kind": "window",
+    "a": "L",
+    "b": "O",
+    "clear": true
+  },
+  {
+    "id": "X7",
+    "kind": "window",
+    "a": "L",
+    "b": "M",
+    "clear": true
+  }
+]

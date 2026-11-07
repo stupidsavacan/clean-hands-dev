@@ -1,0 +1,65 @@
+/* The HITMAN-style menus (menus.ts), all under .hm. CLEAN HANDS colours and type from style.css (:root variables, .modal, .eyebrow).
+   Sizes are checked in the UI lab at PC 1280x720 and iPad (9th gen) landscape 1080x810: no sideways overflow, the start
+   button on screen without scrolling, every button at least 44px tall. */
+.hm.modal{background:linear-gradient(90deg,rgba(5,8,10,.96),rgba(5,8,10,.84) 60%,rgba(5,8,10,.66))}
+.hm h3{font:10px var(--latin);letter-spacing:.32em;color:var(--dim);margin:0 0 10px}
+.hm button{min-height:44px}
+
+/* Planning */
+.hm-sheet{position:relative;width:min(1180px,calc(100vw - 48px));max-height:calc(100vh - 32px);overflow:auto;padding:22px 8px;display:flex;flex-direction:column}
+.hm-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;border-bottom:1px solid var(--faint);padding-bottom:12px}
+.hm-head h2{font:700 32px/1.2 var(--jp);margin:6px 0 0}.hm-head p{margin:0;font:12px var(--latin);letter-spacing:.24em;color:var(--dim)}
+.hm-body{display:grid;grid-template-columns:minmax(240px,1fr) 2fr;gap:30px;margin-top:18px;min-height:0}
+.hm-brief [data-id="targets"]{display:flex;flex-direction:column;gap:10px}
+.hm-brief article{padding:14px 16px;border-left:3px solid var(--red);background:rgba(243,239,230,.05)}.hm-brief article.off{border-left-color:var(--faint);opacity:.6}
+.hm-brief article span{display:block;font:10px var(--latin);letter-spacing:.24em;color:var(--red)}.hm-brief article b{display:block;font:700 18px var(--jp);margin:4px 0}
+.hm-brief article p{margin:0;font-size:12px;line-height:1.8;color:rgba(243,239,230,.78)}.hm-empty{color:var(--dim);font-size:13px}
+.hm-slots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.hm-slots .slot{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-height:118px;min-width:0;padding:11px 12px 9px;text-align:left;background:rgba(243,239,230,.05);border:1px solid var(--faint);color:var(--paper);cursor:pointer}
+.hm-slots .slot small{font:9px var(--latin);letter-spacing:.2em;color:var(--dim)}.hm-slots .slot span{font:12px var(--jp);color:var(--dim)}
+.hm-slots .slot b{font:700 16px/1.3 var(--jp);margin-top:auto;max-width:100%;overflow-wrap:anywhere}
+.hm-slots .slot i{font-style:normal;font-size:11px;line-height:1.45;color:var(--dim);min-height:2.9em;max-width:100%;overflow-wrap:anywhere}
+.hm-slots .slot:hover{border-color:rgba(243,239,230,.5)}
+.hm-slots .slot.active{border-color:var(--red);background:rgba(226,54,43,.12);box-shadow:inset 0 -3px 0 var(--red)}
+.hm-slots .slot.fixed{cursor:default;opacity:.72}.hm-slots .slot.muted b{color:var(--dim)}
+.hm-picker{margin-top:12px;padding:12px 14px;border:1px solid var(--faint);background:rgba(11,15,18,.86)}
+.hm-picker h4{font:600 12px var(--jp);color:var(--dim);margin:2px 0 8px}
+.hm-picker .opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px}
+.hm-picker .opt{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;padding:9px 12px;text-align:left;background:rgba(243,239,230,.05);border:1px solid var(--faint);color:var(--paper);cursor:pointer}
+.hm-picker .opt b{font:600 14px var(--jp)}.hm-picker .opt i{font-style:normal;font-size:11px;color:var(--dim);line-height:1.45}
+.hm-picker .opt.on{border-color:var(--red);box-shadow:inset 3px 0 0 var(--red)}
+.hm-picker .opt:disabled{cursor:default;background:transparent;border-style:dashed}.hm-picker .opt:disabled b{color:var(--dim)}.hm-picker .opt i.why{color:var(--amber)}
+.hm-guns{margin:10px 0 0;font:12px var(--jp);color:var(--dim)}
+.hm-sheet footer{display:flex;justify-content:flex-end;gap:8px;margin-top:16px;border-top:1px solid var(--faint);padding-top:14px}
+.hm-sheet footer .hm-go{min-width:180px;padding:12px 22px;font-size:15px;font-weight:700;letter-spacing:.1em;background:var(--red);border-color:var(--red);color:#fff}
+
+/* Pause */
+.hm-menu{display:grid;grid-template-columns:minmax(220px,300px) minmax(260px,420px);gap:56px;width:min(820px,calc(100vw - 48px));max-height:calc(100vh - 32px);overflow:auto}
+.hm-list{display:flex;flex-direction:column;gap:2px}.hm-list h2{font:700 30px var(--jp);margin:6px 0 16px}
+.hm-list button{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;text-align:left;font:600 16px var(--jp);background:transparent;border:0;border-left:3px solid transparent;color:var(--paper);cursor:pointer}
+.hm-list button small{font:10px var(--latin);letter-spacing:.2em;color:var(--dim)}
+.hm-list button:hover,.hm-list button:focus-visible{background:rgba(243,239,230,.07);border-left-color:var(--red);outline:none}
+.hm-side{padding-top:44px}.hm-side h3{margin:18px 0 8px}.hm-side ul{list-style:none;margin:0;padding:0}
+.hm-side li{padding:5px 0 5px 18px;position:relative;font-size:13px}.hm-side li::before{content:'';position:absolute;left:2px;top:11px;width:7px;height:7px;border:1.4px solid var(--paper);transform:rotate(45deg)}
+.hm-side li.done{color:var(--teal)}.hm-side li.done::before{background:var(--teal);border-color:var(--teal)}.hm-side li.failed{color:var(--red);text-decoration:line-through}.hm-side li.bonus{color:var(--dim);font-size:12px}
+.hm-side p{font-size:12px;color:var(--dim);line-height:1.8;margin-top:18px}
+.hm-side .tag{display:inline-flex;gap:8px;align-items:baseline;margin:0 6px 6px 0;padding:4px 10px;font:700 12px var(--jp);background:rgba(243,239,230,.08)}
+.hm-side .tag small{font:9px var(--latin);letter-spacing:.16em;opacity:.75}.hm-side .tag.red{background:var(--red);color:#fff}.hm-side .tag.amber{background:var(--amber);color:var(--ink)}.hm-side .tag.teal{background:var(--teal);color:var(--ink)}
+.hm-loadout{font-size:13px;line-height:1.8}
+
+/* Result */
+.hm-res{position:relative;display:grid;grid-template-columns:1fr 1fr;column-gap:36px;width:min(880px,calc(100vw - 48px));max-height:calc(100vh - 32px);overflow:auto;padding:34px 40px 26px;background:var(--panel);border:1px solid var(--faint);box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.hm-res::before{content:'';position:absolute;left:0;top:0;width:4px;height:100%;background:var(--red)}
+.hm-res>.eyebrow,.hm-res>.hm-res-head,.hm-res>p,.hm-res>footer{grid-column:1/-1}.hm-res>.eyebrow{font-size:12px;letter-spacing:.4em}
+.hm-res-head{display:flex;align-items:center;justify-content:space-between;gap:16px}.hm-res-head h2{font:700 30px/1.3 var(--jp);margin:6px 0 10px}
+.hm-rank{font:700 72px/1 var(--latin);color:var(--paper);min-width:96px;text-align:center;border:2px solid var(--faint);padding:6px 10px}.hm-rank[data-rank="A"]{color:var(--teal);border-color:var(--teal)}.hm-rank[data-rank="—"]{color:var(--dim)}
+.hm-res>p{font-size:13px;line-height:1.9;color:rgba(243,239,230,.82)}
+.hm-lines{grid-column:1;width:100%;border-collapse:collapse;margin:6px 0 12px;font-size:13px}.hm-lines th{text-align:left;font-weight:400;color:rgba(243,239,230,.82);padding:4px 0}
+.hm-lines td{text-align:right;font:600 13px var(--latin);padding:4px 0 4px 18px}.hm-lines tr.total th,.hm-lines tr.total td{border-top:1px solid var(--faint);padding-top:8px;font-size:16px;color:var(--paper)}
+.hm-stats{grid-column:2;align-self:start;display:grid;grid-template-columns:auto 1fr;gap:8px 24px;margin:6px 0 0}.hm-stats dt{font-size:12px;color:var(--dim)}.hm-stats dd{margin:0;font:600 14px var(--jp)}
+.hm-res footer{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.hm-res footer button:last-child{background:var(--paper);color:var(--ink);border-color:var(--paper);font-weight:600}
+
+/* Narrow windows; iPad landscape (1080x810) keeps the two-column planning with tighter slots. */
+@media(max-width:1100px){.hm-body{grid-template-columns:minmax(220px,.9fr) 2fr;gap:22px}.hm-slots{grid-template-columns:repeat(3,minmax(0,1fr))}.hm-slots .slot{min-height:104px}}
+@media(max-height:760px){.hm-head h2{font-size:26px}.hm-slots .slot{min-height:96px}.hm-slots .slot i{min-height:0}.hm-sheet{padding:14px 8px}}
+@media(max-width:760px){.hm-body,.hm-menu,.hm-res{grid-template-columns:1fr;gap:18px}.hm-side{padding-top:0}.hm-stats{grid-column:1}.hm-slots{grid-template-columns:repeat(2,minmax(0,1fr))}}

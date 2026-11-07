@@ -1,0 +1,744 @@
+{
+ "name": "夜会の私邸",
+ "ground": {
+  "minX": -30,
+  "maxX": 30,
+  "minZ": -22.5,
+  "maxZ": 22.5
+ },
+ "rooms": [
+  {
+   "id": "V",
+   "label": "正門前",
+   "floor": 0,
+   "type": "public",
+   "minX": -30,
+   "maxX": 30,
+   "minZ": -22.5,
+   "maxZ": -16,
+   "surface": "grass",
+   "indoor": false
+  },
+  {
+   "id": "H",
+   "label": "玄関ホール",
+   "floor": 0,
+   "type": "public",
+   "minX": -22,
+   "maxX": -6,
+   "minZ": -16,
+   "maxZ": -4,
+   "surface": "wood",
+   "indoor": true
+  },
+  {
+   "id": "D",
+   "label": "食堂",
+   "floor": 0,
+   "type": "public",
+   "minX": -6,
+   "maxX": 6,
+   "minZ": -16,
+   "maxZ": -4,
+   "surface": "wood",
+   "indoor": true
+  },
+  {
+   "id": "K",
+   "label": "厨房",
+   "floor": 0,
+   "type": "staff",
+   "minX": 6,
+   "maxX": 18,
+   "minZ": -16,
+   "maxZ": -4,
+   "surface": "wood",
+   "indoor": true
+  },
+  {
+   "id": "B",
+   "label": "舞踏室",
+   "floor": 0,
+   "type": "public",
+   "minX": -18,
+   "maxX": 6,
+   "minZ": -4,
+   "maxZ": 12,
+   "surface": "wood",
+   "indoor": true
+  },
+  {
+   "id": "S",
+   "label": "使用人室",
+   "floor": 0,
+   "type": "staff",
+   "minX": 6,
+   "maxX": 18,
+   "minZ": -4,
+   "maxZ": 12,
+   "surface": "wood",
+   "indoor": true
+  },
+  {
+   "id": "C",
+   "label": "中庭・使用人入口",
+   "floor": 0,
+   "type": "staff",
+   "minX": 18,
+   "maxX": 26,
+   "minZ": -16,
+   "maxZ": 4,
+   "surface": "grass",
+   "indoor": false
+  },
+  {
+   "id": "J",
+   "label": "車庫",
+   "floor": 0,
+   "type": "staff",
+   "minX": 18,
+   "maxX": 26,
+   "minZ": 4,
+   "maxZ": 12,
+   "surface": "wood",
+   "indoor": true
+  },
+  {
+   "id": "N",
+   "label": "温室",
+   "floor": 0,
+   "type": "public",
+   "minX": 18,
+   "maxX": 26,
+   "minZ": 12,
+   "maxZ": 20,
+   "surface": "wood",
+   "indoor": true
+  },
+  {
+   "id": "G",
+   "label": "庭・東屋",
+   "floor": 0,
+   "type": "public",
+   "minX": -26,
+   "maxX": 18,
+   "minZ": 12,
+   "maxZ": 20,
+   "surface": "grass",
+   "indoor": false
+  },
+  {
+   "id": "W",
+   "label": "ワインセラー",
+   "floor": -1,
+   "type": "staff",
+   "minX": 6,
+   "maxX": 18,
+   "minZ": -16,
+   "maxZ": -4,
+   "surface": "wood",
+   "indoor": true
+  },
+  {
+   "id": "T",
+   "label": "地下使用人通路",
+   "floor": -1,
+   "type": "staff",
+   "minX": 6,
+   "maxX": 18,
+   "minZ": -4,
+   "maxZ": 12,
+   "surface": "wood",
+   "indoor": true
+  },
+  {
+   "id": "R",
+   "label": "回廊",
+   "floor": 1,
+   "type": "public",
+   "minX": -22,
+   "maxX": -18,
+   "minZ": -4,
+   "maxZ": 10,
+   "surface": "wood",
+   "indoor": true
+  },
+  {
+   "id": "Q",
+   "label": "客室",
+   "floor": 1,
+   "type": "secure",
+   "minX": -18,
+   "maxX": -6,
+   "minZ": 0,
+   "maxZ": 10,
+   "surface": "wood",
+   "indoor": true
+  },
+  {
+   "id": "O",
+   "label": "書斎",
+   "floor": 1,
+   "type": "secure",
+   "minX": -6,
+   "maxX": 6,
+   "minZ": 0,
+   "maxZ": 10,
+   "surface": "wood",
+   "indoor": true
+  },
+  {
+   "id": "M",
+   "label": "主寝室",
+   "floor": 1,
+   "type": "secure",
+   "minX": 6,
+   "maxX": 18,
+   "minZ": 0,
+   "maxZ": 10,
+   "surface": "wood",
+   "indoor": true
+  },
+  {
+   "id": "U",
+   "label": "2階使用人通路",
+   "floor": 1,
+   "type": "staff",
+   "minX": -18,
+   "maxX": 18,
+   "minZ": -4,
+   "maxZ": 0,
+   "surface": "wood",
+   "indoor": true
+  },
+  {
+   "id": "L",
+   "label": "外の縁",
+   "floor": 1,
+   "type": "outer",
+   "minX": -18,
+   "maxX": 18,
+   "minZ": 10,
+   "maxZ": 12,
+   "surface": "wood",
+   "indoor": false
+  },
+  {
+   "id": "A",
+   "label": "屋根裏物置",
+   "floor": 2,
+   "type": "staff",
+   "minX": -22,
+   "maxX": 18,
+   "minZ": -4,
+   "maxZ": 6,
+   "surface": "wood",
+   "indoor": true
+  },
+  {
+   "id": "X",
+   "label": "屋根出口",
+   "floor": 2,
+   "type": "staff",
+   "minX": 6,
+   "maxX": 18,
+   "minZ": 6,
+   "maxZ": 12,
+   "surface": "wood",
+   "indoor": false
+  }
+ ],
+ "openings": [
+  {
+   "id": "01",
+   "a": "V",
+   "b": "H",
+   "kind": "opening",
+   "axis": "x",
+   "fixed": -16,
+   "at": -12,
+   "width": 2.6
+  },
+  {
+   "id": "02",
+   "a": "V",
+   "b": "C",
+   "kind": "staff",
+   "axis": "x",
+   "fixed": -16,
+   "at": 22,
+   "width": 2.6
+  },
+  {
+   "id": "03",
+   "a": "G",
+   "b": "N",
+   "kind": "opening",
+   "axis": "z",
+   "fixed": 18,
+   "at": 16,
+   "width": 2.6
+  },
+  {
+   "id": "04",
+   "a": "G",
+   "b": "B",
+   "kind": "opening",
+   "axis": "x",
+   "fixed": 12,
+   "at": -8,
+   "width": 2.6
+  },
+  {
+   "id": "05",
+   "a": "K",
+   "b": "C",
+   "kind": "staff",
+   "axis": "z",
+   "fixed": 18,
+   "at": -10,
+   "width": 2.6
+  },
+  {
+   "id": "06",
+   "a": "C",
+   "b": "J",
+   "kind": "staff",
+   "axis": "x",
+   "fixed": 4,
+   "at": 22,
+   "width": 2.6
+  },
+  {
+   "id": "07",
+   "a": "H",
+   "b": "B",
+   "kind": "opening",
+   "axis": "x",
+   "fixed": -4,
+   "at": -12,
+   "width": 2.6
+  },
+  {
+   "id": "08",
+   "a": "H",
+   "b": "D",
+   "kind": "opening",
+   "axis": "z",
+   "fixed": -6,
+   "at": -10,
+   "width": 2.6
+  },
+  {
+   "id": "09",
+   "a": "B",
+   "b": "D",
+   "kind": "opening",
+   "axis": "x",
+   "fixed": -4,
+   "at": 0,
+   "width": 2.6
+  },
+  {
+   "id": "10",
+   "a": "D",
+   "b": "K",
+   "kind": "staff",
+   "axis": "z",
+   "fixed": 6,
+   "at": -10,
+   "width": 2.6
+  },
+  {
+   "id": "11",
+   "a": "B",
+   "b": "S",
+   "kind": "staff",
+   "axis": "z",
+   "fixed": 6,
+   "at": 5,
+   "width": 2.6
+  },
+  {
+   "id": "12",
+   "a": "K",
+   "b": "S",
+   "kind": "staff",
+   "axis": "x",
+   "fixed": -4,
+   "at": 12,
+   "width": 2.6
+  },
+  {
+   "id": "13",
+   "a": "S",
+   "b": "C",
+   "kind": "staff",
+   "axis": "z",
+   "fixed": 18,
+   "at": 0,
+   "width": 2.6
+  },
+  {
+   "id": "14",
+   "a": "J",
+   "b": "N",
+   "kind": "opening",
+   "axis": "x",
+   "fixed": 12,
+   "at": 22,
+   "width": 2.6
+  },
+  {
+   "id": "16",
+   "a": "W",
+   "b": "T",
+   "kind": "staff",
+   "axis": "x",
+   "fixed": -4,
+   "at": 12,
+   "width": 2.6
+  },
+  {
+   "id": "24",
+   "a": "R",
+   "b": "Q",
+   "kind": "opening",
+   "axis": "z",
+   "fixed": -18,
+   "at": 4,
+   "width": 2.6
+  },
+  {
+   "id": "25",
+   "a": "Q",
+   "b": "O",
+   "kind": "opening",
+   "axis": "z",
+   "fixed": -6,
+   "at": 4,
+   "width": 2.6
+  },
+  {
+   "id": "26",
+   "a": "O",
+   "b": "M",
+   "kind": "opening",
+   "axis": "z",
+   "fixed": 6,
+   "at": 4,
+   "width": 2.6
+  },
+  {
+   "id": "28",
+   "a": "Q",
+   "b": "U",
+   "kind": "staff",
+   "axis": "x",
+   "fixed": 0,
+   "at": -12,
+   "width": 2.6
+  },
+  {
+   "id": "29",
+   "a": "O",
+   "b": "U",
+   "kind": "staff",
+   "axis": "x",
+   "fixed": 0,
+   "at": 0,
+   "width": 2.6
+  },
+  {
+   "id": "30",
+   "a": "M",
+   "b": "U",
+   "kind": "staff",
+   "axis": "x",
+   "fixed": 0,
+   "at": 12,
+   "width": 2.6
+  },
+  {
+   "id": "35",
+   "a": "A",
+   "b": "X",
+   "kind": "staff",
+   "axis": "x",
+   "fixed": 6,
+   "at": 12,
+   "width": 2.6
+  },
+  {
+   "id": "37",
+   "a": "R",
+   "b": "U",
+   "kind": "opening",
+   "axis": "z",
+   "fixed": -18,
+   "at": -2,
+   "width": 2.6
+  }
+ ],
+ "stairs": [
+  {
+   "id": "17",
+   "a": "W",
+   "b": "K",
+   "low": -3.5,
+   "high": 0,
+   "rise": "+z",
+   "floor": -1,
+   "minX": 8,
+   "maxX": 10,
+   "minZ": -14,
+   "maxZ": -6
+  },
+  {
+   "id": "18",
+   "a": "T",
+   "b": "S",
+   "low": -3.5,
+   "high": 0,
+   "rise": "+z",
+   "floor": -1,
+   "minX": 14,
+   "maxX": 16,
+   "minZ": 1,
+   "maxZ": 9
+  },
+  {
+   "id": "20",
+   "a": "H",
+   "b": "R",
+   "low": 0,
+   "high": 3.5,
+   "rise": "+z",
+   "floor": 0,
+   "minX": -22,
+   "maxX": -19,
+   "minZ": -12,
+   "maxZ": -4
+  },
+  {
+   "id": "21",
+   "a": "S",
+   "b": "U",
+   "low": 0,
+   "high": 3.5,
+   "rise": "-z",
+   "floor": 0,
+   "minX": 15,
+   "maxX": 17,
+   "minZ": -2,
+   "maxZ": 6
+  },
+  {
+   "id": "32",
+   "a": "U",
+   "b": "A",
+   "low": 3.5,
+   "high": 7,
+   "rise": "+x",
+   "floor": 1,
+   "minX": 6,
+   "maxX": 14,
+   "minZ": -3.25,
+   "maxZ": -1.75
+  }
+ ],
+ "traversals": [
+  {
+   "id": "15",
+   "a": "V",
+   "b": "G",
+   "kind": "ledge",
+   "start": {
+    "x": -27,
+    "z": -18,
+    "y": 0.0
+   },
+   "end": {
+    "x": -24,
+    "z": 16,
+    "y": 0.0
+   },
+   "seconds": 9,
+   "via": [
+    {
+     "x": -28,
+     "y": 0,
+     "z": -18
+    },
+    {
+     "x": -28,
+     "y": 3,
+     "z": -16
+    },
+    {
+     "x": -28,
+     "y": 0,
+     "z": -14
+    },
+    {
+     "x": -28,
+     "y": 0,
+     "z": 16
+    }
+   ]
+  },
+  {
+   "id": "19",
+   "a": "T",
+   "b": "C",
+   "kind": "ladder",
+   "start": {
+    "x": 17,
+    "z": 9,
+    "y": -3.5
+   },
+   "end": {
+    "x": 20,
+    "z": 2,
+    "y": 0.0
+   },
+   "seconds": 5
+  },
+  {
+   "id": "22",
+   "a": "G",
+   "b": "L",
+   "kind": "drainpipe",
+   "start": {
+    "x": -16,
+    "z": 15,
+    "y": 0.0
+   },
+   "end": {
+    "x": -16,
+    "z": 11,
+    "y": 3.5
+   },
+   "seconds": 5
+  },
+  {
+   "id": "23",
+   "a": "B",
+   "b": "R",
+   "kind": "ladder",
+   "start": {
+    "x": -16,
+    "z": 9,
+    "y": 0.0
+   },
+   "end": {
+    "x": -20,
+    "z": 8,
+    "y": 3.5
+   },
+   "seconds": 5
+  },
+  {
+   "id": "31",
+   "a": "Q",
+   "b": "L",
+   "kind": "window",
+   "start": {
+    "x": -12,
+    "z": 9,
+    "y": 3.5
+   },
+   "end": {
+    "x": -12,
+    "z": 11,
+    "y": 3.5
+   },
+   "seconds": 2
+  },
+  {
+   "id": "36",
+   "a": "O",
+   "b": "L",
+   "kind": "window",
+   "start": {
+    "x": 0,
+    "z": 9,
+    "y": 3.5
+   },
+   "end": {
+    "x": 0,
+    "z": 11,
+    "y": 3.5
+   },
+   "seconds": 2
+  },
+  {
+   "id": "38",
+   "a": "M",
+   "b": "L",
+   "kind": "window",
+   "start": {
+    "x": 12,
+    "z": 9,
+    "y": 3.5
+   },
+   "end": {
+    "x": 12,
+    "z": 11,
+    "y": 3.5
+   },
+   "seconds": 2
+  },
+  {
+   "id": "33",
+   "a": "R",
+   "b": "A",
+   "kind": "ladder",
+   "start": {
+    "x": -20,
+    "z": 0,
+    "y": 3.5
+   },
+   "end": {
+    "x": -20,
+    "y": 7,
+    "z": 0
+   },
+   "seconds": 5
+  },
+  {
+   "id": "34",
+   "a": "L",
+   "b": "X",
+   "kind": "drainpipe",
+   "start": {
+    "x": 16,
+    "z": 11,
+    "y": 3.5
+   },
+   "end": {
+    "x": 16,
+    "z": 10,
+    "y": 7.0
+   },
+   "seconds": 5
+  }
+ ],
+ "traversalRules": {
+  "radius": 1.15,
+  "suspicionPerSecond": 25
+ },
+ "spawn": {
+  "x": -12,
+  "z": -20
+ },
+ "spawnHeading": 0,
+ "overlook": {
+  "minX": -18,
+  "maxX": -16,
+  "minZ": 6,
+  "maxZ": 10,
+  "railHeight": 0.6,
+  "lowerRailHeight": 1.2
+ }
+}

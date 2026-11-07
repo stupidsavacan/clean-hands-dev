@@ -1,0 +1,99 @@
+{
+  "meeting": {
+    "flags": [
+      "meet_note",
+      "meet_hint",
+      "meet_call",
+      "meet_arrived"
+    ],
+    "investor": {
+      "x": 9.645733653882864,
+      "y": 0,
+      "z": 38.83265003211498
+    },
+    "escort": {
+      "x": 5.522384752369981,
+      "y": 0,
+      "z": 30.820475908714283
+    }
+  },
+  "progress": [
+    {
+      "play": 0.72,
+      "t": 0.75,
+      "clock": 0.8,
+      "type": "chance.updated",
+      "time": 0.7500000000000007,
+      "id": "meet",
+      "value": 0,
+      "reason": "active",
+      "at": {
+        "x": 15.45,
+        "y": 0,
+        "z": 30.9
+      },
+      "disguise": "manager"
+    },
+    {
+      "play": 0.72,
+      "t": 0.75,
+      "clock": 0.8,
+      "type": "chance.updated",
+      "time": 0.7500000000000007,
+      "id": "meet",
+      "value": 1,
+      "reason": "active",
+      "at": {
+        "x": 15.45,
+        "y": 0,
+        "z": 30.9
+      },
+      "disguise": "manager"
+    },
+    {
+      "play": 3.32,
+      "t": 3.35,
+      "clock": 3.3,
+      "type": "flag.set",
+      "time": 3.349999999999993,
+      "id": "meet_call",
+      "at": {
+        "x": 15.45,
+        "y": 0,
+        "z": 32.2
+      },
+      "disguise": "manager"
+    },
+    {
+      "play": 63.02,
+      "t": 63.05,
+      "clock": 63,
+      "type": "chance.updated",
+      "time": 63.0499999999977,
+      "id": "meet",
+      "value": 2,
+      "reason": "active",
+      "at": {
+        "x": 22,
+        "y": 0,
+        "z": 2
+      },
+      "disguise": "suit"
+    },
+    {
+      "play": 63.02,
+      "t": 63.05,
+      "clock": 63,
+      "type": "flag.set",
+      "time": 63.0499999999977,
+      "id": "meet_arrived",
+      "at": {
+        "x": 22,
+        "y": 0,
+        "z": 2
+      },
+      "disguise": "suit"
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,13 @@
+{
+  "scope": "design only",
+  "scheduleCoverage": "all 60 cover 0..1800 without gaps",
+  "npcDestinationCollisions": [],
+  "missingLocalLinks": [],
+  "notVerified": [
+    "runtime navigation",
+    "dynamic visibility",
+    "Ghost completion",
+    "player timing",
+    "performance"
+  ]
+}

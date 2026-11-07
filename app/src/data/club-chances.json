@@ -1,0 +1,75 @@
+{
+ "drop": {
+  "title": "ドロップのボタン",
+  "rumor": "フロアのDJの案内",
+  "target": "investor",
+  "trigger": {
+   "heard": "drop_clue"
+  },
+  "window": [
+   720,
+   730
+  ],
+  "steps": [
+   {
+    "text": "機材室の近くで技術係の独り言を聞く",
+    "done": {
+     "any": [
+      {
+       "flag": "drop_tech"
+      },
+      {
+       "flag": "drop_wires"
+      }
+     ]
+    }
+   },
+   {
+    "text": "機材室で配線を外す。照明卓にも細工できる",
+    "done": {
+     "flag": "drop_wires"
+    }
+   },
+   {
+    "text": "投資家がボタンを押すのを待つ",
+    "done": {
+     "killed": "investor",
+     "by": "club_electrocution"
+    }
+   }
+  ]
+ },
+ "meet": {
+  "title": "裏の密会",
+  "rumor": "厨房の立ち話か事務所の机のメモ",
+  "target": "investor",
+  "trigger": {
+   "heard": "meet_clue"
+  },
+  "window": [
+   1080,
+   1125
+  ],
+  "steps": [
+   {
+    "text": "裏の密会の手がかりをつかむ",
+    "done": {
+     "flag": "meet_hint"
+    }
+   },
+   {
+    "text": "18:00に搬入口へ。事務所の内線で前倒しもできる",
+    "done": {
+     "flag": "meet_arrived"
+    }
+   },
+   {
+    "text": "搬入口で投資家を排除する。冷凍庫に隠せる",
+    "done": {
+     "killed": "investor",
+     "at": "club_dock"
+    }
+   }
+  ]
+ }
+}

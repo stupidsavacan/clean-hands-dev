@@ -1,0 +1,22 @@
+{
+  "url": "http://127.0.0.1:8796/index.html",
+  "before": {
+    "flying": 0,
+    "landed": 1,
+    "ripples": 1
+  },
+  "retry": {
+    "flying": 0,
+    "landed": 0,
+    "ripples": 0
+  },
+  "preparation": {
+    "props": {
+      "flying": 0,
+      "landed": 0,
+      "ripples": 0
+    },
+    "open": true
+  },
+  "errors": []
+}

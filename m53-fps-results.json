@@ -1,0 +1,196 @@
+{
+  "config": {
+    "headless": true,
+    "viewport": [
+      1280,
+      800
+    ],
+    "dpr": 1,
+    "npcs": 120,
+    "args": [
+      "--enable-gpu",
+      "--use-gl=angle",
+      "--use-angle=d3d11",
+      "--ignore-gpu-blocklist"
+    ]
+  },
+  "gpu": {
+    "renderer": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "vendor": "Google Inc. (AMD)",
+    "npcs": 120,
+    "dpr": 1
+  },
+  "fps": [
+    {
+      "place": "開始地点",
+      "fps": 90.2,
+      "p95Ms": 11.2,
+      "minOneSecondFps": 90,
+      "frozen": false,
+      "performance": {
+        "fps": 89.98044527672796,
+        "jsFrameMs": 4.675945170380142,
+        "drawCalls": 52,
+        "triangles": 3002,
+        "visibleNpcModels": 5
+      }
+    },
+    {
+      "place": "ロビー",
+      "fps": 81.3,
+      "p95Ms": 22.2,
+      "minOneSecondFps": 79,
+      "frozen": false,
+      "performance": {
+        "fps": 80.94845566981809,
+        "jsFrameMs": 10.80313471793062,
+        "drawCalls": 174,
+        "triangles": 17470,
+        "visibleNpcModels": 27
+      }
+    },
+    {
+      "place": "プール",
+      "fps": 77.3,
+      "p95Ms": 22.2,
+      "minOneSecondFps": 73,
+      "frozen": false,
+      "performance": {
+        "fps": 74.00347540478113,
+        "jsFrameMs": 12.346839411035724,
+        "drawCalls": 182,
+        "triangles": 16352,
+        "visibleNpcModels": 28
+      }
+    },
+    {
+      "place": "テラス",
+      "fps": 59.4,
+      "p95Ms": 22.3,
+      "minOneSecondFps": 48,
+      "frozen": false,
+      "performance": {
+        "fps": 61.77549920371505,
+        "jsFrameMs": 13.767685561255599,
+        "drawCalls": 202,
+        "triangles": 18004,
+        "visibleNpcModels": 28
+      }
+    },
+    {
+      "place": "宴会場",
+      "fps": 87,
+      "p95Ms": 11.3,
+      "minOneSecondFps": 83,
+      "frozen": false,
+      "performance": {
+        "fps": 89.93525559417728,
+        "jsFrameMs": 8.908702699325175,
+        "drawCalls": 156,
+        "triangles": 14264,
+        "visibleNpcModels": 17
+      }
+    },
+    {
+      "place": "地下セラー",
+      "fps": 89.8,
+      "p95Ms": 11.2,
+      "minOneSecondFps": 89,
+      "frozen": false,
+      "performance": {
+        "fps": 89.974163001413,
+        "jsFrameMs": 9.805613054727065,
+        "drawCalls": 154,
+        "triangles": 12976,
+        "visibleNpcModels": 21
+      }
+    },
+    {
+      "place": "ペントハウス",
+      "fps": 86.6,
+      "p95Ms": 11.3,
+      "minOneSecondFps": 78,
+      "frozen": false,
+      "performance": {
+        "fps": 89.95887513365498,
+        "jsFrameMs": 7.214541054383215,
+        "drawCalls": 123,
+        "triangles": 8569,
+        "visibleNpcModels": 9
+      }
+    },
+    {
+      "place": "ヘリポート",
+      "fps": 84.7,
+      "p95Ms": 22.2,
+      "minOneSecondFps": 78,
+      "frozen": false,
+      "performance": {
+        "fps": 80.28843767499565,
+        "jsFrameMs": 10.684560152543808,
+        "drawCalls": 205,
+        "triangles": 13096,
+        "visibleNpcModels": 14
+      }
+    },
+    {
+      "place": "マリーナ",
+      "fps": 89.4,
+      "p95Ms": 11.2,
+      "minOneSecondFps": 87,
+      "frozen": false,
+      "performance": {
+        "fps": 90.00763903400156,
+        "jsFrameMs": 9.128072811592142,
+        "drawCalls": 135,
+        "triangles": 13003,
+        "visibleNpcModels": 20
+      }
+    },
+    {
+      "place": "浜辺",
+      "fps": 89.4,
+      "p95Ms": 11.2,
+      "minOneSecondFps": 86,
+      "frozen": false,
+      "performance": {
+        "fps": 89.95649090869794,
+        "jsFrameMs": 9.552471716052438,
+        "drawCalls": 141,
+        "triangles": 11629,
+        "visibleNpcModels": 16
+      }
+    },
+    {
+      "place": "駐車場",
+      "fps": 87.6,
+      "p95Ms": 11.2,
+      "minOneSecondFps": 85,
+      "frozen": false,
+      "performance": {
+        "fps": 89.99089168956763,
+        "jsFrameMs": 5.866317301047387,
+        "drawCalls": 68,
+        "triangles": 6565,
+        "visibleNpcModels": 8
+      }
+    },
+    {
+      "place": "地下セラー（樽準備済み）",
+      "fps": 70.3,
+      "p95Ms": 22.3,
+      "minOneSecondFps": 49,
+      "frozen": false,
+      "performance": {
+        "fps": 49.66771860168521,
+        "jsFrameMs": 17.818257734245684,
+        "drawCalls": 179,
+        "triangles": 16133,
+        "visibleNpcModels": 20
+      }
+    }
+  ],
+  "checks": [],
+  "errors": [],
+  "buildSha256": "6afcc9a9434ca0a5cd546a5ed4ab672ff2404bd0286d9f38e47e5e11ed527fe7"
+}

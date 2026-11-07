@@ -1,0 +1,339 @@
+[
+  {
+    "id": "pistol_guard",
+    "kind": "weapon",
+    "label": "警備の拳銃",
+    "triangles": 156,
+    "bytes": 13980,
+    "anchors": {
+      "GRIP_R": [
+        0,
+        0,
+        0
+      ],
+      "GRIP_L": [
+        -0.035,
+        -0.01,
+        -0.01
+      ],
+      "MUZZLE": [
+        0.0,
+        0.057,
+        0.14
+      ]
+    }
+  },
+  {
+    "id": "pistol_silenced",
+    "kind": "weapon",
+    "label": "消音ピストル",
+    "triangles": 288,
+    "bytes": 21700,
+    "anchors": {
+      "GRIP_R": [
+        0,
+        0,
+        0
+      ],
+      "GRIP_L": [
+        -0.035,
+        -0.01,
+        -0.01
+      ],
+      "MUZZLE": [
+        0.0,
+        0.057,
+        0.3
+      ]
+    }
+  },
+  {
+    "id": "smg",
+    "kind": "weapon",
+    "label": "短機関銃（私設護衛）",
+    "triangles": 232,
+    "bytes": 18884,
+    "anchors": {
+      "GRIP_R": [
+        0,
+        0,
+        0
+      ],
+      "GRIP_L": [
+        0.0,
+        -0.005,
+        0.145
+      ],
+      "MUZZLE": [
+        0.0,
+        0.062,
+        0.285
+      ],
+      "STOCK": [
+        0.0,
+        0.055,
+        -0.315
+      ]
+    }
+  },
+  {
+    "id": "rifle_npc",
+    "kind": "weapon",
+    "label": "突撃銃（増援部隊・NPC専用）",
+    "triangles": 280,
+    "bytes": 21492,
+    "anchors": {
+      "GRIP_R": [
+        0,
+        0,
+        0
+      ],
+      "GRIP_L": [
+        0.0,
+        0.02,
+        0.15
+      ],
+      "MUZZLE": [
+        0.0,
+        0.058,
+        0.57
+      ],
+      "STOCK": [
+        0.0,
+        0.03,
+        -0.36
+      ]
+    }
+  },
+  {
+    "id": "ammo_pickup",
+    "kind": "item",
+    "label": "落ちている弾",
+    "triangles": 108,
+    "bytes": 11032,
+    "anchors": {
+      "PICKUP": [
+        0,
+        0.09,
+        0
+      ]
+    }
+  },
+  {
+    "id": "muzzle_flash",
+    "kind": "effect",
+    "label": "銃口の火花",
+    "triangles": 22,
+    "bytes": 4808,
+    "anchors": {
+      "MUZZLE": [
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  {
+    "id": "car_sedan_blue",
+    "kind": "cover",
+    "label": "車（青）",
+    "triangles": 428,
+    "bytes": 30836,
+    "anchors": {
+      "COVER_FRONT": [
+        0,
+        0,
+        2.65
+      ],
+      "COVER_BACK": [
+        0,
+        0,
+        -2.65
+      ],
+      "COVER_LEFT": [
+        -1.4,
+        0,
+        0
+      ],
+      "COVER_RIGHT": [
+        1.4,
+        0,
+        0
+      ]
+    }
+  },
+  {
+    "id": "car_sedan_white",
+    "kind": "cover",
+    "label": "車（白）",
+    "triangles": 428,
+    "bytes": 30840,
+    "anchors": {
+      "COVER_FRONT": [
+        0,
+        0,
+        2.65
+      ],
+      "COVER_BACK": [
+        0,
+        0,
+        -2.65
+      ],
+      "COVER_LEFT": [
+        -1.4,
+        0,
+        0
+      ],
+      "COVER_RIGHT": [
+        1.4,
+        0,
+        0
+      ]
+    }
+  },
+  {
+    "id": "car_sedan_grey",
+    "kind": "cover",
+    "label": "車（灰）",
+    "triangles": 428,
+    "bytes": 30836,
+    "anchors": {
+      "COVER_FRONT": [
+        0,
+        0,
+        2.65
+      ],
+      "COVER_BACK": [
+        0,
+        0,
+        -2.65
+      ],
+      "COVER_LEFT": [
+        -1.4,
+        0,
+        0
+      ],
+      "COVER_RIGHT": [
+        1.4,
+        0,
+        0
+      ]
+    }
+  },
+  {
+    "id": "crate",
+    "kind": "cover",
+    "label": "木箱",
+    "triangles": 192,
+    "bytes": 17092,
+    "anchors": {
+      "COVER_FRONT": [
+        0,
+        0,
+        1.05
+      ],
+      "COVER_BACK": [
+        0,
+        0,
+        -1.05
+      ],
+      "COVER_LEFT": [
+        -1.05,
+        0,
+        0
+      ],
+      "COVER_RIGHT": [
+        1.05,
+        0,
+        0
+      ]
+    }
+  },
+  {
+    "id": "planter_1x1",
+    "kind": "cover",
+    "label": "プランター 1.2m",
+    "triangles": 96,
+    "bytes": 10020,
+    "anchors": {
+      "COVER_FRONT": [
+        0,
+        0,
+        1.05
+      ],
+      "COVER_BACK": [
+        0,
+        0,
+        -1.05
+      ],
+      "COVER_LEFT": [
+        -1.05,
+        0,
+        0
+      ],
+      "COVER_RIGHT": [
+        1.05,
+        0,
+        0
+      ]
+    }
+  },
+  {
+    "id": "planter_3x1",
+    "kind": "cover",
+    "label": "プランター 3m",
+    "triangles": 136,
+    "bytes": 12536,
+    "anchors": {
+      "COVER_FRONT": [
+        0,
+        0,
+        1.05
+      ],
+      "COVER_BACK": [
+        0,
+        0,
+        -1.05
+      ],
+      "COVER_LEFT": [
+        -1.95,
+        0,
+        0
+      ],
+      "COVER_RIGHT": [
+        1.95,
+        0,
+        0
+      ]
+    }
+  },
+  {
+    "id": "counter_bar_2m",
+    "kind": "cover",
+    "label": "バーカウンター 2m（並べて使う）",
+    "triangles": 124,
+    "bytes": 12048,
+    "anchors": {
+      "COVER_FRONT": [
+        0,
+        0,
+        0.95
+      ],
+      "COVER_BACK": [
+        0,
+        0,
+        -0.95
+      ],
+      "COVER_LEFT": [
+        -1.45,
+        0,
+        0
+      ],
+      "COVER_RIGHT": [
+        1.45,
+        0,
+        0
+      ]
+    }
+  }
+]

@@ -1,0 +1,802 @@
+{
+  "url": "file:///C:/Users/gamit/Documents/Codex/2026-10-26/https-claude-ai-artifact-xacywsdv65cc1xpspq147p-page/outputs/m5-prototype/clean-hands-m5.8-pc-fixes.html",
+  "errors": [],
+  "briefingVisible": true,
+  "state": {
+    "position": {
+      "x": 14.8,
+      "z": -30,
+      "y": 0
+    },
+    "panelProgress": 0,
+    "panelDone": false,
+    "missionOver": "",
+    "coins": 3,
+    "currentFloor": 0,
+    "paused": false,
+    "mapOpen": false,
+    "helpOpen": false,
+    "creatorOpen": false,
+    "modelReady": true,
+    "clock": {
+      "elapsed": 2.1833333333333305,
+      "time": 2.1833333333333305,
+      "cycle": 0,
+      "rate": 1,
+      "loop": 1800
+    },
+    "schedule": [
+      {
+        "id": "wine_merchant",
+        "slot": 0,
+        "cycle": 0,
+        "place": "bar_counter",
+        "action": "chat",
+        "phase": "acting",
+        "travel": 0,
+        "limit": 30,
+        "timedOut": false,
+        "position": {
+          "x": 22.5,
+          "y": 0,
+          "z": -14
+        }
+      },
+      {
+        "id": "lawyer",
+        "slot": 0,
+        "cycle": 0,
+        "place": "lobby_greeting",
+        "action": "chat",
+        "phase": "moving",
+        "travel": 1.1666666666666674,
+        "limit": 30,
+        "timedOut": false,
+        "position": {
+          "x": -2.698917458039844,
+          "y": 0,
+          "z": -10.799808225819053
+        }
+      },
+      {
+        "id": "investor",
+        "slot": 0,
+        "cycle": 0,
+        "place": "penthouse_desk",
+        "action": "work",
+        "phase": "acting",
+        "travel": 0,
+        "limit": 30,
+        "timedOut": false,
+        "position": {
+          "x": -28,
+          "y": 7,
+          "z": -15.5
+        }
+      },
+      {
+        "id": "sommelier",
+        "slot": 0,
+        "cycle": 0,
+        "place": "sommelier_arrival",
+        "action": "absent",
+        "phase": "away",
+        "travel": 0,
+        "limit": 60,
+        "timedOut": false,
+        "position": {
+          "x": 40,
+          "y": 0,
+          "z": 27
+        }
+      },
+      {
+        "id": "masseuse",
+        "slot": 0,
+        "cycle": 0,
+        "place": "massage_arrival",
+        "action": "absent",
+        "phase": "away",
+        "travel": 0,
+        "limit": 60,
+        "timedOut": false,
+        "position": {
+          "x": -44,
+          "y": 0,
+          "z": -9
+        }
+      },
+      {
+        "id": "pilot",
+        "slot": 0,
+        "cycle": 0,
+        "place": "pilot_work",
+        "action": "absent",
+        "phase": "away",
+        "travel": 0,
+        "limit": 60,
+        "timedOut": false,
+        "position": {
+          "x": 16,
+          "y": 7,
+          "z": -11
+        }
+      },
+      {
+        "id": "head_waiter",
+        "slot": 0,
+        "cycle": 0,
+        "place": "head_waiter_work",
+        "action": "serve",
+        "phase": "acting",
+        "travel": 0,
+        "limit": 30,
+        "timedOut": false,
+        "position": {
+          "x": 26,
+          "y": 0,
+          "z": -5
+        }
+      },
+      {
+        "id": "bodyguard_relief",
+        "slot": 0,
+        "cycle": 0,
+        "place": "security_radio",
+        "action": "radio",
+        "phase": "acting",
+        "travel": 0,
+        "limit": 30,
+        "timedOut": false,
+        "position": {
+          "x": 36,
+          "y": 0,
+          "z": -10
+        }
+      },
+      {
+        "id": "bodyguard_captain",
+        "slot": 0,
+        "cycle": 0,
+        "place": "lobby_greeting",
+        "action": "escort",
+        "phase": "acting",
+        "travel": 1.2166666666666672,
+        "limit": 30,
+        "timedOut": false,
+        "position": {
+          "x": -1.4846591224486825,
+          "y": 0,
+          "z": -9.849305420189907
+        }
+      },
+      {
+        "id": "bodyguard_1",
+        "slot": 0,
+        "cycle": 0,
+        "place": "lobby_greeting",
+        "action": "escort",
+        "phase": "moving",
+        "travel": 2.1833333333333305,
+        "limit": 30,
+        "timedOut": false,
+        "position": {
+          "x": -2.3629583810705523,
+          "y": 0,
+          "z": -10.364341236712022
+        }
+      },
+      {
+        "id": "bodyguard_2",
+        "slot": 0,
+        "cycle": 0,
+        "place": "lobby_greeting",
+        "action": "escort",
+        "phase": "moving",
+        "travel": 1.9333333333333313,
+        "limit": 30,
+        "timedOut": false,
+        "position": {
+          "x": -2.486853743636959,
+          "y": 0,
+          "z": -9.8162906350709
+        }
+      },
+      {
+        "id": "bartender",
+        "slot": 0,
+        "cycle": 0,
+        "place": "bartender_work",
+        "action": "drink",
+        "phase": "acting",
+        "travel": 0,
+        "limit": 30,
+        "timedOut": false,
+        "position": {
+          "x": 17.4,
+          "y": 0,
+          "z": -10
+        }
+      },
+      {
+        "id": "waiter_1",
+        "slot": 0,
+        "cycle": 0,
+        "place": "bar_waiter",
+        "action": "serve",
+        "phase": "acting",
+        "travel": 0,
+        "limit": 30,
+        "timedOut": false,
+        "position": {
+          "x": 20.6,
+          "y": 0,
+          "z": -10
+        }
+      },
+      {
+        "id": "head_chef",
+        "slot": 0,
+        "cycle": 0,
+        "place": "chef_work",
+        "action": "cook",
+        "phase": "acting",
+        "travel": 0,
+        "limit": 30,
+        "timedOut": false,
+        "position": {
+          "x": -17,
+          "y": 0,
+          "z": -12.8
+        }
+      },
+      {
+        "id": "sous_chef",
+        "slot": 0,
+        "cycle": 0,
+        "place": "sous_chef_work",
+        "action": "cook",
+        "phase": "acting",
+        "travel": 0,
+        "limit": 30,
+        "timedOut": false,
+        "position": {
+          "x": -20,
+          "y": 0,
+          "z": -13.2
+        }
+      },
+      {
+        "id": "dock_clerk",
+        "slot": 0,
+        "cycle": 0,
+        "place": "loading_clerk",
+        "action": "chat",
+        "phase": "acting",
+        "travel": 0,
+        "limit": 60,
+        "timedOut": false,
+        "position": {
+          "x": -44,
+          "y": 0,
+          "z": -20
+        }
+      },
+      {
+        "id": "mover_2",
+        "slot": 0,
+        "cycle": 0,
+        "place": "loading_worker",
+        "action": "chat",
+        "phase": "acting",
+        "travel": 0,
+        "limit": 60,
+        "timedOut": false,
+        "position": {
+          "x": -46,
+          "y": 0,
+          "z": -19
+        }
+      },
+      {
+        "id": "cleaner_1",
+        "slot": 0,
+        "cycle": 0,
+        "place": "cleaner_pool_1",
+        "action": "clean",
+        "phase": "acting",
+        "travel": 0,
+        "limit": 60,
+        "timedOut": false,
+        "position": {
+          "x": -8.6,
+          "y": 0,
+          "z": 12
+        }
+      },
+      {
+        "id": "cleaner_2",
+        "slot": 0,
+        "cycle": 0,
+        "place": "cleaner_pool_2",
+        "action": "clean",
+        "phase": "acting",
+        "travel": 0,
+        "limit": 60,
+        "timedOut": false,
+        "position": {
+          "x": -7,
+          "y": 0,
+          "z": 13.5
+        }
+      },
+      {
+        "id": "security_chief",
+        "slot": 0,
+        "cycle": 0,
+        "place": "lobby_guard_1",
+        "action": "wait",
+        "phase": "acting",
+        "travel": 0,
+        "limit": 30,
+        "timedOut": false,
+        "position": {
+          "x": 11.5,
+          "y": 0,
+          "z": -6
+        }
+      },
+      {
+        "id": "guard_check_lobby",
+        "slot": 0,
+        "cycle": 0,
+        "place": "lobby_guard_2",
+        "action": "wait",
+        "phase": "acting",
+        "travel": 0,
+        "limit": 30,
+        "timedOut": false,
+        "position": {
+          "x": 12,
+          "y": 0,
+          "z": -4.6
+        }
+      },
+      {
+        "id": "room_service",
+        "slot": 0,
+        "cycle": 0,
+        "place": "room_service_work",
+        "action": "serve",
+        "phase": "acting",
+        "travel": 0,
+        "limit": 30,
+        "timedOut": false,
+        "position": {
+          "x": 9,
+          "y": 3.5,
+          "z": -15
+        }
+      },
+      {
+        "id": "waiter_5",
+        "slot": 0,
+        "cycle": 0,
+        "place": "room_service_partner",
+        "action": "serve",
+        "phase": "acting",
+        "travel": 0,
+        "limit": 30,
+        "timedOut": false,
+        "position": {
+          "x": 7.5,
+          "y": 3.5,
+          "z": -14
+        }
+      },
+      {
+        "id": "guard_boardwalk",
+        "slot": 0,
+        "cycle": 0,
+        "place": "marina_watch",
+        "action": "wait",
+        "phase": "acting",
+        "travel": 0,
+        "limit": 60,
+        "timedOut": false,
+        "position": {
+          "x": 1,
+          "y": 0,
+          "z": 27
+        }
+      },
+      {
+        "id": "harbor_1",
+        "slot": 0,
+        "cycle": 0,
+        "place": "harbor_worker_1",
+        "action": "inspect",
+        "phase": "acting",
+        "travel": 0,
+        "limit": 60,
+        "timedOut": false,
+        "position": {
+          "x": 31,
+          "y": 0,
+          "z": 26.6
+        }
+      },
+      {
+        "id": "harbor_2",
+        "slot": 0,
+        "cycle": 0,
+        "place": "harbor_worker_2",
+        "action": "inspect",
+        "phase": "acting",
+        "travel": 0,
+        "limit": 60,
+        "timedOut": false,
+        "position": {
+          "x": 32.5,
+          "y": 0,
+          "z": 27
+        }
+      },
+      {
+        "id": "driver_1",
+        "slot": 0,
+        "cycle": 0,
+        "place": "driver_wait_1",
+        "action": "wait",
+        "phase": "acting",
+        "travel": 0,
+        "limit": 60,
+        "timedOut": false,
+        "position": {
+          "x": -28,
+          "y": 0,
+          "z": -23.4
+        }
+      },
+      {
+        "id": "driver_2",
+        "slot": 0,
+        "cycle": 0,
+        "place": "driver_wait_2",
+        "action": "wait",
+        "phase": "acting",
+        "travel": 0,
+        "limit": 60,
+        "timedOut": false,
+        "position": {
+          "x": -26.5,
+          "y": 0,
+          "z": -23.5
+        }
+      },
+      {
+        "id": "beachbar_1",
+        "slot": 0,
+        "cycle": 0,
+        "place": "beachbar_work_1",
+        "action": "serve",
+        "phase": "acting",
+        "travel": 0,
+        "limit": 60,
+        "timedOut": false,
+        "position": {
+          "x": 52,
+          "y": 0,
+          "z": -13
+        }
+      },
+      {
+        "id": "beachbar_2",
+        "slot": 0,
+        "cycle": 0,
+        "place": "beachbar_work_2",
+        "action": "serve",
+        "phase": "acting",
+        "travel": 0,
+        "limit": 60,
+        "timedOut": false,
+        "position": {
+          "x": 54,
+          "y": 0,
+          "z": -13
+        }
+      },
+      {
+        "id": "receptionist",
+        "slot": 0,
+        "cycle": 0,
+        "place": "reception_work",
+        "action": "work",
+        "phase": "acting",
+        "travel": 0,
+        "limit": 30,
+        "timedOut": false,
+        "position": {
+          "x": -4,
+          "y": 0,
+          "z": -17.6
+        }
+      },
+      {
+        "id": "laundry_2",
+        "slot": 0,
+        "cycle": 0,
+        "place": "reception_partner",
+        "action": "work",
+        "phase": "acting",
+        "travel": 0,
+        "limit": 30,
+        "timedOut": false,
+        "position": {
+          "x": -6,
+          "y": 0,
+          "z": -17.6
+        }
+      },
+      {
+        "id": "photographer",
+        "slot": 0,
+        "cycle": 0,
+        "place": "photo_work",
+        "action": "camera",
+        "phase": "acting",
+        "travel": 0,
+        "limit": 60,
+        "timedOut": false,
+        "position": {
+          "x": 40,
+          "y": 0,
+          "z": 9
+        }
+      }
+    ],
+    "dialogue": {
+      "heard": [],
+      "subtitle": null,
+      "playing": [
+        {
+          "id": "bar_sommelier_late",
+          "next": 0,
+          "elapsed": 2.1833333333333305,
+          "playing": true,
+          "eligible": false,
+          "cycle": 0
+        },
+        {
+          "id": "loading_limited_wine",
+          "next": 0,
+          "elapsed": 2.1833333333333305,
+          "playing": true,
+          "eligible": false,
+          "cycle": 0
+        },
+        {
+          "id": "pool_exposed_wire",
+          "next": 0,
+          "elapsed": 2.1833333333333305,
+          "playing": true,
+          "eligible": false,
+          "cycle": 0
+        },
+        {
+          "id": "terrace_photo",
+          "next": 0,
+          "elapsed": 2.1833333333333305,
+          "playing": true,
+          "eligible": false,
+          "cycle": 0
+        },
+        {
+          "id": "marina_crane_loose",
+          "next": 0,
+          "elapsed": 2.1833333333333305,
+          "playing": true,
+          "eligible": false,
+          "cycle": 0
+        },
+        {
+          "id": "lobby_chandelier",
+          "next": 0,
+          "elapsed": 2.1833333333333305,
+          "playing": true,
+          "eligible": false,
+          "cycle": 0
+        },
+        {
+          "id": "kitchen_tasting",
+          "next": 0,
+          "elapsed": 2.1833333333333305,
+          "playing": true,
+          "eligible": false,
+          "cycle": 0
+        },
+        {
+          "id": "bodyguard_change",
+          "next": 0,
+          "elapsed": 2.1833333333333305,
+          "playing": true,
+          "eligible": false,
+          "cycle": 0
+        },
+        {
+          "id": "parking_phone",
+          "next": 0,
+          "elapsed": 2.1833333333333305,
+          "playing": true,
+          "eligible": false,
+          "cycle": 0
+        },
+        {
+          "id": "penthouse_phone_hint",
+          "next": 0,
+          "elapsed": 2.1833333333333305,
+          "playing": true,
+          "eligible": false,
+          "cycle": 0
+        },
+        {
+          "id": "marina_escape",
+          "next": 0,
+          "elapsed": 2.1833333333333305,
+          "playing": true,
+          "eligible": false,
+          "cycle": 0
+        },
+        {
+          "id": "reception_massage",
+          "next": 0,
+          "elapsed": 2.1833333333333305,
+          "playing": true,
+          "eligible": false,
+          "cycle": 0
+        },
+        {
+          "id": "beach_fireworks",
+          "next": 0,
+          "elapsed": 2.1833333333333305,
+          "playing": true,
+          "eligible": false,
+          "cycle": 0
+        },
+        {
+          "id": "ambient_1",
+          "next": 0,
+          "elapsed": 2.1833333333333305,
+          "playing": true,
+          "eligible": false,
+          "cycle": 0
+        },
+        {
+          "id": "ambient_2",
+          "next": 0,
+          "elapsed": 2.1833333333333305,
+          "playing": true,
+          "eligible": false,
+          "cycle": 0
+        },
+        {
+          "id": "ambient_3",
+          "next": 0,
+          "elapsed": 2.1833333333333305,
+          "playing": true,
+          "eligible": false,
+          "cycle": 0
+        },
+        {
+          "id": "ambient_5",
+          "next": 0,
+          "elapsed": 2.1833333333333305,
+          "playing": true,
+          "eligible": false,
+          "cycle": 0
+        },
+        {
+          "id": "ambient_6",
+          "next": 0,
+          "elapsed": 2.1833333333333305,
+          "playing": true,
+          "eligible": false,
+          "cycle": 0
+        },
+        {
+          "id": "ambient_7",
+          "next": 0,
+          "elapsed": 2.1833333333333305,
+          "playing": true,
+          "eligible": false,
+          "cycle": 0
+        },
+        {
+          "id": "ambient_8",
+          "next": 0,
+          "elapsed": 2.1833333333333305,
+          "playing": true,
+          "eligible": false,
+          "cycle": 0
+        },
+        {
+          "id": "ambient_9",
+          "next": 0,
+          "elapsed": 2.1833333333333305,
+          "playing": true,
+          "eligible": false,
+          "cycle": 0
+        },
+        {
+          "id": "ambient_10",
+          "next": 0,
+          "elapsed": 2.1833333333333305,
+          "playing": true,
+          "eligible": false,
+          "cycle": 0
+        },
+        {
+          "id": "ambient_11",
+          "next": 0,
+          "elapsed": 2.1833333333333305,
+          "playing": true,
+          "eligible": false,
+          "cycle": 0
+        },
+        {
+          "id": "ambient_12",
+          "next": 0,
+          "elapsed": 2.1833333333333305,
+          "playing": true,
+          "eligible": false,
+          "cycle": 0
+        },
+        {
+          "id": "ambient_13",
+          "next": 0,
+          "elapsed": 2.1833333333333305,
+          "playing": true,
+          "eligible": false,
+          "cycle": 0
+        },
+        {
+          "id": "ambient_14",
+          "next": 0,
+          "elapsed": 2.1833333333333305,
+          "playing": true,
+          "eligible": false,
+          "cycle": 0
+        }
+      ]
+    },
+    "alert": 0
+  },
+  "mission": {
+    "phase": "targets",
+    "outcome": null,
+    "targets": [
+      "wine_merchant",
+      "lawyer",
+      "investor"
+    ],
+    "remaining": [
+      "wine_merchant",
+      "lawyer",
+      "investor"
+    ],
+    "loadout": {
+      "tools": [
+        "poison_lethal",
+        "coin"
+      ],
+      "pistol": "",
+      "start": "S1"
+    },
+    "prepOpen": false,
+    "counts": {},
+    "ghost": true,
+    "result": null
+  },
+  "npcs": 120,
+  "pass": true
+}

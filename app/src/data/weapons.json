@@ -1,0 +1,8 @@
+{
+ "_note": "M5実装ガイドの weapons.json。noise は small か loud。聞こえる距離は combat.json の noiseSmall／noiseLoudIndoor／noiseLoudOutdoor（どれも有限）。reserve が [最小, 最大] の物は拾ったときの残弾がまちまち。rifle_npc は増援部隊専用（spec: 被弾25／発）でプレイヤーは拾えない。allowedFor はHITMANに合わせた補助値：警備の制服なら長物を背負っていても怪しまれない（それ以外の服だと警戒が速く溜まり、いっぱいで警備は撃ち合い・一般人は通報）。手に構えた銃はどの服でも即座に違法。",
+ "pistol_silenced": { "label": "消音ピストル", "class": "pistol", "concealable": true, "legality": "illegal", "noise": "small", "damage": 50, "headshot": 3.0, "mag": 8, "reserve": 8, "rate": 2.5 },
+ "tranq_pistol": { "label": "鎮静ダーツ銃", "class": "pistol", "concealable": true, "legality": "illegal", "noise": "small", "damage": 0, "headshot": 1.0, "mag": 1, "reserve": 4, "rate": 0.8, "sedative": true, "sedateSeconds": 2.5, "_note": "2026-11-06。HITMAN の鎮静ダーツ銃（一般形）。当たった人は数秒歩いてから眠る（気絶と同じ扱いで、殺しにならない）。撃たれた本人は騒がない。モデルは assets/guns-simple/tranq_pistol" },
+ "pistol_guard": { "label": "警備の拳銃", "class": "pistol", "concealable": true, "legality": "illegal", "noise": "loud", "damage": 40, "headshot": 2.5, "mag": 12, "reserve": [0, 12], "rate": 3 },
+ "smg": { "label": "短機関銃", "class": "long", "concealable": false, "legality": "illegal", "allowedFor": ["guard", "bodyguard"], "noise": "loud", "damage": 18, "headshot": 2.0, "mag": 30, "reserve": [0, 30], "rate": 10 },
+ "rifle_npc": { "label": "突撃銃", "class": "long", "concealable": false, "legality": "illegal", "noise": "loud", "damage": 25, "headshot": 2.0, "mag": 30, "reserve": 0, "rate": 6, "npcOnly": true, "playerPickupId": "smg", "_pickupNote": "倒すと短機関銃を落とす（プレイヤーに突撃銃を持たせないための意図した制限。HITMANの仕様ではない）" }
+}

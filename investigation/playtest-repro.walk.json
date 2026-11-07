@@ -1,0 +1,802 @@
+{
+  "B1@360": {
+    "name": "B1 スピーチとシャンデリア",
+    "target": "dead:accident",
+    "ghost": true,
+    "error": "",
+    "others": [],
+    "found": [
+      "lawyer:accident"
+    ],
+    "compromised": [],
+    "spottedBy": [],
+    "escaped": [],
+    "procedureEvents": [
+      {
+        "type": "disguise.changed",
+        "time": 0,
+        "id": "suit"
+      },
+      {
+        "type": "disguise.changed",
+        "time": 10.19999999999998,
+        "id": "beachbar"
+      },
+      {
+        "type": "flag.set",
+        "time": 100.09999999999859,
+        "id": "catwalk"
+      },
+      {
+        "type": "trap.fired",
+        "time": 360.0000000000068,
+        "id": "chandelier"
+      },
+      {
+        "type": "npc.killed",
+        "time": 360.10000000000684,
+        "id": "lawyer",
+        "method": "chandelier",
+        "judgement": "accident"
+      },
+      {
+        "type": "body.found",
+        "time": 360.50000000000693,
+        "id": "lawyer",
+        "life": "dead",
+        "judgement": "accident"
+      }
+    ],
+    "unconsciousFound": [],
+    "alert": 0,
+    "missionFailure": null,
+    "changeWitnesses": 0,
+    "killLog": [
+      {
+        "victim": "lawyer",
+        "method": "chandelier",
+        "time": 360.0000000000068,
+        "position": {
+          "x": -19.615868856429845,
+          "y": 3.5,
+          "z": -16.715856987598915
+        },
+        "judgement": {
+          "kind": "accident",
+          "witnesses": [],
+          "cameras": [],
+          "illegal": false,
+          "reasons": [
+            "仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし"
+          ]
+        }
+      }
+    ],
+    "otherTargets": {
+      "wine_merchant": "active",
+      "investor": "active"
+    },
+    "score": {
+      "success": true,
+      "seconds": 480.5000000000342,
+      "lines": [
+        {
+          "key": "spotted",
+          "label": "見つかった",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "ko_found",
+          "label": "気絶した人の発見",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "body_found",
+          "label": "死体の発見",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "loud_shot_once",
+          "label": "銃声",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "combat",
+          "label": "撃ち合い",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "guard_kill",
+          "label": "警備員の排除",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "civilian_kill",
+          "label": "ターゲット以外の排除",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "recording_left",
+          "label": "監視カメラの記録",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "accident_kill",
+          "label": "事故に見せかけた排除",
+          "count": 1,
+          "points": 1000
+        },
+        {
+          "key": "chance_complete",
+          "label": "チャンスの達成",
+          "count": 1,
+          "points": 500
+        }
+      ],
+      "timeBonus": 1000,
+      "total": 12500,
+      "rank": "A",
+      "ghost": true,
+      "ghostBrokenBy": []
+    },
+    "clock": 480.5000000000342,
+    "position": {
+      "x": -19.969599379657602,
+      "y": 3.5,
+      "z": -2.3851807561005005,
+      "floor": 1,
+      "speed": 0,
+      "running": false,
+      "crouched": false,
+      "tampering": false,
+      "disguise": "beachbar"
+    }
+  },
+  "B1@428.3": {
+    "name": "B1 スピーチとシャンデリア",
+    "target": "dead:accident",
+    "ghost": true,
+    "error": "",
+    "others": [],
+    "found": [
+      "lawyer:accident"
+    ],
+    "compromised": [],
+    "spottedBy": [],
+    "escaped": [],
+    "procedureEvents": [
+      {
+        "type": "disguise.changed",
+        "time": 0,
+        "id": "suit"
+      },
+      {
+        "type": "disguise.changed",
+        "time": 10.19999999999998,
+        "id": "beachbar"
+      },
+      {
+        "type": "flag.set",
+        "time": 100.09999999999859,
+        "id": "catwalk"
+      },
+      {
+        "type": "trap.fired",
+        "time": 428.30000000002235,
+        "id": "chandelier"
+      },
+      {
+        "type": "npc.killed",
+        "time": 428.4000000000224,
+        "id": "lawyer",
+        "method": "chandelier",
+        "judgement": "accident"
+      },
+      {
+        "type": "body.found",
+        "time": 428.80000000002246,
+        "id": "lawyer",
+        "life": "dead",
+        "judgement": "accident"
+      }
+    ],
+    "unconsciousFound": [],
+    "alert": 0,
+    "missionFailure": null,
+    "changeWitnesses": 0,
+    "killLog": [
+      {
+        "victim": "lawyer",
+        "method": "chandelier",
+        "time": 428.30000000002235,
+        "position": {
+          "x": -19.615868856429845,
+          "y": 3.5,
+          "z": -16.715856987598915
+        },
+        "judgement": {
+          "kind": "accident",
+          "witnesses": [],
+          "cameras": [],
+          "illegal": false,
+          "reasons": [
+            "仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし"
+          ]
+        }
+      }
+    ],
+    "otherTargets": {
+      "wine_merchant": "active",
+      "investor": "active"
+    },
+    "score": {
+      "success": true,
+      "seconds": 548.8000000000497,
+      "lines": [
+        {
+          "key": "spotted",
+          "label": "見つかった",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "ko_found",
+          "label": "気絶した人の発見",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "body_found",
+          "label": "死体の発見",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "loud_shot_once",
+          "label": "銃声",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "combat",
+          "label": "撃ち合い",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "guard_kill",
+          "label": "警備員の排除",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "civilian_kill",
+          "label": "ターゲット以外の排除",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "recording_left",
+          "label": "監視カメラの記録",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "accident_kill",
+          "label": "事故に見せかけた排除",
+          "count": 1,
+          "points": 1000
+        },
+        {
+          "key": "chance_complete",
+          "label": "チャンスの達成",
+          "count": 1,
+          "points": 500
+        }
+      ],
+      "timeBonus": 1000,
+      "total": 12500,
+      "rank": "A",
+      "ghost": true,
+      "ghostBrokenBy": []
+    },
+    "clock": 548.8000000000497,
+    "position": {
+      "x": -19.969599379657602,
+      "y": 3.5,
+      "z": -2.3851807561005005,
+      "floor": 1,
+      "speed": 0,
+      "running": false,
+      "crouched": false,
+      "tampering": false,
+      "disguise": "beachbar"
+    }
+  },
+  "B1@600": {
+    "name": "B1 スピーチとシャンデリア",
+    "target": "dead:accident",
+    "ghost": true,
+    "error": "",
+    "others": [],
+    "found": [
+      "lawyer:accident"
+    ],
+    "compromised": [],
+    "spottedBy": [],
+    "escaped": [],
+    "procedureEvents": [
+      {
+        "type": "disguise.changed",
+        "time": 0,
+        "id": "suit"
+      },
+      {
+        "type": "disguise.changed",
+        "time": 10.19999999999998,
+        "id": "beachbar"
+      },
+      {
+        "type": "flag.set",
+        "time": 100.09999999999859,
+        "id": "catwalk"
+      },
+      {
+        "type": "trap.fired",
+        "time": 600.0000000000614,
+        "id": "chandelier"
+      },
+      {
+        "type": "npc.killed",
+        "time": 600.1000000000614,
+        "id": "lawyer",
+        "method": "chandelier",
+        "judgement": "accident"
+      },
+      {
+        "type": "body.found",
+        "time": 600.5000000000615,
+        "id": "lawyer",
+        "life": "dead",
+        "judgement": "accident"
+      }
+    ],
+    "unconsciousFound": [],
+    "alert": 0,
+    "missionFailure": null,
+    "changeWitnesses": 0,
+    "killLog": [
+      {
+        "victim": "lawyer",
+        "method": "chandelier",
+        "time": 600.0000000000614,
+        "position": {
+          "x": -19.615868856429845,
+          "y": 3.5,
+          "z": -16.715856987598915
+        },
+        "judgement": {
+          "kind": "accident",
+          "witnesses": [],
+          "cameras": [],
+          "illegal": false,
+          "reasons": [
+            "仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし"
+          ]
+        }
+      }
+    ],
+    "otherTargets": {
+      "wine_merchant": "active",
+      "investor": "active"
+    },
+    "score": {
+      "success": true,
+      "seconds": 720.5000000000888,
+      "lines": [
+        {
+          "key": "spotted",
+          "label": "見つかった",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "ko_found",
+          "label": "気絶した人の発見",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "body_found",
+          "label": "死体の発見",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "loud_shot_once",
+          "label": "銃声",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "combat",
+          "label": "撃ち合い",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "guard_kill",
+          "label": "警備員の排除",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "civilian_kill",
+          "label": "ターゲット以外の排除",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "recording_left",
+          "label": "監視カメラの記録",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "accident_kill",
+          "label": "事故に見せかけた排除",
+          "count": 1,
+          "points": 1000
+        },
+        {
+          "key": "chance_complete",
+          "label": "チャンスの達成",
+          "count": 1,
+          "points": 500
+        }
+      ],
+      "timeBonus": 1000,
+      "total": 12500,
+      "rank": "A",
+      "ghost": true,
+      "ghostBrokenBy": []
+    },
+    "clock": 720.5000000000888,
+    "position": {
+      "x": -19.969599379657602,
+      "y": 3.5,
+      "z": -2.3851807561005005,
+      "floor": 1,
+      "speed": 0,
+      "running": false,
+      "crouched": false,
+      "tampering": false,
+      "disguise": "beachbar"
+    }
+  },
+  "C3": {
+    "name": "C3 屋上のヘリ",
+    "target": "dead:accident",
+    "ghost": true,
+    "error": "",
+    "others": [],
+    "found": [
+      "investor:accident"
+    ],
+    "compromised": [],
+    "spottedBy": [],
+    "escaped": [],
+    "procedureEvents": [
+      {
+        "type": "disguise.changed",
+        "time": 0,
+        "id": "suit"
+      },
+      {
+        "type": "disguise.changed",
+        "time": 1151.5999999999894,
+        "id": "pilot"
+      },
+      {
+        "type": "flag.set",
+        "time": 1244.2999999999051,
+        "id": "investor_posed"
+      },
+      {
+        "type": "npc.killed",
+        "time": 1275.8999999998764,
+        "id": "investor",
+        "method": "push",
+        "judgement": "accident"
+      },
+      {
+        "type": "body.found",
+        "time": 1276.8999999998755,
+        "id": "investor",
+        "life": "dead",
+        "judgement": "accident"
+      }
+    ],
+    "unconsciousFound": [],
+    "alert": 0,
+    "missionFailure": null,
+    "changeWitnesses": 0,
+    "killLog": [
+      {
+        "victim": "investor",
+        "method": "push",
+        "time": 1275.7999999998765,
+        "position": {
+          "x": 23.1383111648156,
+          "y": 7,
+          "z": -10.992313092480854
+        },
+        "judgement": {
+          "kind": "accident",
+          "witnesses": [],
+          "cameras": [],
+          "illegal": false,
+          "reasons": [
+            "仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし"
+          ]
+        }
+      }
+    ],
+    "otherTargets": {
+      "wine_merchant": "active",
+      "lawyer": "active"
+    },
+    "score": {
+      "success": true,
+      "seconds": 1396.8999999997664,
+      "lines": [
+        {
+          "key": "spotted",
+          "label": "見つかった",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "ko_found",
+          "label": "気絶した人の発見",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "body_found",
+          "label": "死体の発見",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "loud_shot_once",
+          "label": "銃声",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "combat",
+          "label": "撃ち合い",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "guard_kill",
+          "label": "警備員の排除",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "civilian_kill",
+          "label": "ターゲット以外の排除",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "recording_left",
+          "label": "監視カメラの記録",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "accident_kill",
+          "label": "事故に見せかけた排除",
+          "count": 1,
+          "points": 1000
+        },
+        {
+          "key": "chance_complete",
+          "label": "チャンスの達成",
+          "count": 1,
+          "points": 500
+        }
+      ],
+      "timeBonus": 1000,
+      "total": 12500,
+      "rank": "A",
+      "ghost": true,
+      "ghostBrokenBy": []
+    },
+    "clock": 1396.8999999997664,
+    "position": {
+      "x": 22.238311164815602,
+      "y": 7,
+      "z": -10.992313092480856,
+      "floor": 2,
+      "speed": 0,
+      "running": false,
+      "crouched": false,
+      "tampering": false,
+      "disguise": "pilot"
+    }
+  },
+  "C2": {
+    "name": "C2 避難ボート",
+    "target": "dead:accident",
+    "ghost": true,
+    "error": "",
+    "others": [],
+    "found": [
+      "investor:accident"
+    ],
+    "compromised": [],
+    "spottedBy": [],
+    "escaped": [],
+    "procedureEvents": [
+      {
+        "type": "disguise.changed",
+        "time": 0,
+        "id": "suit"
+      },
+      {
+        "type": "disguise.changed",
+        "time": 10.19999999999998,
+        "id": "beachbar"
+      },
+      {
+        "type": "flag.set",
+        "time": 275.99999999999426,
+        "id": "investor_evacuation"
+      },
+      {
+        "type": "trap.fired",
+        "time": 333.10000000000724,
+        "id": "boat_fuel"
+      },
+      {
+        "type": "npc.killed",
+        "time": 333.20000000000726,
+        "id": "investor",
+        "method": "boat_explosion",
+        "judgement": "accident"
+      },
+      {
+        "type": "body.found",
+        "time": 335.30000000000774,
+        "id": "investor",
+        "life": "dead",
+        "judgement": "accident"
+      }
+    ],
+    "unconsciousFound": [],
+    "alert": 0,
+    "missionFailure": null,
+    "changeWitnesses": 0,
+    "killLog": [
+      {
+        "victim": "investor",
+        "method": "boat_explosion",
+        "time": 333.10000000000724,
+        "position": {
+          "x": 43.157945796192045,
+          "y": 0,
+          "z": 28.33718184471349
+        },
+        "judgement": {
+          "kind": "accident",
+          "witnesses": [],
+          "cameras": [],
+          "illegal": false,
+          "reasons": [
+            "仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし"
+          ]
+        }
+      }
+    ],
+    "otherTargets": {
+      "wine_merchant": "active",
+      "lawyer": "active"
+    },
+    "score": {
+      "success": true,
+      "seconds": 830.2000000001202,
+      "lines": [
+        {
+          "key": "spotted",
+          "label": "見つかった",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "ko_found",
+          "label": "気絶した人の発見",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "body_found",
+          "label": "死体の発見",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "loud_shot_once",
+          "label": "銃声",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "combat",
+          "label": "撃ち合い",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "guard_kill",
+          "label": "警備員の排除",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "civilian_kill",
+          "label": "ターゲット以外の排除",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "recording_left",
+          "label": "監視カメラの記録",
+          "count": 0,
+          "points": 0
+        },
+        {
+          "key": "accident_kill",
+          "label": "事故に見せかけた排除",
+          "count": 1,
+          "points": 1000
+        },
+        {
+          "key": "chance_complete",
+          "label": "チャンスの達成",
+          "count": 1,
+          "points": 500
+        }
+      ],
+      "timeBonus": 1000,
+      "total": 12500,
+      "rank": "A",
+      "ghost": true,
+      "ghostBrokenBy": []
+    },
+    "clock": 830.2000000001202,
+    "position": {
+      "x": 57.06248061473334,
+      "y": 0,
+      "z": -4.453974447583074,
+      "floor": 0,
+      "speed": 0,
+      "running": false,
+      "crouched": false,
+      "tampering": false,
+      "disguise": "beachbar"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{"time":0.03333333333333333,"timeouts":0,"blocked":0,"denied":0}
+{"time":300.0333333333564,"timeouts":0,"blocked":0,"denied":0}
+{"time":600.033333333445,"timeouts":0,"blocked":0,"denied":0}
+{"time":900.0333333331721,"timeouts":0,"blocked":0,"denied":0}
+{"time":1200.0333333328992,"timeouts":0,"blocked":0,"denied":0}
+{"time":1500.0333333326264,"timeouts":0,"blocked":0,"denied":0}
+{"npcs":60,"validation":[],"timeouts":0,"blocked":0,"denied":0,"arrivals":519}

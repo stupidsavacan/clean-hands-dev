@@ -1,0 +1,504 @@
+{
+ "meta": {
+  "id": "20261103-001845_party-chandelier",
+  "map": "party",
+  "scenario": "chandelier",
+  "scenarioTitle": "夜会 舞踏室のシャンデリア",
+  "startTime": 150,
+  "lead": 420,
+  "startedAt": "2026-11-02T15:18:45.778Z",
+  "game": "CLEAN HANDS 夜会の私邸 試作",
+  "page": "http://127.0.0.1:8795/party",
+  "viewport": [
+   1440,
+   765
+  ],
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+  "loadout": {
+   "tools": [
+    "coin"
+   ],
+   "pistol": "",
+   "start": "S1"
+  },
+  "keyTime": {
+   "time": 570,
+   "why": "チャンスの時間 9:30〜10:10"
+  },
+  "appliedAt": {
+   "elapsed": 150,
+   "time": 150,
+   "cycle": 0,
+   "rate": 1,
+   "loop": 1800
+  }
+ },
+ "events": [
+  {
+   "play": 0,
+   "t": 0.02,
+   "clock": 0,
+   "type": "schedule.action",
+   "time": 0,
+   "id": "host",
+   "value": 0,
+   "at": {
+    "x": 25,
+    "y": 0,
+    "z": 2
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 0,
+   "t": 0.02,
+   "clock": 0,
+   "type": "disguise.changed",
+   "time": 0,
+   "id": "suit",
+   "at": {
+    "x": 25,
+    "y": 0,
+    "z": 2
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 149.98,
+   "t": 150,
+   "clock": 150,
+   "type": "chance.updated",
+   "time": 150,
+   "id": "chandelier",
+   "value": 0,
+   "reason": "active",
+   "at": {
+    "x": 25,
+    "y": 0,
+    "z": 2
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 149.98,
+   "t": 150,
+   "clock": 150,
+   "type": "chance.updated",
+   "time": 150,
+   "id": "chandelier",
+   "value": 1,
+   "reason": "active",
+   "at": {
+    "x": 25,
+    "y": 0,
+    "z": 2
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 149.98,
+   "t": 150,
+   "clock": 150,
+   "type": "dialogue.heard",
+   "time": 150,
+   "id": "chandelier",
+   "at": {
+    "x": 25,
+    "y": 0,
+    "z": 2
+   },
+   "disguise": "suit"
+  }
+ ],
+ "samples": [
+  {
+   "play": 0,
+   "t": 150,
+   "clock": 150,
+   "pos": {
+    "x": 25,
+    "y": 0,
+    "z": 2
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 43,
+   "targets": {
+    "host": {
+     "x": 38,
+     "y": 3.5,
+     "z": 23,
+     "do": "talk",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "G01",
+     5.1,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 1,
+   "t": 151,
+   "clock": 151,
+   "pos": {
+    "x": 25.05,
+    "y": 0,
+    "z": 2.11
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 40,
+   "targets": {
+    "host": {
+     "x": 38,
+     "y": 3.5,
+     "z": 23,
+     "do": "talk",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "G01",
+     5,
+     "patrol",
+     0,
+     1
+    ]
+   ]
+  },
+  {
+   "play": 2,
+   "t": 152,
+   "clock": 152,
+   "pos": {
+    "x": 25.46,
+    "y": 0,
+    "z": 3.21
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 41,
+   "targets": {
+    "host": {
+     "x": 38,
+     "y": 3.5,
+     "z": 23,
+     "do": "talk",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "G01",
+     3.8,
+     "patrol",
+     0,
+     1
+    ]
+   ]
+  },
+  {
+   "play": 3.1,
+   "t": 153.1,
+   "clock": 153.1,
+   "pos": {
+    "x": 25.46,
+    "y": 0,
+    "z": 3.21
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 40,
+   "targets": {
+    "host": {
+     "x": 38,
+     "y": 3.5,
+     "z": 23,
+     "do": "talk",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "G01",
+     3.8,
+     "patrol",
+     0,
+     1
+    ]
+   ]
+  },
+  {
+   "play": 4.1,
+   "t": 154.1,
+   "clock": 154.1,
+   "pos": {
+    "x": 25.46,
+    "y": 0,
+    "z": 3.21
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 41,
+   "targets": {
+    "host": {
+     "x": 38,
+     "y": 3.5,
+     "z": 23,
+     "do": "talk",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "G01",
+     3.8,
+     "patrol",
+     0,
+     1
+    ]
+   ]
+  }
+ ],
+ "end": {
+  "why": "page closed",
+  "outcome": "page closed",
+  "phase": "targets",
+  "remaining": [
+   "host"
+  ],
+  "result": null,
+  "provisionalScore": {
+   "success": true,
+   "seconds": 155.01666666667066,
+   "lines": [
+    {
+     "key": "spotted",
+     "label": "見つかった",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "ko_found",
+     "label": "気絶した人の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "body_found",
+     "label": "死体の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "loud_shot_once",
+     "label": "銃声",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "combat",
+     "label": "撃ち合い",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "guard_kill",
+     "label": "警備員の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "civilian_kill",
+     "label": "ターゲット以外の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "recording_left",
+     "label": "監視カメラの記録",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "accident_kill",
+     "label": "事故に見せかけた排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "chance_complete",
+     "label": "チャンスの達成",
+     "count": 0,
+     "points": 0
+    }
+   ],
+   "timeBonus": 1000,
+   "total": 11000,
+   "rank": "A",
+   "ghost": true,
+   "ghostBrokenBy": []
+  },
+  "counts": {},
+  "kills": [],
+  "chances": [
+   {
+    "id": "chandelier",
+    "stage": 1,
+    "status": "active",
+    "title": "舞踏室のシャンデリア",
+    "step": "スパナを持って吊り具を緩める（次の時刻 9分30秒）",
+    "window": [
+     570,
+     610
+    ],
+    "waitSeconds": 414.98333333332937,
+    "tracked": true
+   },
+   {
+    "id": "papers",
+    "stage": 0,
+    "status": "undiscovered",
+    "title": "？？？",
+    "step": "",
+    "window": [
+     690,
+     740
+    ],
+    "waitSeconds": 534.9833333333294,
+    "tracked": false
+   },
+   {
+    "id": "drink",
+    "stage": 0,
+    "status": "undiscovered",
+    "title": "？？？",
+    "step": "",
+    "window": [
+     870,
+     900
+    ],
+    "waitSeconds": 714.9833333333294,
+    "tracked": false
+   }
+  ],
+  "detection": {
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "recordReason": "",
+   "destroyed": [],
+   "action": null,
+   "witnesses": [],
+   "floor": [
+    {
+     "item": "wrench",
+     "pos": {
+      "x": 4,
+      "y": 0,
+      "z": 39
+     }
+    },
+    {
+     "item": "poison_lethal",
+     "pos": {
+      "x": 12,
+      "y": -3.5,
+      "z": 27
+     }
+    }
+   ],
+   "watching": []
+  },
+  "combat": {
+   "hp": 100,
+   "fights": [],
+   "waves": 0
+  },
+  "clock": {
+   "elapsed": 155.01666666667066,
+   "time": 155.01666666667066,
+   "cycle": 0,
+   "rate": 1,
+   "loop": 1800
+  },
+  "endedAt": "2026-11-02T15:18:50.815Z"
+ }
+}

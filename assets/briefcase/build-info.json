@@ -1,0 +1,39 @@
+[
+  {
+    "id": "briefcase",
+    "csvRow": 21,
+    "label": "ブリーフケース",
+    "triangles": 840,
+    "bytes": 57660,
+    "size_m": [
+      0.115,
+      0.394,
+      0.46
+    ],
+    "anchors": {
+      "GRIP_R": [
+        0,
+        0,
+        0
+      ],
+      "CONTENT": [
+        -0.03,
+        -0.2025,
+        0
+      ],
+      "HINGE": [
+        0,
+        -0.37,
+        0
+      ],
+      "TIP": [
+        0.0,
+        -0.37,
+        0
+      ]
+    },
+    "moving": {
+      "LID": "turns about its local Z (glTF) on the hinge; -1.9 rad = fully open"
+    }
+  }
+]

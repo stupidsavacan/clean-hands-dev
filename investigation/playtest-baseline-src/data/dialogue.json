@@ -1,0 +1,878 @@
+{
+ "bar_sommelier_late": {
+  "place": "bar_waiter",
+  "speakers": [
+   "bartender",
+   "waiter_1"
+  ],
+  "lines": [
+   [
+    "bartender",
+    "ソムリエのボート、遅れてるらしい。"
+   ],
+   [
+    "waiter_1",
+    "５分に桟橋へ着く便だってさ。"
+   ],
+   [
+    "bartender",
+    "給仕長はバーで待っているぞ。"
+   ]
+  ],
+  "trigger": true
+ },
+ "loading_limited_wine": {
+  "place": "loading_clerk",
+  "speakers": [
+   "dock_clerk",
+   "mover_2"
+  ],
+  "lines": [
+   [
+    "dock_clerk",
+    "限定ワインは地下に１樽だけだ。"
+   ],
+   [
+    "mover_2",
+    "試飲は１９分から。最初はワイン商に。"
+   ]
+  ],
+  "trigger": true
+ },
+ "pool_exposed_wire": {
+  "place": "cleaner_pool_1",
+  "speakers": [
+   "cleaner_1",
+   "cleaner_2"
+  ],
+  "lines": [
+   [
+    "cleaner_1",
+    "照明スタンドの配線がむき出しだ。"
+   ],
+   [
+    "cleaner_2",
+    "裏通路の配電盤から電気が来てる。"
+   ]
+  ],
+  "trigger": true
+ },
+ "terrace_photo": {
+  "place": "photo_work",
+  "speakers": [
+   "photographer"
+  ],
+  "lines": [
+   [
+    "photographer",
+    "記念撮影なら、手すり際が一番です。"
+   ],
+   [
+    "photographer",
+    "ワイン商様は６分からこちらへ。"
+   ]
+  ],
+  "trigger": true
+ },
+ "marina_crane_loose": {
+  "place": "harbor_worker_1",
+  "speakers": [
+   "harbor_1",
+   "harbor_2"
+  ],
+  "lines": [
+   [
+    "harbor_1",
+    "展示ヨットのクレーン、ピンが甘い。"
+   ],
+   [
+    "harbor_2",
+    "見学は１０分から。固定を確かめろ。"
+   ]
+  ],
+  "trigger": true
+ },
+ "lobby_chandelier": {
+  "place": "lobby_guard_1",
+  "speakers": [
+   "security_chief",
+   "guard_check_lobby"
+  ],
+  "lines": [
+   [
+    "security_chief",
+    "宴会場のシャンデリア、留め具が古い。"
+   ],
+   [
+    "guard_check_lobby",
+    "５分からのスピーチ、真下が演壇だ。"
+   ]
+  ],
+  "trigger": true
+ },
+ "kitchen_tasting": {
+  "place": "chef_work",
+  "speakers": [
+   "head_chef",
+   "sous_chef"
+  ],
+  "lines": [
+   [
+    "head_chef",
+    "１１分の弁護士様の皿は私が出す。"
+   ],
+   [
+    "sous_chef",
+    "試食の間、コンロを空けておきます。"
+   ]
+  ],
+  "trigger": true
+ },
+ "bodyguard_change": {
+  "place": "security_radio",
+  "speakers": [
+   "bodyguard_relief"
+  ],
+  "lines": [
+   [
+    "bodyguard_relief",
+    "護衛の交代は１６分、２階の客室前。"
+   ],
+   [
+    "bodyguard_relief",
+    "裏通路を通って向かう。了解。"
+   ]
+  ],
+  "trigger": true,
+  "window": [
+   0,
+   960
+  ]
+ },
+ "parking_phone": {
+  "place": "driver_wait_1",
+  "speakers": [
+   "driver_1",
+   "driver_2"
+  ],
+  "lines": [
+   [
+    "driver_1",
+    "うちの旦那、２０分に車で電話だ。"
+   ],
+   [
+    "driver_2",
+    "こっちは外で待ちぼうけだよ。"
+   ]
+  ],
+  "trigger": true
+ },
+ "penthouse_phone_hint": {
+  "place": "room_service_work",
+  "speakers": [
+   "room_service",
+   "waiter_5"
+  ],
+  "lines": [
+   [
+    "room_service",
+    "投資家様は電話のたびに外へ出る。"
+   ],
+   [
+    "waiter_5",
+    "７分からバルコニーだ。鍵はワゴンに。"
+   ]
+  ],
+  "trigger": true
+ },
+ "marina_escape": {
+  "place": "marina_watch",
+  "speakers": [
+   "guard_boardwalk"
+  ],
+  "lines": [
+   [
+    "guard_boardwalk",
+    "何かあったら投資家はボートで逃げる。"
+   ],
+   [
+    "guard_boardwalk",
+    "避難艇の燃料は、向こうの燃料所だ。"
+   ]
+  ],
+  "trigger": true
+ },
+ "investor_helicopter": {
+  "place": "balcony_phone",
+  "speakers": [
+   "investor"
+  ],
+  "lines": [
+   [
+    "investor",
+    "２０分にヘリで迎えに来てくれ。"
+   ],
+   [
+    "investor",
+    "屋上で待つ。１９分には点検を頼む。"
+   ]
+  ],
+  "trigger": true,
+  "window": [
+   420,
+   660
+  ]
+ },
+ "reception_massage": {
+  "place": "reception_work",
+  "speakers": [
+   "receptionist",
+   "laundry_2"
+  ],
+  "lines": [
+   [
+    "receptionist",
+    "マッサージ師は１１分に搬入口へ。"
+   ],
+   [
+    "laundry_2",
+    "ペントハウスまでお通ししてください。"
+   ]
+  ],
+  "trigger": true
+ },
+ "beach_fireworks": {
+  "place": "beachbar_work_1",
+  "speakers": [
+   "beachbar_1",
+   "beachbar_2"
+  ],
+  "lines": [
+   [
+    "beachbar_1",
+    "花火の筒、湿気で横に飛びそうだ。"
+   ],
+   [
+    "beachbar_2",
+    "投資家様の浜辺の席には向けるなよ。"
+   ]
+  ],
+  "trigger": true
+ },
+ "ambient_1": {
+  "place": "ambient_1",
+  "speakers": [
+   "guest_lobby_a_1",
+   "guest_lobby_a_2"
+  ],
+  "lines": [
+   [
+    "guest_lobby_a_1",
+    "このホテル、出口は多いんですね。"
+   ],
+   [
+    "guest_lobby_a_2",
+    "入口の検査も増やしてほしいな。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   0,
+   900
+  ]
+ },
+ "ambient_2": {
+  "place": "ambient_2",
+  "speakers": [
+   "guest_lobby_b_1",
+   "guest_lobby_b_2"
+  ],
+  "lines": [
+   [
+    "guest_lobby_b_1",
+    "招待状には静かな晩餐とあった。"
+   ],
+   [
+    "guest_lobby_b_2",
+    "静かな人ほど、よく食べるものです。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   0,
+   900
+  ]
+ },
+ "ambient_3": {
+  "place": "ambient_3",
+  "speakers": [
+   "guest_bar_a_1",
+   "guest_bar_a_2"
+  ],
+  "lines": [
+   [
+    "guest_bar_a_1",
+    "このワイン、何年ものです？"
+   ],
+   [
+    "guest_bar_a_2",
+    "請求書を見るまでは若くいられる。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   0,
+   900
+  ]
+ },
+ "ambient_5": {
+  "place": "ambient_5",
+  "speakers": [
+   "guest_pool_a_1",
+   "guest_pool_a_2"
+  ],
+  "lines": [
+   [
+    "guest_pool_a_1",
+    "水に入らないのですか。"
+   ],
+   [
+    "guest_pool_a_2",
+    "濡れない休暇という契約なんです。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   0,
+   900
+  ]
+ },
+ "ambient_6": {
+  "place": "ambient_6",
+  "speakers": [
+   "guest_pool_b_1",
+   "guest_pool_b_2"
+  ],
+  "lines": [
+   [
+    "guest_pool_b_1",
+    "仕事の電話は切った？"
+   ],
+   [
+    "guest_pool_b_2",
+    "仕事のほうが私を切ってくれない。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   0,
+   900
+  ]
+ },
+ "ambient_7": {
+  "place": "ambient_7",
+  "speakers": [
+   "guest_pool_c_1",
+   "guest_pool_c_2"
+  ],
+  "lines": [
+   [
+    "guest_pool_c_1",
+    "海とプール、どちらがお好み？"
+   ],
+   [
+    "guest_pool_c_2",
+    "底が見えるほうが安心ですよ。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   0,
+   900
+  ]
+ },
+ "ambient_8": {
+  "place": "ambient_8",
+  "speakers": [
+   "guest_terrace_a_1",
+   "guest_terrace_a_2"
+  ],
+  "lines": [
+   [
+    "guest_terrace_a_1",
+    "いい眺めですね。"
+   ],
+   [
+    "guest_terrace_a_2",
+    "眺めだけなら無料だといいけれど。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   0,
+   900
+  ]
+ },
+ "ambient_9": {
+  "place": "ambient_9",
+  "speakers": [
+   "guest_terrace_b_1",
+   "guest_terrace_b_2"
+  ],
+  "lines": [
+   [
+    "guest_terrace_b_1",
+    "記念写真を撮りましょう。"
+   ],
+   [
+    "guest_terrace_b_2",
+    "笑顔は経費で落ちますかね。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   0,
+   900
+  ]
+ },
+ "ambient_10": {
+  "place": "ambient_10",
+  "speakers": [
+   "guest_terrace_c_1",
+   "guest_terrace_c_2"
+  ],
+  "lines": [
+   [
+    "guest_terrace_c_1",
+    "風が強くなってきました。"
+   ],
+   [
+    "guest_terrace_c_2",
+    "うわさもよく飛ぶホテルです。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   0,
+   900
+  ]
+ },
+ "ambient_11": {
+  "place": "ambient_11",
+  "speakers": [
+   "guest_banquet_a_1",
+   "guest_banquet_a_2"
+  ],
+  "lines": [
+   [
+    "guest_banquet_a_1",
+    "スピーチは短いと聞きました。"
+   ],
+   [
+    "guest_banquet_a_2",
+    "短いの定義は弁護士に任せます。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   0,
+   900
+  ]
+ },
+ "ambient_12": {
+  "place": "ambient_12",
+  "speakers": [
+   "guest_banquet_b_1",
+   "guest_banquet_b_2"
+  ],
+  "lines": [
+   [
+    "guest_banquet_b_1",
+    "乾杯の前に何を話すんでしょう。"
+   ],
+   [
+    "guest_banquet_b_2",
+    "乾杯の後なら誰も覚えていません。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   0,
+   900
+  ]
+ },
+ "ambient_13": {
+  "place": "ambient_13",
+  "speakers": [
+   "guest_beach_a_1",
+   "guest_beach_a_2"
+  ],
+  "lines": [
+   [
+    "guest_beach_a_1",
+    "砂が靴に入ってしまった。"
+   ],
+   [
+    "guest_beach_a_2",
+    "お土産の先払いですね。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   0,
+   900
+  ]
+ },
+ "ambient_14": {
+  "place": "ambient_14",
+  "speakers": [
+   "guest_beach_b_1",
+   "guest_beach_b_2"
+  ],
+  "lines": [
+   [
+    "guest_beach_b_1",
+    "花火は見えますかね。"
+   ],
+   [
+    "guest_beach_b_2",
+    "近すぎない席ならどこでも結構。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   0,
+   900
+  ]
+ },
+ "ambient_15": {
+  "place": "ambient_15",
+  "speakers": [
+   "guest_lobby_a_1",
+   "guest_lobby_a_2"
+  ],
+  "lines": [
+   [
+    "guest_lobby_a_1",
+    "このホテル、出口は多いんですね。"
+   ],
+   [
+    "guest_lobby_a_2",
+    "入口の検査も増やしてほしいな。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   900,
+   1800
+  ]
+ },
+ "ambient_16": {
+  "place": "ambient_16",
+  "speakers": [
+   "guest_lobby_b_1",
+   "guest_lobby_b_2"
+  ],
+  "lines": [
+   [
+    "guest_lobby_b_1",
+    "招待状には静かな晩餐とあった。"
+   ],
+   [
+    "guest_lobby_b_2",
+    "静かな人ほど、よく食べるものです。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   900,
+   1800
+  ]
+ },
+ "ambient_17": {
+  "place": "ambient_17",
+  "speakers": [
+   "guest_bar_a_1",
+   "guest_bar_a_2"
+  ],
+  "lines": [
+   [
+    "guest_bar_a_1",
+    "このワイン、何年ものです？"
+   ],
+   [
+    "guest_bar_a_2",
+    "請求書を見るまでは若くいられる。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   900,
+   1800
+  ]
+ },
+ "ambient_19": {
+  "place": "ambient_19",
+  "speakers": [
+   "guest_pool_a_1",
+   "guest_pool_a_2"
+  ],
+  "lines": [
+   [
+    "guest_pool_a_1",
+    "水に入らないのですか。"
+   ],
+   [
+    "guest_pool_a_2",
+    "濡れない休暇という契約なんです。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   900,
+   1800
+  ]
+ },
+ "ambient_20": {
+  "place": "ambient_20",
+  "speakers": [
+   "guest_pool_b_1",
+   "guest_pool_b_2"
+  ],
+  "lines": [
+   [
+    "guest_pool_b_1",
+    "仕事の電話は切った？"
+   ],
+   [
+    "guest_pool_b_2",
+    "仕事のほうが私を切ってくれない。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   900,
+   1800
+  ]
+ },
+ "ambient_21": {
+  "place": "ambient_21",
+  "speakers": [
+   "guest_pool_c_1",
+   "guest_pool_c_2"
+  ],
+  "lines": [
+   [
+    "guest_pool_c_1",
+    "海とプール、どちらがお好み？"
+   ],
+   [
+    "guest_pool_c_2",
+    "底が見えるほうが安心ですよ。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   900,
+   1800
+  ]
+ },
+ "ambient_22": {
+  "place": "ambient_22",
+  "speakers": [
+   "guest_terrace_a_1",
+   "guest_terrace_a_2"
+  ],
+  "lines": [
+   [
+    "guest_terrace_a_1",
+    "いい眺めですね。"
+   ],
+   [
+    "guest_terrace_a_2",
+    "眺めだけなら無料だといいけれど。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   900,
+   1800
+  ]
+ },
+ "ambient_23": {
+  "place": "ambient_23",
+  "speakers": [
+   "guest_terrace_b_1",
+   "guest_terrace_b_2"
+  ],
+  "lines": [
+   [
+    "guest_terrace_b_1",
+    "記念写真を撮りましょう。"
+   ],
+   [
+    "guest_terrace_b_2",
+    "笑顔は経費で落ちますかね。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   900,
+   1800
+  ]
+ },
+ "ambient_24": {
+  "place": "ambient_24",
+  "speakers": [
+   "guest_terrace_c_1",
+   "guest_terrace_c_2"
+  ],
+  "lines": [
+   [
+    "guest_terrace_c_1",
+    "風が強くなってきました。"
+   ],
+   [
+    "guest_terrace_c_2",
+    "うわさもよく飛ぶホテルです。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   900,
+   1800
+  ]
+ },
+ "ambient_25": {
+  "place": "ambient_25",
+  "speakers": [
+   "guest_banquet_a_1",
+   "guest_banquet_a_2"
+  ],
+  "lines": [
+   [
+    "guest_banquet_a_1",
+    "スピーチは短いと聞きました。"
+   ],
+   [
+    "guest_banquet_a_2",
+    "短いの定義は弁護士に任せます。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   900,
+   1800
+  ]
+ },
+ "ambient_26": {
+  "place": "ambient_26",
+  "speakers": [
+   "guest_banquet_b_1",
+   "guest_banquet_b_2"
+  ],
+  "lines": [
+   [
+    "guest_banquet_b_1",
+    "乾杯の前に何を話すんでしょう。"
+   ],
+   [
+    "guest_banquet_b_2",
+    "乾杯の後なら誰も覚えていません。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   900,
+   1800
+  ]
+ },
+ "ambient_27": {
+  "place": "ambient_27",
+  "speakers": [
+   "guest_beach_a_1",
+   "guest_beach_a_2"
+  ],
+  "lines": [
+   [
+    "guest_beach_a_1",
+    "砂が靴に入ってしまった。"
+   ],
+   [
+    "guest_beach_a_2",
+    "お土産の先払いですね。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   900,
+   1800
+  ]
+ },
+ "ambient_28": {
+  "place": "ambient_28",
+  "speakers": [
+   "guest_beach_b_1",
+   "guest_beach_b_2"
+  ],
+  "lines": [
+   [
+    "guest_beach_b_1",
+    "花火は見えますかね。"
+   ],
+   [
+    "guest_beach_b_2",
+    "近すぎない席ならどこでも結構。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   900,
+   1800
+  ]
+ },
+ "ambient_29": {
+  "place": "ambient_29",
+  "speakers": [
+   "guest_lobby_a_1",
+   "guest_lobby_a_2"
+  ],
+  "lines": [
+   [
+    "guest_lobby_a_1",
+    "このホテル、出口は多いんですね。"
+   ],
+   [
+    "guest_lobby_a_2",
+    "入口の検査も増やしてほしいな。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   900,
+   1800
+  ]
+ },
+ "ambient_30": {
+  "place": "ambient_30",
+  "speakers": [
+   "guest_lobby_b_1",
+   "guest_lobby_b_2"
+  ],
+  "lines": [
+   [
+    "guest_lobby_b_1",
+    "招待状には静かな晩餐とあった。"
+   ],
+   [
+    "guest_lobby_b_2",
+    "静かな人ほど、よく食べるものです。"
+   ]
+  ],
+  "trigger": false,
+  "window": [
+   900,
+   1800
+  ]
+ }
+}

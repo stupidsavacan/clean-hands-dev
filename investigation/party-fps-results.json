@@ -1,0 +1,131 @@
+{
+  "config": {
+    "headless": true,
+    "viewport": [
+      1280,
+      800
+    ],
+    "dpr": 1,
+    "npcs": 60,
+    "args": [
+      "--enable-gpu",
+      "--use-gl=angle",
+      "--use-angle=d3d11",
+      "--ignore-gpu-blocklist"
+    ]
+  },
+  "gpu": {
+    "renderer": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "vendor": "Google Inc. (AMD)",
+    "npcs": 60,
+    "dpr": 1
+  },
+  "fps": [
+    {
+      "place": "正門前",
+      "fps": 90.2,
+      "p95Ms": 11.2,
+      "minOneSecondFps": 90,
+      "frozen": false,
+      "performance": {
+        "fps": 89.98556291086871,
+        "jsFrameMs": 8.736468543472323,
+        "drawCalls": 357,
+        "triangles": 30841,
+        "visibleNpcModels": 37
+      }
+    },
+    {
+      "place": "舞踏室",
+      "fps": 90.2,
+      "p95Ms": 11.2,
+      "minOneSecondFps": 90,
+      "frozen": false,
+      "performance": {
+        "fps": 89.98443666650913,
+        "jsFrameMs": 7.649503709646535,
+        "drawCalls": 158,
+        "triangles": 15753,
+        "visibleNpcModels": 24
+      }
+    },
+    {
+      "place": "地下セラー",
+      "fps": 90.2,
+      "p95Ms": 11.2,
+      "minOneSecondFps": 90,
+      "frozen": false,
+      "performance": {
+        "fps": 89.99957278114287,
+        "jsFrameMs": 6.749411537877922,
+        "drawCalls": 97,
+        "triangles": 4126,
+        "visibleNpcModels": 26
+      }
+    },
+    {
+      "place": "2階客室",
+      "fps": 90.1,
+      "p95Ms": 11.2,
+      "minOneSecondFps": 90,
+      "frozen": false,
+      "performance": {
+        "fps": 90.00839008465941,
+        "jsFrameMs": 5.30342020110057,
+        "drawCalls": 145,
+        "triangles": 13468,
+        "visibleNpcModels": 16
+      }
+    },
+    {
+      "place": "屋根裏",
+      "fps": 90.2,
+      "p95Ms": 11.2,
+      "minOneSecondFps": 90,
+      "frozen": false,
+      "performance": {
+        "fps": 89.9910169156037,
+        "jsFrameMs": 6.611220984056307,
+        "drawCalls": 225,
+        "triangles": 20518,
+        "visibleNpcModels": 21
+      }
+    }
+  ],
+  "errors": [],
+  "traversal": {
+    "action": {
+      "link": {
+        "id": "31",
+        "a": "Q",
+        "b": "L",
+        "kind": "window",
+        "start": {
+          "x": -12,
+          "z": 9,
+          "y": 3.5
+        },
+        "end": {
+          "x": -12,
+          "z": 11,
+          "y": 3.5
+        },
+        "seconds": 2
+      },
+      "reverse": false,
+      "from": {
+        "x": -12,
+        "y": 3.5,
+        "z": 9
+      },
+      "to": {
+        "x": -12,
+        "z": 11,
+        "y": 3.5
+      },
+      "elapsed": 0.850000000000001
+    },
+    "progress": 0.4250000000000005
+  },
+  "staging": "写真・性能測定のみdebug位置と服を設定。歩行試験は別ファイル。"
+}

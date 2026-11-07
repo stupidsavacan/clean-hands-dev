@@ -1,0 +1,36 @@
+// 2026-11-06 (ROADMAP H15): a radio switched on brings someone over to switch it off.
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {Director,type Mission,type Rules} from '../src/ai.ts';
+import {CollisionWorld,plateY} from '../src/world.ts';
+import {NavGrid} from '../src/nav.ts';
+import {sightBoxes} from '../src/sight.ts';
+import {DeviceSystem,DEVICE_KINDS,type DeviceDef} from '../src/devices.ts';
+const json=(f:string)=>JSON.parse(readFileSync(new URL('../src/data/'+f,import.meta.url),'utf8'));
+const map=json('marina.json'),rules=json('rules.json');
+const radio:DeviceDef={id:'r',kind:'radio',label:'ラジカセ',x:-8,z:7,y:.9,floor:0,heading:0,approach:{x:-8,z:8}};
+function setup(){const level=structuredClone(map) as Mission;level.npcs=[{id:'w',role:'waiter',label:'給仕',floor:0,route:[[-3,8,600]],look:[-2,8]}];
+ const world=new CollisionWorld(level),d=new Director(level,world,new NavGrid(world),sightBoxes(level),rules as Rules);return {d,s:new DeviceSystem(d,[radio],f=>plateY(level,f)),n:d.npcs[0]};}
+const far={x:30,y:0,z:30,floor:0,speed:0,running:false,crouched:false,tampering:false,disguise:'suit'};
+test('E by the radio switches it on; someone nearby walks over, switches it off and goes back',()=>{const {d,s,n}=setup();
+ assert.match(s.prompt({x:-8,y:0,z:7.8}),/点ける/);s.toggle({x:-8,y:0,z:7.8});assert.ok(s.on.has('r'));
+ let offAt=-1;for(let t=0;t<25&&offAt<0;t+=1/30){d.step(1/30,far);s.step(1/30);if(!s.on.has('r'))offAt=t;}
+ assert.ok(offAt>0,'switched off');assert.ok(Math.hypot(n.pos.x+8,n.pos.z-8)<1,'at the radio');
+ for(let t=0;t<15;t+=1/30)d.step(1/30,far);assert.equal(n.state,'patrol');});
+test('E again switches it off at once and no one is called',()=>{const {d,s,n}=setup();s.toggle({x:-8,y:0,z:7.8});s.toggle({x:-8,y:0,z:7.8});assert.equal(s.on.size,0);for(let t=0;t<3;t+=1/30){d.step(1/30,far);s.step(1/30);}assert.equal(n.state,'patrol');});
+test('the club radio stands on a crate at the loading dock, its front on open floor',()=>{const m=json('club-mission.json'),w=new CollisionWorld(json('club-map.json'));const r=m.devices[0];
+ assert.equal(r.kind,'radio');assert.ok(w.blocked(r.x,0,r.z,.3),'on the crate');assert.equal(w.blocked(r.approach.x,0,r.approach.z,.3),false);});
+// H16, H17: the kinds differ in how long the one who comes stays, and how far they are heard.
+test('a TV is watched for a while before it is switched off; a vacuum cleaner is heard from further away',()=>{
+ const tv={...radio,id:'t',kind:'tv' as const,label:'テレビ'};const {d,s}=(()=>{const level=structuredClone(map) as Mission;level.npcs=[{id:'w',role:'waiter',label:'給仕',floor:0,route:[[-3,8,600]],look:[-2,8]}];
+  const world=new CollisionWorld(level),d=new Director(level,world,new NavGrid(world),sightBoxes(level),rules as Rules);return {d,s:new DeviceSystem(d,[tv],f=>plateY(level,f))};})();
+ s.toggle({x:-8,y:0,z:7.8});let arrived=-1,off=-1;for(let t=0;t<40&&off<0;t+=1/30){d.step(1/30,far);s.step(1/30);const n=d.npcs[0];if(arrived<0&&Math.hypot(n.pos.x+8,n.pos.z-8)<.8)arrived=t;if(!s.on.size)off=t;}
+ assert.ok(arrived>0&&off-arrived>=9.5,`watched ${off-arrived}s`);
+ assert.ok(DEVICE_KINDS.vacuum.radius>DEVICE_KINDS.radio.radius);
+ const level=structuredClone(map) as Mission;level.npcs=[{id:'w',role:'waiter',label:'給仕',floor:0,route:[[3,8,600]],look:[4,8]}];// 11 m away: too far for a radio
+ const world=new CollisionWorld(level),dd=new Director(level,world,new NavGrid(world),sightBoxes(level),rules as Rules);
+ const r=new DeviceSystem(dd,[radio],f=>plateY(level,f));r.toggle({x:-8,y:0,z:7.8});r.step(1/30);assert.equal(r.responders.size,0);
+ const v=new DeviceSystem(dd,[{...radio,id:'v',kind:'vacuum',label:'掃除機'}],f=>plateY(level,f));v.toggle({x:-8,y:0,z:7.8});v.step(1/30);assert.equal(v.responders.size,1);});
+test('the club TV stands on the office desk and the vacuum in the back corridor, each with open floor in front',()=>{const m=json('club-mission.json'),w=new CollisionWorld(json('club-map.json'));
+ assert.deepEqual(m.devices.map((d:{kind:string})=>d.kind),['radio','tv','vacuum']);for(const d of m.devices)assert.equal(w.blocked(d.approach.x,0,d.approach.z,.3),false,d.id);});

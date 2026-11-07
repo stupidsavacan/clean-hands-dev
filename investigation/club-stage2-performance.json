@@ -1,0 +1,214 @@
+{
+  "method": "120 warm-up + 360 measured requestAnimationFrame intervals; native entrances; 1080×810 / DPR 2 / touch; Windows Chromium / ANGLE D3D11; no physical iPad",
+  "rows": [
+    {
+      "name": "party-prototype.html",
+      "frames": {
+        "mean": 42.902499999999996,
+        "p50": 44.39999999999782,
+        "p95": 77.69999999999891,
+        "max": 188.40000000000146
+      },
+      "jsFrameMs": {
+        "mean": 18.94948791597388,
+        "p50": 18.221301513142368,
+        "p95": 24.31109552513109,
+        "max": 25.961428540613635
+      },
+      "drawCalls": {
+        "mean": 639,
+        "p50": 639,
+        "p95": 639,
+        "max": 639
+      },
+      "samples": 360,
+      "npcs": 60,
+      "position": {
+        "x": 25,
+        "z": 2,
+        "y": 0
+      },
+      "viewport": [
+        1080,
+        810
+      ],
+      "renderBuffer": [
+        1890,
+        1417
+      ],
+      "dpr": 2,
+      "renderer": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "performance": {
+        "fps": 19.3290935347606,
+        "jsFrameMs": 18.40493450387266,
+        "drawCalls": 639,
+        "triangles": 38314,
+        "visibleNpcModels": 38
+      }
+    },
+    {
+      "name": "club-stage1-reference.html",
+      "frames": {
+        "mean": 13.456944444444447,
+        "p50": 11.199999999999818,
+        "p95": 22.200000000000728,
+        "max": 22.5
+      },
+      "jsFrameMs": {
+        "mean": 4.814907006417496,
+        "p50": 4.219705722195845,
+        "p95": 7.1798792040629555,
+        "max": 8.819150187816305
+      },
+      "drawCalls": {
+        "mean": 290,
+        "p50": 290,
+        "p95": 290,
+        "max": 290
+      },
+      "samples": 360,
+      "npcs": 0,
+      "position": {
+        "x": 22,
+        "z": 2,
+        "y": 0
+      },
+      "viewport": [
+        1080,
+        810
+      ],
+      "renderBuffer": [
+        1890,
+        1417
+      ],
+      "dpr": 2,
+      "renderer": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "performance": {
+        "width": 1890,
+        "height": 1417,
+        "pixelRatio": 1.75,
+        "fps": 75.23368423421086,
+        "jsFrameMs": 3.9148368062181538,
+        "drawCalls": 290,
+        "triangles": 8678,
+        "visibleNpcModels": 0
+      }
+    },
+    {
+      "name": "club-prototype.html",
+      "frames": {
+        "mean": 18.89,
+        "p50": 11.199999999999818,
+        "p95": 55.5,
+        "max": 100
+      },
+      "jsFrameMs": {
+        "mean": 11.630425509265898,
+        "p50": 11.010947498806715,
+        "p95": 15.105885695355337,
+        "max": 18.18658576734116
+      },
+      "drawCalls": {
+        "mean": 457,
+        "p50": 457,
+        "p95": 457,
+        "max": 457
+      },
+      "samples": 360,
+      "npcs": 34,
+      "position": {
+        "x": 22,
+        "z": 2,
+        "y": 0
+      },
+      "viewport": [
+        1080,
+        810
+      ],
+      "renderBuffer": [
+        1890,
+        1417
+      ],
+      "dpr": 2,
+      "renderer": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "performance": {
+        "width": 1890,
+        "height": 1417,
+        "pixelRatio": 1.75,
+        "fps": 60.42097228769827,
+        "jsFrameMs": 13.078354938452534,
+        "drawCalls": 457,
+        "triangles": 30094,
+        "visibleNpcModels": 31
+      },
+      "checks": {
+        "before": {
+          "x": 22,
+          "z": 5.996666666666651,
+          "y": 0
+        },
+        "after": {
+          "x": 11.200514007413346,
+          "z": 8.313488696119148,
+          "y": 0
+        },
+        "outfit": "M4 · バーテンダー · ワイヤー所持"
+      }
+    }
+  ],
+  "errors": [],
+  "shots": [
+    [
+      "entrance",
+      [
+        20,
+        1.65,
+        12
+      ],
+      [
+        22,
+        2.3,
+        27
+      ]
+    ],
+    [
+      "bar",
+      [
+        36,
+        1.65,
+        17.3
+      ],
+      [
+        40,
+        1.5,
+        23
+      ]
+    ],
+    [
+      "lounge-vip",
+      [
+        24,
+        1.65,
+        21.8
+      ],
+      [
+        10,
+        2.7,
+        22
+      ]
+    ],
+    [
+      "kitchen",
+      [
+        11.7,
+        1.65,
+        34.7
+      ],
+      [
+        7.4,
+        1.4,
+        32
+      ]
+    ]
+  ]
+}

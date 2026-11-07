@@ -1,0 +1,21 @@
+{"checkpoint":"check-lobby","line":{"x":8,"z":-3.8,"width":4},"guardPost":{"x":12,"z":-4.6},"guardToLine":4.08,"pointsOnLine":1113,"withGuardOnDuty":1113,"friskPossible":1113,"examples":["(4.8, -3.8)","(4.9, -4.2)","(4.9, -4.1)"]}
+{"checkpoint":"check-marina","line":{"x":-12.6,"z":28,"width":2},"guardPost":{"x":-14,"z":26},"guardToLine":2.44,"pointsOnLine":732,"withGuardOnDuty":732,"friskPossible":732,"examples":["(-13.8, 27.0)","(-13.8, 27.1)","(-13.8, 27.2)"]}
+{"checkpoint":"check-lobby","width":4,"openAlongTheLine":{"from the normal side":["-8..-8","-7.2..-6.4","-5.6..-2.4","2.4..8"],"from the other side":["-8..-8","-7.2..-6.4","-5.6..-2.4","-1.7..1.7","2.4..8"]}}
+{"checkpoint":"check-marina","width":2,"openAlongTheLine":{"from the normal side":["3.8..8"],"from the other side":["-0.7..0.7","3.8..8"]}}
+{"stairs":{"id":"stairs-grand","minX":6,"maxX":10,"minZ":-12,"maxZ":-4,"low":0,"high":3.5,"rise":"-z","floor":0}}
+{"stairs":{"id":"stairs-service","minX":-16,"maxX":-13,"minZ":-1,"maxZ":7,"low":0,"high":3.5,"rise":"-z","floor":0}}
+{"route":"straight across the line","guardOnDuty":true,"end":{"x":8,"y":0,"z":-3.8},"upstairs":false}
+{"route":"around the west end","guardOnDuty":true,"end":{"x":5.72,"y":0,"z":-3.8},"upstairs":false}
+{"route":"around the east end","guardOnDuty":true,"end":{"x":10.28,"y":0,"z":-3.8},"upstairs":false}
+{"side":"west","z":-3.45,"slid":[8,-3.45],"climb":[8,0,-3.8],"upstairs":false}
+{"side":"west","z":-3.55,"slid":[8,-3.55],"climb":[8,0,-3.8],"upstairs":false}
+{"side":"west","z":-3.65,"slid":[8,-3.65],"climb":[8,0,-3.8],"upstairs":false}
+{"side":"west","z":-3.75,"slid":[5.75,-3.75],"climb":[5.79,0,-3.75],"upstairs":false}
+{"side":"west","z":-3.85,"slid":[5.65,-3.85],"climb":[5.67,0,-3.85],"upstairs":false}
+{"side":"west","z":-3.95,"slid":[5.6,-3.95],"climb":[5.62,0,-10.99],"upstairs":false}
+{"side":"east","z":-3.45,"slid":[8.05,-3.45],"climb":[8.05,0,-3.8],"upstairs":false}
+{"side":"east","z":-3.55,"slid":[8.05,-3.55],"climb":[8.05,0,-3.8],"upstairs":false}
+{"side":"east","z":-3.65,"slid":[8.05,-3.65],"climb":[8.05,0,-3.8],"upstairs":false}
+{"side":"east","z":-3.75,"slid":[10.25,-3.75],"climb":[10.21,0,-3.75],"upstairs":false}
+{"side":"east","z":-3.85,"slid":[10.35,-3.85],"climb":[10.33,0,-3.85],"upstairs":false}
+{"side":"east","z":-3.95,"slid":[10.4,-3.95],"climb":[10.38,0,-10.99],"upstairs":false}

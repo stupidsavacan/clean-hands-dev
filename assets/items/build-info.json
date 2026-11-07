@@ -1,0 +1,319 @@
+[
+  {
+    "id": "wrench",
+    "kind": "tool",
+    "label": "スパナ",
+    "triangles": 60,
+    "bytes": 7696,
+    "size_m": [
+      0.014,
+      0.052,
+      0.275
+    ],
+    "anchors": {
+      "GRIP_R": [
+        0,
+        0,
+        0
+      ],
+      "TIP": [
+        0.0,
+        0,
+        0.235
+      ]
+    }
+  },
+  {
+    "id": "bottle",
+    "kind": "tool",
+    "label": "ワインボトル",
+    "triangles": 132,
+    "bytes": 11968,
+    "size_m": [
+      0.078,
+      0.078,
+      0.365
+    ],
+    "anchors": {
+      "GRIP_R": [
+        0,
+        0,
+        0
+      ],
+      "TIP": [
+        0.0,
+        0,
+        0.305
+      ]
+    }
+  },
+  {
+    "id": "mop",
+    "kind": "tool",
+    "label": "モップ",
+    "triangles": 116,
+    "bytes": 11476,
+    "size_m": [
+      0.302,
+      0.06,
+      1.58
+    ],
+    "anchors": {
+      "GRIP_R": [
+        0,
+        0,
+        0
+      ],
+      "TIP": [
+        0.0,
+        0,
+        1.13
+      ]
+    }
+  },
+  {
+    "id": "camera",
+    "kind": "tool",
+    "label": "カメラ",
+    "triangles": 96,
+    "bytes": 9468,
+    "size_m": [
+      0.14,
+      0.11,
+      0.155
+    ],
+    "anchors": {
+      "GRIP_R": [
+        0,
+        0,
+        0
+      ],
+      "TIP": [
+        0.0,
+        0.015,
+        0.135
+      ]
+    }
+  },
+  {
+    "id": "tray",
+    "kind": "tool",
+    "label": "トレイ",
+    "triangles": 152,
+    "bytes": 12084,
+    "size_m": [
+      0.36,
+      0.024,
+      0.36
+    ],
+    "anchors": {
+      "GRIP_R": [
+        0,
+        0,
+        0
+      ],
+      "TIP": [
+        0.0,
+        0,
+        0.35
+      ]
+    }
+  },
+  {
+    "id": "hammer",
+    "kind": "melee",
+    "label": "ハンマー",
+    "triangles": 80,
+    "bytes": 8600,
+    "size_m": [
+      0.038,
+      0.13,
+      0.34
+    ],
+    "anchors": {
+      "GRIP_R": [
+        0,
+        0,
+        0
+      ],
+      "TIP": [
+        0.0,
+        0.09,
+        0.27
+      ]
+    }
+  },
+  {
+    "id": "crowbar",
+    "kind": "melee",
+    "label": "バール",
+    "triangles": 80,
+    "bytes": 8588,
+    "size_m": [
+      0.022,
+      0.096,
+      0.601
+    ],
+    "anchors": {
+      "GRIP_R": [
+        0,
+        0,
+        0
+      ],
+      "TIP": [
+        0.0,
+        0.045,
+        0.5
+      ]
+    }
+  },
+  {
+    "id": "kitchen_knife",
+    "kind": "melee",
+    "label": "包丁",
+    "triangles": 52,
+    "bytes": 7112,
+    "size_m": [
+      0.017,
+      0.028,
+      0.315
+    ],
+    "anchors": {
+      "GRIP_R": [
+        0,
+        0,
+        0
+      ],
+      "TIP": [
+        0.0,
+        0.012,
+        0.265
+      ]
+    }
+  },
+  {
+    "id": "frying_pan",
+    "kind": "melee",
+    "label": "フライパン",
+    "triangles": 148,
+    "bytes": 12096,
+    "size_m": [
+      0.26,
+      0.063,
+      0.471
+    ],
+    "anchors": {
+      "GRIP_R": [
+        0,
+        0,
+        0
+      ],
+      "TIP": [
+        0.0,
+        0.03,
+        0.42
+      ]
+    }
+  },
+  {
+    "id": "coin",
+    "kind": "throw",
+    "label": "コイン",
+    "triangles": 44,
+    "bytes": 6016,
+    "size_m": [
+      0.024,
+      0.002,
+      0.024
+    ],
+    "anchors": {
+      "GRIP_R": [
+        0,
+        0,
+        0
+      ],
+      "TIP": [
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  {
+    "id": "brick",
+    "kind": "throw",
+    "label": "レンガ",
+    "triangles": 36,
+    "bytes": 6008,
+    "size_m": [
+      0.102,
+      0.065,
+      0.22
+    ],
+    "anchors": {
+      "GRIP_R": [
+        0,
+        0,
+        0
+      ],
+      "TIP": [
+        0.0,
+        0,
+        0.2
+      ]
+    }
+  },
+  {
+    "id": "katana",
+    "kind": "melee",
+    "label": "刀",
+    "triangles": 148,
+    "bytes": 13104,
+    "size_m": [
+      0.084,
+      0.084,
+      1.055
+    ],
+    "anchors": {
+      "GRIP_R": [
+        0,
+        0,
+        0
+      ],
+      "GRIP_L": [
+        0.0,
+        0,
+        -0.12
+      ],
+      "TIP": [
+        0.0,
+        0.03,
+        0.96
+      ]
+    }
+  },
+  {
+    "id": "briefcase",
+    "kind": "melee",
+    "label": "ブリーフケース",
+    "triangles": 132,
+    "bytes": 12748,
+    "size_m": [
+      0.116,
+      0.39,
+      0.464
+    ],
+    "anchors": {
+      "GRIP_R": [
+        0,
+        0,
+        0
+      ],
+      "TIP": [
+        0.0,
+        -0.36,
+        0
+      ]
+    }
+  }
+]

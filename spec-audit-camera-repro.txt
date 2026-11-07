@@ -1,0 +1,21 @@
+{
+  "case": "destroyed-camera-judgement",
+  "recordingSees": false,
+  "killJudgement": {
+    "kind": "murder",
+    "witnesses": [],
+    "cameras": [
+      "CAM_lobby"
+    ],
+    "illegal": false,
+    "reasons": [
+      "カメラ: CAM_lobby"
+    ]
+  }
+}
+{
+  "case": "recorder-break-then-new-recording",
+  "afterBreak": false,
+  "afterIllegalAct": true,
+  "cameraStillWorking": true
+}

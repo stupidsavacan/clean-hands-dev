@@ -1,0 +1,36 @@
+{
+ "_note": "M5実装ガイドの combat.json の初期値。詰めはM6。reinforcements.firstDelay（警戒度3から第1波までの秒）・reloadSeconds・range・noiseSmall・noiseLoudOutdoor・loseSeconds・endSeconds・coverSearch・reinforcementDelay は仕様にない補助値。alert3After（補助値）：通常の銃声は警戒度2まで。撃ち合いがこの秒数続くと警戒度3（避難・増援・出口2つ閉鎖）。",
+ "player": { "health": 100, "regen": { "delay": 10, "perSecond": 5 } },
+ "enemies": {
+  "guard": { "health": 100, "weapon": "pistol_guard", "hit": 20 },
+  "bodyguard": { "health": 150, "weapon": "smg", "hit": 12 },
+  "response": { "health": 200, "weapon": "rifle_npc", "hit": 25 },
+  "civilian": { "health": 100 }
+ },
+ "accuracy": { "near": [5, 0.6], "far": [20, 0.2] },
+ "coverMultiplier": 0.5,
+ "reactionTime": 0.6,
+ "_sweepNote": "sweepSeconds：警戒度3の間、増援が最後に分かった場所の周りを捜し続ける秒数（最後に見られた・聞かれた時から）。過ぎたら出入口へ戻り、警戒度が下がれるようになる（2026-11-03）。",
+ "reinforcements": { "sweepSeconds": 120, "atAlert": 3, "spawn": ["REINF_parking", "REINF_dock"], "size": 4, "waves": 3, "interval": 60, "firstDelay": 20, "model": "response" },
+ "_placedNote": "撃ち合い以外で銃を手に入れる場所。警備室の机の端の拳銃（スタッフ区画、警備の服で入る）と、Bの客室の隅にある私設護衛の予備の短機関銃（厳重区画）。y は置いてある面の高さ。",
+ "placed": [
+  { "gun": "pistol_guard", "x": 41.2, "y": 1.1, "z": -17.95, "where": "警備室の机" },
+  { "gun": "smg", "x": 23.2, "y": 3.5, "z": -18.4, "where": "Bの客室" }
+ ],
+ "compromised": { "clearDistance": 30 },
+ "reloadSeconds": 1.8,
+ "range": 60,
+ "noiseSmall": 8,
+ "noiseLoudOutdoor": 40,
+ "_noiseNote": "銃声が聞こえる距離（m）。small は noiseSmall。loud は両方屋外なら noiseLoudOutdoor、それ以外は noiseLoudIndoor。1つ上下の階は noiseFloorFactor 倍、2階以上離れると聞こえない。間に壁や床があると noiseWallFactor 倍。2026-11-02 の修正（F03）で決めたCLEAN HANDS独自の値。",
+ "noiseLoudIndoor": 30,
+ "noiseFloorFactor": 0.5,
+ "noiseWallFactor": 0.5,
+ "loseSeconds": 4,
+ "endSeconds": 6,
+ "coverSearch": 7,
+ "fleeDistance": 18,
+ "cowerSeconds": 25,
+ "alert3After": 15,
+ "closedExitsAtAlert3": ["E1", "E2"]
+}

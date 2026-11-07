@@ -1,0 +1,270 @@
+{
+  "routes": [
+    {
+      "route": "entry and toilet",
+      "frames": 1921,
+      "position": {
+        "x": 21.99751977962044,
+        "z": 20.00076438609337,
+        "y": 0
+      }
+    },
+    {
+      "route": "public-back-outdoor loop",
+      "frames": 3209,
+      "position": {
+        "x": 22.01447660360629,
+        "z": 19.997578540890007,
+        "y": 0
+      }
+    },
+    {
+      "route": "front stairs to VIP",
+      "frames": 1358,
+      "position": {
+        "x": 7.003618337687799,
+        "z": 25.000006534084932,
+        "y": 3.5
+      }
+    },
+    {
+      "route": "back stairs to kitchen",
+      "frames": 1356,
+      "position": {
+        "x": 22.014516167219128,
+        "z": 19.997571938839314,
+        "y": 0
+      }
+    },
+    {
+      "route": "office stage and equipment",
+      "frames": 1946,
+      "position": {
+        "x": 35.00001821758141,
+        "z": 31.9836117390902,
+        "y": 0
+      }
+    },
+    {
+      "route": "catwalk to VIP loop",
+      "frames": 2374,
+      "position": {
+        "x": 22.018846977985618,
+        "y": 0,
+        "z": 19.999960281057984
+      }
+    },
+    {
+      "route": "second ascent",
+      "frames": 1141,
+      "position": {
+        "x": 34.9999401238872,
+        "y": 0,
+        "z": 31.983634848203423
+      }
+    }
+  ],
+  "errors": [],
+  "requests": [
+    "http://127.0.0.1:8797/club-prototype.html",
+    "blob:http://127.0.0.1:8797/d7fc7e86-1a7e-4e20-b2a7-35333ca09858",
+    "blob:http://127.0.0.1:8797/dca869a9-976f-4ff2-a97c-445beec0e535",
+    "blob:http://127.0.0.1:8797/7882668e-142c-47a4-ae05-5408709dccff",
+    "blob:http://127.0.0.1:8797/de4bfaa2-2d40-44bf-9a4c-587ecb1c6423",
+    "blob:http://127.0.0.1:8797/93f154f2-3e8c-4591-839f-73afc6701b79",
+    "blob:http://127.0.0.1:8797/4a5ee62e-8cf5-45c2-9174-b34059003a5b",
+    "blob:http://127.0.0.1:8797/1a936c67-a54f-4066-be88-de688c8ed83c",
+    "blob:http://127.0.0.1:8797/b6a4d5d7-54c4-4b79-a31c-7f897c8bdc80",
+    "blob:http://127.0.0.1:8797/9fa804e5-cc17-4a5c-af93-4ad51620654c",
+    "blob:http://127.0.0.1:8797/13c74e43-14bd-4fcf-8f85-31c36f0a6311",
+    "blob:http://127.0.0.1:8797/fba854df-25b3-438d-8e4c-a0f423d54d38",
+    "blob:http://127.0.0.1:8797/bff9eb47-7691-4838-9e3e-cc429bade7f3",
+    "blob:http://127.0.0.1:8797/8f9bfbd4-ff23-40ae-ab59-cc7f977302a7",
+    "blob:http://127.0.0.1:8797/68c0ad42-9545-4b3b-9d53-10375c32436f",
+    "blob:http://127.0.0.1:8797/d3d14f47-f93e-4cbb-ab5a-c7a43d83f46e",
+    "blob:http://127.0.0.1:8797/da8c1691-eca4-436a-9746-abad019a36cb",
+    "blob:http://127.0.0.1:8797/56f2fc39-45a6-44f6-b0b6-77510837b5d5",
+    "blob:http://127.0.0.1:8797/2a612ed3-362f-414a-9128-d5dbcd3309b0",
+    "blob:http://127.0.0.1:8797/6811e6c1-f2ff-4aa4-851e-85a92b1033d8",
+    "blob:http://127.0.0.1:8797/eb0a714c-27cb-4c18-8738-af7c3a52ce69",
+    "blob:http://127.0.0.1:8797/2c5ebbcc-9b7a-4b6c-8f02-349a56bec25c",
+    "blob:http://127.0.0.1:8797/fec593d1-7257-44c0-854c-27f7ea54e1d3",
+    "blob:http://127.0.0.1:8797/a79fdd66-3055-4798-ae17-eb1749d87031",
+    "blob:http://127.0.0.1:8797/a6f87826-45d5-4b15-8e87-70aa107c6056",
+    "blob:http://127.0.0.1:8797/5391ed41-02b9-4525-8db3-b456ae0d1d60",
+    "blob:http://127.0.0.1:8797/96b619c2-f4f5-48c2-88a0-12f6b8125504",
+    "blob:http://127.0.0.1:8797/e9689f25-f172-4f5f-a870-d5e4a9742f73",
+    "blob:http://127.0.0.1:8797/94cad5bc-7ee2-462e-83ac-fb3d22c40f51",
+    "blob:http://127.0.0.1:8797/46dda4e1-4c03-422b-8dc6-5553bcfe8857",
+    "blob:http://127.0.0.1:8797/4af4c844-a80d-4a2d-8f62-ec960ad94be4",
+    "blob:http://127.0.0.1:8797/c72c5b0e-f55b-43c4-8fb5-6dbc5563311d",
+    "blob:http://127.0.0.1:8797/6026da23-abd3-4832-b193-0b089103de01",
+    "blob:http://127.0.0.1:8797/3e800b06-9d06-42a0-a596-b2b41b44858a",
+    "blob:http://127.0.0.1:8797/1546a16c-122d-4e97-be84-3ad6826eae6a",
+    "blob:http://127.0.0.1:8797/15119132-3f6b-4eb9-9fc7-2c8ef82f2e78",
+    "blob:http://127.0.0.1:8797/a2b42b8e-9be1-4cad-ba01-b5818d97d592",
+    "blob:http://127.0.0.1:8797/0ccc2bf0-63b4-4211-b314-85b45631a8e0",
+    "blob:http://127.0.0.1:8797/6bd2c65d-b49f-4a54-a207-aa5720ca1972",
+    "blob:http://127.0.0.1:8797/b5c7d84b-0e81-4911-9b81-b1def9b07dd6",
+    "blob:http://127.0.0.1:8797/e592f62a-4b74-4c71-a4bc-6f5e02fbeb89",
+    "blob:http://127.0.0.1:8797/252a2daa-3593-4a7c-b00f-ba37e996e2ab",
+    "blob:http://127.0.0.1:8797/55fe8e53-f117-4f54-b2f6-a7b35b0f1011",
+    "blob:http://127.0.0.1:8797/802f5f79-0049-4e80-8016-cba8f1a38cc4"
+  ],
+  "ladder": [
+    {
+      "reverse": false,
+      "fraction": 0.25,
+      "start": {
+        "x": 34.9999401238872,
+        "y": 0,
+        "z": 31.983634848203423
+      },
+      "end": {
+        "x": 34.9999401238872,
+        "y": 0,
+        "z": 31.983634848203423
+      },
+      "drift": 0
+    },
+    {
+      "reverse": false,
+      "fraction": 0.5,
+      "start": {
+        "x": 34.9999401238872,
+        "y": 0,
+        "z": 31.983634848203423
+      },
+      "end": {
+        "x": 34.9999401238872,
+        "y": 0,
+        "z": 31.983634848203423
+      },
+      "drift": 0
+    },
+    {
+      "reverse": false,
+      "fraction": 0.75,
+      "start": {
+        "x": 34.9999401238872,
+        "y": 0,
+        "z": 31.983634848203423
+      },
+      "end": {
+        "x": 34.9999401238872,
+        "y": 0,
+        "z": 31.983634848203423
+      },
+      "drift": 0
+    },
+    {
+      "reverse": true,
+      "fraction": 0.25,
+      "start": {
+        "x": 35,
+        "y": 3.5,
+        "z": 30.8
+      },
+      "end": {
+        "x": 35,
+        "y": 3.5,
+        "z": 30.8
+      },
+      "drift": 0
+    },
+    {
+      "reverse": true,
+      "fraction": 0.5,
+      "start": {
+        "x": 35,
+        "y": 3.5,
+        "z": 30.8
+      },
+      "end": {
+        "x": 35,
+        "y": 3.5,
+        "z": 30.8
+      },
+      "drift": 0
+    },
+    {
+      "reverse": true,
+      "fraction": 0.75,
+      "start": {
+        "x": 35,
+        "y": 3.5,
+        "z": 30.8
+      },
+      "end": {
+        "x": 35,
+        "y": 3.5,
+        "z": 30.8
+      },
+      "drift": 0
+    }
+  ],
+  "exploration": {
+    "enabled": false,
+    "hidden": "block"
+  },
+  "restored": true,
+  "final": {
+    "state": {
+      "exploration": true,
+      "position": {
+        "x": 35,
+        "y": 0,
+        "z": 32
+      },
+      "panelProgress": 0,
+      "panelDone": false,
+      "missionOver": "",
+      "coins": 0,
+      "coinProps": {
+        "flying": 0,
+        "landed": 0,
+        "ripples": 0
+      },
+      "currentFloor": 0,
+      "paused": true,
+      "mapOpen": false,
+      "helpOpen": false,
+      "creatorOpen": false,
+      "modelReady": true,
+      "clock": {
+        "elapsed": 274.4666666667457,
+        "time": 274.4666666667457,
+        "cycle": 0,
+        "rate": 1,
+        "loop": 1800
+      },
+      "schedule": [],
+      "dialogue": {
+        "heard": [],
+        "subtitle": null,
+        "playing": []
+      },
+      "alert": 0
+    },
+    "npcs": 0,
+    "staticLockers": [
+      {
+        "name": "club-static-locker",
+        "box": {
+          "isBox3": true,
+          "min": {
+            "x": 10.675,
+            "y": 0,
+            "z": 25.9
+          },
+          "max": {
+            "x": 11.325,
+            "y": 1.9,
+            "z": 27.099999999999998
+          }
+        }
+      }
+    ],
+    "interactiveLockers": 0
+  }
+}

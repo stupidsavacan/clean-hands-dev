@@ -1,0 +1,13 @@
+✔ party: all traversal landings are clear and holding E completes in both directions (134.5242ms)
+✔ party: releasing E midway restores the exact start (19.9713ms)
+✔ party: visible traversal raises suspicion in the real map (29.38ms)
+✔ party: cleaner is allowed only in the guest room among private rooms (0.4337ms)
+✔ party: the gallery overlooks the ballroom through a real floor opening (14.0325ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 330.0324

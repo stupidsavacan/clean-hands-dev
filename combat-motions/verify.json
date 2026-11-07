@@ -1,0 +1,215 @@
+{
+ "worstHandErrorCm": 1.51,
+ "hands": {
+  "agent draw": {
+   "worstCm": 0.19,
+   "at": 0.83
+  },
+  "agent draw walk": {
+   "worstCm": 0.2,
+   "at": 0.95
+  },
+  "agent holster": {
+   "worstCm": 0.2,
+   "at": 0.05
+  },
+  "agent holster walk": {
+   "worstCm": 0.2,
+   "at": 0.09
+  },
+  "agent aim": {
+   "worstCm": 0.2,
+   "at": 0.02
+  },
+  "agent aim walk": {
+   "worstCm": 0.2,
+   "at": 0.52
+  },
+  "agent fire": {
+   "worstCm": 0.2,
+   "at": 0.9
+  },
+  "agent fire walk": {
+   "worstCm": 0.2,
+   "at": 0.99
+  },
+  "agent reload": {
+   "worstCm": 0.25,
+   "at": 0.12
+  },
+  "agent reload walk": {
+   "worstCm": 0.2,
+   "at": 0.2
+  },
+  "agent hit": {
+   "worstCm": 0.2,
+   "at": 0.17
+  },
+  "agent cover": {
+   "worstCm": 0.2,
+   "at": 0.54
+  },
+  "agent coverAim": {
+   "worstCm": 0.2,
+   "at": 0.84
+  },
+  "guard draw": {
+   "worstCm": 0.19,
+   "at": 0.83
+  },
+  "guard draw walk": {
+   "worstCm": 0.2,
+   "at": 0.95
+  },
+  "guard holster": {
+   "worstCm": 0.2,
+   "at": 0.05
+  },
+  "guard holster walk": {
+   "worstCm": 0.2,
+   "at": 0.09
+  },
+  "guard aim": {
+   "worstCm": 0.2,
+   "at": 0.02
+  },
+  "guard aim walk": {
+   "worstCm": 0.2,
+   "at": 0.52
+  },
+  "guard fire": {
+   "worstCm": 0.2,
+   "at": 0.1
+  },
+  "guard fire walk": {
+   "worstCm": 0.2,
+   "at": 0.99
+  },
+  "guard reload": {
+   "worstCm": 0.25,
+   "at": 0.12
+  },
+  "guard reload walk": {
+   "worstCm": 0.2,
+   "at": 0.2
+  },
+  "guard hit": {
+   "worstCm": 0.2,
+   "at": 0.17
+  },
+  "guard cover": {
+   "worstCm": 0.2,
+   "at": 0.54
+  },
+  "guard coverAim": {
+   "worstCm": 0.2,
+   "at": 0.84
+  },
+  "bodyguard draw": {
+   "worstCm": 0.2,
+   "at": 0.51
+  },
+  "bodyguard draw walk": {
+   "worstCm": 0.2,
+   "at": 0.38
+  },
+  "bodyguard holster": {
+   "worstCm": 0.2,
+   "at": 0.42
+  },
+  "bodyguard holster walk": {
+   "worstCm": 0.2,
+   "at": 0.18
+  },
+  "bodyguard aim": {
+   "worstCm": 0.2,
+   "at": 0.69
+  },
+  "bodyguard aim walk": {
+   "worstCm": 0.2,
+   "at": 0.67
+  },
+  "bodyguard fire": {
+   "worstCm": 0.2,
+   "at": 0.3
+  },
+  "bodyguard fire walk": {
+   "worstCm": 0.2,
+   "at": 0.68
+  },
+  "bodyguard reload": {
+   "worstCm": 0.76,
+   "at": 0.12
+  },
+  "bodyguard reload walk": {
+   "worstCm": 0.41,
+   "at": 0.71
+  },
+  "bodyguard hit": {
+   "worstCm": 0.2,
+   "at": 0.95
+  },
+  "bodyguard cover": {
+   "worstCm": 0.2,
+   "at": 0.57
+  },
+  "bodyguard coverAim": {
+   "worstCm": 0.2,
+   "at": 0.05
+  },
+  "response draw": {
+   "worstCm": 0.79,
+   "at": 0.75
+  },
+  "response draw walk": {
+   "worstCm": 1.33,
+   "at": 0.77
+  },
+  "response holster": {
+   "worstCm": 0.2,
+   "at": 0.18
+  },
+  "response holster walk": {
+   "worstCm": 1.35,
+   "at": 0.13
+  },
+  "response aim": {
+   "worstCm": 0.37,
+   "at": 0
+  },
+  "response aim walk": {
+   "worstCm": 1.51,
+   "at": 0.85
+  },
+  "response fire": {
+   "worstCm": 1.14,
+   "at": 0
+  },
+  "response fire walk": {
+   "worstCm": 1.26,
+   "at": 0.73
+  },
+  "response reload": {
+   "worstCm": 1.09,
+   "at": 0
+  },
+  "response reload walk": {
+   "worstCm": 0.52,
+   "at": 1
+  },
+  "response hit": {
+   "worstCm": 0.69,
+   "at": 0
+  },
+  "response cover": {
+   "worstCm": 0.19,
+   "at": 0.75
+  },
+  "response coverAim": {
+   "worstCm": 0.66,
+   "at": 1
+  }
+ },
+ "consoleErrors": [],
+ "shots": 42
+}

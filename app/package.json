@@ -1,0 +1,28 @@
+{
+  "name": "clean-hands-m5",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5175",
+    "embed": "node scripts/embed-npcs.mjs",
+    "build": "tsc --noEmit && vite build",
+    "check": "tsc --noEmit",
+    "test": "node --experimental-strip-types --test tests/*.test.ts",
+    "preview": "vite preview --host 127.0.0.1 --port 5175",
+    "build:motions": "node scripts/build-motions.mjs",
+    "build:all": "node scripts/build-all.mjs",
+    "test:fast": "node --experimental-strip-types --no-warnings --test --test-skip-pattern=\"[Ww]alking ghost\" tests/*.test.ts",
+    "docs": "node --experimental-strip-types --no-warnings scripts/spec-docs.ts",
+    "spec": "npm run docs && npm run check && npm run test:fast"
+  },
+  "dependencies": {
+    "three": "0.180.0"
+  },
+  "devDependencies": {
+    "@types/three": "0.180.0",
+    "@types/node": "24.0.0",
+    "typescript": "7.0.2",
+    "vite": "8.3.5"
+  }
+}

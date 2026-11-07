@@ -1,0 +1,491 @@
+[
+ {
+  "name": "A1 試飲会のソムリエ（毒の一杯）",
+  "target": "dead:poison_glass:accident",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "greet_without_blown": true,
+   "cellar_key": true,
+   "served": true
+  },
+  "spottedBy": [],
+  "found": [
+   "wine_merchant:accident"
+  ],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [],
+  "ghost": true,
+  "note": "",
+  "reasons": [
+   "wine_merchant=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>"
+  ]
+ },
+ {
+  "name": "A2 限定ワインの樽（毒）",
+  "target": "dead:wine_barrel:accident",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "armed": true,
+   "died": true
+  },
+  "spottedBy": [],
+  "found": [
+   "wine_merchant:accident"
+  ],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [],
+  "ghost": true,
+  "note": "",
+  "reasons": [
+   "wine_merchant=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>"
+  ]
+ },
+ {
+  "name": "A3 プールの照明（感電）",
+  "target": "dead:electrocution:murder",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "armed": true,
+   "came": true
+  },
+  "spottedBy": [],
+  "found": [
+   "wine_merchant:murder"
+  ],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [
+   "body_found"
+  ],
+  "ghost": false,
+  "note": "",
+  "reasons": [
+   "wine_merchant=murder<目撃: guard_pool/目撃: guard_promenade/目撃: guest_pool_a_3/目撃: guest_pool_b_2/目撃: guest_pool_c_4/目撃: guest_terrace_a_2/目撃: guest_stroll_2>"
+  ]
+ },
+ {
+  "name": "A4 テラスの記念撮影（突き落とし）",
+  "target": "dead:push:murder",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "pose": true,
+   "posed": true
+  },
+  "spottedBy": [
+   "guard_terrace",
+   "waiter_3",
+   "guest_beach_b_2",
+   "guest_stroll_5",
+   "guard_beach_s"
+  ],
+  "found": [
+   "wine_merchant:murder"
+  ],
+  "compromised": [
+   "photographer"
+  ],
+  "recorded": "",
+  "ghostBrokenBy": [
+   "spotted",
+   "body_found"
+  ],
+  "ghost": false,
+  "note": "",
+  "reasons": [
+   "wine_merchant=murder<目撃: guard_terrace/目撃: guard_beach_s/目撃: waiter_3/目撃: guest_stroll_5>"
+  ]
+ },
+ {
+  "name": "A5 展示ヨットのクレーン（落下物）",
+  "target": "dead:falling_object:murder",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "armed": true,
+   "tour": true
+  },
+  "spottedBy": [],
+  "found": [
+   "wine_merchant:murder"
+  ],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [
+   "body_found"
+  ],
+  "ghost": false,
+  "note": "",
+  "reasons": [
+   "wine_merchant=murder<目撃: guard_terrace/目撃: guest_terrace_a_3/目撃: guest_terrace_c_2/カメラ: CAM_marina>"
+  ]
+ },
+ {
+  "name": "B1 スピーチとシャンデリア",
+  "target": "dead:chandelier:accident",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "speech": true,
+   "armed": true
+  },
+  "spottedBy": [],
+  "found": [
+   "lawyer:accident"
+  ],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [],
+  "ghost": true,
+  "note": "",
+  "reasons": [
+   "lawyer=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>"
+  ]
+ },
+ {
+  "name": "B2 料理長の試食会（ガス）",
+  "target": "dead:gas_explosion:accident",
+  "others": [
+   "bodyguard_captain",
+   "bodyguard_1",
+   "bodyguard_2"
+  ],
+  "ko": [],
+  "steps": {
+   "armed": true,
+   "cook": true,
+   "chef_away": true,
+   "tasting": true
+  },
+  "spottedBy": [],
+  "found": [
+   "lawyer:accident",
+   "bodyguard_captain:accident",
+   "bodyguard_1:accident",
+   "bodyguard_2:accident"
+  ],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [
+   "guard_kill"
+  ],
+  "ghost": false,
+  "note": "",
+  "reasons": [
+   "lawyer=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>",
+   "bodyguard_captain=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>",
+   "bodyguard_1=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>",
+   "bodyguard_2=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>"
+  ]
+ },
+ {
+  "name": "B2 料理長の試食会（毒の皿）",
+  "target": "dead:poison_dish:accident",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "cook": true,
+   "tasting": true
+  },
+  "spottedBy": [],
+  "found": [
+   "lawyer:accident"
+  ],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [],
+  "ghost": true,
+  "note": "",
+  "reasons": [
+   "lawyer=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>"
+  ]
+ },
+ {
+  "name": "B3 護衛の交代（付き添って排除）",
+  "target": "dead:direct:murder",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "wait": true,
+   "not_blown_on_arrival": true,
+   "escorting": true,
+   "followed": true,
+   "killed": true
+  },
+  "spottedBy": [
+   "investor",
+   "bodyguard_2",
+   "bodyguard_relief",
+   "bodyguard_captain",
+   "bodyguard_1",
+   "guard_corridor"
+  ],
+  "found": [
+   "lawyer:murder"
+  ],
+  "compromised": [
+   "bodyguard"
+  ],
+  "recorded": "",
+  "ghostBrokenBy": [
+   "spotted",
+   "body_found"
+  ],
+  "ghost": false,
+  "note": "",
+  "reasons": []
+ },
+ {
+  "name": "B4 専属運転手（車内）",
+  "target": "dead:car_wire:murder",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "in_car": true,
+   "got_in": true
+  },
+  "spottedBy": [],
+  "found": [],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [],
+  "ghost": true,
+  "note": "",
+  "reasons": [
+   "lawyer=murder<直接の排除（誰にも見られていない）>"
+  ]
+ },
+ {
+  "name": "C1 バルコニーの電話（手すり）",
+  "target": "dead:balcony_rail:accident",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "keycard": true,
+   "armed": true,
+   "died": true
+  },
+  "spottedBy": [],
+  "found": [
+   "investor:accident"
+  ],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [],
+  "ghost": true,
+  "note": "",
+  "reasons": [
+   "investor=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>"
+  ]
+ },
+ {
+  "name": "C2 避難ボート（燃料・警戒度3）",
+  "target": "dead:boat_explosion:accident",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "armed": true,
+   "alert3": true,
+   "died": true
+  },
+  "spottedBy": [],
+  "found": [
+   "investor:accident"
+  ],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [],
+  "ghost": true,
+  "note": "",
+  "reasons": [
+   "investor=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>"
+  ]
+ },
+ {
+  "name": "C3 屋上のヘリ（パイロットで突き落とし）",
+  "target": "dead:push:murder",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "wait": true,
+   "posed": true
+  },
+  "spottedBy": [
+   "guard_heliport"
+  ],
+  "found": [
+   "investor:murder"
+  ],
+  "compromised": [
+   "pilot"
+  ],
+  "recorded": "",
+  "ghostBrokenBy": [
+   "spotted",
+   "body_found"
+  ],
+  "ghost": false,
+  "note": "",
+  "reasons": [
+   "investor=murder<目撃: guard_heliport>"
+  ]
+ },
+ {
+  "name": "C4 出張マッサージ師（ワイヤー）",
+  "target": "dead:massage_wire:murder",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "in": true,
+   "massage": true
+  },
+  "spottedBy": [],
+  "found": [
+   "investor:murder"
+  ],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [
+   "body_found"
+  ],
+  "ghost": false,
+  "note": "",
+  "reasons": [
+   "investor=murder<直接の排除（誰にも見られていない）>"
+  ]
+ },
+ {
+  "name": "C5 浜辺の花火",
+  "target": "dead:fireworks:accident",
+  "others": [
+   "guest_beach_b_1",
+   "guest_beach_b_2",
+   "guest_beach_b_3",
+   "guest_beach_b_4"
+  ],
+  "ko": [],
+  "steps": {
+   "armed": true,
+   "died": true
+  },
+  "spottedBy": [],
+  "found": [
+   "investor:accident",
+   "guest_beach_b_1:accident",
+   "guest_beach_b_2:accident",
+   "guest_beach_b_3:accident",
+   "guest_beach_b_4:accident"
+  ],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [
+   "civilian_kill"
+  ],
+  "ghost": false,
+  "note": "",
+  "reasons": [
+   "investor=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>",
+   "guest_beach_b_1=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>",
+   "guest_beach_b_2=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>",
+   "guest_beach_b_3=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>",
+   "guest_beach_b_4=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>"
+  ]
+ },
+ {
+  "name": "素手 X（背後からワイヤー）：wine_merchant",
+  "target": "dead:direct:murder",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "killed": true
+  },
+  "spottedBy": [
+   "guest_bar_a_1",
+   "monitor_watcher",
+   "guard_garden",
+   "guard_terrace"
+  ],
+  "found": [
+   "wine_merchant:murder"
+  ],
+  "compromised": [
+   "suit"
+  ],
+  "recorded": "違法行為",
+  "ghostBrokenBy": [
+   "spotted",
+   "body_found",
+   "recording_left"
+  ],
+  "ghost": false,
+  "note": "",
+  "reasons": []
+ },
+ {
+  "name": "素手 X（背後からワイヤー）：lawyer",
+  "target": "dead:direct:murder",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "killed": true
+  },
+  "spottedBy": [
+   "receptionist",
+   "laundry_2",
+   "guest_lobby_a_1",
+   "monitor_watcher",
+   "bodyguard_captain",
+   "bodyguard_1",
+   "bodyguard_2",
+   "guard_check_lobby"
+  ],
+  "found": [
+   "lawyer:murder"
+  ],
+  "compromised": [
+   "suit"
+  ],
+  "recorded": "違法行為",
+  "ghostBrokenBy": [
+   "spotted",
+   "body_found",
+   "recording_left"
+  ],
+  "ghost": false,
+  "note": "",
+  "reasons": []
+ },
+ {
+  "name": "素手 X（背後からワイヤー）：investor",
+  "target": "dead:direct:murder",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "killed": true
+  },
+  "spottedBy": [
+   "guard_penthouse",
+   "monitor_watcher"
+  ],
+  "found": [
+   "investor:murder"
+  ],
+  "compromised": [
+   "suit"
+  ],
+  "recorded": "違法行為",
+  "ghostBrokenBy": [
+   "spotted",
+   "body_found",
+   "recording_left"
+  ],
+  "ghost": false,
+  "note": "",
+  "reasons": []
+ }
+]

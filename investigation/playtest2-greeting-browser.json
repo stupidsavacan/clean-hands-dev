@@ -1,0 +1,9 @@
+{
+  "setup": "controlled debug outfit and position; real KeyJ interaction; approach proven separately by walking tests",
+  "state": {
+    "busy": true,
+    "action": "chat",
+    "field": "greet"
+  },
+  "errors": []
+}

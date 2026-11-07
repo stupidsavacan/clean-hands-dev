@@ -1,0 +1,98 @@
+{
+ "chandelier": {
+  "title": "舞踏室のシャンデリア",
+  "target": "host",
+  "trigger": {
+   "heard": "chandelier"
+  },
+  "window": [
+   0,
+   1800
+  ],
+  "steps": [
+   {
+    "text": "地図で舞台と経路を確認する",
+    "done": {
+     "event": "dialogue.heard"
+    }
+   },
+   {
+    "text": "E長押しで仕込む",
+    "done": {
+     "flag": "chandelier"
+    }
+   },
+   {
+    "text": "主人の予定を観察して仕掛けを使う",
+    "done": {
+     "killed": "host",
+     "by": "party_chandelier"
+    }
+   }
+  ]
+ },
+ "papers": {
+  "title": "窓辺の書類",
+  "target": "host",
+  "trigger": {
+   "heard": "papers"
+  },
+  "window": [
+   0,
+   1800
+  ],
+  "steps": [
+   {
+    "text": "地図で舞台と経路を確認する",
+    "done": {
+     "event": "dialogue.heard"
+    }
+   },
+   {
+    "text": "E長押しで仕込む",
+    "done": {
+     "flag": "papers"
+    }
+   },
+   {
+    "text": "主人の予定を観察して仕掛けを使う",
+    "done": {
+     "killed": "host",
+     "by": "party_push"
+    }
+   }
+  ]
+ },
+ "drink": {
+  "title": "主寝室の飲み物",
+  "target": "host",
+  "trigger": {
+   "heard": "drink"
+  },
+  "window": [
+   0,
+   1800
+  ],
+  "steps": [
+   {
+    "text": "地図で舞台と経路を確認する",
+    "done": {
+     "event": "dialogue.heard"
+    }
+   },
+   {
+    "text": "E長押しで仕込む",
+    "done": {
+     "flag": "drink"
+    }
+   },
+   {
+    "text": "主人の予定を観察して仕掛けを使う",
+    "done": {
+     "killed": "host",
+     "by": "party_poison"
+    }
+   }
+  ]
+ }
+}

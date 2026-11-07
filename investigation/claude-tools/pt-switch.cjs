@@ -1,0 +1,11 @@
+const {createRequire}=require('module');const r=createRequire('C:/Users/gamit/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/package.json');
+const {chromium}=r('playwright');const fs=require('fs');
+const RUNS='C:/Users/gamit/Documents/Codex/2026-10-26/https-claude-ai-artifact-xacywsdv65cc1xpspq147p-page/outputs/m5-prototype/playtest/runs';
+const mine=()=>fs.readdirSync(RUNS).filter(f=>f.startsWith('2026110')&&f.endsWith('.json')&&fs.readFileSync(RUNS+'/'+f,'utf8').includes('HeadlessChrome'));
+(async()=>{const browser=await chromium.launch({headless:true,executablePath:'C:/Users/gamit/AppData/Local/ms-playwright/chromium-1243/chrome-win64/chrome.exe',args:['--enable-gpu','--use-gl=angle','--use-angle=d3d11','--ignore-gpu-blocklist']});
+const page=await browser.newPage({viewport:{width:1280,height:800}});const errors=[];page.on('pageerror',e=>errors.push(String(e)));
+await page.goto('http://127.0.0.1:8795/party');await page.waitForFunction(()=>window.__cleanHands?.state().modelReady,null,{timeout:90000});await page.waitForSelector('#pt-pick button.sc');
+await page.locator('#pt-pick button.sc').nth(1).click();await page.getByRole('button',{name:'作戦開始'}).click();await page.waitForTimeout(3000);
+await page.evaluate(()=>document.getElementById('pt-change').click());const hit=await page.evaluate(()=>{const b=document.querySelectorAll('#pt-pick button.sc')[3].getBoundingClientRect();const e=document.elementFromPoint(b.x+b.width/2,b.y+b.height/2);return {top:e?.id||e?.className||e?.tagName,parent:e?.closest('[id]')?.id,z:getComputedStyle(document.getElementById('pt-pick')).zIndex,lock:!!document.pointerLockElement};});console.log(JSON.stringify(hit));await page.evaluate(()=>document.querySelectorAll('#pt-pick button.sc')[3].click());await page.waitForTimeout(1200);
+const b1=await page.locator('#pt-badge').innerText();
+console.log(JSON.stringify({b1,errors}));await browser.close();for(const f of mine())fs.unlinkSync(RUNS+'/'+f);})();

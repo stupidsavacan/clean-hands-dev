@@ -1,0 +1,5115 @@
+{
+ "meta": {
+  "id": "20261104-215945_full",
+  "map": "hotel",
+  "scenario": "full",
+  "scenarioTitle": "通し（本番どおり）",
+  "startTime": 0,
+  "lead": null,
+  "startedAt": "2026-11-04T12:59:45.299Z",
+  "game": "CLEAN HANDS M5.8 PC",
+  "page": "http://127.0.0.1:8795/",
+  "viewport": [
+   1440,
+   765
+  ],
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+  "loadout": {
+   "tools": [
+    "poison_lethal",
+    "coin"
+   ],
+   "pistol": "pistol_silenced",
+   "start": "S1"
+  },
+  "keyTime": null,
+  "appliedAt": {
+   "elapsed": 0.016666666666666666,
+   "time": 0.016666666666666666,
+   "cycle": 0,
+   "rate": 1,
+   "loop": 1800
+  }
+ },
+ "events": [
+  {
+   "play": 0,
+   "t": 0.02,
+   "clock": 0,
+   "type": "schedule.action",
+   "time": 0,
+   "id": "wine_merchant",
+   "value": 0,
+   "at": {
+    "x": 14.8,
+    "y": 0,
+    "z": -30
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 0,
+   "t": 0.02,
+   "clock": 0,
+   "type": "schedule.action",
+   "time": 0,
+   "id": "lawyer",
+   "value": 0,
+   "at": {
+    "x": 14.8,
+    "y": 0,
+    "z": -30
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 0,
+   "t": 0.02,
+   "clock": 0,
+   "type": "schedule.action",
+   "time": 0,
+   "id": "investor",
+   "value": 0,
+   "at": {
+    "x": 14.8,
+    "y": 0,
+    "z": -30
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 0,
+   "t": 0.02,
+   "clock": 0,
+   "type": "disguise.changed",
+   "time": 0,
+   "id": "suit",
+   "at": {
+    "x": 14.8,
+    "y": 0,
+    "z": -30
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 2.4,
+   "t": 2.42,
+   "clock": 2.4,
+   "type": "schedule.action",
+   "time": 2.416666666666663,
+   "id": "lawyer",
+   "value": 0,
+   "at": {
+    "x": 8.08,
+    "y": 0,
+    "z": -24.75
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 6.6,
+   "t": 6.62,
+   "clock": 6.6,
+   "type": "player.spotted",
+   "time": 6.6166666666666485,
+   "id": "receptionist",
+   "at": {
+    "x": -2.06,
+    "y": 0,
+    "z": -11.63
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 6.6,
+   "t": 6.62,
+   "clock": 6.6,
+   "type": "player.spotted",
+   "time": 6.6166666666666485,
+   "id": "laundry_2",
+   "at": {
+    "x": -2.06,
+    "y": 0,
+    "z": -11.63
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 6.6,
+   "t": 6.62,
+   "clock": 6.6,
+   "type": "player.spotted",
+   "time": 6.6166666666666485,
+   "id": "guest_lobby_a_1",
+   "at": {
+    "x": -2.06,
+    "y": 0,
+    "z": -11.63
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 6.62,
+   "t": 6.63,
+   "clock": 6.6,
+   "type": "witness.started",
+   "time": 6.633333333333315,
+   "id": "receptionist",
+   "reason": "act",
+   "at": {
+    "x": -2.06,
+    "y": 0,
+    "z": -11.63
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 6.62,
+   "t": 6.63,
+   "clock": 6.6,
+   "type": "witness.started",
+   "time": 6.633333333333315,
+   "id": "laundry_2",
+   "reason": "act",
+   "at": {
+    "x": -2.06,
+    "y": 0,
+    "z": -11.63
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 6.62,
+   "t": 6.63,
+   "clock": 6.6,
+   "type": "witness.started",
+   "time": 6.633333333333315,
+   "id": "guest_lobby_a_1",
+   "reason": "act",
+   "at": {
+    "x": -2.06,
+    "y": 0,
+    "z": -11.63
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 6.7,
+   "t": 6.72,
+   "clock": 6.7,
+   "type": "camera.recorded",
+   "time": 6.716666666666648,
+   "id": "CAM_lobby",
+   "reason": "違法行為",
+   "at": {
+    "x": -2.06,
+    "y": 0,
+    "z": -11.63
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 6.7,
+   "t": 6.72,
+   "clock": 6.7,
+   "type": "player.spotted",
+   "time": 6.716666666666648,
+   "id": "monitor_watcher",
+   "at": {
+    "x": -2.06,
+    "y": 0,
+    "z": -11.63
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 6.7,
+   "t": 6.72,
+   "clock": 6.7,
+   "type": "witness.reported",
+   "time": 6.716666666666648,
+   "id": "monitor_watcher",
+   "reason": "camera:CAM_lobby",
+   "at": {
+    "x": -2.06,
+    "y": 0,
+    "z": -11.63
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 6.88,
+   "t": 6.9,
+   "clock": 6.9,
+   "type": "player.spotted",
+   "time": 6.899999999999981,
+   "id": "lawyer",
+   "at": {
+    "x": -2.06,
+    "y": 0,
+    "z": -11.63
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 6.88,
+   "t": 6.9,
+   "clock": 6.9,
+   "type": "witness.started",
+   "time": 6.899999999999981,
+   "id": "lawyer",
+   "reason": "suspect",
+   "at": {
+    "x": -2.06,
+    "y": 0,
+    "z": -11.63
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 6.88,
+   "t": 6.9,
+   "clock": 6.9,
+   "type": "witness.reported",
+   "time": 6.899999999999981,
+   "id": "lawyer",
+   "reason": "suspect",
+   "at": {
+    "x": -2.06,
+    "y": 0,
+    "z": -11.63
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 6.92,
+   "t": 6.93,
+   "clock": 6.9,
+   "type": "player.spotted",
+   "time": 6.933333333333314,
+   "id": "bodyguard_1",
+   "at": {
+    "x": -2.06,
+    "y": 0,
+    "z": -11.63
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 7,
+   "t": 7.02,
+   "clock": 7,
+   "type": "player.spotted",
+   "time": 7.016666666666647,
+   "id": "bodyguard_2",
+   "at": {
+    "x": -2.06,
+    "y": 0,
+    "z": -11.63
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 7.02,
+   "t": 7.03,
+   "clock": 7,
+   "type": "player.spotted",
+   "time": 7.033333333333314,
+   "id": "bodyguard_captain",
+   "at": {
+    "x": -2.06,
+    "y": 0,
+    "z": -11.63
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 7.32,
+   "t": 7.33,
+   "clock": 7.3,
+   "type": "player.spotted",
+   "time": 7.333333333333313,
+   "id": "guest_lobby_a_4",
+   "at": {
+    "x": -1.58,
+    "y": 0,
+    "z": -11.93
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 7.32,
+   "t": 7.33,
+   "clock": 7.3,
+   "type": "witness.started",
+   "time": 7.333333333333313,
+   "id": "guest_lobby_a_4",
+   "reason": "suspect",
+   "at": {
+    "x": -1.58,
+    "y": 0,
+    "z": -11.93
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 7.48,
+   "t": 7.5,
+   "clock": 7.5,
+   "type": "player.spotted",
+   "time": 7.499999999999979,
+   "id": "guest_lobby_b_2",
+   "at": {
+    "x": -0.93,
+    "y": 0,
+    "z": -12.38
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 7.48,
+   "t": 7.5,
+   "clock": 7.5,
+   "type": "witness.started",
+   "time": 7.499999999999979,
+   "id": "guest_lobby_b_2",
+   "reason": "suspect",
+   "at": {
+    "x": -0.93,
+    "y": 0,
+    "z": -12.38
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 8.22,
+   "t": 8.23,
+   "clock": 8.2,
+   "type": "schedule.action",
+   "time": 8.233333333333322,
+   "id": "lawyer",
+   "value": 0,
+   "at": {
+    "x": 0.1,
+    "y": 0,
+    "z": -15.62
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 8.32,
+   "t": 8.33,
+   "clock": 8.3,
+   "type": "witness.reported",
+   "time": 8.333333333333327,
+   "id": "receptionist",
+   "reason": "act",
+   "at": {
+    "x": 0.4,
+    "y": 0,
+    "z": -15.98
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 8.33,
+   "t": 8.35,
+   "clock": 8.3,
+   "type": "alert.level",
+   "time": 8.349999999999994,
+   "value": 1,
+   "at": {
+    "x": 0.46,
+    "y": 0,
+    "z": -16.02
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 8.85,
+   "t": 8.87,
+   "clock": 8.9,
+   "type": "witness.reported",
+   "time": 8.866666666666687,
+   "id": "guest_lobby_a_1",
+   "reason": "act",
+   "at": {
+    "x": 2.11,
+    "y": 0,
+    "z": -17.37
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 8.87,
+   "t": 8.88,
+   "clock": 8.9,
+   "type": "alert.level",
+   "time": 8.883333333333354,
+   "value": 2,
+   "at": {
+    "x": 2.14,
+    "y": 0,
+    "z": -17.45
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 9,
+   "t": 9.02,
+   "clock": 9,
+   "type": "player.spotted",
+   "time": 9.016666666666694,
+   "id": "guest_lobby_b_1",
+   "at": {
+    "x": 2.34,
+    "y": 0,
+    "z": -18.06
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 9,
+   "t": 9.02,
+   "clock": 9,
+   "type": "witness.started",
+   "time": 9.016666666666694,
+   "id": "guest_lobby_b_1",
+   "reason": "suspect",
+   "at": {
+    "x": 2.34,
+    "y": 0,
+    "z": -18.06
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 9.07,
+   "t": 9.08,
+   "clock": 9.1,
+   "type": "player.spotted",
+   "time": 9.083333333333364,
+   "id": "guard_front",
+   "at": {
+    "x": 2.44,
+    "y": 0,
+    "z": -18.36
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 9.52,
+   "t": 9.53,
+   "clock": 9.5,
+   "type": "witness.reported",
+   "time": 9.533333333333387,
+   "id": "guest_lobby_a_4",
+   "reason": "suspect",
+   "at": {
+    "x": 3.44,
+    "y": 0,
+    "z": -20.25
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 9.53,
+   "t": 9.55,
+   "clock": 9.6,
+   "type": "witness.reported",
+   "time": 9.550000000000054,
+   "id": "guest_lobby_b_2",
+   "reason": "suspect",
+   "at": {
+    "x": 3.5,
+    "y": 0,
+    "z": -20.31
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 14.28,
+   "t": 14.3,
+   "clock": 14.3,
+   "type": "witness.reported",
+   "time": 14.30000000000029,
+   "id": "guest_lobby_b_1",
+   "reason": "suspect",
+   "at": {
+    "x": 24.69,
+    "y": 0,
+    "z": -24.49
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 15.03,
+   "t": 15.05,
+   "clock": 15.1,
+   "type": "witness.reported",
+   "time": 15.050000000000328,
+   "id": "laundry_2",
+   "reason": "act",
+   "at": {
+    "x": 27.5,
+    "y": 0,
+    "z": -26.74
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 15.03,
+   "t": 15.05,
+   "clock": 15.1,
+   "type": "flag.set",
+   "time": 15.050000000000328,
+   "id": "alert3",
+   "at": {
+    "x": 27.5,
+    "y": 0,
+    "z": -26.74
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 15.05,
+   "t": 15.07,
+   "clock": 15.1,
+   "type": "alert.level",
+   "time": 15.066666666666995,
+   "value": 3,
+   "at": {
+    "x": 27.56,
+    "y": 0,
+    "z": -26.79
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 16.45,
+   "t": 16.47,
+   "clock": 16.5,
+   "type": "player.spotted",
+   "time": 16.466666666667013,
+   "id": "guest_beach_a_2",
+   "at": {
+    "x": 33.7,
+    "y": 0,
+    "z": -29.39
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 16.45,
+   "t": 16.47,
+   "clock": 16.5,
+   "type": "witness.started",
+   "time": 16.466666666667013,
+   "id": "guest_beach_a_2",
+   "reason": "suspect",
+   "at": {
+    "x": 33.7,
+    "y": 0,
+    "z": -29.39
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 18.02,
+   "t": 18.03,
+   "clock": 18,
+   "type": "player.spotted",
+   "time": 18.03333333333359,
+   "id": "guest_extra_2",
+   "at": {
+    "x": 41.16,
+    "y": 0,
+    "z": -29.89
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 18.02,
+   "t": 18.03,
+   "clock": 18,
+   "type": "witness.started",
+   "time": 18.03333333333359,
+   "id": "guest_extra_2",
+   "reason": "suspect",
+   "at": {
+    "x": 41.16,
+    "y": 0,
+    "z": -29.89
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 18.8,
+   "t": 18.82,
+   "clock": 18.8,
+   "type": "witness.reported",
+   "time": 18.81666666666688,
+   "id": "guest_beach_a_2",
+   "reason": "suspect",
+   "at": {
+    "x": 44.8,
+    "y": 0,
+    "z": -29.01
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 18.97,
+   "t": 18.98,
+   "clock": 19,
+   "type": "player.spotted",
+   "time": 18.983333333333537,
+   "id": "guard_beach_n",
+   "at": {
+    "x": 45.45,
+    "y": 0,
+    "z": -28.56
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 19.72,
+   "t": 19.73,
+   "clock": 19.7,
+   "type": "witness.reported",
+   "time": 19.733333333333494,
+   "id": "guest_extra_2",
+   "reason": "suspect",
+   "at": {
+    "x": 47.56,
+    "y": 0,
+    "z": -25.65
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 20.43,
+   "t": 20.45,
+   "clock": 20.5,
+   "type": "player.spotted",
+   "time": 20.45000000000012,
+   "id": "guest_beach_a_3",
+   "at": {
+    "x": 48.49,
+    "y": 0,
+    "z": -22.4
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 20.43,
+   "t": 20.45,
+   "clock": 20.5,
+   "type": "witness.started",
+   "time": 20.45000000000012,
+   "id": "guest_beach_a_3",
+   "reason": "suspect",
+   "at": {
+    "x": 48.49,
+    "y": 0,
+    "z": -22.4
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 21,
+   "t": 21.02,
+   "clock": 21,
+   "type": "witness.reported",
+   "time": 21.016666666666755,
+   "id": "guest_beach_a_3",
+   "reason": "suspect",
+   "at": {
+    "x": 47.78,
+    "y": 0,
+    "z": -19.78
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 21.35,
+   "t": 21.37,
+   "clock": 21.4,
+   "type": "player.spotted",
+   "time": 21.366666666666735,
+   "id": "guard_garden",
+   "at": {
+    "x": 47.3,
+    "y": 0,
+    "z": -18.16
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 22.9,
+   "t": 22.92,
+   "clock": 22.9,
+   "type": "player.spotted",
+   "time": 22.916666666666647,
+   "id": "guest_stroll_3",
+   "at": {
+    "x": 46.05,
+    "y": 0,
+    "z": -10.86
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 22.9,
+   "t": 22.92,
+   "clock": 22.9,
+   "type": "witness.started",
+   "time": 22.916666666666647,
+   "id": "guest_stroll_3",
+   "reason": "suspect",
+   "at": {
+    "x": 46.05,
+    "y": 0,
+    "z": -10.86
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 23.48,
+   "t": 23.5,
+   "clock": 23.5,
+   "type": "player.spotted",
+   "time": 23.499999999999947,
+   "id": "guard_terrace",
+   "at": {
+    "x": 46.17,
+    "y": 0,
+    "z": -8.06
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 23.48,
+   "t": 23.5,
+   "clock": 23.5,
+   "type": "player.spotted",
+   "time": 23.499999999999947,
+   "id": "beachbar_1",
+   "at": {
+    "x": 46.17,
+    "y": 0,
+    "z": -8.06
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 23.48,
+   "t": 23.5,
+   "clock": 23.5,
+   "type": "witness.started",
+   "time": 23.499999999999947,
+   "id": "beachbar_1",
+   "reason": "suspect",
+   "at": {
+    "x": 46.17,
+    "y": 0,
+    "z": -8.06
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 23.77,
+   "t": 23.78,
+   "clock": 23.8,
+   "type": "player.spotted",
+   "time": 23.783333333333264,
+   "id": "guest_terrace_b_4",
+   "at": {
+    "x": 46.16,
+    "y": 0,
+    "z": -6.71
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 23.77,
+   "t": 23.78,
+   "clock": 23.8,
+   "type": "witness.started",
+   "time": 23.783333333333264,
+   "id": "guest_terrace_b_4",
+   "reason": "suspect",
+   "at": {
+    "x": 46.16,
+    "y": 0,
+    "z": -6.71
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 23.82,
+   "t": 23.83,
+   "clock": 23.8,
+   "type": "player.spotted",
+   "time": 23.83333333333326,
+   "id": "guest_terrace_b_1",
+   "at": {
+    "x": 46.07,
+    "y": 0,
+    "z": -6.49
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 23.82,
+   "t": 23.83,
+   "clock": 23.8,
+   "type": "witness.started",
+   "time": 23.83333333333326,
+   "id": "guest_terrace_b_1",
+   "reason": "suspect",
+   "at": {
+    "x": 46.07,
+    "y": 0,
+    "z": -6.49
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 23.97,
+   "t": 23.98,
+   "clock": 24,
+   "type": "player.spotted",
+   "time": 23.983333333333253,
+   "id": "beachbar_manager",
+   "at": {
+    "x": 45.62,
+    "y": 0,
+    "z": -5.96
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 23.97,
+   "t": 23.98,
+   "clock": 24,
+   "type": "player.spotted",
+   "time": 23.983333333333253,
+   "id": "beachbar_2",
+   "at": {
+    "x": 45.62,
+    "y": 0,
+    "z": -5.96
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 23.97,
+   "t": 23.98,
+   "clock": 24,
+   "type": "witness.started",
+   "time": 23.983333333333253,
+   "id": "beachbar_manager",
+   "reason": "suspect",
+   "at": {
+    "x": 45.62,
+    "y": 0,
+    "z": -5.96
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 23.97,
+   "t": 23.98,
+   "clock": 24,
+   "type": "witness.started",
+   "time": 23.983333333333253,
+   "id": "beachbar_2",
+   "reason": "suspect",
+   "at": {
+    "x": 45.62,
+    "y": 0,
+    "z": -5.96
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 24.1,
+   "t": 24.12,
+   "clock": 24.1,
+   "type": "player.spotted",
+   "time": 24.11666666666658,
+   "id": "guest_beach_b_1",
+   "at": {
+    "x": 45.16,
+    "y": 0,
+    "z": -5.52
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 24.1,
+   "t": 24.12,
+   "clock": 24.1,
+   "type": "witness.started",
+   "time": 24.11666666666658,
+   "id": "guest_beach_b_1",
+   "reason": "suspect",
+   "at": {
+    "x": 45.16,
+    "y": 0,
+    "z": -5.52
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 24.48,
+   "t": 24.5,
+   "clock": 24.5,
+   "type": "player.spotted",
+   "time": 24.49999999999989,
+   "id": "bodyguard_relief",
+   "at": {
+    "x": 43.7,
+    "y": 0,
+    "z": -4.42
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 24.58,
+   "t": 24.6,
+   "clock": 24.6,
+   "type": "player.spotted",
+   "time": 24.599999999999884,
+   "id": "guest_beach_b_2",
+   "at": {
+    "x": 43.52,
+    "y": 0,
+    "z": -3.99
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 24.58,
+   "t": 24.6,
+   "clock": 24.6,
+   "type": "witness.started",
+   "time": 24.599999999999884,
+   "id": "guest_beach_b_2",
+   "reason": "suspect",
+   "at": {
+    "x": 43.52,
+    "y": 0,
+    "z": -3.99
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 25.23,
+   "t": 25.25,
+   "clock": 25.2,
+   "type": "witness.reported",
+   "time": 25.249999999999847,
+   "id": "beachbar_1",
+   "reason": "suspect",
+   "at": {
+    "x": 44.72,
+    "y": 0,
+    "z": -1.29
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 25.37,
+   "t": 25.38,
+   "clock": 25.4,
+   "type": "player.spotted",
+   "time": 25.383333333333173,
+   "id": "guest_stroll_5",
+   "at": {
+    "x": 45.15,
+    "y": 0,
+    "z": -0.82
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 25.37,
+   "t": 25.38,
+   "clock": 25.4,
+   "type": "witness.started",
+   "time": 25.383333333333173,
+   "id": "guest_stroll_5",
+   "reason": "suspect",
+   "at": {
+    "x": 45.15,
+    "y": 0,
+    "z": -0.82
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 25.42,
+   "t": 25.43,
+   "clock": 25.4,
+   "type": "player.spotted",
+   "time": 25.43333333333317,
+   "id": "waiter_3",
+   "at": {
+    "x": 45.31,
+    "y": 0,
+    "z": -0.64
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 25.42,
+   "t": 25.43,
+   "clock": 25.4,
+   "type": "witness.started",
+   "time": 25.43333333333317,
+   "id": "waiter_3",
+   "reason": "suspect",
+   "at": {
+    "x": 45.31,
+    "y": 0,
+    "z": -0.64
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 26.15,
+   "t": 26.17,
+   "clock": 26.2,
+   "type": "witness.reported",
+   "time": 26.166666666666462,
+   "id": "waiter_3",
+   "reason": "suspect",
+   "at": {
+    "x": 46.71,
+    "y": 0,
+    "z": 2.57
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 26.18,
+   "t": 26.2,
+   "clock": 26.2,
+   "type": "witness.reported",
+   "time": 26.199999999999793,
+   "id": "guest_stroll_5",
+   "reason": "suspect",
+   "at": {
+    "x": 46.77,
+    "y": 0,
+    "z": 2.72
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 26.28,
+   "t": 26.3,
+   "clock": 26.3,
+   "type": "witness.reported",
+   "time": 26.299999999999788,
+   "id": "guest_beach_b_1",
+   "reason": "suspect",
+   "at": {
+    "x": 46.95,
+    "y": 0,
+    "z": 3.16
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 26.65,
+   "t": 26.67,
+   "clock": 26.7,
+   "type": "player.spotted",
+   "time": 26.666666666666433,
+   "id": "guard_beach_s",
+   "at": {
+    "x": 47.56,
+    "y": 0,
+    "z": 4.81
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 26.73,
+   "t": 26.75,
+   "clock": 26.7,
+   "type": "witness.reported",
+   "time": 26.749999999999762,
+   "id": "guest_beach_b_2",
+   "reason": "suspect",
+   "at": {
+    "x": 47.63,
+    "y": 0,
+    "z": 5.21
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 27.7,
+   "t": 27.72,
+   "clock": 27.7,
+   "type": "player.spotted",
+   "time": 27.716666666666374,
+   "id": "waiter_4",
+   "at": {
+    "x": 48.18,
+    "y": 0,
+    "z": 9.81
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 27.7,
+   "t": 27.72,
+   "clock": 27.7,
+   "type": "witness.started",
+   "time": 27.716666666666374,
+   "id": "waiter_4",
+   "reason": "suspect",
+   "at": {
+    "x": 48.18,
+    "y": 0,
+    "z": 9.81
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 27.77,
+   "t": 27.78,
+   "clock": 27.8,
+   "type": "player.spotted",
+   "time": 27.783333333333037,
+   "id": "guest_beach_b_3",
+   "at": {
+    "x": 48.24,
+    "y": 0,
+    "z": 10.12
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 27.77,
+   "t": 27.78,
+   "clock": 27.8,
+   "type": "witness.reported",
+   "time": 27.783333333333037,
+   "id": "guest_terrace_b_4",
+   "reason": "suspect",
+   "at": {
+    "x": 48.24,
+    "y": 0,
+    "z": 10.12
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 27.77,
+   "t": 27.78,
+   "clock": 27.8,
+   "type": "witness.started",
+   "time": 27.783333333333037,
+   "id": "guest_beach_b_3",
+   "reason": "suspect",
+   "at": {
+    "x": 48.24,
+    "y": 0,
+    "z": 10.12
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 28,
+   "t": 28.02,
+   "clock": 28,
+   "type": "witness.reported",
+   "time": 28.016666666666357,
+   "id": "guest_terrace_b_1",
+   "reason": "suspect",
+   "at": {
+    "x": 48.45,
+    "y": 0,
+    "z": 11.23
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 28.88,
+   "t": 28.9,
+   "clock": 28.9,
+   "type": "player.spotted",
+   "time": 28.89999999999964,
+   "id": "guest_terrace_b_3",
+   "at": {
+    "x": 49.04,
+    "y": 0,
+    "z": 15.41
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 28.88,
+   "t": 28.9,
+   "clock": 28.9,
+   "type": "witness.started",
+   "time": 28.89999999999964,
+   "id": "guest_terrace_b_3",
+   "reason": "suspect",
+   "at": {
+    "x": 49.04,
+    "y": 0,
+    "z": 15.41
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 29.53,
+   "t": 29.55,
+   "clock": 29.5,
+   "type": "player.spotted",
+   "time": 29.549999999999603,
+   "id": "photographer",
+   "at": {
+    "x": 48.37,
+    "y": 0,
+    "z": 18.45
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 29.53,
+   "t": 29.55,
+   "clock": 29.5,
+   "type": "witness.started",
+   "time": 29.549999999999603,
+   "id": "photographer",
+   "reason": "suspect",
+   "at": {
+    "x": 48.37,
+    "y": 0,
+    "z": 18.45
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 29.6,
+   "t": 29.62,
+   "clock": 29.6,
+   "type": "witness.reported",
+   "time": 29.616666666666266,
+   "id": "waiter_4",
+   "reason": "suspect",
+   "at": {
+    "x": 48.25,
+    "y": 0,
+    "z": 18.75
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 29.92,
+   "t": 29.93,
+   "clock": 29.9,
+   "type": "player.spotted",
+   "time": 29.933333333332914,
+   "id": "guest_terrace_c_3",
+   "at": {
+    "x": 47.16,
+    "y": 0,
+    "z": 19.72
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 29.92,
+   "t": 29.93,
+   "clock": 29.9,
+   "type": "witness.started",
+   "time": 29.933333333332914,
+   "id": "guest_terrace_c_3",
+   "reason": "suspect",
+   "at": {
+    "x": 47.16,
+    "y": 0,
+    "z": 19.72
+   },
+   "disguise": "suit"
+  }
+ ],
+ "samples": [
+  {
+   "play": 0,
+   "t": 0,
+   "clock": 0,
+   "pos": {
+    "x": 14.8,
+    "y": 0,
+    "z": -30
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 24,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2,
+     "y": 0,
+     "z": -11,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "guard_garden",
+     8.8,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_stroll_1",
+     8.8,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 1,
+   "t": 1.1,
+   "clock": 1.1,
+   "pos": {
+    "x": 13.58,
+    "y": 0,
+    "z": -28.25
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 25,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.3,
+     "y": 0,
+     "z": -10.7,
+     "do": "",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "guard_garden",
+     10.8,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_stroll_1",
+     10.8,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 2.1,
+   "t": 2.1,
+   "clock": 2.1,
+   "pos": {
+    "x": 9.41,
+    "y": 0,
+    "z": -25.61
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 6,
+   "suspiciousOf": "guard_front",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 27,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.8,
+     "y": 0,
+     "z": -10.7,
+     "do": "",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "guest_lobby_b_1",
+     10.7,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_2",
+     9.5,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_3",
+     8.7,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     10,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 3.1,
+   "t": 3.1,
+   "clock": 3.1,
+   "pos": {
+    "x": 4.94,
+    "y": 0,
+    "z": -23.82
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 21,
+   "suspiciousOf": "guard_front",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 26,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "receptionist",
+     10.9,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_1",
+     9.5,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_2",
+     8.8,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_3",
+     7.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     8.1,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 4.1,
+   "t": 4.1,
+   "clock": 4.1,
+   "pos": {
+    "x": 2.95,
+    "y": 0,
+    "z": -19.41
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 22,
+   "suspiciousOf": "guard_front",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 28,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "lawyer",
+     10,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_captain",
+     10.5,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_1",
+     11.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_2",
+     11.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "receptionist",
+     7.2,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "laundry_2",
+     9.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_1",
+     6.9,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_lobby_b_2",
+     7,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_lobby_b_3",
+     5.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     5.3,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 5.1,
+   "t": 5.2,
+   "clock": 5.2,
+   "pos": {
+    "x": -0.29,
+    "y": 0,
+    "z": -16.17
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 12,
+   "suspiciousOf": "guard_front",
+   "watchers": 2,
+   "paused": false,
+   "map": false,
+   "fps": 29,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "lawyer",
+     5.7,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_captain",
+     6.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_1",
+     6.9,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_2",
+     7.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "receptionist",
+     4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "laundry_2",
+     5.9,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_a_2",
+     11.9,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_a_3",
+     11.7,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_1",
+     8.6,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_2",
+     9.4,
+     "patrol",
+     10,
+     1
+    ],
+    [
+     "guest_lobby_b_3",
+     8,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     7.2,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 6.2,
+   "t": 6.2,
+   "clock": 6.2,
+   "pos": {
+    "x": -2.04,
+    "y": 0,
+    "z": -11.72
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 13,
+   "suspiciousOf": "guest_lobby_b_2",
+   "watchers": 5,
+   "paused": false,
+   "map": false,
+   "fps": 33,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "lawyer",
+     0.9,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "bodyguard_captain",
+     1.9,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_1",
+     2.2,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_2",
+     2.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "receptionist",
+     6.2,
+     "patrol",
+     8,
+     1
+    ],
+    [
+     "laundry_2",
+     7.1,
+     "patrol",
+     3,
+     1
+    ],
+    [
+     "guest_lobby_a_1",
+     8.6,
+     "patrol",
+     4,
+     1
+    ],
+    [
+     "guest_lobby_a_2",
+     7.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_a_3",
+     7,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_a_4",
+     8.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_1",
+     10.8,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_2",
+     12,
+     "patrol",
+     13,
+     0
+    ],
+    [
+     "guest_lobby_b_3",
+     11.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     9.9,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 7.2,
+   "t": 7.2,
+   "clock": 7.2,
+   "pos": {
+    "x": -1.93,
+    "y": 0,
+    "z": -11.71
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [
+    "suit"
+   ],
+   "held": "",
+   "blend": null,
+   "recorded": true,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 100,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 16,
+   "paused": false,
+   "map": false,
+   "fps": 28,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "lawyer",
+     0.9,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "bodyguard_captain",
+     1.3,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_1",
+     1.5,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_2",
+     1.8,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_pool",
+     11.9,
+     "investigate",
+     73,
+     0
+    ],
+    [
+     "receptionist",
+     6.1,
+     "report",
+     100,
+     0
+    ],
+    [
+     "laundry_2",
+     7.4,
+     "report",
+     100,
+     0
+    ],
+    [
+     "guest_lobby_a_1",
+     8.6,
+     "report",
+     100,
+     0
+    ],
+    [
+     "guest_lobby_a_2",
+     7.2,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_a_3",
+     7,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_a_4",
+     8.5,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_1",
+     10.7,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_2",
+     11.9,
+     "patrol",
+     3,
+     0
+    ],
+    [
+     "guest_lobby_b_3",
+     11,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     9.8,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 8.2,
+   "t": 8.2,
+   "clock": 8.2,
+   "pos": {
+    "x": 0.1,
+    "y": 0,
+    "z": -15.62
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [
+    "suit"
+   ],
+   "held": "",
+   "blend": null,
+   "recorded": true,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 100,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 17,
+   "paused": false,
+   "map": false,
+   "fps": 38,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -1.8,
+     "y": 0,
+     "z": -11.3,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "lawyer",
+     4.7,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_captain",
+     1.9,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_1",
+     3,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_2",
+     2.5,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "receptionist",
+     0.9,
+     "report",
+     100,
+     1
+    ],
+    [
+     "laundry_2",
+     6.1,
+     "report",
+     100,
+     1
+    ],
+    [
+     "guest_lobby_a_2",
+     11.6,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_a_3",
+     11.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_1",
+     8.2,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_2",
+     8,
+     "report",
+     100,
+     1
+    ],
+    [
+     "guest_lobby_b_3",
+     7.7,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     6.8,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 9.2,
+   "t": 9.2,
+   "clock": 9.2,
+   "pos": {
+    "x": 2.67,
+    "y": 0,
+    "z": -19.04
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [
+    "suit"
+   ],
+   "held": "",
+   "blend": null,
+   "recorded": true,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 2,
+   "suspicion": 100,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 16,
+   "paused": false,
+   "map": false,
+   "fps": 43,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.7,
+     "y": 0,
+     "z": -13.8,
+     "do": "hide",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -1.7,
+     "y": 0,
+     "z": -11.1,
+     "do": "hide",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "hide",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "lawyer",
+     9.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_captain",
+     2.1,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_1",
+     3.3,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_2",
+     2.7,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "receptionist",
+     4.5,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "laundry_2",
+     6.4,
+     "report",
+     100,
+     1
+    ],
+    [
+     "guest_lobby_b_1",
+     6.8,
+     "report",
+     100,
+     1
+    ],
+    [
+     "guest_lobby_b_2",
+     3.7,
+     "report",
+     100,
+     1
+    ],
+    [
+     "guest_lobby_b_3",
+     5.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     5.2,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 10.2,
+   "t": 10.2,
+   "clock": 10.2,
+   "pos": {
+    "x": 6.6,
+    "y": 0,
+    "z": -21.2
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [
+    "suit"
+   ],
+   "held": "",
+   "blend": null,
+   "recorded": true,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 2,
+   "suspicion": 100,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 14,
+   "paused": false,
+   "map": false,
+   "fps": 37,
+   "targets": {
+    "wine_merchant": {
+     "x": 24,
+     "y": 0,
+     "z": -11.7,
+     "do": "hide",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -0.6,
+     "y": 0,
+     "z": -8.9,
+     "do": "hide",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "hide",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "bodyguard_captain",
+     2.5,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_1",
+     3.5,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_2",
+     3,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "receptionist",
+     10.8,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "laundry_2",
+     6.7,
+     "report",
+     100,
+     1
+    ],
+    [
+     "guest_lobby_b_1",
+     4.9,
+     "report",
+     100,
+     0
+    ],
+    [
+     "guest_lobby_b_2",
+     5.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_3",
+     4.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     5.1,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 11.3,
+   "t": 11.3,
+   "clock": 11.3,
+   "pos": {
+    "x": 11.54,
+    "y": 0,
+    "z": -20.94
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [
+    "suit"
+   ],
+   "held": "",
+   "blend": null,
+   "recorded": true,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 2,
+   "suspicion": 100,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 14,
+   "paused": false,
+   "map": false,
+   "fps": 33,
+   "targets": {
+    "wine_merchant": {
+     "x": 25.4,
+     "y": 0,
+     "z": -9.5,
+     "do": "hide",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": 0.9,
+     "y": 0,
+     "z": -6.8,
+     "do": "hide",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "hide",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "bodyguard_captain",
+     3,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_1",
+     4,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_2",
+     3.5,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_front",
+     11.5,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "laundry_2",
+     7.1,
+     "report",
+     100,
+     1
+    ],
+    [
+     "guest_lobby_b_1",
+     7.8,
+     "report",
+     100,
+     0
+    ],
+    [
+     "guest_lobby_b_2",
+     7.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_3",
+     5.5,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     6.7,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 12.3,
+   "t": 12.3,
+   "clock": 12.3,
+   "pos": {
+    "x": 16.4,
+    "y": 0,
+    "z": -20.42
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [
+    "suit"
+   ],
+   "held": "",
+   "blend": null,
+   "recorded": true,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 2,
+   "suspicion": 100,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 14,
+   "paused": false,
+   "map": false,
+   "fps": 34,
+   "targets": {
+    "wine_merchant": {
+     "x": 26.2,
+     "y": 0,
+     "z": -7.1,
+     "do": "hide",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": 3.2,
+     "y": 0,
+     "z": -5.3,
+     "do": "hide",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "hide",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "bartender",
+     10.5,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_captain",
+     3.7,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_1",
+     4.8,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_2",
+     4.2,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_front",
+     11.6,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "waiter_1",
+     11.2,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "laundry_2",
+     7.8,
+     "report",
+     100,
+     1
+    ],
+    [
+     "guest_lobby_b_1",
+     8.4,
+     "report",
+     100,
+     1
+    ],
+    [
+     "guest_lobby_b_2",
+     10.5,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_3",
+     9.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     10.2,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_2",
+     11.9,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_3",
+     10.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_4",
+     10.6,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 13.3,
+   "t": 13.3,
+   "clock": 13.3,
+   "pos": {
+    "x": 20.93,
+    "y": 0,
+    "z": -21.51
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [
+    "suit"
+   ],
+   "held": "",
+   "blend": null,
+   "recorded": true,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 2,
+   "suspicion": 100,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 14,
+   "paused": false,
+   "map": false,
+   "fps": 50,
+   "targets": {
+    "wine_merchant": {
+     "x": 26.4,
+     "y": 0,
+     "z": -4.6,
+     "do": "hide",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": 5.4,
+     "y": 0,
+     "z": -3.9,
+     "do": "hide",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "hide",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "bodyguard_captain",
+     4.1,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_1",
+     5.2,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_2",
+     4.7,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_front",
+     11.2,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "waiter_1",
+     11.5,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "laundry_2",
+     8.2,
+     "report",
+     100,
+     1
+    ],
+    [
+     "guest_lobby_b_1",
+     8.8,
+     "report",
+     100,
+     1
+    ],
+    [
+     "guest_bar_a_1",
+     11.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_2",
+     10.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_3",
+     8.9,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_4",
+     9.7,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 14.3,
+   "t": 14.3,
+   "clock": 14.3,
+   "pos": {
+    "x": 24.75,
+    "y": 0,
+    "z": -24.54
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [
+    "suit"
+   ],
+   "held": "",
+   "blend": null,
+   "recorded": true,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 2,
+   "suspicion": 100,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 10,
+   "paused": false,
+   "map": false,
+   "fps": 55,
+   "targets": {
+    "wine_merchant": {
+     "x": 27.7,
+     "y": 0,
+     "z": -4,
+     "do": "hide",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": 7.1,
+     "y": 0.4,
+     "z": -4.9,
+     "do": "hide",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "hide",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "bodyguard_captain",
+     4.6,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_1",
+     5.7,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_2",
+     5.2,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_front",
+     10.7,
+     "alert",
+     100,
+     0
+    ],
+    [
+     "laundry_2",
+     8.6,
+     "report",
+     100,
+     1
+    ],
+    [
+     "guest_lobby_b_1",
+     10.7,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_3",
+     11.5,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 15.3,
+   "t": 15.3,
+   "clock": 15.3,
+   "pos": {
+    "x": 28.58,
+    "y": 0,
+    "z": -27.56
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [
+    "suit"
+   ],
+   "held": "",
+   "blend": null,
+   "recorded": true,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 3,
+   "suspicion": 100,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 5,
+   "paused": false,
+   "map": false,
+   "fps": 57,
+   "targets": {
+    "wine_merchant": {
+     "x": 27.7,
+     "y": -0.5,
+     "z": -5.1,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": 7.5,
+     "y": 0.9,
+     "z": -6,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "investor": {
+     "x": -27.8,
+     "y": 7,
+     "z": -15.5,
+     "do": "evacuate",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "bodyguard_captain",
+     5.3,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_1",
+     6.4,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_2",
+     5.8,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_front",
+     11.4,
+     "alert",
+     100,
+     1
+    ]
+   ]
+  },
+  {
+   "play": 16.3,
+   "t": 16.3,
+   "clock": 16.3,
+   "pos": {
+    "x": 33.08,
+    "y": 0,
+    "z": -29.2
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [
+    "suit"
+   ],
+   "held": "",
+   "blend": null,
+   "recorded": true,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 3,
+   "suspicion": 100,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 5,
+   "paused": false,
+   "map": false,
+   "fps": 56,
+   "targets": {
+    "wine_merchant": {
+     "x": 26.2,
+     "y": 0,
+     "z": -3.8,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": 6.3,
+     "y": 0,
+     "z": -3.7,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "investor": {
+     "x": -25.5,
+     "y": 7,
+     "z": -15,
+     "do": "evacuate",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "bodyguard_captain",
+     5.9,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_1",
+     7,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_2",
+     6.5,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_garden",
+     9.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_stroll_1",
+     8.7,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 17.3,
+   "t": 17.4,
+   "clock": 17.4,
+   "pos": {
+    "x": 37.88,
+    "y": 0,
+    "z": -29.9
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [
+    "suit"
+   ],
+   "held": "",
+   "blend": null,
+   "recorded": true,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 3,
+   "suspicion": 100,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 5,
+   "paused": false,
+   "map": false,
+   "fps": 50,
+   "targets": {
+    "wine_merchant": {
+     "x": 24.9,
+     "y": 0,
+     "z": -5.9,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": 3.9,
+     "y": 0,
+     "z": -4.6,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "investor": {
+     "x": -23,
+     "y": 7,
+     "z": -14.4,
+     "do": "evacuate",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "bodyguard_captain",
+     6.5,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_1",
+     7.6,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_2",
+     7,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_garden",
+     6.2,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_stroll_1",
+     5.9,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_extra_1",
+     11.1,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 18.4,
+   "t": 18.4,
+   "clock": 18.4,
+   "pos": {
+    "x": 42.72,
+    "y": 0,
+    "z": -29.59
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [
+    "suit"
+   ],
+   "held": "",
+   "blend": null,
+   "recorded": true,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 3,
+   "suspicion": 100,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 6,
+   "paused": false,
+   "map": false,
+   "fps": 56,
+   "targets": {
+    "wine_merchant": {
+     "x": 23.6,
+     "y": 0,
+     "z": -8.2,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": 1.8,
+     "y": 0,
+     "z": -6.1,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "investor": {
+     "x": -20.4,
+     "y": 7,
+     "z": -13.9,
+     "do": "evacuate",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "bodyguard_captain",
+     7,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_1",
+     8.1,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_2",
+     7.5,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_garden",
+     5.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_beach_a_1",
+     10.6,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_beach_a_3",
+     9.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_beach_a_4",
+     9,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_stroll_1",
+     5.5,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_extra_1",
+     6.2,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 19.4,
+   "t": 19.4,
+   "clock": 19.4,
+   "pos": {
+    "x": 46.58,
+    "y": 0,
+    "z": -27.1
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [
+    "suit"
+   ],
+   "held": "",
+   "blend": null,
+   "recorded": true,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 3,
+   "suspicion": 100,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 6,
+   "paused": false,
+   "map": false,
+   "fps": 50,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.8,
+     "y": 0,
+     "z": -10.6,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -0.4,
+     "y": 0,
+     "z": -7.6,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "investor": {
+     "x": -17.8,
+     "y": 7,
+     "z": -13.3,
+     "do": "evacuate",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "bodyguard_captain",
+     7,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_1",
+     8,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_2",
+     7.5,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_garden",
+     8.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_beach_a_1",
+     6,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_beach_a_3",
+     5.2,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_beach_a_4",
+     4.5,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_stroll_1",
+     8.6,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_extra_1",
+     3.7,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 20.4,
+   "t": 20.4,
+   "clock": 20.4,
+   "pos": {
+    "x": 48.53,
+    "y": 0,
+    "z": -22.72
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [
+    "suit"
+   ],
+   "held": "",
+   "blend": null,
+   "recorded": true,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 3,
+   "suspicion": 100,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 5,
+   "paused": false,
+   "map": false,
+   "fps": 44,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.6,
+     "y": 0,
+     "z": -12.9,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.5,
+     "y": 0,
+     "z": -9.1,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "investor": {
+     "x": -15.3,
+     "y": 7,
+     "z": -12.7,
+     "do": "evacuate",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "monitor_watcher",
+     11.6,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_captain",
+     6.5,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "beachbar_manager",
+     11.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_1",
+     7.4,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_2",
+     7,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_front",
+     11.3,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_beach_n",
+     9.4,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "beachbar_1",
+     10.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "beachbar_2",
+     11.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_beach_a_1",
+     4.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_beach_a_2",
+     10.5,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_beach_a_3",
+     5.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_beach_a_4",
+     4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_extra_1",
+     7.2,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 21.4,
+   "t": 21.4,
+   "clock": 21.4,
+   "pos": {
+    "x": 47.26,
+    "y": 0,
+    "z": -18.01
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [
+    "suit"
+   ],
+   "held": "",
+   "blend": null,
+   "recorded": true,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 3,
+   "suspicion": 100,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 6,
+   "paused": false,
+   "map": false,
+   "fps": 31,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.6,
+     "y": 0,
+     "z": -15.6,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -4.7,
+     "y": 0,
+     "z": -10.6,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "investor": {
+     "x": -12.7,
+     "y": 7,
+     "z": -12.2,
+     "do": "evacuate",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "monitor_watcher",
+     8.7,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_captain",
+     5.6,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "beachbar_manager",
+     8.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_1",
+     6.3,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_2",
+     6,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_front",
+     8.7,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_beach_n",
+     9.4,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "beachbar_1",
+     6.9,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "beachbar_2",
+     8.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_beach_a_1",
+     8.5,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_beach_a_3",
+     10.3,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_beach_a_4",
+     8.7,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 22.4,
+   "t": 22.4,
+   "clock": 22.4,
+   "pos": {
+    "x": 46.21,
+    "y": 0,
+    "z": -13.17
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [
+    "suit"
+   ],
+   "held": "",
+   "blend": null,
+   "recorded": true,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 3,
+   "suspicion": 100,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 6,
+   "paused": false,
+   "map": false,
+   "fps": 34,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.7,
+     "y": 0,
+     "z": -18.2,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -7.1,
+     "y": 0,
+     "z": -11.4,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "investor": {
+     "x": -10,
+     "y": 7,
+     "z": -11.6,
+     "do": "evacuate",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "monitor_watcher",
+     8.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_captain",
+     6,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "beachbar_manager",
+     7.8,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_1",
+     6.7,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_2",
+     6.4,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_front",
+     8.2,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_beach_n",
+     9.9,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "beachbar_1",
+     5.8,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "beachbar_2",
+     7.8,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_relief",
+     10.7,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 23.4,
+   "t": 23.4,
+   "clock": 23.4,
+   "pos": {
+    "x": 46.16,
+    "y": 0,
+    "z": -8.3
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [
+    "suit"
+   ],
+   "held": "",
+   "blend": null,
+   "recorded": true,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 3,
+   "suspicion": 100,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 7,
+   "paused": false,
+   "map": false,
+   "fps": 42,
+   "targets": {
+    "wine_merchant": {
+     "x": 21.5,
+     "y": 0,
+     "z": -19.7,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -9.6,
+     "y": 0,
+     "z": -10.7,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "investor": {
+     "x": -7.5,
+     "y": 7,
+     "z": -11.1,
+     "do": "evacuate",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "monitor_watcher",
+     11.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_captain",
+     6.6,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "beachbar_manager",
+     9.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_1",
+     7.5,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_2",
+     7.1,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_front",
+     8.8,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_beach_n",
+     10.2,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "beachbar_1",
+     7.5,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "beachbar_2",
+     9.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "waiter_3",
+     11,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_relief",
+     10.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_stroll_5",
+     10.8,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 24.4,
+   "t": 24.4,
+   "clock": 24.4,
+   "pos": {
+    "x": 43.9,
+    "y": 0,
+    "z": -4.67
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [
+    "suit"
+   ],
+   "held": "",
+   "blend": null,
+   "recorded": true,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 3,
+   "suspicion": 100,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 15,
+   "paused": false,
+   "map": false,
+   "fps": 31,
+   "targets": {
+    "wine_merchant": {
+     "x": 18.9,
+     "y": 0,
+     "z": -19.9,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -10.8,
+     "y": 0,
+     "z": -12.2,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "investor": {
+     "x": -5,
+     "y": 7,
+     "z": -10.5,
+     "do": "evacuate",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "bodyguard_captain",
+     6.5,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_1",
+     7.4,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_2",
+     7,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_front",
+     8.4,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_terrace",
+     10,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_beach_n",
+     10.4,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "beachbar_1",
+     11.4,
+     "report",
+     100,
+     0
+    ],
+    [
+     "waiter_3",
+     6.8,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_relief",
+     8.4,
+     "investigate",
+     66,
+     0
+    ],
+    [
+     "guest_stroll_5",
+     6.7,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 25.5,
+   "t": 25.5,
+   "clock": 25.5,
+   "pos": {
+    "x": 45.47,
+    "y": 0,
+    "z": -0.46
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [
+    "suit"
+   ],
+   "held": "",
+   "blend": null,
+   "recorded": true,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 3,
+   "suspicion": 100,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 18,
+   "paused": false,
+   "map": false,
+   "fps": 50,
+   "targets": {
+    "wine_merchant": {
+     "x": 16.2,
+     "y": 0,
+     "z": -20.1,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -10.9,
+     "y": 0,
+     "z": -14.9,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "investor": {
+     "x": -2.8,
+     "y": 7,
+     "z": -9.3,
+     "do": "evacuate",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "bodyguard_captain",
+     6.2,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_1",
+     7.3,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_2",
+     6.7,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_front",
+     8.2,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_terrace",
+     6.7,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_beach_n",
+     9.8,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "waiter_3",
+     3.7,
+     "report",
+     100,
+     1
+    ],
+    [
+     "photographer",
+     10.9,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_relief",
+     8.5,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guest_terrace_b_1",
+     11.5,
+     "report",
+     100,
+     1
+    ],
+    [
+     "guest_terrace_b_4",
+     11.5,
+     "report",
+     100,
+     1
+    ],
+    [
+     "guest_beach_b_3",
+     9.5,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_beach_b_4",
+     9.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_stroll_5",
+     3.3,
+     "report",
+     100,
+     1
+    ]
+   ]
+  },
+  {
+   "play": 26.5,
+   "t": 26.5,
+   "clock": 26.5,
+   "pos": {
+    "x": 47.28,
+    "y": 0,
+    "z": 3.98
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [
+    "suit"
+   ],
+   "held": "",
+   "blend": null,
+   "recorded": true,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 3,
+   "suspicion": 100,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 16,
+   "paused": false,
+   "map": false,
+   "fps": 54,
+   "targets": {
+    "wine_merchant": {
+     "x": 13.6,
+     "y": 0,
+     "z": -20.2,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -11.1,
+     "y": 0,
+     "z": -17.5,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "investor": {
+     "x": -1.4,
+     "y": 7,
+     "z": -7.1,
+     "do": "evacuate",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "bodyguard_captain",
+     6.7,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_1",
+     7.8,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_2",
+     7.3,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_front",
+     8.8,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_terrace",
+     6.1,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_beach_n",
+     10.1,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "waiter_3",
+     6.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "photographer",
+     8.8,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_relief",
+     9,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guest_terrace_b_1",
+     9.2,
+     "report",
+     100,
+     1
+    ],
+    [
+     "guest_terrace_b_4",
+     9.5,
+     "report",
+     100,
+     1
+    ],
+    [
+     "guest_beach_b_3",
+     6.6,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_beach_b_4",
+     5.7,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_stroll_5",
+     5.7,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_extra_3",
+     10.3,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 27.5,
+   "t": 27.5,
+   "clock": 27.5,
+   "pos": {
+    "x": 48.06,
+    "y": 0,
+    "z": 8.7
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [
+    "suit"
+   ],
+   "held": "",
+   "blend": null,
+   "recorded": true,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 3,
+   "suspicion": 100,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 15,
+   "paused": false,
+   "map": false,
+   "fps": 60,
+   "targets": {
+    "wine_merchant": {
+     "x": 11,
+     "y": 0,
+     "z": -20.4,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -11.8,
+     "y": 0,
+     "z": -19.7,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "investor": {
+     "x": 0,
+     "y": 6.7,
+     "z": -4.9,
+     "do": "evacuate",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "bodyguard_captain",
+     7.4,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_1",
+     8.5,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_2",
+     8,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_front",
+     9.5,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_terrace",
+     6.1,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_beach_n",
+     10.7,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_beach_s",
+     9.5,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "waiter_3",
+     9,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "waiter_4",
+     9,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "photographer",
+     8.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_relief",
+     9.4,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guest_terrace_b_1",
+     9.5,
+     "report",
+     100,
+     0
+    ],
+    [
+     "guest_terrace_b_4",
+     10.2,
+     "report",
+     100,
+     0
+    ],
+    [
+     "guest_beach_b_1",
+     9.9,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_beach_b_2",
+     10.4,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_beach_b_3",
+     7.5,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_beach_b_4",
+     6,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_stroll_5",
+     9.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_extra_3",
+     7.2,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 28.5,
+   "t": 28.5,
+   "clock": 28.5,
+   "pos": {
+    "x": 48.88,
+    "y": 0,
+    "z": 13.5
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [
+    "suit"
+   ],
+   "held": "",
+   "blend": null,
+   "recorded": true,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 3,
+   "suspicion": 100,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 15,
+   "paused": false,
+   "map": false,
+   "fps": 56,
+   "targets": {
+    "wine_merchant": {
+     "x": 8.4,
+     "y": 0,
+     "z": -20.6,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -14.3,
+     "y": 0,
+     "z": -20.2,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "investor": {
+     "x": 1.9,
+     "y": 5.9,
+     "z": -3,
+     "do": "evacuate",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "bodyguard_captain",
+     8.1,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_1",
+     9.2,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_2",
+     8.7,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_front",
+     10.2,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_terrace",
+     6.7,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_beach_n",
+     11.4,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_beach_s",
+     5.3,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "waiter_4",
+     5.9,
+     "report",
+     100,
+     1
+    ],
+    [
+     "photographer",
+     10,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_relief",
+     10,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guest_beach_b_1",
+     9.7,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_beach_b_2",
+     10.5,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_beach_b_3",
+     10,
+     "report",
+     100,
+     1
+    ],
+    [
+     "guest_beach_b_4",
+     9.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_extra_3",
+     6.7,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 29.5,
+   "t": 29.5,
+   "clock": 29.5,
+   "pos": {
+    "x": 48.42,
+    "y": 0,
+    "z": 18.3
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [
+    "suit"
+   ],
+   "held": "",
+   "blend": null,
+   "recorded": true,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 3,
+   "suspicion": 100,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 16,
+   "paused": false,
+   "map": false,
+   "fps": 58,
+   "targets": {
+    "wine_merchant": {
+     "x": 5.7,
+     "y": 0,
+     "z": -20.8,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -16.9,
+     "y": 0,
+     "z": -20.7,
+     "do": "evacuate",
+     "life": "active"
+    },
+    "investor": {
+     "x": 2.1,
+     "y": 5,
+     "z": -0.9,
+     "do": "evacuate",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "bodyguard_captain",
+     8.7,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_1",
+     9.8,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "bodyguard_2",
+     9.2,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_front",
+     10.7,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_terrace",
+     7.2,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guard_beach_s",
+     5,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "waiter_4",
+     7.1,
+     "report",
+     100,
+     0
+    ],
+    [
+     "bodyguard_relief",
+     10.4,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "guest_beach_b_3",
+     11.2,
+     "report",
+     100,
+     0
+    ],
+    [
+     "guest_extra_3",
+     10,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  }
+ ],
+ "end": null
+}

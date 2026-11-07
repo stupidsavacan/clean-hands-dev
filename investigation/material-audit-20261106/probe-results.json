@@ -1,0 +1,22 @@
+{
+  "scope": "Direct function probes with the real hotel modules; no browser, full incident or original recording replay.",
+  "combatNotification": {
+    "npcId": "bodyguard_captain",
+    "before": "combat",
+    "afterRadio": "combat",
+    "afterAccuse": "alert"
+  },
+  "distantKnowledge": {
+    "sourceNpcId": "bodyguard_captain",
+    "npcId": "guard_parking",
+    "distance": 60.58193461750788,
+    "radioRadius": 15,
+    "identityBefore": false,
+    "identityAfter": true,
+    "localKnownDisguises": [],
+    "localKnowledgeCount": 0,
+    "sharedCompromised": [
+      "suit"
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+{
+ "meta": {
+  "id": "20261031-235730_full",
+  "scenario": "full",
+  "scenarioTitle": "通し（本番どおり）",
+  "startTime": 0,
+  "startedAt": "2026-10-31T14:57:30Z",
+  "game": "CLEAN HANDS M5.8 PC",
+  "note": "デバッグを使った回のため、メモだけを残した記録（出来事・1秒ごとの状態は削除）。メモの写真は失われました"
+ },
+ "events": [],
+ "samples": [],
+ "end": null,
+ "memos": [
+  {
+   "n": 1,
+   "clock": 587.9,
+   "tags": [
+    "バグ"
+   ],
+   "text": "倒されるときに中を構えていると浮く",
+   "floorLabel": "1F",
+   "disguiseLabel": "客（スーツ）",
+   "state": {
+    "pos": {
+     "x": -42.63,
+     "y": 0,
+     "z": -11.2
+    },
+    "floor": 0,
+    "disguise": "suit"
+   },
+   "near": [],
+   "recent": [],
+   "shot": null,
+   "restored": true
+  }
+ ]
+}

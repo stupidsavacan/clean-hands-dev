@@ -1,0 +1,4 @@
+{
+  "chest": {"standing": 1.4, "crouched": 1.0},
+  "crouch": {"spinePitch": 0.10}
+}

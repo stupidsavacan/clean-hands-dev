@@ -1,0 +1,56 @@
+/* Touch controls are drawn on #touch-controls (see touch.ts); they share the same simulation and collision rules as keyboard input. */
+#touch-controls,#touch-map,.mobile-practice,.mobile-instructions{display:none}
+.touch-enabled #touch-controls{display:block;position:absolute;inset:0;width:100%;height:100%;z-index:12;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+#touch-controls[hidden]{display:none!important}
+.touch-enabled #touch-map{display:inline-block}.touch-enabled .mobile-practice{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}.touch-enabled .mobile-instructions{display:block;color:#9fd1c2}
+.touch-enabled #view{touch-action:none}.touch-enabled #debug{display:none!important}
+.touch-enabled .top-actions{z-index:13;top:calc(10px + env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));gap:0}
+.touch-enabled .top-actions button{min-height:34px;padding:0 12px;border:1px solid rgba(243,239,230,.22);border-left-width:0;border-radius:0;background:rgba(11,15,18,.5);color:#f3efe6;font:600 11px "Yu Gothic UI","Hiragino Sans",system-ui,sans-serif;letter-spacing:.08em;box-shadow:none;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.touch-enabled .top-actions button:first-child{border-left-width:1px}.touch-enabled .top-actions button:active{background:rgba(226,54,43,.55);border-color:#e2362b}
+.touch-enabled #view-mode,.touch-enabled #pause{font-size:0!important}.touch-enabled #view-mode:after{content:'視点';font-size:11px}.touch-enabled #pause:after{content:'メニュー';font-size:11px}
+.touch-enabled #m3-status,.touch-enabled #m4-status{left:max(12px,env(safe-area-inset-left));right:auto;bottom:auto;max-width:46vw;text-align:left;font-size:10px;line-height:1.4}
+.touch-enabled #m4-status{top:136px}.touch-enabled #m3-status{top:152px}
+.touch-enabled .modal{z-index:30;padding:12px}.touch-enabled .dialog{max-height:calc(100dvh - 30px);overflow:auto;padding:24px;max-width:620px}.touch-enabled .dialog h2{font-size:24px}.touch-enabled .dialog p{font-size:13px}.touch-enabled .dialog footer{flex-wrap:wrap;gap:8px}.touch-enabled .dialog button{min-height:44px}
+.touch-enabled .cc-head p{display:none}.touch-enabled .cc-panel{padding-bottom:18px}.touch-enabled .cc-tabs{position:sticky;top:0;background:#10171a;z-index:2}.touch-enabled .cc-foot{height:70px;padding:8px 12px;bottom:env(safe-area-inset-bottom)}.touch-enabled .cc-foot button{min-height:44px;padding:10px!important;font-size:12px}.touch-enabled .cc-foot kbd{display:none}.touch-enabled .cc-panel{bottom:calc(70px + env(safe-area-inset-bottom))}.touch-enabled .cc-head{top:calc(16px + env(safe-area-inset-top))}.touch-enabled .cc-view{touch-action:none}.touch-enabled .cc-card{min-height:44px}.touch-enabled .cc-page[data-page=character] .cc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-height:520px) and (max-width:1000px){
+ .touch-enabled .cc-view{width:44%;height:100%}.touch-enabled .cc-panel{left:44%;top:0;right:0;width:56%;padding:12px 14px;bottom:62px}.touch-enabled .cc-foot{left:44%;width:56%;height:62px;min-width:0}.touch-enabled .cc-head{left:12px;top:12px}.touch-enabled .cc-head h1{font-size:15px}.touch-enabled .cc-tag{left:12px;top:auto;bottom:22px;max-width:40%}.touch-enabled .cc-tag b{font-size:23px}.touch-enabled .cc-tag span{font-size:9px}.touch-enabled .cc-motion{left:12px;transform:none;top:65px;width:calc(44% - 24px)}.touch-enabled .cc-motion button{font-size:10px;padding:6px}.touch-enabled .cc-page[data-page=character] .cc-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.touch-enabled .cc-page[data-page=character] .cc-card canvas{height:72px}.touch-enabled .cc-card span{font-size:10px}.touch-enabled .cc-card small{display:none}.touch-enabled .cc-name{margin-bottom:4px}.touch-enabled .cc-tabs button{font-size:10px}.touch-enabled .cc-panel h3 em{display:none}
+}
+/* M5.5 briefing, mission information and combat feedback stay above the thumb controls. */
+.touch-enabled #mission-clock{top:calc(54px + env(safe-area-inset-top));left:12px;transform:none;font-size:10px}
+.touch-enabled #chance-hud{left:12px;top:268px;width:min(310px,80vw);font-size:10px;line-height:1.5}
+.touch-enabled #field-status{left:12px;right:auto;top:245px;bottom:auto;font-size:10px;max-width:80vw}
+.touch-enabled #combat-status{left:12px;right:auto;top:181px;bottom:auto;width:min(330px,85vw);align-items:flex-start;font-size:10px;gap:4px}
+.touch-enabled #combat-status .gun,.touch-enabled #combat-status .closed{font-size:10px;padding:3px 6px}.touch-enabled #combat-status .fight{font-size:10px;padding:3px 6px}
+.touch-enabled #dialogue-subtitle{bottom:340px;max-width:calc(100vw - 24px);width:max-content;padding:7px 10px;font-size:12px}
+.touch-enabled #big-map{max-width:100%;height:auto}.touch-enabled .map-dialog nav{flex-wrap:wrap;gap:4px}.touch-enabled #target-schedules{grid-template-columns:1fr}.touch-enabled #chance-list{flex-wrap:wrap}
+.touch-enabled #prep-targets{grid-template-columns:1fr}.touch-enabled #prep-targets article.off{display:none}
+@media(max-height:520px){
+ .touch-enabled #mission-clock{left:50%;transform:translateX(-50%);top:12px}
+ .touch-enabled #combat-status{left:50%;transform:translateX(-50%);top:42px;width:300px;align-items:center}
+ .touch-enabled #chance-hud{left:50%;transform:translateX(-50%);top:126px;width:280px;text-align:center}
+ .touch-enabled #field-status{left:12px;top:174px;max-width:28vw}
+ .touch-enabled #dialogue-subtitle{top:152px;bottom:auto;max-width:46vw;font-size:11px}
+ .touch-enabled .prep-cols{grid-template-columns:1fr 1fr;gap:12px}
+}
+/* Tablets in landscape (iPad 9th gen: 1080x810). The canvas HUD and controls scale by --ui (touch.ts uiScale);
+   the DOM overlays scale with them and take the landscape-phone arrangement, in the same scaled units. */
+html,body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
+/* (2026-11-06: no pointer:coarse here — .touch-enabled already means a touch screen or the mobile page.) */
+@media (min-width:900px) and (min-height:700px) and (orientation:landscape){
+ .touch-enabled .top-actions,.touch-enabled #m3-status,.touch-enabled #m4-status,.touch-enabled #mission-clock,.touch-enabled #combat-status,.touch-enabled #chance-hud,.touch-enabled #field-status,.touch-enabled #dialogue-subtitle{zoom:var(--ui,1)}
+ .touch-enabled #mission-clock{left:50%;transform:translateX(-50%);top:12px}
+ .touch-enabled #combat-status{left:50%;transform:translateX(-50%);top:42px;width:300px;align-items:center}
+ .touch-enabled #chance-hud{left:50%;transform:translateX(-50%);top:126px;width:280px;text-align:center}
+ .touch-enabled #field-status{left:12px;top:174px;max-width:28vw}
+ .touch-enabled #dialogue-subtitle{top:152px;bottom:auto;max-width:46vw;font-size:11px}
+ .touch-enabled .prep-cols{grid-template-columns:1fr 1fr;gap:16px}
+ /* 2026-11-06: below the objectives the HUD canvas draws top left (they grew since M5.8). */
+ .touch-enabled #m4-status{top:200px}.touch-enabled #m3-status{top:216px}
+ .touch-enabled .dialog{zoom:var(--ui,1);max-width:min(760px,calc((100vw - 24px) / var(--ui,1)));max-height:calc((100dvh - 30px) / var(--ui,1))}
+}
+/* 2026-11-06, the one-file mobile page (mobile.ts): place, map, menu and the club/hotel switch, bottom centre between the thumbs. */
+#mobile-bar{position:fixed;z-index:40;bottom:calc(10px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:flex;align-items:stretch;zoom:var(--ui,1);font:600 11px "Yu Gothic UI","Hiragino Sans",system-ui,sans-serif;letter-spacing:.06em}
+#mobile-bar span{display:flex;align-items:center;padding:0 10px;background:#e2362b;color:#f3efe6}
+#mobile-bar button{min-height:34px;padding:0 12px;border:1px solid rgba(243,239,230,.22);border-left-width:0;border-radius:0;background:rgba(11,15,18,.62);color:#f3efe6;font:inherit;letter-spacing:inherit;touch-action:manipulation}
+#mobile-bar button:active{background:rgba(226,54,43,.55)}
+#mobile-bar button[data-action=switch]{color:#5fc7b0}

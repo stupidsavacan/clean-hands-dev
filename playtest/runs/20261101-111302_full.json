@@ -1,0 +1,5564 @@
+{
+ "meta": {
+  "id": "20261101-111302_full",
+  "scenario": "full",
+  "scenarioTitle": "通し（本番どおり）",
+  "startTime": 0,
+  "lead": null,
+  "startedAt": "2026-11-01T02:13:02.183Z",
+  "game": "CLEAN HANDS M5.8 PC",
+  "page": "http://127.0.0.1:8795/",
+  "viewport": [
+   1440,
+   765
+  ],
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+  "loadout": {
+   "tools": [
+    "poison_lethal",
+    "coin"
+   ],
+   "pistol": "pistol_silenced",
+   "start": "S1"
+  },
+  "keyTime": null,
+  "appliedAt": {
+   "elapsed": 0,
+   "time": 0,
+   "cycle": 0,
+   "rate": 1,
+   "loop": 1800
+  }
+ },
+ "events": [
+  {
+   "play": 0,
+   "t": 0,
+   "clock": 0,
+   "type": "schedule.action",
+   "time": 0,
+   "id": "wine_merchant",
+   "value": 0,
+   "at": {
+    "x": 14.8,
+    "y": 0,
+    "z": -30
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 0,
+   "t": 0,
+   "clock": 0,
+   "type": "schedule.action",
+   "time": 0,
+   "id": "lawyer",
+   "value": 0,
+   "at": {
+    "x": 14.8,
+    "y": 0,
+    "z": -30
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 0,
+   "t": 0,
+   "clock": 0,
+   "type": "schedule.action",
+   "time": 0,
+   "id": "investor",
+   "value": 0,
+   "at": {
+    "x": 14.8,
+    "y": 0,
+    "z": -30
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 0,
+   "t": 0,
+   "clock": 0,
+   "type": "disguise.changed",
+   "time": 0,
+   "id": "suit",
+   "at": {
+    "x": 14.8,
+    "y": 0,
+    "z": -30
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 2.42,
+   "t": 2.42,
+   "clock": 2.4,
+   "type": "schedule.action",
+   "time": 2.416666666666663,
+   "id": "lawyer",
+   "value": 0,
+   "at": {
+    "x": 13.81,
+    "y": 0,
+    "z": -28.04
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 15.53,
+   "t": 15.53,
+   "clock": 15.5,
+   "type": "disguise.changed",
+   "time": 15.533333333333685,
+   "id": "guard",
+   "at": {
+    "x": 0.02,
+    "y": 0,
+    "z": -36.03
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 29.97,
+   "t": 29.97,
+   "clock": 30,
+   "type": "body.found",
+   "time": 29.966666666666246,
+   "id": "guard_front",
+   "life": "unconscious",
+   "judgement": "murder",
+   "at": {
+    "x": 0.77,
+    "y": 0,
+    "z": -28.51
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 42.85,
+   "t": 42.85,
+   "clock": 42.8,
+   "type": "player.spotted",
+   "time": 42.84999999999885,
+   "id": "guest_lobby_b_1",
+   "at": {
+    "x": 8.91,
+    "y": 0,
+    "z": -18.83
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 42.85,
+   "t": 42.85,
+   "clock": 42.8,
+   "type": "player.spotted",
+   "time": 42.84999999999885,
+   "id": "guest_lobby_b_2",
+   "at": {
+    "x": 8.91,
+    "y": 0,
+    "z": -18.83
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 42.85,
+   "t": 42.85,
+   "clock": 42.8,
+   "type": "witness.started",
+   "time": 42.84999999999885,
+   "id": "guest_lobby_b_1",
+   "reason": "act",
+   "at": {
+    "x": 8.91,
+    "y": 0,
+    "z": -18.83
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 42.85,
+   "t": 42.85,
+   "clock": 42.8,
+   "type": "witness.started",
+   "time": 42.84999999999885,
+   "id": "guest_lobby_b_2",
+   "reason": "act",
+   "at": {
+    "x": 8.91,
+    "y": 0,
+    "z": -18.83
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 42.93,
+   "t": 42.93,
+   "clock": 42.9,
+   "type": "shot.fired",
+   "time": 42.93333333333218,
+   "id": "pistol_silenced",
+   "method": "small",
+   "at": {
+    "x": 8.91,
+    "y": 0,
+    "z": -18.83
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 42.95,
+   "t": 42.95,
+   "clock": 42.9,
+   "type": "npc.killed",
+   "time": 42.949999999998845,
+   "id": "lawyer",
+   "method": "gun",
+   "judgement": "murder",
+   "at": {
+    "x": 8.91,
+    "y": 0,
+    "z": -18.83
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 43.62,
+   "t": 43.62,
+   "clock": 43.6,
+   "type": "body.found",
+   "time": 43.61666666666547,
+   "id": "lawyer",
+   "life": "dead",
+   "judgement": "murder",
+   "at": {
+    "x": 8.78,
+    "y": 0,
+    "z": -18.69
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 43.63,
+   "t": 43.63,
+   "clock": 43.6,
+   "type": "witness.started",
+   "time": 43.63333333333214,
+   "id": "receptionist",
+   "reason": "body",
+   "at": {
+    "x": 8.76,
+    "y": 0,
+    "z": -18.67
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 43.63,
+   "t": 43.63,
+   "clock": 43.6,
+   "type": "witness.started",
+   "time": 43.63333333333214,
+   "id": "laundry_2",
+   "reason": "body",
+   "at": {
+    "x": 8.76,
+    "y": 0,
+    "z": -18.67
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 43.63,
+   "t": 43.63,
+   "clock": 43.6,
+   "type": "witness.started",
+   "time": 43.63333333333214,
+   "id": "guest_lobby_a_4",
+   "reason": "body",
+   "at": {
+    "x": 8.76,
+    "y": 0,
+    "z": -18.67
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 43.63,
+   "t": 43.63,
+   "clock": 43.6,
+   "type": "witness.started",
+   "time": 43.63333333333214,
+   "id": "guest_lobby_b_3",
+   "reason": "body",
+   "at": {
+    "x": 8.76,
+    "y": 0,
+    "z": -18.67
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 43.63,
+   "t": 43.63,
+   "clock": 43.6,
+   "type": "witness.started",
+   "time": 43.63333333333214,
+   "id": "guest_lobby_b_4",
+   "reason": "body",
+   "at": {
+    "x": 8.76,
+    "y": 0,
+    "z": -18.67
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 45.43,
+   "t": 45.43,
+   "clock": 45.4,
+   "type": "witness.reported",
+   "time": 45.43333333333204,
+   "id": "guest_lobby_a_4",
+   "reason": "body",
+   "at": {
+    "x": 2.74,
+    "y": 0,
+    "z": -20.39
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 45.45,
+   "t": 45.45,
+   "clock": 45.4,
+   "type": "alert.level",
+   "time": 45.4499999999987,
+   "value": 1,
+   "at": {
+    "x": 2.76,
+    "y": 0,
+    "z": -20.44
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 45.55,
+   "t": 45.55,
+   "clock": 45.5,
+   "type": "witness.reported",
+   "time": 45.5499999999987,
+   "id": "guest_lobby_b_4",
+   "reason": "body",
+   "at": {
+    "x": 2.96,
+    "y": 0,
+    "z": -20.71
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 45.68,
+   "t": 45.68,
+   "clock": 45.7,
+   "type": "witness.reported",
+   "time": 45.68333333333202,
+   "id": "guest_lobby_b_1",
+   "reason": "body",
+   "at": {
+    "x": 3.43,
+    "y": 0,
+    "z": -20.95
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 45.97,
+   "t": 45.97,
+   "clock": 46,
+   "type": "witness.reported",
+   "time": 45.96666666666534,
+   "id": "guest_lobby_b_3",
+   "reason": "body",
+   "at": {
+    "x": 4.76,
+    "y": 0,
+    "z": -21.02
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 46.22,
+   "t": 46.22,
+   "clock": 46.2,
+   "type": "witness.reported",
+   "time": 46.216666666665326,
+   "id": "laundry_2",
+   "reason": "body",
+   "at": {
+    "x": 5.94,
+    "y": 0,
+    "z": -20.81
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 46.32,
+   "t": 46.32,
+   "clock": 46.3,
+   "type": "witness.reported",
+   "time": 46.31666666666532,
+   "id": "receptionist",
+   "reason": "body",
+   "at": {
+    "x": 6.42,
+    "y": 0,
+    "z": -20.73
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 54.28,
+   "t": 54.28,
+   "clock": 54.3,
+   "type": "player.spotted",
+   "time": 54.283333333331534,
+   "id": "guest_bar_a_1",
+   "at": {
+    "x": 25.81,
+    "y": 0,
+    "z": -18.83
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 54.28,
+   "t": 54.28,
+   "clock": 54.3,
+   "type": "witness.started",
+   "time": 54.283333333331534,
+   "id": "guest_bar_a_1",
+   "reason": "act",
+   "at": {
+    "x": 25.81,
+    "y": 0,
+    "z": -18.83
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 54.35,
+   "t": 54.35,
+   "clock": 54.3,
+   "type": "shot.fired",
+   "time": 54.3499999999982,
+   "id": "pistol_silenced",
+   "method": "small",
+   "at": {
+    "x": 25.81,
+    "y": 0,
+    "z": -18.83
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 54.37,
+   "t": 54.37,
+   "clock": 54.4,
+   "type": "npc.killed",
+   "time": 54.36666666666486,
+   "id": "wine_merchant",
+   "method": "gun",
+   "judgement": "murder",
+   "at": {
+    "x": 25.81,
+    "y": 0,
+    "z": -18.83
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 54.93,
+   "t": 54.93,
+   "clock": 54.9,
+   "type": "body.found",
+   "time": 54.9333333333315,
+   "id": "wine_merchant",
+   "life": "dead",
+   "judgement": "murder",
+   "at": {
+    "x": 25.78,
+    "y": 0,
+    "z": -18.77
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 54.95,
+   "t": 54.95,
+   "clock": 54.9,
+   "type": "alert.level",
+   "time": 54.94999999999816,
+   "value": 2,
+   "at": {
+    "x": 25.77,
+    "y": 0,
+    "z": -18.75
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 56.58,
+   "t": 56.58,
+   "clock": 56.6,
+   "type": "witness.reported",
+   "time": 56.5833333333314,
+   "id": "guest_bar_a_1",
+   "reason": "body",
+   "at": {
+    "x": 22.83,
+    "y": 0,
+    "z": -13.37
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 58,
+   "t": 58,
+   "clock": 58,
+   "type": "player.spotted",
+   "time": 57.99999999999799,
+   "id": "guard_garden",
+   "at": {
+    "x": 22.3,
+    "y": 0,
+    "z": -6.59
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 58,
+   "t": 58,
+   "clock": 58,
+   "type": "player.spotted",
+   "time": 57.99999999999799,
+   "id": "waiter_1",
+   "at": {
+    "x": 22.3,
+    "y": 0,
+    "z": -6.59
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 58,
+   "t": 58,
+   "clock": 58,
+   "type": "player.spotted",
+   "time": 57.99999999999799,
+   "id": "guest_terrace_a_1",
+   "at": {
+    "x": 22.3,
+    "y": 0,
+    "z": -6.59
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 58.23,
+   "t": 58.23,
+   "clock": 58.2,
+   "type": "player.spotted",
+   "time": 58.23333333333131,
+   "id": "bartender",
+   "at": {
+    "x": 22.19,
+    "y": 0,
+    "z": -5.69
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 59.72,
+   "t": 59.72,
+   "clock": 59.7,
+   "type": "player.spotted",
+   "time": 59.71666666666456,
+   "id": "guest_pool_b_1",
+   "at": {
+    "x": 21.9,
+    "y": 0,
+    "z": -3.26
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 60.17,
+   "t": 60.17,
+   "clock": 60.2,
+   "type": "player.spotted",
+   "time": 60.16666666666453,
+   "id": "guest_terrace_c_1",
+   "at": {
+    "x": 21.81,
+    "y": 0,
+    "z": -2.53
+   },
+   "disguise": "guard"
+  }
+ ],
+ "samples": [
+  {
+   "play": 0,
+   "t": 0,
+   "clock": 0,
+   "pos": {
+    "x": 14.8,
+    "y": 0,
+    "z": -30
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 32,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2,
+     "y": 0,
+     "z": -11,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "guard_garden",
+     8.8,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_stroll_1",
+     8.8,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 1,
+   "t": 1,
+   "clock": 1,
+   "pos": {
+    "x": 14.33,
+    "y": 0,
+    "z": -27.99
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 32,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.3,
+     "y": 0,
+     "z": -10.7,
+     "do": "",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "guard_garden",
+     10.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_stroll_1",
+     10.4,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 2,
+   "t": 2,
+   "clock": 2,
+   "pos": {
+    "x": 13.64,
+    "y": 0,
+    "z": -27.58
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 49,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.8,
+     "y": 0,
+     "z": -10.6,
+     "do": "",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "guard_garden",
+     11.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_stroll_1",
+     11,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 3,
+   "t": 3,
+   "clock": 3,
+   "pos": {
+    "x": 13.65,
+    "y": 0,
+    "z": -27.23
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 50,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "guest_lobby_b_3",
+     11.8,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 4.1,
+   "t": 4.1,
+   "clock": 4.1,
+   "pos": {
+    "x": 9.91,
+    "y": 0,
+    "z": -26
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 7,
+   "suspiciousOf": "guard_front",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 44,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "guest_lobby_b_1",
+     11.2,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_2",
+     10,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_3",
+     9.2,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     10.5,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 5.1,
+   "t": 5.1,
+   "clock": 5.1,
+   "pos": {
+    "x": 5.07,
+    "y": 0,
+    "z": -26.45
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 20,
+   "suspiciousOf": "guard_front",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 46,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "guest_lobby_b_1",
+     11.9,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_2",
+     11.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_3",
+     9.8,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     10.7,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 6.1,
+   "t": 6.1,
+   "clock": 6.1,
+   "pos": {
+    "x": 3.81,
+    "y": 0,
+    "z": -26.95
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 20,
+   "suspiciousOf": "guard_front",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 52,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "guest_lobby_b_3",
+     10.6,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     11.4,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 7.1,
+   "t": 7.1,
+   "clock": 7.1,
+   "pos": {
+    "x": -0.03,
+    "y": 0,
+    "z": -29.76
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 19,
+   "suspiciousOf": "guard_front",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 56,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "guard_front",
+     7.2,
+     "patrol",
+     19,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 8.1,
+   "t": 8.1,
+   "clock": 8.1,
+   "pos": {
+    "x": -2.77,
+    "y": 0,
+    "z": -33.22
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 12,
+   "suspiciousOf": "guard_front",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 58,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "guard_front",
+     2.7,
+     "patrol",
+     12,
+     1
+    ]
+   ]
+  },
+  {
+   "play": 9.1,
+   "t": 9.1,
+   "clock": 9.1,
+   "pos": {
+    "x": -1.68,
+    "y": 0,
+    "z": -33.26
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 2,
+   "suspiciousOf": "guard_front",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 59,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "guard_front",
+     2.7,
+     "patrol",
+     2,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 10.1,
+   "t": 10.1,
+   "clock": 10.1,
+   "pos": {
+    "x": -0.88,
+    "y": 0,
+    "z": -34.56
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 58,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "guard_front",
+     1.6,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 11.1,
+   "t": 11.1,
+   "clock": 11.1,
+   "pos": {
+    "x": 0.02,
+    "y": 0,
+    "z": -36.03
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 10,
+   "suspiciousOf": "guard_front",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 54,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "guard_front",
+     0.9,
+     "patrol",
+     10,
+     1
+    ]
+   ]
+  },
+  {
+   "play": 12.1,
+   "t": 12.1,
+   "clock": 12.1,
+   "pos": {
+    "x": 0.02,
+    "y": 0,
+    "z": -36.03
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 10,
+   "suspiciousOf": "guard_front",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 38,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "guard_front",
+     0.9,
+     "patrol",
+     10,
+     1
+    ]
+   ]
+  },
+  {
+   "play": 13.2,
+   "t": 13.2,
+   "clock": 13.2,
+   "pos": {
+    "x": 0.02,
+    "y": 0,
+    "z": -36.03
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 35,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": []
+  },
+  {
+   "play": 14.2,
+   "t": 14.2,
+   "clock": 14.2,
+   "pos": {
+    "x": 0.02,
+    "y": 0,
+    "z": -36.03
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 34,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": []
+  },
+  {
+   "play": 15.2,
+   "t": 15.2,
+   "clock": 15.2,
+   "pos": {
+    "x": 0.02,
+    "y": 0,
+    "z": -36.03
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 35,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": []
+  },
+  {
+   "play": 16.2,
+   "t": 16.2,
+   "clock": 16.2,
+   "pos": {
+    "x": 0.02,
+    "y": 0,
+    "z": -36.03
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 38,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": []
+  },
+  {
+   "play": 17.2,
+   "t": 17.2,
+   "clock": 17.2,
+   "pos": {
+    "x": 0.02,
+    "y": 0,
+    "z": -36.03
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 40,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": []
+  },
+  {
+   "play": 18.3,
+   "t": 18.3,
+   "clock": 18.3,
+   "pos": {
+    "x": 0.02,
+    "y": 0,
+    "z": -36.03
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 38,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": []
+  },
+  {
+   "play": 19.3,
+   "t": 19.3,
+   "clock": 19.3,
+   "pos": {
+    "x": 0.02,
+    "y": 0,
+    "z": -36.03
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 38,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": []
+  },
+  {
+   "play": 20.3,
+   "t": 20.3,
+   "clock": 20.3,
+   "pos": {
+    "x": 0.02,
+    "y": 0,
+    "z": -36.03
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 37,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": []
+  },
+  {
+   "play": 21.3,
+   "t": 21.3,
+   "clock": 21.3,
+   "pos": {
+    "x": 0.02,
+    "y": 0,
+    "z": -36.03
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 38,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": []
+  },
+  {
+   "play": 22.3,
+   "t": 22.3,
+   "clock": 22.3,
+   "pos": {
+    "x": -0.02,
+    "y": 0,
+    "z": -35.89
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 38,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": []
+  },
+  {
+   "play": 23.3,
+   "t": 23.3,
+   "clock": 23.3,
+   "pos": {
+    "x": -0.05,
+    "y": 0,
+    "z": -35.79
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 39,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": []
+  },
+  {
+   "play": 24.3,
+   "t": 24.3,
+   "clock": 24.3,
+   "pos": {
+    "x": -0.05,
+    "y": 0,
+    "z": -35.79
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 37,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": []
+  },
+  {
+   "play": 25.3,
+   "t": 25.3,
+   "clock": 25.3,
+   "pos": {
+    "x": -0.05,
+    "y": 0,
+    "z": -35.79
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 38,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": []
+  },
+  {
+   "play": 26.4,
+   "t": 26.4,
+   "clock": 26.4,
+   "pos": {
+    "x": -0.05,
+    "y": 0,
+    "z": -35.79
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 38,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": []
+  },
+  {
+   "play": 27.4,
+   "t": 27.4,
+   "clock": 27.4,
+   "pos": {
+    "x": -0.05,
+    "y": 0,
+    "z": -35.79
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 38,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": []
+  },
+  {
+   "play": 28.4,
+   "t": 28.4,
+   "clock": 28.4,
+   "pos": {
+    "x": -0.05,
+    "y": 0,
+    "z": -35.64
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 36,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": []
+  },
+  {
+   "play": 29.4,
+   "t": 29.4,
+   "clock": 29.4,
+   "pos": {
+    "x": 0.26,
+    "y": 0,
+    "z": -31.01
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 36,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": []
+  },
+  {
+   "play": 30.4,
+   "t": 30.4,
+   "clock": 30.4,
+   "pos": {
+    "x": 1.25,
+    "y": 0,
+    "z": -26.32
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 70,
+   "suspiciousOf": "guard_parking",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 35,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "receptionist",
+     10.2,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "laundry_2",
+     11.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_3",
+     11.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     11.8,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 31.4,
+   "t": 31.4,
+   "clock": 31.4,
+   "pos": {
+    "x": 2.31,
+    "y": 0,
+    "z": -21.64
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 60,
+   "suspiciousOf": "guard_parking",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 36,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "lawyer",
+     11.7,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "receptionist",
+     7.5,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "laundry_2",
+     9.2,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_1",
+     9,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_2",
+     8.8,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_3",
+     7.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     7.3,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 32.4,
+   "t": 32.4,
+   "clock": 32.4,
+   "pos": {
+    "x": 3.44,
+    "y": 0,
+    "z": -16.89
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 50,
+   "suspiciousOf": "guard_parking",
+   "watchers": 3,
+   "paused": false,
+   "map": false,
+   "fps": 37,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "lawyer",
+     8.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_captain",
+     8.6,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_1",
+     9.6,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_2",
+     9.6,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "receptionist",
+     7.5,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "laundry_2",
+     9.5,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_1",
+     5.2,
+     "patrol",
+     6,
+     0
+    ],
+    [
+     "guest_lobby_b_2",
+     5.7,
+     "patrol",
+     5,
+     1
+    ],
+    [
+     "guest_lobby_b_3",
+     4.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     3.6,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 33.4,
+   "t": 33.4,
+   "clock": 33.4,
+   "pos": {
+    "x": 4.25,
+    "y": 0,
+    "z": -13.08
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 43,
+   "suspiciousOf": "guard_parking",
+   "watchers": 2,
+   "paused": false,
+   "map": false,
+   "fps": 35,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "lawyer",
+     7,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "security_chief",
+     10.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_captain",
+     6.6,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guard_check_lobby",
+     11.5,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_1",
+     8.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_2",
+     7.8,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "receptionist",
+     9.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "laundry_2",
+     11.2,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_1",
+     4.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_2",
+     5.7,
+     "patrol",
+     12,
+     1
+    ],
+    [
+     "guest_lobby_b_3",
+     5.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     3.9,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 34.5,
+   "t": 34.5,
+   "clock": 34.5,
+   "pos": {
+    "x": 5.01,
+    "y": 0,
+    "z": -13.53
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 43,
+   "suspiciousOf": "guard_parking",
+   "watchers": 2,
+   "paused": false,
+   "map": false,
+   "fps": 35,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "lawyer",
+     7.8,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "security_chief",
+     9.9,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_captain",
+     7.5,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guard_check_lobby",
+     11.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_1",
+     9,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_2",
+     8.6,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "receptionist",
+     9.9,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "laundry_2",
+     11.7,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_1",
+     3.5,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_2",
+     4.8,
+     "patrol",
+     6,
+     1
+    ],
+    [
+     "guest_lobby_b_3",
+     4.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     3.1,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 35.5,
+   "t": 35.5,
+   "clock": 35.5,
+   "pos": {
+    "x": 5.89,
+    "y": 0,
+    "z": -14.81
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 43,
+   "suspiciousOf": "guard_parking",
+   "watchers": 2,
+   "paused": false,
+   "map": false,
+   "fps": 34,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "lawyer",
+     9.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "security_chief",
+     10.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_captain",
+     8.9,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guard_check_lobby",
+     11.9,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_1",
+     10.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_2",
+     10.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "receptionist",
+     10.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_1",
+     2.4,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_lobby_b_2",
+     3.4,
+     "patrol",
+     1,
+     1
+    ],
+    [
+     "guest_lobby_b_3",
+     2.9,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_lobby_b_4",
+     1.5,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 36.5,
+   "t": 36.5,
+   "clock": 36.5,
+   "pos": {
+    "x": 6.15,
+    "y": 0,
+    "z": -16.46
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 43,
+   "suspiciousOf": "guard_parking",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 35,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "lawyer",
+     10.2,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "security_chief",
+     11.7,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_captain",
+     10.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_1",
+     11.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_2",
+     11.2,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "receptionist",
+     10.2,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_1",
+     2.6,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_lobby_b_2",
+     3,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_lobby_b_3",
+     1.7,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_lobby_b_4",
+     0.9,
+     "patrol",
+     0,
+     1
+    ]
+   ]
+  },
+  {
+   "play": 37.5,
+   "t": 37.5,
+   "clock": 37.5,
+   "pos": {
+    "x": 7.27,
+    "y": 0,
+    "z": -17.61
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 43,
+   "suspiciousOf": "guard_parking",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 35,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "lawyer",
+     11.8,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bodyguard_captain",
+     11.7,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "receptionist",
+     11.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_1",
+     2.9,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_lobby_b_2",
+     2.4,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_lobby_b_3",
+     0.7,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_lobby_b_4",
+     1.7,
+     "patrol",
+     0,
+     1
+    ]
+   ]
+  },
+  {
+   "play": 38.5,
+   "t": 38.5,
+   "clock": 38.5,
+   "pos": {
+    "x": 7.9,
+    "y": 0,
+    "z": -17.9
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 43,
+   "suspiciousOf": "guard_parking",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 35,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "receptionist",
+     11.9,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_1",
+     3,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_lobby_b_2",
+     2.2,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_lobby_b_3",
+     0.9,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_lobby_b_4",
+     2.2,
+     "patrol",
+     0,
+     1
+    ]
+   ]
+  },
+  {
+   "play": 39.6,
+   "t": 39.6,
+   "clock": 39.6,
+   "pos": {
+    "x": 8.91,
+    "y": 0,
+    "z": -18.83
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 43,
+   "suspiciousOf": "guard_parking",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 35,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "guest_lobby_b_1",
+     4,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_lobby_b_2",
+     2.8,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_lobby_b_3",
+     2.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     3.5,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 40.6,
+   "t": 40.6,
+   "clock": 40.6,
+   "pos": {
+    "x": 8.91,
+    "y": 0,
+    "z": -18.83
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 43,
+   "suspiciousOf": "guard_parking",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 37,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "guest_lobby_b_1",
+     4,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_lobby_b_2",
+     2.8,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_lobby_b_3",
+     2.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     3.5,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 41.6,
+   "t": 41.6,
+   "clock": 41.6,
+   "pos": {
+    "x": 8.91,
+    "y": 0,
+    "z": -18.83
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 43,
+   "suspiciousOf": "guard_parking",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 35,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "guest_lobby_b_1",
+     4,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_lobby_b_2",
+     2.8,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_lobby_b_3",
+     2.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     3.5,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 42.6,
+   "t": 42.6,
+   "clock": 42.6,
+   "pos": {
+    "x": 8.91,
+    "y": 0,
+    "z": -18.83
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 43,
+   "suspiciousOf": "guard_parking",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 35,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "chat",
+     "life": "active"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "guest_lobby_b_1",
+     4,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_lobby_b_2",
+     2.8,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_lobby_b_3",
+     2.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     3.5,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 43.6,
+   "t": 43.6,
+   "clock": 43.6,
+   "pos": {
+    "x": 8.76,
+    "y": 0,
+    "z": -18.67
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 43,
+   "suspiciousOf": "guard_parking",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 34,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "",
+     "life": "dead"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "guest_lobby_b_1",
+     4.8,
+     "report",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_2",
+     3.8,
+     "flee",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_3",
+     2.9,
+     "report",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     4.2,
+     "report",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 44.6,
+   "t": 44.6,
+   "clock": 44.6,
+   "pos": {
+    "x": 5.09,
+    "y": 0,
+    "z": -18.83
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 36,
+   "suspiciousOf": "guard_parking",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 40,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "",
+     "life": "dead"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "bodyguard_captain",
+     11.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "receptionist",
+     7.2,
+     "report",
+     0,
+     1
+    ],
+    [
+     "guest_lobby_b_1",
+     8.8,
+     "report",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_2",
+     10.3,
+     "flee",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_3",
+     5,
+     "report",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     6.1,
+     "report",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 45.7,
+   "t": 45.7,
+   "clock": 45.7,
+   "pos": {
+    "x": 3.35,
+    "y": 0,
+    "z": -20.93
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 1,
+   "suspicion": 74,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 3,
+   "paused": false,
+   "map": false,
+   "fps": 45,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "",
+     "life": "dead"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "receptionist",
+     7.5,
+     "report",
+     0,
+     0
+    ],
+    [
+     "laundry_2",
+     11.9,
+     "report",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_3",
+     9.8,
+     "report",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     10.3,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 46.7,
+   "t": 46.7,
+   "clock": 46.7,
+   "pos": {
+    "x": 8.08,
+    "y": 0,
+    "z": -20.54
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 1,
+   "suspicion": 74,
+   "suspiciousOf": "bodyguard_1",
+   "watchers": 10,
+   "paused": false,
+   "map": false,
+   "fps": 42,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "",
+     "life": "dead"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "receptionist",
+     11.8,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_1",
+     11.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_3",
+     11.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_4",
+     11.1,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 47.7,
+   "t": 47.7,
+   "clock": 47.7,
+   "pos": {
+    "x": 12.87,
+    "y": 0,
+    "z": -20.23
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 1,
+   "suspicion": 64,
+   "suspiciousOf": "bodyguard_1",
+   "watchers": 10,
+   "paused": false,
+   "map": false,
+   "fps": 40,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "",
+     "life": "dead"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "wine_merchant",
+     11.5,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bartender",
+     11.2,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_1",
+     9.6,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 48.7,
+   "t": 48.7,
+   "clock": 48.7,
+   "pos": {
+    "x": 17.67,
+    "y": 0,
+    "z": -19.98
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 1,
+   "suspicion": 72,
+   "suspiciousOf": "guard_parking",
+   "watchers": 10,
+   "paused": false,
+   "map": false,
+   "fps": 39,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "",
+     "life": "dead"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "wine_merchant",
+     7.7,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bartender",
+     10,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guard_garden",
+     9.2,
+     "curious",
+     42,
+     1
+    ],
+    [
+     "waiter_1",
+     10.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_1",
+     10.7,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_1",
+     11.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_2",
+     10.6,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_3",
+     9.2,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_4",
+     9.5,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 49.7,
+   "t": 49.7,
+   "clock": 49.7,
+   "pos": {
+    "x": 19.54,
+    "y": 0,
+    "z": -19.88
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 1,
+   "suspicion": 72,
+   "suspiciousOf": "guard_parking",
+   "watchers": 8,
+   "paused": false,
+   "map": false,
+   "fps": 42,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "",
+     "life": "dead"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "wine_merchant",
+     6.6,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bartender",
+     10.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guard_garden",
+     7.5,
+     "curious",
+     39,
+     1
+    ],
+    [
+     "waiter_1",
+     9.9,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_1",
+     11.6,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_1",
+     10.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_2",
+     9.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_3",
+     8,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_4",
+     8.6,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 50.7,
+   "t": 50.7,
+   "clock": 50.7,
+   "pos": {
+    "x": 21.13,
+    "y": 0,
+    "z": -20.17
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 1,
+   "suspicion": 72,
+   "suspiciousOf": "guard_parking",
+   "watchers": 7,
+   "paused": false,
+   "map": false,
+   "fps": 43,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "",
+     "life": "dead"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "wine_merchant",
+     6.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bartender",
+     10.8,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guard_garden",
+     5.9,
+     "curious",
+     34,
+     1
+    ],
+    [
+     "waiter_1",
+     10.2,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_1",
+     9.7,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_2",
+     8.8,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_3",
+     7.6,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_4",
+     8.4,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 51.7,
+   "t": 51.7,
+   "clock": 51.7,
+   "pos": {
+    "x": 22.55,
+    "y": 0,
+    "z": -19.27
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 1,
+   "suspicion": 74,
+   "suspiciousOf": "security_chief",
+   "watchers": 11,
+   "paused": false,
+   "map": false,
+   "fps": 41,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "",
+     "life": "dead"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "wine_merchant",
+     5.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bartender",
+     10.6,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guard_garden",
+     5.2,
+     "patrol",
+     30,
+     1
+    ],
+    [
+     "waiter_1",
+     9.5,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_1",
+     8.5,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_bar_a_2",
+     7.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_3",
+     6.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_4",
+     7.3,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 52.7,
+   "t": 52.7,
+   "clock": 52.7,
+   "pos": {
+    "x": 24.94,
+    "y": 0,
+    "z": -17.98
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 1,
+   "suspicion": 73,
+   "suspiciousOf": "security_chief",
+   "watchers": 12,
+   "paused": false,
+   "map": false,
+   "fps": 40,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "",
+     "life": "dead"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "wine_merchant",
+     4.7,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bartender",
+     11,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guard_garden",
+     5.1,
+     "curious",
+     29,
+     0
+    ],
+    [
+     "waiter_1",
+     9.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_1",
+     7.1,
+     "patrol",
+     2,
+     1
+    ],
+    [
+     "guest_bar_a_2",
+     5.7,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_3",
+     5.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_4",
+     6.3,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 53.7,
+   "t": 53.7,
+   "clock": 53.7,
+   "pos": {
+    "x": 25.81,
+    "y": 0,
+    "z": -18.83
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 1,
+   "suspicion": 73,
+   "suspiciousOf": "security_chief",
+   "watchers": 10,
+   "paused": false,
+   "map": false,
+   "fps": 37,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "chat",
+     "life": "active"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "",
+     "life": "dead"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "wine_merchant",
+     5.9,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guard_garden",
+     4.1,
+     "patrol",
+     19,
+     0
+    ],
+    [
+     "waiter_1",
+     10.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_1",
+     8.1,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_bar_a_2",
+     6.5,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_3",
+     6.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_4",
+     7.4,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 54.8,
+   "t": 54.8,
+   "clock": 54.8,
+   "pos": {
+    "x": 25.81,
+    "y": 0,
+    "z": -18.83
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 1,
+   "suspicion": 73,
+   "suspiciousOf": "security_chief",
+   "watchers": 10,
+   "paused": false,
+   "map": false,
+   "fps": 37,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "",
+     "life": "dead"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "",
+     "life": "dead"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "work",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "guard_garden",
+     3.7,
+     "investigate",
+     71,
+     0
+    ],
+    [
+     "waiter_1",
+     10.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_1",
+     7.7,
+     "report",
+     0,
+     1
+    ],
+    [
+     "guest_bar_a_2",
+     6.9,
+     "flee",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_3",
+     6.5,
+     "flee",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_4",
+     7.8,
+     "flee",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 55.8,
+   "t": 55.8,
+   "clock": 55.8,
+   "pos": {
+    "x": 23.98,
+    "y": 0,
+    "z": -16.57
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 2,
+   "suspicion": 70,
+   "suspiciousOf": "monitor_watcher",
+   "watchers": 8,
+   "paused": false,
+   "map": false,
+   "fps": 34,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "",
+     "life": "dead"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "",
+     "life": "dead"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "hide",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "head_waiter",
+     11.7,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bartender",
+     9.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guard_garden",
+     4.5,
+     "investigate",
+     70,
+     0
+    ],
+    [
+     "waiter_1",
+     7.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_1",
+     1.7,
+     "report",
+     0,
+     1
+    ],
+    [
+     "guest_bar_a_2",
+     8,
+     "flee",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_3",
+     7.3,
+     "flee",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_4",
+     8.6,
+     "flee",
+     0,
+     0
+    ],
+    [
+     "guest_bar_b_4",
+     11,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 56.8,
+   "t": 56.8,
+   "clock": 56.8,
+   "pos": {
+    "x": 22.79,
+    "y": 0,
+    "z": -12.41
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 2,
+   "suspicion": 82,
+   "suspiciousOf": "guard_garden",
+   "watchers": 8,
+   "paused": false,
+   "map": false,
+   "fps": 42,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "",
+     "life": "dead"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "",
+     "life": "dead"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "hide",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "head_waiter",
+     8.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bartender",
+     5.9,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guard_garden",
+     7.3,
+     "investigate",
+     82,
+     1
+    ],
+    [
+     "waiter_1",
+     3.3,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_1",
+     5.2,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_2",
+     8.3,
+     "flee",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_3",
+     7.6,
+     "flee",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_4",
+     8.9,
+     "flee",
+     0,
+     0
+    ],
+    [
+     "guest_bar_b_4",
+     7.4,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 57.8,
+   "t": 57.8,
+   "clock": 57.8,
+   "pos": {
+    "x": 22.42,
+    "y": 0,
+    "z": -7.62
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 2,
+   "suspicion": 97,
+   "suspiciousOf": "guard_garden",
+   "watchers": 10,
+   "paused": false,
+   "map": false,
+   "fps": 40,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "",
+     "life": "dead"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "",
+     "life": "dead"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "hide",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "head_waiter",
+     4.4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bartender",
+     5.6,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guard_garden",
+     10.7,
+     "investigate",
+     97,
+     1
+    ],
+    [
+     "waiter_1",
+     3,
+     "patrol",
+     9,
+     1
+    ],
+    [
+     "waiter_3",
+     10,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_1",
+     8.6,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_bar_a_2",
+     7.9,
+     "flee",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_3",
+     7.4,
+     "flee",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_4",
+     8.5,
+     "flee",
+     0,
+     0
+    ],
+    [
+     "guest_bar_b_4",
+     4,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 58.8,
+   "t": 58.8,
+   "clock": 58.8,
+   "pos": {
+    "x": 22.08,
+    "y": 0,
+    "z": -4.77
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [
+    "guard"
+   ],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 2,
+   "suspicion": 100,
+   "suspiciousOf": "bartender",
+   "watchers": 12,
+   "paused": false,
+   "map": false,
+   "fps": 42,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "",
+     "life": "dead"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "",
+     "life": "dead"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "hide",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "head_waiter",
+     3.9,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bartender",
+     7,
+     "report",
+     100,
+     1
+    ],
+    [
+     "guard_garden",
+     10.3,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "waiter_1",
+     5.4,
+     "report",
+     100,
+     1
+    ],
+    [
+     "waiter_3",
+     8.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_1",
+     10.2,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_bar_a_2",
+     9.4,
+     "flee",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_3",
+     8.8,
+     "flee",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_4",
+     10,
+     "flee",
+     0,
+     0
+    ],
+    [
+     "guest_bar_b_4",
+     4,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_stroll_5",
+     9.7,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "play": 59.8,
+   "t": 59.8,
+   "clock": 59.8,
+   "pos": {
+    "x": 21.88,
+    "y": 0,
+    "z": -3.13
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [
+    "guard"
+   ],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 2,
+   "suspicion": 100,
+   "suspiciousOf": "bartender",
+   "watchers": 13,
+   "paused": false,
+   "map": false,
+   "fps": 43,
+   "targets": {
+    "wine_merchant": {
+     "x": 22.5,
+     "y": 0,
+     "z": -14,
+     "do": "",
+     "life": "dead"
+    },
+    "lawyer": {
+     "x": -2.4,
+     "y": 0,
+     "z": -10.9,
+     "do": "",
+     "life": "dead"
+    },
+    "investor": {
+     "x": -28,
+     "y": 7,
+     "z": -15.5,
+     "do": "hide",
+     "life": "active"
+    }
+   },
+   "near": [
+    [
+     "head_waiter",
+     4.5,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "bartender",
+     8.2,
+     "report",
+     100,
+     1
+    ],
+    [
+     "guard_garden",
+     7.8,
+     "alert",
+     100,
+     1
+    ],
+    [
+     "waiter_1",
+     7,
+     "report",
+     100,
+     1
+    ],
+    [
+     "waiter_3",
+     7.8,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_lobby_b_2",
+     11.9,
+     "flee",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_1",
+     10.6,
+     "patrol",
+     0,
+     1
+    ],
+    [
+     "guest_bar_a_2",
+     8,
+     "flee",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_3",
+     7.6,
+     "flee",
+     0,
+     0
+    ],
+    [
+     "guest_bar_a_4",
+     9.1,
+     "flee",
+     0,
+     0
+    ],
+    [
+     "guest_bar_b_4",
+     4.8,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_terrace_a_3",
+     11.1,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_stroll_4",
+     11.8,
+     "patrol",
+     0,
+     0
+    ],
+    [
+     "guest_stroll_5",
+     7.5,
+     "patrol",
+     0,
+     0
+    ]
+   ]
+  }
+ ],
+ "end": null
+}

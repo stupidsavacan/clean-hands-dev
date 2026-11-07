@@ -1,0 +1,106 @@
+{
+ "wine_barrel": {
+  "object": "barrel-cellar-3",
+  "method": "poison",
+  "victim": "wine_merchant",
+  "hint": "ワインの色が少し濁る"
+ },
+ "push": {
+  "method": "fall",
+  "hint": "縁で背後から突き落とす"
+ },
+ "pool_light": {
+  "object": "KILL_pool_light",
+  "arm": {
+   "use": "wrench",
+   "time": 3
+  },
+  "fire": {
+   "use": "hand",
+   "time": 1.5
+  },
+  "area": "pool_light",
+  "method": "electrocution",
+  "hint": "配電盤から火花が散る"
+ },
+ "yacht_crane": {
+  "object": "KILL_yacht_crane_pin",
+  "arm": {
+   "use": "hand",
+   "time": 5
+  },
+  "fire": {
+   "object": "KILL_yacht_crane_panel",
+   "time": 1
+  },
+  "area": "yacht_crane",
+  "method": "falling_object",
+  "hint": "吊った荷が風で揺れる"
+ },
+ "chandelier": {
+  "object": "KILL_chandelier",
+  "arm": {
+   "use": "wrench",
+   "time": 4
+  },
+  "fire": {
+   "use": "hand",
+   "time": 1
+  },
+  "area": "chandelier",
+  "method": "chandelier",
+  "hint": "シャンデリアがきしむ"
+ },
+ "gas_leak": {
+  "object": "KILL_gas_pipe",
+  "arm": {
+   "use": "wrench",
+   "time": 4
+  },
+  "fire": {
+   "use": "stove",
+   "delay": 3
+  },
+  "area": "gas_leak",
+  "method": "gas_explosion",
+  "hint": "ガスの匂い"
+ },
+ "balcony_rail": {
+  "object": "KILL_balcony_rail",
+  "arm": {
+   "use": "keycard",
+   "time": 4
+  },
+  "fire": {
+   "event": "investor_phone"
+  },
+  "method": "balcony_rail",
+  "hint": "手すりがぐらつく"
+ },
+ "boat_fuel": {
+  "object": "KILL_evac_boat",
+  "arm": {
+   "use": "hand",
+   "time": 4
+  },
+  "fire": {
+   "event": "evacuate"
+  },
+  "area": "boat_fuel",
+  "method": "boat_explosion",
+  "hint": "燃料の色が違う"
+ },
+ "fireworks": {
+  "object": "KILL_fireworks",
+  "arm": {
+   "use": "hand",
+   "time": 3
+  },
+  "fire": {
+   "time": 1080
+  },
+  "area": "fireworks",
+  "method": "fireworks",
+  "hint": "筒が横を向いている"
+ }
+}

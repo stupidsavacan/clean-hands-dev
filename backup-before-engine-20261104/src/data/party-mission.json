@@ -1,0 +1,53 @@
+{
+ "_note": "5.7からターゲット3人。starts は S1 だけ開放（他は熟練度でM6）。",
+ "title": "夜会の主人",
+ "targets": [
+  "host"
+ ],
+ "briefing": [
+  {
+   "id": "host",
+   "label": "館の主人",
+   "text": "舞踏室と庭、書斎、主寝室を巡る。3つのチャンスから計画を選び、正門前から脱出する。"
+  }
+ ],
+ "tools": [
+  {
+   "id": "poison_lethal",
+   "label": "致死毒",
+   "note": "1回分。身体検査で見つかる"
+  },
+  {
+   "id": "coin",
+   "label": "コイン",
+   "note": "3枚。投げて注意をそらす"
+  }
+ ],
+ "toolSlots": 2,
+ "fixedTools": [
+  {
+   "id": "wire",
+   "label": "ワイヤー",
+   "note": "常に携行。身体検査で見つからない"
+  }
+ ],
+ "pistols": [
+  {
+   "id": "",
+   "label": "持ち込まない"
+  },
+  {
+   "id": "pistol_silenced",
+   "label": "消音ピストル",
+   "note": "身体検査で見つかる。撃つのは5.5から"
+  }
+ ],
+ "starts": [
+  {
+   "id": "S1",
+   "label": "正門前",
+   "open": true,
+   "note": "検問の外から開始"
+  }
+ ]
+}

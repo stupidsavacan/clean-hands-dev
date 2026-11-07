@@ -1,0 +1,87 @@
+{
+ "drop": {
+  "times": [720, 1440],
+  "escortPost": {"x": 28.2, "y": 0.28, "z": 31.6},
+  "leadSeconds": 100,
+  "graceSeconds": 10,
+  "sceneSeconds": 12,
+  "route": [
+   {"x": 13, "y": 3.5, "z": 23.6},
+   {"x": 13, "y": 0, "z": 15.3},
+   {"x": 25.3, "y": 0.28, "z": 32.55}
+  ],
+  "heading": 3.141592653589793,
+  "blackout": {
+   "seconds": 8,
+   "sightScale": 0.45,
+   "zone": "C",
+   "pointLight": 0,
+   "emitters": ["house-light", "dj-front", "dance-stripe"]
+  }
+ },
+ "meet": {
+  "time": 1080,
+  "callSeconds": 60,
+  "dockLeadSeconds": 3,
+  "staySeconds": 45,
+  "graceSeconds": 12,
+  "blockAlert": 2,
+  "callerDisguises": ["manager", "guard"],
+  "dockWorker": "cleaner",
+  "dockWorkerWaitPlace": "cleaner_0",
+  "kitchen": {"x": 5.35, "y": 0, "z": 33.1},
+  "escortPost": {"x": 5.15, "y": 0, "z": 30.7},
+  "hold": {"x": 6, "y": 0, "z": 35.15},
+  "dock": {"x": 10, "y": 0, "z": 39},
+  "heading": 0
+ },
+ "acts": [
+  {"id": "drop_wires", "label": "ドロップの配線を外す", "at": {"x": 32.3, "y": 0, "z": 31.95}, "seconds": 3},
+  {"id": "drop_lights", "label": "ドロップで照明を落とす", "at": {"x": 33.25, "y": 0, "z": 33.15}, "seconds": 2},
+  {"id": "meet_note", "label": "机のメモを読む", "at": {"x": 15.45, "y": 0, "z": 30.9}, "seconds": 0.5},
+  {"id": "meet_call", "label": "内線で「相手が早く着いた」と伝える", "at": {"x": 15.45, "y": 0, "z": 32.2}, "seconds": 2}
+ ],
+ "freezerApproach": {"x": -1.05, "z": 0},
+ "vip": {
+  "_note": "HITMANの要人警備（2016年版の講演 Bodyguards and VIPs と三部作の Target Lockdown）。enabled を false にすると、その仕組みだけ止まる。",
+  "lockdown": {
+   "_note": "要人の避難。投資家が近くの銃声・群衆の悲鳴・倒れた人に気づくと、近くの警備（最大guards人）が囲み、安全な部屋へ連れて行く。holdSeconds守ったあと元の予定へ戻る。",
+   "enabled": true,
+   "guards": 4,
+   "guardRadius": 30,
+   "gunshotSmall": 10,
+   "gunshotLoud": 30,
+   "screamRadius": 14,
+   "holdSeconds": 90,
+   "rooms": [
+    {"id": "office", "label": "事務所", "at": {"x": 16.4, "y": 0, "z": 32.6},
+     "posts": [{"x": 16, "y": 0, "z": 35.1}, {"x": 17.3, "y": 0, "z": 33.4}, {"x": 20, "y": 0, "z": 35.1}, {"x": 12.5, "y": 0, "z": 35.1}]},
+    {"id": "vip_back", "label": "VIP席の奥", "at": {"x": 5.4, "y": 3.5, "z": 15.6},
+     "posts": [{"x": 7.2, "y": 3.5, "z": 16.4}, {"x": 5.6, "y": 3.5, "z": 17.8}, {"x": 8.6, "y": 3.5, "z": 18.4}, {"x": 10.6, "y": 3.5, "z": 17}]}
+   ]
+  },
+  "escortCheck": {
+   "_note": "要人の確認。投資家が倒れて seconds 秒たつと、いちばん近い警備（護衛が先）が最後の位置を見に行く。体が見つからなければ widenSeconds 後に widenGuards 人が周りを探す。",
+   "enabled": true,
+   "seconds": 40,
+   "widenSeconds": 30,
+   "widenGuards": 2,
+   "widenRadius": 6
+  },
+  "escape": {
+   "_note": "【未検証・false】afterLockdowns 回避難したあと、次の騒ぎで投資家が搬入口の車へ逃げる。着いたら失敗（target_escaped）。",
+   "enabled": false,
+   "afterLockdowns": 2,
+   "exit": {"x": 13, "y": 0, "z": 38.2}
+  },
+  "searchEnforcers": {
+   "_note": "【未検証・false】殺しの死体が見つかったら seconds 秒の間、警備は全員どの服でも見破る（三部作の Searching）。",
+   "enabled": false,
+   "seconds": 120
+  }
+ },
+ "exits": [
+  {"id": "E1", "label": "正門前", "x": 22, "z": 1.1, "floor": 0, "radius": 1},
+  {"id": "E2", "label": "西の搬入路", "x": 1.25, "z": 40.7, "floor": 0, "radius": 1}
+ ]
+}

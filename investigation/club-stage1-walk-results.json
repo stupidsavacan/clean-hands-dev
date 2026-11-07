@@ -1,0 +1,171 @@
+{
+  "metres": 621.992808739512,
+  "results": [
+    {
+      "route": "lobby, toilets behind the screen",
+      "passed": true,
+      "position": {
+        "x": 22.01909075302781,
+        "z": 9.009818101554988,
+        "y": 0
+      },
+      "walkedMetres": 52.69997632099033
+    },
+    {
+      "route": "cloak back room",
+      "passed": true,
+      "position": {
+        "x": 21.996696540462505,
+        "z": 8.999615411082186,
+        "y": 0
+      },
+      "walkedMetres": 76.04997632098912
+    },
+    {
+      "route": "stage by its corner steps",
+      "passed": true,
+      "position": {
+        "x": 21.99150145889976,
+        "z": 9.012798142283193,
+        "y": 0
+      },
+      "walkedMetres": 133.64022583165155
+    },
+    {
+      "route": "smoking yard, alley, kitchen and dock loop",
+      "passed": true,
+      "position": {
+        "x": 21.977015163214,
+        "z": 9.002293236211544,
+        "y": 0
+      },
+      "walkedMetres": 250.63037863738148
+    },
+    {
+      "route": "hall, bar, store, corridor, equipment, stage and office",
+      "passed": true,
+      "position": {
+        "x": 34.97490052542954,
+        "z": 33.389960210171814,
+        "y": 0
+      },
+      "walkedMetres": 352.0172054264863
+    },
+    {
+      "route": "back to the hall",
+      "passed": true,
+      "position": {
+        "x": 23.991999710460252,
+        "z": 19.991987305534668,
+        "y": 0
+      },
+      "walkedMetres": 435.90571556941717
+    },
+    {
+      "route": "lounge and front stairs to VIP, service stairs down",
+      "passed": true,
+      "position": {
+        "x": 34.97493138984591,
+        "z": 33.389974925831105,
+        "y": 0
+      },
+      "walkedMetres": 531.1954136110521
+    },
+    {
+      "route": "to the ladder",
+      "passed": true,
+      "position": {
+        "x": 35.983928874746944,
+        "z": 32.021792161920054,
+        "y": 0
+      },
+      "walkedMetres": 532.8954136110506
+    },
+    {
+      "route": "ladder up",
+      "passed": true,
+      "position": {
+        "x": 36,
+        "y": 3.5,
+        "z": 30.8
+      }
+    },
+    {
+      "route": "catwalk to the VIP staff door, down the front stairs",
+      "passed": true,
+      "position": {
+        "x": 23.971172727325868,
+        "y": 0,
+        "z": 19.981982990239093
+      },
+      "walkedMetres": 584.4454136110037
+    },
+    {
+      "route": "second ascent",
+      "passed": true,
+      "position": {
+        "x": 35.983924607408575,
+        "y": 0,
+        "z": 32.02179706127966
+      },
+      "walkedMetres": 621.992808739512
+    },
+    {
+      "route": "ladder up",
+      "passed": true,
+      "position": {
+        "x": 36,
+        "y": 3.5,
+        "z": 30.8
+      }
+    },
+    {
+      "route": "ladder down",
+      "passed": true,
+      "position": {
+        "x": 36,
+        "y": 0,
+        "z": 32
+      }
+    },
+    {
+      "cancel": 0.25,
+      "reverse": false,
+      "passed": true
+    },
+    {
+      "cancel": 0.5,
+      "reverse": false,
+      "passed": true
+    },
+    {
+      "cancel": 0.75,
+      "reverse": false,
+      "passed": true
+    },
+    {
+      "route": "ladder up",
+      "passed": true,
+      "position": {
+        "x": 36,
+        "y": 3.5,
+        "z": 30.8
+      }
+    },
+    {
+      "cancel": 0.25,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "cancel": 0.5,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "cancel": 0.75,
+      "reverse": true,
+      "passed": true
+    }
+  ]
+}

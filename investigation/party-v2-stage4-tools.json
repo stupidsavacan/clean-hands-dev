@@ -1,0 +1,126 @@
+{
+  "errors": [],
+  "checks": [
+    {
+      "name": "tool-held",
+      "held": "wrench",
+      "items": [
+        {
+          "key": 2,
+          "item": "poison_lethal",
+          "pos": {
+            "x": 12,
+            "y": -3.5,
+            "z": 27
+          }
+        }
+      ]
+    },
+    {
+      "name": "tool-dropped",
+      "held": "",
+      "items": [
+        {
+          "key": 2,
+          "item": "poison_lethal",
+          "pos": {
+            "x": 12,
+            "y": -3.5,
+            "z": 27
+          }
+        },
+        {
+          "key": 3,
+          "item": "wrench",
+          "pos": {
+            "x": 4,
+            "y": 0,
+            "z": 39
+          }
+        }
+      ]
+    },
+    {
+      "name": "tool-restart",
+      "held": "",
+      "items": [
+        {
+          "key": 1,
+          "item": "wrench",
+          "pos": {
+            "x": 4,
+            "y": 0,
+            "z": 39
+          }
+        },
+        {
+          "key": 2,
+          "item": "poison_lethal",
+          "pos": {
+            "x": 12,
+            "y": -3.5,
+            "z": 27
+          }
+        }
+      ]
+    },
+    {
+      "name": "poison-vial",
+      "held": "",
+      "items": [
+        {
+          "key": 1,
+          "item": "wrench",
+          "pos": {
+            "x": 4,
+            "y": 0,
+            "z": 39
+          }
+        },
+        {
+          "key": 2,
+          "item": "poison_lethal",
+          "pos": {
+            "x": 12,
+            "y": -3.5,
+            "z": 27
+          }
+        }
+      ]
+    },
+    {
+      "name": "chandelier-fallen",
+      "held": "wrench",
+      "items": [
+        {
+          "key": 1,
+          "item": "wrench",
+          "pos": {
+            "x": 4,
+            "y": 0,
+            "z": 39
+          }
+        },
+        {
+          "key": 2,
+          "item": "poison_lethal",
+          "pos": {
+            "x": 12,
+            "y": -3.5,
+            "z": 27
+          }
+        }
+      ]
+    },
+    {
+      "chandelier": {
+        "attached": true,
+        "position": {
+          "x": 25,
+          "y": 0.15,
+          "z": 33
+        }
+      }
+    }
+  ]
+}

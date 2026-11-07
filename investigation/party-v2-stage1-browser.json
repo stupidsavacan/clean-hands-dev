@@ -1,0 +1,1225 @@
+{
+  "results": [
+    {
+      "id": "X1",
+      "reverse": false,
+      "fraction": 0.25,
+      "atRelease": {
+        "x": 1,
+        "y": 0,
+        "z": 4
+      },
+      "end": {
+        "x": 1,
+        "y": 0,
+        "z": 4
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X1",
+      "reverse": false,
+      "fraction": 0.5,
+      "atRelease": {
+        "x": 1,
+        "y": 0,
+        "z": 4
+      },
+      "end": {
+        "x": 1,
+        "y": 0,
+        "z": 4
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X1",
+      "reverse": false,
+      "fraction": 0.75,
+      "atRelease": {
+        "x": 1,
+        "y": 0,
+        "z": 4
+      },
+      "end": {
+        "x": 1,
+        "y": 0,
+        "z": 4
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X1",
+      "reverse": false,
+      "fraction": 1,
+      "atRelease": {
+        "x": 1,
+        "y": 0,
+        "z": 9
+      },
+      "end": {
+        "x": 1,
+        "y": 0,
+        "z": 9
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X1",
+      "reverse": true,
+      "fraction": 0.25,
+      "atRelease": {
+        "x": 1,
+        "y": 0,
+        "z": 9
+      },
+      "end": {
+        "x": 1,
+        "y": 0,
+        "z": 9
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X1",
+      "reverse": true,
+      "fraction": 0.5,
+      "atRelease": {
+        "x": 1,
+        "y": 0,
+        "z": 9
+      },
+      "end": {
+        "x": 1,
+        "y": 0,
+        "z": 9
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X1",
+      "reverse": true,
+      "fraction": 0.75,
+      "atRelease": {
+        "x": 1,
+        "y": 0,
+        "z": 9
+      },
+      "end": {
+        "x": 1,
+        "y": 0,
+        "z": 9
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X1",
+      "reverse": true,
+      "fraction": 1,
+      "atRelease": {
+        "x": 1,
+        "y": 0,
+        "z": 4
+      },
+      "end": {
+        "x": 1,
+        "y": 0,
+        "z": 4
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X2",
+      "reverse": false,
+      "fraction": 0.25,
+      "atRelease": {
+        "x": 8,
+        "y": 0,
+        "z": 32
+      },
+      "end": {
+        "x": 8,
+        "y": 0,
+        "z": 32
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X2",
+      "reverse": false,
+      "fraction": 0.5,
+      "atRelease": {
+        "x": 8,
+        "y": 0,
+        "z": 32
+      },
+      "end": {
+        "x": 8,
+        "y": 0,
+        "z": 32
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X2",
+      "reverse": false,
+      "fraction": 0.75,
+      "atRelease": {
+        "x": 8,
+        "y": 0,
+        "z": 32
+      },
+      "end": {
+        "x": 8,
+        "y": 0,
+        "z": 32
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X2",
+      "reverse": false,
+      "fraction": 1,
+      "atRelease": {
+        "x": 22,
+        "y": -3.5,
+        "z": 34
+      },
+      "end": {
+        "x": 22,
+        "y": -3.5,
+        "z": 34
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X2",
+      "reverse": true,
+      "fraction": 0.25,
+      "atRelease": {
+        "x": 22,
+        "y": -3.5,
+        "z": 34
+      },
+      "end": {
+        "x": 22,
+        "y": -3.5,
+        "z": 34
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X2",
+      "reverse": true,
+      "fraction": 0.5,
+      "atRelease": {
+        "x": 22,
+        "y": -3.5,
+        "z": 34
+      },
+      "end": {
+        "x": 22,
+        "y": -3.5,
+        "z": 34
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X2",
+      "reverse": true,
+      "fraction": 0.75,
+      "atRelease": {
+        "x": 22,
+        "y": -3.5,
+        "z": 34
+      },
+      "end": {
+        "x": 22,
+        "y": -3.5,
+        "z": 34
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X2",
+      "reverse": true,
+      "fraction": 1,
+      "atRelease": {
+        "x": 8,
+        "y": 0,
+        "z": 32
+      },
+      "end": {
+        "x": 8,
+        "y": 0,
+        "z": 32
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X3",
+      "reverse": false,
+      "fraction": 0.25,
+      "atRelease": {
+        "x": 48,
+        "y": 0,
+        "z": 39
+      },
+      "end": {
+        "x": 48,
+        "y": 0,
+        "z": 39
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X3",
+      "reverse": false,
+      "fraction": 0.5,
+      "atRelease": {
+        "x": 48,
+        "y": 0,
+        "z": 39
+      },
+      "end": {
+        "x": 48,
+        "y": 0,
+        "z": 39
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X3",
+      "reverse": false,
+      "fraction": 0.75,
+      "atRelease": {
+        "x": 48,
+        "y": 0,
+        "z": 39
+      },
+      "end": {
+        "x": 48,
+        "y": 0,
+        "z": 39
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X3",
+      "reverse": false,
+      "fraction": 1,
+      "atRelease": {
+        "x": 48,
+        "y": 3.5,
+        "z": 27
+      },
+      "end": {
+        "x": 48,
+        "y": 3.5,
+        "z": 27
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X3",
+      "reverse": true,
+      "fraction": 0.25,
+      "atRelease": {
+        "x": 48,
+        "y": 3.5,
+        "z": 27
+      },
+      "end": {
+        "x": 48,
+        "y": 3.5,
+        "z": 27
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X3",
+      "reverse": true,
+      "fraction": 0.5,
+      "atRelease": {
+        "x": 48,
+        "y": 3.5,
+        "z": 27
+      },
+      "end": {
+        "x": 48,
+        "y": 3.5,
+        "z": 27
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X3",
+      "reverse": true,
+      "fraction": 0.75,
+      "atRelease": {
+        "x": 48,
+        "y": 3.5,
+        "z": 27
+      },
+      "end": {
+        "x": 48,
+        "y": 3.5,
+        "z": 27
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X3",
+      "reverse": true,
+      "fraction": 1,
+      "atRelease": {
+        "x": 48,
+        "y": 0,
+        "z": 39
+      },
+      "end": {
+        "x": 48,
+        "y": 0,
+        "z": 39
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X4",
+      "reverse": false,
+      "fraction": 0.25,
+      "atRelease": {
+        "x": 18.5,
+        "y": 0,
+        "z": 37
+      },
+      "end": {
+        "x": 18.5,
+        "y": 0,
+        "z": 37
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X4",
+      "reverse": false,
+      "fraction": 0.5,
+      "atRelease": {
+        "x": 18.5,
+        "y": 0,
+        "z": 37
+      },
+      "end": {
+        "x": 18.5,
+        "y": 0,
+        "z": 37
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X4",
+      "reverse": false,
+      "fraction": 0.75,
+      "atRelease": {
+        "x": 18.5,
+        "y": 0,
+        "z": 37
+      },
+      "end": {
+        "x": 18.5,
+        "y": 0,
+        "z": 37
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X4",
+      "reverse": false,
+      "fraction": 1,
+      "atRelease": {
+        "x": 18.5,
+        "y": 3.5,
+        "z": 35
+      },
+      "end": {
+        "x": 18.5,
+        "y": 3.5,
+        "z": 35
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X4",
+      "reverse": true,
+      "fraction": 0.25,
+      "atRelease": {
+        "x": 18.5,
+        "y": 3.5,
+        "z": 35
+      },
+      "end": {
+        "x": 18.5,
+        "y": 3.5,
+        "z": 35
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X4",
+      "reverse": true,
+      "fraction": 0.5,
+      "atRelease": {
+        "x": 18.5,
+        "y": 3.5,
+        "z": 35
+      },
+      "end": {
+        "x": 18.5,
+        "y": 3.5,
+        "z": 35
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X4",
+      "reverse": true,
+      "fraction": 0.75,
+      "atRelease": {
+        "x": 18.5,
+        "y": 3.5,
+        "z": 35
+      },
+      "end": {
+        "x": 18.5,
+        "y": 3.5,
+        "z": 35
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X4",
+      "reverse": true,
+      "fraction": 1,
+      "atRelease": {
+        "x": 18.5,
+        "y": 0,
+        "z": 37
+      },
+      "end": {
+        "x": 18.5,
+        "y": 0,
+        "z": 37
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X5",
+      "reverse": false,
+      "fraction": 0.25,
+      "atRelease": {
+        "x": 25,
+        "y": 3.5,
+        "z": 27
+      },
+      "end": {
+        "x": 25,
+        "y": 3.5,
+        "z": 27
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X5",
+      "reverse": false,
+      "fraction": 0.5,
+      "atRelease": {
+        "x": 25,
+        "y": 3.5,
+        "z": 27
+      },
+      "end": {
+        "x": 25,
+        "y": 3.5,
+        "z": 27
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X5",
+      "reverse": false,
+      "fraction": 0.75,
+      "atRelease": {
+        "x": 25,
+        "y": 3.5,
+        "z": 27
+      },
+      "end": {
+        "x": 25,
+        "y": 3.5,
+        "z": 27
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X5",
+      "reverse": false,
+      "fraction": 1,
+      "atRelease": {
+        "x": 25,
+        "y": 3.5,
+        "z": 24
+      },
+      "end": {
+        "x": 25,
+        "y": 3.5,
+        "z": 24
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X5",
+      "reverse": true,
+      "fraction": 0.25,
+      "atRelease": {
+        "x": 25,
+        "y": 3.5,
+        "z": 24
+      },
+      "end": {
+        "x": 25,
+        "y": 3.5,
+        "z": 24
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X5",
+      "reverse": true,
+      "fraction": 0.5,
+      "atRelease": {
+        "x": 25,
+        "y": 3.5,
+        "z": 24
+      },
+      "end": {
+        "x": 25,
+        "y": 3.5,
+        "z": 24
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X5",
+      "reverse": true,
+      "fraction": 0.75,
+      "atRelease": {
+        "x": 25,
+        "y": 3.5,
+        "z": 24
+      },
+      "end": {
+        "x": 25,
+        "y": 3.5,
+        "z": 24
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X5",
+      "reverse": true,
+      "fraction": 1,
+      "atRelease": {
+        "x": 25,
+        "y": 3.5,
+        "z": 27
+      },
+      "end": {
+        "x": 25,
+        "y": 3.5,
+        "z": 27
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X6",
+      "reverse": false,
+      "fraction": 0.25,
+      "atRelease": {
+        "x": 35,
+        "y": 3.5,
+        "z": 27
+      },
+      "end": {
+        "x": 35,
+        "y": 3.5,
+        "z": 27
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X6",
+      "reverse": false,
+      "fraction": 0.5,
+      "atRelease": {
+        "x": 35,
+        "y": 3.5,
+        "z": 27
+      },
+      "end": {
+        "x": 35,
+        "y": 3.5,
+        "z": 27
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X6",
+      "reverse": false,
+      "fraction": 0.75,
+      "atRelease": {
+        "x": 35,
+        "y": 3.5,
+        "z": 27
+      },
+      "end": {
+        "x": 35,
+        "y": 3.5,
+        "z": 27
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X6",
+      "reverse": false,
+      "fraction": 1,
+      "atRelease": {
+        "x": 35,
+        "y": 3.5,
+        "z": 24
+      },
+      "end": {
+        "x": 35,
+        "y": 3.5,
+        "z": 24
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X6",
+      "reverse": true,
+      "fraction": 0.25,
+      "atRelease": {
+        "x": 35,
+        "y": 3.5,
+        "z": 24
+      },
+      "end": {
+        "x": 35,
+        "y": 3.5,
+        "z": 24
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X6",
+      "reverse": true,
+      "fraction": 0.5,
+      "atRelease": {
+        "x": 35,
+        "y": 3.5,
+        "z": 24
+      },
+      "end": {
+        "x": 35,
+        "y": 3.5,
+        "z": 24
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X6",
+      "reverse": true,
+      "fraction": 0.75,
+      "atRelease": {
+        "x": 35,
+        "y": 3.5,
+        "z": 24
+      },
+      "end": {
+        "x": 35,
+        "y": 3.5,
+        "z": 24
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X6",
+      "reverse": true,
+      "fraction": 1,
+      "atRelease": {
+        "x": 35,
+        "y": 3.5,
+        "z": 27
+      },
+      "end": {
+        "x": 35,
+        "y": 3.5,
+        "z": 27
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X7",
+      "reverse": false,
+      "fraction": 0.25,
+      "atRelease": {
+        "x": 45,
+        "y": 3.5,
+        "z": 27
+      },
+      "end": {
+        "x": 45,
+        "y": 3.5,
+        "z": 27
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X7",
+      "reverse": false,
+      "fraction": 0.5,
+      "atRelease": {
+        "x": 45,
+        "y": 3.5,
+        "z": 27
+      },
+      "end": {
+        "x": 45,
+        "y": 3.5,
+        "z": 27
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X7",
+      "reverse": false,
+      "fraction": 0.75,
+      "atRelease": {
+        "x": 45,
+        "y": 3.5,
+        "z": 27
+      },
+      "end": {
+        "x": 45,
+        "y": 3.5,
+        "z": 27
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X7",
+      "reverse": false,
+      "fraction": 1,
+      "atRelease": {
+        "x": 45,
+        "y": 3.5,
+        "z": 24
+      },
+      "end": {
+        "x": 45,
+        "y": 3.5,
+        "z": 24
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X7",
+      "reverse": true,
+      "fraction": 0.25,
+      "atRelease": {
+        "x": 45,
+        "y": 3.5,
+        "z": 24
+      },
+      "end": {
+        "x": 45,
+        "y": 3.5,
+        "z": 24
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X7",
+      "reverse": true,
+      "fraction": 0.5,
+      "atRelease": {
+        "x": 45,
+        "y": 3.5,
+        "z": 24
+      },
+      "end": {
+        "x": 45,
+        "y": 3.5,
+        "z": 24
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X7",
+      "reverse": true,
+      "fraction": 0.75,
+      "atRelease": {
+        "x": 45,
+        "y": 3.5,
+        "z": 24
+      },
+      "end": {
+        "x": 45,
+        "y": 3.5,
+        "z": 24
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    },
+    {
+      "id": "X7",
+      "reverse": true,
+      "fraction": 1,
+      "atRelease": {
+        "x": 45,
+        "y": 3.5,
+        "z": 27
+      },
+      "end": {
+        "x": 45,
+        "y": 3.5,
+        "z": 27
+      },
+      "error": 0,
+      "drift": 0,
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "views": [
+    [
+      "V01",
+      [
+        25,
+        1.7,
+        2
+      ],
+      [
+        25,
+        1.3,
+        10
+      ]
+    ],
+    [
+      "V02",
+      [
+        3,
+        1.7,
+        14
+      ],
+      [
+        3,
+        1.2,
+        6
+      ]
+    ],
+    [
+      "V03",
+      [
+        15,
+        1.7,
+        10
+      ],
+      [
+        24,
+        4.6,
+        10
+      ]
+    ],
+    [
+      "V04",
+      [
+        25,
+        5.2,
+        10
+      ],
+      [
+        16,
+        1,
+        10
+      ]
+    ],
+    [
+      "V05",
+      [
+        36,
+        1.7,
+        8
+      ],
+      [
+        44,
+        4.6,
+        8
+      ]
+    ],
+    [
+      "V06",
+      [
+        14,
+        -1.8,
+        17
+      ],
+      [
+        14,
+        1,
+        27
+      ]
+    ],
+    [
+      "V07",
+      [
+        12,
+        -1.8,
+        31
+      ],
+      [
+        12,
+        1,
+        39
+      ]
+    ],
+    [
+      "V08",
+      [
+        16,
+        1.7,
+        31
+      ],
+      [
+        16,
+        4.8,
+        39
+      ]
+    ],
+    [
+      "V09",
+      [
+        25,
+        1.7,
+        18
+      ],
+      [
+        25,
+        1.2,
+        34
+      ]
+    ],
+    [
+      "V10",
+      [
+        19,
+        5.2,
+        32
+      ],
+      [
+        25,
+        1.2,
+        33
+      ]
+    ],
+    [
+      "V11",
+      [
+        49,
+        1.7,
+        40
+      ],
+      [
+        48,
+        4.5,
+        27
+      ]
+    ],
+    [
+      "V12",
+      [
+        35,
+        5.2,
+        27
+      ],
+      [
+        36,
+        4.8,
+        22
+      ]
+    ],
+    [
+      "V13",
+      [
+        45,
+        5.2,
+        27
+      ],
+      [
+        46,
+        4.5,
+        22
+      ]
+    ],
+    [
+      "V14",
+      [
+        34,
+        5.2,
+        11.8
+      ],
+      [
+        34,
+        4.8,
+        18
+      ]
+    ],
+    [
+      "V15",
+      [
+        22,
+        1.7,
+        4
+      ],
+      [
+        50,
+        8,
+        20
+      ]
+    ],
+    [
+      "V02b",
+      [
+        1.2,
+        1.7,
+        12
+      ],
+      [
+        1,
+        1,
+        6
+      ]
+    ]
+  ],
+  "passed": true,
+  "method": "production browser fixedUpdate; 60Hz; 120 idle steps after release; photos use fixed eye/look-at"
+}

@@ -1,0 +1,166 @@
+{
+  "method": "120 warm-up + 360 measured requestAnimationFrame intervals; native entrances; 1080×810 / DPR 2 / touch; Windows Chromium / ANGLE D3D11; no physical iPad",
+  "rows": [
+    {
+      "name": "party-prototype.html",
+      "frames": {
+        "mean": 18.086944444444445,
+        "p50": 22.09999999999991,
+        "p95": 33.30000000000018,
+        "max": 44.600000000000364
+      },
+      "jsFrameMs": {
+        "mean": 16.583901991236623,
+        "p50": 15.015545233556129,
+        "p95": 26.09956022178647,
+        "max": 27.318522535710574
+      },
+      "drawCalls": {
+        "mean": 639,
+        "p50": 639,
+        "p95": 639,
+        "max": 639
+      },
+      "samples": 360,
+      "npcs": 60,
+      "position": {
+        "x": 25,
+        "z": 2,
+        "y": 0
+      },
+      "viewport": [
+        1080,
+        810
+      ],
+      "renderBuffer": [
+        1890,
+        1417
+      ],
+      "dpr": 2,
+      "renderer": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "performance": {
+        "fps": 72.07782704632625,
+        "jsFrameMs": 12.7074880418779,
+        "drawCalls": 639,
+        "triangles": 38314,
+        "visibleNpcModels": 38
+      }
+    },
+    {
+      "name": "club-prototype.html",
+      "frames": {
+        "mean": 11.111666666666666,
+        "p50": 11.100000000000364,
+        "p95": 11.200000000000273,
+        "max": 11.5
+      },
+      "jsFrameMs": {
+        "mean": 3.0394278345355614,
+        "p50": 2.9698629602082054,
+        "p95": 3.893603427835636,
+        "max": 4.284794218467463
+      },
+      "drawCalls": {
+        "mean": 224,
+        "p50": 224,
+        "p95": 224,
+        "max": 224
+      },
+      "samples": 360,
+      "npcs": 0,
+      "position": {
+        "x": 22,
+        "z": 2,
+        "y": 0
+      },
+      "viewport": [
+        1080,
+        810
+      ],
+      "renderBuffer": [
+        1890,
+        1417
+      ],
+      "dpr": 2,
+      "renderer": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "performance": {
+        "width": 1890,
+        "height": 1417,
+        "pixelRatio": 1.75,
+        "fps": 89.99969269161154,
+        "jsFrameMs": 2.6416892503976634,
+        "drawCalls": 224,
+        "triangles": 6986,
+        "visibleNpcModels": 0
+      }
+    }
+  ],
+  "errors": [],
+  "shots": [
+    [
+      "V01",
+      [
+        22,
+        1.65,
+        11.5
+      ],
+      [
+        23,
+        2.8,
+        27
+      ]
+    ],
+    [
+      "V02",
+      [
+        24,
+        1.65,
+        20
+      ],
+      [
+        12,
+        4.3,
+        25
+      ]
+    ],
+    [
+      "V03",
+      [
+        10,
+        1.65,
+        23.1
+      ],
+      [
+        8.6,
+        1.35,
+        29
+      ]
+    ],
+    [
+      "V04",
+      [
+        24,
+        5.15,
+        27
+      ],
+      [
+        23,
+        1,
+        19
+      ]
+    ],
+    [
+      "V05",
+      [
+        7.5,
+        1.65,
+        41
+      ],
+      [
+        7.2,
+        1.35,
+        36
+      ]
+    ]
+  ]
+}

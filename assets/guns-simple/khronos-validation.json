@@ -1,0 +1,90 @@
+{
+  "version": "2.0.0-dev.3.10",
+  "models": {
+    "compact_smg": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 3,
+      "messages": [
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/2",
+        "2 NODE_EMPTY /nodes/3"
+      ]
+    },
+    "hunting_rifle": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 5,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/3",
+        "2 NODE_EMPTY /nodes/4",
+        "2 NODE_EMPTY /nodes/5"
+      ]
+    },
+    "machine_pistol": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 3,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/3"
+      ]
+    },
+    "revolver": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 3,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/2"
+      ]
+    },
+    "shotgun": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 4,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/2",
+        "2 NODE_EMPTY /nodes/4"
+      ]
+    },
+    "shotgun_short": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 3,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/2"
+      ]
+    },
+    "sniper_rifle": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 5,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/2",
+        "2 NODE_EMPTY /nodes/3",
+        "2 NODE_EMPTY /nodes/5"
+      ]
+    },
+    "tranq_pistol": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 3,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/2"
+      ]
+    }
+  }
+}

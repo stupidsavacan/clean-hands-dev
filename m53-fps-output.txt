@@ -1,0 +1,12 @@
+開始地点 90.2 fps / min 90
+ロビー 81.3 fps / min 79
+プール 77.3 fps / min 73
+テラス 59.4 fps / min 48
+宴会場 87 fps / min 83
+地下セラー 89.8 fps / min 89
+ペントハウス 86.6 fps / min 78
+ヘリポート 84.7 fps / min 78
+マリーナ 89.4 fps / min 87
+浜辺 89.4 fps / min 86
+駐車場 87.6 fps / min 85
+地下セラー（樽準備済み） 70.3 fps / min 49

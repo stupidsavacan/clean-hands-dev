@@ -1,0 +1,17 @@
+import {createRequire} from 'node:module';import {readFileSync,writeFileSync} from 'node:fs';import {fileURLToPath} from 'node:url';
+const require=createRequire('C:/Users/gamit/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/_entry.js'),{chromium}=require('playwright');
+const path=n=>fileURLToPath(new URL(n,import.meta.url)),map=JSON.parse(readFileSync(path('../app/src/data/party.json'),'utf8'));
+const browser=await chromium.launch({executablePath:'C:/Users/gamit/AppData/Local/ms-playwright/chromium-1243/chrome-win64/chrome.exe',headless:true,args:['--enable-gpu','--use-gl=angle','--use-angle=d3d11','--ignore-gpu-blocklist']});
+const errors=[],results=[];
+try{const page=await browser.newPage({viewport:{width:1280,height:800}});page.on('pageerror',e=>errors.push(String(e)));page.on('console',e=>{if(e.type()==='error')errors.push(e.text());});await page.goto('http://127.0.0.1:8797/party-prototype.html');await page.waitForFunction(()=>window.__cleanHands?.state().modelReady);await page.locator('#prep-go').click();await page.evaluate(()=>window.__cleanHands.inspectionPause());
+// Feed the production fixedUpdate, including transfer->velocity integration, rather than only PartyTraversal.
+for(const l of map.traversals)for(const reverse of [false,true])for(const fraction of [.25,.5,.75,1]){
+ const from=reverse?l.end:l.start,to=reverse?l.start:l.end;
+ const result=await page.evaluate(({from,to,seconds,fraction})=>{const a=window.__cleanHands;a.teleport(from.x,from.z,from.y);a.inspectionStep([],1);a.inspectionStep(['KeyE'],Math.round(seconds*60*fraction)+(fraction===1?3:1));const p=a.inspectionStep([],1);const end=a.inspectionStep([],120),goal=fraction===1?to:from,dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y,a.z-b.z);return {atRelease:p,end,error:dist(end,goal),drift:dist(p,end),passed:dist(end,goal)<.001&&dist(p,end)<.001};},{from,to,seconds:l.seconds,fraction});results.push({id:l.id,reverse,fraction,...result});}
+const views=[['V01',[25,1.7,2],[25,1.3,10]],['V02',[3,1.7,14],[3,1.2,6]],['V03',[15,1.7,10],[24,4.6,10]],['V04',[25,5.2,10],[16,1,10]],['V05',[36,1.7,8],[44,4.6,8]],['V06',[14,-1.8,17],[14,1,27]],['V07',[12,-1.8,31],[12,1,39]],['V08',[16,1.7,31],[16,4.8,39]],['V09',[25,1.7,18],[25,1.2,34]],['V10',[19,5.2,32],[25,1.2,33]],['V11',[49,1.7,40],[48,4.5,27]],['V12',[35,5.2,27],[36,4.8,22]],['V13',[45,5.2,27],[46,4.5,22]],['V14',[34,5.2,11.8],[34,4.8,18]],['V15',[22,1.7,4],[50,8,20]],['V02b',[1.2,1.7,12],[1,1,6]]];
+await page.addStyleTag({content:'.modal,#overlay,#hud,#debug{visibility:hidden!important}'});
+for(const [id,eye,target] of views){await page.evaluate(({eye,target})=>{const a=window.__cleanHands;a.teleport(eye[0],eye[2],eye[1]-1.7);a.inspectionCamera({x:eye[0],y:eye[1],z:eye[2]},{x:target[0],y:target[1],z:target[2]});},{eye,target});await page.waitForTimeout(120);await page.screenshot({path:path('party-v2-stage1-'+id+'.png')});}
+const report={results,errors,views,passed:results.every(r=>r.passed)&&errors.length===0,method:'production browser fixedUpdate; 60Hz; 120 idle steps after release; photos use fixed eye/look-at'};writeFileSync(path('party-v2-stage1-browser.json'),JSON.stringify(report,null,2));console.log(JSON.stringify({passed:report.passed,cases:results.length,failed:results.filter(r=>!r.passed),errors,photos:views.length}));if(!report.passed)process.exitCode=1;
+}finally{await browser.close();}
+
+

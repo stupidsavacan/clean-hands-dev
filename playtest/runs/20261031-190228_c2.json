@@ -1,0 +1,8253 @@
+{
+ "meta": {
+  "id": "20261031-190228_c2",
+  "scenario": "c2",
+  "scenarioTitle": "C2 避難ボート",
+  "startTime": 0,
+  "lead": 420,
+  "startedAt": "2026-10-31T10:02:28.864Z",
+  "game": "CLEAN HANDS M5.8 PC",
+  "page": "http://127.0.0.1:8795/",
+  "viewport": [
+   1440,
+   765
+  ],
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+  "loadout": {
+   "tools": [
+    "poison_lethal",
+    "coin"
+   ],
+   "pistol": "pistol_silenced",
+   "start": "S1"
+  },
+  "keyTime": {
+   "time": 0,
+   "why": "チャンスの時間 0:00〜30:00"
+  },
+  "appliedAt": {
+   "elapsed": 0,
+   "time": 0,
+   "cycle": 0,
+   "rate": 1,
+   "loop": 1800
+  }
+ },
+ "events": [
+  {
+   "play": 0,
+   "t": 0,
+   "clock": 0,
+   "type": "schedule.action",
+   "time": 0,
+   "id": "wine_merchant",
+   "value": 0,
+   "at": {
+    "x": 14.8,
+    "y": 0,
+    "z": -30
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 0,
+   "t": 0,
+   "clock": 0,
+   "type": "schedule.action",
+   "time": 0,
+   "id": "lawyer",
+   "value": 0,
+   "at": {
+    "x": 14.8,
+    "y": 0,
+    "z": -30
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 0,
+   "t": 0,
+   "clock": 0,
+   "type": "schedule.action",
+   "time": 0,
+   "id": "investor",
+   "value": 0,
+   "at": {
+    "x": 14.8,
+    "y": 0,
+    "z": -30
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 0,
+   "t": 0,
+   "clock": 0,
+   "type": "chance.updated",
+   "time": 0,
+   "id": "c2",
+   "value": 0,
+   "reason": "active",
+   "at": {
+    "x": 14.8,
+    "y": 0,
+    "z": -30
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 0,
+   "t": 0,
+   "clock": 0,
+   "type": "dialogue.heard",
+   "time": 0,
+   "id": "marina_escape",
+   "at": {
+    "x": 14.8,
+    "y": 0,
+    "z": -30
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 0,
+   "t": 0,
+   "clock": 0,
+   "type": "disguise.changed",
+   "time": 0,
+   "id": "suit",
+   "at": {
+    "x": 14.8,
+    "y": 0,
+    "z": -30
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 2.42,
+   "t": 2.42,
+   "clock": 2.4,
+   "type": "schedule.action",
+   "time": 2.416666666666663,
+   "id": "lawyer",
+   "value": 0,
+   "at": {
+    "x": 14.8,
+    "y": 0,
+    "z": -30
+   },
+   "disguise": "suit"
+  },
+  {
+   "play": 26.87,
+   "t": 26.87,
+   "clock": 26.9,
+   "type": "disguise.changed",
+   "time": 26.866666666666422,
+   "id": "guard",
+   "at": {
+    "x": 14.86,
+    "y": 0,
+    "z": -6.74
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 247.15,
+   "t": 247.15,
+   "clock": 247.2,
+   "type": "chance.updated",
+   "time": 247.15000000008882,
+   "id": "c2",
+   "value": 1,
+   "reason": "active",
+   "at": {
+    "x": 46.23,
+    "y": 0,
+    "z": 27.08
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 247.15,
+   "t": 247.15,
+   "clock": 247.2,
+   "type": "trap.armed",
+   "time": 247.15000000008882,
+   "id": "boat_fuel",
+   "at": {
+    "x": 46.23,
+    "y": 0,
+    "z": 27.08
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 274.73,
+   "t": 274.73,
+   "clock": 274.7,
+   "type": "body.found",
+   "time": 274.73333333341213,
+   "id": "guard_check_marina",
+   "life": "unconscious",
+   "judgement": "murder",
+   "at": {
+    "x": 5.47,
+    "y": 0,
+    "z": 26.27
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 292.47,
+   "t": 292.47,
+   "clock": 292.5,
+   "type": "body.found",
+   "time": 292.46666666672934,
+   "id": "harbor_master",
+   "life": "unconscious",
+   "judgement": "murder",
+   "at": {
+    "x": -21.48,
+    "y": 0,
+    "z": 22.5
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 318.6,
+   "t": 318.6,
+   "clock": 318.6,
+   "type": "schedule.action",
+   "time": 318.6000000000389,
+   "id": "lawyer",
+   "value": 1,
+   "at": {
+    "x": 14.48,
+    "y": 0,
+    "z": 10.67
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 372.97,
+   "t": 372.97,
+   "clock": 373,
+   "type": "schedule.action",
+   "time": 372.9666666666561,
+   "id": "wine_merchant",
+   "value": 1,
+   "at": {
+    "x": 14.87,
+    "y": 0,
+    "z": -10.25
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 407.83,
+   "t": 407.83,
+   "clock": 407.8,
+   "type": "flag.set",
+   "time": 407.8333333332911,
+   "id": "catwalk",
+   "at": {
+    "x": -12.63,
+    "y": 3.5,
+    "z": -3.16
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 414.38,
+   "t": 414.38,
+   "clock": 414.4,
+   "type": "body.found",
+   "time": 414.3833333332851,
+   "id": "guard_check_lobby",
+   "life": "unconscious",
+   "judgement": "murder",
+   "at": {
+    "x": -29.1,
+    "y": 0,
+    "z": 5.56
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 426.77,
+   "t": 426.77,
+   "clock": 426.8,
+   "type": "trap.armed",
+   "time": 426.7666666666072,
+   "id": "chandelier",
+   "at": {
+    "x": -19.45,
+    "y": 3.5,
+    "z": -2.36
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 428.28,
+   "t": 428.28,
+   "clock": 428.3,
+   "type": "trap.fired",
+   "time": 428.2833333332725,
+   "id": "chandelier",
+   "at": {
+    "x": -19.45,
+    "y": 3.5,
+    "z": -2.36
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 428.3,
+   "t": 428.3,
+   "clock": 428.3,
+   "type": "npc.killed",
+   "time": 428.29999999993913,
+   "id": "lawyer",
+   "method": "chandelier",
+   "judgement": "accident",
+   "at": {
+    "x": -19.45,
+    "y": 3.5,
+    "z": -2.36
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 428.3,
+   "t": 428.3,
+   "clock": 428.3,
+   "type": "npc.killed",
+   "time": 428.29999999993913,
+   "id": "bodyguard_1",
+   "method": "chandelier",
+   "judgement": "accident",
+   "at": {
+    "x": -19.45,
+    "y": 3.5,
+    "z": -2.36
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 428.65,
+   "t": 428.65,
+   "clock": 428.6,
+   "type": "schedule.action",
+   "time": 428.6499999999388,
+   "id": "investor",
+   "value": 1,
+   "at": {
+    "x": -19.45,
+    "y": 3.5,
+    "z": -2.36
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 428.97,
+   "t": 428.97,
+   "clock": 429,
+   "type": "body.found",
+   "time": 428.9666666666052,
+   "id": "lawyer",
+   "life": "dead",
+   "judgement": "accident",
+   "at": {
+    "x": -19.45,
+    "y": 3.5,
+    "z": -2.36
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 428.97,
+   "t": 428.97,
+   "clock": 429,
+   "type": "body.found",
+   "time": 428.9666666666052,
+   "id": "bodyguard_1",
+   "life": "dead",
+   "judgement": "accident",
+   "at": {
+    "x": -19.45,
+    "y": 3.5,
+    "z": -2.36
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 482.03,
+   "t": 482.03,
+   "clock": 482,
+   "type": "shot.fired",
+   "time": 482.0333333332236,
+   "id": "pistol_silenced",
+   "method": "small",
+   "at": {
+    "x": 37.75,
+    "y": 0,
+    "z": -16.73
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 482.05,
+   "t": 482.05,
+   "clock": 482,
+   "type": "npc.killed",
+   "time": 482.04999999989025,
+   "id": "wine_merchant",
+   "method": "gun",
+   "judgement": "murder",
+   "at": {
+    "x": 37.75,
+    "y": 0,
+    "z": -16.73
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 482.63,
+   "t": 482.63,
+   "clock": 482.6,
+   "type": "body.found",
+   "time": 482.63333333322305,
+   "id": "wine_merchant",
+   "life": "dead",
+   "judgement": "murder",
+   "at": {
+    "x": 37.75,
+    "y": 0,
+    "z": -16.73
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 482.65,
+   "t": 482.65,
+   "clock": 482.6,
+   "type": "witness.started",
+   "time": 482.6499999998897,
+   "id": "waiter_4",
+   "reason": "body",
+   "at": {
+    "x": 37.75,
+    "y": 0,
+    "z": -16.73
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 482.65,
+   "t": 482.65,
+   "clock": 482.6,
+   "type": "witness.started",
+   "time": 482.6499999998897,
+   "id": "guest_terrace_a_4",
+   "reason": "body",
+   "at": {
+    "x": 37.75,
+    "y": 0,
+    "z": -16.73
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 482.65,
+   "t": 482.65,
+   "clock": 482.6,
+   "type": "witness.started",
+   "time": 482.6499999998897,
+   "id": "guest_terrace_b_4",
+   "reason": "body",
+   "at": {
+    "x": 37.75,
+    "y": 0,
+    "z": -16.73
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 482.65,
+   "t": 482.65,
+   "clock": 482.6,
+   "type": "witness.started",
+   "time": 482.6499999998897,
+   "id": "guest_beach_b_2",
+   "reason": "body",
+   "at": {
+    "x": 37.75,
+    "y": 0,
+    "z": -16.73
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 483.47,
+   "t": 483.47,
+   "clock": 483.5,
+   "type": "alert.level",
+   "time": 483.4666666665556,
+   "value": 1,
+   "at": {
+    "x": 37.66,
+    "y": 0,
+    "z": -15.68
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 483.83,
+   "t": 483.83,
+   "clock": 483.8,
+   "type": "witness.reported",
+   "time": 483.83333333322196,
+   "id": "waiter_4",
+   "reason": "body",
+   "at": {
+    "x": 37.48,
+    "y": 0,
+    "z": -14.98
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 484.78,
+   "t": 484.78,
+   "clock": 484.8,
+   "type": "witness.reported",
+   "time": 484.7833333332211,
+   "id": "guest_terrace_b_4",
+   "reason": "body",
+   "at": {
+    "x": 35.68,
+    "y": 0,
+    "z": -10.86
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 485.33,
+   "t": 485.33,
+   "clock": 485.3,
+   "type": "witness.started",
+   "time": 485.3333333332206,
+   "id": "waiter_3",
+   "reason": "body",
+   "at": {
+    "x": 34.75,
+    "y": 0,
+    "z": -8.99
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 485.7,
+   "t": 485.7,
+   "clock": 485.7,
+   "type": "witness.reported",
+   "time": 485.6999999998869,
+   "id": "guest_terrace_a_4",
+   "reason": "body",
+   "at": {
+    "x": 34.75,
+    "y": 0,
+    "z": -8.99
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 486.55,
+   "t": 486.55,
+   "clock": 486.5,
+   "type": "witness.reported",
+   "time": 486.54999999988615,
+   "id": "guest_beach_b_2",
+   "reason": "body",
+   "at": {
+    "x": 34.75,
+    "y": 0,
+    "z": -8.99
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 487.42,
+   "t": 487.42,
+   "clock": 487.4,
+   "type": "flag.set",
+   "time": 487.41666666655203,
+   "id": "alarm",
+   "at": {
+    "x": 34.75,
+    "y": 0,
+    "z": -8.99
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 487.42,
+   "t": 487.42,
+   "clock": 487.4,
+   "type": "chance.updated",
+   "time": 487.41666666655203,
+   "id": "c2",
+   "value": 2,
+   "reason": "active",
+   "at": {
+    "x": 34.75,
+    "y": 0,
+    "z": -8.99
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 487.42,
+   "t": 487.42,
+   "clock": 487.4,
+   "type": "flag.set",
+   "time": 487.41666666655203,
+   "id": "alert3",
+   "at": {
+    "x": 34.75,
+    "y": 0,
+    "z": -8.99
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 487.43,
+   "t": 487.43,
+   "clock": 487.4,
+   "type": "alert.level",
+   "time": 487.4333333332187,
+   "value": 3,
+   "at": {
+    "x": 34.75,
+    "y": 0,
+    "z": -8.99
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 487.67,
+   "t": 487.67,
+   "clock": 487.7,
+   "type": "witness.started",
+   "time": 487.6666666665518,
+   "id": "guest_stroll_5",
+   "reason": "body",
+   "at": {
+    "x": 34.75,
+    "y": 0,
+    "z": -8.99
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 488.75,
+   "t": 488.75,
+   "clock": 488.7,
+   "type": "witness.reported",
+   "time": 488.74999999988415,
+   "id": "guest_stroll_5",
+   "reason": "body",
+   "at": {
+    "x": 36.15,
+    "y": 0,
+    "z": -9.21
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 490,
+   "t": 490,
+   "clock": 490,
+   "type": "witness.reported",
+   "time": 489.999999999883,
+   "id": "waiter_3",
+   "reason": "body",
+   "at": {
+    "x": 38.95,
+    "y": 0,
+    "z": -6.39
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 491.35,
+   "t": 491.35,
+   "clock": 491.3,
+   "type": "player.spotted",
+   "time": 491.3499999998818,
+   "id": "guard_promenade",
+   "at": {
+    "x": 40.9,
+    "y": 0,
+    "z": -0.22
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 491.35,
+   "t": 491.35,
+   "clock": 491.3,
+   "type": "player.spotted",
+   "time": 491.3499999998818,
+   "id": "beachbar_1",
+   "at": {
+    "x": 40.9,
+    "y": 0,
+    "z": -0.22
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 491.35,
+   "t": 491.35,
+   "clock": 491.3,
+   "type": "player.spotted",
+   "time": 491.3499999998818,
+   "id": "guest_terrace_b_1",
+   "at": {
+    "x": 40.9,
+    "y": 0,
+    "z": -0.22
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 491.37,
+   "t": 491.37,
+   "clock": 491.4,
+   "type": "player.spotted",
+   "time": 491.36666666654844,
+   "id": "guard_pool",
+   "at": {
+    "x": 40.92,
+    "y": 0,
+    "z": -0.14
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 491.37,
+   "t": 491.37,
+   "clock": 491.4,
+   "type": "player.spotted",
+   "time": 491.36666666654844,
+   "id": "guard_beach_s",
+   "at": {
+    "x": 40.92,
+    "y": 0,
+    "z": -0.14
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 491.4,
+   "t": 491.4,
+   "clock": 491.4,
+   "type": "witness.started",
+   "time": 491.39999999988174,
+   "id": "guest_terrace_b_1",
+   "reason": "body",
+   "at": {
+    "x": 40.98,
+    "y": 0,
+    "z": 0.01
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 491.43,
+   "t": 491.43,
+   "clock": 491.4,
+   "type": "player.spotted",
+   "time": 491.43333333321505,
+   "id": "waiter_3",
+   "at": {
+    "x": 41.03,
+    "y": 0,
+    "z": 0.16
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 491.5,
+   "t": 491.5,
+   "clock": 491.5,
+   "type": "player.spotted",
+   "time": 491.49999999988165,
+   "id": "guard_terrace",
+   "at": {
+    "x": 41.13,
+    "y": 0,
+    "z": 0.47
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 491.5,
+   "t": 491.5,
+   "clock": 491.5,
+   "type": "body.found",
+   "time": 491.49999999988165,
+   "id": "monitor_watcher",
+   "life": "unconscious",
+   "judgement": "murder",
+   "at": {
+    "x": 41.13,
+    "y": 0,
+    "z": 0.47
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 491.98,
+   "t": 491.98,
+   "clock": 492,
+   "type": "player.spotted",
+   "time": 491.98333333321455,
+   "id": "guest_terrace_b_4",
+   "at": {
+    "x": 41.93,
+    "y": 0,
+    "z": 2.64
+   },
+   "disguise": "guard"
+  },
+  {
+   "play": 492.48,
+   "t": 492.48,
+   "clock": 492.5,
+   "type": "mission.failed",
+   "time": 492.4833333332141,
+   "reason": "caught",
+   "at": {
+    "x": 42.22,
+    "y": 0,
+    "z": 3.4
+   },
+   "disguise": "guard"
+  }
+ ],
+ "samples": [
+  {
+   "play": 0,
+   "t": 0,
+   "clock": 0,
+   "pos": {
+    "x": 14.8,
+    "y": 0,
+    "z": -30
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 33
+  },
+  {
+   "play": 1,
+   "t": 1,
+   "clock": 1,
+   "pos": {
+    "x": 14.8,
+    "y": 0,
+    "z": -30
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 37
+  },
+  {
+   "play": 1.7,
+   "t": 1.7,
+   "clock": 1.7,
+   "pos": {
+    "x": 14.8,
+    "y": 0,
+    "z": -30
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 35
+  },
+  {
+   "play": 2.7,
+   "t": 2.7,
+   "clock": 2.7,
+   "pos": {
+    "x": 14.8,
+    "y": 0,
+    "z": -30
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 38
+  },
+  {
+   "play": 3.7,
+   "t": 3.7,
+   "clock": 3.7,
+   "pos": {
+    "x": 14.82,
+    "y": 0,
+    "z": -29.45
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 38
+  },
+  {
+   "play": 4.7,
+   "t": 4.7,
+   "clock": 4.7,
+   "pos": {
+    "x": 14.68,
+    "y": 0,
+    "z": -25.11
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 7,
+   "suspiciousOf": "guard_front",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 37
+  },
+  {
+   "play": 5.7,
+   "t": 5.7,
+   "clock": 5.7,
+   "pos": {
+    "x": 10.35,
+    "y": 0,
+    "z": -23.09
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 17,
+   "suspiciousOf": "guard_front",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 38
+  },
+  {
+   "play": 6.8,
+   "t": 6.8,
+   "clock": 6.8,
+   "pos": {
+    "x": 6.06,
+    "y": 0,
+    "z": -20.77
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 22,
+   "suspiciousOf": "guard_front",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 38
+  },
+  {
+   "play": 7.8,
+   "t": 7.8,
+   "clock": 7.8,
+   "pos": {
+    "x": 2.48,
+    "y": 0,
+    "z": -18.7
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 12,
+   "suspiciousOf": "guard_front",
+   "watchers": 2,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 8.8,
+   "t": 8.8,
+   "clock": 8.8,
+   "pos": {
+    "x": 3.75,
+    "y": 0,
+    "z": -18.64
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 2,
+   "suspiciousOf": "guard_front",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 33
+  },
+  {
+   "play": 9.8,
+   "t": 9.8,
+   "clock": 9.8,
+   "pos": {
+    "x": 2.87,
+    "y": 0,
+    "z": -18.97
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 34
+  },
+  {
+   "play": 10.8,
+   "t": 10.8,
+   "clock": 10.8,
+   "pos": {
+    "x": 4.96,
+    "y": 0,
+    "z": -19.73
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 40
+  },
+  {
+   "play": 11.8,
+   "t": 11.8,
+   "clock": 11.8,
+   "pos": {
+    "x": 9.75,
+    "y": 0,
+    "z": -19.57
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 38
+  },
+  {
+   "play": 12.9,
+   "t": 12.9,
+   "clock": 12.9,
+   "pos": {
+    "x": 14.3,
+    "y": 0,
+    "z": -19.51
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 13.9,
+   "t": 13.9,
+   "clock": 13.9,
+   "pos": {
+    "x": 15.22,
+    "y": 0,
+    "z": -15.25
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 33
+  },
+  {
+   "play": 14.9,
+   "t": 14.9,
+   "clock": 14.9,
+   "pos": {
+    "x": 15.16,
+    "y": 0,
+    "z": -12.52
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 31
+  },
+  {
+   "play": 15.9,
+   "t": 15.9,
+   "clock": 15.9,
+   "pos": {
+    "x": 15.16,
+    "y": 0,
+    "z": -12.39
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 34
+  },
+  {
+   "play": 16.9,
+   "t": 16.9,
+   "clock": 16.9,
+   "pos": {
+    "x": 15.16,
+    "y": 0,
+    "z": -12.39
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 34
+  },
+  {
+   "play": 17.9,
+   "t": 17.9,
+   "clock": 17.9,
+   "pos": {
+    "x": 15.15,
+    "y": 0,
+    "z": -12.33
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 33
+  },
+  {
+   "play": 18.9,
+   "t": 18.9,
+   "clock": 18.9,
+   "pos": {
+    "x": 15.11,
+    "y": 0,
+    "z": -11.46
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 33
+  },
+  {
+   "play": 20,
+   "t": 20,
+   "clock": 20,
+   "pos": {
+    "x": 15.07,
+    "y": 0,
+    "z": -10.91
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 33
+  },
+  {
+   "play": 21,
+   "t": 21,
+   "clock": 21,
+   "pos": {
+    "x": 14.94,
+    "y": 0,
+    "z": -9.08
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 2,
+   "suspiciousOf": "guard_check_lobby",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 34
+  },
+  {
+   "play": 22,
+   "t": 22,
+   "clock": 22,
+   "pos": {
+    "x": 14.96,
+    "y": 0,
+    "z": -7.33
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 5,
+   "suspiciousOf": "guard_check_lobby",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 23,
+   "t": 23,
+   "clock": 23,
+   "pos": {
+    "x": 14.86,
+    "y": 0,
+    "z": -6.74
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 13,
+   "suspiciousOf": "guard_check_lobby",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 24,
+   "t": 24,
+   "clock": 24,
+   "pos": {
+    "x": 14.86,
+    "y": 0,
+    "z": -6.74
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 13,
+   "suspiciousOf": "guard_check_lobby",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 25,
+   "t": 25,
+   "clock": 25,
+   "pos": {
+    "x": 14.86,
+    "y": 0,
+    "z": -6.74
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 26.1,
+   "t": 26.1,
+   "clock": 26.1,
+   "pos": {
+    "x": 14.86,
+    "y": 0,
+    "z": -6.74
+   },
+   "floor": 0,
+   "disguise": "suit",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 27.1,
+   "t": 27.1,
+   "clock": 27.1,
+   "pos": {
+    "x": 14.86,
+    "y": 0,
+    "z": -6.74
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 38
+  },
+  {
+   "play": 28.1,
+   "t": 28.1,
+   "clock": 28.1,
+   "pos": {
+    "x": 14.69,
+    "y": 0,
+    "z": -8
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 38
+  },
+  {
+   "play": 29.1,
+   "t": 29.1,
+   "clock": 29.1,
+   "pos": {
+    "x": 14.27,
+    "y": 0,
+    "z": -9.56
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 35
+  },
+  {
+   "play": 30.2,
+   "t": 30.2,
+   "clock": 30.2,
+   "pos": {
+    "x": 12.61,
+    "y": 0,
+    "z": -9.73
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 35
+  },
+  {
+   "play": 31.2,
+   "t": 31.2,
+   "clock": 31.2,
+   "pos": {
+    "x": 11.61,
+    "y": 0,
+    "z": -8.84
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 31
+  },
+  {
+   "play": 32.2,
+   "t": 32.2,
+   "clock": 32.2,
+   "pos": {
+    "x": 11.48,
+    "y": 0,
+    "z": -7.2
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 31
+  },
+  {
+   "play": 33.2,
+   "t": 33.2,
+   "clock": 33.2,
+   "pos": {
+    "x": 11.44,
+    "y": 0,
+    "z": -6.82
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 34
+  },
+  {
+   "play": 34.3,
+   "t": 34.3,
+   "clock": 34.3,
+   "pos": {
+    "x": 11.44,
+    "y": 0,
+    "z": -6.82
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 32
+  },
+  {
+   "play": 35.3,
+   "t": 35.3,
+   "clock": 35.3,
+   "pos": {
+    "x": 12.62,
+    "y": 0,
+    "z": -6.72
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 34
+  },
+  {
+   "play": 36.4,
+   "t": 36.4,
+   "clock": 36.4,
+   "pos": {
+    "x": 13.63,
+    "y": 0,
+    "z": -8.22
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 1,
+   "suspiciousOf": "guest_lobby_b_3",
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 37
+  },
+  {
+   "play": 37.4,
+   "t": 37.4,
+   "clock": 37.4,
+   "pos": {
+    "x": 15.67,
+    "y": 0,
+    "z": -10.67
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 4,
+   "suspiciousOf": "guest_lobby_b_3",
+   "watchers": 2,
+   "paused": false,
+   "map": false,
+   "fps": 38
+  },
+  {
+   "play": 38.4,
+   "t": 38.4,
+   "clock": 38.4,
+   "pos": {
+    "x": 15.23,
+    "y": 0,
+    "z": -11.27
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 38
+  },
+  {
+   "play": 39.4,
+   "t": 39.4,
+   "clock": 39.4,
+   "pos": {
+    "x": 15.23,
+    "y": 0,
+    "z": -15.66
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 34
+  },
+  {
+   "play": 40.5,
+   "t": 40.5,
+   "clock": 40.5,
+   "pos": {
+    "x": 15.35,
+    "y": 0,
+    "z": -20.67
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 4,
+   "suspiciousOf": "guard_garden",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 32
+  },
+  {
+   "play": 41.5,
+   "t": 41.5,
+   "clock": 41.5,
+   "pos": {
+    "x": 15.38,
+    "y": 0,
+    "z": -21.01
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 34
+  },
+  {
+   "play": 42.5,
+   "t": 42.5,
+   "clock": 42.5,
+   "pos": {
+    "x": 15.38,
+    "y": 0,
+    "z": -21.01
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 34
+  },
+  {
+   "play": 43.5,
+   "t": 43.5,
+   "clock": 43.5,
+   "pos": {
+    "x": 15.38,
+    "y": 0,
+    "z": -21.01
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 34
+  },
+  {
+   "play": 44.5,
+   "t": 44.5,
+   "clock": 44.5,
+   "pos": {
+    "x": 15.38,
+    "y": 0,
+    "z": -21.01
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 35
+  },
+  {
+   "play": 45.5,
+   "t": 45.5,
+   "clock": 45.5,
+   "pos": {
+    "x": 15.38,
+    "y": 0,
+    "z": -21.01
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 46.5,
+   "t": 46.5,
+   "clock": 46.5,
+   "pos": {
+    "x": 15.38,
+    "y": 0,
+    "z": -21.01
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 34
+  },
+  {
+   "play": 47.6,
+   "t": 47.6,
+   "clock": 47.6,
+   "pos": {
+    "x": 15.38,
+    "y": 0,
+    "z": -21.01
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 34
+  },
+  {
+   "play": 48.6,
+   "t": 48.6,
+   "clock": 48.6,
+   "pos": {
+    "x": 15.38,
+    "y": 0,
+    "z": -21.01
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 34
+  },
+  {
+   "play": 49.6,
+   "t": 49.6,
+   "clock": 49.6,
+   "pos": {
+    "x": 15.38,
+    "y": 0,
+    "z": -21.01
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 35
+  },
+  {
+   "play": 50.6,
+   "t": 50.6,
+   "clock": 50.6,
+   "pos": {
+    "x": 15.38,
+    "y": 0,
+    "z": -21.01
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 35
+  },
+  {
+   "play": 51.6,
+   "t": 51.6,
+   "clock": 51.6,
+   "pos": {
+    "x": 15.35,
+    "y": 0,
+    "z": -20.71
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 34
+  },
+  {
+   "play": 52.6,
+   "t": 52.6,
+   "clock": 52.6,
+   "pos": {
+    "x": 16.53,
+    "y": 0,
+    "z": -21.25
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 37
+  },
+  {
+   "play": 53.6,
+   "t": 53.6,
+   "clock": 53.6,
+   "pos": {
+    "x": 16.59,
+    "y": 0,
+    "z": -21.13
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 54.6,
+   "t": 54.6,
+   "clock": 54.6,
+   "pos": {
+    "x": 14.71,
+    "y": 0,
+    "z": -18.96
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 55.7,
+   "t": 55.7,
+   "clock": 55.7,
+   "pos": {
+    "x": 14.93,
+    "y": 0,
+    "z": -13.98
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 31
+  },
+  {
+   "play": 56.2,
+   "t": 56.2,
+   "clock": 56.2,
+   "pos": {
+    "x": 14.94,
+    "y": 0,
+    "z": -13.85
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 28
+  },
+  {
+   "play": 57.2,
+   "t": 57.2,
+   "clock": 57.2,
+   "pos": {
+    "x": 14.94,
+    "y": 0,
+    "z": -13.85
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 34
+  },
+  {
+   "play": 60,
+   "t": 60,
+   "clock": 60,
+   "pos": {
+    "x": 14.94,
+    "y": 0,
+    "z": -13.85
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 33
+  },
+  {
+   "play": 64.1,
+   "t": 64.1,
+   "clock": 64.1,
+   "pos": {
+    "x": 14.95,
+    "y": 0,
+    "z": -10.38
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 34
+  },
+  {
+   "play": 68.3,
+   "t": 68.3,
+   "clock": 68.3,
+   "pos": {
+    "x": 14.99,
+    "y": 0,
+    "z": -3.5
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 72.5,
+   "t": 72.5,
+   "clock": 72.5,
+   "pos": {
+    "x": 14.73,
+    "y": 0,
+    "z": 3.39
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 39
+  },
+  {
+   "play": 76.4,
+   "t": 76.4,
+   "clock": 76.4,
+   "pos": {
+    "x": 14.37,
+    "y": 0,
+    "z": 9.9
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 48
+  },
+  {
+   "play": 80.5,
+   "t": 80.5,
+   "clock": 80.5,
+   "pos": {
+    "x": 13.21,
+    "y": 0,
+    "z": 16.51
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 48
+  },
+  {
+   "play": 84.5,
+   "t": 84.5,
+   "clock": 84.5,
+   "pos": {
+    "x": 7.16,
+    "y": 0,
+    "z": 18.37
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 47
+  },
+  {
+   "play": 88.6,
+   "t": 88.6,
+   "clock": 88.6,
+   "pos": {
+    "x": 0.76,
+    "y": 0,
+    "z": 20.17
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 47
+  },
+  {
+   "play": 92.6,
+   "t": 92.6,
+   "clock": 92.6,
+   "pos": {
+    "x": -5.52,
+    "y": 0,
+    "z": 21.68
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 48
+  },
+  {
+   "play": 96.6,
+   "t": 96.6,
+   "clock": 96.6,
+   "pos": {
+    "x": -11.59,
+    "y": 0,
+    "z": 22.33
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 47
+  },
+  {
+   "play": 100.8,
+   "t": 100.8,
+   "clock": 100.8,
+   "pos": {
+    "x": -18.03,
+    "y": 0,
+    "z": 23.14
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 46
+  },
+  {
+   "play": 104.8,
+   "t": 104.8,
+   "clock": 104.8,
+   "pos": {
+    "x": -21.12,
+    "y": 0,
+    "z": 24.21
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 46
+  },
+  {
+   "play": 108.8,
+   "t": 108.8,
+   "clock": 108.8,
+   "pos": {
+    "x": -22.71,
+    "y": 0,
+    "z": 26.09
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 42
+  },
+  {
+   "play": 112.7,
+   "t": 112.7,
+   "clock": 112.7,
+   "pos": {
+    "x": -24.58,
+    "y": 0,
+    "z": 27.79
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 42
+  },
+  {
+   "play": 116.9,
+   "t": 116.9,
+   "clock": 116.9,
+   "pos": {
+    "x": -22.68,
+    "y": 0,
+    "z": 28.88
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 39
+  },
+  {
+   "play": 120.9,
+   "t": 120.9,
+   "clock": 120.9,
+   "pos": {
+    "x": -22.28,
+    "y": 0,
+    "z": 28.88
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 38
+  },
+  {
+   "play": 125,
+   "t": 125,
+   "clock": 125,
+   "pos": {
+    "x": -22.28,
+    "y": 0,
+    "z": 28.88
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 32
+  },
+  {
+   "play": 129,
+   "t": 129,
+   "clock": 129,
+   "pos": {
+    "x": -19.47,
+    "y": 0,
+    "z": 27.04
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 33
+  },
+  {
+   "play": 133.1,
+   "t": 133.1,
+   "clock": 133.1,
+   "pos": {
+    "x": -15.06,
+    "y": 0,
+    "z": 25.78
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 37
+  },
+  {
+   "play": 137.3,
+   "t": 137.3,
+   "clock": 137.3,
+   "pos": {
+    "x": -15.06,
+    "y": 0,
+    "z": 25.78
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 37
+  },
+  {
+   "play": 141.3,
+   "t": 141.3,
+   "clock": 141.3,
+   "pos": {
+    "x": -15.06,
+    "y": 0,
+    "z": 25.78
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 37
+  },
+  {
+   "play": 145.3,
+   "t": 145.3,
+   "clock": 145.3,
+   "pos": {
+    "x": -13.72,
+    "y": 0,
+    "z": 29.66
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 38
+  },
+  {
+   "play": 149.4,
+   "t": 149.4,
+   "clock": 149.4,
+   "pos": {
+    "x": -11.09,
+    "y": 0,
+    "z": 27.81
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 39
+  },
+  {
+   "play": 153.4,
+   "t": 153.4,
+   "clock": 153.4,
+   "pos": {
+    "x": -11.15,
+    "y": 0,
+    "z": 27.05
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 41
+  },
+  {
+   "play": 157.5,
+   "t": 157.5,
+   "clock": 157.5,
+   "pos": {
+    "x": -11.15,
+    "y": 0,
+    "z": 27.05
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 40
+  },
+  {
+   "play": 161.5,
+   "t": 161.5,
+   "clock": 161.5,
+   "pos": {
+    "x": -11.15,
+    "y": 0,
+    "z": 27.05
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 40
+  },
+  {
+   "play": 165.5,
+   "t": 165.5,
+   "clock": 165.5,
+   "pos": {
+    "x": -11.15,
+    "y": 0,
+    "z": 27.05
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 40
+  },
+  {
+   "play": 169.6,
+   "t": 169.6,
+   "clock": 169.6,
+   "pos": {
+    "x": -5.83,
+    "y": 0,
+    "z": 26.62
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 42
+  },
+  {
+   "play": 173.6,
+   "t": 173.6,
+   "clock": 173.6,
+   "pos": {
+    "x": 0.76,
+    "y": 0,
+    "z": 26.21
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 44
+  },
+  {
+   "play": 177.6,
+   "t": 177.6,
+   "clock": 177.6,
+   "pos": {
+    "x": 7.41,
+    "y": 0,
+    "z": 26.27
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 45
+  },
+  {
+   "play": 181.8,
+   "t": 181.8,
+   "clock": 181.8,
+   "pos": {
+    "x": 14.23,
+    "y": 0,
+    "z": 26.37
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 44
+  },
+  {
+   "play": 185.8,
+   "t": 185.8,
+   "clock": 185.8,
+   "pos": {
+    "x": 20.91,
+    "y": 0,
+    "z": 26.11
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 45
+  },
+  {
+   "play": 189.9,
+   "t": 189.9,
+   "clock": 189.9,
+   "pos": {
+    "x": 27.58,
+    "y": 0,
+    "z": 25.83
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 46
+  },
+  {
+   "play": 193.8,
+   "t": 193.8,
+   "clock": 193.8,
+   "pos": {
+    "x": 34.1,
+    "y": 0,
+    "z": 25.99
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 47
+  },
+  {
+   "play": 197.9,
+   "t": 197.9,
+   "clock": 197.9,
+   "pos": {
+    "x": 39.86,
+    "y": 0,
+    "z": 26.12
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 44
+  },
+  {
+   "play": 201.9,
+   "t": 201.9,
+   "clock": 201.9,
+   "pos": {
+    "x": 39.86,
+    "y": 0,
+    "z": 26.12
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 45
+  },
+  {
+   "play": 206,
+   "t": 206,
+   "clock": 206,
+   "pos": {
+    "x": 44.79,
+    "y": 0,
+    "z": 27.56
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 44
+  },
+  {
+   "play": 210,
+   "t": 210,
+   "clock": 210,
+   "pos": {
+    "x": 46.16,
+    "y": 0,
+    "z": 28.02
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 40
+  },
+  {
+   "play": 214,
+   "t": 214,
+   "clock": 214,
+   "pos": {
+    "x": 48.02,
+    "y": 0,
+    "z": 28.27
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 40
+  },
+  {
+   "play": 218.2,
+   "t": 218.2,
+   "clock": 218.2,
+   "pos": {
+    "x": 47.1,
+    "y": 0,
+    "z": 28.39
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 41
+  },
+  {
+   "play": 222.2,
+   "t": 222.2,
+   "clock": 222.2,
+   "pos": {
+    "x": 45.61,
+    "y": 0,
+    "z": 27.45
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 40
+  },
+  {
+   "play": 226.2,
+   "t": 226.2,
+   "clock": 226.2,
+   "pos": {
+    "x": 46.23,
+    "y": 0,
+    "z": 27.08
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 40
+  },
+  {
+   "play": 230.3,
+   "t": 230.3,
+   "clock": 230.3,
+   "pos": {
+    "x": 46.23,
+    "y": 0,
+    "z": 27.08
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 8,
+   "suspiciousOf": "photographer",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 41
+  },
+  {
+   "play": 234.4,
+   "t": 234.4,
+   "clock": 234.4,
+   "pos": {
+    "x": 46.23,
+    "y": 0,
+    "z": 27.08
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 21,
+   "suspiciousOf": "photographer",
+   "watchers": 2,
+   "paused": false,
+   "map": false,
+   "fps": 41
+  },
+  {
+   "play": 238.4,
+   "t": 238.4,
+   "clock": 238.4,
+   "pos": {
+    "x": 46.23,
+    "y": 0,
+    "z": 27.08
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 1,
+   "suspiciousOf": "photographer",
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 42
+  },
+  {
+   "play": 242.5,
+   "t": 242.5,
+   "clock": 242.5,
+   "pos": {
+    "x": 46.23,
+    "y": 0,
+    "z": 27.08
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 40
+  },
+  {
+   "play": 246.5,
+   "t": 246.5,
+   "clock": 246.5,
+   "pos": {
+    "x": 46.23,
+    "y": 0,
+    "z": 27.08
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 20,
+   "suspiciousOf": "photographer",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 41
+  },
+  {
+   "play": 250.5,
+   "t": 250.5,
+   "clock": 250.5,
+   "pos": {
+    "x": 44.3,
+    "y": 0,
+    "z": 28.06
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 7,
+   "suspiciousOf": "photographer",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 35
+  },
+  {
+   "play": 254.6,
+   "t": 254.6,
+   "clock": 254.6,
+   "pos": {
+    "x": 38.26,
+    "y": 0,
+    "z": 26.72
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 37
+  },
+  {
+   "play": 258.7,
+   "t": 258.7,
+   "clock": 258.7,
+   "pos": {
+    "x": 32,
+    "y": 0,
+    "z": 25.78
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 39
+  },
+  {
+   "play": 262.7,
+   "t": 262.7,
+   "clock": 262.7,
+   "pos": {
+    "x": 25.4,
+    "y": 0,
+    "z": 25.85
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 40
+  },
+  {
+   "play": 266.7,
+   "t": 266.7,
+   "clock": 266.7,
+   "pos": {
+    "x": 18.75,
+    "y": 0,
+    "z": 26.17
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 44
+  },
+  {
+   "play": 270.8,
+   "t": 270.8,
+   "clock": 270.8,
+   "pos": {
+    "x": 11.99,
+    "y": 0,
+    "z": 26.23
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 45
+  },
+  {
+   "play": 274.8,
+   "t": 274.8,
+   "clock": 274.8,
+   "pos": {
+    "x": 5.39,
+    "y": 0,
+    "z": 26.27
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 75,
+   "suspiciousOf": "guard_promenade",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 45
+  },
+  {
+   "play": 278.8,
+   "t": 278.8,
+   "clock": 278.8,
+   "pos": {
+    "x": -1.29,
+    "y": 0,
+    "z": 26.34
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 75,
+   "suspiciousOf": "guard_promenade",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 46
+  },
+  {
+   "play": 283,
+   "t": 283,
+   "clock": 283,
+   "pos": {
+    "x": -8.14,
+    "y": 0,
+    "z": 26.91
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 75,
+   "suspiciousOf": "guard_promenade",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 45
+  },
+  {
+   "play": 287,
+   "t": 287,
+   "clock": 287,
+   "pos": {
+    "x": -14.61,
+    "y": 0,
+    "z": 26.98
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 75,
+   "suspiciousOf": "guard_promenade",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 42
+  },
+  {
+   "play": 291.1,
+   "t": 291.1,
+   "clock": 291.1,
+   "pos": {
+    "x": -20.74,
+    "y": 0,
+    "z": 24.61
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 75,
+   "suspiciousOf": "guard_promenade",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 42
+  },
+  {
+   "play": 295.1,
+   "t": 295.1,
+   "clock": 295.1,
+   "pos": {
+    "x": -19.03,
+    "y": 0,
+    "z": 20.25
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 75,
+   "suspiciousOf": "guard_promenade",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 38
+  },
+  {
+   "play": 299.1,
+   "t": 299.1,
+   "clock": 299.1,
+   "pos": {
+    "x": -12.52,
+    "y": 0,
+    "z": 20.63
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 75,
+   "suspiciousOf": "guard_promenade",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 39
+  },
+  {
+   "play": 303.1,
+   "t": 303.1,
+   "clock": 303.1,
+   "pos": {
+    "x": -7.62,
+    "y": 0,
+    "z": 17.12
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 307.2,
+   "t": 307.2,
+   "clock": 307.2,
+   "pos": {
+    "x": -1.35,
+    "y": 0,
+    "z": 15.64
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 40
+  },
+  {
+   "play": 311.3,
+   "t": 311.3,
+   "clock": 311.3,
+   "pos": {
+    "x": 4.71,
+    "y": 0,
+    "z": 14.37
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 44
+  },
+  {
+   "play": 315.3,
+   "t": 315.3,
+   "clock": 315.3,
+   "pos": {
+    "x": 11.37,
+    "y": 0,
+    "z": 14.75
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 46
+  },
+  {
+   "play": 319.4,
+   "t": 319.4,
+   "clock": 319.4,
+   "pos": {
+    "x": 14.75,
+    "y": 0,
+    "z": 9.43
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 43
+  },
+  {
+   "play": 323.5,
+   "t": 323.5,
+   "clock": 323.5,
+   "pos": {
+    "x": 14.95,
+    "y": 0,
+    "z": 2.8
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 45
+  },
+  {
+   "play": 327.6,
+   "t": 327.6,
+   "clock": 327.6,
+   "pos": {
+    "x": 14.83,
+    "y": 0,
+    "z": -4.02
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 38
+  },
+  {
+   "play": 331.6,
+   "t": 331.6,
+   "clock": 331.6,
+   "pos": {
+    "x": 14.85,
+    "y": 0,
+    "z": -7.15
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 38
+  },
+  {
+   "play": 335.7,
+   "t": 335.7,
+   "clock": 335.7,
+   "pos": {
+    "x": 14.87,
+    "y": 0,
+    "z": -10.25
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 40
+  },
+  {
+   "play": 339.8,
+   "t": 339.8,
+   "clock": 339.8,
+   "pos": {
+    "x": 14.87,
+    "y": 0,
+    "z": -10.25
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 37
+  },
+  {
+   "play": 343.9,
+   "t": 343.9,
+   "clock": 343.9,
+   "pos": {
+    "x": 14.87,
+    "y": 0,
+    "z": -10.25
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 35
+  },
+  {
+   "play": 347.9,
+   "t": 347.9,
+   "clock": 347.9,
+   "pos": {
+    "x": 14.87,
+    "y": 0,
+    "z": -10.25
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 352,
+   "t": 352,
+   "clock": 352,
+   "pos": {
+    "x": 14.87,
+    "y": 0,
+    "z": -10.25
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 35
+  },
+  {
+   "play": 356,
+   "t": 356,
+   "clock": 356,
+   "pos": {
+    "x": 14.87,
+    "y": 0,
+    "z": -10.25
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 360.1,
+   "t": 360.1,
+   "clock": 360.1,
+   "pos": {
+    "x": 14.87,
+    "y": 0,
+    "z": -10.25
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 35
+  },
+  {
+   "play": 364.2,
+   "t": 364.2,
+   "clock": 364.2,
+   "pos": {
+    "x": 14.87,
+    "y": 0,
+    "z": -10.25
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 35
+  },
+  {
+   "play": 368.2,
+   "t": 368.2,
+   "clock": 368.2,
+   "pos": {
+    "x": 14.87,
+    "y": 0,
+    "z": -10.25
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 35
+  },
+  {
+   "play": 372.3,
+   "t": 372.3,
+   "clock": 372.3,
+   "pos": {
+    "x": 14.87,
+    "y": 0,
+    "z": -10.25
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 376.3,
+   "t": 376.3,
+   "clock": 376.3,
+   "pos": {
+    "x": 14.87,
+    "y": 0,
+    "z": -10.25
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 37
+  },
+  {
+   "play": 380.4,
+   "t": 380.4,
+   "clock": 380.4,
+   "pos": {
+    "x": 14.87,
+    "y": 0,
+    "z": -10.25
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 384.4,
+   "t": 384.4,
+   "clock": 384.4,
+   "pos": {
+    "x": 14.87,
+    "y": 0,
+    "z": -10.25
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 36,
+   "suspiciousOf": "sommelier",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 35
+  },
+  {
+   "play": 388.4,
+   "t": 388.4,
+   "clock": 388.4,
+   "pos": {
+    "x": 14.87,
+    "y": 0,
+    "z": -10.25
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": true,
+   "map": false,
+   "fps": 35
+  },
+  {
+   "play": 388.4,
+   "t": 388.4,
+   "clock": 388.4,
+   "pos": {
+    "x": 14.87,
+    "y": 0,
+    "z": -10.25
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": true,
+   "map": false,
+   "fps": 29
+  },
+  {
+   "play": 391.7,
+   "t": 391.7,
+   "clock": 391.7,
+   "pos": {
+    "x": 14.87,
+    "y": 0,
+    "z": -10.25
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 32
+  },
+  {
+   "play": 394.1,
+   "t": 394.1,
+   "clock": 394.1,
+   "pos": {
+    "x": 14.87,
+    "y": 0,
+    "z": -10.25
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 50,
+   "suspiciousOf": "sommelier",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 35
+  },
+  {
+   "play": 395.2,
+   "t": 395.2,
+   "clock": 395.2,
+   "pos": {
+    "x": 13.48,
+    "y": 0,
+    "z": -10.03
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 39,
+   "suspiciousOf": "sommelier",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 35
+  },
+  {
+   "play": 396.2,
+   "t": 396.2,
+   "clock": 396.2,
+   "pos": {
+    "x": 12.91,
+    "y": 0,
+    "z": -9.42
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 29,
+   "suspiciousOf": "sommelier",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 35
+  },
+  {
+   "play": 397.2,
+   "t": 397.2,
+   "clock": 397.2,
+   "pos": {
+    "x": 12.86,
+    "y": 0,
+    "z": -7.94
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 19,
+   "suspiciousOf": "sommelier",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 35
+  },
+  {
+   "play": 398.2,
+   "t": 398.2,
+   "clock": 398.2,
+   "pos": {
+    "x": 11.35,
+    "y": 0,
+    "z": -4.04
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 9,
+   "suspiciousOf": "sommelier",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 37
+  },
+  {
+   "play": 399.2,
+   "t": 399.2,
+   "clock": 399.2,
+   "pos": {
+    "x": 9.15,
+    "y": 0,
+    "z": -3.66
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 40
+  },
+  {
+   "play": 400.2,
+   "t": 400.2,
+   "clock": 400.2,
+   "pos": {
+    "x": 7.88,
+    "y": 1.21,
+    "z": -6.77
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 1,
+   "suspiciousOf": "waiter_5",
+   "watchers": 2,
+   "paused": false,
+   "map": false,
+   "fps": 39
+  },
+  {
+   "play": 401.3,
+   "t": 401.3,
+   "clock": 401.3,
+   "pos": {
+    "x": 6.87,
+    "y": 2.43,
+    "z": -9.56
+   },
+   "floor": 1,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 3,
+   "suspiciousOf": "waiter_5",
+   "watchers": 2,
+   "paused": false,
+   "map": false,
+   "fps": 39
+  },
+  {
+   "play": 402.3,
+   "t": 402.3,
+   "clock": 402.3,
+   "pos": {
+    "x": 6,
+    "y": 3.02,
+    "z": -10.9
+   },
+   "floor": 1,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 38
+  },
+  {
+   "play": 403.3,
+   "t": 403.3,
+   "clock": 403.3,
+   "pos": {
+    "x": 5.23,
+    "y": 3.5,
+    "z": -11.98
+   },
+   "floor": 1,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 38
+  },
+  {
+   "play": 404.3,
+   "t": 404.3,
+   "clock": 404.3,
+   "pos": {
+    "x": 0.52,
+    "y": 3.5,
+    "z": -11.54
+   },
+   "floor": 1,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 405.3,
+   "t": 405.3,
+   "clock": 405.3,
+   "pos": {
+    "x": -4.29,
+    "y": 3.5,
+    "z": -10.73
+   },
+   "floor": 1,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 406.3,
+   "t": 406.3,
+   "clock": 406.3,
+   "pos": {
+    "x": -7.65,
+    "y": 3.5,
+    "z": -7.89
+   },
+   "floor": 1,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 8,
+   "suspiciousOf": "guest_banquet_b_4",
+   "watchers": 2,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 407.3,
+   "t": 407.3,
+   "clock": 407.3,
+   "pos": {
+    "x": -10.7,
+    "y": 3.5,
+    "z": -4.56
+   },
+   "floor": 1,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 11,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 4,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 408.4,
+   "t": 408.4,
+   "clock": 408.4,
+   "pos": {
+    "x": -14.09,
+    "y": 3.47,
+    "z": -0.92
+   },
+   "floor": 1,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 22,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 3,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 409.4,
+   "t": 409.4,
+   "clock": 409.4,
+   "pos": {
+    "x": -14.35,
+    "y": 1.34,
+    "z": 3.95
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 12,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 3,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 410.4,
+   "t": 410.4,
+   "clock": 410.4,
+   "pos": {
+    "x": -15.73,
+    "y": 0,
+    "z": 8.32
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 2,
+   "suspiciousOf": "bodyguard_captain",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 40
+  },
+  {
+   "play": 411.4,
+   "t": 411.4,
+   "clock": 411.4,
+   "pos": {
+    "x": -19.88,
+    "y": 0,
+    "z": 6.95
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 9,
+   "suspiciousOf": "head_cleaner",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 39
+  },
+  {
+   "play": 412.4,
+   "t": 412.4,
+   "clock": 412.4,
+   "pos": {
+    "x": -23.68,
+    "y": 0,
+    "z": 3.96
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 18,
+   "suspiciousOf": "head_cleaner",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 38
+  },
+  {
+   "play": 413.5,
+   "t": 413.5,
+   "clock": 413.5,
+   "pos": {
+    "x": -28.41,
+    "y": 0,
+    "z": 5.15
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 16,
+   "suspiciousOf": "laundry_1",
+   "watchers": 2,
+   "paused": false,
+   "map": false,
+   "fps": 40
+  },
+  {
+   "play": 414.5,
+   "t": 414.5,
+   "clock": 414.5,
+   "pos": {
+    "x": -29.1,
+    "y": 0,
+    "z": 5.56
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 14,
+   "suspiciousOf": "laundry_1",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 39
+  },
+  {
+   "play": 415.5,
+   "t": 415.5,
+   "clock": 415.5,
+   "pos": {
+    "x": -29.1,
+    "y": 0,
+    "z": 5.56
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 9,
+   "suspiciousOf": "laundry_1",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 34
+  },
+  {
+   "play": 416.5,
+   "t": 416.5,
+   "clock": 416.5,
+   "pos": {
+    "x": -29.1,
+    "y": 0,
+    "z": 5.56
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "wrench",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 34
+  },
+  {
+   "play": 417.5,
+   "t": 417.5,
+   "clock": 417.5,
+   "pos": {
+    "x": -25.49,
+    "y": 0,
+    "z": 4.44
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "wrench",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 33
+  },
+  {
+   "play": 418.5,
+   "t": 418.5,
+   "clock": 418.5,
+   "pos": {
+    "x": -20.83,
+    "y": 0,
+    "z": 5.17
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "wrench",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 58,
+   "suspiciousOf": "sommelier",
+   "watchers": 2,
+   "paused": false,
+   "map": false,
+   "fps": 35
+  },
+  {
+   "play": 419.5,
+   "t": 419.5,
+   "clock": 419.5,
+   "pos": {
+    "x": -16.67,
+    "y": 0,
+    "z": 7.55
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "wrench",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 48,
+   "suspiciousOf": "sommelier",
+   "watchers": 2,
+   "paused": false,
+   "map": false,
+   "fps": 39
+  },
+  {
+   "play": 420.5,
+   "t": 420.5,
+   "clock": 420.5,
+   "pos": {
+    "x": -14.58,
+    "y": 1.23,
+    "z": 4.18
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "wrench",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 38,
+   "suspiciousOf": "sommelier",
+   "watchers": 2,
+   "paused": false,
+   "map": false,
+   "fps": 37
+  },
+  {
+   "play": 421.6,
+   "t": 421.6,
+   "clock": 421.6,
+   "pos": {
+    "x": -15.63,
+    "y": 3.27,
+    "z": -0.48
+   },
+   "floor": 1,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "wrench",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 40,
+   "suspiciousOf": "head_cleaner",
+   "watchers": 2,
+   "paused": false,
+   "map": false,
+   "fps": 35
+  },
+  {
+   "play": 422.5,
+   "t": 422.5,
+   "clock": 422.5,
+   "pos": {
+    "x": -19.34,
+    "y": 3.5,
+    "z": -2.33
+   },
+   "floor": 1,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "wrench",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 31,
+   "suspiciousOf": "head_cleaner",
+   "watchers": 2,
+   "paused": false,
+   "map": false,
+   "fps": 37
+  },
+  {
+   "play": 423.6,
+   "t": 423.6,
+   "clock": 423.6,
+   "pos": {
+    "x": -19.45,
+    "y": 3.5,
+    "z": -2.36
+   },
+   "floor": 1,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "wrench",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 20,
+   "suspiciousOf": "head_cleaner",
+   "watchers": 2,
+   "paused": false,
+   "map": false,
+   "fps": 38
+  },
+  {
+   "play": 424.6,
+   "t": 424.6,
+   "clock": 424.6,
+   "pos": {
+    "x": -19.45,
+    "y": 3.5,
+    "z": -2.36
+   },
+   "floor": 1,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "wrench",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 10,
+   "suspiciousOf": "head_cleaner",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 35
+  },
+  {
+   "play": 425.6,
+   "t": 425.6,
+   "clock": 425.6,
+   "pos": {
+    "x": -19.45,
+    "y": 3.5,
+    "z": -2.36
+   },
+   "floor": 1,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "wrench",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 34
+  },
+  {
+   "play": 426.6,
+   "t": 426.6,
+   "clock": 426.6,
+   "pos": {
+    "x": -19.45,
+    "y": 3.5,
+    "z": -2.36
+   },
+   "floor": 1,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "wrench",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 34
+  },
+  {
+   "play": 427.6,
+   "t": 427.6,
+   "clock": 427.6,
+   "pos": {
+    "x": -19.45,
+    "y": 3.5,
+    "z": -2.36
+   },
+   "floor": 1,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "wrench",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 34
+  },
+  {
+   "play": 428.7,
+   "t": 428.7,
+   "clock": 428.7,
+   "pos": {
+    "x": -19.45,
+    "y": 3.5,
+    "z": -2.36
+   },
+   "floor": 1,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "wrench",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 34
+  },
+  {
+   "play": 429.7,
+   "t": 429.7,
+   "clock": 429.7,
+   "pos": {
+    "x": -19.45,
+    "y": 3.5,
+    "z": -2.36
+   },
+   "floor": 1,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "wrench",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 35
+  },
+  {
+   "play": 430.7,
+   "t": 430.7,
+   "clock": 430.7,
+   "pos": {
+    "x": -19.45,
+    "y": 3.5,
+    "z": -2.36
+   },
+   "floor": 1,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 34
+  },
+  {
+   "play": 431.7,
+   "t": 431.7,
+   "clock": 431.7,
+   "pos": {
+    "x": -18.43,
+    "y": 3.5,
+    "z": -2.33
+   },
+   "floor": 1,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 35
+  },
+  {
+   "play": 432.7,
+   "t": 432.7,
+   "clock": 432.7,
+   "pos": {
+    "x": -14.36,
+    "y": 3.5,
+    "z": -2.78
+   },
+   "floor": 1,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 35
+  },
+  {
+   "play": 433.7,
+   "t": 433.7,
+   "clock": 433.7,
+   "pos": {
+    "x": -10.57,
+    "y": 3.5,
+    "z": -5.45
+   },
+   "floor": 1,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 37
+  },
+  {
+   "play": 434.7,
+   "t": 434.7,
+   "clock": 434.7,
+   "pos": {
+    "x": -7.06,
+    "y": 3.5,
+    "z": -8.73
+   },
+   "floor": 1,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 38
+  },
+  {
+   "play": 435.7,
+   "t": 435.7,
+   "clock": 435.7,
+   "pos": {
+    "x": -3.03,
+    "y": 3.5,
+    "z": -10.26
+   },
+   "floor": 1,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 436.8,
+   "t": 436.8,
+   "clock": 436.8,
+   "pos": {
+    "x": 1.38,
+    "y": 3.5,
+    "z": -10.99
+   },
+   "floor": 1,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 437.7,
+   "t": 437.7,
+   "clock": 437.7,
+   "pos": {
+    "x": 5.61,
+    "y": 3.5,
+    "z": -12.71
+   },
+   "floor": 1,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 4,
+   "suspiciousOf": "waiter_5",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 37
+  },
+  {
+   "play": 438.8,
+   "t": 438.8,
+   "clock": 438.8,
+   "pos": {
+    "x": 7.71,
+    "y": 2.05,
+    "z": -8.69
+   },
+   "floor": 1,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 20,
+   "suspiciousOf": "waiter_5",
+   "watchers": 2,
+   "paused": false,
+   "map": false,
+   "fps": 32
+  },
+  {
+   "play": 439.8,
+   "t": 439.8,
+   "clock": 439.8,
+   "pos": {
+    "x": 8.79,
+    "y": 0,
+    "z": -3.93
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 21,
+   "suspiciousOf": "waiter_5",
+   "watchers": 2,
+   "paused": false,
+   "map": false,
+   "fps": 34
+  },
+  {
+   "play": 440.9,
+   "t": 440.9,
+   "clock": 440.9,
+   "pos": {
+    "x": 12.33,
+    "y": 0,
+    "z": -4.19
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 10,
+   "suspiciousOf": "waiter_5",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 37
+  },
+  {
+   "play": 441.9,
+   "t": 441.9,
+   "clock": 441.9,
+   "pos": {
+    "x": 13.02,
+    "y": 0,
+    "z": -9.01
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 3,
+   "suspiciousOf": "guest_lobby_b_3",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 442.9,
+   "t": 442.9,
+   "clock": 442.9,
+   "pos": {
+    "x": 15,
+    "y": 0,
+    "z": -12.59
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 2,
+   "suspiciousOf": "guest_lobby_b_3",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 37
+  },
+  {
+   "play": 443.9,
+   "t": 443.9,
+   "clock": 443.9,
+   "pos": {
+    "x": 14.75,
+    "y": 0,
+    "z": -17.38
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 38
+  },
+  {
+   "play": 444.9,
+   "t": 444.9,
+   "clock": 444.9,
+   "pos": {
+    "x": 16.27,
+    "y": 0,
+    "z": -21.44
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 1,
+   "suspiciousOf": "guard_front",
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 42
+  },
+  {
+   "play": 445.7,
+   "t": 445.7,
+   "clock": 445.7,
+   "pos": {
+    "x": 18.43,
+    "y": 0,
+    "z": -21.38
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": true,
+   "fps": 37
+  },
+  {
+   "play": 445.7,
+   "t": 445.7,
+   "clock": 445.7,
+   "pos": {
+    "x": 18.43,
+    "y": 0,
+    "z": -21.38
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": true,
+   "fps": 32
+  },
+  {
+   "play": 445.7,
+   "t": 445.7,
+   "clock": 445.7,
+   "pos": {
+    "x": 18.43,
+    "y": 0,
+    "z": -21.38
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": true,
+   "fps": 31
+  },
+  {
+   "play": 446.2,
+   "t": 446.2,
+   "clock": 446.2,
+   "pos": {
+    "x": 18.43,
+    "y": 0,
+    "z": -21.38
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 447.2,
+   "t": 447.2,
+   "clock": 447.2,
+   "pos": {
+    "x": 20.82,
+    "y": 0,
+    "z": -21.56
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 4,
+   "suspiciousOf": "guard_front",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 41
+  },
+  {
+   "play": 448.3,
+   "t": 448.3,
+   "clock": 448.3,
+   "pos": {
+    "x": 23.13,
+    "y": 0,
+    "z": -21.34
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 9,
+   "suspiciousOf": "guard_front",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 39
+  },
+  {
+   "play": 449.2,
+   "t": 449.2,
+   "clock": 449.2,
+   "pos": {
+    "x": 23.34,
+    "y": 0,
+    "z": -21.48
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 4,
+   "suspiciousOf": "guard_front",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 41
+  },
+  {
+   "play": 450.3,
+   "t": 450.3,
+   "clock": 450.3,
+   "pos": {
+    "x": 23.5,
+    "y": 0,
+    "z": -20.56
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 37
+  },
+  {
+   "play": 451.3,
+   "t": 451.3,
+   "clock": 451.3,
+   "pos": {
+    "x": 23.33,
+    "y": 0,
+    "z": -19.37
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 452.3,
+   "t": 452.3,
+   "clock": 452.3,
+   "pos": {
+    "x": 23.29,
+    "y": 0,
+    "z": -20.3
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 36
+  },
+  {
+   "play": 453.3,
+   "t": 453.3,
+   "clock": 453.3,
+   "pos": {
+    "x": 26.4,
+    "y": 0,
+    "z": -20.83
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 7,
+   "suspiciousOf": "guard_beach_n",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 42
+  },
+  {
+   "play": 454.4,
+   "t": 454.4,
+   "clock": 454.4,
+   "pos": {
+    "x": 29.03,
+    "y": 0,
+    "z": -20.57
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 9,
+   "suspiciousOf": "guard_beach_n",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 42
+  },
+  {
+   "play": 455.4,
+   "t": 455.4,
+   "clock": 455.4,
+   "pos": {
+    "x": 30.65,
+    "y": 0,
+    "z": -20.15
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 1,
+   "suspiciousOf": "guard_beach_n",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 40
+  },
+  {
+   "play": 456.4,
+   "t": 456.4,
+   "clock": 456.4,
+   "pos": {
+    "x": 31.99,
+    "y": 0,
+    "z": -19.53
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 39
+  },
+  {
+   "play": 457.4,
+   "t": 457.4,
+   "clock": 457.4,
+   "pos": {
+    "x": 32.52,
+    "y": 0,
+    "z": -17.95
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 39
+  },
+  {
+   "play": 458.4,
+   "t": 458.4,
+   "clock": 458.4,
+   "pos": {
+    "x": 32.55,
+    "y": 0,
+    "z": -15.71
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 37
+  },
+  {
+   "play": 459.4,
+   "t": 459.4,
+   "clock": 459.4,
+   "pos": {
+    "x": 32.81,
+    "y": 0,
+    "z": -11.99
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 38
+  },
+  {
+   "play": 460.4,
+   "t": 460.4,
+   "clock": 460.4,
+   "pos": {
+    "x": 32.52,
+    "y": 0,
+    "z": -10.44
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 41
+  },
+  {
+   "play": 461.4,
+   "t": 461.4,
+   "clock": 461.4,
+   "pos": {
+    "x": 33.73,
+    "y": 0,
+    "z": -10.13
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 42
+  },
+  {
+   "play": 462.5,
+   "t": 462.5,
+   "clock": 462.5,
+   "pos": {
+    "x": 35.21,
+    "y": 0,
+    "z": -10.62
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 42
+  },
+  {
+   "play": 463.5,
+   "t": 463.5,
+   "clock": 463.5,
+   "pos": {
+    "x": 35.71,
+    "y": 0,
+    "z": -10.74
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 42
+  },
+  {
+   "play": 464.5,
+   "t": 464.5,
+   "clock": 464.5,
+   "pos": {
+    "x": 35.9,
+    "y": 0,
+    "z": -10.83
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 43
+  },
+  {
+   "play": 465.6,
+   "t": 465.6,
+   "clock": 465.6,
+   "pos": {
+    "x": 35.96,
+    "y": 0,
+    "z": -10.74
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 42
+  },
+  {
+   "play": 466.6,
+   "t": 466.6,
+   "clock": 466.6,
+   "pos": {
+    "x": 35.96,
+    "y": 0,
+    "z": -10.74
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 43
+  },
+  {
+   "play": 467.6,
+   "t": 467.6,
+   "clock": 467.6,
+   "pos": {
+    "x": 35.96,
+    "y": 0,
+    "z": -10.74
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 43
+  },
+  {
+   "play": 468.6,
+   "t": 468.6,
+   "clock": 468.6,
+   "pos": {
+    "x": 35.96,
+    "y": 0,
+    "z": -10.74
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 43
+  },
+  {
+   "play": 469.6,
+   "t": 469.6,
+   "clock": 469.6,
+   "pos": {
+    "x": 36.98,
+    "y": 0,
+    "z": -10.52
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 43
+  },
+  {
+   "play": 470.7,
+   "t": 470.7,
+   "clock": 470.7,
+   "pos": {
+    "x": 36.29,
+    "y": 0,
+    "z": -10.95
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 43
+  },
+  {
+   "play": 471.7,
+   "t": 471.7,
+   "clock": 471.7,
+   "pos": {
+    "x": 36.95,
+    "y": 0,
+    "z": -13.09
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 44
+  },
+  {
+   "play": 472.7,
+   "t": 472.7,
+   "clock": 472.7,
+   "pos": {
+    "x": 38.31,
+    "y": 0,
+    "z": -15.9
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 45
+  },
+  {
+   "play": 473.7,
+   "t": 473.7,
+   "clock": 473.7,
+   "pos": {
+    "x": 38.31,
+    "y": 0,
+    "z": -15.9
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 41
+  },
+  {
+   "play": 474.7,
+   "t": 474.7,
+   "clock": 474.7,
+   "pos": {
+    "x": 38.31,
+    "y": 0,
+    "z": -15.9
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 41
+  },
+  {
+   "play": 475.7,
+   "t": 475.7,
+   "clock": 475.7,
+   "pos": {
+    "x": 38.31,
+    "y": 0,
+    "z": -15.9
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 43
+  },
+  {
+   "play": 476.7,
+   "t": 476.7,
+   "clock": 476.7,
+   "pos": {
+    "x": 38.31,
+    "y": 0,
+    "z": -15.9
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 43
+  },
+  {
+   "play": 477.7,
+   "t": 477.7,
+   "clock": 477.7,
+   "pos": {
+    "x": 37.61,
+    "y": 0,
+    "z": -16.41
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 43
+  },
+  {
+   "play": 478.7,
+   "t": 478.7,
+   "clock": 478.7,
+   "pos": {
+    "x": 37.75,
+    "y": 0,
+    "z": -16.73
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 41
+  },
+  {
+   "play": 479.7,
+   "t": 479.7,
+   "clock": 479.7,
+   "pos": {
+    "x": 37.75,
+    "y": 0,
+    "z": -16.73
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 42
+  },
+  {
+   "play": 480.8,
+   "t": 480.8,
+   "clock": 480.8,
+   "pos": {
+    "x": 37.75,
+    "y": 0,
+    "z": -16.73
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "pistol_silenced",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 44
+  },
+  {
+   "play": 481.8,
+   "t": 481.8,
+   "clock": 481.8,
+   "pos": {
+    "x": 37.75,
+    "y": 0,
+    "z": -16.73
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "pistol_silenced",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 0,
+   "suspiciousOf": null,
+   "watchers": 0,
+   "paused": false,
+   "map": false,
+   "fps": 44
+  },
+  {
+   "play": 482.8,
+   "t": 482.8,
+   "clock": 482.8,
+   "pos": {
+    "x": 37.75,
+    "y": 0,
+    "z": -16.73
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 0,
+   "suspicion": 67,
+   "suspiciousOf": "guard_garden",
+   "watchers": 1,
+   "paused": false,
+   "map": false,
+   "fps": 43
+  },
+  {
+   "play": 483.8,
+   "t": 483.8,
+   "clock": 483.8,
+   "pos": {
+    "x": 37.51,
+    "y": 0,
+    "z": -15.09
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 1,
+   "suspicion": 75,
+   "suspiciousOf": "guard_beach_s",
+   "watchers": 3,
+   "paused": false,
+   "map": false,
+   "fps": 39
+  },
+  {
+   "play": 484.8,
+   "t": 484.8,
+   "clock": 484.8,
+   "pos": {
+    "x": 35.64,
+    "y": 0,
+    "z": -10.79
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 1,
+   "suspicion": 75,
+   "suspiciousOf": "guard_terrace",
+   "watchers": 4,
+   "paused": false,
+   "map": false,
+   "fps": 39
+  },
+  {
+   "play": 485.8,
+   "t": 485.8,
+   "clock": 485.8,
+   "pos": {
+    "x": 34.75,
+    "y": 0,
+    "z": -8.99
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 1,
+   "suspicion": 75,
+   "suspiciousOf": "guard_pool",
+   "watchers": 5,
+   "paused": false,
+   "map": false,
+   "fps": 40
+  },
+  {
+   "play": 486.8,
+   "t": 486.8,
+   "clock": 486.8,
+   "pos": {
+    "x": 34.75,
+    "y": 0,
+    "z": -8.99
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 1,
+   "suspicion": 75,
+   "suspiciousOf": "guard_pool",
+   "watchers": 5,
+   "paused": false,
+   "map": false,
+   "fps": 39
+  },
+  {
+   "play": 487.9,
+   "t": 487.9,
+   "clock": 487.9,
+   "pos": {
+    "x": 34.79,
+    "y": 0,
+    "z": -8.98
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 3,
+   "suspicion": 75,
+   "suspiciousOf": "guard_pool",
+   "watchers": 5,
+   "paused": false,
+   "map": false,
+   "fps": 40
+  },
+  {
+   "play": 488.9,
+   "t": 488.9,
+   "clock": 488.9,
+   "pos": {
+    "x": 36.42,
+    "y": 0,
+    "z": -9.34
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 3,
+   "suspicion": 74,
+   "suspiciousOf": "guard_pool",
+   "watchers": 5,
+   "paused": false,
+   "map": false,
+   "fps": 43
+  },
+  {
+   "play": 489.9,
+   "t": 489.9,
+   "clock": 489.9,
+   "pos": {
+    "x": 38.86,
+    "y": 0,
+    "z": -6.86
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 3,
+   "suspicion": 78,
+   "suspiciousOf": "guard_promenade",
+   "watchers": 5,
+   "paused": false,
+   "map": false,
+   "fps": 44
+  },
+  {
+   "play": 490.9,
+   "t": 490.9,
+   "clock": 490.9,
+   "pos": {
+    "x": 40.26,
+    "y": 0,
+    "z": -2.11
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 3,
+   "suspicion": 94,
+   "suspiciousOf": "guard_promenade",
+   "watchers": 6,
+   "paused": false,
+   "map": false,
+   "fps": 46
+  },
+  {
+   "play": 491.9,
+   "t": 491.9,
+   "clock": 491.9,
+   "pos": {
+    "x": 41.85,
+    "y": 0,
+    "z": 2.42
+   },
+   "floor": 0,
+   "disguise": "guard",
+   "compromised": [
+    "guard"
+   ],
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "hp": 100,
+   "hand": "",
+   "guns": [
+    "pistol_silenced"
+   ],
+   "inCombat": 0,
+   "alert": 3,
+   "suspicion": 100,
+   "suspiciousOf": "guard_pool",
+   "watchers": 8,
+   "paused": false,
+   "map": false,
+   "fps": 47
+  }
+ ],
+ "end": {
+  "why": "caught",
+  "outcome": {
+   "success": false,
+   "reason": "caught",
+   "time": 492.4833333332141
+  },
+  "phase": "over",
+  "remaining": [
+   "investor"
+  ],
+  "result": {
+   "success": false,
+   "seconds": 492.4833333332141,
+   "lines": [
+    {
+     "key": "spotted",
+     "label": "見つかった",
+     "count": 8,
+     "points": -8000
+    },
+    {
+     "key": "ko_found",
+     "label": "気絶した人の発見",
+     "count": 4,
+     "points": -2000
+    },
+    {
+     "key": "body_found",
+     "label": "死体の発見",
+     "count": 1,
+     "points": -2000
+    },
+    {
+     "key": "loud_shot_once",
+     "label": "銃声",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "combat",
+     "label": "撃ち合い",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "guard_kill",
+     "label": "警備員の排除",
+     "count": 1,
+     "points": -1000
+    },
+    {
+     "key": "civilian_kill",
+     "label": "ターゲット以外の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "recording_left",
+     "label": "監視カメラの記録",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "accident_kill",
+     "label": "事故に見せかけた排除",
+     "count": 1,
+     "points": 1000
+    },
+    {
+     "key": "chance_complete",
+     "label": "チャンスの達成",
+     "count": 0,
+     "points": 0
+    }
+   ],
+   "timeBonus": 0,
+   "total": -2000,
+   "rank": "—",
+   "ghost": false,
+   "ghostBrokenBy": [
+    "spotted",
+    "body_found",
+    "guard_kill"
+   ]
+  },
+  "provisionalScore": null,
+  "counts": {
+   "ko_found": 4,
+   "accident_kill": 1,
+   "guard_kill": 1,
+   "target_kill": 1,
+   "body_found": 1,
+   "spotted": 8
+  },
+  "kills": [
+   {
+    "victim": "lawyer",
+    "method": "chandelier",
+    "time": 428.2833333332725,
+    "position": {
+     "x": -19.61992013096414,
+     "y": 3.5,
+     "z": -16.74637251094965
+    },
+    "judgement": {
+     "kind": "accident",
+     "witnesses": [],
+     "cameras": [],
+     "illegal": false,
+     "reasons": [
+      "仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし"
+     ]
+    }
+   },
+   {
+    "victim": "bodyguard_1",
+    "method": "chandelier",
+    "time": 428.2833333332725,
+    "position": {
+     "x": -22.225989834500975,
+     "y": 3.5,
+     "z": -16.411557993861074
+    },
+    "judgement": {
+     "kind": "accident",
+     "witnesses": [],
+     "cameras": [],
+     "illegal": false,
+     "reasons": [
+      "仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし"
+     ]
+    }
+   }
+  ],
+  "chances": [
+   {
+    "id": "a1",
+    "stage": 0,
+    "status": "undiscovered",
+    "title": "？？？",
+    "step": "",
+    "window": [
+     1140,
+     1440
+    ],
+    "waitSeconds": 647.5166666667859,
+    "tracked": false
+   },
+   {
+    "id": "a2",
+    "stage": 0,
+    "status": "undiscovered",
+    "title": "？？？",
+    "step": "",
+    "window": [
+     1140,
+     1440
+    ],
+    "waitSeconds": 647.5166666667859,
+    "tracked": false
+   },
+   {
+    "id": "a3",
+    "stage": 0,
+    "status": "undiscovered",
+    "title": "？？？",
+    "step": "",
+    "window": [
+     900,
+     1140
+    ],
+    "waitSeconds": 407.5166666667859,
+    "tracked": false
+   },
+   {
+    "id": "a4",
+    "stage": 0,
+    "status": "undiscovered",
+    "title": "？？？",
+    "step": "",
+    "window": [
+     360,
+     600
+    ],
+    "waitSeconds": 0,
+    "tracked": false
+   },
+   {
+    "id": "a5",
+    "stage": 0,
+    "status": "undiscovered",
+    "title": "？？？",
+    "step": "",
+    "window": [
+     600,
+     900
+    ],
+    "waitSeconds": 107.51666666678591,
+    "tracked": false
+   },
+   {
+    "id": "b1",
+    "stage": 0,
+    "status": "undiscovered",
+    "title": "？？？",
+    "step": "",
+    "window": [
+     300,
+     660
+    ],
+    "waitSeconds": 0,
+    "tracked": false
+   },
+   {
+    "id": "b2",
+    "stage": 0,
+    "status": "undiscovered",
+    "title": "？？？",
+    "step": "",
+    "window": [
+     660,
+     960
+    ],
+    "waitSeconds": 167.5166666667859,
+    "tracked": false
+   },
+   {
+    "id": "b3",
+    "stage": 0,
+    "status": "undiscovered",
+    "title": "？？？",
+    "step": "",
+    "window": [
+     960,
+     1200
+    ],
+    "waitSeconds": 467.5166666667859,
+    "tracked": false
+   },
+   {
+    "id": "b4",
+    "stage": 0,
+    "status": "undiscovered",
+    "title": "？？？",
+    "step": "",
+    "window": [
+     1200,
+     1500
+    ],
+    "waitSeconds": 707.5166666667859,
+    "tracked": false
+   },
+   {
+    "id": "c1",
+    "stage": 0,
+    "status": "undiscovered",
+    "title": "？？？",
+    "step": "",
+    "window": [
+     420,
+     660
+    ],
+    "waitSeconds": 0,
+    "tracked": false
+   },
+   {
+    "id": "c2",
+    "stage": 2,
+    "status": "active",
+    "title": "避難ボート",
+    "step": "投資家がボートで逃げ、エンジンが爆発する",
+    "window": [
+     0,
+     1800
+    ],
+    "waitSeconds": 0,
+    "tracked": true
+   },
+   {
+    "id": "c3",
+    "stage": 0,
+    "status": "undiscovered",
+    "title": "？？？",
+    "step": "",
+    "window": [
+     1200,
+     1500
+    ],
+    "waitSeconds": 707.5166666667859,
+    "tracked": false
+   },
+   {
+    "id": "c4",
+    "stage": 0,
+    "status": "undiscovered",
+    "title": "？？？",
+    "step": "",
+    "window": [
+     660,
+     900
+    ],
+    "waitSeconds": 167.5166666667859,
+    "tracked": false
+   },
+   {
+    "id": "c5",
+    "stage": 0,
+    "status": "undiscovered",
+    "title": "？？？",
+    "step": "",
+    "window": [
+     900,
+     1200
+    ],
+    "waitSeconds": 407.5166666667859,
+    "tracked": false
+   }
+  ],
+  "detection": {
+   "held": "",
+   "blend": null,
+   "recorded": false,
+   "recordReason": "",
+   "destroyed": [],
+   "action": null,
+   "witnesses": [
+    {
+     "id": "guest_terrace_b_1",
+     "what": "body"
+    }
+   ],
+   "floor": [
+    {
+     "item": "wrench",
+     "pos": {
+      "x": -47,
+      "y": 0,
+      "z": -13
+     }
+    },
+    {
+     "item": "bottle",
+     "pos": {
+      "x": 27,
+      "y": 0,
+      "z": -17.5
+     }
+    },
+    {
+     "item": "mop",
+     "pos": {
+      "x": -15,
+      "y": 0,
+      "z": 12
+     }
+    },
+    {
+     "item": "camera",
+     "pos": {
+      "x": 37,
+      "y": 0,
+      "z": 11
+     }
+    },
+    {
+     "item": "wrench",
+     "pos": {
+      "x": -19.45452063217118,
+      "y": 3.5,
+      "z": -2.3555901131000025
+     }
+    }
+   ],
+   "watching": []
+  },
+  "combat": {
+   "hp": 100,
+   "fights": [],
+   "waves": 0
+  },
+  "clock": {
+   "elapsed": 492.4833333332141,
+   "time": 492.4833333332141,
+   "cycle": 0,
+   "rate": 1,
+   "loop": 1800
+  },
+  "endedAt": "2026-10-31T10:06:34.130Z"
+ }
+}

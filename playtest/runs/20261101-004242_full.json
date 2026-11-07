@@ -1,0 +1,425 @@
+{
+ "meta": {
+  "id": "20261101-004242_full",
+  "scenario": "full",
+  "scenarioTitle": "通し（本番どおり）",
+  "startTime": 0,
+  "lead": null,
+  "startedAt": "2026-10-31T15:42:42.225Z",
+  "game": "CLEAN HANDS M5.8 PC",
+  "page": "http://127.0.0.1:8795/",
+  "viewport": [
+   1440,
+   765
+  ],
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+  "loadout": {
+   "tools": [
+    "poison_lethal",
+    "coin"
+   ],
+   "pistol": "pistol_silenced",
+   "start": "S1"
+  },
+  "keyTime": null,
+  "appliedAt": {
+   "elapsed": 0.03333333333333333,
+   "time": 0.03333333333333333,
+   "cycle": 0,
+   "rate": 1,
+   "loop": 1800
+  },
+  "note": "デバッグを使った回のため、メモだけを残した記録（出来事・1秒ごとの状態は削除）"
+ },
+ "events": [],
+ "samples": [],
+ "end": {
+  "why": "page closed",
+  "outcome": "page closed",
+  "endedAt": "2026-10-31T15:52:49.646Z"
+ },
+ "memos": [
+  {
+   "n": 1,
+   "play": 370.3,
+   "t": 370.3,
+   "clock": 370.3,
+   "at": "2026-10-31T15:50:39.589Z",
+   "wasPaused": false,
+   "tags": [
+    "アイデア"
+   ],
+   "state": {
+    "play": 370.3,
+    "t": 370.3,
+    "clock": 370.3,
+    "pos": {
+     "x": -45.99,
+     "y": 0,
+     "z": -3.46
+    },
+    "floor": 0,
+    "disguise": "suit",
+    "compromised": [],
+    "held": "",
+    "blend": null,
+    "recorded": false,
+    "hp": 100,
+    "hand": "pistol_silenced",
+    "guns": [
+     "pistol_silenced",
+     "smg"
+    ],
+    "inCombat": 0,
+    "alert": 1,
+    "suspicion": 0,
+    "suspiciousOf": null,
+    "watchers": 0,
+    "paused": false,
+    "map": false,
+    "fps": 54,
+    "targets": {
+     "wine_merchant": {
+      "x": 42.3,
+      "y": 0,
+      "z": -14.9,
+      "do": "evacuate",
+      "life": "dead"
+     },
+     "lawyer": {
+      "x": -6.9,
+      "y": 0,
+      "z": -2.7,
+      "do": "",
+      "life": "dead"
+     },
+     "investor": {
+      "x": -27.6,
+      "y": 7,
+      "z": -15.4,
+      "do": "work",
+      "life": "active"
+     }
+    },
+    "near": []
+   },
+   "near": [],
+   "recent": [
+    {
+     "play": 345.25,
+     "t": 345.28,
+     "clock": 345.3,
+     "type": "shot.fired",
+     "time": 345.28333333334797,
+     "id": "pistol_silenced",
+     "method": "small",
+     "at": {
+      "x": -42.03,
+      "y": 0,
+      "z": -1.85
+     },
+     "disguise": "chef"
+    },
+    {
+     "play": 345.72,
+     "t": 345.75,
+     "clock": 345.8,
+     "type": "shot.fired",
+     "time": 345.7500000000142,
+     "id": "pistol_silenced",
+     "method": "small",
+     "at": {
+      "x": -42.03,
+      "y": 0,
+      "z": -1.85
+     },
+     "disguise": "chef"
+    },
+    {
+     "play": 346.15,
+     "t": 346.18,
+     "clock": 346.2,
+     "type": "shot.fired",
+     "time": 346.18333333334715,
+     "id": "pistol_silenced",
+     "method": "small",
+     "at": {
+      "x": -42.03,
+      "y": 0,
+      "z": -1.85
+     },
+     "disguise": "chef"
+    },
+    {
+     "play": 346.9,
+     "t": 346.93,
+     "clock": 346.9,
+     "type": "shot.fired",
+     "time": 346.93333333334647,
+     "id": "pistol_silenced",
+     "method": "small",
+     "at": {
+      "x": -42.03,
+      "y": 0,
+      "z": -1.85
+     },
+     "disguise": "chef"
+    },
+    {
+     "play": 347.38,
+     "t": 347.42,
+     "clock": 347.4,
+     "type": "shot.fired",
+     "time": 347.41666666667936,
+     "id": "pistol_silenced",
+     "method": "small",
+     "at": {
+      "x": -42.03,
+      "y": 0,
+      "z": -1.85
+     },
+     "disguise": "chef"
+    },
+    {
+     "play": 352.73,
+     "t": 352.77,
+     "clock": 352.8,
+     "type": "disguise.changed",
+     "time": 352.7666666666745,
+     "id": "suit",
+     "at": {
+      "x": -43.52,
+      "y": 0,
+      "z": -2.29
+     },
+     "disguise": "suit"
+    },
+    {
+     "play": 352.73,
+     "t": 352.77,
+     "clock": 352.8,
+     "type": "debug.cheat",
+     "time": 352.7666666666745,
+     "id": "服",
+     "value": "客（スーツ）",
+     "at": {
+      "x": -43.52,
+      "y": 0,
+      "z": -2.29
+     },
+     "disguise": "suit"
+    },
+    {
+     "play": 352.73,
+     "t": 352.77,
+     "clock": 352.8,
+     "type": "disguise.changed",
+     "time": 352.7666666666745,
+     "id": "suit",
+     "at": {
+      "x": -43.52,
+      "y": 0,
+      "z": -2.29
+     },
+     "disguise": "suit"
+    }
+   ],
+   "missionOver": "",
+   "floorLabel": "1F",
+   "disguiseLabel": "客（スーツ）",
+   "text": "銃のしゃがみモーションも作ってほしい",
+   "shot": "20261101-004242_full_memo1.jpg"
+  },
+  {
+   "n": 2,
+   "play": 388.9,
+   "t": 388.9,
+   "clock": 388.9,
+   "at": "2026-10-31T15:51:17.292Z",
+   "wasPaused": false,
+   "tags": [
+    "アイデア"
+   ],
+   "state": {
+    "play": 388.9,
+    "t": 388.9,
+    "clock": 388.9,
+    "pos": {
+     "x": -47.4,
+     "y": 0,
+     "z": -8.15
+    },
+    "floor": 0,
+    "disguise": "suit",
+    "compromised": [],
+    "held": "",
+    "blend": null,
+    "recorded": false,
+    "hp": 100,
+    "hand": "",
+    "guns": [
+     "pistol_silenced",
+     "smg"
+    ],
+    "inCombat": 0,
+    "alert": 1,
+    "suspicion": 0,
+    "suspiciousOf": null,
+    "watchers": 0,
+    "paused": false,
+    "map": false,
+    "fps": 56,
+    "targets": {
+     "wine_merchant": {
+      "x": 42.3,
+      "y": 0,
+      "z": -14.9,
+      "do": "evacuate",
+      "life": "dead"
+     },
+     "lawyer": {
+      "x": -6.9,
+      "y": 0,
+      "z": -2.7,
+      "do": "",
+      "life": "dead"
+     },
+     "investor": {
+      "x": -27.6,
+      "y": 7,
+      "z": -15.4,
+      "do": "work",
+      "life": "active"
+     }
+    },
+    "near": []
+   },
+   "near": [],
+   "recent": [
+    {
+     "play": 345.25,
+     "t": 345.28,
+     "clock": 345.3,
+     "type": "shot.fired",
+     "time": 345.28333333334797,
+     "id": "pistol_silenced",
+     "method": "small",
+     "at": {
+      "x": -42.03,
+      "y": 0,
+      "z": -1.85
+     },
+     "disguise": "chef"
+    },
+    {
+     "play": 345.72,
+     "t": 345.75,
+     "clock": 345.8,
+     "type": "shot.fired",
+     "time": 345.7500000000142,
+     "id": "pistol_silenced",
+     "method": "small",
+     "at": {
+      "x": -42.03,
+      "y": 0,
+      "z": -1.85
+     },
+     "disguise": "chef"
+    },
+    {
+     "play": 346.15,
+     "t": 346.18,
+     "clock": 346.2,
+     "type": "shot.fired",
+     "time": 346.18333333334715,
+     "id": "pistol_silenced",
+     "method": "small",
+     "at": {
+      "x": -42.03,
+      "y": 0,
+      "z": -1.85
+     },
+     "disguise": "chef"
+    },
+    {
+     "play": 346.9,
+     "t": 346.93,
+     "clock": 346.9,
+     "type": "shot.fired",
+     "time": 346.93333333334647,
+     "id": "pistol_silenced",
+     "method": "small",
+     "at": {
+      "x": -42.03,
+      "y": 0,
+      "z": -1.85
+     },
+     "disguise": "chef"
+    },
+    {
+     "play": 347.38,
+     "t": 347.42,
+     "clock": 347.4,
+     "type": "shot.fired",
+     "time": 347.41666666667936,
+     "id": "pistol_silenced",
+     "method": "small",
+     "at": {
+      "x": -42.03,
+      "y": 0,
+      "z": -1.85
+     },
+     "disguise": "chef"
+    },
+    {
+     "play": 352.73,
+     "t": 352.77,
+     "clock": 352.8,
+     "type": "disguise.changed",
+     "time": 352.7666666666745,
+     "id": "suit",
+     "at": {
+      "x": -43.52,
+      "y": 0,
+      "z": -2.29
+     },
+     "disguise": "suit"
+    },
+    {
+     "play": 352.73,
+     "t": 352.77,
+     "clock": 352.8,
+     "type": "debug.cheat",
+     "time": 352.7666666666745,
+     "id": "服",
+     "value": "客（スーツ）",
+     "at": {
+      "x": -43.52,
+      "y": 0,
+      "z": -2.29
+     },
+     "disguise": "suit"
+    },
+    {
+     "play": 352.73,
+     "t": 352.77,
+     "clock": 352.8,
+     "type": "disguise.changed",
+     "time": 352.7666666666745,
+     "id": "suit",
+     "at": {
+      "x": -43.52,
+      "y": 0,
+      "z": -2.29
+     },
+     "disguise": "suit"
+    }
+   ],
+   "missionOver": "",
+   "floorLabel": "1F",
+   "disguiseLabel": "客（スーツ）",
+   "text": "増援軍の持っている銃とドロップが違うのは違和感",
+   "shot": "20261101-004242_full_memo2.jpg"
+  }
+ ]
+}

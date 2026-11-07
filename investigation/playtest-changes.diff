@@ -1,0 +1,652 @@
+--- ..\investigation\playtest-baseline-src\hud.ts
++++ src\hud.ts
+@@ -94,7 +94,7 @@
+   c.fillStyle=hot?`rgba(226,54,43,${.82+.12*Math.sin(s.time*8)})`:'rgba(240,180,60,.9)';c.beginPath();c.moveTo(cx-w/2+10,y-14);c.lineTo(cx+w/2,y-14);c.lineTo(cx+w/2-10,y+12);c.lineTo(cx-w/2,y+12);c.closePath();c.fill();
+   this.text(s.alarm.text,cx,y+4,13,hot?'#fff':INK,{weight:700,align:'center',spacing:2});}
+  private prompt(s:HudState){if(!s.prompt)return;const c=this.c,cx=this.w/2,cy=this.h*.62;c.lineWidth=3;c.strokeStyle='rgba(243,239,230,.2)';c.beginPath();c.arc(cx,cy,19,0,Math.PI*2);c.stroke();
+-  c.strokeStyle=AMBER;c.beginPath();c.arc(cx,cy,19,-Math.PI/2,-Math.PI/2+Math.PI*2*s.prompt.progress);c.stroke();this.text(s.prompt.text.startsWith('F')?'F':s.prompt.text.startsWith('X')?'X':'E',cx,cy+5,14,PAPER,{font:LATIN,weight:700,align:'center'});const lines:string[]=[];let line='';for(const char of s.prompt.text){if(this.measure(line+char,12,500)>this.w-48){lines.push(line);line=char;}else line+=char;}lines.push(line);lines.forEach((t,i)=>this.text(t,cx,cy+43+i*18,12,PAPER,{weight:500,align:'center'}));}
++  c.strokeStyle=AMBER;c.beginPath();c.arc(cx,cy,19,-Math.PI/2,-Math.PI/2+Math.PI*2*s.prompt.progress);c.stroke();this.text(s.prompt.text.startsWith('R')?'R':s.prompt.text.startsWith('F')?'F':s.prompt.text.startsWith('X')?'X':'E',cx,cy+5,14,PAPER,{font:LATIN,weight:700,align:'center'});const lines:string[]=[];let line='';for(const char of s.prompt.text){if(this.measure(line+char,12,500)>this.w-48){lines.push(line);line=char;}else line+=char;}lines.push(line);lines.forEach((t,i)=>this.text(t,cx,cy+43+i*18,12,PAPER,{weight:500,align:'center'}));}
+  private toast(s:HudState){if(!s.toast)return;const a=Math.min(1,s.toast.age*6,(3.4-s.toast.age)*2);if(a<=0)return;const c=this.c,cx=this.w/2,y=this.h-128;c.globalAlpha=a;
+   const w=this.measure(s.toast.text,13.5,500)+40;const g=c.createLinearGradient(cx-w/2,0,cx+w/2,0);g.addColorStop(0,'rgba(8,12,14,0)');g.addColorStop(.15,'rgba(8,12,14,.78)');g.addColorStop(.85,'rgba(8,12,14,.78)');g.addColorStop(1,'rgba(8,12,14,0)');c.fillStyle=g;c.fillRect(cx-w/2,y-20,w,30);
+   c.fillStyle=RED;c.fillRect(cx-w/2+20,y-20,18,1.5);this.text(s.toast.text,cx,y,13.5,PAPER,{weight:500,align:'center'});c.globalAlpha=1;}
+--- ..\investigation\playtest-baseline-src\m4.ts
++++ src\m4.ts
+@@ -1,4 +1,5 @@
+ import {permission,type Director,type Npc,type PlayerView} from './ai.ts';
++import type {HideDef} from './m3.ts';
+ import type {Position} from './world.ts';
+ import {segmentClear} from './sight.ts';
+ export type Checkpoint={id:string;label:string;x:number;y:number;z:number;normal:{x:number;z:number};width:number;zone:string;guardId:string};
+@@ -15,8 +16,8 @@
+  // Where the agent last stood unseen after taking off each compromised outfit.
+  readonly anchors=new Map<string,Position>();
+  stats={changes:0,frisks:0,found:0,changeWitnesses:0,cleared:0};
+- readonly director:Director;readonly checkpoints:Checkpoint[];readonly rules:M4Rules;
+- constructor(director:Director,checkpoints:Checkpoint[],rules:M4Rules){this.director=director;this.checkpoints=checkpoints;this.rules=rules;}
++ readonly hides:HideDef[];readonly director:Director;readonly checkpoints:Checkpoint[];readonly rules:M4Rules;
++ constructor(director:Director,checkpoints:Checkpoint[],rules:M4Rules,hides:HideDef[]=[]){this.hides=hides;this.director=director;this.checkpoints=checkpoints;this.rules=rules;}
+  get locked(){return !!this.action;}
+  get progress(){return this.action?this.action.elapsed/this.action.duration:0;}
+  get label(){return this.director.rules.disguises[this.disguise]?.label??this.disguise;}
+@@ -25,7 +26,10 @@
+  // Illegal items a frisk turns up. Nothing is taken away; the wire is never found.
+  friskFinds(){return this.inventory().filter(id=>{const it=this.rules.items[id];return it?.legality==='illegal'&&it.friskDetect!==false;});}
+  private clear(a:Position,b:Position){return Math.abs(a.y-b.y)<.35&&segmentClear(this.director.boxes,{...a,y:a.y+.6},{...b,y:b.y+.35});}
+- source(p:Position){const bodies=this.director.npcs.filter(n=>n.life!=='active'&&n.bodyMode==='ground'&&n.fall>=1&&!this.taken.has(n.id)&&!n.reinforcement).map(n=>({id:n.id,disguise:n.outfit??this.rules.roleDisguise[n.role]??'suit',pos:n.pos,npc:n}));return [...bodies,...this.clothes].filter(c=>c.disguise!==this.disguise&&distance(c.pos,p)<this.rules.lootRadius&&this.clear(p,c.pos)).sort((a,b)=>distance(a.pos,p)-distance(b.pos,p))[0];}
++ source(p:Position){const bodies=this.director.npcs.filter(n=>n.life!=='active'&&['ground','hidden'].includes(n.bodyMode)&&n.fall>=1&&!this.taken.has(n.id)&&!n.reinforcement).flatMap(n=>{
++  const h=n.bodyMode==='hidden'?this.hides.find(h=>h.x===n.pos.x&&h.y===n.pos.y&&h.z===n.pos.z):null;
++  if(n.bodyMode==='hidden'&&!h)return [];
++  return [{id:n.id,disguise:n.outfit??this.rules.roleDisguise[n.role]??'suit',pos:h?{x:h.x+h.approach.x,y:h.y,z:h.z+h.approach.z}:n.pos,npc:n}];});return [...bodies,...this.clothes].filter(c=>c.disguise!==this.disguise&&distance(c.pos,p)<this.rules.lootRadius&&this.clear(p,c.pos)).sort((a,b)=>distance(a.pos,p)-distance(b.pos,p))[0];}
+  checkpoint(p:Position){return this.checkpoints.find(c=>Math.abs(p.y-c.y)<.35&&distance(c,p)<1.65);}
+  attendant(c:Checkpoint){return this.director.npcs.find(n=>n.id===c.guardId&&n.active&&(!n.busy||n===this.action?.guard)&&['patrol','curious'].includes(n.state)&&Math.abs(n.pos.y-c.y)<.35&&distance(n.pos,c)<this.rules.guardRadius);}
+  allowed(c:Checkpoint){return permission(this.director.rules,this.disguise,{id:c.id,label:c.label,floor:0,type:c.zone,minX:0,maxX:0,minZ:0,maxZ:0})!=='deny';}
+@@ -38,7 +42,7 @@
+  cancel(){if(this.action?.guard)this.action.guard.busy=false;this.action=null;}
+  step(dt:number,p:PlayerView,heading:number,keys:Set<string>,suppressed=false){this.elapsed+=dt;this.notices=[];const fresh=(k:string)=>!suppressed&&keys.has(k)&&!this.held.has(k),moving=['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].some(k=>keys.has(k));
+   if(this.action){const a=this.action,key=a.kind==='change'?'KeyT':'KeyB';
+-   if(suppressed||!keys.has(key)||moving||distance(a.start,p)>.15||Math.abs(p.y-a.start.y)>.2||a.kind==='frisk'&&(!a.guard?.active||a.guard.state==='alert'||distance(a.guard.pos,p)>this.rules.guardRadius)||a.source?.npc&&(a.source.npc.active||a.source.npc.bodyMode!=='ground'))this.cancel();
++   if(suppressed||!keys.has(key)||moving||distance(a.start,p)>.15||Math.abs(p.y-a.start.y)>.2||a.kind==='frisk'&&(!a.guard?.active||a.guard.state==='alert'||distance(a.guard.pos,p)>this.rules.guardRadius)||a.source?.npc&&(a.source.npc.active||!['ground','hidden'].includes(a.source.npc.bodyMode)))this.cancel();
+    else{a.elapsed+=dt;if(a.kind==='change')this.witnessChange(p,a);if(a.elapsed>=a.duration){this.complete(a,p);this.cancel();}}}
+   else if(fresh('KeyT')&&!moving){const source=this.source(p);if(source)this.action={id:++this.nextId,kind:'change',elapsed:0,duration:this.rules.changeSeconds,start:{...p},source};else this.notices.push('近くの倒れた人か、置いた服から着替えられます。');}
+   else if(fresh('KeyB')&&!moving){const c=this.checkpoint(p),guard=c&&this.attendant(c);if(!c||!guard)this.notices.push('検査担当の警備員が近くにいません。');else if(distance(guard.pos,p)>1.65)this.notices.push('検査担当の警備員へもう少し近づいてください。');else if(!this.allowed(c))this.notices.push('今の服ではこの区画へ入れません。');else if(this.passed(c))this.notices.push('検査は済んでいます。');else{this.action={id:++this.nextId,kind:'frisk',elapsed:0,duration:this.rules.friskSeconds,start:{...p},checkpoint:c,guard};guard.busy=true;guard.speed=0;guard.heading=Math.atan2(p.x-guard.pos.x,p.z-guard.pos.z);}}
+--- ..\investigation\playtest-baseline-src\m57.ts
++++ src\m57.ts
+@@ -15,7 +15,7 @@
+  * to the parking lot, C to the escape boat) and a target who gets there has escaped — the mission fails. */
+ type Spot=Position&{heading?:number};
+ export type M57Map={acts:Record<string,{label:string;at?:Position;seconds:number;tamper?:boolean;allowedFor?:string[]}>;props:Record<string,Position>;areas:Record<string,Position&{r:number}>;
+- posed:Record<string,Spot>;sick:Position;inCar:Position;railFall:Position;safeRooms:Record<string,Position>;evacuate:Record<string,Position>;clothes:(Position&{disguise:string})[];signal:number;scenes:Record<string,{until:number;cast:Record<string,Spot>}>};
++ posed:Record<string,Spot>;sick:Position;inCar:Position;railFall:Position;safeRooms:Record<string,Position>;evacuate:Record<string,Position>;clothes:(Position&{disguise:string})[];escortPrivate:Position&{radius:number;hide:string};signal:number;scenes:Record<string,{until:number;cast:Record<string,Spot>}>};
+ export type M57Action={id:string;elapsed:number;duration:number;start:Position;npc?:Npc};
+ const flat=(a:Position,b:Position)=>Math.hypot(a.x-b.x,a.z-b.z);
+ const TARGETS=['wine_merchant','lawyer','investor'];
+@@ -71,7 +71,7 @@
+    case 'take_keycard':return this.keycard?'':'';
+    case 'rail_bolts':return this.armed.has('balcony_rail')?'ボルトは外してある':this.keycard?'':'カードキーが必要';
+    case 'boat_fuel':return this.armed.has('boat_fuel')?'燃料には細工した':'';
+-   case 'alarm_bell':return this.m3.hotel.level>=3?'もう鳴っている':'';
++   case 'alarm_bell':return this.flags.has('investor_evacuation')?'もう鳴っている':'';
+    case 'greet_investor':return d!=='pilot'?'パイロットの服が必要':this.flags.has('investor_posed')?'':'';
+    case 'massage_wire':return d!=='masseuse'?'マッサージ師の服が必要':!this.m4.hasWire?'ワイヤーが必要':'';
+    case 'fireworks_aim':return this.armed.has('fireworks')?'筒は向けてある':d!=='beachbar'?'ビーチバー店員の服が必要':'';
+@@ -88,7 +88,7 @@
+   return spots.find(s=>!this.blocked(s.id,p))??spots[0]??null;}
+  prompt(p:PlayerView):{text:string;progress:number}|null{
+   if(this.action)return {text:`E ${this.map.acts[this.action.id].label}…`,progress:this.progress};
+-  const h=this.here(p);if(!h)return this.inCar?{text:'運転席で待っている（移動キーで降りる）',progress:0}:null;
++  const h=this.here(p);if(!h&&this.escorting&&this.near(p,this.map.escortPrivate,this.map.escortPrivate.radius))return {text:'人のいない客室。背後からX長押しで排除し、近くの物入れへ隠せる。',progress:0};if(!h)return this.inCar?{text:'運転席で待っている（移動キーで降りる）',progress:0}:null;
+   const why=this.blocked(h.id,p),label=this.map.acts[h.id].label;
+   if(h.id==='car_kill'&&why)return {text:`運転席で待っている：${why}（移動キーで降りる）`,progress:0};
+   return {text:why?`${label}：${why}`:`E 長押し ${label}`,progress:0};}
+@@ -122,7 +122,7 @@
+    case 'take_keycard':this.keycard=true;this.set('keycard');this.events.emit({type:'item.picked',time:t,id:'keycard'});this.notices.push('ペントハウスのカードキーを手に入れた。');break;
+    case 'rail_bolts':this.arm('balcony_rail','手すりのボルトを外した。次に寄りかかった人は落ちる。');break;
+    case 'boat_fuel':this.arm('boat_fuel','避難ボートの燃料に細工した。エンジンをかけると爆発する。');break;
+-   case 'alarm_bell':this.m3.hotel.level=3;this.m3.hotel.quiet=0;this.set('alarm');this.notices.push('非常ベルが鳴り響く。ホテル警戒度3：避難が始まる。');break;
++   case 'alarm_bell':this.set('investor_evacuation');this.notices.push('避難誘導のベル。投資家が避難ボートへ向かう。');break;
+    case 'greet_investor':{const n=this.npc('investor');this.script(n,'pose',this.map.posed.investor,'wait',left(1500));this.scene('heli');this.set('investor_posed');this.notices.push('投資家「ヘリはまだか？ 縁で待つよ」');break;}
+    case 'massage_wire':this.kill([this.npc('investor')],'massage_wire',p,true,true);break;
+    case 'fireworks_aim':this.arm('fireworks','花火の筒を投資家の席へ向けた。点火は18分。');break;
+@@ -155,11 +155,13 @@
+    else{const d=flat(lawyer.pos,p)||1,goal={x:p.x+(lawyer.pos.x-p.x)/d*1.3,y:p.y,z:p.z+(lawyer.pos.z-p.z)/d*1.3},i=this.director.nav.nearest(goal),node=i>=0?this.director.nav.nodes[i]:null;
+     this.script(lawyer,'escort',node&&d>1.6?{x:node.x,y:node.y,z:node.z}:{...lawyer.pos},'escort',this.clock.elapsed+1);}}
+   this.alarm(p);}
++ /** Settle a hand kill before M5.3 publishes npc.killed (which closes an unfinished chance). */
++ afterAi(){const lawyer=this.npc('lawyer');if(this.escorting&&!lawyer.active){if(lawyer.life==='dead')this.set('escort_kill');this.endEscort();}}
+  private endEscort(){this.escorting=false;for(const id of ['lawyer','bodyguard_captain','bodyguard_1','bodyguard_2']){const n=this.npc(id);if(['escort','hold'].includes(this.scripts.get(id)?.why??''))this.unscript(n);}}
+  /** Alert 2: the targets wait in their safe rooms; alert 3: they evacuate, and one who gets away fails the mission. */
+  private alarm(p:PlayerView){const level=this.m3.hotel.level;
+   for(const id of TARGETS){const n=this.npc(id);if(!n.active||this.escaped.has(id))continue;const why=this.scripts.get(id)?.why;
+-   if(level>=3){const goal=this.map.evacuate[id];if(why!=='evac'){if(this.escorting&&id==='lawyer')this.endEscort();this.script(n,'evac',goal,'evacuate',Infinity);}
++   if(level>=3||id==='investor'&&this.flags.has('investor_evacuation')){const goal=this.map.evacuate[id];if(why!=='evac'){if(this.escorting&&id==='lawyer')this.endEscort();this.script(n,'evac',goal,'evacuate',Infinity);}
+     if(flat(n.pos,goal)<1&&Math.abs(n.pos.y-goal.y)<.5){
+      if(id==='investor'&&this.armed.has('boat_fuel')&&!this.fired.has('boat_fuel'))this.fire('boat_fuel',p,false);
+      else{this.escaped.add(id);n.scheduledAway=true;this.events.emit({type:'target.escaped',time:this.clock.elapsed,id});this.notices.push(`${n.label}が${id==='investor'?'ボート':'車'}で逃げた。`);}}}
+--- ..\investigation\playtest-baseline-src\main.ts
++++ src\main.ts
+@@ -49,7 +49,9 @@
+ import {DetectionSystem,type Camera,type DetectionData} from './detection';
+ import {DetectionView} from './detection-view';
+ import {schedulePose} from './schedule-motion';
++import {RestartHold} from './restart-hold';
+ import './style.css';
++const restartHold=new RestartHold(rulesData.controls.restartHoldSeconds);
+ // The M5 hotel (scripts/build-hotel.ts). JSON widens the stair direction to string, so it is narrowed here.
+ const map=hotelData as unknown as Omit<typeof hotelData,'stairs'>&{stairs:Stair[]};
+ 
+@@ -146,7 +148,7 @@
+ const world=new CollisionWorld(map);const mission=map as unknown as Mission,rules=rulesData as Rules,nav=new NavGrid(world),boxes=sightBoxes(map);let director=new Director(mission,world,nav,boxes,rules);
+ let events=new MissionEvents(),clock=new MissionClock(rulesData.schedule,events),schedule=new ScheduleSystem(scheduleData,map.schedulePlaces,director,clock,events),dialogue=new DialogueSystem(dialogueData,map.schedulePlaces,director,clock,rulesData.dialogue,events);
+ let lastAlert=0;
+-let m3=new M3System(director,hides,rulesData.m3);const m3View=new M3View(scene);let m4=new M4System(director,map.checkpoints as Checkpoint[],rulesData.m4);const m4View=new M4View(scene);let training=false,m4Training=false,enteredStaff=false;
++let m3=new M3System(director,hides,rulesData.m3);const m3View=new M3View(scene);let m4=new M4System(director,map.checkpoints as Checkpoint[],rulesData.m4,hides);const m4View=new M4View(scene);let training=false,m4Training=false,enteredStaff=false;
+ let m53=new M53System(director,m3,m4,clock,events,rulesData.m53,map.m53 as M53Map,map.cameras,chancesData);const m53View=new M53View(scene,m53);
+ const newM57=()=>{const s=new M57System(director,m3,m4,m53,clock,events,map.m57 as M57Map,map.cameras);s.held_item=()=>detection.held;s.illegal=()=>combat.illegalIn(m4.disguise);return s;};let m57=newM57();const m57View=new M57View(scene,map.m57 as M57Map,group);
+ // The mission flow and the score ledger are rebuilt with every mission; the loadout is what the briefing chose.
+@@ -192,8 +194,8 @@
+ function setMap(value:boolean){mapOpen=value;keys.clear();actionPresses.clear();mapFloor=currentFloor;$('#map-modal').classList.toggle('open',value);if(value){unlockPointer();$('#close-map').focus();}else{focusGame();lockPointer();}}
+ function setView(mode:ViewMode){viewMode=mode;hemi.groundColor.set(mode==='overhead'?'#677c68':'#a7a58e');camera.fov=mode==='overhead'?30:mode==='first'?72:55;camera.near=mode==='overhead'?.1:.04;camera.updateProjectionMatrix();setZoom(mode==='overhead'?0:1);camPitch=mode==='first'?.1:.3;camYaw=heading;
+  document.body.dataset.view=mode;$('#view-mode').textContent=`視点 ${VIEW_LABEL[mode]} · V`;if(mode==='overhead')unlockPointer();snapCamera();}
+-function reset(){training=false;m4Training=false;enteredStaff=false;position={...map.spawn,y:0};previous={...position};currentFloor=0;guideIndex=-1;heading=previousHeading=targetHeading=camYaw=map.spawnHeading;turnRate=0;velocity={x:0,z:0};slope=forwardAccel=gaitSpeed=0;locomotion.reset();crouched=false;crouchBlend=0;travelled=0;sawFade=false;visitedUpper=false;returned=false;guideTrace.length=0;keys.clear();actionPresses.clear();startMission();snapCamera();}
+-function startMission(){director=new Director(mission,world,nav,boxes,rules);events=new MissionEvents();clock=new MissionClock(rulesData.schedule,events);schedule=new ScheduleSystem(scheduleData,map.schedulePlaces,director,clock,events);dialogue=new DialogueSystem(dialogueData,map.schedulePlaces,director,clock,rulesData.dialogue,events);lastAlert=0;$<HTMLSelectElement>('#time-rate').value='1';m3=new M3System(director,hides,rulesData.m3);m4=new M4System(director,map.checkpoints as Checkpoint[],rulesData.m4);m53=new M53System(director,m3,m4,clock,events,rulesData.m53,map.m53 as M53Map,map.cameras,chancesData);m57=newM57();m57View.reset();
++function reset(){restartHold.clear();training=false;m4Training=false;enteredStaff=false;position={...map.spawn,y:0};previous={...position};currentFloor=0;guideIndex=-1;heading=previousHeading=targetHeading=camYaw=map.spawnHeading;turnRate=0;velocity={x:0,z:0};slope=forwardAccel=gaitSpeed=0;locomotion.reset();crouched=false;crouchBlend=0;travelled=0;sawFade=false;visitedUpper=false;returned=false;guideTrace.length=0;keys.clear();actionPresses.clear();startMission();snapCamera();}
++function startMission(){director=new Director(mission,world,nav,boxes,rules);events=new MissionEvents();clock=new MissionClock(rulesData.schedule,events);schedule=new ScheduleSystem(scheduleData,map.schedulePlaces,director,clock,events);dialogue=new DialogueSystem(dialogueData,map.schedulePlaces,director,clock,rulesData.dialogue,events);lastAlert=0;$<HTMLSelectElement>('#time-rate').value='1';m3=new M3System(director,hides,rulesData.m3);m4=new M4System(director,map.checkpoints as Checkpoint[],rulesData.m4,hides);m53=new M53System(director,m3,m4,clock,events,rulesData.m53,map.m53 as M53Map,map.cameras,chancesData);m57=newM57();m57View.reset();
+  flow=new MissionFlow(missionData.targets,director,events);ledger=new ScoreLedger(events,id=>{const n=director.npcs.find(n=>n.id===id);return n&&{role:n.role,target:n.target};});lastResult=null;
+  director.onSpotted=n=>events.emit({type:'player.spotted',time:clock.elapsed,id:n.id});m3.onFound=body=>events.emit({type:'body.found',time:clock.elapsed,id:body.id,life:body.life==='dead'?'dead':'unconscious',judgement:body.deathKind});
+  if(!loadout.tools.includes('poison_lethal'))m53.poison=0;const carried=m4.extraInventory;m4.extraInventory=()=>[...(carried?.()??[]),...combat.guns.map(g=>g.id),...(detection.held?[detection.held]:[])];
+@@ -220,9 +222,9 @@
+   if(detection.nearestItem(position)){const got=detection.pickup(position)!,l=detection.legality(detection.held,m4.disguise);toast(l.legality==='suspicious'?(l.ok?`${got}を持った。この服なら怪しまれない。`:`${got}を持った。この服では怪しまれる。`):`${got}を持った。`);return;}
+   const spot=detection.startBlend(playerView());if(spot){targetHeading=spot.heading;toast(`${spot.label}（溶け込み中）。Eか移動でやめる。`);return;}
+   if(detection.nearRecorder(position))detection.beginRecorder(permission(rules,m4.disguise,zoneAt(mission.zones,position.x,position.z,currentFloor))==='allow');}
+- if(e.code==='KeyR'){reset();toast('開始位置に戻りました。');return;}if(e.code==='KeyZ'){setZoom((zoom+1)%3);return;}if(e.code==='KeyV'){cycleView();return;}if(e.code==='KeyC'){if(!crouched||!world.blocked(position.x,position.y,position.z,1.8))crouched=!crouched;return;}
++ if(e.code==='KeyZ'){setZoom((zoom+1)%3);return;}if(e.code==='KeyV'){cycleView();return;}if(e.code==='KeyC'){if(!crouched||!world.blocked(position.x,position.y,position.z,1.8))crouched=!crouched;return;}
+  keys.add(e.code);if(['KeyE','KeyF','KeyX','KeyJ','KeyP'].includes(e.code))actionPresses.add(e.code);if(['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code))guideIndex=-1;
+-});window.addEventListener('keyup',e=>{keys.delete(e.code);if(e.code==='Space')fireHeld=false;if(e.code==='KeyQ'&&qDown>=0){const held=performance.now()-qDown;qDown=-1;if(missionOver||paused||mapOpen||helpOpen||creatorOpen||prepOpen||training)return;
++});window.addEventListener('keyup',e=>{keys.delete(e.code);if(e.code==='KeyR')restartHold.clear();if(e.code==='Space')fireHeld=false;if(e.code==='KeyQ'&&qDown>=0){const held=performance.now()-qDown;qDown=-1;if(missionOver||paused||mapOpen||helpOpen||creatorOpen||prepOpen||training)return;
+   if(held>=700){const g=combat.drop(position);if(g)toast(`${weaponDefs[g.id].label}を捨てた。`);return;}const was=combat.hand,now=combat.cycle();if(now)combat.hand=now;combatView.play(now?'draw':'holster',performance.now(),now||was);if(now)toast(`${weaponDefs[now].label}を構えた。見られると撃ち合いになる。`);}});window.addEventListener('blur',()=>{keys.clear();actionPresses.clear();if(modelReady&&!mapOpen&&!helpOpen&&!creatorOpen&&!prepOpen&&!missionOver)setPause(true);});document.addEventListener('visibilitychange',()=>{keys.clear();actionPresses.clear();});
+ function cycleView(){setView(VIEW_ORDER[(VIEW_ORDER.indexOf(viewMode)+1)%VIEW_ORDER.length]);toast(`視点：${VIEW_LABEL[viewMode]}`+(viewMode==='overhead'?'':' · クリックでマウス視点'));}
+ function look(dx:number,dy:number){if(viewMode==='overhead'||paused||mapOpen||helpOpen)return;const [lo,hi]=PITCH_LIMIT[viewMode];camYaw=Math.atan2(Math.sin(camYaw-dx*.0024),Math.cos(camYaw-dx*.0024));camPitch=T.MathUtils.clamp(camPitch+dy*.0022,lo,hi);}
+@@ -280,7 +282,7 @@
+ const fadeRay=new T.Raycaster();let faded=0,moving=0,currentSpeed=0,lastUi=0,frameCost=0,frameMs=16.7;
+ function finishGuide(){guideIndex=-1;const result={passed:travelled>5&&sawFade&&visitedUpper&&returned,walkedMetres:Math.round(travelled*10)/10,wallFade:sawFade,upperFloor:visitedUpper,returnedToGround:returned,collisionEnabled:true,modelReady,seconds:+((performance.now()-guideStarted)/1000).toFixed(1),trace:guideTrace};$('#qa-result').textContent=JSON.stringify(result,null,2);toast(result.passed?'案内ルート完了。透過と上下階の切替を確認しました。':'案内ルート完了。動作記録を確認してください。');}
+ const angleDelta=(a:number,b:number)=>Math.atan2(Math.sin(b-a),Math.cos(b-a));
+-function fixedUpdate(dt:number){previous={...position};previousHeading=heading;let direction={x:0,z:0};for(const v of npcViews)v.snapshot();
++function fixedUpdate(dt:number){if(restartHold.step(dt/(training?1:clock.rate),keys.has('KeyR'),!!combat.hand)){reset();toast('最初からやり直します。');return;}previous={...position};previousHeading=heading;let direction={x:0,z:0};for(const v of npcViews)v.snapshot();
+  const actionKeys=new Set([...keys,...actionPresses]);actionPresses.clear();if(!m4.hasWire)actionKeys.delete('KeyX');
+  const e53=!training&&m53.step(dt,playerView(),heading,actionKeys,m3.locked||m4.locked||!!m3.dragged||m3View.transferBusy),e57=!training&&m57.step(dt,playerView(),actionKeys,m3.locked||m4.locked||!!m3.dragged||m3View.transferBusy||m53.locked),fieldE=e53||e57;
+  const m3Keys=fieldE?new Set([...actionKeys].filter(k=>k!=='KeyE')):actionKeys;
+@@ -317,7 +319,7 @@
+ }
+ function playerView():PlayerView{return {x:position.x,y:position.y,z:position.z,floor:currentFloor,speed:currentSpeed,running:currentSpeed>2.6,crouched,tampering:tampering||m53.tampering||m57.tampering,disguise:m4.disguise,restricted:!training&&m53.isRestricted(position),blending:!training&&(!!detection.blend||m57.inCar),illegal:!training&&combat.illegalIn(m4.disguise),weaponShown:!training&&combat.shown(m4.disguise),suspiciousItem:!training&&detection.suspiciousHeld(m4.disguise)};}
+ const EVENT_TEXT:Partial<Record<AiEvent['type'],(n:string)=>string>>={curious:n=>`${n}が振り向いた。`,investigate:n=>`${n}が確かめに来る。`,alert:n=>`${n}に見つかった。逃げろ。`,search:n=>`${n}が見失った。捜索している。`,report:n=>`${n}が警備に知らせた。`};
+-function stepAi(dt:number){if(!training){clock.step(dt);schedule.sync(dt);}const aiEvents=director.step(dt,playerView());missionTime+=dt;if(!training){schedule.sync(0);if(lastAlert!==m3.hotel.level){lastAlert=m3.hotel.level;events.emit({type:'alert.level',time:clock.elapsed,value:lastAlert});}dialogue.step(dt,position,m3.hotel.level);m53.afterAi(playerView());for(const notice of m53.notices)toast(notice);}const hot=director.hottest();if(hot)peakSuspicion=Math.max(peakSuspicion,hot.suspicion);
++function stepAi(dt:number){if(!training){clock.step(dt);schedule.sync(dt);}const aiEvents=director.step(dt,playerView());missionTime+=dt;if(!training){schedule.sync(0);if(lastAlert!==m3.hotel.level){lastAlert=m3.hotel.level;events.emit({type:'alert.level',time:clock.elapsed,value:lastAlert});}dialogue.step(dt,position,m3.hotel.level);m57.afterAi();m53.afterAi(playerView());for(const notice of m53.notices)toast(notice);}const hot=director.hottest();if(hot)peakSuspicion=Math.max(peakSuspicion,hot.suspicion);
+  for(const e of aiEvents){if(e.type==='caught'){flow.fail('caught',clock.elapsed);endMission();return;}const text=EVENT_TEXT[e.type];if(text)toast(text(e.npc.label));}
+  if(training)return;stepCombat(dt);stepDetection(dt);if(combat.dead){if(flow.fail('killed',clock.elapsed))endMission();return;}
+  if(m57.escaped.size){if(flow.fail('target_escaped',clock.elapsed))endMission();return;}
+@@ -409,7 +411,7 @@
+  exitRings.forEach((r,i)=>{(r.material as T.MeshBasicMaterial).opacity=flow.phase==='escape'&&!combat.closedExits().includes(map.exits[i].id)?.55+.25*Math.sin(performance.now()/260):0;});}
+ // Over-head meters: a ring that fills with suspicion and a ? or ! for the state; off screen they cling to the edge and point the way.
+ const markPos=new T.Vector3();
+-const ZONE_LABEL={public:'公共',staff:'スタッフ',secure:'厳重',outer:'外周'} as const,HINTS:[string,string][]=[['WASD','移動'],['Shift','走る'],['C','しゃがむ'],['F / X','気絶 / 排除'],['E','運ぶ・隠す'],['T','着替え'],['B','検査'],['H','道具を置く'],['G','コイン'],['V','視点'],['Z','ズーム'],['Q','銃を出す'],['クリック','撃つ'],['R','弾込め'],['U','手の物を置く']];
++const ZONE_LABEL={public:'公共',staff:'スタッフ',secure:'厳重',outer:'外周'} as const,HINTS:[string,string][]=[['WASD','移動'],['Shift','走る'],['C','しゃがむ'],['F / X','気絶 / 排除'],['E','運ぶ・隠す'],['T','着替え'],['B','検査'],['H','道具を置く'],['G','コイン'],['V','視点'],['Z','ズーム'],['Q','銃を出す'],['クリック','撃つ'],['R','弾込め'],['R長押し','やり直し'],['U','手の物を置く']];
+ // Everything the canvas HUD shows, gathered once per frame.
+ function drawHud(now:number){const w=innerWidth,h=innerHeight,s=hudState,t=now/1000;
+  const zone=map.zones.find(z=>z.floor===currentFloor&&position.x>=z.minX&&position.x<=z.maxX&&position.z>=z.minZ&&position.z<=z.maxZ),here=zoneAt(mission.zones,position.x,position.z,currentFloor),perm=permission(rules,m4.disguise,here) as Perm;
+@@ -431,6 +433,7 @@
+  s.marks=marks;s.labels=[];for(const l of navLabels){if(l.floor!==currentFloor)continue;const p=new T.Vector3(l.x,l.y,l.z),d=camera.position.distanceTo(p);p.project(camera);if(p.z<1&&(viewMode==='overhead'||d<16)&&Math.abs(p.x)<.9&&Math.abs(p.y)<.85)s.labels.push({x:(p.x*.5+.5)*w,y:(-p.y*.5+.5)*h,text:l.text});}
+  for(const v of npcViews){const n=v.npc;if(!n.target||!n.active||floorOf(n.pos.y)!==currentFloor)continue;markPos.set(v.group.position.x,v.group.position.y+2.55,v.group.position.z).project(camera);if(markPos.z<1&&Math.abs(markPos.x)<.9&&Math.abs(markPos.y)<.8)s.labels.push({x:(markPos.x*.5+.5)*w,y:(-markPos.y*.5+.5)*h,text:'TARGET · '+n.label});}
+  if(!training){const field=m53.prompt(playerView(),heading)??m57.prompt(playerView());if(field)s.prompt=field;if(m53.isRestricted(position)){s.perm='deny';s.hint='事故現場は立入禁止。黄色い線の外へ。';}}
++ if(restartHold.progress>0)s.prompt={text:'R 長押し 最初からやり直す…',progress:restartHold.progress};
+  hud.draw(s);gunReticle();}
+ function detectionPrompt():{text:string;progress:number}|null{const p=playerView(),d=detection;if(d.action)return {text:d.action.kind==='erase'?'記録を消している…':'録画機を壊している…',progress:d.action.elapsed/d.action.duration};
+  if(d.blend)return {text:`溶け込み中：${d.blend.label} — E か移動でやめる`,progress:0};const f=d.nearestItem(position);if(f){const l=d.legality(f.item,p.disguise),it=d.data.items[f.item];return {text:`E 拾う：${it?.label??f.item}（${l.legality==='suspicious'?(l.ok?'この服なら持っていてよい':'この服では疑われる'):l.legality==='illegal'?'違法':'普通'}）`,progress:0};}
+@@ -441,7 +444,7 @@
+  const at=viewMode==='overhead'?{x:(pointer.x*.5+.5)*innerWidth,y:(-pointer.y*.5+.5)*innerHeight}:{x:innerWidth/2,y:innerHeight/2};el.style.left=at.x+'px';el.style.top=at.y+'px';}
+ function resize(){const w=innerWidth,h=innerHeight;hud.resize();renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}addEventListener('resize',resize);resize();
+ let last=performance.now(),accumulator=0;const dt=1/60;
+-function tick(now:number){lastNow=now;const start=performance.now(),elapsed=Math.min((now-last)/1000,.1);last=now;frameMs=T.MathUtils.lerp(frameMs,elapsed*1000,.05);const frozen=paused||mapOpen||helpOpen||!modelReady||document.hidden||!!missionOver||creatorOpen||prepOpen;if(frozen){accumulator=0;previous={...position};}else{accumulator+=elapsed*(training?1:clock.rate);while(accumulator>=dt){fixedUpdate(dt);accumulator-=dt;}}
++function tick(now:number){lastNow=now;const start=performance.now(),elapsed=Math.min((now-last)/1000,.1);last=now;frameMs=T.MathUtils.lerp(frameMs,elapsed*1000,.05);const frozen=paused||mapOpen||helpOpen||!modelReady||document.hidden||!!missionOver||creatorOpen||prepOpen;if(frozen){restartHold.clear();accumulator=0;previous={...position};}else{accumulator+=elapsed*(training?1:clock.rate);while(accumulator>=dt){fixedUpdate(dt);accumulator-=dt;}}
+  const blend=accumulator/dt;avatar.position.set(T.MathUtils.lerp(previous.x,position.x,blend),T.MathUtils.lerp(previous.y,position.y,blend)-.025,T.MathUtils.lerp(previous.z,position.z,blend));avatar.rotation.y=frozen?heading:previousHeading+angleDelta(previousHeading,heading)*blend;animateActor(frozen?0:elapsed);for(const v of npcViews){const n=v.npc,o=n.fallOrigin,t=n.fall;const px=o&&t<1?T.MathUtils.lerp(o.x,n.pos.x,t):n.pos.x,py=o&&t<1?T.MathUtils.lerp(o.y,n.pos.y,t):n.pos.y,pz=o&&t<1?T.MathUtils.lerp(o.z,n.pos.z,t):n.pos.z;npcSphere.center.set(px,py+.9,pz);v.offscreen=!frustum.intersectsSphere(npcSphere);npcShadowSphere.center.copy(npcSphere.center);v.culled=!frustum.intersectsSphere(npcShadowSphere)||viewMode==='overhead'&&!npcLayerVisible(map,o&&t<1?{x:px,y:py,z:pz}:n.pos,currentFloor,camera.position,npcSphere.radius,rulesData.render.npcOcclusionMargin);v.render(frozen?0:elapsed*(training?1:clock.rate),frozen?1:blend,visualGround);}m3View.render(m3,rig,avatar,playerScene,npcViews,visualGround);if(!training){m53View.render(m53);if(!training)m57View.render(m57,clock.elapsed);combatView.render(combat,clock.elapsed,npcViews);if(!training)detectionView.render(detection,m4.disguise,scene,rig,performance.now());if(m53.locked&&rig){rig.rotate('upperarmr',-.75,0,1.1);rig.rotate('forearmr',0,1.4);}}else m53View.root.visible=false;if(playerScene&&rig){m4View.refresh(playerScene,rig,m4,agentLook,npcTemplates);m4View.bodies(m4,npcViews,npcTemplates);m4View.render(m4,rig,npcViews);}if(!frozen)animateProps(elapsed);
+  if(viewMode==='overhead'){for(const [f,g] of floorGroups)g.visible=f<=Math.max(0,currentFloor);const desiredTarget=new T.Vector3(avatar.position.x+(zoom===0?3:0),avatar.position.y+.8,avatar.position.z-(zoom===0?1:0));camTarget.lerp(desiredTarget,1-Math.exp(-9*elapsed));camDesired.copy(camTarget).add(offset(distanceForZoom()));camera.position.lerp(camDesired,1-Math.exp(-9*elapsed));camera.lookAt(camTarget);camera.updateMatrixWorld();}
+  else{for(const g of floorGroups.values())g.visible=true;if(guideIndex>=0&&viewMode==='third'&&!frozen)camYaw+=angleDelta(camYaw,heading)*(1-Math.exp(-2.5*elapsed));placeViewCamera(frozen?0:elapsed);}
+--- ..\investigation\playtest-baseline-src\restart-hold.ts
++++ src\restart-hold.ts
+@@ -0,0 +1,9 @@
++// Restart only after an uninterrupted hold without a gun drawn.
++export class RestartHold{
++ elapsed=0;
++ readonly seconds:number;
++ constructor(seconds:number){this.seconds=seconds;}
++ get progress(){return Math.min(1,this.elapsed/this.seconds);}
++ clear(){this.elapsed=0;}
++ step(dt:number,pressed:boolean,gunDrawn:boolean){if(!pressed||gunDrawn){this.clear();return false;}this.elapsed+=dt;return this.elapsed>=this.seconds;}
++}
+--- ..\investigation\playtest-baseline-src\data\chances.json
++++ src\data\chances.json
+@@ -352,9 +352,9 @@
+     }
+    },
+    {
+-    "text": "警備室の非常ベルを鳴らし、警戒度を3にする",
+-    "done": {
+-     "flag": "alert3"
++    "text": "警備室の非常ベルで投資家の避難を誘導する",
++    "done": {
++     "flag": "investor_evacuation"
+     }
+    },
+    {
+@@ -462,4 +462,4 @@
+    }
+   ]
+  }
+-}+}
+--- ..\investigation\playtest-baseline-src\data\dialogue.json
++++ src\data\dialogue.json
+@@ -70,6 +70,10 @@
+    [
+     "photographer",
+     "ワイン商様は６分からこちらへ。"
++   ],
++   [
++    "photographer",
++    "３分にバーの裏へ機材を取りに行きます。"
+    ]
+   ],
+   "trigger": true
+@@ -163,6 +167,10 @@
+    [
+     "driver_2",
+     "こっちは外で待ちぼうけだよ。"
++   ],
++   [
++    "driver_1",
++    "１７分に車の陰で一服してくる。"
+    ]
+   ],
+   "trigger": true
+--- ..\investigation\playtest-baseline-src\data\hotel.json
++++ src\data\hotel.json
+@@ -2554,6 +2554,46 @@
+    "y": 7,
+    "h": 2,
+    "floor": 2
++  },
++  {
++   "id": "locker-heli",
++   "x": 4.2,
++   "z": -4.7,
++   "w": 0.9,
++   "d": 0.65,
++   "y": 7,
++   "h": 2,
++   "floor": 2
++  },
++  {
++   "id": "locker-escort",
++   "x": 23.4,
++   "z": -8.5,
++   "w": 0.65,
++   "d": 0.9,
++   "y": 3.5,
++   "h": 2,
++   "floor": 1
++  },
++  {
++   "id": "locker-photo",
++   "x": 58.5,
++   "z": -3.3,
++   "w": 0.65,
++   "d": 0.9,
++   "y": 0,
++   "h": 2,
++   "floor": 0
++  },
++  {
++   "id": "locker-driver",
++   "x": -58.4,
++   "z": -30.4,
++   "w": 0.65,
++   "d": 0.9,
++   "y": 0,
++   "h": 2,
++   "floor": 0
+   }
+  ],
+  "sections": [
+@@ -3808,6 +3848,78 @@
+     "h": 2,
+     "d": 0.65
+    }
++  },
++  {
++   "id": "locker-heli",
++   "label": "ヘリの機材箱",
++   "x": 4.2,
++   "y": 7,
++   "z": -4.7,
++   "heading": 3.141592653589793,
++   "capacity": 1,
++   "approach": {
++    "x": 0,
++    "z": -1.1
++   },
++   "size": {
++    "w": 0.9,
++    "h": 2,
++    "d": 0.65
++   }
++  },
++  {
++   "id": "locker-escort",
++   "label": "空き客室の物入れ",
++   "x": 23.4,
++   "y": 3.5,
++   "z": -8.5,
++   "heading": -1.5707963267948966,
++   "capacity": 1,
++   "approach": {
++    "x": -1.1,
++    "z": 0
++   },
++   "size": {
++    "w": 0.65,
++    "h": 2,
++    "d": 0.9
++   }
++  },
++  {
++   "id": "locker-photo",
++   "label": "撮影機材の箱",
++   "x": 58.5,
++   "y": 0,
++   "z": -3.3,
++   "heading": -1.5707963267948966,
++   "capacity": 1,
++   "approach": {
++    "x": -1.1,
++    "z": 0
++   },
++   "size": {
++    "w": 0.65,
++    "h": 2,
++    "d": 0.9
++   }
++  },
++  {
++   "id": "locker-driver",
++   "label": "一服場所の機材箱",
++   "x": -58.4,
++   "y": 0,
++   "z": -30.4,
++   "heading": 1.5707963267948966,
++   "capacity": 1,
++   "approach": {
++    "x": 1.1,
++    "z": 0
++   },
++   "size": {
++    "w": 0.65,
++    "h": 2,
++    "d": 0.9
++   }
+   }
+  ],
+  "palms": [
+@@ -7011,6 +7123,30 @@
+    "label": "受付",
+    "outdoor": false,
+    "heading": 0
++  },
++  "photo_equipment": {
++   "x": 57,
++   "y": 0,
++   "z": -4.5,
++   "label": "バー裏の撮影機材",
++   "outdoor": false,
++   "heading": 1.5707963267948966
++  },
++  "driver_break": {
++   "x": -57,
++   "y": 0,
++   "z": -30.4,
++   "label": "車の陰で一服",
++   "outdoor": true,
++   "heading": 0
++  },
++  "pilot_equipment": {
++   "x": 4.2,
++   "y": 7,
++   "z": -6.3,
++   "label": "階段室裏の機材点検",
++   "outdoor": true,
++   "heading": 3.141592653589793
+   },
+   "photo_work": {
+    "x": 40,
+@@ -7667,7 +7803,7 @@
+     "x": -20,
+     "y": 3.5,
+     "z": -16.8,
+-    "r": 2.3
++    "r": 0.9
+    },
+    "gas_leak": {
+     "x": -17,
+@@ -7751,12 +7887,19 @@
+     "z": 28.6
+    }
+   },
++  "escortPrivate": {
++   "x": 22,
++   "y": 3.5,
++   "z": -9,
++   "radius": 2,
++   "hide": "locker-escort"
++  },
+   "clothes": [
+    {
+     "disguise": "beachbar",
+-    "x": 53.5,
++    "x": 57,
+     "y": 0,
+-    "z": -5
++    "z": -4.5
+    },
+    {
+     "disguise": "fisher",
+--- ..\investigation\playtest-baseline-src\data\rules.json
++++ src\data\rules.json
+@@ -262,12 +262,24 @@
+    }
+   },
+   "uniformHides": {
+-   "guard": ["Hair"],
+-   "chef": ["Hair"],
+-   "delivery": ["Hair"],
+-   "fisher": ["Hair"],
+-   "driver": ["Hair"],
+-   "bodyguard": ["Glasses"]
++   "guard": [
++    "Hair"
++   ],
++   "chef": [
++    "Hair"
++   ],
++   "delivery": [
++    "Hair"
++   ],
++   "fisher": [
++    "Hair"
++   ],
++   "driver": [
++    "Hair"
++   ],
++   "bodyguard": [
++    "Glasses"
++   ]
+   },
+   "items": {
+    "wire": {
+@@ -352,5 +364,8 @@
+  "render": {
+   "npcShadowCullRadius": 3,
+   "npcOcclusionMargin": 0.15
++ },
++ "controls": {
++  "restartHoldSeconds": 1.5
+  }
+-}+}
+--- ..\investigation\playtest-baseline-src\data\schedule.json
++++ src\data\schedule.json
+@@ -182,11 +182,17 @@
+     {
+      "from": 0,
+      "to": 1140,
+-     "place": "pilot_work",
++     "place": "pilot_equipment",
+      "do": "absent"
+     },
+     {
+      "from": 1140,
++     "to": 1230,
++     "place": "pilot_equipment",
++     "do": "inspect"
++    },
++    {
++     "from": 1230,
+      "to": 1500,
+      "place": "pilot_work",
+      "do": "inspect"
+@@ -451,6 +457,18 @@
+    "plan": [
+     {
+      "from": 0,
++     "to": 1020,
++     "place": "driver_wait_1",
++     "do": "wait"
++    },
++    {
++     "from": 1020,
++     "to": 1170,
++     "place": "driver_break",
++     "do": "wait"
++    },
++    {
++     "from": 1170,
+      "to": 1800,
+      "place": "driver_wait_1",
+      "do": "wait"
+@@ -511,6 +529,18 @@
+    "plan": [
+     {
+      "from": 0,
++     "to": 180,
++     "place": "photo_work",
++     "do": "camera"
++    },
++    {
++     "from": 180,
++     "to": 330,
++     "place": "photo_equipment",
++     "do": "inspect"
++    },
++    {
++     "from": 330,
+      "to": 1800,
+      "place": "photo_work",
+      "do": "camera"
+--- ..\investigation\playtest-baseline-tests\fixes.test.ts
++++ tests\fixes.test.ts
+@@ -1,5 +1,5 @@
+ import {test} from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
+-import {game,act} from '../../investigation/ghost-sim.ts';import {markDead} from '../src/kills.ts';
++import {game,act} from '../../investigation/ghost-sim.unit.ts';import {markDead} from '../src/kills.ts';
+ import {baseRate,permission,zoneAt} from '../src/ai.ts';import {computeResult} from '../src/score.ts';
+ const json=(n:string)=>JSON.parse(readFileSync(new URL(`../src/data/${n}.json`,import.meta.url),'utf8')),scoring=json('scoring');
+ function cameraKill(destroyed=false){const S=game();S.dress('fisher');S.at({x:21,y:0,z:27.2});
+--- ..\investigation\playtest-baseline-tests\ghost.test.ts
++++ tests\ghost.test.ts
+@@ -1,5 +1,6 @@
+ import {test} from 'node:test';import assert from 'node:assert/strict';
+-import {scenarios,simulate} from '../../investigation/ghost-sim.ts';
++import {scenarios,simulate} from '../../investigation/ghost-sim.unit.ts';
++// Isolated action regression coverage (walking routes: playtest-walk.test.ts).
+ // The real crowd, schedules, witnesses and cameras stay in place. Each route includes two minutes of reactions.
+ for(const scenario of scenarios.slice(0,15))test(`Ghost: ${scenario.name}`,()=>{
+  const result=simulate(scenario);assert.ok(result.target.startsWith('dead:'),result.target);
+--- ..\investigation\playtest-baseline-tests\m57.test.ts
++++ tests\m57.test.ts
+@@ -37,7 +37,7 @@
+ test('M5.7 a trap takes everyone in its area: a bystander under the chandelier dies with the lawyer; her bodyguards stand back from the speech',()=>{
+  const s=setup();hear(s,'lobby_chandelier');s.c.jump(330);clearAround(s,['lawyer','bodyguard_captain','bodyguard_1','bodyguard_2']);s.give('wrench');
+  assert.ok(until(s,far,()=>npc(s,'lawyer').scheduleAction==='speech'&&!npc(s,'lawyer').scheduleTarget,90));
+- const extra=npc(s,'waiter_5');const L=npc(s,'lawyer');extra.pos={x:L.pos.x+1,y:L.pos.y,z:L.pos.z};extra.scheduled=false;extra.route=[[extra.pos.x,extra.pos.z,999]];
++ const extra=npc(s,'waiter_5');const L=npc(s,'lawyer');const area=map.areas.chandelier;extra.pos={x:area.x-area.r/2,y:area.y,z:area.z};extra.scheduled=false;extra.route=[[extra.pos.x,extra.pos.z,999]];
+  s.m4.disguise='waiter';const catwalk=view(at('chandelier_clamp'),'waiter');tick(s,catwalk);assert.ok(s.g.flags.has('catwalk'));hold(s,catwalk,4.2);assert.ok(s.g.armed.has('chandelier'));
+  hold(s,catwalk,1.2);assert.equal(L.life,'dead');assert.equal(L.deathMethod,'chandelier');assert.equal(extra.life,'dead','anyone under it');
+  for(const id of ['bodyguard_captain','bodyguard_1','bodyguard_2'])assert.equal(npc(s,id).life,'active',id+' stood aside');tick(s,far);
+@@ -61,7 +61,8 @@
+  for(const id of ['wine_merchant','lawyer','investor'])assert.deepEqual(npc(s,id).scriptedGoal,{...map.safeRooms[id]},id);
+  s.m3.hotel.level=1;tick(s,far);assert.equal(npc(s,'lawyer').scriptedGoal,null,'back to the schedule');
+  hear(s,'marina_escape');const fuel=view(at('boat_fuel'),'fisher');hold(s,fuel,4.2);assert.ok(s.g.armed.has('boat_fuel'));
+- const bell=view(at('alarm_bell'),'guard');hold(s,bell,1.2);assert.equal(s.m3.hotel.level,3);assert.ok(s.g.flags.has('alert3'));
++ const bell=view(at('alarm_bell'),'guard');hold(s,bell,1.2);assert.equal(s.m3.hotel.level,1);assert.ok(s.g.flags.has('investor_evacuation'));
++ s.m3.hotel.level=3;tick(s,far); // A real hotel-wide alarm still evacuates every target.
+  // Bring them close to their way out so the test does not wait for the walk across the hotel.
+  const I=npc(s,'investor'),L=npc(s,'lawyer');I.pos={x:40,y:0,z:27.5};L.pos={x:-27,y:0,z:-22};for(const n of [I,L] as Npc[]){n.state='patrol';n.busy=false;n.path=[];n.pathGoal=null;}
+  assert.ok(until(s,far,()=>I.life==='dead'&&s.g.escaped.has('lawyer'),60));
+--- ..\investigation\playtest-baseline-tests\playtest-walk.test.ts
++++ tests\playtest-walk.test.ts
+@@ -0,0 +1,15 @@
++import {test} from 'node:test';import assert from 'node:assert/strict';
++import {scenarios,simulate} from '../../investigation/ghost-sim.ts';
++// Full crowd, walking speed, native outfit acquisition and dragging; no injected disguise or missing bystanders.
++for(const id of ['A2','A4','B1','B3','B4','C2','C3','C5'])test(`Walking ghost: ${id}`,()=>{
++ const scenario=scenarios.find(s=>s.name.startsWith(id))!,result=simulate(scenario);
++ assert.equal(result.error,'',JSON.stringify(result));assert.ok(result.target.startsWith('dead:'));assert.equal(result.ghost,true,JSON.stringify(result));
++ assert.equal(result.score.ghost,true);assert.equal(result.score.lines.find((line:any)=>line.key==='chance_complete')?.count,1,'chance is completed before the death notification closes it');assert.deepEqual(result.others,[]);assert.deepEqual(result.compromised,[]);assert.deepEqual(result.unconsciousFound,[]);assert.equal(result.changeWitnesses,0);
++ assert.ok(!result.found.some((s:string)=>s.endsWith(':murder')),'no unconscious or murdered bodies found');
++ if(['A4','B1','C2','C3','C5'].includes(id))assert.equal(result.target,'dead:accident');
++ if(id==='C2'){assert.deepEqual(result.escaped,[],'all other targets retain their normal schedules');assert.equal(result.alert,0);assert.deepEqual(result.otherTargets,{wine_merchant:'active',lawyer:'active'});}
++ if(id==='B3')assert.equal(result.guardsHeld,true,'all three other bodyguards hold their original positions');
++});
++for(const releaseAt of [360,428.3,600])test(`B1: walking ghost at ${releaseAt} seconds with the moving crowd`,()=>{
++ const result=simulate(scenarios.find(s=>s.name.startsWith('B1'))!,{releaseAt});assert.equal(result.ghost,true,JSON.stringify(result));assert.deepEqual(result.others,[]);
++});
+--- ..\investigation\playtest-baseline-tests\restart-hold.test.ts
++++ tests\restart-hold.test.ts
+@@ -0,0 +1,6 @@
++import {test} from 'node:test';import assert from 'node:assert/strict';
++import {RestartHold} from '../src/restart-hold.ts';import {readFileSync} from 'node:fs';
++const rules=JSON.parse(readFileSync(new URL('../src/data/rules.json',import.meta.url),'utf8'));
++test('restart: a short R press cancels without resetting',()=>{const hold=new RestartHold(rules.controls.restartHoldSeconds);assert.equal(hold.step(hold.seconds/2,true,false),false);assert.ok(hold.progress>0);assert.equal(hold.step(0,false,false),false);assert.equal(hold.progress,0);});
++test('restart: uninterrupted R reaches the configured threshold',()=>{const hold=new RestartHold(rules.controls.restartHoldSeconds);assert.equal(hold.step(hold.seconds-.1,true,false),false);assert.equal(hold.step(.1,true,false),true);assert.equal(hold.progress,1);});
++test('restart: drawing a gun cancels progress and holding R cannot reset',()=>{const hold=new RestartHold(rules.controls.restartHoldSeconds);hold.step(hold.seconds/2,true,false);assert.equal(hold.step(hold.seconds*2,true,true),false);assert.equal(hold.progress,0);assert.equal(hold.step(hold.seconds/2,true,false),false);});
+--- ..\investigation\build-hotel.baseline.ts
++++ scripts\build-hotel.ts
+@@ -126,6 +126,9 @@
+ hide('security','警備室ロッカー',43.55,-10,'west');hide('pool','プールのタオル棚',-10.5,10,'east');hide('terrace','テラスのプランター',44.5,16,'west');
+ hide('beach','浜辺の更衣小屋',59.5,8,'west');hide('beachbar','バーの裏の箱',59.55,-5,'west');hide('harbor','港湾事務所の物入れ',-29.55,28,'east');
+ hide('marina','マリーナの木箱',45,28.55,'north');hide('parking','車のトランク',-36,-29.6,'south');hide('corridor','清掃カート',10.15,-2,'west',1);hide('banquet','宴会場の花瓶台',-35.55,-6,'east',1);hide('penthouse','ペントハウスの物入れ',-26,-4.8,'north',2);
++
++hide('heli','ヘリの機材箱',4.2,-4.7,'north',2);hide('escort','空き客室の物入れ',23.4,-8.5,'west',1);
++hide('photo','撮影機材の箱',58.5,-3.3,'west');hide('driver','一服場所の機材箱',-58.4,-30.4,'east');
+ 
+ // ---- Sections (about 22 in the plan; here 20 ground areas, each spanning all floors above and below).
+ const sec=(id:string,label:string,r:Rect,surface:string,outdoor:boolean)=>({id,label,...r,surface,outdoor});
+@@ -259,6 +262,7 @@
+ place('driver_wait_1','駐車場の運転手',-28,-23.4,0,true);place('driver_wait_2','駐車場の運転手',-26.5,-23.5,0,true);
+ place('beachbar_work_1','ビーチバー',52,-13,0,true);place('beachbar_work_2','ビーチバー',54,-13,0,true);
+ place('reception_work','受付',-4,-17.6);place('reception_partner','受付',-6,-17.6);
++place('photo_equipment','バー裏の撮影機材',57,-4.5,0,false,Math.PI/2);place('driver_break','車の陰で一服',-57,-30.4,0,true,0);place('pilot_equipment','階段室裏の機材点検',4.2,-6.3,2,true,Math.PI);
+ place('photo_work','カメラマン',40,9,0,true);place('massage_work','マッサージ師',-24.5,-6.8,2);place('pilot_work','ヘリの点検',16,-11,2,true);
+ place("ambient_1",'招待客の立ち話',-5.746,-3.93,0,false);
+ place("ambient_2",'招待客の立ち話',8.254,-14.93,0,false);
+@@ -341,13 +345,14 @@
+   wagon:P(8.6,-16.3,1),rail:P(-21,3.6,2),evac_boat:{x:44,y:-.2,z:31.4},fuel_tank:P(47.5,27),alarm_bell:P(34,-7.5),fireworks:P(57.4,2.6),car:P(-27,-26.5)
+  },
+  // Where traps reach (everyone inside dies) and where the targets go when the hotel is alarmed.
+- areas:{pool_light:{...P(10.2,13.8),r:2.3},yacht_crane:{...P(30,33.6),r:2.6},chandelier:{...P(-20,-16.8,1),r:2.3},gas_leak:{...P(-17,-11),r:3.2},
++ areas:{pool_light:{...P(10.2,13.8),r:2.3},yacht_crane:{...P(30,33.6),r:2.6},chandelier:{...P(-20,-16.8,1),r:.9},gas_leak:{...P(-17,-11),r:3.2},
+   boat_fuel:{...P(44,28.6),r:2.6},fireworks:{...P(54,5),r:.65}},
+  posed:{wine_merchant:{...P(45.5,7),heading:Math.PI/2},investor:{...P(23.5,-11,2),heading:Math.PI/2}},
+  sick:P(-29,5),inCar:P(-28.5,-27.6),railFall:P(-21,6.6),
+  safeRooms:{wine_merchant:{...P(29.8,-16,-1)},lawyer:P(17,-13,1),investor:P(-28,-15.5,2)},
+  evacuate:{wine_merchant:P(-30,-23.4),lawyer:P(-30,-23.4),investor:P(44,28.6)},
+- clothes:[{disguise:'beachbar',...P(53.5,-5)},{disguise:'fisher',...P(-21,27.6)}],
++ escortPrivate:{...P(22,-9,1),radius:2,hide:'locker-escort'},
++ clothes:[{disguise:'beachbar',...P(57,-4.5)},{disguise:'fisher',...P(-21,27.6)}],
+  // During the photograph the terrace guests give the rail room and look away; the beach watches the sea.
+  scenes:{photo:{until:600,cast:Object.fromEntries(npcs.filter(n=>n.id==='guard_terrace'||n.id==='waiter_3'||n.id==='photographer'||n.id==='guest_stroll_5'||n.id.startsWith('guest_terrace_')).map((n,i)=>[n.id,{...P(27+i%4*2,5+Math.floor(i/4)*2),heading:-Math.PI/2}]).concat(
+   npcs.filter(n=>n.id==='guard_beach_s'||n.id.startsWith('guest_beach_b_')).map(n=>[n.id,{...P(n.route[0][0],n.route[0][1]),heading:Math.PI/2}]) as [string,{x:number;y:number;z:number;heading:number}][]))},
+@@ -355,7 +360,7 @@
+  signal:1080
+ };
+ for(const a of Object.values(m57.acts))if('at' in a&&a.at)at(a.at.x,a.at.z,floorOf(a.at.y));
+-for(const p of [m57.inCar,m57.sick,m57.railFall,...Object.values(m57.safeRooms),...Object.values(m57.evacuate),...Object.values(m57.posed),...m57.clothes,...Object.values(m57.scenes).flatMap(s=>Object.values(s.cast))])at(p.x,p.z,floorOf(p.y));
++for(const p of [m57.inCar,m57.sick,m57.railFall,...Object.values(m57.safeRooms),...Object.values(m57.evacuate),...Object.values(m57.posed),...m57.clothes,m57.escortPrivate,...Object.values(m57.scenes).flatMap(s=>Object.values(s.cast))])at(p.x,p.z,floorOf(p.y));
+ for(const p of [m53.barrel.approach,m53.glass.approach,m53.privatePlace])at(p.x,p.z,-1);
+ const out={
+  _note:'M5 5.1 グランド・マリーナ・ホテル（仮の見た目）。scripts/build-hotel.ts が生成する。平面計画 v0.3 の10px＝1m。',

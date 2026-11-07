@@ -1,0 +1,70 @@
+{
+  "version": "2.0.0-dev.3.10",
+  "models": {
+    "boombox": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "messages": [
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/2"
+      ]
+    },
+    "desk_pc": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 4,
+      "messages": [
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/2",
+        "2 NODE_EMPTY /nodes/3",
+        "2 NODE_EMPTY /nodes/4"
+      ]
+    },
+    "phone": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/2"
+      ]
+    },
+    "radio": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/2"
+      ]
+    },
+    "tv": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/1"
+      ]
+    },
+    "vacuum": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/1"
+      ]
+    },
+    "wine_glass": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/1"
+      ]
+    }
+  }
+}

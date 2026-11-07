@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CLEAN HANDS 調査</title>
+<style>
+:root{--bg:#f3efe6;--card:#fbf9f4;--ink:#15171b;--sub:#5b5850;--line:#d6d0c2;--red:#c22f21;--teal:#17776c;--amber:#8a5a00}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121517;--card:#1a1e21;--ink:#ece8df;--sub:#a29d92;--line:#33393d;--red:#ff6b5c;--teal:#4fc1b2;--amber:#f2c14e}}
+:root[data-theme="dark"]{--bg:#121517;--card:#1a1e21;--ink:#ece8df;--sub:#a29d92;--line:#33393d;--red:#ff6b5c;--teal:#4fc1b2;--amber:#f2c14e}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 "Yu Gothic UI","Hiragino Sans","Noto Sans JP",system-ui,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:32px 16px 80px}
+h1{font-size:28px;margin:0 0 4px}h2{font-size:21px;margin:40px 0 12px;padding-top:12px;border-top:2px solid var(--ink)}h3{font-size:16px;margin:20px 0 8px}
+.lead{color:var(--sub);margin:0 0 20px}.pending{color:var(--sub);font-style:italic}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}nav a{color:var(--ink);text-decoration:none;border:1px solid var(--line);padding:4px 10px;border-radius:6px;background:var(--card)}
+
+:root{--sea:#cfdfe4;--land:#efe9dc;--grid:#d7cfbf;--wall:#3c3f44;--block:#c4b9a3;--z-staff:#f2c14e;--z-secure:#e26a5b;--z-outer:#8fb8d8;--cam:#8a4bd1;--guard:#3b5b8a;--staff:#7c8a7a;--guest:#b9a98a;--hide:#5c4632}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--sea:#1d2a30;--land:#2a2c2b;--grid:#3a3d3b;--wall:#d8d3c8;--block:#4c4639;--z-staff:#a8862f;--z-secure:#9a3e33;--z-outer:#3d6280;--cam:#b88cf0;--guard:#7fa3d9;--staff:#9aaa98;--guest:#7d725c;--hide:#c9a27a}}
+:root[data-theme="dark"]{--sea:#1d2a30;--land:#2a2c2b;--grid:#3a3d3b;--wall:#d8d3c8;--block:#4c4639;--z-staff:#a8862f;--z-secure:#9a3e33;--z-outer:#3d6280;--cam:#b88cf0;--guard:#7fa3d9;--staff:#9aaa98;--guest:#7d725c;--hide:#c9a27a}
+table{width:100%;border-collapse:collapse;margin:8px 0 16px;font-size:13.5px;background:var(--card)}th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}th{background:var(--bg)}
+tr.ok td:nth-child(2){color:var(--teal);font-weight:700}tr.ng td:nth-child(2){color:var(--red);font-weight:700}tr.thin td{background:color-mix(in srgb,var(--amber) 14%,transparent)}
+.big{font-size:18px}.note{color:var(--sub);font-size:13px}code{font-size:12.5px;background:var(--card);border:1px solid var(--line);padding:0 4px;border-radius:4px}
+.maps{display:grid;gap:16px}figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px}figcaption{font-weight:700;margin-bottom:4px}
+svg.map{width:100%;height:auto;display:block}svg .t{font-size:8.5px;fill:var(--ink)}svg .t.s{fill:var(--sub);font-size:8px}svg .t.r{fill:var(--red);font-weight:700}
+.legend{font-size:12.5px;line-height:2}.legend .sw{display:inline-block;width:14px;height:10px;vertical-align:middle;margin-left:8px}.legend .dot{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:middle;margin-left:8px}.legend .ring{background:none;border:2px solid var(--ink)}.legend .ring2{display:inline-block;width:10px;height:10px;border-radius:50%;border:2px solid var(--teal);vertical-align:middle;margin-left:8px}.legend .sq{display:inline-block;width:10px;height:10px;border:2px solid var(--amber);vertical-align:middle;margin-left:8px}
+.table-wrap{overflow-x:auto}
+</style>
+</head>
+<body>
+<main>
+<h1>CLEAN HANDS 調査：食い違い・マップ・活かされていない仕組み・ゴースト</h1>
+<p class="lead">対象：<code>outputs/m5-prototype</code>（M5.8＋制服・ターゲット・増援・銃の入手経路）。2026-10-31 調査。実装は変えていない。</p>
+<nav><a href="#fix">1. 食い違いと修正方針</a><a href="#map">2. 現状マップと課題</a><a href="#unused">3. 活かされていない仕組み</a><a href="#ghost">4. 倒し方とゴースト</a><a href="#next">5. 優先順位</a></nav>
+<section id="fix"><h2>1. 食い違いと修正方針</h2>
+<p>前回の調査で見つかった5件と、今回のシミュレーションで見つかった2件。どれも「同じ出来事なのに、仕組みごとに扱いが違う」もの。</p>
+<div class="table-wrap"><table><thead><tr><th>#</th><th>食い違い</th><th>確認方法</th><th>どう直すか（案）</th></tr></thead><tbody>
+<tr><td>①</td><td><b>事故か殺人かの判定に使うカメラが、録画の仕組みとつながっていない。</b><br>壊したカメラでも「見ていた」扱いになる。普通に歩いているだけで録画は残らないのに、作動の瞬間にカメラに映ると殺人になる（A5で実際に発生：殺人なのに録画なし）。</td><td>コード：<code>kills.ts</code> の <code>judgeKill</code> は <code>map.cameras</code> をそのまま使い、<code>detection.destroyed</code> を見ない。シミュレーションでA5が「カメラ: CAM_marina」で殺人、録画は空。</td><td>判定はカメラ一覧を <code>detection</code> から受け取り、壊れたカメラを除く。カメラが作動を映したら「録画が残った」も同時に立てる（消せば事故に戻せる、が筋が通る）。</td></tr>
+<tr><td>②</td><td><b>罠の準備（ボルトを外す、ピンを抜く、留め具を緩める）を人前でしても怪しまれず、録画もされない。</b>一方、作動の瞬間に人から見えていると殺人になる。</td><td>コード：<code>main.ts</code> の <code>detection.step</code> に渡す違法行為の判定に、M5.7の作業（<code>m57.action</code>）が入っていない（M5.3の毒だけ入っている）。</td><td>罠の準備も「細工（tamper）」として疑惑・録画に渡す。代わりに作動時の「目撃者」は、その作業を見て怪しんだ人だけに絞る（③と同時に直す）。</td></tr>
+<tr><td>③</td><td><b>作動時の「目撃者」が、服や行動に関係なく「その瞬間に自分が見えている人」全員。</b>清掃員の服でスタンドに触れても、客が1人見ていれば殺人。プール・テラス・マリーナの事故がほぼ成立しない原因。</td><td>コード：<code>judgeKill</code> は <code>visibility&gt;0</code> の人を全員数える。シミュレーションでA3は目撃7人。</td><td>「見えている」ではなく「その操作を不審と感じた」（疑惑がたまった）人を目撃者にする。または作動を遠隔（操作盤・時限）にして、立つ場所を人目のない所へ移す。</td></tr>
+<tr><td>④</td><td><b>古いチャンス（M5.3）だけ、手に持った銃を違法として扱わない。</b></td><td>コード：<code>m53.ts</code> は <code>rules.heldIllegal</code>（常にfalse）を使う。M5.7は <code>combat.illegalIn</code> を読む。</td><td>M5.3も <code>combat.illegalIn</code> を使うようにそろえる。</td></tr>
+<tr><td>⑤</td><td><b>ヘルプの説明と実装が違う。</b>ヘルプは「通常の銃声で即警戒度3（封鎖）」。実装は「警戒度2、撃ち合いが15秒続くと3」。</td><td>コード：<code>main.ts</code> のヘルプ文と <code>combat.ts</code> の <code>alert3After</code>。</td><td>ヘルプ文を実装に合わせて直す。</td></tr>
+<tr><td>⑥</td><td><b>カメラ（持てる物）をカメラマンの服で持つと怪しまれる。</b>許可はスーツだけ。</td><td>データ：<code>detection.json</code> の <code>camera.allowedFor</code> が <code>["suit"]</code>。</td><td><code>photographer</code> を加える。</td></tr>
+<tr><td>⑦</td><td><b>録画機を壊しても、そのあとまた録画される。</b></td><td>前回の再現スクリプトで、消去後に再録画されることを確認済み。</td><td>壊したら警備室のカメラ網が止まる（HITMANと同じ）か、壊すのは一時的と決めてヘルプに書く。仕様を決める必要あり。</td></tr>
+</tbody></table></div></section>
+<section id="map"><h2>2. 現状マップと課題</h2>
+<p>敷地は約129m×74m、階は B1・1F（屋外を含む）・2F・RF の4つ。区画20、部屋21、人120、カメラ8、隠し場所16、溶け込み15、検問2、出口5。階段は4本だけ（大階段・裏階段・屋上・セラー）。</p>
+<p class="legend"><span class="sw" style="background:var(--z-staff)"></span>スタッフ区画 <span class="sw" style="background:var(--z-secure)"></span>厳重区画 <span class="sw" style="background:var(--z-outer)"></span>外周 <span class="dot" style="background:var(--red)"></span>標的・チャンスの場所（◆） <span class="dot" style="background:var(--guard)"></span>警備 <span class="dot" style="background:var(--staff)"></span>スタッフ <span class="dot" style="background:var(--guest)"></span>客 <span class="dot ring"></span>顔を知る人（黒い輪） <span class="sw" style="background:var(--cam);opacity:.5"></span>カメラの視野 <span class="ring2"></span>溶け込み <span class="sw" style="background:var(--hide)"></span>隠し場所 <span class="sq"></span>検問 赤い点線の円＝罠の範囲（中の人は全員死ぬ）</p>
+<div class="maps"><figure><figcaption>1F・屋外</figcaption><svg viewBox="0 0 980 570" role="img" aria-label="1F・屋外の配置図" class="map">
+<rect x="0" y="0" width="980" height="570" fill="var(--sea)"/>
+<rect x="6.0" y="6.0" width="390.0" height="123.0" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="396.0" y="6.0" width="255.0" height="123.0" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="651.0" y="6.0" width="195.0" height="123.0" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="846.0" y="6.0" width="127.5" height="123.0" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="6.0" y="129.0" width="217.5" height="147.0" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="223.5" y="129.0" width="195.0" height="147.0" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="418.5" y="129.0" width="195.0" height="147.0" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="613.5" y="129.0" width="127.5" height="147.0" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="741.0" y="129.0" width="105.0" height="147.0" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="846.0" y="129.0" width="127.5" height="147.0" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="6.0" y="276.0" width="217.5" height="157.5" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="223.5" y="276.0" width="96.0" height="157.5" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="319.5" y="276.0" width="99.0" height="157.5" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="418.5" y="276.0" width="195.0" height="157.5" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="613.5" y="276.0" width="232.5" height="157.5" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="846.0" y="276.0" width="127.5" height="157.5" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="6.0" y="433.5" width="412.5" height="130.5" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="418.5" y="433.5" width="195.0" height="130.5" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="613.5" y="433.5" width="195.0" height="130.5" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="808.5" y="433.5" width="165.0" height="130.5" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="858.0" y="231.0" width="93.0" height="36.0" fill="var(--z-staff)" opacity=".55"><title>バーの裏（staff）</title></rect>
+<rect x="276.0" y="471.0" width="135.0" height="48.0" fill="var(--z-staff)" opacity=".55"><title>港湾事務所（staff）</title></rect>
+<rect x="231.0" y="142.5" width="180.0" height="120.0" fill="var(--z-staff)" opacity=".55"><title>厨房（staff）</title></rect>
+<rect x="231.0" y="274.5" width="82.5" height="90.0" fill="var(--z-staff)" opacity=".55"><title>ランドリー（staff）</title></rect>
+<rect x="325.5" y="274.5" width="85.5" height="150.0" fill="var(--z-staff)" opacity=".55"><title>裏通路（staff）</title></rect>
+<rect x="750.0" y="142.5" width="81.0" height="90.0" fill="var(--z-staff)" opacity=".55"><title>警備室（staff）</title></rect>
+<rect x="6.0" y="6.0" width="390.0" height="123.0" fill="var(--z-outer)" opacity=".55"><title>駐車場（outer）</title></rect>
+<rect x="6.0" y="129.0" width="217.5" height="304.5" fill="var(--z-outer)" opacity=".55"><title>搬入口（outer）</title></rect>
+<rect x="411.0" y="474.0" width="472.5" height="90.0" fill="var(--z-outer)" opacity=".55"><title>桟橋・マリーナ（outer）</title></rect>
+<rect x="471.0" y="324.0" width="90.0" height="60.0" fill="var(--block)"><title>pool</title></rect>
+<rect x="43.9" y="22.5" width="14.2" height="33.0" fill="var(--block)"><title>car-p1-0</title></rect>
+<rect x="66.4" y="71.2" width="14.2" height="33.0" fill="var(--block)"><title>car-p2-0</title></rect>
+<rect x="88.9" y="22.5" width="14.2" height="33.0" fill="var(--block)"><title>car-p1-1</title></rect>
+<rect x="133.9" y="22.5" width="14.2" height="33.0" fill="var(--block)"><title>car-p1-2</title></rect>
+<rect x="156.4" y="71.2" width="14.2" height="33.0" fill="var(--block)"><title>car-p2-2</title></rect>
+<rect x="178.9" y="22.5" width="14.2" height="33.0" fill="var(--block)"><title>car-p1-3</title></rect>
+<rect x="201.4" y="71.2" width="14.2" height="33.0" fill="var(--block)"><title>car-p2-3</title></rect>
+<rect x="223.9" y="22.5" width="14.2" height="33.0" fill="var(--block)"><title>car-p1-4</title></rect>
+<rect x="268.9" y="22.5" width="14.2" height="33.0" fill="var(--block)"><title>car-p1-5</title></rect>
+<rect x="291.4" y="71.2" width="14.2" height="33.0" fill="var(--block)"><title>car-p2-5</title></rect>
+<rect x="313.9" y="22.5" width="14.2" height="33.0" fill="var(--block)"><title>car-p1-6</title></rect>
+<rect x="336.4" y="71.2" width="14.2" height="33.0" fill="var(--block)"><title>car-p2-6</title></rect>
+<rect x="358.9" y="22.5" width="14.2" height="33.0" fill="var(--block)"><title>car-p1-7</title></rect>
+<rect x="552.0" y="69.4" width="33.0" height="14.2" fill="var(--block)"><title>car-drive-1</title></rect>
+<rect x="454.5" y="20.6" width="33.0" height="14.2" fill="var(--block)"><title>car-drive-2</title></rect>
+<rect x="116.3" y="144.0" width="19.5" height="52.5" fill="var(--block)"><title>truck-dock</title></rect>
+<rect x="181.5" y="139.5" width="9.0" height="9.0" fill="var(--block)"><title>crate-dock-1</title></rect>
+<rect x="192.0" y="139.5" width="9.0" height="9.0" fill="var(--block)"><title>crate-dock-2</title></rect>
+<rect x="181.5" y="259.5" width="9.0" height="9.0" fill="var(--block)"><title>crate-dock-3</title></rect>
+<rect x="84.0" y="312.0" width="9.0" height="9.0" fill="var(--block)"><title>crate-dock-4</title></rect>
+<rect x="84.0" y="322.5" width="9.0" height="9.0" fill="var(--block)"><title>crate-dock-5</title></rect>
+<rect x="291.0" y="199.5" width="60.0" height="9.0" fill="var(--block)"><title>counter-k1</title></rect>
+<rect x="291.0" y="165.7" width="60.0" height="9.0" fill="var(--block)"><title>counter-k2</title></rect>
+<rect x="238.5" y="144.8" width="30.0" height="7.5" fill="var(--block)"><title>stove-k</title></rect>
+<rect x="249.8" y="354.8" width="52.5" height="7.5" fill="var(--block)"><title>machine-laundry</title></rect>
+<rect x="236.3" y="325.5" width="7.5" height="12.0" fill="var(--block)"><title>rack-uniform</title></rect>
+<rect x="448.5" y="159.0" width="45.0" height="7.5" fill="var(--block)"><title>counter-reception</title></rect>
+<rect x="459.8" y="222.8" width="22.5" height="7.5" fill="var(--block)"><title>sofa-l1</title></rect>
+<rect x="504.8" y="222.8" width="22.5" height="7.5" fill="var(--block)"><title>sofa-l2</title></rect>
+<rect x="591.0" y="150.0" width="9.0" height="9.0" fill="var(--block)"><title>planter-lobby</title></rect>
+<rect x="639.8" y="162.8" width="7.5" height="67.5" fill="var(--block)"><title>counter-bar</title></rect>
+<rect x="620.6" y="162.8" width="3.8" height="67.5" fill="var(--block)"><title>shelf-bar</title></rect>
+<rect x="684.4" y="162.4" width="8.2" height="8.2" fill="var(--block)"><title>table-bar-1</title></rect>
+<rect x="684.4" y="222.4" width="8.2" height="8.2" fill="var(--block)"><title>table-bar-2</title></rect>
+<rect x="721.9" y="166.1" width="8.2" height="8.2" fill="var(--block)"><title>table-bar-3</title></rect>
+<rect x="768.0" y="146.6" width="45.0" height="6.8" fill="var(--block)"><title>desk-monitors</title></rect>
+<rect x="823.5" y="174.0" width="6.0" height="15.0" fill="var(--block)"><title>desk-recorder</title></rect>
+<rect x="326.2" y="388.1" width="2.4" height="6.8" fill="var(--block)"><title>powerpanel</title></rect>
+<rect x="436.5" y="304.5" width="9.0" height="9.0" fill="var(--block)"><title>planter-pool-1</title></rect>
+<rect x="586.5" y="304.5" width="9.0" height="9.0" fill="var(--block)"><title>planter-pool-2</title></rect>
+<rect x="436.5" y="402.0" width="9.0" height="9.0" fill="var(--block)"><title>planter-pool-3</title></rect>
+<rect x="586.5" y="402.0" width="9.0" height="9.0" fill="var(--block)"><title>planter-pool-4</title></rect>
+<rect x="646.5" y="327.0" width="9.0" height="9.0" fill="var(--block)"><title>table-terrace-0-0</title></rect>
+<rect x="646.5" y="372.0" width="9.0" height="9.0" fill="var(--block)"><title>table-terrace-0-1</title></rect>
+<rect x="691.5" y="327.0" width="9.0" height="9.0" fill="var(--block)"><title>table-terrace-1-0</title></rect>
+<rect x="691.5" y="372.0" width="9.0" height="9.0" fill="var(--block)"><title>table-terrace-1-1</title></rect>
+<rect x="736.5" y="327.0" width="9.0" height="9.0" fill="var(--block)"><title>table-terrace-2-0</title></rect>
+<rect x="736.5" y="372.0" width="9.0" height="9.0" fill="var(--block)"><title>table-terrace-2-1</title></rect>
+<rect x="781.5" y="327.0" width="9.0" height="9.0" fill="var(--block)"><title>table-terrace-3-0</title></rect>
+<rect x="781.5" y="372.0" width="9.0" height="9.0" fill="var(--block)"><title>table-terrace-3-1</title></rect>
+<rect x="818.6" y="335.2" width="2.2" height="37.5" fill="var(--block)"><title>backdrop-photo</title></rect>
+<rect x="617.2" y="102.0" width="22.5" height="9.0" fill="var(--block)"><title>planter-garden-1</title></rect>
+<rect x="684.8" y="57.0" width="22.5" height="9.0" fill="var(--block)"><title>planter-garden-2</title></rect>
+<rect x="752.2" y="102.0" width="22.5" height="9.0" fill="var(--block)"><title>planter-garden-3</title></rect>
+<rect x="797.2" y="42.0" width="22.5" height="9.0" fill="var(--block)"><title>planter-garden-4</title></rect>
+<rect x="876.0" y="196.5" width="60.0" height="7.5" fill="var(--block)"><title>counter-beachbar</title></rect>
+<rect x="888.8" y="381.7" width="19.5" height="19.5" fill="var(--block)"><title>tower-beach</title></rect>
+<rect x="952.5" y="305.2" width="18.0" height="22.5" fill="var(--block)"><title>hut-beach</title></rect>
+<rect x="317.2" y="505.1" width="37.5" height="6.8" fill="var(--block)"><title>desk-harbor</title></rect>
+<rect x="466.5" y="493.5" width="9.0" height="9.0" fill="var(--block)"><title>crate-pier-1</title></rect>
+<rect x="556.5" y="493.5" width="9.0" height="9.0" fill="var(--block)"><title>crate-pier-2</title></rect>
+<rect x="661.5" y="493.5" width="9.0" height="9.0" fill="var(--block)"><title>crate-pier-3</title></rect>
+<rect x="751.5" y="493.5" width="9.0" height="9.0" fill="var(--block)"><title>crate-pier-4</title></rect>
+<rect x="849.8" y="481.5" width="15.0" height="15.0" fill="var(--block)"><title>tank-fuel</title></rect>
+<rect x="786.0" y="474.8" width="30.0" height="3.8" fill="var(--block)"><title>crate-sommelier-screen</title></rect>
+<rect x="636.0" y="516.0" width="150.0" height="45.0" fill="var(--block)"><title>yacht-hull</title></rect>
+<rect x="326.4" y="328.1" width="4.9" height="6.8" fill="var(--block)"><title>locker-service</title></rect>
+<rect x="231.9" y="298.1" width="4.9" height="6.8" fill="var(--block)"><title>locker-laundry</title></rect>
+<rect x="231.9" y="178.1" width="4.9" height="6.8" fill="var(--block)"><title>locker-freezer</title></rect>
+<rect x="193.9" y="239.1" width="6.8" height="4.9" fill="var(--block)"><title>locker-dumpster</title></rect>
+<rect x="426.9" y="151.9" width="4.9" height="6.8" fill="var(--block)"><title>locker-lobby</title></rect>
+<rect x="732.2" y="155.6" width="4.9" height="6.8" fill="var(--block)"><title>locker-bar</title></rect>
+<rect x="825.2" y="208.1" width="4.9" height="6.8" fill="var(--block)"><title>locker-security</title></rect>
+<rect x="419.8" y="358.1" width="4.9" height="6.8" fill="var(--block)"><title>locker-pool</title></rect>
+<rect x="832.3" y="403.1" width="4.9" height="6.8" fill="var(--block)"><title>locker-terrace</title></rect>
+<rect x="944.8" y="343.1" width="4.9" height="6.8" fill="var(--block)"><title>locker-beach</title></rect>
+<rect x="945.2" y="245.6" width="4.9" height="6.8" fill="var(--block)"><title>locker-beachbar</title></rect>
+<rect x="276.9" y="493.1" width="4.9" height="6.8" fill="var(--block)"><title>locker-harbor</title></rect>
+<rect x="835.1" y="498.2" width="6.8" height="4.9" fill="var(--block)"><title>locker-marina</title></rect>
+<rect x="227.6" y="62.1" width="6.8" height="4.9" fill="var(--block)"><title>locker-parking</title></rect>
+<rect x="231.0" y="141.7" width="180.0" height="1.9" fill="var(--wall)"/>
+<rect x="231.0" y="261.8" width="37.5" height="1.9" fill="var(--wall)"/>
+<rect x="268.5" y="261.8" width="15.0" height="1.9" fill="var(--wall)"/>
+<rect x="283.5" y="261.8" width="60.0" height="1.9" fill="var(--wall)"/>
+<rect x="343.5" y="261.8" width="15.0" height="1.9" fill="var(--wall)"/>
+<rect x="358.5" y="261.8" width="52.5" height="1.9" fill="var(--wall)"/>
+<rect x="230.2" y="142.5" width="1.9" height="46.5" fill="var(--wall)"/>
+<rect x="230.2" y="189.0" width="1.9" height="15.0" fill="var(--wall)"/>
+<rect x="230.2" y="204.0" width="1.9" height="58.5" fill="var(--wall)"/>
+<rect x="410.2" y="142.5" width="1.9" height="61.5" fill="var(--wall)"/>
+<rect x="410.2" y="204.0" width="1.9" height="15.0" fill="var(--wall)"/>
+<rect x="410.2" y="219.0" width="1.9" height="43.5" fill="var(--wall)"/>
+<rect x="231.0" y="273.7" width="37.5" height="1.9" fill="var(--wall)"/>
+<rect x="268.5" y="273.7" width="15.0" height="1.9" fill="var(--wall)"/>
+<rect x="283.5" y="273.7" width="30.0" height="1.9" fill="var(--wall)"/>
+<rect x="231.0" y="363.8" width="82.5" height="1.9" fill="var(--wall)"/>
+<rect x="230.2" y="274.5" width="1.9" height="90.0" fill="var(--wall)"/>
+<rect x="312.8" y="274.5" width="1.9" height="34.5" fill="var(--wall)"/>
+<rect x="312.8" y="309.0" width="1.9" height="15.0" fill="var(--wall)"/>
+<rect x="312.8" y="324.0" width="1.9" height="40.5" fill="var(--wall)"/>
+<rect x="325.5" y="273.7" width="18.0" height="1.9" fill="var(--wall)"/>
+<rect x="343.5" y="273.7" width="15.0" height="1.9" fill="var(--wall)"/>
+<rect x="358.5" y="273.7" width="52.5" height="1.9" fill="var(--wall)"/>
+<rect x="325.5" y="423.7" width="33.0" height="1.9" fill="var(--wall)"/>
+<rect x="358.5" y="423.7" width="15.0" height="1.9" fill="var(--wall)"/>
+<rect x="373.5" y="423.7" width="37.5" height="1.9" fill="var(--wall)"/>
+<rect x="324.8" y="274.5" width="1.9" height="34.5" fill="var(--wall)"/>
+<rect x="324.8" y="309.0" width="1.9" height="15.0" fill="var(--wall)"/>
+<rect x="324.8" y="324.0" width="1.9" height="100.5" fill="var(--wall)"/>
+<rect x="410.2" y="274.5" width="1.9" height="94.5" fill="var(--wall)"/>
+<rect x="410.2" y="369.0" width="1.9" height="15.0" fill="var(--wall)"/>
+<rect x="410.2" y="384.0" width="1.9" height="40.5" fill="var(--wall)"/>
+<rect x="426.0" y="141.7" width="75.0" height="1.9" fill="var(--wall)"/>
+<rect x="501.0" y="141.7" width="30.0" height="1.9" fill="var(--wall)"/>
+<rect x="531.0" y="141.7" width="75.0" height="1.9" fill="var(--wall)"/>
+<rect x="426.0" y="276.8" width="75.0" height="1.9" fill="var(--wall)"/>
+<rect x="501.0" y="276.8" width="22.5" height="1.9" fill="var(--wall)"/>
+<rect x="523.5" y="276.8" width="82.5" height="1.9" fill="var(--wall)"/>
+<rect x="425.2" y="142.5" width="1.9" height="61.5" fill="var(--wall)"/>
+<rect x="425.2" y="204.0" width="1.9" height="15.0" fill="var(--wall)"/>
+<rect x="425.2" y="219.0" width="1.9" height="58.5" fill="var(--wall)"/>
+<rect x="605.2" y="142.5" width="1.9" height="61.5" fill="var(--wall)"/>
+<rect x="605.2" y="204.0" width="1.9" height="15.0" fill="var(--wall)"/>
+<rect x="605.2" y="219.0" width="1.9" height="58.5" fill="var(--wall)"/>
+<rect x="618.0" y="141.7" width="48.0" height="1.9" fill="var(--wall)"/>
+<rect x="666.0" y="141.7" width="15.0" height="1.9" fill="var(--wall)"/>
+<rect x="681.0" y="141.7" width="57.0" height="1.9" fill="var(--wall)"/>
+<rect x="618.0" y="276.8" width="33.0" height="1.9" fill="var(--wall)"/>
+<rect x="651.0" y="276.8" width="22.5" height="1.9" fill="var(--wall)"/>
+<rect x="673.5" y="276.8" width="64.5" height="1.9" fill="var(--wall)"/>
+<rect x="617.2" y="142.5" width="1.9" height="61.5" fill="var(--wall)"/>
+<rect x="617.2" y="204.0" width="1.9" height="15.0" fill="var(--wall)"/>
+<rect x="617.2" y="219.0" width="1.9" height="58.5" fill="var(--wall)"/>
+<rect x="737.2" y="142.5" width="1.9" height="135.0" fill="var(--wall)"/>
+<rect x="750.0" y="141.7" width="81.0" height="1.9" fill="var(--wall)"/>
+<rect x="750.0" y="231.7" width="36.0" height="1.9" fill="var(--wall)"/>
+<rect x="786.0" y="231.7" width="15.0" height="1.9" fill="var(--wall)"/>
+<rect x="801.0" y="231.7" width="30.0" height="1.9" fill="var(--wall)"/>
+<rect x="749.2" y="142.5" width="1.9" height="61.5" fill="var(--wall)"/>
+<rect x="749.2" y="204.0" width="1.9" height="15.0" fill="var(--wall)"/>
+<rect x="749.2" y="219.0" width="1.9" height="13.5" fill="var(--wall)"/>
+<rect x="830.2" y="142.5" width="1.9" height="90.0" fill="var(--wall)"/>
+<rect x="276.0" y="470.2" width="60.0" height="1.9" fill="var(--wall)"/>
+<rect x="336.0" y="470.2" width="15.0" height="1.9" fill="var(--wall)"/>
+<rect x="351.0" y="470.2" width="60.0" height="1.9" fill="var(--wall)"/>
+<rect x="276.0" y="518.2" width="135.0" height="1.9" fill="var(--wall)"/>
+<rect x="275.2" y="471.0" width="1.9" height="48.0" fill="var(--wall)"/>
+<rect x="410.2" y="471.0" width="1.9" height="18.0" fill="var(--wall)"/>
+<rect x="410.2" y="489.0" width="1.9" height="15.0" fill="var(--wall)"/>
+<rect x="410.2" y="504.0" width="1.9" height="15.0" fill="var(--wall)"/>
+<rect x="858.0" y="230.2" width="33.0" height="1.9" fill="var(--wall)"/>
+<rect x="891.0" y="230.2" width="15.0" height="1.9" fill="var(--wall)"/>
+<rect x="906.0" y="230.2" width="45.0" height="1.9" fill="var(--wall)"/>
+<rect x="858.0" y="266.2" width="93.0" height="1.9" fill="var(--wall)"/>
+<rect x="857.2" y="231.0" width="1.9" height="36.0" fill="var(--wall)"/>
+<rect x="950.2" y="231.0" width="1.9" height="36.0" fill="var(--wall)"/>
+<rect x="411.0" y="473.6" width="472.5" height="1.9" fill="var(--wall)"/>
+<rect x="545.2" y="196.5" width="1.9" height="60.0" fill="var(--wall)"/>
+<rect x="576.0" y="196.5" width="1.9" height="60.0" fill="var(--wall)"/>
+<rect x="380.2" y="279.0" width="1.9" height="60.0" fill="var(--wall)"/>
+<rect x="403.5" y="279.0" width="1.9" height="60.0" fill="var(--wall)"/>
+<rect x="702.8" y="196.5" width="1.9" height="60.0" fill="var(--wall)"/>
+<rect x="726.0" y="196.5" width="1.9" height="60.0" fill="var(--wall)"/>
+<rect x="703.5" y="195.7" width="22.5" height="1.9" fill="var(--wall)"/>
+<rect x="546.0" y="196.5" width="30.0" height="60.0" fill="none" stroke="var(--ink)" stroke-dasharray="3 2"><title>stairs-grand</title></rect>
+<rect x="381.0" y="279.0" width="22.5" height="60.0" fill="none" stroke="var(--ink)" stroke-dasharray="3 2"><title>stairs-service</title></rect>
+<rect x="703.5" y="196.5" width="22.5" height="60.0" fill="none" stroke="var(--ink)" stroke-dasharray="3 2"><title>stairs-cellar</title></rect>
+<path d="M429.8,147.0 L457.9,232.5 A90.0,90.0 0 0 0 519.7,149.8 Z" fill="var(--cam)" opacity=".28" stroke="var(--cam)" stroke-width=".8"><title>ロビー カメラ</title></path>
+<path d="M733.5,147.0 L644.5,160.6 A90.0,90.0 0 0 0 715.9,235.3 Z" fill="var(--cam)" opacity=".28" stroke="var(--cam)" stroke-width=".8"><title>バー カメラ</title></path>
+<path d="M216.0,12.0 L151.6,74.9 A90.0,90.0 0 0 0 253.1,94.0 Z" fill="var(--cam)" opacity=".28" stroke="var(--cam)" stroke-width=".8"><title>駐車場 カメラ</title></path>
+<path d="M201.0,132.0 L113.0,150.8 A90.0,90.0 0 0 0 188.6,221.1 Z" fill="var(--cam)" opacity=".28" stroke="var(--cam)" stroke-width=".8"><title>搬入口 カメラ</title></path>
+<path d="M606.0,477.0 L670.6,539.6 A90.0,90.0 0 0 0 687.0,437.7 Z" fill="var(--cam)" opacity=".28" stroke="var(--cam)" stroke-width=".8"><title>マリーナ カメラ</title></path>
+<circle cx="577.5" cy="390.0" r="17.2" fill="none" stroke="var(--red)" stroke-width="1.6" stroke-dasharray="4 2"><title>罠の範囲 pool_light（半径2.3m・中の人は全員死ぬ）</title></circle>
+<circle cx="726.0" cy="538.5" r="19.5" fill="none" stroke="var(--red)" stroke-width="1.6" stroke-dasharray="4 2"><title>罠の範囲 yacht_crane（半径2.6m・中の人は全員死ぬ）</title></circle>
+<circle cx="373.5" cy="204.0" r="24.0" fill="none" stroke="var(--red)" stroke-width="1.6" stroke-dasharray="4 2"><title>罠の範囲 gas_leak（半径3.2m・中の人は全員死ぬ）</title></circle>
+<circle cx="831.0" cy="501.0" r="19.5" fill="none" stroke="var(--red)" stroke-width="1.6" stroke-dasharray="4 2"><title>罠の範囲 boat_fuel（半径2.6m・中の人は全員死ぬ）</title></circle>
+<circle cx="906.0" cy="324.0" r="18.0" fill="none" stroke="var(--red)" stroke-width="1.6" stroke-dasharray="4 2"><title>罠の範囲 fireworks（半径2.4m・中の人は全員死ぬ）</title></circle>
+<circle cx="669.8" cy="181.5" r="4.5" fill="var(--red)"><title>A ワイン商</title></circle>
+<circle cx="486.0" cy="204.0" r="4.5" fill="var(--red)" stroke="var(--ink)" stroke-width="1.4"><title>B 元顧問弁護士（顔を知る人：bodyguard）</title></circle>
+<circle cx="696.0" cy="249.0" r="2.2" fill="var(--staff)" stroke="var(--ink)" stroke-width="1.4"><title>給仕長（顔を知る人：waiter/sommelier）</title></circle>
+<circle cx="631.5" cy="211.5" r="2.2" fill="var(--staff)" stroke="var(--ink)" stroke-width="1.4"><title>バーテンダー（顔を知る人：waiter）</title></circle>
+<circle cx="373.5" cy="190.5" r="2.2" fill="var(--staff)" stroke="var(--ink)" stroke-width="1.4"><title>料理長（顔を知る人：chef）</title></circle>
+<circle cx="351.0" cy="187.5" r="2.2" fill="var(--staff)" stroke="var(--ink)" stroke-width="1.4"><title>副料理長（顔を知る人：chef）</title></circle>
+<circle cx="336.0" cy="354.0" r="2.2" fill="var(--staff)" stroke="var(--ink)" stroke-width="1.4"><title>清掃主任（顔を知る人：cleaner）</title></circle>
+<circle cx="587.2" cy="241.5" r="2.2" fill="var(--guard)" stroke="var(--ink)" stroke-width="1.4"><title>警備主任（顔を知る人：guard）</title></circle>
+<circle cx="790.5" cy="160.5" r="2.2" fill="var(--guard)" stroke="var(--ink)" stroke-width="1.4"><title>警備室の監視員（顔を知る人：guard）</title></circle>
+<circle cx="477.0" cy="214.5" r="2.2" fill="var(--guard)" stroke="var(--ink)" stroke-width="1.4"><title>護衛隊長（顔を知る人：bodyguard）</title></circle>
+<circle cx="171.0" cy="136.5" r="2.2" fill="var(--staff)" stroke="var(--ink)" stroke-width="1.4"><title>搬入係（顔を知る人：delivery）</title></circle>
+<circle cx="336.0" cy="499.5" r="2.2" fill="var(--staff)" stroke="var(--ink)" stroke-width="1.4"><title>港湾事務所の所長（顔を知る人：fisher）</title></circle>
+<circle cx="906.0" cy="189.0" r="2.2" fill="var(--staff)" stroke="var(--ink)" stroke-width="1.4"><title>ビーチバーの店長（顔を知る人：beachbar）</title></circle>
+<circle cx="591.0" cy="252.0" r="2.2" fill="var(--guard)"><title>大階段の検問</title></circle>
+<circle cx="396.0" cy="481.5" r="2.2" fill="var(--guard)"><title>マリーナの検問</title></circle>
+<circle cx="495.0" cy="196.5" r="2.2" fill="var(--guard)"><title>私設護衛</title></circle>
+<circle cx="492.0" cy="217.5" r="2.2" fill="var(--guard)"><title>私設護衛</title></circle>
+<circle cx="63.5" cy="26.1" r="2.2" fill="var(--guard)"><title>駐車場の警備員</title></circle>
+<circle cx="418.5" cy="20.2" r="2.2" fill="var(--guard)"><title>車寄せの警備員</title></circle>
+<circle cx="666.0" cy="24.0" r="2.2" fill="var(--guard)"><title>庭の警備員</title></circle>
+<circle cx="28.5" cy="144.0" r="2.2" fill="var(--guard)"><title>搬入口の警備員</title></circle>
+<circle cx="28.5" cy="294.0" r="2.2" fill="var(--guard)"><title>裏庭の警備員</title></circle>
+<circle cx="429.8" cy="288.0" r="2.2" fill="var(--guard)"><title>プールの警備員</title></circle>
+<circle cx="628.5" cy="294.0" r="2.2" fill="var(--guard)"><title>テラスの警備員</title></circle>
+<circle cx="857.2" cy="24.0" r="2.2" fill="var(--guard)"><title>浜辺の警備員</title></circle>
+<circle cx="857.2" cy="294.0" r="2.2" fill="var(--guard)"><title>浜辺の警備員</title></circle>
+<circle cx="238.5" cy="444.0" r="2.2" fill="var(--guard)"><title>遊歩道の警備員</title></circle>
+<circle cx="508.5" cy="489.0" r="2.2" fill="var(--guard)"><title>桟橋の警備員</title></circle>
+<circle cx="253.5" cy="166.5" r="2.2" fill="var(--staff)"><title>料理人</title></circle>
+<circle cx="291.0" cy="187.5" r="2.2" fill="var(--staff)"><title>料理人</title></circle>
+<circle cx="253.5" cy="157.5" r="2.2" fill="var(--staff)"><title>料理人</title></circle>
+<circle cx="436.5" cy="376.5" r="2.2" fill="var(--staff)"><title>清掃員</title></circle>
+<circle cx="448.5" cy="387.8" r="2.2" fill="var(--staff)"><title>清掃員</title></circle>
+<circle cx="148.5" cy="144.0" r="2.2" fill="var(--staff)"><title>搬入業者</title></circle>
+<circle cx="156.0" cy="144.0" r="2.2" fill="var(--staff)"><title>搬入業者</title></circle>
+<circle cx="733.5" cy="486.0" r="2.2" fill="var(--staff)"><title>港湾係</title></circle>
+<circle cx="744.8" cy="489.0" r="2.2" fill="var(--staff)"><title>港湾係</title></circle>
+<circle cx="891.0" cy="189.0" r="2.2" fill="var(--staff)"><title>ビーチバー店員</title></circle>
+<circle cx="906.0" cy="189.0" r="2.2" fill="var(--staff)"><title>ビーチバー店員</title></circle>
+<circle cx="655.5" cy="211.5" r="2.2" fill="var(--staff)"><title>ウェイター</title></circle>
+<circle cx="441.0" cy="324.0" r="2.2" fill="var(--staff)"><title>ウェイター</title></circle>
+<circle cx="628.5" cy="301.5" r="2.2" fill="var(--staff)"><title>ウェイター</title></circle>
+<circle cx="628.5" cy="406.5" r="2.2" fill="var(--staff)"><title>ウェイター</title></circle>
+<circle cx="471.0" cy="154.5" r="2.2" fill="var(--staff)"><title>受付係</title></circle>
+<circle cx="801.0" cy="354.0" r="2.2" fill="var(--staff)"><title>カメラマン</title></circle>
+<circle cx="291.0" cy="111.0" r="2.2" fill="var(--staff)"><title>運転手</title></circle>
+<circle cx="302.2" cy="110.2" r="2.2" fill="var(--staff)"><title>運転手</title></circle>
+<circle cx="246.0" cy="294.0" r="2.2" fill="var(--staff)"><title>ランドリー係</title></circle>
+<circle cx="456.0" cy="154.5" r="2.2" fill="var(--staff)"><title>ランドリー係</title></circle>
+<circle cx="801.0" cy="489.0" r="2.2" fill="var(--staff)"><title>ソムリエ</title></circle>
+<circle cx="171.0" cy="219.0" r="2.2" fill="var(--staff)"><title>マッサージ師</title></circle>
+<circle cx="771.0" cy="211.5" r="2.2" fill="var(--guard)"><title>交代の私設護衛</title></circle>
+<circle cx="457.9" cy="257.0" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="464.1" cy="247.6" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="454.9" cy="240.8" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="447.8" cy="249.3" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="562.9" cy="174.5" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="569.2" cy="166.0" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="558.8" cy="158.6" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="552.8" cy="167.0" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="681.5" cy="204.7" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="688.9" cy="194.1" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="679.1" cy="188.5" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="672.8" cy="196.6" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="695.5" cy="243.4" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="448.8" cy="354.7" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="454.7" cy="341.1" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="440.5" cy="344.6" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="580.4" cy="362.2" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="585.4" cy="348.0" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="571.9" cy="351.4" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="517.2" cy="414.7" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="524.0" cy="404.3" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="515.0" cy="398.3" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="507.8" cy="406.8" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="674.0" cy="362.2" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="681.7" cy="353.5" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="672.3" cy="345.8" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="665.3" cy="354.9" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="764.1" cy="362.2" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="771.4" cy="351.7" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="762.5" cy="345.8" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="755.3" cy="354.7" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="719.8" cy="407.2" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="724.1" cy="393.0" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="710.7" cy="396.2" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="892.5" cy="99.6" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="899.2" cy="91.4" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="889.1" cy="83.5" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="882.8" cy="92.4" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="908.4" cy="331.9" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="914.1" cy="322.2" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="905.0" cy="315.8" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="897.8" cy="324.6" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="666.0" cy="24.0" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="238.5" cy="444.0" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="861.0" cy="69.0" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="437.4" cy="300.0" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="628.5" cy="301.5" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="868.0" cy="62.0" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="950.5" cy="108.6" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="913.3" cy="367.1" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<rect x="325.9" y="328.5" width="6" height="6" fill="var(--hide)"><title>隠し場所 裏通路ロッカー</title></rect>
+<rect x="231.4" y="298.5" width="6" height="6" fill="var(--hide)"><title>隠し場所 リネンカート</title></rect>
+<rect x="231.4" y="178.5" width="6" height="6" fill="var(--hide)"><title>隠し場所 厨房の冷凍庫</title></rect>
+<rect x="194.2" y="238.5" width="6" height="6" fill="var(--hide)"><title>隠し場所 搬入口の大型ゴミ箱</title></rect>
+<rect x="426.4" y="152.2" width="6" height="6" fill="var(--hide)"><title>隠し場所 ロビーの花瓶台</title></rect>
+<rect x="731.6" y="156.0" width="6" height="6" fill="var(--hide)"><title>隠し場所 バーの倉庫</title></rect>
+<rect x="824.6" y="208.5" width="6" height="6" fill="var(--hide)"><title>隠し場所 警備室ロッカー</title></rect>
+<rect x="419.2" y="358.5" width="6" height="6" fill="var(--hide)"><title>隠し場所 プールのタオル棚</title></rect>
+<rect x="831.8" y="403.5" width="6" height="6" fill="var(--hide)"><title>隠し場所 テラスのプランター</title></rect>
+<rect x="944.2" y="343.5" width="6" height="6" fill="var(--hide)"><title>隠し場所 浜辺の更衣小屋</title></rect>
+<rect x="944.6" y="246.0" width="6" height="6" fill="var(--hide)"><title>隠し場所 バーの裏の箱</title></rect>
+<rect x="276.4" y="493.5" width="6" height="6" fill="var(--hide)"><title>隠し場所 港湾事務所の物入れ</title></rect>
+<rect x="835.5" y="497.6" width="6" height="6" fill="var(--hide)"><title>隠し場所 マリーナの木箱</title></rect>
+<rect x="228.0" y="61.5" width="6" height="6" fill="var(--hide)"><title>隠し場所 車のトランク</title></rect>
+<circle cx="508.5" cy="241.5" r="3.2" fill="none" stroke="var(--teal)" stroke-width="1.6"><title>溶け込み 給仕する（waiter）</title></circle>
+<circle cx="711.0" cy="316.5" r="3.2" fill="none" stroke="var(--teal)" stroke-width="1.6"><title>溶け込み 給仕する（waiter）</title></circle>
+<circle cx="633.0" cy="185.2" r="3.2" fill="none" stroke="var(--teal)" stroke-width="1.6"><title>溶け込み グラスを拭く（waiter/sommelier）</title></circle>
+<circle cx="633.0" cy="222.8" r="3.2" fill="none" stroke="var(--teal)" stroke-width="1.6"><title>溶け込み グラスを拭く（waiter/sommelier）</title></circle>
+<circle cx="546.0" cy="166.5" r="3.2" fill="none" stroke="var(--teal)" stroke-width="1.6"><title>溶け込み 床を掃く（cleaner）</title></circle>
+<circle cx="373.5" cy="346.5" r="3.2" fill="none" stroke="var(--teal)" stroke-width="1.6"><title>溶け込み 床を掃く（cleaner）</title></circle>
+<circle cx="336.0" cy="193.5" r="3.2" fill="none" stroke="var(--teal)" stroke-width="1.6"><title>溶け込み 野菜を切る（chef）</title></circle>
+<circle cx="306.0" cy="180.7" r="3.2" fill="none" stroke="var(--teal)" stroke-width="1.6"><title>溶け込み 野菜を切る（chef）</title></circle>
+<circle cx="540.0" cy="267.0" r="3.2" fill="none" stroke="var(--teal)" stroke-width="1.6"><title>溶け込み 見張りに立つ（guard）</title></circle>
+<circle cx="351.0" cy="61.5" r="3.2" fill="none" stroke="var(--teal)" stroke-width="1.6"><title>溶け込み 見張りに立つ（guard）</title></circle>
+<circle cx="546.0" cy="492.8" r="3.2" fill="none" stroke="var(--teal)" stroke-width="1.6"><title>溶け込み ロープを巻く（fisher）</title></circle>
+<circle cx="651.0" cy="498.0" r="3.2" fill="none" stroke="var(--teal)" stroke-width="1.6"><title>溶け込み ロープを巻く（fisher）</title></circle>
+<circle cx="913.5" cy="189.0" r="3.2" fill="none" stroke="var(--teal)" stroke-width="1.6"><title>溶け込み カウンターに立つ（beachbar）</title></circle>
+<rect x="556.0" y="256.0" width="10" height="10" fill="none" stroke="var(--amber)" stroke-width="2"><title>検問 大階段の身体検査</title></rect>
+<rect x="401.5" y="491.5" width="10" height="10" fill="none" stroke="var(--amber)" stroke-width="2"><title>検問 マリーナ入口の身体検査</title></rect>
+<circle cx="396.0" cy="19.5" r="7" fill="none" stroke="var(--teal)" stroke-width="2.4"/><text x="396.0" y="22.5" text-anchor="middle" class="t">E1</text>
+<circle cx="153.0" cy="170.2" r="7" fill="none" stroke="var(--teal)" stroke-width="2.4"/><text x="153.0" y="173.2" text-anchor="middle" class="t">E2</text>
+<circle cx="516.0" cy="496.5" r="7" fill="none" stroke="var(--teal)" stroke-width="2.4"/><text x="516.0" y="499.5" text-anchor="middle" class="t">E3</text>
+<circle cx="936.0" cy="432.0" r="7" fill="none" stroke="var(--teal)" stroke-width="2.4"/><text x="936.0" y="435.0" text-anchor="middle" class="t">E5</text>
+<path d="M333.0,386.5 l5,5 l-5,5 l-5,-5 Z" fill="var(--red)"><title>pool_panel </title></path>
+<path d="M565.5,385.8 l5,5 l-5,5 l-5,-5 Z" fill="var(--red)"><title>pool_light A3</title></path>
+<text x="571.5" y="385.8" class="t r">A3</text>
+<path d="M681.0,485.5 l5,5 l-5,5 l-5,-5 Z" fill="var(--red)"><title>crane_pin </title></path>
+<path d="M658.5,485.5 l5,5 l-5,5 l-5,-5 Z" fill="var(--red)"><title>crane_panel </title></path>
+<path d="M253.5,150.2 l5,5 l-5,5 l-5,-5 Z" fill="var(--red)"><title>gas_pipe </title></path>
+<path d="M373.5,205.0 l5,5 l-5,5 l-5,-5 Z" fill="var(--red)"><title>stove_light </title></path>
+<path d="M287.2,91.0 l5,5 l-5,5 l-5,-5 Z" fill="var(--red)"><title>car_sit </title></path>
+<path d="M287.2,91.0 l5,5 l-5,5 l-5,-5 Z" fill="var(--red)"><title>car_kill </title></path>
+<path d="M844.5,484.0 l5,5 l-5,5 l-5,-5 Z" fill="var(--red)"><title>boat_fuel C2</title></path>
+<text x="850.5" y="484.0" class="t r">C2</text>
+<path d="M757.5,218.5 l5,5 l-5,5 l-5,-5 Z" fill="var(--red)"><title>alarm_bell </title></path>
+<path d="M925.5,296.5 l5,5 l-5,5 l-5,-5 Z" fill="var(--red)"><title>fireworks_aim </title></path>
+<text x="201.0" y="17.0" text-anchor="middle" class="t s">駐車場</text>
+<text x="523.5" y="17.0" text-anchor="middle" class="t s">正面車寄せ</text>
+<text x="748.5" y="17.0" text-anchor="middle" class="t s">庭</text>
+<text x="909.8" y="17.0" text-anchor="middle" class="t s">浜辺北</text>
+<text x="114.8" y="140.0" text-anchor="middle" class="t s">搬入口</text>
+<text x="321.0" y="140.0" text-anchor="middle" class="t s">厨房</text>
+<text x="516.0" y="140.0" text-anchor="middle" class="t s">ロビー</text>
+<text x="677.2" y="140.0" text-anchor="middle" class="t s">バー</text>
+<text x="793.5" y="140.0" text-anchor="middle" class="t s">警備室</text>
+<text x="909.8" y="140.0" text-anchor="middle" class="t s">ビーチバー</text>
+<text x="114.8" y="287.0" text-anchor="middle" class="t s">裏庭</text>
+<text x="271.5" y="287.0" text-anchor="middle" class="t s">ランドリー</text>
+<text x="369.0" y="287.0" text-anchor="middle" class="t s">裏通路</text>
+<text x="516.0" y="287.0" text-anchor="middle" class="t s">プール</text>
+<text x="729.8" y="287.0" text-anchor="middle" class="t s">テラス</text>
+<text x="909.8" y="287.0" text-anchor="middle" class="t s">浜辺南</text>
+<text x="212.2" y="444.5" text-anchor="middle" class="t s">遊歩道西</text>
+<text x="516.0" y="444.5" text-anchor="middle" class="t s">桟橋</text>
+<text x="711.0" y="444.5" text-anchor="middle" class="t s">マリーナ</text>
+<text x="891.0" y="444.5" text-anchor="middle" class="t s">燃料所</text>
+</svg></figure><figure><figcaption>B1 地下セラー</figcaption><svg viewBox="0 0 980 570" role="img" aria-label="B1 地下セラーの配置図" class="map">
+<rect x="0" y="0" width="980" height="570" fill="var(--sea)"/>
+<rect x="618.0" y="142.5" width="120.0" height="54.0" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="618.0" y="256.5" width="120.0" height="21.0" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="618.0" y="196.5" width="85.5" height="60.0" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="726.0" y="196.5" width="12.0" height="60.0" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="618.0" y="142.5" width="120.0" height="135.0" fill="var(--z-staff)" opacity=".55"><title>地下セラー（staff）</title></rect>
+<rect x="631.5" y="154.5" width="9.0" height="9.0" fill="var(--block)"><title>barrel-cellar-1</title></rect>
+<rect x="676.5" y="154.5" width="9.0" height="9.0" fill="var(--block)"><title>barrel-cellar-2</title></rect>
+<rect x="631.5" y="259.5" width="9.0" height="9.0" fill="var(--block)"><title>barrel-cellar-3</title></rect>
+<rect x="721.5" y="259.5" width="9.0" height="9.0" fill="var(--block)"><title>barrel-cellar-4</title></rect>
+<rect x="677.2" y="174.0" width="7.5" height="75.0" fill="var(--block)"><title>rack-wine</title></rect>
+<rect x="643.5" y="215.2" width="15.0" height="7.5" fill="var(--block)"><title>table-tasting</title></rect>
+<rect x="618.0" y="141.7" width="120.0" height="1.9" fill="var(--wall)"/>
+<rect x="618.0" y="276.8" width="120.0" height="1.9" fill="var(--wall)"/>
+<rect x="617.2" y="142.5" width="1.9" height="135.0" fill="var(--wall)"/>
+<rect x="737.2" y="142.5" width="1.9" height="135.0" fill="var(--wall)"/>
+<rect x="703.5" y="196.5" width="22.5" height="60.0" fill="none" stroke="var(--ink)" stroke-dasharray="3 2"><title>stairs-cellar</title></rect>
+<text x="678.0" y="153.5" text-anchor="middle" class="t s">地下セラー</text>
+</svg></figure><figure><figcaption>2F</figcaption><svg viewBox="0 0 980 570" role="img" aria-label="2Fの配置図" class="map">
+<rect x="0" y="0" width="980" height="570" fill="var(--sea)"/>
+<rect x="231.0" y="142.5" width="237.0" height="120.0" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="231.0" y="262.5" width="237.0" height="16.5" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="231.0" y="279.0" width="150.0" height="36.0" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="403.5" y="279.0" width="64.5" height="36.0" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="468.0" y="142.5" width="112.5" height="54.0" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="468.0" y="256.5" width="112.5" height="58.5" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="468.0" y="196.5" width="78.0" height="60.0" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="576.0" y="196.5" width="4.5" height="60.0" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="580.5" y="142.5" width="100.5" height="90.0" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="231.0" y="262.5" width="237.0" height="52.5" fill="var(--z-staff)" opacity=".55"><title>照明通路（staff）</title></rect>
+<rect x="580.5" y="142.5" width="100.5" height="90.0" fill="var(--z-secure)" opacity=".55"><title>Bの客室（secure）</title></rect>
+<rect x="261.8" y="174.8" width="13.5" height="13.5" fill="var(--block)"><title>table-banquet-0-0</title></rect>
+<rect x="261.8" y="219.8" width="13.5" height="13.5" fill="var(--block)"><title>table-banquet-0-1</title></rect>
+<rect x="321.8" y="174.8" width="13.5" height="13.5" fill="var(--block)"><title>table-banquet-1-0</title></rect>
+<rect x="321.8" y="219.8" width="13.5" height="13.5" fill="var(--block)"><title>table-banquet-1-1</title></rect>
+<rect x="381.8" y="174.8" width="13.5" height="13.5" fill="var(--block)"><title>table-banquet-2-0</title></rect>
+<rect x="381.8" y="219.8" width="13.5" height="13.5" fill="var(--block)"><title>table-banquet-2-1</title></rect>
+<rect x="321.0" y="144.0" width="60.0" height="9.0" fill="var(--block)"><title>stage-banquet</title></rect>
+<rect x="542.2" y="153.0" width="7.5" height="12.0" fill="var(--block)"><title>cart-cleaning</title></rect>
+<rect x="574.7" y="268.1" width="4.9" height="6.8" fill="var(--block)"><title>locker-corridor</title></rect>
+<rect x="231.9" y="238.1" width="4.9" height="6.8" fill="var(--block)"><title>locker-banquet</title></rect>
+<rect x="231.0" y="141.7" width="237.0" height="1.9" fill="var(--wall)"/>
+<rect x="231.0" y="261.8" width="165.0" height="1.9" fill="var(--wall)"/>
+<rect x="396.0" y="261.8" width="15.0" height="1.9" fill="var(--wall)"/>
+<rect x="411.0" y="261.8" width="57.0" height="1.9" fill="var(--wall)"/>
+<rect x="230.2" y="142.5" width="1.9" height="120.0" fill="var(--wall)"/>
+<rect x="467.2" y="142.5" width="1.9" height="54.0" fill="var(--wall)"/>
+<rect x="467.2" y="196.5" width="1.9" height="15.0" fill="var(--wall)"/>
+<rect x="467.2" y="211.5" width="1.9" height="51.0" fill="var(--wall)"/>
+<rect x="231.0" y="314.2" width="237.0" height="1.9" fill="var(--wall)"/>
+<rect x="230.2" y="262.5" width="1.9" height="52.5" fill="var(--wall)"/>
+<rect x="467.2" y="262.5" width="1.9" height="24.0" fill="var(--wall)"/>
+<rect x="467.2" y="286.5" width="1.9" height="15.0" fill="var(--wall)"/>
+<rect x="467.2" y="301.5" width="1.9" height="13.5" fill="var(--wall)"/>
+<rect x="468.0" y="141.7" width="112.5" height="1.9" fill="var(--wall)"/>
+<rect x="468.0" y="314.2" width="112.5" height="1.9" fill="var(--wall)"/>
+<rect x="579.8" y="142.5" width="1.9" height="39.0" fill="var(--wall)"/>
+<rect x="579.8" y="181.5" width="1.9" height="15.0" fill="var(--wall)"/>
+<rect x="579.8" y="196.5" width="1.9" height="118.5" fill="var(--wall)"/>
+<rect x="580.5" y="141.7" width="100.5" height="1.9" fill="var(--wall)"/>
+<rect x="580.5" y="231.7" width="100.5" height="1.9" fill="var(--wall)"/>
+<rect x="680.2" y="142.5" width="1.9" height="90.0" fill="var(--wall)"/>
+<rect x="500.3" y="245.2" width="1.9" height="60.0" fill="var(--wall)"/>
+<rect x="523.5" y="245.2" width="1.9" height="60.0" fill="var(--wall)"/>
+<rect x="546.0" y="196.5" width="30.0" height="60.0" fill="none" stroke="var(--ink)" stroke-dasharray="3 2"><title>stairs-grand</title></rect>
+<rect x="381.0" y="279.0" width="22.5" height="60.0" fill="none" stroke="var(--ink)" stroke-dasharray="3 2"><title>stairs-service</title></rect>
+<rect x="501.0" y="245.2" width="22.5" height="60.0" fill="none" stroke="var(--ink)" stroke-dasharray="3 2"><title>stairs-roof</title></rect>
+<path d="M456.0,147.0 L366.2,141.6 A90.0,90.0 0 0 0 420.2,229.6 Z" fill="var(--cam)" opacity=".28" stroke="var(--cam)" stroke-width=".8"><title>宴会場 カメラ</title></path>
+<circle cx="351.0" cy="160.5" r="17.2" fill="none" stroke="var(--red)" stroke-width="1.6" stroke-dasharray="4 2"><title>罠の範囲 chandelier（半径2.3m・中の人は全員死ぬ）</title></circle>
+<circle cx="480.0" cy="154.5" r="2.2" fill="var(--guard)"><title>客室廊下の警備員</title></circle>
+<circle cx="246.0" cy="155.2" r="2.2" fill="var(--guard)"><title>宴会場の警備員</title></circle>
+<circle cx="557.2" cy="181.5" r="2.2" fill="var(--staff)"><title>ウェイター</title></circle>
+<circle cx="246.0" cy="256.5" r="2.2" fill="var(--staff)"><title>ウェイター</title></circle>
+<circle cx="568.5" cy="174.0" r="2.2" fill="var(--staff)"><title>ルームサービス係</title></circle>
+<circle cx="300.4" cy="212.0" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="306.8" cy="203.8" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="296.2" cy="196.1" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="290.2" cy="204.1" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="389.4" cy="212.2" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="396.7" cy="202.9" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="386.1" cy="196.1" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="380.5" cy="206.0" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<circle cx="246.0" cy="166.5" r="2.2" fill="var(--guest)"><title>招待客</title></circle>
+<rect x="574.1" y="268.5" width="6" height="6" fill="var(--hide)"><title>隠し場所 清掃カート</title></rect>
+<rect x="231.4" y="238.5" width="6" height="6" fill="var(--hide)"><title>隠し場所 宴会場の花瓶台</title></rect>
+<circle cx="426.0" cy="211.5" r="3.2" fill="none" stroke="var(--teal)" stroke-width="1.6"><title>溶け込み 給仕する（waiter）</title></circle>
+<circle cx="486.0" cy="166.5" r="3.2" fill="none" stroke="var(--teal)" stroke-width="1.6"><title>溶け込み 床を掃く（cleaner）</title></circle>
+<path d="M351.0,263.5 l5,5 l-5,5 l-5,-5 Z" fill="var(--red)"><title>chandelier_clamp </title></path>
+<path d="M351.0,263.5 l5,5 l-5,5 l-5,-5 Z" fill="var(--red)"><title>chandelier_release </title></path>
+<path d="M561.0,164.5 l5,5 l-5,5 l-5,-5 Z" fill="var(--red)"><title>take_keycard </title></path>
+<text x="349.5" y="153.5" text-anchor="middle" class="t s">宴会場</text>
+<text x="349.5" y="273.5" text-anchor="middle" class="t s">照明通路</text>
+<text x="524.2" y="153.5" text-anchor="middle" class="t s">客室廊下</text>
+<text x="630.8" y="153.5" text-anchor="middle" class="t s">Bの客室</text>
+</svg></figure><figure><figcaption>RF 屋上</figcaption><svg viewBox="0 0 980 570" role="img" aria-label="RF 屋上の配置図" class="map">
+<rect x="0" y="0" width="980" height="570" fill="var(--sea)"/>
+<rect x="231.0" y="142.5" width="237.0" height="112.5" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="231.0" y="255.0" width="237.0" height="60.0" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="468.0" y="142.5" width="213.0" height="102.8" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="468.0" y="305.2" width="213.0" height="9.7" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="468.0" y="245.2" width="33.0" height="60.0" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="523.5" y="245.2" width="157.5" height="60.0" fill="var(--land)" stroke="var(--grid)" stroke-width=".6"/>
+<rect x="231.0" y="142.5" width="237.0" height="112.5" fill="var(--z-secure)" opacity=".55"><title>ペントハウス（secure）</title></rect>
+<rect x="231.0" y="255.0" width="237.0" height="60.0" fill="var(--z-secure)" opacity=".55"><title>バルコニー（secure）</title></rect>
+<rect x="468.0" y="142.5" width="213.0" height="172.5" fill="var(--z-outer)" opacity=".55"><title>ヘリポート（outer）</title></rect>
+<rect x="264.8" y="155.2" width="22.5" height="7.5" fill="var(--block)"><title>desk-penthouse</title></rect>
+<rect x="402.8" y="157.5" width="16.5" height="18.0" fill="var(--block)"><title>bed-penthouse</title></rect>
+<rect x="298.5" y="223.5" width="15.0" height="6.0" fill="var(--block)"><title>massage-table</title></rect>
+<rect x="499.5" y="229.5" width="25.5" height="15.0" fill="var(--block)"><title>stairhouse-roof</title></rect>
+<rect x="231.0" y="141.7" width="237.0" height="1.9" fill="var(--wall)"/>
+<rect x="231.0" y="254.2" width="120.0" height="1.9" fill="var(--wall)"/>
+<rect x="351.0" y="254.2" width="15.0" height="1.9" fill="var(--wall)"/>
+<rect x="366.0" y="254.2" width="102.0" height="1.9" fill="var(--wall)"/>
+<rect x="230.2" y="142.5" width="1.9" height="112.5" fill="var(--wall)"/>
+<rect x="467.2" y="142.5" width="1.9" height="54.0" fill="var(--wall)"/>
+<rect x="467.2" y="196.5" width="1.9" height="15.0" fill="var(--wall)"/>
+<rect x="467.2" y="211.5" width="1.9" height="43.5" fill="var(--wall)"/>
+<rect x="230.4" y="255.0" width="1.9" height="60.0" fill="var(--wall)"/>
+<rect x="231.0" y="314.4" width="237.0" height="1.9" fill="var(--wall)"/>
+<rect x="467.4" y="255.0" width="1.9" height="60.0" fill="var(--wall)"/>
+<rect x="468.0" y="141.9" width="213.0" height="1.9" fill="var(--wall)"/>
+<rect x="680.4" y="142.5" width="1.9" height="172.5" fill="var(--wall)"/>
+<rect x="468.0" y="314.4" width="213.0" height="1.9" fill="var(--wall)"/>
+<rect x="501.0" y="245.2" width="22.5" height="60.0" fill="none" stroke="var(--ink)" stroke-dasharray="3 2"><title>stairs-roof</title></rect>
+<path d="M472.5,147.0 L499.5,232.8 A90.0,90.0 0 0 0 562.4,151.0 Z" fill="var(--cam)" opacity=".28" stroke="var(--cam)" stroke-width=".8"><title>ヘリポート カメラ</title></path>
+<path d="M235.5,147.0 L274.7,228.0 A90.0,90.0 0 0 0 325.0,137.9 Z" fill="var(--cam)" opacity=".28" stroke="var(--cam)" stroke-width=".8"><title>ペントハウス カメラ</title></path>
+<circle cx="291.0" cy="170.2" r="4.5" fill="var(--red)"><title>C 若き投資家</title></circle>
+<circle cx="486.0" cy="155.2" r="2.2" fill="var(--guard)"><title>屋上の警備員</title></circle>
+<circle cx="246.0" cy="155.2" r="2.2" fill="var(--guard)"><title>ペントハウスの護衛</title></circle>
+<circle cx="621.0" cy="204.0" r="2.2" fill="var(--staff)"><title>パイロット</title></circle>
+<circle cx="606.0" cy="226.5" r="7" fill="none" stroke="var(--teal)" stroke-width="2.4"/><text x="606.0" y="229.5" text-anchor="middle" class="t">E4</text>
+<path d="M343.5,298.0 l5,5 l-5,5 l-5,-5 Z" fill="var(--red)"><title>rail_bolts </title></path>
+<text x="349.5" y="153.5" text-anchor="middle" class="t s">ペントハウス</text>
+<text x="349.5" y="266.0" text-anchor="middle" class="t s">バルコニー</text>
+<text x="574.5" y="153.5" text-anchor="middle" class="t s">ヘリポート</text>
+</svg></figure></div>
+<h3>場所ごとの中身（初期配置）</h3>
+<p>色の付いた行は「人が5人以上いるのに、チャンスの場所が1つもない」所。</p>
+<div class="table-wrap"><table><thead><tr><th>場所</th><th>人</th><th>警備</th><th>顔を知る人</th><th>カメラ</th><th>隠し場所</th><th>溶け込み</th><th>チャンスの場所</th></tr></thead><tbody><tr class="thin"><td>ロビー</td><td>16</td><td>5</td><td>3</td><td>1</td><td>1</td><td>3</td><td>0</td></tr><tr class="thin"><td>テラス</td><td>16</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td></tr><tr class=""><td>プール</td><td>15</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1 (A3)</td></tr><tr class="thin"><td>宴会場</td><td>11</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td></tr><tr class="thin"><td>バー</td><td>9</td><td>0</td><td>2</td><td>1</td><td>1</td><td>2</td><td>0</td></tr><tr class="thin"><td>浜辺北</td><td>8</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr class=""><td>浜辺南</td><td>6</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td></tr><tr class=""><td>厨房</td><td>5</td><td>0</td><td>2</td><td>0</td><td>1</td><td>2</td><td>2</td></tr><tr class="thin"><td>搬入口</td><td>5</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td></tr><tr class=""><td>遊歩道西</td><td>4</td><td>2</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td></tr><tr class=""><td>ビーチバー</td><td>3</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td></tr><tr class=""><td>駐車場</td><td>3</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>2</td></tr><tr class=""><td>客室廊下</td><td>3</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td></tr><tr class=""><td>マリーナ</td><td>3</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>2</td></tr><tr class=""><td>ペントハウス</td><td>2</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td></tr><tr class=""><td>警備室</td><td>2</td><td>2</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td></tr><tr class=""><td>庭</td><td>2</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr class=""><td>ヘリポート</td><td>2</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td></tr><tr class=""><td>裏通路</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td></tr><tr class=""><td>正面車寄せ</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr class=""><td>裏庭</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr class=""><td>桟橋</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td></tr><tr class=""><td>ランドリー</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td></tr><tr class=""><td>燃料所</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1 (C2)</td></tr><tr class=""><td>照明通路</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>2</td></tr><tr class=""><td>バルコニー</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr></tbody></table></div>
+<h3>マップの課題</h3>
+<ol>
+<li><b>事故の作動場所が人前にある</b>：プールの照明・テラスの記念撮影・展示ヨットの操作盤・ヘリポートの縁は、どれも客や警備から丸見え。判定の仕組み（食い違い③）と重なって、「事故に見せる」チャンスが事故にならない。</li>
+<li><b>罠の範囲に関係のない人が入る</b>：ガス（Bの護衛3人）と花火（浜辺の客4人）。範囲が広すぎるか、人の立ち位置が近すぎる。</li>
+<li><b>人が多いのに使い道のない場所が多い</b>：ロビー（16人）・テラス（16人）・バー（9人）・浜辺北（8人）・搬入口（5人）などにチャンスの場所がない（A1の挨拶はバーだが、作動場所はセラー）。人混みはあっても「そこで何かが起きる」理由が少ない。</li>
+<li><b>近道や別ルートがない</b>：2Fへは大階段（検問あり）と裏階段、RFへは屋上階段だけ。はしご・雨どい・窓・通気口のような、HITMANらしい抜け道がない。</li>
+<li><b>隠し場所が偏っている</b>：16か所すべてロッカーで、標的が死ぬ場所（ペントハウス・ヘリポート・テラス）の近くにない。手を下した殺し（C4）を隠す手段がない。</li>
+</ol></section>
+<section id="unused"><h2>3. 仕組みはあるが活かされていないもの</h2>
+<h3>私設護衛へのなりすまし</h3>
+<ul>
+<li><b>服としては最強</b>：入れない区画がない（公共・スタッフ・厳重・外周すべて「可」）。銃を背負っても怪しまれない。</li>
+<li><b>でもBには近づけない</b>：B本人（元顧問弁護士）と護衛隊長が「私設護衛の顔を知る人」。チャンスB3の時間（16〜20分）と付き添い中だけ例外で、それ以外は近づくとバレる。</li>
+<li><b>付き添っても倒せない</b>：シミュレーションでは、交代の護衛として付き添うところまではできた。ただしBに付く護衛3人（隊長を含む）も一緒に付いてくるので、倒す瞬間を必ず見られた（見た人：護衛4人と投資家）。</li>
+<li><b>話しかける手段がない</b>：「話す・誘う（J）」は、ソムリエで給仕長に挨拶する時と、ワイン商を誘う時の2つだけ。護衛としてBに話しかける・Bを誘導する操作は、B3の付き添い開始だけ。</li>
+</ul>
+<h3>ソムリエへのなりすまし</h3>
+<ul>
+<li>使い道はチャンスA1（試飲会）だけ。給仕長は鍵を渡すまでは見破らない例外があり、シミュレーションでは挨拶・鍵・毒の一杯まで通った。</li>
+<li>鍵を受け取って6秒たつと、給仕長はソムリエの顔を見破るようになる。給仕長はバーとロビーを行き来するので、A1以外でソムリエの服を着てバー周りにいるのはほぼ不可能。</li>
+<li>標的（ワイン商）に話しかけられるのは「セラー奥へ誘う」だけ。ほかの標的に酒を出す、などの使い道はない。</li>
+</ul>
+<h3>ほかに「あるのに活かされていない」もの</h3>
+<div class="table-wrap"><table><thead><tr><th>仕組み</th><th>いまの状態</th></tr></thead><tbody>
+<tr><td>変装14種</td><td>カメラマン・港湾係・シェフ・運転手・パイロット・マッサージ師・ビーチバー店員・ソムリエ・私設護衛は、<b>使うチャンスがそれぞれ1つだけ</b>。チャンス以外で着る理由が少ない。</td></tr>
+<tr><td>話す・誘う（J）</td><td>ソムリエの2場面だけ。ほかの服で人に話しかける・誘導する仕組みがない。</td></tr>
+<tr><td>鍵開け具</td><td>データにだけある。手に入らず、使う場所もない。</td></tr>
+<tr><td>投げる</td><td>コインだけ。瓶・スパナを投げて気絶させる、はない。</td></tr>
+<tr><td>気絶した人の発見</td><td>−500点だがゴーストは崩れない。気絶はほぼ罰がない。</td></tr>
+<tr><td>非常ベル</td><td>C2で警戒度3にするのに使うだけ。警戒度3にしてもゴーストは崩れない。</td></tr>
+<tr><td>落ちている銃・置いた銃</td><td>今日入れた。警備が落ちた銃を拾って運ぶ（HITMANの定番のおびき寄せ）はまだない。</td></tr>
+<tr><td>隠し場所16か所</td><td>すべてロッカー。ペントハウス（C4の現場）・ヘリポート（C3）・テラス（A4）の近くにはない。</td></tr>
+</tbody></table></div></section>
+<section id="ghost"><h2>4. 倒し方とゴースト</h2>
+<p>14のチャンス（B2は2通り）と、背後からのワイヤーを、<b>周りの人を消さずに</b>本物のAI・予定・採点で実行した（既存テストは周りの人を遠ざけてから試しているので、この問題が見えていなかった）。作動の場所へは瞬間移動で立ち、移動中に見つかる分は数えていない。</p>
+<p class="big">ゴーストができる：<b>7通り</b> ／ できない：<b>11通り</b></p>
+<div class="table-wrap"><table><thead><tr><th>倒し方</th><th>ゴースト</th><th>崩れる理由（採点）</th><th>原因</th></tr></thead><tbody><tr class="ok"><td>A1 試飲会のソムリエ（毒の一杯）</td><td>○ できる</td><td>—</td><td>問題なし。給仕長は鍵を渡すまで見破らない例外がある。<br><small></small></td></tr><tr class="ok"><td>A2 限定ワインの樽（毒）</td><td>○ できる</td><td>—</td><td>問題なし。毒は「仕込み」が準備扱いで、飲んだ瞬間に目撃者は数えない。<br><small></small></td></tr><tr class="ng"><td>A3 プールの照明（感電）</td><td>× できない</td><td>死体（殺人）発見</td><td>照明スタンドを倒す場所がプールの客と警備から丸見え（7人）。作動時に見えている人は、服に関係なく全員「目撃者」扱い → 殺人 → 死体発見。<br><small></small></td></tr><tr class="ng"><td>A4 テラスの記念撮影（突き落とし）</td><td>× できない</td><td>見つかった、死体（殺人）発見</td><td>記念撮影の手すりはテラスの真ん中。警備・ウェイター・客の前で押すので必ず見られる。カメラマンの服もバレる。<br><small></small></td></tr><tr class="ng"><td>A5 展示ヨットのクレーン（落下物）</td><td>× できない</td><td>死体（殺人）発見</td><td>操作盤がテラスの客と警備、マリーナのカメラ（CAM_marina）から見える → 殺人。しかもカメラは「目撃」に数えるのに録画は残らない（食い違い①）。<br><small></small></td></tr><tr class="ok"><td>B1 スピーチとシャンデリア</td><td>○ できる</td><td>—</td><td>問題なし。照明通路は人目がない。護衛はスピーチ中に離れて立つ。<br><small></small></td></tr><tr class="ng"><td>B2 料理長の試食会（ガス）</td><td>× できない</td><td>警備を殺した</td><td>ガスの爆発範囲（半径3.2m）に、Bに付き添う私設護衛3人が必ず入る → 警備を殺した扱い。<br><small>巻き込み：bodyguard_captain、bodyguard_1、bodyguard_2</small></td></tr><tr class="ok"><td>B2 料理長の試食会（毒の皿）</td><td>○ できる</td><td>—</td><td>問題なし（料理長を先に遠ざける必要あり）。<br><small></small></td></tr><tr class="ng"><td>B3 護衛の交代（付き添って排除）</td><td>× できない</td><td>見つかった、死体（殺人）発見</td><td>交代の護衛として付き添えるが、Bに付いている護衛3人（隊長を含む）も一緒に付いてくる。人のいない場所が作れず、倒す瞬間を必ず見られる。<br><small></small></td></tr><tr class="ok"><td>B4 専属運転手（車内）</td><td>○ できる</td><td>—</td><td>問題なし。車内の殺人は見つからない。<br><small></small></td></tr><tr class="ok"><td>C1 バルコニーの電話（手すり）</td><td>○ できる</td><td>—</td><td>問題なし。<br><small></small></td></tr><tr class="ok"><td>C2 避難ボート（燃料・警戒度3）</td><td>○ できる</td><td>—</td><td>問題なし（非常ベルで警戒度3にしてもゴーストは崩れない）。<br><small></small></td></tr><tr class="ng"><td>C3 屋上のヘリ（パイロットで突き落とし）</td><td>× できない</td><td>見つかった、死体（殺人）発見</td><td>ヘリポートの警備（guard_heliport）が縁の正面に立っている → 突き落としを必ず見られる。<br><small></small></td></tr><tr class="ng"><td>C4 出張マッサージ師（ワイヤー）</td><td>× できない</td><td>死体（殺人）発見</td><td>「手を下した殺し」なので必ず殺人。ペントハウスに隠し場所がなく、戻った護衛が死体を見つける。<br><small></small></td></tr><tr class="ng"><td>C5 浜辺の花火</td><td>× できない</td><td>標的以外を殺した</td><td>花火の範囲（半径2.4m）に浜辺の客4人が必ずいる → 標的以外を殺した扱い。<br><small>巻き込み：guest_beach_b_1、guest_beach_b_2、guest_beach_b_3、guest_beach_b_4</small></td></tr><tr class="ng"><td>素手 X（背後からワイヤー）：wine_merchant</td><td>× できない</td><td>見つかった、死体（殺人）発見、録画が残った</td><td>背後からのワイヤーは、どの標的もいつも誰か（客・警備・監視員）に見られ、カメラにも録画される。<br><small></small></td></tr><tr class="ng"><td>素手 X（背後からワイヤー）：lawyer</td><td>× できない</td><td>見つかった、死体（殺人）発見、録画が残った</td><td>背後からのワイヤーは、どの標的もいつも誰か（客・警備・監視員）に見られ、カメラにも録画される。<br><small></small></td></tr><tr class="ng"><td>素手 X（背後からワイヤー）：investor</td><td>× できない</td><td>見つかった、死体（殺人）発見、録画が残った</td><td>背後からのワイヤーは、どの標的もいつも誰か（客・警備・監視員）に見られ、カメラにも録画される。<br><small></small></td></tr></tbody></table></div>
+<h3>まとめ</h3>
+<ul>
+<li>「事故」のつもりのチャンスのうち、A3・A5は作動を人前でさせる設計と判定の仕組み（食い違い③）のせいで殺人になる。</li>
+<li>B2（ガス）とC5（花火）は、標的以外を必ず巻き込む。</li>
+<li>A4・C3（押す）・C4（マッサージのワイヤー）・B3（付き添って排除）は、手を下す瞬間を見られるか、死体を隠せない。</li>
+<li>チャンスを使わない素手の殺しは、3人ともゴーストにできない（いつも誰かとカメラが見ている）。</li>
+</ul></section>
+<section id="next"><h2>5. 優先順位</h2>
+<ol>
+<li><b>食い違いを直す（①〜⑥）</b>：同じ出来事を同じように扱うようにする。①②③は1つの仕組み（作動の判定）にまとめて直すのが早い。⑦は仕様を決めてから。</li>
+<li><b>全チャンスでゴーストを可能にする</b>：
+ <ul>
+ <li>A3・A5：作動場所を人目のない所へ移す（配電盤・操作室）、または遠隔・時限で作動させる。</li>
+ <li>B2（ガス）：試食会の間は護衛を離れて立たせる（B1のスピーチと同じ）。</li>
+ <li>C5：花火の範囲を投資家の席だけにする、または客の位置をずらす。</li>
+ <li>A4・C3：撮影・出迎えの時は、警備が持ち場を離れる／客が退く台本を足す。</li>
+ <li>C4：ペントハウスに隠し場所を足す、または事故の終わり方（例：アロマの毒）を用意する。</li>
+ <li>B3：付き添い中はほかの護衛を待機させ、人のいない場所（客室・非常階段）を用意する。</li>
+ </ul></li>
+<li><b>なりすましを活かす</b>：私設護衛はB以外の場面（Cの護衛、厳重区画の通行証代わり）で使えるようにする。ソムリエは給仕長以外の人に酒を出す・話す場面を増やす。「話す・誘う」をソムリエ以外の服にも広げる（ウェイターでBに飲み物を出す、など）。</li>
+<li><b>マップに抜け道と隠し場所を足す</b>：はしご・雨どい・窓を数か所、標的が死ぬ場所の近くに隠し場所を足す。人の多い場所（ロビー・テラス・バー）に小さなチャンスや物を置く。</li>
+</ol>
+<p class="note">この調査はコードとデータの読み取りと、本物の仕組みを動かしたシミュレーションによるもの。実際の画面でのプレイ（歩いて行く途中で見つかるかどうか）は確かめていない。シミュレーションのスクリプト：<code>ghost-sim.ts</code>（スクラッチ領域）。</p></section>
+</main>
+</body>
+</html>

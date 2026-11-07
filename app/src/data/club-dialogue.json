@@ -1,0 +1,69 @@
+{
+ "drop_mic": {
+  "place": "dj_0",
+  "speakers": [
+   "dj"
+  ],
+  "lines": [
+   [
+    "dj",
+    "今夜は主役がドロップを押します！12分にお楽しみに"
+   ]
+  ],
+  "trigger": true,
+  "broadcastZone": "C",
+  "window": [
+   0,
+   720
+  ]
+ },
+ "drop_mic_late": {
+  "place": "dj_0",
+  "speakers": [
+   "dj"
+  ],
+  "lines": [
+   [
+    "dj",
+    "次も主役がドロップを押します！24分にお楽しみに"
+   ]
+  ],
+  "trigger": true,
+  "broadcastZone": "C",
+  "window": [
+   720,
+   1800
+  ]
+ },
+ "drop_tech": {
+  "place": "technician_0",
+  "speakers": [
+   "technician"
+  ],
+  "lines": [
+   [
+    "technician",
+    "舞台の配線がむき出しだ。誰かが触ったら終わりだぞ"
+   ]
+  ],
+  "trigger": true
+ },
+ "meet_rumor": {
+  "place": "bottle_server_0",
+  "speakers": [
+   "bottle_server",
+   "chef"
+  ],
+  "lines": [
+   [
+    "bottle_server",
+    "社長はあとで裏に来るってさ。"
+   ],
+   [
+    "chef",
+    "護衛は入れるなって。"
+   ]
+  ],
+  "trigger": true
+ }
+}

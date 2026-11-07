@@ -1,0 +1,1719 @@
+[
+ {
+  "name": "A1 試飲会のソムリエ（毒の一杯）",
+  "target": "dead:poison_glass:accident",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "greet_without_blown": true,
+   "cellar_key": true,
+   "served": true
+  },
+  "spottedBy": [],
+  "found": [
+   "wine_merchant:accident"
+  ],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [],
+  "ghost": true,
+  "score": {
+   "success": true,
+   "seconds": 1281.4999999998713,
+   "lines": [
+    {
+     "key": "spotted",
+     "label": "見つかった",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "ko_found",
+     "label": "気絶した人の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "body_found",
+     "label": "死体の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "loud_shot_once",
+     "label": "銃声",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "combat",
+     "label": "撃ち合い",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "guard_kill",
+     "label": "警備員の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "civilian_kill",
+     "label": "ターゲット以外の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "recording_left",
+     "label": "監視カメラの記録",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "accident_kill",
+     "label": "事故に見せかけた排除",
+     "count": 1,
+     "points": 1000
+    },
+    {
+     "key": "chance_complete",
+     "label": "チャンスの達成",
+     "count": 0,
+     "points": 0
+    }
+   ],
+   "timeBonus": 1000,
+   "total": 12000,
+   "rank": "A",
+   "ghost": true,
+   "ghostBrokenBy": []
+  },
+  "note": "",
+  "reasons": [
+   "wine_merchant=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>"
+  ]
+ },
+ {
+  "name": "A2 限定ワインの樽（毒）",
+  "target": "dead:wine_barrel:accident",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "armed": true,
+   "died": true
+  },
+  "spottedBy": [],
+  "found": [
+   "wine_merchant:accident"
+  ],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [],
+  "ghost": true,
+  "score": {
+   "success": true,
+   "seconds": 1278.3999999998377,
+   "lines": [
+    {
+     "key": "spotted",
+     "label": "見つかった",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "ko_found",
+     "label": "気絶した人の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "body_found",
+     "label": "死体の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "loud_shot_once",
+     "label": "銃声",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "combat",
+     "label": "撃ち合い",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "guard_kill",
+     "label": "警備員の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "civilian_kill",
+     "label": "ターゲット以外の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "recording_left",
+     "label": "監視カメラの記録",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "accident_kill",
+     "label": "事故に見せかけた排除",
+     "count": 1,
+     "points": 1000
+    },
+    {
+     "key": "chance_complete",
+     "label": "チャンスの達成",
+     "count": 1,
+     "points": 500
+    }
+   ],
+   "timeBonus": 1000,
+   "total": 12500,
+   "rank": "A",
+   "ghost": true,
+   "ghostBrokenBy": []
+  },
+  "note": "",
+  "reasons": [
+   "wine_merchant=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>"
+  ]
+ },
+ {
+  "name": "A3 プールの照明（感電）",
+  "target": "dead:electrocution:accident",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "armed": true,
+   "came": true
+  },
+  "spottedBy": [],
+  "found": [
+   "wine_merchant:accident"
+  ],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [],
+  "ghost": true,
+  "score": {
+   "success": true,
+   "seconds": 1029.5000000000277,
+   "lines": [
+    {
+     "key": "spotted",
+     "label": "見つかった",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "ko_found",
+     "label": "気絶した人の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "body_found",
+     "label": "死体の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "loud_shot_once",
+     "label": "銃声",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "combat",
+     "label": "撃ち合い",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "guard_kill",
+     "label": "警備員の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "civilian_kill",
+     "label": "ターゲット以外の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "recording_left",
+     "label": "監視カメラの記録",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "accident_kill",
+     "label": "事故に見せかけた排除",
+     "count": 1,
+     "points": 1000
+    },
+    {
+     "key": "chance_complete",
+     "label": "チャンスの達成",
+     "count": 1,
+     "points": 500
+    }
+   ],
+   "timeBonus": 1000,
+   "total": 12500,
+   "rank": "A",
+   "ghost": true,
+   "ghostBrokenBy": []
+  },
+  "note": "",
+  "reasons": [
+   "wine_merchant=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>"
+  ]
+ },
+ {
+  "name": "A4 テラスの記念撮影（突き落とし）",
+  "target": "dead:push:accident",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "pose": true,
+   "posed": true
+  },
+  "spottedBy": [],
+  "found": [
+   "wine_merchant:accident"
+  ],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [],
+  "ghost": true,
+  "score": {
+   "success": true,
+   "seconds": 525.1000000000353,
+   "lines": [
+    {
+     "key": "spotted",
+     "label": "見つかった",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "ko_found",
+     "label": "気絶した人の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "body_found",
+     "label": "死体の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "loud_shot_once",
+     "label": "銃声",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "combat",
+     "label": "撃ち合い",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "guard_kill",
+     "label": "警備員の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "civilian_kill",
+     "label": "ターゲット以外の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "recording_left",
+     "label": "監視カメラの記録",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "accident_kill",
+     "label": "事故に見せかけた排除",
+     "count": 1,
+     "points": 1000
+    },
+    {
+     "key": "chance_complete",
+     "label": "チャンスの達成",
+     "count": 1,
+     "points": 500
+    }
+   ],
+   "timeBonus": 1000,
+   "total": 12500,
+   "rank": "A",
+   "ghost": true,
+   "ghostBrokenBy": []
+  },
+  "note": "",
+  "reasons": [
+   "wine_merchant=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>"
+  ]
+ },
+ {
+  "name": "A5 展示ヨットのクレーン（落下物）",
+  "target": "dead:falling_object:accident",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "camera_disabled": true,
+   "armed": true,
+   "tour": true
+  },
+  "spottedBy": [],
+  "found": [
+   "wine_merchant:accident"
+  ],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [],
+  "ghost": true,
+  "score": {
+   "success": true,
+   "seconds": 778.2000000000382,
+   "lines": [
+    {
+     "key": "spotted",
+     "label": "見つかった",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "ko_found",
+     "label": "気絶した人の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "body_found",
+     "label": "死体の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "loud_shot_once",
+     "label": "銃声",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "combat",
+     "label": "撃ち合い",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "guard_kill",
+     "label": "警備員の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "civilian_kill",
+     "label": "ターゲット以外の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "recording_left",
+     "label": "監視カメラの記録",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "accident_kill",
+     "label": "事故に見せかけた排除",
+     "count": 1,
+     "points": 1000
+    },
+    {
+     "key": "chance_complete",
+     "label": "チャンスの達成",
+     "count": 1,
+     "points": 500
+    }
+   ],
+   "timeBonus": 1000,
+   "total": 12500,
+   "rank": "A",
+   "ghost": true,
+   "ghostBrokenBy": []
+  },
+  "note": "",
+  "reasons": [
+   "wine_merchant=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>"
+  ]
+ },
+ {
+  "name": "B1 スピーチとシャンデリア",
+  "target": "dead:chandelier:accident",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "speech": true,
+   "armed": true
+  },
+  "spottedBy": [],
+  "found": [
+   "lawyer:accident"
+  ],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [],
+  "ghost": true,
+  "score": {
+   "success": true,
+   "seconds": 474.8000000000329,
+   "lines": [
+    {
+     "key": "spotted",
+     "label": "見つかった",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "ko_found",
+     "label": "気絶した人の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "body_found",
+     "label": "死体の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "loud_shot_once",
+     "label": "銃声",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "combat",
+     "label": "撃ち合い",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "guard_kill",
+     "label": "警備員の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "civilian_kill",
+     "label": "ターゲット以外の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "recording_left",
+     "label": "監視カメラの記録",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "accident_kill",
+     "label": "事故に見せかけた排除",
+     "count": 1,
+     "points": 1000
+    },
+    {
+     "key": "chance_complete",
+     "label": "チャンスの達成",
+     "count": 1,
+     "points": 500
+    }
+   ],
+   "timeBonus": 1000,
+   "total": 12500,
+   "rank": "A",
+   "ghost": true,
+   "ghostBrokenBy": []
+  },
+  "note": "",
+  "reasons": [
+   "lawyer=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>"
+  ]
+ },
+ {
+  "name": "B2 料理長の試食会（ガス）",
+  "target": "dead:gas_explosion:accident",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "armed": true,
+   "cook": true,
+   "chef_away": true,
+   "tasting": true
+  },
+  "spottedBy": [],
+  "found": [
+   "lawyer:accident"
+  ],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [],
+  "ghost": true,
+  "score": {
+   "success": true,
+   "seconds": 804.3000000000465,
+   "lines": [
+    {
+     "key": "spotted",
+     "label": "見つかった",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "ko_found",
+     "label": "気絶した人の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "body_found",
+     "label": "死体の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "loud_shot_once",
+     "label": "銃声",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "combat",
+     "label": "撃ち合い",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "guard_kill",
+     "label": "警備員の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "civilian_kill",
+     "label": "ターゲット以外の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "recording_left",
+     "label": "監視カメラの記録",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "accident_kill",
+     "label": "事故に見せかけた排除",
+     "count": 1,
+     "points": 1000
+    },
+    {
+     "key": "chance_complete",
+     "label": "チャンスの達成",
+     "count": 1,
+     "points": 500
+    }
+   ],
+   "timeBonus": 1000,
+   "total": 12500,
+   "rank": "A",
+   "ghost": true,
+   "ghostBrokenBy": []
+  },
+  "note": "",
+  "reasons": [
+   "lawyer=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>"
+  ]
+ },
+ {
+  "name": "B2 料理長の試食会（毒の皿）",
+  "target": "dead:poison_dish:accident",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "cook": true,
+   "tasting": true
+  },
+  "spottedBy": [],
+  "found": [
+   "lawyer:accident"
+  ],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [],
+  "ghost": true,
+  "score": {
+   "success": true,
+   "seconds": 800.8000000000457,
+   "lines": [
+    {
+     "key": "spotted",
+     "label": "見つかった",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "ko_found",
+     "label": "気絶した人の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "body_found",
+     "label": "死体の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "loud_shot_once",
+     "label": "銃声",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "combat",
+     "label": "撃ち合い",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "guard_kill",
+     "label": "警備員の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "civilian_kill",
+     "label": "ターゲット以外の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "recording_left",
+     "label": "監視カメラの記録",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "accident_kill",
+     "label": "事故に見せかけた排除",
+     "count": 1,
+     "points": 1000
+    },
+    {
+     "key": "chance_complete",
+     "label": "チャンスの達成",
+     "count": 1,
+     "points": 500
+    }
+   ],
+   "timeBonus": 1000,
+   "total": 12500,
+   "rank": "A",
+   "ghost": true,
+   "ghostBrokenBy": []
+  },
+  "note": "",
+  "reasons": [
+   "lawyer=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>"
+  ]
+ },
+ {
+  "name": "B3 護衛の交代（付き添って排除）",
+  "target": "dead:direct:murder",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "wait": true,
+   "not_blown_on_arrival": true,
+   "escorting": true,
+   "followed": true,
+   "private_room": true,
+   "killed": true
+  },
+  "spottedBy": [],
+  "found": [],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [],
+  "ghost": true,
+  "score": {
+   "success": true,
+   "seconds": 1119.099999999927,
+   "lines": [
+    {
+     "key": "spotted",
+     "label": "見つかった",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "ko_found",
+     "label": "気絶した人の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "body_found",
+     "label": "死体の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "loud_shot_once",
+     "label": "銃声",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "combat",
+     "label": "撃ち合い",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "guard_kill",
+     "label": "警備員の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "civilian_kill",
+     "label": "ターゲット以外の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "recording_left",
+     "label": "監視カメラの記録",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "accident_kill",
+     "label": "事故に見せかけた排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "chance_complete",
+     "label": "チャンスの達成",
+     "count": 0,
+     "points": 0
+    }
+   ],
+   "timeBonus": 1000,
+   "total": 11000,
+   "rank": "A",
+   "ghost": true,
+   "ghostBrokenBy": []
+  },
+  "note": "",
+  "reasons": []
+ },
+ {
+  "name": "B4 専属運転手（車内）",
+  "target": "dead:car_wire:murder",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "in_car": true,
+   "got_in": true
+  },
+  "spottedBy": [],
+  "found": [],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [],
+  "ghost": true,
+  "score": {
+   "success": true,
+   "seconds": 1347.89999999982,
+   "lines": [
+    {
+     "key": "spotted",
+     "label": "見つかった",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "ko_found",
+     "label": "気絶した人の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "body_found",
+     "label": "死体の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "loud_shot_once",
+     "label": "銃声",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "combat",
+     "label": "撃ち合い",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "guard_kill",
+     "label": "警備員の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "civilian_kill",
+     "label": "ターゲット以外の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "recording_left",
+     "label": "監視カメラの記録",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "accident_kill",
+     "label": "事故に見せかけた排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "chance_complete",
+     "label": "チャンスの達成",
+     "count": 1,
+     "points": 500
+    }
+   ],
+   "timeBonus": 1000,
+   "total": 11500,
+   "rank": "A",
+   "ghost": true,
+   "ghostBrokenBy": []
+  },
+  "note": "",
+  "reasons": [
+   "lawyer=murder<直接の排除（誰にも見られていない）>"
+  ]
+ },
+ {
+  "name": "C1 バルコニーの電話（手すり）",
+  "target": "dead:balcony_rail:accident",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "keycard": true,
+   "armed": true,
+   "died": true
+  },
+  "spottedBy": [],
+  "found": [
+   "investor:accident"
+  ],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [],
+  "ghost": true,
+  "score": {
+   "success": true,
+   "seconds": 548.6000000000338,
+   "lines": [
+    {
+     "key": "spotted",
+     "label": "見つかった",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "ko_found",
+     "label": "気絶した人の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "body_found",
+     "label": "死体の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "loud_shot_once",
+     "label": "銃声",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "combat",
+     "label": "撃ち合い",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "guard_kill",
+     "label": "警備員の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "civilian_kill",
+     "label": "ターゲット以外の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "recording_left",
+     "label": "監視カメラの記録",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "accident_kill",
+     "label": "事故に見せかけた排除",
+     "count": 1,
+     "points": 1000
+    },
+    {
+     "key": "chance_complete",
+     "label": "チャンスの達成",
+     "count": 1,
+     "points": 500
+    }
+   ],
+   "timeBonus": 1000,
+   "total": 12500,
+   "rank": "A",
+   "ghost": true,
+   "ghostBrokenBy": []
+  },
+  "note": "",
+  "reasons": [
+   "investor=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>"
+  ]
+ },
+ {
+  "name": "C2 避難ボート（燃料・警戒度3）",
+  "target": "dead:boat_explosion:accident",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "armed": true,
+   "alert3": true,
+   "died": true
+  },
+  "spottedBy": [],
+  "found": [
+   "investor:accident"
+  ],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [],
+  "ghost": true,
+  "score": {
+   "success": true,
+   "seconds": 242.8999999999899,
+   "lines": [
+    {
+     "key": "spotted",
+     "label": "見つかった",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "ko_found",
+     "label": "気絶した人の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "body_found",
+     "label": "死体の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "loud_shot_once",
+     "label": "銃声",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "combat",
+     "label": "撃ち合い",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "guard_kill",
+     "label": "警備員の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "civilian_kill",
+     "label": "ターゲット以外の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "recording_left",
+     "label": "監視カメラの記録",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "accident_kill",
+     "label": "事故に見せかけた排除",
+     "count": 1,
+     "points": 1000
+    },
+    {
+     "key": "chance_complete",
+     "label": "チャンスの達成",
+     "count": 1,
+     "points": 500
+    }
+   ],
+   "timeBonus": 1000,
+   "total": 12500,
+   "rank": "A",
+   "ghost": true,
+   "ghostBrokenBy": []
+  },
+  "note": "",
+  "reasons": [
+   "investor=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>"
+  ]
+ },
+ {
+  "name": "C3 屋上のヘリ（パイロットで突き落とし）",
+  "target": "dead:push:accident",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "wait": true,
+   "posed": true
+  },
+  "spottedBy": [],
+  "found": [
+   "investor:accident"
+  ],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [],
+  "ghost": true,
+  "score": {
+   "success": true,
+   "seconds": 1370.1999999998543,
+   "lines": [
+    {
+     "key": "spotted",
+     "label": "見つかった",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "ko_found",
+     "label": "気絶した人の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "body_found",
+     "label": "死体の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "loud_shot_once",
+     "label": "銃声",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "combat",
+     "label": "撃ち合い",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "guard_kill",
+     "label": "警備員の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "civilian_kill",
+     "label": "ターゲット以外の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "recording_left",
+     "label": "監視カメラの記録",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "accident_kill",
+     "label": "事故に見せかけた排除",
+     "count": 1,
+     "points": 1000
+    },
+    {
+     "key": "chance_complete",
+     "label": "チャンスの達成",
+     "count": 1,
+     "points": 500
+    }
+   ],
+   "timeBonus": 1000,
+   "total": 12500,
+   "rank": "A",
+   "ghost": true,
+   "ghostBrokenBy": []
+  },
+  "note": "",
+  "reasons": [
+   "investor=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>"
+  ]
+ },
+ {
+  "name": "C4 出張マッサージ師（ワイヤー）",
+  "target": "dead:massage_wire:murder",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "in": true,
+   "massage": true,
+   "picked_up": true,
+   "container_reached": true,
+   "hidden": true
+  },
+  "spottedBy": [],
+  "found": [],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [],
+  "ghost": true,
+  "score": {
+   "success": true,
+   "seconds": 795.6000000000297,
+   "lines": [
+    {
+     "key": "spotted",
+     "label": "見つかった",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "ko_found",
+     "label": "気絶した人の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "body_found",
+     "label": "死体の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "loud_shot_once",
+     "label": "銃声",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "combat",
+     "label": "撃ち合い",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "guard_kill",
+     "label": "警備員の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "civilian_kill",
+     "label": "ターゲット以外の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "recording_left",
+     "label": "監視カメラの記録",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "accident_kill",
+     "label": "事故に見せかけた排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "chance_complete",
+     "label": "チャンスの達成",
+     "count": 1,
+     "points": 500
+    }
+   ],
+   "timeBonus": 1000,
+   "total": 11500,
+   "rank": "A",
+   "ghost": true,
+   "ghostBrokenBy": []
+  },
+  "note": "",
+  "reasons": [
+   "investor=murder<直接の排除（誰にも見られていない）>"
+  ]
+ },
+ {
+  "name": "C5 浜辺の花火",
+  "target": "dead:fireworks:accident",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "armed": true,
+   "died": true
+  },
+  "spottedBy": [],
+  "found": [
+   "investor:accident"
+  ],
+  "compromised": [],
+  "recorded": "",
+  "ghostBrokenBy": [],
+  "ghost": true,
+  "score": {
+   "success": true,
+   "seconds": 1200.099999999867,
+   "lines": [
+    {
+     "key": "spotted",
+     "label": "見つかった",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "ko_found",
+     "label": "気絶した人の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "body_found",
+     "label": "死体の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "loud_shot_once",
+     "label": "銃声",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "combat",
+     "label": "撃ち合い",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "guard_kill",
+     "label": "警備員の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "civilian_kill",
+     "label": "ターゲット以外の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "recording_left",
+     "label": "監視カメラの記録",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "accident_kill",
+     "label": "事故に見せかけた排除",
+     "count": 1,
+     "points": 1000
+    },
+    {
+     "key": "chance_complete",
+     "label": "チャンスの達成",
+     "count": 1,
+     "points": 500
+    }
+   ],
+   "timeBonus": 1000,
+   "total": 12500,
+   "rank": "A",
+   "ghost": true,
+   "ghostBrokenBy": []
+  },
+  "note": "",
+  "reasons": [
+   "investor=accident<仕掛けによる死亡・作動時の目撃なし・違法な持ち物なし>"
+  ]
+ },
+ {
+  "name": "素手 X（背後からワイヤー）：wine_merchant",
+  "target": "dead:direct:murder",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "killed": true
+  },
+  "spottedBy": [
+   "guest_bar_a_1",
+   "monitor_watcher",
+   "guard_garden",
+   "guard_terrace"
+  ],
+  "found": [
+   "wine_merchant:murder"
+  ],
+  "compromised": [
+   "suit"
+  ],
+  "recorded": "違法行為",
+  "ghostBrokenBy": [
+   "spotted",
+   "body_found",
+   "recording_left"
+  ],
+  "ghost": false,
+  "score": {
+   "success": true,
+   "seconds": 185.69999999999314,
+   "lines": [
+    {
+     "key": "spotted",
+     "label": "見つかった",
+     "count": 4,
+     "points": -4000
+    },
+    {
+     "key": "ko_found",
+     "label": "気絶した人の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "body_found",
+     "label": "死体の発見",
+     "count": 1,
+     "points": -2000
+    },
+    {
+     "key": "loud_shot_once",
+     "label": "銃声",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "combat",
+     "label": "撃ち合い",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "guard_kill",
+     "label": "警備員の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "civilian_kill",
+     "label": "ターゲット以外の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "recording_left",
+     "label": "監視カメラの記録",
+     "count": 1,
+     "points": -2000
+    },
+    {
+     "key": "accident_kill",
+     "label": "事故に見せかけた排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "chance_complete",
+     "label": "チャンスの達成",
+     "count": 0,
+     "points": 0
+    }
+   ],
+   "timeBonus": 1000,
+   "total": 3000,
+   "rank": "C",
+   "ghost": false,
+   "ghostBrokenBy": [
+    "spotted",
+    "body_found",
+    "recording_left"
+   ]
+  },
+  "note": "",
+  "reasons": []
+ },
+ {
+  "name": "素手 X（背後からワイヤー）：lawyer",
+  "target": "dead:direct:murder",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "killed": true
+  },
+  "spottedBy": [
+   "receptionist",
+   "laundry_2",
+   "guest_lobby_a_1",
+   "monitor_watcher",
+   "bodyguard_captain",
+   "bodyguard_1",
+   "bodyguard_2",
+   "guard_check_lobby"
+  ],
+  "found": [
+   "lawyer:murder"
+  ],
+  "compromised": [
+   "suit"
+  ],
+  "recorded": "違法行為",
+  "ghostBrokenBy": [
+   "spotted",
+   "body_found",
+   "recording_left"
+  ],
+  "ghost": false,
+  "score": {
+   "success": true,
+   "seconds": 185.69999999999314,
+   "lines": [
+    {
+     "key": "spotted",
+     "label": "見つかった",
+     "count": 8,
+     "points": -8000
+    },
+    {
+     "key": "ko_found",
+     "label": "気絶した人の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "body_found",
+     "label": "死体の発見",
+     "count": 1,
+     "points": -2000
+    },
+    {
+     "key": "loud_shot_once",
+     "label": "銃声",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "combat",
+     "label": "撃ち合い",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "guard_kill",
+     "label": "警備員の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "civilian_kill",
+     "label": "ターゲット以外の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "recording_left",
+     "label": "監視カメラの記録",
+     "count": 1,
+     "points": -2000
+    },
+    {
+     "key": "accident_kill",
+     "label": "事故に見せかけた排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "chance_complete",
+     "label": "チャンスの達成",
+     "count": 0,
+     "points": 0
+    }
+   ],
+   "timeBonus": 1000,
+   "total": -1000,
+   "rank": "C",
+   "ghost": false,
+   "ghostBrokenBy": [
+    "spotted",
+    "body_found",
+    "recording_left"
+   ]
+  },
+  "note": "",
+  "reasons": []
+ },
+ {
+  "name": "素手 X（背後からワイヤー）：investor",
+  "target": "dead:direct:murder",
+  "others": [],
+  "ko": [],
+  "steps": {
+   "killed": true
+  },
+  "spottedBy": [
+   "guard_penthouse",
+   "monitor_watcher"
+  ],
+  "found": [
+   "investor:murder"
+  ],
+  "compromised": [
+   "suit"
+  ],
+  "recorded": "違法行為",
+  "ghostBrokenBy": [
+   "spotted",
+   "body_found",
+   "recording_left"
+  ],
+  "ghost": false,
+  "score": {
+   "success": true,
+   "seconds": 185.69999999999314,
+   "lines": [
+    {
+     "key": "spotted",
+     "label": "見つかった",
+     "count": 2,
+     "points": -2000
+    },
+    {
+     "key": "ko_found",
+     "label": "気絶した人の発見",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "body_found",
+     "label": "死体の発見",
+     "count": 1,
+     "points": -2000
+    },
+    {
+     "key": "loud_shot_once",
+     "label": "銃声",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "combat",
+     "label": "撃ち合い",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "guard_kill",
+     "label": "警備員の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "civilian_kill",
+     "label": "ターゲット以外の排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "recording_left",
+     "label": "監視カメラの記録",
+     "count": 1,
+     "points": -2000
+    },
+    {
+     "key": "accident_kill",
+     "label": "事故に見せかけた排除",
+     "count": 0,
+     "points": 0
+    },
+    {
+     "key": "chance_complete",
+     "label": "チャンスの達成",
+     "count": 0,
+     "points": 0
+    }
+   ],
+   "timeBonus": 1000,
+   "total": 5000,
+   "rank": "B",
+   "ghost": false,
+   "ghostBrokenBy": [
+    "spotted",
+    "body_found",
+    "recording_left"
+   ]
+  },
+  "note": "",
+  "reasons": []
+ }
+]

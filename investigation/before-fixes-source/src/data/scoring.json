@@ -1,0 +1,23 @@
+{
+ "_note": "M5実装ガイドの scoring.json そのまま。events は1件あたりの点。spotted は見つけた人1人ごと、ko_found / body_found は見つかった身体1人ごと（事故死は数えない）。timeBonus.under はミッション時間（秒）。",
+ "base": 10000,
+ "events": {
+  "spotted": -1000,
+  "ko_found": -500,
+  "body_found": -2000,
+  "loud_shot_once": -1000,
+  "combat": -1500,
+  "guard_kill": -1000,
+  "civilian_kill": -5000,
+  "recording_left": -2000,
+  "accident_kill": 1000,
+  "chance_complete": 500
+ },
+ "timeBonus": { "under": 2100, "points": 1000 },
+ "ranks": [
+  { "rank": "A", "min": 8000 },
+  { "rank": "B", "min": 5000 },
+  { "rank": "C", "min": 0 }
+ ],
+ "ghost": ["spotted", "body_found", "civilian_kill", "guard_kill", "combat", "recording_left"]
+}

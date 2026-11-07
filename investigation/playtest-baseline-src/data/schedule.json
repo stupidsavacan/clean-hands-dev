@@ -1,0 +1,522 @@
+{
+ "actors": {
+  "wine_merchant": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 360,
+     "place": "bar_counter",
+     "do": "chat",
+     "with": "bartender"
+    },
+    {
+     "from": 360,
+     "to": 600,
+     "place": "terrace_rail",
+     "do": "photo"
+    },
+    {
+     "from": 600,
+     "to": 900,
+     "place": "yacht_deck",
+     "do": "tour"
+    },
+    {
+     "from": 900,
+     "to": 1140,
+     "place": "pool_side",
+     "do": "lounge"
+    },
+    {
+     "from": 1140,
+     "to": 1440,
+     "place": "cellar_table",
+     "do": "tasting"
+    },
+    {
+     "from": 1440,
+     "to": 1800,
+     "place": "bar_counter",
+     "do": "drink"
+    }
+   ]
+  },
+  "lawyer": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 300,
+     "place": "lobby_greeting",
+     "do": "chat"
+    },
+    {
+     "from": 300,
+     "to": 660,
+     "place": "banquet_stage",
+     "do": "speech"
+    },
+    {
+     "from": 660,
+     "to": 960,
+     "place": "kitchen_tasting",
+     "do": "tasting"
+    },
+    {
+     "from": 960,
+     "to": 1200,
+     "place": "guard_change",
+     "do": "wait"
+    },
+    {
+     "from": 1200,
+     "to": 1500,
+     "place": "parking_car",
+     "do": "phone"
+    },
+    {
+     "from": 1500,
+     "to": 1800,
+     "place": "banquet_stage",
+     "do": "chat"
+    }
+   ]
+  },
+  "investor": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 420,
+     "place": "penthouse_desk",
+     "do": "work"
+    },
+    {
+     "from": 420,
+     "to": 660,
+     "place": "balcony_phone",
+     "do": "phone"
+    },
+    {
+     "from": 660,
+     "to": 900,
+     "place": "massage_guest",
+     "do": "massage"
+    },
+    {
+     "from": 900,
+     "to": 1200,
+     "place": "beach_party",
+     "do": "dance"
+    },
+    {
+     "from": 1200,
+     "to": 1500,
+     "place": "heli_wait",
+     "do": "wait"
+    },
+    {
+     "from": 1500,
+     "to": 1800,
+     "place": "penthouse_desk",
+     "do": "work"
+    }
+   ]
+  },
+  "sommelier": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 300,
+     "place": "sommelier_arrival",
+     "do": "absent"
+    },
+    {
+     "from": 300,
+     "to": 360,
+     "place": "sommelier_arrival",
+     "do": "wait"
+    },
+    {
+     "from": 360,
+     "to": 1140,
+     "place": "sommelier_bar",
+     "do": "chat"
+    },
+    {
+     "from": 1140,
+     "to": 1440,
+     "place": "sommelier_cellar",
+     "do": "serve"
+    },
+    {
+     "from": 1440,
+     "to": 1800,
+     "place": "sommelier_bar",
+     "do": "drink"
+    }
+   ]
+  },
+  "masseuse": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 660,
+     "place": "massage_arrival",
+     "do": "absent"
+    },
+    {
+     "from": 660,
+     "to": 900,
+     "place": "massage_work",
+     "do": "massage_work"
+    },
+    {
+     "from": 900,
+     "to": 1800,
+     "place": "massage_arrival",
+     "do": "wait"
+    }
+   ]
+  },
+  "pilot": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 1140,
+     "place": "pilot_work",
+     "do": "absent"
+    },
+    {
+     "from": 1140,
+     "to": 1500,
+     "place": "pilot_work",
+     "do": "inspect"
+    },
+    {
+     "from": 1500,
+     "to": 1800,
+     "place": "pilot_work",
+     "do": "wait"
+    }
+   ]
+  },
+  "head_waiter": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 1140,
+     "place": "head_waiter_work",
+     "do": "serve"
+    },
+    {
+     "from": 1140,
+     "to": 1440,
+     "place": "sommelier_bar",
+     "do": "serve"
+    },
+    {
+     "from": 1440,
+     "to": 1800,
+     "place": "head_waiter_work",
+     "do": "serve"
+    }
+   ]
+  },
+  "bodyguard_relief": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 960,
+     "place": "security_radio",
+     "do": "radio"
+    },
+    {
+     "from": 960,
+     "to": 1200,
+     "place": "guard_change",
+     "do": "wait"
+    },
+    {
+     "from": 1200,
+     "to": 1800,
+     "place": "security_radio",
+     "do": "radio"
+    }
+   ]
+  },
+  "bodyguard_captain": {
+   "follow": "lawyer",
+   "offset": [
+    1.2,
+    1
+   ],
+   "plan": [],
+   "standOff": {
+    "speech": [
+     2.4,
+     2
+    ],
+    "tasting": [
+     4.5,
+     0
+    ]
+   }
+  },
+  "bodyguard_1": {
+   "follow": "lawyer",
+   "offset": [
+    -1.2,
+    1
+   ],
+   "plan": [],
+   "standOff": {
+    "speech": [
+     -3,
+     0.4
+    ],
+    "tasting": [
+     -4,
+     3
+    ]
+   }
+  },
+  "bodyguard_2": {
+   "follow": "lawyer",
+   "offset": [
+    0,
+    1.8
+   ],
+   "plan": [],
+   "standOff": {
+    "speech": [
+     0,
+     3.6
+    ],
+    "tasting": [
+     0,
+     4.5
+    ]
+   }
+  },
+  "bartender": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 1800,
+     "place": "bartender_work",
+     "do": "drink"
+    }
+   ]
+  },
+  "waiter_1": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 1800,
+     "place": "bar_waiter",
+     "do": "serve"
+    }
+   ]
+  },
+  "head_chef": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 1800,
+     "place": "chef_work",
+     "do": "cook"
+    }
+   ]
+  },
+  "sous_chef": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 1800,
+     "place": "sous_chef_work",
+     "do": "cook"
+    }
+   ]
+  },
+  "dock_clerk": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 1800,
+     "place": "loading_clerk",
+     "do": "chat"
+    }
+   ]
+  },
+  "mover_2": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 1800,
+     "place": "loading_worker",
+     "do": "chat"
+    }
+   ]
+  },
+  "cleaner_1": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 1800,
+     "place": "cleaner_pool_1",
+     "do": "clean"
+    }
+   ]
+  },
+  "cleaner_2": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 1800,
+     "place": "cleaner_pool_2",
+     "do": "clean"
+    }
+   ]
+  },
+  "security_chief": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 1800,
+     "place": "lobby_guard_1",
+     "do": "wait"
+    }
+   ]
+  },
+  "guard_check_lobby": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 1800,
+     "place": "lobby_guard_2",
+     "do": "wait"
+    }
+   ]
+  },
+  "room_service": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 1800,
+     "place": "room_service_work",
+     "do": "serve"
+    }
+   ]
+  },
+  "waiter_5": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 1800,
+     "place": "room_service_partner",
+     "do": "serve"
+    }
+   ]
+  },
+  "guard_boardwalk": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 1800,
+     "place": "marina_watch",
+     "do": "wait"
+    }
+   ]
+  },
+  "harbor_1": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 1800,
+     "place": "harbor_worker_1",
+     "do": "inspect"
+    }
+   ]
+  },
+  "harbor_2": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 1800,
+     "place": "harbor_worker_2",
+     "do": "inspect"
+    }
+   ]
+  },
+  "driver_1": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 1800,
+     "place": "driver_wait_1",
+     "do": "wait"
+    }
+   ]
+  },
+  "driver_2": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 1800,
+     "place": "driver_wait_2",
+     "do": "wait"
+    }
+   ]
+  },
+  "beachbar_1": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 1800,
+     "place": "beachbar_work_1",
+     "do": "serve"
+    }
+   ]
+  },
+  "beachbar_2": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 1800,
+     "place": "beachbar_work_2",
+     "do": "serve"
+    }
+   ]
+  },
+  "receptionist": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 1800,
+     "place": "reception_work",
+     "do": "work"
+    }
+   ]
+  },
+  "laundry_2": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 1800,
+     "place": "reception_partner",
+     "do": "work"
+    }
+   ]
+  },
+  "photographer": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 1800,
+     "place": "photo_work",
+     "do": "camera"
+    }
+   ]
+  }
+ },
+ "_note": "standOff（補助値）：付き添いがリーダーの行動中だけ立つ別の位置（リーダーからのずれ、m）。スピーチ中の護衛は演壇の脇へ（シャンデリアの真下から外れる）。"
+}

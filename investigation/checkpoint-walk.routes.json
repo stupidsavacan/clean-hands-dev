@@ -1,0 +1,50 @@
+{
+ "step": 0.05,
+ "arrival": 0.05,
+ "maxSteps": 600,
+ "holdSeconds": 15,
+ "lineOffset": 0.7,
+ "lobbyStart": {
+  "x": 8,
+  "y": 0,
+  "z": -2.2
+ },
+ "gapStartZ": -2,
+ "gapDepths": [
+  -3.45,
+  -3.55,
+  -3.65,
+  -3.75,
+  -3.85,
+  -3.95
+ ],
+ "gapSideOffset": 2.6,
+ "upstairs": {
+  "x": 8,
+  "y": 3.5,
+  "z": -12.5
+ },
+ "lobbyCross": {
+  "x": 8,
+  "y": 0,
+  "z": -4.3
+ },
+ "marinaCross": {
+  "x": -11,
+  "y": 0,
+  "z": 28
+ },
+ "lobbyKnockout": {
+  "distractChief": {
+   "x": 12,
+   "y": 0,
+   "z": -9
+  },
+  "distractAttendant": {
+   "x": 13.2,
+   "y": 0,
+   "z": -2
+  },
+  "waitSeconds": 1.5
+ }
+}

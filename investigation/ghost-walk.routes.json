@@ -1,0 +1,241 @@
+{
+ "_note": "歩行検証の出発点・道順・待機時刻。ゲームの配置は app/src/data/hotel.json を参照する。出発点は各作動場所の手前にある人目のある場所。",
+ "points": {
+  "checkpoint_lobby": {"x": 8, "y": 0, "z": -3.1},
+  "route_01": {
+   "x": 42.45,
+   "y": 0,
+   "z": -8.8
+  },
+  "route_02": {
+   "x": 48.0,
+   "y": 0,
+   "z": -15.0
+  },
+  "route_03": {
+   "x": 61.0,
+   "y": 0,
+   "z": -8.5
+  },
+  "route_04": {
+   "x": 61.0,
+   "y": 0,
+   "z": -20.0
+  },
+  "route_05": {
+   "x": 49.0,
+   "y": 0,
+   "z": -4.5
+  },
+  "route_06": {
+   "x": 26.0,
+   "y": 0,
+   "z": -4.0
+  },
+  "route_07": {
+   "x": 29.8,
+   "y": -3.5,
+   "z": -16.0
+  },
+  "route_08": {
+   "x": -34.0,
+   "y": 0,
+   "z": 3.0
+  },
+  "route_09": {
+   "x": 43.0,
+   "y": 0,
+   "z": 7.0
+  },
+  "route_10": {
+   "x": -20.0,
+   "y": 0,
+   "z": 27.4
+  },
+  "route_11": {
+   "x": -13.4,
+   "y": 0,
+   "z": 27.1
+  },
+  "route_12": {
+   "x": -21.0,
+   "y": 0,
+   "z": 27.0
+  },
+  "route_13": {
+   "x": -34.0,
+   "y": 0,
+   "z": -13.0
+  },
+  "route_14": {
+   "x": -30.0,
+   "y": 0,
+   "z": 5.0
+  },
+  "route_15": {
+   "x": 39.0,
+   "y": 0,
+   "z": -5.0
+  },
+  "route_16": {
+   "x": 22.0,
+   "y": 3.5,
+   "z": -9.0
+  },
+  "route_17": {
+   "x": -55.0,
+   "y": 0,
+   "z": -23.0
+  },
+  "route_18": {
+   "x": -55.5,
+   "y": 0,
+   "z": -29.4
+  },
+  "route_19": {
+   "x": -57.0,
+   "y": 0,
+   "z": -34.5
+  },
+  "route_20": {
+   "x": 4.2,
+   "y": 7.0,
+   "z": -3.2
+  },
+  "route_21": {
+   "x": 60.0,
+   "y": 0,
+   "z": 18.0
+  },
+  "route_22": {
+   "x": 49.0,
+   "y": 0,
+   "z": 23.0
+  },
+  "route_23": {
+   "x": 57.0,
+   "y": 0,
+   "z": -4.5
+  },
+  "route_24": {
+   "x": 5.0,
+   "y": 3.5,
+   "z": -3.0
+  },
+  "route_25": {
+   "x": 12.0,
+   "y": 7.0,
+   "z": -10.0
+  },
+  "route_26": {
+   "x": 2.0,
+   "y": 0,
+   "z": -23.0
+  },
+  "route_27": {
+   "x": -44.0,
+   "y": 0,
+   "z": -10.0
+  },
+  "route_28": {
+   "x": -26.0,
+   "y": 7.0,
+   "z": -10.0
+  },
+  "route_29": {
+   "x": 56.0,
+   "y": 0,
+   "z": -5.0
+  },
+  "laundry_approach": {
+   "x": -30,
+   "y": 0,
+   "z": 4
+  },
+  "marina_west_lane": {
+   "x": 20,
+   "y": 0,
+   "z": 26.2
+  },
+  "marina_east_lane": {
+   "x": 44,
+   "y": 0,
+   "z": 26.2
+  },
+  "service_entry": {
+   "x": -18,
+   "y": 0,
+   "z": 18
+  },
+  "service_stair_bottom": {
+   "x": -14.5,
+   "y": 0,
+   "z": 8
+  },
+  "service_stair_top": {
+   "x": -14.5,
+   "y": 3.5,
+   "z": -2
+  },
+  "truck_shadow": {
+   "x": -51.7,
+   "y": 0,
+   "z": -15.5
+  },
+  "massage_wait_behind": {
+   "x": -44.85,
+   "y": 0,
+   "z": -9.05
+  }
+ },
+ "timing": {
+  "safeJump_300": 300.0,
+  "safeJump_1140": 1140.0,
+  "safeJump_1100": 1100.0,
+  "safeJump_900": 900.0,
+  "safeJump_210": 210.0,
+  "safeJump_600": 600.0,
+  "safeJump_330": 330.0,
+  "safeJump_965": 965.0,
+  "safeJump_1040": 1040.0,
+  "safeJump_400": 400.0,
+  "safeJump_905": 905.0,
+  "wait_260": 260.0,
+  "wait_25": 25.0,
+  "wait_5": 5.0,
+  "wait_1": 1.0,
+  "wait_240": 240.0,
+  "wait_160": 160.0,
+  "wait_380": 380.0,
+  "wait_2": 2.0,
+  "wait_200": 200.0,
+  "wait_120": 120.0,
+  "safeJump_650": 650
+ },
+ "simulation": {
+  "step": 0.1,
+  "arrival": 0.15,
+  "movementEpsilon": 0.001,
+  "stallSteps": 15,
+  "maxLegSteps": 4000,
+  "reactionSeconds": 120,
+  "scheduleTimeout": 150,
+  "behindDistance": 0.85,
+  "poseOffset": 0.9,
+  "releaseAt": 428.3,
+  "unseenWaitSeconds": 30,
+  "maxApproaches": 8,
+  "holdPaddingSteps": 2,
+  "holdSlackSeconds": 0.3,
+  "bodySeparation": 0.55,
+  "floorSeparation": 1,
+  "crouchHeight": 1.45,
+  "standingHeight": 1.8,
+  "escortApproach": {
+   "x": 1.2,
+   "z": 0
+  },
+  "rampArrival": 0.005,
+  "floorTransition": 0.3
+ }
+}

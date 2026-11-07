@@ -1,0 +1,7 @@
+{
+  "profiles": 27,
+  "samplesPerProfile": 64,
+  "maxAbsoluteError": 0.0,
+  "cases": "WALK/RUN/CROUCH x strength 0/0.5/1 x flat/slope/steps",
+  "exactMatch": true
+}

@@ -1,0 +1,93 @@
+{
+ "radius": 1.3,
+ "holdSeconds": 2,
+ "targetRadius": 1.5,
+ "pushRadius": 2.2,
+ "acts": [
+  {
+   "id": "chandelier",
+   "label": "吊り具を緩める",
+   "at": {
+    "x": -20,
+    "y": 3.5,
+    "z": 8
+   }
+  },
+  {
+   "id": "release",
+   "label": "シャンデリアを落とす",
+   "at": {
+    "x": -20,
+    "y": 3.5,
+    "z": 8
+   }
+  },
+  {
+   "id": "papers",
+   "label": "書類を窓辺へ差し替える",
+   "at": {
+    "x": 0,
+    "y": 3.5,
+    "z": 6
+   }
+  },
+  {
+   "id": "push",
+   "label": "窓辺の主人を突き落とす",
+   "at": {
+    "x": 0,
+    "y": 3.5,
+    "z": 11
+   }
+  },
+  {
+   "id": "drink",
+   "label": "飲み物に致死毒を仕込む",
+   "at": {
+    "x": 12,
+    "y": 3.5,
+    "z": 6
+   }
+  }
+ ],
+ "chandelierArea": {
+  "x": -6,
+  "y": 0,
+  "z": 4
+ },
+ "paperGoal": {
+  "x": 0,
+  "y": 3.5,
+  "z": 9
+ },
+ "fall": {
+  "x": 0,
+  "y": 0,
+  "z": 16
+ },
+ "drinkAt": {
+  "x": 12,
+  "y": 3.5,
+  "z": 6
+ },
+ "clothes": [
+  {
+   "id": "staff-clothes",
+   "disguise": "waiter",
+   "pos": {
+    "x": 22,
+    "y": 0,
+    "z": -19
+   }
+  },
+  {
+   "id": "guard-clothes",
+   "disguise": "bodyguard",
+   "pos": {
+    "x": 8,
+    "y": 0,
+    "z": 8
+   }
+  }
+ ]
+}

@@ -1,0 +1,74 @@
+{
+  "changed": [
+    "app/src/hud.ts",
+    "app/src/m4.ts",
+    "app/src/m57.ts",
+    "app/src/main.ts",
+    "app/src/restart-hold.ts",
+    "app/src/data/chances.json",
+    "app/src/data/dialogue.json",
+    "app/src/data/hotel.json",
+    "app/src/data/rules.json",
+    "app/src/data/schedule.json",
+    "app/tests/fixes.test.ts",
+    "app/tests/ghost.test.ts",
+    "app/tests/m57.test.ts",
+    "app/tests/playtest-walk.test.ts",
+    "app/tests/restart-hold.test.ts",
+    "app/scripts/build-hotel.ts",
+    "README.md",
+    "investigation/ghost-sim.ts",
+    "investigation/ghost-sim.unit.ts",
+    "investigation/ghost-walk.ts",
+    "investigation/ghost-walk.routes.json",
+    "investigation/playtest-repro.ts",
+    "investigation/b1-collateral.ts",
+    "investigation/playtest-fixes-report.md",
+    "index.html",
+    "clean-hands-m5.8-pc-playtest-fixes.html",
+    "build-info.json",
+    "app/dist/"
+  ],
+  "tests": {
+    "total": 250,
+    "passed": 250,
+    "failed": 0
+  },
+  "walk": {
+    "total": 14,
+    "ghost": 9,
+    "passed": [
+      "A2 限定ワインの樽",
+      "A4 テラスの記念撮影",
+      "B1 スピーチとシャンデリア",
+      "B3 護衛の交代",
+      "B4 専属運転手",
+      "C1 バルコニーの電話",
+      "C2 避難ボート",
+      "C3 屋上のヘリ",
+      "C5 浜辺の花火"
+    ],
+    "notEstablished": [
+      "A1 ソムリエの一杯",
+      "A3 プールの照明",
+      "A5 展示ヨットのクレーン",
+      "B2 料理長の試食会",
+      "C4 マッサージ師"
+    ]
+  },
+  "checks": {
+    "scoringUnchanged": true,
+    "aiUnchanged": true,
+    "targetSchedulesUnchanged": true,
+    "wallsUnchanged": true,
+    "stairsUnchanged": true,
+    "npcsUnchanged": true,
+    "existingBlockersUnchanged": true,
+    "htmlCopiesIdentical": true,
+    "allSuccessfulRoutesNoCollateral": true,
+    "allSuccessfulRoutesNoUnconsciousFound": true,
+    "allSuccessfulRoutesNoChangeWitnesses": true,
+    "allSuccessfulRoutesChanceComplete": true
+  },
+  "standaloneSha256": "182764cabb9c35d513f64ba545946acf4753360be2a4edfb2421628008498c98"
+}

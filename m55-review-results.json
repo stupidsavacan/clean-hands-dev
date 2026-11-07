@@ -1,0 +1,22 @@
+{
+  "localFile": true,
+  "modelCount": 13,
+  "ids": [
+    "pistol_silenced",
+    "pistol_guard",
+    "smg",
+    "rifle_npc",
+    "ammo_pickup",
+    "muzzle_flash",
+    "car_sedan_blue",
+    "car_sedan_white",
+    "car_sedan_grey",
+    "crate",
+    "planter_1x1",
+    "planter_3x1",
+    "counter_bar_2m"
+  ],
+  "animationReady": true,
+  "motionChecks": 34,
+  "errors": []
+}

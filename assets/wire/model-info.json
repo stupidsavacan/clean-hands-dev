@@ -1,0 +1,111 @@
+{
+  "units": "meter",
+  "axes": "glTF Y-up, +Z forward",
+  "root": "Wire_asset",
+  "stateNodes": [
+    "Wire_coiled",
+    "Wire_taut"
+  ],
+  "anchors": {
+    "GRIP_L": [
+      -0.16,
+      0,
+      0
+    ],
+    "GRIP_R": [
+      0.16,
+      0,
+      0
+    ],
+    "ATTACH_R": [
+      0.16,
+      0,
+      0
+    ]
+  },
+  "tautGripCenterSpan_m": 0.32,
+  "gripLength_m": 0.07,
+  "gripDiameter_m": 0.018,
+  "cableDiameter_m": 0.0036,
+  "paletteSource": "C:/Users/gamit/Documents/Codex/2026-10-26/https-claude-ai-artifact-xacywsdv65cc1xpspq147p-page/outputs/repaired/models/locker/locker.glb",
+  "paletteColorsLinear": [
+    [
+      0.024158293320180588,
+      0.02732029083364961,
+      0.035600295047292584
+    ],
+    [
+      0.024158293320180588,
+      0.02732029083364961,
+      0.035600295047292584
+    ]
+  ],
+  "nodes": [
+    {
+      "name": "ATTACH_R",
+      "translation": [
+        0.1599999964237213,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "GRIP_L",
+      "translation": [
+        -0.1599999964237213,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "GRIP_R",
+      "translation": [
+        0.1599999964237213,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Coil_00",
+      "translation": [
+        0.16645482182502747,
+        -0.007833333685994148,
+        -0.004141104873269796
+      ]
+    },
+    {
+      "name": "Wire_coiled",
+      "translation": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Taut_cable",
+      "translation": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Wire_taut",
+      "translation": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Wire_asset",
+      "translation": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "meshCount": 2,
+  "triangles": 1092
+}

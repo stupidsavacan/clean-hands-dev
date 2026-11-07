@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>夜会の私邸 1稿目 vs 2稿目</title>
+<style>
+:root{--bg:#f6f7f9;--fg:#1d2733;--card:#fff;--line:#d5dae1;--v1:#b4561f;--v2:#1f6f8b;--ok:#1d7a4d;--ng:#b3261e;--mut:#5d6877}
+@media(prefers-color-scheme:dark){:root{--bg:#14181e;--fg:#e4e8ee;--card:#1d232b;--line:#333c48;--v1:#e08a55;--v2:#5fb7d4;--ok:#5cc58f;--ng:#f08a82;--mut:#9aa6b5}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.6 system-ui,"Hiragino Sans","Yu Gothic",sans-serif}
+header,main{max-width:1500px;margin:0 auto;padding:16px}
+h1{margin:0 0 4px;font-size:22px}h2{margin:32px 0 10px;font-size:18px;border-left:5px solid var(--v2);padding-left:10px}
+.sub{color:var(--mut);font-size:13px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.tabs button{border:1px solid var(--line);background:var(--card);color:var(--fg);padding:8px 16px;border-radius:8px;cursor:pointer;font-size:14px}
+.tabs button.on{background:var(--v2);color:#fff;border-color:var(--v2)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pair.single{grid-template-columns:1fr}
+.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px}
+.box h3{margin:0 0 6px;font-size:15px}
+.v1 h3{color:var(--v1)}.v2 h3{color:var(--v2)}
+.box img{width:100%;height:auto;display:block;cursor:zoom-in;border:1px solid var(--line);border-radius:6px;background:#fff}
+.hint{font-size:12px;color:var(--mut);margin:6px 0 0}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:14px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+th{background:color-mix(in srgb,var(--card) 80%,var(--line));font-size:13px}
+td.a{color:var(--v1)}td.b{color:var(--v2)}
+.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:9px;border:1px solid currentColor;margin-right:4px;white-space:nowrap}
+.ng{color:var(--ng)}.ok{color:var(--ok)}.wn{color:var(--v1)}
+.scroll{overflow-x:auto}
+#zoom{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:9;overflow:auto;cursor:zoom-out}
+#zoom img{max-width:none;width:min(1600px,96vw)}
+@media(max-width:800px){.pair{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+<h1>夜会の私邸　1稿目 ⇄ 2稿目 比較</h1>
+<div class="sub">1稿目＝実装済みの第1版（party-design.md／implementation-report）　2稿目＝設計のみの第2版（party-v2-design.md）。図をクリックで拡大。2稿目の図は<b>未実装の設計値</b>。</div>
+</header>
+<main>
+
+<h2>1. 平面図</h2>
+<div class="tabs" id="tabs"></div>
+<div class="pair" id="pair"></div>
+<p class="hint">縮尺：1稿目は1m=20px、2稿目は1m=22px（60×45m、北が上）。1稿目は座標原点が中央、2稿目は左下(0,0)で、座標値は直接比べられません。</p>
+
+<h2>2. 視線（2稿目のみ）</h2>
+<div class="pair" style="grid-template-columns:repeat(3,1fr)">
+<div class="box v2"><h3>地下</h3><img src="party-v2-sight-b1.png" alt=""></div>
+<div class="box v2"><h3>1階</h3><img src="party-v2-sight-1f.png" alt=""></div>
+<div class="box v2"><h3>2階</h3><img src="party-v2-sight-2f.png" alt=""></div>
+</div>
+<p class="hint">1稿目には視線図なし。2稿目も設計上の投影で、NPCの動的視線の証明ではない。</p>
+
+<h2>3. 構造の数値</h2>
+<div class="scroll"><table>
+<tr><th>項目</th><th>1稿目（実測）</th><th>2稿目（設計表の計算）</th></tr>
+<tr><td>敷地／階</td><td class="a">地下・1階・2階・屋根裏の4層</td><td class="b">60×45m、地下・1階・2階の3層（屋根裏を省略）</td></tr>
+<tr><td>区域</td><td class="a num">20</td><td class="b num">19</td></tr>
+<tr><td>接続</td><td class="a num">37</td><td class="b num">38（開口26＋階段5＋抜け道7）</td></tr>
+<tr><td>行き止まり</td><td class="a num">0</td><td class="b num">0</td></tr>
+<tr><td>独立した輪</td><td class="a num">18</td><td class="b num">20</td></tr>
+<tr><td>舞踏室Bの接続</td><td class="a num">6</td><td class="b">6（庭Pを抱く凹形）</td></tr>
+<tr><td>人数</td><td class="a">60（固定2）</td><td class="b">60（固定2）。全員の30分予定表あり（518区間）</td></tr>
+<tr><td>身体の隠し場所</td><td class="a num">59</td><td class="b num">15（全部実用品）</td></tr>
+<tr><td>カメラ</td><td class="a">—</td><td class="b">3台（録画はI5で消去可）</td></tr>
+<tr><td>実装・検証</td><td class="a">実装済み。npm test 286件成功、90fps</td><td class="b ng">設計のみ。歩行・視線・性能は<b>すべて未検証</b></td></tr>
+</table></div>
+
+<h2>4. チャンスと入り方</h2>
+<div class="scroll"><table>
+<tr><th style="width:12%">チャンス</th><th>1稿目</th><th>2稿目</th></tr>
+<tr><td>全体</td>
+<td class="a">3件×3経路。<b>9試行すべてが「給仕→護衛」の共通準備</b>。経路の違いは最後の入り方だけ</td>
+<td class="b">3件×3経路。<b>初手が違う</b>（職員／警備服／服なし）。給仕→護衛を共通にしない</td></tr>
+<tr><td>シャンデリア</td>
+<td class="a">H→B / D→B / G→B。3経路とも成功・ゴースト可</td>
+<td class="b">西翼の胸像、9:30と23:00。スパナ→A1で6秒→A2から観察→落下。吊り具は保守回廊側。熟練10–14分／初見23–28分</td></tr>
+<tr><td>書斎の書類</td>
+<td class="a">R→Q→O、U→O は成功。<span class="ng">庭→雨どい→L→窓は失敗</span></td>
+<td class="b">主人が14:30と27:00に窓へ。書類を窓辺へ移し外縁から突き落とし。時間窓を限定。熟練16–19分／初見28–30分</td></tr>
+<tr><td>寝室の飲み物</td>
+<td class="a">R→Q→O→M は成功。<span class="ng">U→M と庭→雨どい→窓は失敗</span></td>
+<td class="b">21:30に寝室で飲む。毒を4秒で仕込み、窓か扉から退避。熟練23–25分／初見24–29分</td></tr>
+<tr><td>発見</td>
+<td class="a ng">初回に全 dialogue.heard を自動発行（全発見）</td>
+<td class="b">実会話を最後まで聞いたときだけ発見。開始時は全未発見。同じ情報を定期会話で再提示</td></tr>
+<tr><td>難易度の狙い</td>
+<td class="a">経路成功／失敗のみ記録（時間目標なし）</td>
+<td class="b">初見20–30分、熟練8分以上（<b>設計目標・未検証</b>。設計上の最短は10–11分）</td></tr>
+</table></div>
+
+<h2>5. 1稿目の問題点 → 2稿目の対応</h2>
+<div class="scroll"><table>
+<tr><th style="width:3%">#</th><th style="width:24%">1稿目で出た問題（証拠）</th><th>2稿目の対応</th><th style="width:11%">状態</th></tr>
+<tr><td>1</td><td class="a">全チャンスで「給仕→護衛」が共通。入り方の差が小さい（実装報告）</td><td class="b">9経路の初手を変更。服は入場手段で、操作の必須条件にしない</td><td><span class="tag wn">設計のみ</span></td></tr>
+<tr><td>2</td><td class="a">全発見の自動付与（chances.ts afterAi が初回に全 heard を発行）</td><td class="b">自動付与を廃止。実際の会話を聞いたときのみ。壁越し・別階では発見しない</td><td><span class="tag wn">未実装</span></td></tr>
+<tr><td>3</td><td class="a">庭の雨どいを客に見られて失敗（party-46が40.95秒）</td><td class="b">雨どいの足場と遮蔽を設計。X3下の人目がない時間帯を表化、途中解除で戻れる</td><td><span class="tag wn">未検証</span></td></tr>
+<tr><td>4</td><td class="a">Uで護衛隊長に見つかる（captainが43.27秒）</td><td class="b">隊長G05が護衛服の顔を知る。背後の安全待機点を設置。観察して別の道を選ぶ</td><td><span class="tag wn">未検証</span></td></tr>
+<tr><td>5</td><td class="a">抜け道をE解除すると勝手に走る（chandelier #2）</td><td class="b">入力統合の修正を「新しく要る仕組み」に計上（原因未特定）。全7本×両方向×3中断点で検査</td><td><span class="tag wn">調査要</span></td></tr>
+<tr><td>6</td><td class="a">階段内に警備員（#3）、階段のずれ（#4）、通れなさそうな床（#5）</td><td class="b">階段5本・床穴・天井を点検表化。NPCは階段占有を全員30分で検査</td><td><span class="tag wn">未検証</span></td></tr>
+<tr><td>7</td><td class="a">浮いた機関銃（#6）</td><td class="b">第4段階で持つ・落とす・隠す・再開始の全状態を追跡。空中の銃0を合格条件に</td><td><span class="tag wn">未検証</span></td></tr>
+<tr><td>8</td><td class="a">使えないロッカーが大量（#7、59個）</td><td class="b">15個に削減、すべて実用品、飾りロッカーなし。全収納に操作表示</td><td><span class="tag ok">設計済</span></td></tr>
+<tr><td>9</td><td class="a">動きが粗い（#1）</td><td class="b">第1段階で長押し移動を確認。途中姿勢は第4段階</td><td><span class="tag wn">未検証</span></td></tr>
+<tr><td>10</td><td class="a">飲み物：選んだシナリオにならない（drink #1）</td><td class="b">道具側の問題の可能性。ゲーム本体と切り分けて第3段階で確認。道具は変更しない</td><td><span class="tag wn">範囲外含む</span></td></tr>
+<tr><td>11</td><td class="a">形：同じ四角い部屋を並べた構成</td><td class="b">B が光庭Pを抱く凹形。表の環と裏の環、折り返す上階、外縁L</td><td><span class="tag ok">設計済</span></td></tr>
+<tr><td>12</td><td class="a">失敗3経路は別手順を探索していない</td><td class="b">時間窓を逃したときの再機会と、次の時刻の表示（新任務システムは作らない）</td><td><span class="tag wn">未実装</span></td></tr>
+</table></div>
+
+<h2>6. 2稿目に残る危うさ（設計書7.3より）</h2>
+<ul>
+<li>最短8分の下限が破られる可能性（無敵化や脱出ロックは採用しない）</li>
+<li>時刻待ちで熟練者に空白が出る。90秒超の純粋な待機は組み直し</li>
+<li>全視線・別階・雨どい中の姿勢は実コードで未検証</li>
+<li>S1/S2の階境界とX3の庇に実装上の切欠きが必要</li>
+<li>60人が入口で詰まる可能性。毒の在庫接続が必要</li>
+<li>iPad第9世代の性能は未測定（実測まで達成と書かない）</li>
+</ul>
+<p class="hint">工数見積り：第1〜4段階で合計13–21人日（概算、実績ではない）。元資料：party-design.md／party-implementation-report.md／party-v2-design.md</p>
+</main>
+
+<div id="zoom"><img alt=""></div>
+<script>
+const floors=[
+ {n:'地下',a:'party-plan-b1.png',b:'party-v2-plan-b1.png'},
+ {n:'1階',a:'party-plan-1f.png',b:'party-v2-plan-1f.png'},
+ {n:'2階',a:'party-plan-2f.png',b:'party-v2-plan-2f.png'},
+ {n:'屋根裏',a:'party-plan-attic.png',b:null}
+];
+const tabs=document.getElementById('tabs'),pair=document.getElementById('pair');
+function show(i){
+ const f=floors[i];
+ [...tabs.children].forEach((b,j)=>b.classList.toggle('on',i===j));
+ pair.innerHTML=`<div class="box v1"><h3>1稿目（実装済み）― ${f.n}</h3><img src="${f.a}" alt=""></div>`+
+ (f.b?`<div class="box v2"><h3>2稿目（設計）― ${f.n}</h3><img src="${f.b}" alt=""></div>`:
+ `<div class="box v2"><h3>2稿目（設計）― ${f.n}</h3><p>2稿目は屋根裏を省略し、上下の役目を外縁Lに集約。</p></div>`);
+}
+floors.forEach((f,i)=>{const b=document.createElement('button');b.textContent=f.n;b.onclick=()=>show(i);tabs.appendChild(b)});
+show(1);
+const z=document.getElementById('zoom');
+document.addEventListener('click',e=>{
+ if(e.target.tagName==='IMG'&&e.target.closest('.box')){z.firstElementChild.src=e.target.src;z.style.display='flex'}
+ else if(z.contains(e.target)||e.target===z){z.style.display='none'}
+});
+</script>
+</body>
+</html>

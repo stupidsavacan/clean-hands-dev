@@ -1,0 +1,101 @@
+{
+ "chandelier": {
+  "title": "舞踏室のシャンデリア",
+  "rumor": "玄関ホールの給仕が何か噂している",
+  "target": "host",
+  "trigger": {
+   "heard": "chandelier"
+  },
+  "window": [
+   570,
+   610
+  ],
+  "steps": [
+   {
+    "text": "会話を最後まで聞く",
+    "done": {
+     "event": "dialogue.heard"
+    }
+   },
+   {
+    "text": "スパナを持って吊り具を緩める",
+    "done": {
+     "flag": "chandelier"
+    }
+   },
+   {
+    "text": "主人の予定を観察して仕掛けを使う",
+    "done": {
+     "killed": "host",
+     "by": "party_chandelier"
+    }
+   }
+  ]
+ },
+ "papers": {
+  "title": "窓辺の書類",
+  "rumor": "2階の招待客回廊で、書斎係がぶつぶつ言っている",
+  "target": "host",
+  "trigger": {
+   "heard": "papers"
+  },
+  "window": [
+   690,
+   740
+  ],
+  "steps": [
+   {
+    "text": "会話を最後まで聞く",
+    "done": {
+     "event": "dialogue.heard"
+    }
+   },
+   {
+    "text": "書類を窓辺へ移す",
+    "done": {
+     "flag": "papers"
+    }
+   },
+   {
+    "text": "主人の予定を観察して仕掛けを使う",
+    "done": {
+     "killed": "host",
+     "by": "party_push"
+    }
+   }
+  ]
+ },
+ "drink": {
+  "title": "主寝室の飲み物",
+  "rumor": "食堂の給仕が主人の寝室の話をしている",
+  "target": "host",
+  "trigger": {
+   "heard": "drink"
+  },
+  "window": [
+   870,
+   900
+  ],
+  "steps": [
+   {
+    "text": "会話を最後まで聞く",
+    "done": {
+     "event": "dialogue.heard"
+    }
+   },
+   {
+    "text": "飲み物に毒を仕込む",
+    "done": {
+     "flag": "drink"
+    }
+   },
+   {
+    "text": "主人の予定を観察して仕掛けを使う",
+    "done": {
+     "killed": "host",
+     "by": "party_poison"
+    }
+   }
+  ]
+ }
+}

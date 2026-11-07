@@ -1,0 +1,132 @@
+{
+  "version": "2.0.0-dev.3.10",
+  "models": {
+    "bottle": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "messages": [
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/2"
+      ]
+    },
+    "brick": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "messages": [
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/2"
+      ]
+    },
+    "briefcase": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "messages": [
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/2"
+      ]
+    },
+    "camera": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "messages": [
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/2"
+      ]
+    },
+    "coin": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "messages": [
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/2"
+      ]
+    },
+    "crowbar": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "messages": [
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/2"
+      ]
+    },
+    "frying_pan": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "messages": [
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/2"
+      ]
+    },
+    "hammer": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/2"
+      ]
+    },
+    "katana": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 3,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/3"
+      ]
+    },
+    "kitchen_knife": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/2"
+      ]
+    },
+    "mop": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/2"
+      ]
+    },
+    "toolbox": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/1"
+      ]
+    },
+    "tray": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/1"
+      ]
+    },
+    "wrench": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/1"
+      ]
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "a1Start": {
+    "x": 34,
+    "y": 0,
+    "z": 26.7
+  },
+  "a1Wait": {
+    "x": 40,
+    "y": 0,
+    "z": 26.1
+  },
+  "witnessSeconds": 10,
+  "guestApproachDistance": 1,
+  "a1HideApproach": {
+    "x": 43.95,
+    "y": 0,
+    "z": 27.45
+  },
+  "acquisitionDelaySeconds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "fisherPickupOffset": {
+    "x": 0.3,
+    "z": 1.5
+  }
+}

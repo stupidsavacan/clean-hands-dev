@@ -1,0 +1,201 @@
+{
+  "config": {
+    "headless": true,
+    "viewport": [
+      1280,
+      800
+    ],
+    "dpr": 1,
+    "npcs": 120,
+    "args": [
+      "--enable-gpu",
+      "--use-gl=angle",
+      "--use-angle=d3d11",
+      "--ignore-gpu-blocklist"
+    ]
+  },
+  "gpu": {
+    "vendor": "Google Inc. (AMD)",
+    "renderer": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "npcs": 120,
+    "dpr": 1
+  },
+  "fps": [
+    {
+      "place": "開始地点",
+      "fps": 80.2,
+      "p95Ms": 22.2,
+      "minOneSecondFps": 76,
+      "seconds": 5,
+      "frozen": false
+    },
+    {
+      "place": "ロビー",
+      "fps": 55.4,
+      "p95Ms": 22.3,
+      "minOneSecondFps": 50,
+      "seconds": 5,
+      "frozen": false
+    },
+    {
+      "place": "プール",
+      "fps": 59.5,
+      "p95Ms": 22.3,
+      "minOneSecondFps": 56,
+      "seconds": 5.01,
+      "frozen": false
+    },
+    {
+      "place": "テラス",
+      "fps": 60.7,
+      "p95Ms": 22.3,
+      "minOneSecondFps": 58,
+      "seconds": 5,
+      "frozen": false
+    },
+    {
+      "place": "宴会場",
+      "fps": 63.3,
+      "p95Ms": 22.3,
+      "minOneSecondFps": 56,
+      "seconds": 5.01,
+      "frozen": false
+    },
+    {
+      "place": "地下セラー",
+      "fps": 61.5,
+      "p95Ms": 22.3,
+      "minOneSecondFps": 60,
+      "seconds": 5.01,
+      "frozen": false
+    },
+    {
+      "place": "ペントハウス",
+      "fps": 63.6,
+      "p95Ms": 22.3,
+      "minOneSecondFps": 59,
+      "seconds": 5,
+      "frozen": false
+    },
+    {
+      "place": "ヘリポート",
+      "fps": 59.2,
+      "p95Ms": 22.3,
+      "minOneSecondFps": 56,
+      "seconds": 5.01,
+      "frozen": false
+    },
+    {
+      "place": "マリーナ",
+      "fps": 72.2,
+      "p95Ms": 22.3,
+      "minOneSecondFps": 67,
+      "seconds": 5,
+      "frozen": false
+    },
+    {
+      "place": "浜辺",
+      "fps": 74,
+      "p95Ms": 22.3,
+      "minOneSecondFps": 71,
+      "seconds": 5.01,
+      "frozen": false
+    },
+    {
+      "place": "駐車場",
+      "fps": 76,
+      "p95Ms": 22.3,
+      "minOneSecondFps": 72,
+      "seconds": 5,
+      "frozen": false
+    }
+  ],
+  "checks": [
+    {
+      "name": "clock advances in live frames",
+      "pass": true
+    },
+    {
+      "name": "pause freezes mission time",
+      "pass": true
+    },
+    {
+      "name": "map lists all three target schedules",
+      "pass": true
+    },
+    {
+      "name": "map freezes mission time",
+      "pass": true
+    },
+    {
+      "name": "four-times speed in live frames",
+      "pass": true,
+      "detail": {
+        "seconds": 8.100000000000023
+      }
+    },
+    {
+      "name": "A physically reaches the terrace and performs photo",
+      "pass": true,
+      "detail": {
+        "id": "wine_merchant",
+        "slot": 1,
+        "cycle": 0,
+        "place": "terrace_rail",
+        "action": "photo",
+        "phase": "acting",
+        "travel": 12.983333333333558,
+        "limit": 60,
+        "timedOut": false,
+        "position": {
+          "x": 39.623255067583614,
+          "y": 0,
+          "z": 7.06654655629784
+        }
+      }
+    },
+    {
+      "name": "A boards the yacht deck through the gangway",
+      "pass": true
+    },
+    {
+      "name": "B speaks in the banquet hall",
+      "pass": true
+    },
+    {
+      "name": "C phone subtitles complete and are recorded as heard",
+      "pass": true
+    },
+    {
+      "name": "C receives massage beside the scheduled therapist",
+      "pass": true
+    },
+    {
+      "name": "individual suspicion suspends schedule",
+      "pass": true
+    },
+    {
+      "name": "calm resumes current time slot",
+      "pass": true
+    },
+    {
+      "name": "hotel alert 2 stops subtitles",
+      "pass": true
+    },
+    {
+      "name": "second loop restarts plans and clock",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "verifiedBuild": {
+    "file": "index.html",
+    "bytes": 3234939,
+    "singleHtml": true,
+    "modelsEmbedded": true,
+    "externalAssets": 0,
+    "builtAt": "2026-10-29T12:55:53.802Z",
+    "sha256": "338abddd2e4af74fa49d0f5ef975e937c4f5cd11af61c2e9ecb10eb4373bf97e"
+  },
+  "fpsMeasurement": "browser-output.txt: full GPU run; browser-actions-output.txt: additional action checks on the same HTML build"
+}

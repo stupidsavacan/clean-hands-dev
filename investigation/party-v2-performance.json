@@ -1,0 +1,89 @@
+{
+  "rows": [
+    {
+      "name": "party-prototype-v1.html",
+      "frames": {
+        "mean": 12.9325,
+        "p50": 11.100000000000364,
+        "p95": 22.199999999999818,
+        "max": 22.30000000000109
+      },
+      "jsFrameMs": {
+        "mean": 11.947559132414288,
+        "p50": 12.005538196412518,
+        "p95": 13.599791062661748,
+        "max": 14.047191012752727
+      },
+      "drawCalls": {
+        "mean": 467,
+        "p50": 467,
+        "p95": 467,
+        "max": 467
+      },
+      "samples": 360,
+      "npcs": 60,
+      "position": {
+        "x": -12,
+        "z": -20,
+        "y": 0
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "dpr": 1,
+      "renderer": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "performance": {
+        "fps": 76.79624510716745,
+        "jsFrameMs": 12.446439730395209,
+        "drawCalls": 467,
+        "triangles": 39813,
+        "visibleNpcModels": 38
+      }
+    },
+    {
+      "name": "party-prototype.html",
+      "frames": {
+        "mean": 14.75361111111111,
+        "p50": 11.199999999998909,
+        "p95": 22.300000000000182,
+        "max": 22.400000000001455
+      },
+      "jsFrameMs": {
+        "mean": 13.711071921167337,
+        "p50": 13.570870408622438,
+        "p95": 14.351162727456547,
+        "max": 14.90432379690344
+      },
+      "drawCalls": {
+        "mean": 667,
+        "p50": 667,
+        "p95": 667,
+        "max": 667
+      },
+      "samples": 360,
+      "npcs": 60,
+      "position": {
+        "x": 25,
+        "z": 2,
+        "y": 0
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "dpr": 1,
+      "renderer": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "performance": {
+        "fps": 68.55441449343655,
+        "jsFrameMs": 13.624392306607513,
+        "drawCalls": 667,
+        "triangles": 40542,
+        "visibleNpcModels": 39
+      }
+    }
+  ],
+  "p95Ratio": 1.004504504504521,
+  "jsP95Ratio": 1.0552487653179976,
+  "method": "120 warm-up + 360 measured requestAnimationFrame intervals; sequential foreground pages; headless Chromium/ANGLE D3D11; not iPad measurement"
+}

@@ -1,0 +1,180 @@
+[
+  {
+    "id": "phone",
+    "kind": "hand",
+    "label": "スマートフォン",
+    "triangles": 24,
+    "bytes": 5168,
+    "size_m": [
+      0.07,
+      0.01,
+      0.15
+    ],
+    "anchors": {
+      "GRIP_R": [
+        0,
+        0,
+        0
+      ],
+      "TIP": [
+        0.0,
+        0,
+        0.145
+      ]
+    }
+  },
+  {
+    "id": "wine_glass",
+    "kind": "hand",
+    "label": "ワイングラス",
+    "triangles": 188,
+    "bytes": 15392,
+    "size_m": [
+      0.076,
+      0.076,
+      0.175
+    ],
+    "anchors": {
+      "GRIP_R": [
+        0,
+        0,
+        0
+      ],
+      "TIP": [
+        0.0,
+        0,
+        0.14
+      ]
+    }
+  },
+  {
+    "id": "radio",
+    "kind": "hand",
+    "label": "無線機",
+    "triangles": 56,
+    "bytes": 7304,
+    "size_m": [
+      0.064,
+      0.036,
+      0.21
+    ],
+    "anchors": {
+      "GRIP_R": [
+        0,
+        0,
+        0
+      ],
+      "TIP": [
+        0.018,
+        0,
+        0.19
+      ]
+    }
+  },
+  {
+    "id": "desk_pc",
+    "kind": "furniture",
+    "label": "立ち机とパソコン",
+    "triangles": 180,
+    "bytes": 16292,
+    "size_m": [
+      1.2,
+      1.27,
+      0.7
+    ],
+    "anchors": {
+      "KEYBOARD": [
+        0,
+        0.97,
+        0.14
+      ],
+      "MOUSE": [
+        -0.3,
+        0.975,
+        0.135
+      ],
+      "SCREEN": [
+        0,
+        1.11,
+        0.48
+      ],
+      "STAND": [
+        0,
+        0,
+        -0.35
+      ]
+    }
+  },
+  {
+    "id": "boombox",
+    "kind": "furniture",
+    "label": "ラジカセ",
+    "triangles": 396,
+    "bytes": 28572,
+    "size_m": [
+      0.46,
+      0.561,
+      0.17
+    ],
+    "anchors": {
+      "BUTTON": [
+        0,
+        0.252,
+        0
+      ],
+      "FRONT": [
+        0,
+        0.11,
+        0.095
+      ]
+    }
+  },
+  {
+    "id": "tv",
+    "kind": "furniture",
+    "label": "テレビ",
+    "triangles": 60,
+    "bytes": 7760,
+    "size_m": [
+      0.84,
+      0.58,
+      0.08
+    ],
+    "anchors": {
+      "SCREEN": [
+        0,
+        0.34,
+        0.03
+      ],
+      "BUTTON": [
+        0.38,
+        0.12,
+        0.02
+      ]
+    }
+  },
+  {
+    "id": "vacuum",
+    "kind": "furniture",
+    "label": "掃除機",
+    "triangles": 144,
+    "bytes": 12864,
+    "size_m": [
+      0.32,
+      1.08,
+      0.255
+    ],
+    "anchors": {
+      "BUTTON": [
+        0,
+        0.48,
+        0.05
+      ],
+      "GRIP": [
+        0,
+        1.05,
+        -0.07
+      ]
+    }
+  }
+]

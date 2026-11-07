@@ -1,0 +1,2039 @@
+{
+  "planned": 396,
+  "missed": [],
+  "burst": 2,
+  "sameRoute": 2,
+  "simultaneousRoute": 2,
+  "stairSamples": {
+    "front": 0,
+    "service": 943
+  },
+  "ladderSamples": 1210,
+  "npcs": 36,
+  "validation": [],
+  "timeouts": [],
+  "blocked": [],
+  "denied": [],
+  "arrivals": [
+    {
+      "id": "guest_01",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "guest_02",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "guest_03",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "guest_04",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "guest_05",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "guest_06",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "guest_07",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "guest_08",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "guest_09",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "guest_10",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "guest_11",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "guest_12",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "guest_13",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "guest_14",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "guest_15",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "guest_16",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "vip_1",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "vip_2",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "vip_3",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "vip_4",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "investor",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "escort",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "gate_frisk",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "gate_watch",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "vip_guard",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "patrol",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "stage_guard",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "back_patrol",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "bartender_1",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "bartender_2",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "bottle_server",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "dj",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "technician",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "chef",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "cleaner",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "manager",
+      "slot": 0,
+      "travel": 0
+    },
+    {
+      "id": "guest_10",
+      "slot": 1,
+      "travel": 5.033333333333325
+    },
+    {
+      "id": "back_patrol",
+      "slot": 1,
+      "travel": 6.43333333333332
+    },
+    {
+      "id": "guest_14",
+      "slot": 1,
+      "travel": 3.8333333333333295
+    },
+    {
+      "id": "guest_15",
+      "slot": 1,
+      "travel": 13.36666666666663
+    },
+    {
+      "id": "guest_02",
+      "slot": 1,
+      "travel": 4.533333333333327
+    },
+    {
+      "id": "guest_08",
+      "slot": 1,
+      "travel": 13.633333333333296
+    },
+    {
+      "id": "guest_04",
+      "slot": 1,
+      "travel": 14.533333333333292
+    },
+    {
+      "id": "patrol",
+      "slot": 1,
+      "travel": 3.0333333333333323
+    },
+    {
+      "id": "guest_12",
+      "slot": 1,
+      "travel": 12.899999999999965
+    },
+    {
+      "id": "guest_01",
+      "slot": 1,
+      "travel": 7.299999999999984
+    },
+    {
+      "id": "guest_11",
+      "slot": 1,
+      "travel": 14.19999999999996
+    },
+    {
+      "id": "guest_03",
+      "slot": 1,
+      "travel": 9.33333333333331
+    },
+    {
+      "id": "bottle_server",
+      "slot": 1,
+      "travel": 6.066666666666655
+    },
+    {
+      "id": "guest_05",
+      "slot": 1,
+      "travel": 10.966666666666638
+    },
+    {
+      "id": "guest_08",
+      "slot": 2,
+      "travel": 12.3333333333333
+    },
+    {
+      "id": "guest_09",
+      "slot": 1,
+      "travel": 10.199999999999974
+    },
+    {
+      "id": "guest_16",
+      "slot": 1,
+      "travel": 9.499999999999977
+    },
+    {
+      "id": "guest_07",
+      "slot": 1,
+      "travel": 2.6000000000000005
+    },
+    {
+      "id": "guest_06",
+      "slot": 1,
+      "travel": 4.199999999999995
+    },
+    {
+      "id": "bartender_1",
+      "slot": 1,
+      "travel": 5.766666666666656
+    },
+    {
+      "id": "guest_13",
+      "slot": 1,
+      "travel": 7.233333333333317
+    },
+    {
+      "id": "technician",
+      "slot": 1,
+      "travel": 2.999999999999999
+    },
+    {
+      "id": "guest_04",
+      "slot": 2,
+      "travel": 14.033333333333294
+    },
+    {
+      "id": "chef",
+      "slot": 1,
+      "travel": 2.8666666666666663
+    },
+    {
+      "id": "back_patrol",
+      "slot": 2,
+      "travel": 6.333333333333321
+    },
+    {
+      "id": "guest_12",
+      "slot": 2,
+      "travel": 13.799999999999962
+    },
+    {
+      "id": "guest_03",
+      "slot": 2,
+      "travel": 12.066666666666634
+    },
+    {
+      "id": "bartender_2",
+      "slot": 1,
+      "travel": 3.3999999999999977
+    },
+    {
+      "id": "manager",
+      "slot": 1,
+      "travel": 13.599999999999962
+    },
+    {
+      "id": "bartender_1",
+      "slot": 2,
+      "travel": 5.566666666666657
+    },
+    {
+      "id": "guest_14",
+      "slot": 2,
+      "travel": 10.733333333333306
+    },
+    {
+      "id": "guest_09",
+      "slot": 2,
+      "travel": 12.733333333333299
+    },
+    {
+      "id": "patrol",
+      "slot": 2,
+      "travel": 13.36666666666663
+    },
+    {
+      "id": "bottle_server",
+      "slot": 2,
+      "travel": 5.966666666666655
+    },
+    {
+      "id": "cleaner",
+      "slot": 1,
+      "travel": 3.2333333333333316
+    },
+    {
+      "id": "guest_01",
+      "slot": 2,
+      "travel": 7.166666666666651
+    },
+    {
+      "id": "guest_10",
+      "slot": 2,
+      "travel": 4.733333333333326
+    },
+    {
+      "id": "technician",
+      "slot": 2,
+      "travel": 4.2999999999999945
+    },
+    {
+      "id": "bartender_2",
+      "slot": 2,
+      "travel": 3.0999999999999988
+    },
+    {
+      "id": "guest_04",
+      "slot": 3,
+      "travel": 11.533333333333303
+    },
+    {
+      "id": "guest_02",
+      "slot": 2,
+      "travel": 10.766666666666639
+    },
+    {
+      "id": "guest_15",
+      "slot": 2,
+      "travel": 10.633333333333306
+    },
+    {
+      "id": "chef",
+      "slot": 2,
+      "travel": 2.533333333333334
+    },
+    {
+      "id": "back_patrol",
+      "slot": 3,
+      "travel": 6.299999999999987
+    },
+    {
+      "id": "guest_05",
+      "slot": 2,
+      "travel": 13.099999999999964
+    },
+    {
+      "id": "manager",
+      "slot": 2,
+      "travel": 12.466666666666633
+    },
+    {
+      "id": "guest_09",
+      "slot": 3,
+      "travel": 7.166666666666651
+    },
+    {
+      "id": "cleaner",
+      "slot": 2,
+      "travel": 3.0333333333333323
+    },
+    {
+      "id": "guest_06",
+      "slot": 2,
+      "travel": 13.433333333333296
+    },
+    {
+      "id": "patrol",
+      "slot": 3,
+      "travel": 11.433333333333303
+    },
+    {
+      "id": "technician",
+      "slot": 3,
+      "travel": 0.7999999999999999
+    },
+    {
+      "id": "vip_1",
+      "slot": 1,
+      "travel": 14.999999999999957
+    },
+    {
+      "id": "guest_16",
+      "slot": 2,
+      "travel": 11.666666666666636
+    },
+    {
+      "id": "guest_13",
+      "slot": 2,
+      "travel": 10.966666666666638
+    },
+    {
+      "id": "guest_11",
+      "slot": 2,
+      "travel": 5.666666666666656
+    },
+    {
+      "id": "back_patrol",
+      "slot": 4,
+      "travel": 6.299999999999987
+    },
+    {
+      "id": "guest_14",
+      "slot": 3,
+      "travel": 7.299999999999984
+    },
+    {
+      "id": "vip_2",
+      "slot": 1,
+      "travel": 15.066666666666624
+    },
+    {
+      "id": "guest_07",
+      "slot": 2,
+      "travel": 2.4666666666666677
+    },
+    {
+      "id": "guest_03",
+      "slot": 3,
+      "travel": 4.7666666666666595
+    },
+    {
+      "id": "guest_01",
+      "slot": 3,
+      "travel": 8.69999999999998
+    },
+    {
+      "id": "vip_3",
+      "slot": 1,
+      "travel": 13.933333333333294
+    },
+    {
+      "id": "escort",
+      "slot": 1,
+      "travel": 0
+    },
+    {
+      "id": "patrol",
+      "slot": 4,
+      "travel": 3.166666666666665
+    },
+    {
+      "id": "guest_04",
+      "slot": 4,
+      "travel": 13.599999999999962
+    },
+    {
+      "id": "investor",
+      "slot": 1,
+      "travel": 10.799999999999972
+    },
+    {
+      "id": "guest_12",
+      "slot": 3,
+      "travel": 11.033333333333305
+    },
+    {
+      "id": "guest_09",
+      "slot": 4,
+      "travel": 10.233333333333308
+    },
+    {
+      "id": "guest_02",
+      "slot": 3,
+      "travel": 10.36666666666664
+    },
+    {
+      "id": "back_patrol",
+      "slot": 5,
+      "travel": 6.299999999999987
+    },
+    {
+      "id": "vip_4",
+      "slot": 1,
+      "travel": 13.966666666666628
+    },
+    {
+      "id": "vip_1",
+      "slot": 2,
+      "travel": 14.799999999999958
+    },
+    {
+      "id": "guest_08",
+      "slot": 3,
+      "travel": 9.766666666666643
+    },
+    {
+      "id": "bottle_server",
+      "slot": 3,
+      "travel": 5.933333333333322
+    },
+    {
+      "id": "guest_05",
+      "slot": 3,
+      "travel": 9.399999999999977
+    },
+    {
+      "id": "guest_04",
+      "slot": 5,
+      "travel": 14.033333333333294
+    },
+    {
+      "id": "guest_16",
+      "slot": 3,
+      "travel": 13.133333333333297
+    },
+    {
+      "id": "guest_11",
+      "slot": 3,
+      "travel": 5.399999999999991
+    },
+    {
+      "id": "guest_06",
+      "slot": 3,
+      "travel": 12.733333333333299
+    },
+    {
+      "id": "vip_2",
+      "slot": 2,
+      "travel": 14.799999999999958
+    },
+    {
+      "id": "guest_07",
+      "slot": 3,
+      "travel": 11.933333333333302
+    },
+    {
+      "id": "guest_13",
+      "slot": 3,
+      "travel": 13.16666666666663
+    },
+    {
+      "id": "bartender_1",
+      "slot": 3,
+      "travel": 5.59999999999999
+    },
+    {
+      "id": "patrol",
+      "slot": 5,
+      "travel": 13.36666666666663
+    },
+    {
+      "id": "technician",
+      "slot": 4,
+      "travel": 3.133333333333332
+    },
+    {
+      "id": "back_patrol",
+      "slot": 6,
+      "travel": 6.299999999999987
+    },
+    {
+      "id": "guest_12",
+      "slot": 4,
+      "travel": 14.999999999999957
+    },
+    {
+      "id": "bottle_server",
+      "slot": 4,
+      "travel": 5.966666666666655
+    },
+    {
+      "id": "escort",
+      "slot": 2,
+      "travel": 0
+    },
+    {
+      "id": "vip_3",
+      "slot": 2,
+      "travel": 13.899999999999961
+    },
+    {
+      "id": "investor",
+      "slot": 2,
+      "travel": 4.466666666666661
+    },
+    {
+      "id": "bartender_2",
+      "slot": 3,
+      "travel": 3.0999999999999988
+    },
+    {
+      "id": "guest_10",
+      "slot": 3,
+      "travel": 10.399999999999974
+    },
+    {
+      "id": "bartender_1",
+      "slot": 4,
+      "travel": 5.566666666666657
+    },
+    {
+      "id": "guest_01",
+      "slot": 4,
+      "travel": 8.79999999999998
+    },
+    {
+      "id": "chef",
+      "slot": 3,
+      "travel": 2.7333333333333334
+    },
+    {
+      "id": "guest_14",
+      "slot": 4,
+      "travel": 7.299999999999984
+    },
+    {
+      "id": "guest_09",
+      "slot": 5,
+      "travel": 13.099999999999964
+    },
+    {
+      "id": "manager",
+      "slot": 3,
+      "travel": 13.499999999999963
+    },
+    {
+      "id": "guest_15",
+      "slot": 3,
+      "travel": 7.799999999999982
+    },
+    {
+      "id": "guest_04",
+      "slot": 6,
+      "travel": 11.866666666666635
+    },
+    {
+      "id": "guest_16",
+      "slot": 4,
+      "travel": 13.399999999999963
+    },
+    {
+      "id": "guest_12",
+      "slot": 5,
+      "travel": 12.666666666666632
+    },
+    {
+      "id": "vip_4",
+      "slot": 2,
+      "travel": 14.066666666666627
+    },
+    {
+      "id": "technician",
+      "slot": 5,
+      "travel": 4.2999999999999945
+    },
+    {
+      "id": "bartender_2",
+      "slot": 4,
+      "travel": 3.133333333333332
+    },
+    {
+      "id": "guest_06",
+      "slot": 4,
+      "travel": 3.63333333333333
+    },
+    {
+      "id": "patrol",
+      "slot": 6,
+      "travel": 11.19999999999997
+    },
+    {
+      "id": "cleaner",
+      "slot": 3,
+      "travel": 3.0666666666666655
+    },
+    {
+      "id": "guest_09",
+      "slot": 6,
+      "travel": 12.799999999999965
+    },
+    {
+      "id": "guest_10",
+      "slot": 4,
+      "travel": 12.999999999999964
+    },
+    {
+      "id": "back_patrol",
+      "slot": 7,
+      "travel": 6.299999999999987
+    },
+    {
+      "id": "guest_08",
+      "slot": 4,
+      "travel": 9.866666666666642
+    },
+    {
+      "id": "guest_03",
+      "slot": 4,
+      "travel": 4.833333333333326
+    },
+    {
+      "id": "guest_02",
+      "slot": 4,
+      "travel": 4.433333333333327
+    },
+    {
+      "id": "manager",
+      "slot": 4,
+      "travel": 12.566666666666633
+    },
+    {
+      "id": "chef",
+      "slot": 4,
+      "travel": 2.533333333333334
+    },
+    {
+      "id": "technician",
+      "slot": 6,
+      "travel": 0.7999999999999999
+    },
+    {
+      "id": "escort",
+      "slot": 3,
+      "travel": 0
+    },
+    {
+      "id": "cleaner",
+      "slot": 4,
+      "travel": 3.0333333333333323
+    },
+    {
+      "id": "investor",
+      "slot": 3,
+      "travel": 14.49999999999996
+    },
+    {
+      "id": "guest_11",
+      "slot": 4,
+      "travel": 10.533333333333307
+    },
+    {
+      "id": "guest_07",
+      "slot": 4,
+      "travel": 10.899999999999972
+    },
+    {
+      "id": "back_patrol",
+      "slot": 8,
+      "travel": 6.299999999999987
+    },
+    {
+      "id": "patrol",
+      "slot": 7,
+      "travel": 3.166666666666665
+    },
+    {
+      "id": "guest_09",
+      "slot": 7,
+      "travel": 13.766666666666628
+    },
+    {
+      "id": "guest_16",
+      "slot": 5,
+      "travel": 11.633333333333303
+    },
+    {
+      "id": "guest_14",
+      "slot": 5,
+      "travel": 7.333333333333317
+    },
+    {
+      "id": "guest_12",
+      "slot": 6,
+      "travel": 12.266666666666634
+    },
+    {
+      "id": "guest_13",
+      "slot": 4,
+      "travel": 13.36666666666663
+    },
+    {
+      "id": "guest_10",
+      "slot": 5,
+      "travel": 10.299999999999974
+    },
+    {
+      "id": "guest_04",
+      "slot": 7,
+      "travel": 10.333333333333307
+    },
+    {
+      "id": "bottle_server",
+      "slot": 5,
+      "travel": 5.933333333333322
+    },
+    {
+      "id": "guest_11",
+      "slot": 5,
+      "travel": 13.999999999999961
+    },
+    {
+      "id": "back_patrol",
+      "slot": 9,
+      "travel": 6.299999999999987
+    },
+    {
+      "id": "guest_05",
+      "slot": 4,
+      "travel": 4.099999999999995
+    },
+    {
+      "id": "guest_03",
+      "slot": 5,
+      "travel": 9.966666666666642
+    },
+    {
+      "id": "patrol",
+      "slot": 8,
+      "travel": 13.36666666666663
+    },
+    {
+      "id": "guest_15",
+      "slot": 4,
+      "travel": 9.933333333333309
+    },
+    {
+      "id": "guest_06",
+      "slot": 5,
+      "travel": 3.9999999999999956
+    },
+    {
+      "id": "guest_12",
+      "slot": 7,
+      "travel": 5.5333333333333234
+    },
+    {
+      "id": "guest_01",
+      "slot": 5,
+      "travel": 9.166666666666645
+    },
+    {
+      "id": "guest_11",
+      "slot": 6,
+      "travel": 10.999999999999972
+    },
+    {
+      "id": "bartender_1",
+      "slot": 5,
+      "travel": 5.633333333333323
+    },
+    {
+      "id": "technician",
+      "slot": 7,
+      "travel": 3.133333333333332
+    },
+    {
+      "id": "bottle_server",
+      "slot": 6,
+      "travel": 5.966666666666655
+    },
+    {
+      "id": "guest_09",
+      "slot": 8,
+      "travel": 13.333333333333297
+    },
+    {
+      "id": "guest_05",
+      "slot": 5,
+      "travel": 13.199999999999964
+    },
+    {
+      "id": "guest_01",
+      "slot": 6,
+      "travel": 11.39999999999997
+    },
+    {
+      "id": "back_patrol",
+      "slot": 10,
+      "travel": 6.299999999999987
+    },
+    {
+      "id": "guest_07",
+      "slot": 5,
+      "travel": 10.799999999999972
+    },
+    {
+      "id": "guest_16",
+      "slot": 6,
+      "travel": 11.233333333333304
+    },
+    {
+      "id": "bartender_2",
+      "slot": 5,
+      "travel": 3.0999999999999988
+    },
+    {
+      "id": "bartender_1",
+      "slot": 6,
+      "travel": 5.566666666666657
+    },
+    {
+      "id": "guest_10",
+      "slot": 6,
+      "travel": 7.066666666666651
+    },
+    {
+      "id": "patrol",
+      "slot": 9,
+      "travel": 10.966666666666638
+    },
+    {
+      "id": "guest_06",
+      "slot": 6,
+      "travel": 3.599999999999997
+    },
+    {
+      "id": "guest_08",
+      "slot": 5,
+      "travel": 12.3333333333333
+    },
+    {
+      "id": "guest_03",
+      "slot": 6,
+      "travel": 11.733333333333302
+    },
+    {
+      "id": "guest_04",
+      "slot": 8,
+      "travel": 13.599999999999962
+    },
+    {
+      "id": "technician",
+      "slot": 8,
+      "travel": 4.2999999999999945
+    },
+    {
+      "id": "guest_02",
+      "slot": 5,
+      "travel": 8.166666666666648
+    },
+    {
+      "id": "bartender_2",
+      "slot": 6,
+      "travel": 3.0999999999999988
+    },
+    {
+      "id": "guest_15",
+      "slot": 5,
+      "travel": 10.066666666666642
+    },
+    {
+      "id": "guest_09",
+      "slot": 9,
+      "travel": 13.56666666666663
+    },
+    {
+      "id": "guest_13",
+      "slot": 5,
+      "travel": 13.133333333333297
+    },
+    {
+      "id": "manager",
+      "slot": 5,
+      "travel": 13.333333333333297
+    },
+    {
+      "id": "chef",
+      "slot": 5,
+      "travel": 2.7333333333333334
+    },
+    {
+      "id": "guest_12",
+      "slot": 8,
+      "travel": 6.1666666666666545
+    },
+    {
+      "id": "guest_08",
+      "slot": 6,
+      "travel": 12.3333333333333
+    },
+    {
+      "id": "back_patrol",
+      "slot": 11,
+      "travel": 6.299999999999987
+    },
+    {
+      "id": "guest_10",
+      "slot": 7,
+      "travel": 6.9333333333333185
+    },
+    {
+      "id": "guest_14",
+      "slot": 6,
+      "travel": 10.766666666666639
+    },
+    {
+      "id": "guest_04",
+      "slot": 9,
+      "travel": 13.533333333333296
+    },
+    {
+      "id": "vip_1",
+      "slot": 3,
+      "travel": 15.13333333333329
+    },
+    {
+      "id": "technician",
+      "slot": 9,
+      "travel": 0.7999999999999999
+    },
+    {
+      "id": "cleaner",
+      "slot": 5,
+      "travel": 3.0666666666666655
+    },
+    {
+      "id": "patrol",
+      "slot": 10,
+      "travel": 3.166666666666665
+    },
+    {
+      "id": "guest_16",
+      "slot": 7,
+      "travel": 13.066666666666631
+    },
+    {
+      "id": "manager",
+      "slot": 6,
+      "travel": 12.499999999999966
+    },
+    {
+      "id": "vip_2",
+      "slot": 3,
+      "travel": 15.066666666666624
+    },
+    {
+      "id": "chef",
+      "slot": 6,
+      "travel": 2.533333333333334
+    },
+    {
+      "id": "back_patrol",
+      "slot": 12,
+      "travel": 6.299999999999987
+    },
+    {
+      "id": "escort",
+      "slot": 4,
+      "travel": 0
+    },
+    {
+      "id": "guest_05",
+      "slot": 6,
+      "travel": 9.366666666666644
+    },
+    {
+      "id": "cleaner",
+      "slot": 6,
+      "travel": 3.0333333333333323
+    },
+    {
+      "id": "investor",
+      "slot": 4,
+      "travel": 13.733333333333295
+    },
+    {
+      "id": "guest_02",
+      "slot": 6,
+      "travel": 7.666666666666649
+    },
+    {
+      "id": "guest_03",
+      "slot": 7,
+      "travel": 7.46666666666665
+    },
+    {
+      "id": "vip_3",
+      "slot": 3,
+      "travel": 13.799999999999962
+    },
+    {
+      "id": "guest_07",
+      "slot": 6,
+      "travel": 12.5333333333333
+    },
+    {
+      "id": "guest_09",
+      "slot": 10,
+      "travel": 10.36666666666664
+    },
+    {
+      "id": "guest_13",
+      "slot": 6,
+      "travel": 10.933333333333305
+    },
+    {
+      "id": "guest_11",
+      "slot": 7,
+      "travel": 5.466666666666657
+    },
+    {
+      "id": "bottle_server",
+      "slot": 7,
+      "travel": 5.933333333333322
+    },
+    {
+      "id": "guest_01",
+      "slot": 7,
+      "travel": 4.166666666666662
+    },
+    {
+      "id": "patrol",
+      "slot": 11,
+      "travel": 13.56666666666663
+    },
+    {
+      "id": "guest_15",
+      "slot": 6,
+      "travel": 13.999999999999961
+    },
+    {
+      "id": "vip_4",
+      "slot": 3,
+      "travel": 14.033333333333294
+    },
+    {
+      "id": "guest_14",
+      "slot": 7,
+      "travel": 12.099999999999968
+    },
+    {
+      "id": "back_patrol",
+      "slot": 13,
+      "travel": 6.299999999999987
+    },
+    {
+      "id": "guest_04",
+      "slot": 10,
+      "travel": 11.49999999999997
+    },
+    {
+      "id": "escort",
+      "slot": 5,
+      "travel": 0
+    },
+    {
+      "id": "guest_07",
+      "slot": 7,
+      "travel": 13.533333333333296
+    },
+    {
+      "id": "vip_1",
+      "slot": 4,
+      "travel": 14.799999999999958
+    },
+    {
+      "id": "guest_13",
+      "slot": 7,
+      "travel": 3.9999999999999956
+    },
+    {
+      "id": "investor",
+      "slot": 5,
+      "travel": 13.699999999999962
+    },
+    {
+      "id": "guest_15",
+      "slot": 7,
+      "travel": 15.166666666666623
+    },
+    {
+      "id": "guest_16",
+      "slot": 8,
+      "travel": 13.333333333333297
+    },
+    {
+      "id": "guest_08",
+      "slot": 7,
+      "travel": 2.3000000000000016
+    },
+    {
+      "id": "guest_10",
+      "slot": 8,
+      "travel": 10.599999999999973
+    },
+    {
+      "id": "bottle_server",
+      "slot": 8,
+      "travel": 5.966666666666655
+    },
+    {
+      "id": "bartender_1",
+      "slot": 7,
+      "travel": 5.59999999999999
+    },
+    {
+      "id": "guest_04",
+      "slot": 11,
+      "travel": 5.266666666666658
+    },
+    {
+      "id": "vip_2",
+      "slot": 4,
+      "travel": 14.799999999999958
+    },
+    {
+      "id": "technician",
+      "slot": 10,
+      "travel": 3.133333333333332
+    },
+    {
+      "id": "patrol",
+      "slot": 12,
+      "travel": 10.966666666666638
+    },
+    {
+      "id": "back_patrol",
+      "slot": 14,
+      "travel": 6.299999999999987
+    },
+    {
+      "id": "guest_12",
+      "slot": 9,
+      "travel": 10.799999999999972
+    },
+    {
+      "id": "guest_05",
+      "slot": 7,
+      "travel": 7.36666666666665
+    },
+    {
+      "id": "bartender_2",
+      "slot": 7,
+      "travel": 3.0999999999999988
+    },
+    {
+      "id": "bartender_1",
+      "slot": 8,
+      "travel": 5.566666666666657
+    },
+    {
+      "id": "vip_3",
+      "slot": 4,
+      "travel": 14.133333333333294
+    },
+    {
+      "id": "guest_10",
+      "slot": 9,
+      "travel": 12.633333333333299
+    },
+    {
+      "id": "guest_07",
+      "slot": 8,
+      "travel": 2.4666666666666677
+    },
+    {
+      "id": "guest_09",
+      "slot": 11,
+      "travel": 10.333333333333307
+    },
+    {
+      "id": "guest_06",
+      "slot": 7,
+      "travel": 7.799999999999982
+    },
+    {
+      "id": "technician",
+      "slot": 11,
+      "travel": 4.2999999999999945
+    },
+    {
+      "id": "bartender_2",
+      "slot": 8,
+      "travel": 3.0999999999999988
+    },
+    {
+      "id": "guest_15",
+      "slot": 8,
+      "travel": 2.7666666666666666
+    },
+    {
+      "id": "vip_4",
+      "slot": 4,
+      "travel": 14.333333333333293
+    },
+    {
+      "id": "guest_16",
+      "slot": 9,
+      "travel": 13.066666666666631
+    },
+    {
+      "id": "patrol",
+      "slot": 13,
+      "travel": 3.166666666666665
+    },
+    {
+      "id": "guest_12",
+      "slot": 10,
+      "travel": 15.066666666666624
+    },
+    {
+      "id": "back_patrol",
+      "slot": 15,
+      "travel": 6.299999999999987
+    },
+    {
+      "id": "guest_09",
+      "slot": 12,
+      "travel": 10.166666666666641
+    },
+    {
+      "id": "guest_02",
+      "slot": 7,
+      "travel": 7.033333333333318
+    },
+    {
+      "id": "guest_08",
+      "slot": 8,
+      "travel": 14.39999999999996
+    },
+    {
+      "id": "manager",
+      "slot": 7,
+      "travel": 13.333333333333297
+    },
+    {
+      "id": "chef",
+      "slot": 7,
+      "travel": 2.7333333333333334
+    },
+    {
+      "id": "technician",
+      "slot": 12,
+      "travel": 0.7999999999999999
+    },
+    {
+      "id": "guest_13",
+      "slot": 8,
+      "travel": 11.099999999999971
+    },
+    {
+      "id": "guest_08",
+      "slot": 9,
+      "travel": 13.666666666666629
+    },
+    {
+      "id": "guest_12",
+      "slot": 11,
+      "travel": 11.699999999999969
+    },
+    {
+      "id": "guest_11",
+      "slot": 8,
+      "travel": 10.699999999999973
+    },
+    {
+      "id": "guest_10",
+      "slot": 10,
+      "travel": 12.866666666666632
+    },
+    {
+      "id": "back_patrol",
+      "slot": 16,
+      "travel": 6.333333333333321
+    },
+    {
+      "id": "guest_14",
+      "slot": 8,
+      "travel": 12.2333333333333
+    },
+    {
+      "id": "cleaner",
+      "slot": 7,
+      "travel": 3.0999999999999988
+    },
+    {
+      "id": "manager",
+      "slot": 8,
+      "travel": 12.5333333333333
+    },
+    {
+      "id": "guest_02",
+      "slot": 8,
+      "travel": 13.333333333333297
+    },
+    {
+      "id": "patrol",
+      "slot": 14,
+      "travel": 13.499999999999963
+    },
+    {
+      "id": "guest_05",
+      "slot": 8,
+      "travel": 7.033333333333318
+    },
+    {
+      "id": "guest_01",
+      "slot": 8,
+      "travel": 9.066666666666645
+    },
+    {
+      "id": "guest_03",
+      "slot": 8,
+      "travel": 7.3999999999999835
+    },
+    {
+      "id": "chef",
+      "slot": 8,
+      "travel": 2.533333333333334
+    },
+    {
+      "id": "bottle_server",
+      "slot": 9,
+      "travel": 5.933333333333322
+    },
+    {
+      "id": "guest_10",
+      "slot": 11,
+      "travel": 12.633333333333299
+    },
+    {
+      "id": "guest_04",
+      "slot": 12,
+      "travel": 7.799999999999982
+    },
+    {
+      "id": "guest_02",
+      "slot": 9,
+      "travel": 8.833333333333313
+    },
+    {
+      "id": "guest_01",
+      "slot": 9,
+      "travel": 11.999999999999968
+    },
+    {
+      "id": "cleaner",
+      "slot": 8,
+      "travel": 3.0333333333333323
+    },
+    {
+      "id": "guest_15",
+      "slot": 9,
+      "travel": 13.033333333333298
+    },
+    {
+      "id": "guest_16",
+      "slot": 10,
+      "travel": 13.333333333333297
+    },
+    {
+      "id": "back_patrol",
+      "slot": 17,
+      "travel": 6.333333333333321
+    },
+    {
+      "id": "guest_11",
+      "slot": 9,
+      "travel": 13.999999999999961
+    },
+    {
+      "id": "bottle_server",
+      "slot": 10,
+      "travel": 5.966666666666655
+    },
+    {
+      "id": "patrol",
+      "slot": 15,
+      "travel": 10.966666666666638
+    },
+    {
+      "id": "guest_15",
+      "slot": 10,
+      "travel": 13.866666666666628
+    },
+    {
+      "id": "guest_08",
+      "slot": 10,
+      "travel": 12.099999999999968
+    },
+    {
+      "id": "guest_13",
+      "slot": 9,
+      "travel": 13.099999999999964
+    },
+    {
+      "id": "guest_06",
+      "slot": 8,
+      "travel": 10.999999999999972
+    },
+    {
+      "id": "bartender_1",
+      "slot": 9,
+      "travel": 5.59999999999999
+    },
+    {
+      "id": "guest_09",
+      "slot": 13,
+      "travel": 10.199999999999974
+    },
+    {
+      "id": "technician",
+      "slot": 13,
+      "travel": 3.133333333333332
+    },
+    {
+      "id": "guest_11",
+      "slot": 10,
+      "travel": 14.466666666666626
+    },
+    {
+      "id": "guest_14",
+      "slot": 9,
+      "travel": 13.966666666666628
+    },
+    {
+      "id": "guest_16",
+      "slot": 11,
+      "travel": 13.16666666666663
+    },
+    {
+      "id": "escort",
+      "slot": 6,
+      "travel": 0
+    },
+    {
+      "id": "back_patrol",
+      "slot": 18,
+      "travel": 6.299999999999987
+    },
+    {
+      "id": "guest_01",
+      "slot": 10,
+      "travel": 10.66666666666664
+    },
+    {
+      "id": "guest_03",
+      "slot": 9,
+      "travel": 7.46666666666665
+    },
+    {
+      "id": "bartender_2",
+      "slot": 9,
+      "travel": 3.0999999999999988
+    },
+    {
+      "id": "investor",
+      "slot": 6,
+      "travel": 14.433333333333293
+    },
+    {
+      "id": "bartender_1",
+      "slot": 10,
+      "travel": 5.566666666666657
+    },
+    {
+      "id": "guest_07",
+      "slot": 9,
+      "travel": 2.4666666666666677
+    },
+    {
+      "id": "guest_13",
+      "slot": 10,
+      "travel": 13.26666666666663
+    },
+    {
+      "id": "guest_09",
+      "slot": 14,
+      "travel": 12.966666666666631
+    },
+    {
+      "id": "guest_08",
+      "slot": 11,
+      "travel": 11.766666666666636
+    },
+    {
+      "id": "patrol",
+      "slot": 16,
+      "travel": 3.266666666666665
+    },
+    {
+      "id": "technician",
+      "slot": 14,
+      "travel": 4.2999999999999945
+    },
+    {
+      "id": "guest_10",
+      "slot": 12,
+      "travel": 12.033333333333301
+    },
+    {
+      "id": "bartender_2",
+      "slot": 10,
+      "travel": 3.0999999999999988
+    },
+    {
+      "id": "guest_04",
+      "slot": 13,
+      "travel": 10.56666666666664
+    },
+    {
+      "id": "guest_14",
+      "slot": 10,
+      "travel": 14.09999999999996
+    },
+    {
+      "id": "back_patrol",
+      "slot": 19,
+      "travel": 6.299999999999987
+    },
+    {
+      "id": "vip_1",
+      "slot": 5,
+      "travel": 14.833333333333291
+    },
+    {
+      "id": "guest_02",
+      "slot": 10,
+      "travel": 8.69999999999998
+    },
+    {
+      "id": "guest_12",
+      "slot": 12,
+      "travel": 6.099999999999988
+    },
+    {
+      "id": "guest_06",
+      "slot": 9,
+      "travel": 12.999999999999964
+    },
+    {
+      "id": "guest_11",
+      "slot": 11,
+      "travel": 5.766666666666656
+    },
+    {
+      "id": "guest_15",
+      "slot": 11,
+      "travel": 7.766666666666649
+    },
+    {
+      "id": "guest_05",
+      "slot": 9,
+      "travel": 7.199999999999984
+    },
+    {
+      "id": "technician",
+      "slot": 15,
+      "travel": 0.7999999999999999
+    },
+    {
+      "id": "vip_2",
+      "slot": 5,
+      "travel": 14.799999999999958
+    },
+    {
+      "id": "manager",
+      "slot": 9,
+      "travel": 13.333333333333297
+    },
+    {
+      "id": "patrol",
+      "slot": 17,
+      "travel": 13.499999999999963
+    },
+    {
+      "id": "guest_01",
+      "slot": 11,
+      "travel": 11.699999999999969
+    },
+    {
+      "id": "guest_07",
+      "slot": 10,
+      "travel": 11.799999999999969
+    },
+    {
+      "id": "chef",
+      "slot": 9,
+      "travel": 2.7333333333333334
+    },
+    {
+      "id": "guest_06",
+      "slot": 10,
+      "travel": 12.933333333333298
+    },
+    {
+      "id": "guest_02",
+      "slot": 11,
+      "travel": 13.199999999999964
+    },
+    {
+      "id": "vip_3",
+      "slot": 5,
+      "travel": 13.833333333333295
+    },
+    {
+      "id": "back_patrol",
+      "slot": 20,
+      "travel": 6.333333333333321
+    },
+    {
+      "id": "guest_13",
+      "slot": 11,
+      "travel": 7.033333333333318
+    },
+    {
+      "id": "bottle_server",
+      "slot": 11,
+      "travel": 5.933333333333322
+    },
+    {
+      "id": "guest_16",
+      "slot": 12,
+      "travel": 13.299999999999963
+    },
+    {
+      "id": "guest_09",
+      "slot": 15,
+      "travel": 12.999999999999964
+    },
+    {
+      "id": "escort",
+      "slot": 7,
+      "travel": 0
+    },
+    {
+      "id": "guest_01",
+      "slot": 12,
+      "travel": 13.233333333333297
+    },
+    {
+      "id": "manager",
+      "slot": 10,
+      "travel": 12.499999999999966
+    },
+    {
+      "id": "guest_12",
+      "slot": 13,
+      "travel": 14.999999999999957
+    },
+    {
+      "id": "investor",
+      "slot": 7,
+      "travel": 14.533333333333292
+    },
+    {
+      "id": "guest_08",
+      "slot": 12,
+      "travel": 13.699999999999962
+    },
+    {
+      "id": "vip_4",
+      "slot": 5,
+      "travel": 13.966666666666628
+    },
+    {
+      "id": "cleaner",
+      "slot": 9,
+      "travel": 3.0666666666666655
+    },
+    {
+      "id": "guest_14",
+      "slot": 11,
+      "travel": 10.699999999999973
+    },
+    {
+      "id": "vip_1",
+      "slot": 6,
+      "travel": 14.799999999999958
+    },
+    {
+      "id": "guest_09",
+      "slot": 16,
+      "travel": 12.733333333333299
+    },
+    {
+      "id": "guest_10",
+      "slot": 13,
+      "travel": 4.866666666666659
+    },
+    {
+      "id": "patrol",
+      "slot": 18,
+      "travel": 11.033333333333305
+    },
+    {
+      "id": "chef",
+      "slot": 10,
+      "travel": 2.533333333333334
+    },
+    {
+      "id": "guest_12",
+      "slot": 14,
+      "travel": 15.33333333333329
+    },
+    {
+      "id": "guest_08",
+      "slot": 13,
+      "travel": 12.4333333333333
+    },
+    {
+      "id": "back_patrol",
+      "slot": 21,
+      "travel": 6.333333333333321
+    },
+    {
+      "id": "bottle_server",
+      "slot": 12,
+      "travel": 5.966666666666655
+    },
+    {
+      "id": "guest_03",
+      "slot": 10,
+      "travel": 7.46666666666665
+    },
+    {
+      "id": "guest_06",
+      "slot": 11,
+      "travel": 11.166666666666638
+    },
+    {
+      "id": "vip_2",
+      "slot": 6,
+      "travel": 14.799999999999958
+    },
+    {
+      "id": "cleaner",
+      "slot": 10,
+      "travel": 3.0333333333333323
+    },
+    {
+      "id": "guest_05",
+      "slot": 10,
+      "travel": 7.033333333333318
+    },
+    {
+      "id": "guest_07",
+      "slot": 11,
+      "travel": 9.566666666666643
+    },
+    {
+      "id": "guest_02",
+      "slot": 12,
+      "travel": 12.733333333333299
+    },
+    {
+      "id": "guest_16",
+      "slot": 13,
+      "travel": 15.96666666666662
+    },
+    {
+      "id": "guest_13",
+      "slot": 12,
+      "travel": 4.333333333333328
+    },
+    {
+      "id": "guest_11",
+      "slot": 12,
+      "travel": 5.799999999999989
+    },
+    {
+      "id": "guest_12",
+      "slot": 15,
+      "travel": 5.2333333333333245
+    },
+    {
+      "id": "vip_3",
+      "slot": 6,
+      "travel": 13.866666666666628
+    },
+    {
+      "id": "guest_15",
+      "slot": 12,
+      "travel": 7.899999999999982
+    },
+    {
+      "id": "back_patrol",
+      "slot": 22,
+      "travel": 6.299999999999987
+    },
+    {
+      "id": "guest_16",
+      "slot": 14,
+      "travel": 13.633333333333296
+    },
+    {
+      "id": "guest_04",
+      "slot": 14,
+      "travel": 10.533333333333307
+    },
+    {
+      "id": "vip_4",
+      "slot": 6,
+      "travel": 14.19999999999996
+    },
+    {
+      "id": "guest_13",
+      "slot": 13,
+      "travel": 3.9666666666666623
+    },
+    {
+      "id": "guest_02",
+      "slot": 13,
+      "travel": 6.866666666666652
+    },
+    {
+      "id": "guest_01",
+      "slot": 13,
+      "travel": 12.833333333333298
+    },
+    {
+      "id": "guest_03",
+      "slot": 11,
+      "travel": 9.73333333333331
+    },
+    {
+      "id": "guest_09",
+      "slot": 17,
+      "travel": 12.966666666666631
+    },
+    {
+      "id": "guest_08",
+      "slot": 14,
+      "travel": 9.599999999999977
+    },
+    {
+      "id": "back_patrol",
+      "slot": 23,
+      "travel": 6.299999999999987
+    },
+    {
+      "id": "guest_10",
+      "slot": 14,
+      "travel": 9.566666666666643
+    },
+    {
+      "id": "guest_14",
+      "slot": 12,
+      "travel": 10.733333333333306
+    },
+    {
+      "id": "guest_12",
+      "slot": 16,
+      "travel": 11.799999999999969
+    },
+    {
+      "id": "guest_01",
+      "slot": 14,
+      "travel": 12.599999999999966
+    },
+    {
+      "id": "guest_15",
+      "slot": 13,
+      "travel": 7.8666666666666485
+    },
+    {
+      "id": "guest_07",
+      "slot": 12,
+      "travel": 2.7666666666666666
+    },
+    {
+      "id": "guest_09",
+      "slot": 18,
+      "travel": 12.999999999999964
+    },
+    {
+      "id": "back_patrol",
+      "slot": 24,
+      "travel": 6.299999999999987
+    }
+  ]
+}

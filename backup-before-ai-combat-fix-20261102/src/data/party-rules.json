@@ -1,0 +1,374 @@
+{
+ "_note": "疑惑の初期値。デザイン資料「変装・道具・警戒度のルール」と「AI状態遷移と疑惑メーター」から。数値だけ調整すればコードを触らずに済む。",
+ "disguises": {
+  "suit": {
+   "label": "客（スーツ）",
+   "public": "allow",
+   "staff": "deny",
+   "secure": "deny",
+   "outer": "caution"
+  },
+  "waiter": {
+   "label": "ウェイター",
+   "public": "allow",
+   "staff": "allow",
+   "secure": "deny",
+   "outer": "caution"
+  },
+  "chef": {
+   "label": "シェフ",
+   "public": "caution",
+   "staff": "allow",
+   "secure": "deny",
+   "outer": "deny"
+  },
+  "cleaner": {
+   "label": "清掃員",
+   "public": "allow",
+   "staff": "allow",
+   "secure": "deny",
+   "outer": "caution"
+  },
+  "delivery": {
+   "label": "搬入業者",
+   "public": "deny",
+   "staff": "allow",
+   "secure": "deny",
+   "outer": "allow"
+  },
+  "fisher": {
+   "label": "漁師",
+   "public": "caution",
+   "staff": "deny",
+   "secure": "deny",
+   "outer": "allow"
+  },
+  "guard": {
+   "label": "ホテル警備員",
+   "public": "allow",
+   "staff": "allow",
+   "secure": "caution",
+   "outer": "allow"
+  },
+  "bodyguard": {
+   "label": "私設護衛",
+   "public": "allow",
+   "staff": "allow",
+   "secure": "allow",
+   "outer": "allow"
+  },
+  "sommelier": {
+   "label": "ソムリエ",
+   "public": "allow",
+   "staff": "allow",
+   "secure": "deny",
+   "outer": "allow"
+  },
+  "photographer": {
+   "label": "カメラマン",
+   "public": "allow",
+   "staff": "deny",
+   "secure": "deny",
+   "outer": "allow"
+  },
+  "driver": {
+   "label": "運転手",
+   "public": "allow",
+   "staff": "deny",
+   "secure": "deny",
+   "outer": "allow"
+  },
+  "beachbar": {
+   "label": "ビーチバー店員",
+   "public": "allow",
+   "staff": "allow",
+   "secure": "deny",
+   "outer": "allow"
+  },
+  "pilot": {
+   "label": "パイロット",
+   "public": "allow",
+   "staff": "deny",
+   "secure": "deny",
+   "outer": "allow"
+  },
+  "masseuse": {
+   "label": "マッサージ師",
+   "public": "allow",
+   "staff": "allow",
+   "secure": "allow",
+   "outer": "caution"
+  }
+ },
+ "rates": {
+  "run": 15,
+  "crouchPublic": 5,
+  "deny": 25,
+  "caution": 8,
+  "tamper": 20,
+  "unseen": -10,
+  "weapon": 75
+ },
+ "multipliers": {
+  "crowd": 0.4,
+  "crowdCount": 3,
+  "crowdRadius": 2.5,
+  "stillOrCover": 0.5,
+  "nearMax": 2,
+  "nearFull": 2,
+  "nearNone": 6
+ },
+ "thresholds": {
+  "curious": 30,
+  "investigate": 60,
+  "alert": 100
+ },
+ "vision": {
+  "guard": {
+   "range": 14,
+   "half": 50,
+   "sensitivity": 1
+  },
+  "guest": {
+   "range": 11,
+   "half": 50,
+   "sensitivity": 0.6
+  },
+  "waiter": {
+   "range": 11,
+   "half": 50,
+   "sensitivity": 0.6
+  },
+  "outdoor": {
+   "_note": "屋外（屋内の部屋の外）での視界距離。屋内は上の range（約11〜14m）。",
+   "guard": 25,
+   "guest": 20,
+   "waiter": 20
+  },
+  "peripheral": {
+   "range": 3.5,
+   "half": 95
+  },
+  "touch": 1.1,
+  "eye": 1.6
+ },
+ "speeds": {
+  "walk": 1.25,
+  "investigate": 1.45,
+  "chase": 4.1,
+  "search": 1.7
+ },
+ "timers": {
+  "curiousHold": 1.5,
+  "lookAround": 3,
+  "lose": 3,
+  "search": 8,
+  "report": 4,
+  "noiseLook": 4
+ },
+ "noise": {
+  "coin": 8,
+  "coins": 3,
+  "throw": 7
+ },
+ "catch": 0.95,
+ "radio": 15,
+ "lod": {
+  "_note": "知覚の間引き。near m以内は nearEvery ステップごと(10Hz)、far m未満は midEvery ごと(2Hz)、それより遠い・別の階は止める。ターゲット・目撃者・戦闘中は常に near。planMs は1フレームで経路探索に使う上限（ms、銃声で大勢が一斉に動くときに次のフレームへ回す）。",
+  "near": 25,
+  "far": 60,
+  "planMs": 4,
+  "nearEvery": 6,
+  "midEvery": 30
+ },
+ "m3": {
+  "distance": 1.1,
+  "backAngle": 55,
+  "koSeconds": 2,
+  "killSeconds": 2.5,
+  "hideSeconds": 2,
+  "dragSpeed": 0.8,
+  "hideRadius": 1.3,
+  "discoverSeconds": 0.1,
+  "cooldownSeconds": 600
+ },
+ "m4": {
+  "changeSeconds": 1.5,
+  "friskSeconds": 2.5,
+  "friskRange": 1.2,
+  "friskStandDistance": 1,
+  "friskArrivalDistance": 0.08,
+  "enforcerSpeed": {
+   "_note": "顔を知っている人の白いゲージ。table は [距離m, 満タンまでの秒]。range より遠い・正面(front度)の外では溜まらない。走ると boost 倍。人混みでは crowdRange 以内だけ。半分(verify)で確かめに来る。",
+   "range": 8,
+   "front": 50,
+   "table": [
+    [
+     2,
+     1
+    ],
+    [
+     5,
+     3
+    ],
+    [
+     8,
+     6
+    ]
+   ],
+   "boost": 2,
+   "crowdRange": 2,
+   "decay": 0.25,
+   "verify": 0.5,
+   "postMargin": 2,
+   "verifyStop": 1.4
+  },
+  "friskValidSeconds": 90,
+  "guardRadius": 5,
+  "lootRadius": 1.3,
+  "roleDisguise": {
+   "guard": "guard",
+   "waiter": "waiter",
+   "guest": "suit"
+  },
+  "uniformModels": {
+   "guard": "guard",
+   "waiter": "waiter",
+   "chef": "chef",
+   "cleaner": "cleaner",
+   "delivery": "delivery",
+   "fisher": "fisher",
+   "bodyguard": "bodyguard",
+   "sommelier": "sommelier",
+   "photographer": "photographer",
+   "driver": "driver",
+   "beachbar": "beachbar",
+   "pilot": "pilot",
+   "masseuse": "masseuse"
+  },
+  "_uniformHidesNote": "制服を着たとき隠すプレイヤー自身の部品。帽子の役は髪、サングラスの役は眼鏡。",
+  "_undressedNote": "服を奪われた体が着ている下着のモデル。肌の色と体形で選ぶ。null は着替えない（プール客はもとから水着）。",
+  "undressed": {
+   "default": "underwear",
+   "byModel": {
+    "guard": "underwear_dark",
+    "cleaner": "underwear_dark",
+    "delivery": "underwear_dark",
+    "photographer": "underwear_dark",
+    "guest_dress": "underwear_female",
+    "investor": "underwear_female",
+    "pool_guest_slim": null,
+    "pool_guest_lean": null,
+    "pool_guest_resort": null,
+    "pool_guest_swimsuit": null,
+    "pool_guest_swimshorts": null
+   }
+  },
+  "uniformHides": {
+   "guard": [
+    "Hair"
+   ],
+   "chef": [
+    "Hair"
+   ],
+   "delivery": [
+    "Hair"
+   ],
+   "fisher": [
+    "Hair"
+   ],
+   "driver": [
+    "Hair"
+   ],
+   "bodyguard": [
+    "Glasses"
+   ]
+  },
+  "items": {
+   "wire": {
+    "legality": "illegal",
+    "concealable": true,
+    "friskDetect": false
+   },
+   "coin": {
+    "legality": "normal",
+    "concealable": true
+   },
+   "poison_lethal": {
+    "legality": "illegal",
+    "concealable": true,
+    "friskDetect": true
+   },
+   "cellar_key": {
+    "legality": "normal",
+    "concealable": true
+   },
+   "pistol_silenced": {
+    "legality": "illegal",
+    "concealable": true,
+    "friskDetect": true
+   },
+   "pistol_guard": {
+    "legality": "illegal",
+    "concealable": true,
+    "friskDetect": true
+   },
+   "smg": {
+    "legality": "illegal",
+    "concealable": false,
+    "friskDetect": true
+   },
+   "keycard": {
+    "legality": "normal",
+    "concealable": true
+   }
+  },
+  "compromisedClearDistance": 30
+ },
+ "schedule": {
+  "loop": 1800,
+  "indoorTimeout": 30,
+  "outdoorTimeout": 60,
+  "arrival": 0.4,
+  "fastForward": 4,
+  "movementSpeed": 2.6
+ },
+ "dialogue": {
+  "indoorRadius": 4,
+  "outdoorRadius": 3,
+  "repeat": 90,
+  "lineSeconds": 3.6,
+  "speakerRadius": 4.5
+ },
+ "m53": {
+  "poisonDoses": 1,
+  "interactRadius": 1.6,
+  "talkSeconds": 3,
+  "poisonSeconds": 4,
+  "serveSeconds": 2,
+  "inviteSeconds": 2,
+  "pushSeconds": 1.2,
+  "pushDistance": 1.2,
+  "pushBackAngle": 60,
+  "edgeRadius": 1.15,
+  "cordonRadius": 3,
+  "cordonSeconds": 60,
+  "reactionRadius": 12,
+  "privateRadius": 2,
+  "facingRate": 4,
+  "tastingWindow": [
+   1140,
+   1440
+  ],
+  "heldIllegal": false,
+  "fallSeconds": 1.2,
+  "scriptedGraceSeconds": 6
+ },
+ "render": {
+  "npcShadowCullRadius": 3,
+  "npcOcclusionMargin": 0.15
+ },
+ "controls": {
+  "restartHoldSeconds": 1.5
+ }
+}

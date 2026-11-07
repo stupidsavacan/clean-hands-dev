@@ -1,0 +1,53 @@
+{
+ "_note": "5.7からターゲット3人。starts は S1 だけ開放（他は熟練度でM6）。",
+ "title": "貸し切りの夜",
+ "targets": [
+  "investor"
+ ],
+ "briefing": [
+  {
+   "id": "investor",
+   "label": "投資家",
+   "text": "ファンドの成功を祝う今夜の主役。投資家を排除して脱出する。"
+  }
+ ],
+ "tools": [
+  {
+   "id": "coin",
+   "label": "コイン",
+   "note": "3枚"
+  },
+  {
+   "id": "poison_lethal",
+   "label": "毒",
+   "note": "検査を通る"
+  }
+ ],
+ "toolSlots": 2,
+ "fixedTools": [
+  {
+   "id": "wire",
+   "label": "ワイヤー",
+   "note": "検査を通る"
+  }
+ ],
+ "pistols": [
+  {
+   "id": "",
+   "label": "持ち込まない"
+  },
+  {
+   "id": "pistol_silenced",
+   "label": "消音ピストル",
+   "note": "入口の検査で止められる"
+  }
+ ],
+ "starts": [
+  {
+   "id": "S1",
+   "label": "表通り",
+   "open": true,
+   "note": "建物と光を確かめる"
+  }
+ ]
+}

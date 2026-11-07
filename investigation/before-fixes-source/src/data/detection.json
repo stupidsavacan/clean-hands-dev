@@ -1,0 +1,48 @@
+{
+ "_note": "M5実装ガイド「見つかる仕組みの追加」(5.6)。items は持ち物の分類（illegal 違法／suspicious 疑わしい／normal 普通、allowedFor の変装なら疑わしい物を持っていてよい）。バーテンダーとソムリエの服はゲームでは waiter／sommelier、港湾係は fisher、搬入業者は delivery、客は suit。ビーチバー店員の服(beachbar)は5.7で追加するので、その溶け込み場所はまだ使えない。worldItems は落ちている疑わしい物、blend は BLEND_ の場所、recorder は警備室の録画機。",
+ "items": {
+  "pistol_silenced": { "label": "消音ピストル", "legality": "illegal", "concealable": true },
+  "pistol_guard": { "label": "警備の拳銃", "legality": "illegal", "concealable": true },
+  "smg": { "label": "短機関銃", "legality": "illegal", "concealable": false, "allowedFor": ["guard", "bodyguard"] },
+  "poison_lethal": { "label": "致死毒", "legality": "illegal", "concealable": true },
+  "lockpick": { "label": "鍵開け具", "legality": "illegal", "concealable": true },
+  "wire": { "label": "ワイヤー", "legality": "illegal", "concealable": true },
+  "wrench": { "label": "スパナ", "legality": "suspicious", "concealable": false, "allowedFor": ["cleaner", "delivery", "fisher"] },
+  "bottle": { "label": "ワインボトル", "legality": "suspicious", "concealable": false, "allowedFor": ["waiter", "sommelier"] },
+  "mop": { "label": "モップ", "legality": "suspicious", "concealable": false, "allowedFor": ["cleaner"] },
+  "camera": { "label": "カメラ", "legality": "suspicious", "concealable": false, "allowedFor": ["suit"] },
+  "coin": { "label": "コイン", "legality": "normal", "concealable": true },
+  "keycard": { "label": "カードキー", "legality": "normal", "concealable": true },
+  "cellar_key": { "label": "セラーの鍵", "legality": "normal", "concealable": true },
+  "tray": { "label": "トレイ", "legality": "normal", "concealable": false }
+ },
+ "worldItems": [
+  { "id": "wrench-dock", "item": "wrench", "x": -47, "z": -13, "floor": 0 },
+  { "id": "wrench-laundry", "item": "wrench", "x": -30, "z": 6, "floor": 0 },
+  { "id": "bottle-bar", "item": "bottle", "x": 27, "z": -17.5, "floor": 0 },
+  { "id": "mop-service", "item": "mop", "x": -15, "z": 12, "floor": 0 },
+  { "id": "camera-terrace", "item": "camera", "x": 37, "z": 11, "floor": 0 }
+ ],
+ "blend": [
+  { "id": "BLEND_waiter_lobby", "label": "給仕する", "disguises": ["waiter"], "action": "serve", "x": 1, "z": -6, "floor": 0, "heading": 3.14 },
+  { "id": "BLEND_waiter_banquet", "label": "給仕する", "disguises": ["waiter"], "action": "serve", "x": -10, "z": -10, "floor": 1, "heading": 0 },
+  { "id": "BLEND_waiter_terrace", "label": "給仕する", "disguises": ["waiter"], "action": "serve", "x": 28, "z": 4, "floor": 0, "heading": 3.14 },
+  { "id": "BLEND_bar_glass_1", "label": "グラスを拭く", "disguises": ["waiter", "sommelier"], "action": "work", "x": 17.6, "z": -13.5, "floor": 0, "heading": 1.57 },
+  { "id": "BLEND_bar_glass_2", "label": "グラスを拭く", "disguises": ["waiter", "sommelier"], "action": "work", "x": 17.6, "z": -8.5, "floor": 0, "heading": 1.57 },
+  { "id": "BLEND_sweep_lobby", "label": "床を掃く", "disguises": ["cleaner"], "action": "clean", "x": 6, "z": -16, "floor": 0, "heading": 0 },
+  { "id": "BLEND_sweep_corridor", "label": "床を掃く", "disguises": ["cleaner"], "action": "clean", "x": -2, "z": -16, "floor": 1, "heading": 1.57 },
+  { "id": "BLEND_sweep_service", "label": "床を掃く", "disguises": ["cleaner"], "action": "clean", "x": -17, "z": 8, "floor": 0, "heading": 0 },
+  { "id": "BLEND_chef_1", "label": "野菜を切る", "disguises": ["chef"], "action": "cook", "x": -22, "z": -12.4, "floor": 0, "heading": 0 },
+  { "id": "BLEND_chef_2", "label": "野菜を切る", "disguises": ["chef"], "action": "cook", "x": -26, "z": -14.1, "floor": 0, "heading": 3.14 },
+  { "id": "BLEND_guard_lobby", "label": "見張りに立つ", "disguises": ["guard"], "action": "guard", "x": 5.2, "z": -2.6, "floor": 0, "heading": 3.14 },
+  { "id": "BLEND_guard_parking", "label": "見張りに立つ", "disguises": ["guard"], "action": "guard", "x": -20, "z": -30, "floor": 0, "heading": 3.14 },
+  { "id": "BLEND_rope_1", "label": "ロープを巻く", "disguises": ["fisher"], "action": "work", "x": 6, "z": 27.5, "floor": 0, "heading": 0 },
+  { "id": "BLEND_rope_2", "label": "ロープを巻く", "disguises": ["fisher"], "action": "work", "x": 20, "z": 28.2, "floor": 0, "heading": 0 },
+  { "id": "BLEND_beachbar", "label": "カウンターに立つ", "disguises": ["beachbar"], "action": "serve", "x": 55, "z": -13, "floor": 0, "heading": 0 }
+ ],
+ "recorder": { "x": 42.3, "z": -14, "floor": 0, "eraseSeconds": 3, "breakSeconds": 1.5, "noise": 12 },
+ "monitor": { "id": "monitor_watcher", "radio": 35, "reportEvery": 10 },
+ "witness": { "reach": 1.8 },
+ "cameraTick": 0.2,
+ "useRadius": 1.3
+}

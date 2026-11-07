@@ -1,0 +1,169 @@
+import type { MotionPose } from './motion';
+/** M5.5 gunplay motions on the shared 22-bone rig (character rest axes, XYZ radians; +X is the character's left,
+ * +Y up, +Z forward). Each frame carries a body pose and where the weapon is, in the actor's own space; the runtime
+ * places the weapon there and brings the hands onto it with IK, so the grip holds for every body preset.
+ * Upper-only frames (aim, fire, reload, flee) are layered over the walk/run from Locomotion; the rest are full-body.
+ * Weapon classes: 'pistol' (pistol_guard, pistol_silenced) and 'long' (smg, rifle_npc, placed by their STOCK anchor).
+ */
+export type WeaponClass='pistol'|'long';
+export type CombatKind='draw'|'holster'|'aim'|'fire'|'reload'|'hit'|'cover'|'coverAim'|'flee'|'duck';
+type Angles=[number,number,number];
+type Bones=Record<string,Angles>;
+/** Weapon placement: the named anchor sits at pos; rot is the weapon's XYZ euler (x + tips the muzzle down, y + turns it to the left). */
+export type Hold={anchor:'GRIP_R'|'STOCK';pos:Angles;rot:Angles};
+/** Hand goals. GRIP_R/GRIP_L/MAG/SLIDE are points on the weapon; POUCH is the magazine pouch on the left hip. */
+export type HandGoal='GRIP_R'|'GRIP_L'|'MAG'|'SLIDE'|'POUCH';
+export type CombatFrame={pose:MotionPose;upperOnly:boolean;weapon:Hold|null;right:{to:HandGoal;weight:number};left:{to:HandGoal;weight:number}};
+export const COMBAT_SECONDS:Record<CombatKind,number>={draw:.7,holster:.7,aim:3,fire:.25,reload:1.8,hit:.6,cover:3,coverAim:.5,flee:.8,duck:1.2};
+/** Kinds that are loops (sampled with t wrapping) rather than one-shots. */
+export const COMBAT_LOOPS:CombatKind[]=['aim','cover','flee'];
+export const POUCH:Angles=[.17,.97,.06];
+export const UPPER=['chest','neck','head','claviclel','clavicler','upperarml','upperarmr','forearml','forearmr','handl','handr','thumbl','thumbr'];
+const CHANNELS=['root','pelvis','spine','chest','neck','head','claviclel','clavicler','upperarml','upperarmr','forearml','forearmr','handl','handr','thighl','thighr','shinl','shinr','footl','footr','thumbl','thumbr'];
+const clamp=(v:number)=>Number.isFinite(v)?Math.max(0,Math.min(1,v)):0;
+const smooth=(t:number)=>t*t*(3-2*t);
+const mix=(a:number,b:number,t:number)=>a+(b-a)*t;
+const mix3=(a:Angles,b:Angles,t:number):Angles=>[mix(a[0],b[0],t),mix(a[1],b[1],t),mix(a[2],b[2],t)];
+
+type Key={t:number;root?:Partial<MotionPose['root']>;bones?:Bones;hold?:Hold|null;r?:[HandGoal,number];l?:[HandGoal,number]};
+function neutral():MotionPose{const bones:Bones={};for(const n of CHANNELS)bones[n]=[0,0,0];bones.upperarml=[-.05,0,-1.45];bones.upperarmr=[-.05,0,1.45];bones.forearml=[0,-.24,0];bones.forearmr=[0,.24,0];return {root:{x:0,y:0,z:0,pitch:0,roll:0},bones};}
+function poseOf(k:Key):MotionPose{const p=neutral();Object.assign(p.root,k.root??{});for(const [n,v] of Object.entries(k.bones??{}))p.bones[n]=[...v];return p;}
+function sample(keys:Key[],t:number,upperOnly:boolean):CombatFrame{
+ let a=keys[0],b=keys[0];for(let i=1;i<keys.length;i++){a=keys[i-1];b=keys[i];if(t<=b.t)break;}
+ const u=t<=a.t?0:t>=b.t?1:smooth(clamp((t-a.t)/(b.t-a.t))),pa=poseOf(a),pb=poseOf(b),pose=neutral();
+ for(const k of Object.keys(pose.root) as (keyof MotionPose['root'])[])pose.root[k]=mix(pa.root[k],pb.root[k],u);
+ for(const n of CHANNELS)pose.bones[n]=mix3(pa.bones[n],pb.bones[n],u);
+ const ha=a.hold??null,hb=b.hold??null;
+ // A weapon only ever blends between two holds on the same anchor; otherwise it switches at the key.
+ const weapon=ha&&hb&&ha.anchor===hb.anchor?{anchor:ha.anchor,pos:mix3(ha.pos,hb.pos,u),rot:mix3(ha.rot,hb.rot,u)}:(u<.5?ha:hb);
+ const hand=(x?:[HandGoal,number],y?:[HandGoal,number])=>{const p=x??['GRIP_R',0],q=y??['GRIP_R',0];
+  // Changing goal: the weight dips through zero so the hand never slides along the weapon between two points.
+  if(p[0]===q[0])return {to:p[0],weight:mix(p[1],q[1],u)};return u<.5?{to:p[0],weight:p[1]*(1-2*u)}:{to:q[0],weight:q[1]*(2*u-1)};};
+ return {pose,upperOnly,weapon,right:hand(a.r??['GRIP_R',0],b.r??['GRIP_R',0]),left:hand(a.l??['GRIP_L',0],b.l??['GRIP_L',0])};
+}
+
+// ---------- holds ----------
+const HOLD={
+ pistol:{
+  holster:{anchor:'GRIP_R',pos:[-.215,.985,-.03],rot:[Math.PI/2,0,0]} as Hold,
+  lift:{anchor:'GRIP_R',pos:[-.19,1.16,.16],rot:[.55,.15,0]} as Hold,
+  aim:{anchor:'GRIP_R',pos:[-.035,1.38,.43],rot:[0,.04,0]} as Hold,
+  recoil:{anchor:'GRIP_R',pos:[-.035,1.40,.40],rot:[-.38,.04,0]} as Hold,
+  reload:{anchor:'GRIP_R',pos:[-.05,1.24,.33],rot:[-.25,.35,-.35]} as Hold,
+  ready:{anchor:'GRIP_R',pos:[-.06,1.06,.34],rot:[.75,.1,0]} as Hold,
+ },
+ long:{
+  low:{anchor:'STOCK',pos:[-.09,1.31,.05],rot:[.55,.28,0]} as Hold,
+  aim:{anchor:'STOCK',pos:[-.12,1.41,.07],rot:[0,0,0]} as Hold,
+  recoil:{anchor:'STOCK',pos:[-.12,1.43,.045],rot:[-.10,0,0]} as Hold,
+  reload:{anchor:'STOCK',pos:[-.15,1.22,.02],rot:[-.12,.30,-.55]} as Hold,
+ },
+};
+// ---------- upper bodies (layered over the legs) ----------
+// Arms are only roughly placed (elbows down and out); IK brings the hands onto the weapon.
+const PISTOL_AIM:Bones={chest:[.02,-.08,0],neck:[.06,.05,0],head:[.10,.04,0],clavicler:[0,.12,0],claviclel:[0,-.08,0],upperarmr:[-1.30,0,.55],upperarml:[-1.25,0,-.30],forearmr:[0,.25,0],forearml:[0,-.85,0]};
+const LONG_AIM:Bones={chest:[.04,-.48,0],neck:[.10,.25,0],head:[.12,.22,.06],clavicler:[0,.15,-.10],claviclel:[0,-.15,0],upperarmr:[-.30,0,.55],upperarml:[-.95,0,-1.05],forearmr:[0,1.75,0],forearml:[0,-.95,0]};
+const HANG:Bones={};
+const REACH_HIP:Bones={chest:[.03,.06,0],upperarmr:[.20,0,1.20],forearmr:[0,1.0,0]};
+const LONG_LOW:Bones={chest:[.03,-.30,0],neck:[.02,.14,0],head:[.04,.12,0],upperarmr:[-.10,0,1.0],upperarml:[-.85,0,-1.0],forearmr:[0,1.55,0],forearml:[0,-1.20,0]};
+
+function draw(cls:WeaponClass,t:number):CombatFrame{
+ if(cls==='pistol'){const h=HOLD.pistol;return sample([
+  {t:0,bones:HANG,hold:h.holster,r:['GRIP_R',0]},
+  {t:.30,bones:REACH_HIP,hold:h.holster,r:['GRIP_R',1]},
+  {t:.55,bones:{...PISTOL_AIM,upperarmr:[-.55,0,.95],forearmr:[0,1.0,0],upperarml:[-.40,0,-1.1]},hold:h.lift,r:['GRIP_R',1],l:['GRIP_L',0]},
+  {t:.82,bones:PISTOL_AIM,hold:h.aim,r:['GRIP_R',1],l:['GRIP_L',1]},
+  {t:1,bones:PISTOL_AIM,hold:h.aim,r:['GRIP_R',1],l:['GRIP_L',1]}],t,true);}
+ const h=HOLD.long;return sample([
+  {t:0,bones:LONG_LOW,hold:h.low,r:['GRIP_R',1],l:['GRIP_L',1]},
+  {t:.75,bones:LONG_AIM,hold:h.aim,r:['GRIP_R',1],l:['GRIP_L',1]},
+  {t:1,bones:LONG_AIM,hold:h.aim,r:['GRIP_R',1],l:['GRIP_L',1]}],t,true);
+}
+function aimLoop(cls:WeaponClass,t:number):CombatFrame{
+ // Breathing: the sights drift a few millimetres on a 3 s cycle; loops exactly at t = 0/1.
+ const f=draw(cls,1),w=Math.sin(t*Math.PI*2),v=Math.sin(t*Math.PI*4)*.5;
+ if(f.weapon){f.weapon={...f.weapon,pos:[f.weapon.pos[0]+.004*v,f.weapon.pos[1]+.006*w,f.weapon.pos[2]],rot:[f.weapon.rot[0]-.012*w,f.weapon.rot[1]+.008*v,f.weapon.rot[2]]};}
+ f.pose.bones.chest=[f.pose.bones.chest[0]+.012*w,f.pose.bones.chest[1],f.pose.bones.chest[2]];return f;
+}
+function fire(cls:WeaponClass,t:number):CombatFrame{
+ const h=HOLD[cls],aim=cls==='pistol'?PISTOL_AIM:LONG_AIM,kick={...aim,chest:[aim.chest[0]-.05,aim.chest[1],0] as Angles,head:[aim.head[0]-.04,aim.head[1],aim.head[2]] as Angles};
+ return sample([{t:0,bones:aim,hold:h.aim,r:['GRIP_R',1],l:['GRIP_L',1]},{t:.18,bones:kick,hold:h.recoil,r:['GRIP_R',1],l:['GRIP_L',1]},{t:1,bones:aim,hold:h.aim,r:['GRIP_R',1],l:['GRIP_L',1]}],t,true);
+}
+function reload(cls:WeaponClass,t:number):CombatFrame{
+ const h=HOLD[cls],aim=cls==='pistol'?PISTOL_AIM:LONG_AIM,look={...aim,neck:[.30,aim.neck[1]*.5,0] as Angles,head:[.25,aim.head[1]*.5,0] as Angles,chest:[.10,aim.chest[1]*.7,0] as Angles};
+ const pouch={...look,upperarml:[-.20,0,-1.15] as Angles,forearml:[0,-1.2,0] as Angles,chest:[.10,aim.chest[1]*.7-.10,0] as Angles};
+ return sample([
+  {t:0,bones:aim,hold:h.aim,r:['GRIP_R',1],l:['GRIP_L',1]},
+  {t:.12,bones:look,hold:h.reload,r:['GRIP_R',1],l:['MAG',1]},
+  {t:.22,bones:look,hold:h.reload,r:['GRIP_R',1],l:['MAG',1]},
+  {t:.40,bones:pouch,hold:h.reload,r:['GRIP_R',1],l:['POUCH',1]},
+  {t:.48,bones:pouch,hold:h.reload,r:['GRIP_R',1],l:['POUCH',1]},
+  {t:.64,bones:look,hold:h.reload,r:['GRIP_R',1],l:['MAG',1]},
+  {t:.72,bones:look,hold:h.reload,r:['GRIP_R',1],l:['MAG',1]},
+  {t:.82,bones:look,hold:h.reload,r:['GRIP_R',1],l:['SLIDE',1]},
+  {t:.88,bones:look,hold:{...h.reload,pos:[h.reload.pos[0],h.reload.pos[1],h.reload.pos[2]+.03]},r:['GRIP_R',1],l:['SLIDE',1]},
+  {t:1,bones:aim,hold:h.aim,r:['GRIP_R',1],l:['GRIP_L',1]}],t,true);
+}
+// ---------- full body ----------
+function hit(cls:WeaponClass,t:number):CombatFrame{
+ const h=HOLD[cls],aim=cls==='pistol'?PISTOL_AIM:LONG_AIM;
+ const jolt:Bones={...aim,spine:[-.11,.08,0],chest:[-.14,aim.chest[1]+.18,.05],neck:[-.05,0,0],head:[-.13,-.08,0],thighl:[.10,0,-.08],thighr:[-.22,0,.08],shinl:[.30,0,0],shinr:[.42,0,0],footl:[-.30,0,0],footr:[-.20,0,0]};
+  // The weapon goes back with the body (root z) so the arms keep their reach.
+ const shifted=(dx:number,dy:number,dz:number,rx:number,ry:number):Hold=>({...h.aim,pos:[h.aim.pos[0]+dx,h.aim.pos[1]+dy,h.aim.pos[2]+dz],rot:[h.aim.rot[0]+rx,h.aim.rot[1]+ry,h.aim.rot[2]]});
+ return sample([
+  {t:0,bones:aim,hold:h.aim,r:['GRIP_R',1],l:['GRIP_L',1]},
+  {t:.22,root:{y:-.05,z:-.07,pitch:-.03},bones:jolt,hold:shifted(.05,.03,-.14,-.32,.24),r:['GRIP_R',1],l:['GRIP_L',.35]},
+  {t:.55,root:{y:-.06,z:-.10,pitch:-.02},bones:{...jolt,chest:[-.08,aim.chest[1]+.10,.02],head:[-.06,-.04,0]},hold:shifted(.02,-.02,-.12,-.12,.10),r:['GRIP_R',1],l:['GRIP_L',.8]},
+  {t:1,bones:aim,hold:h.aim,r:['GRIP_R',1],l:['GRIP_L',1]}],t,false);
+}
+// Kneeling behind low cover (~1 m): right knee down, left foot planted, weapon at the chest ready to come up.
+const KNEEL:Bones={pelvis:[-.05,0,0],thighl:[-1.45,0,-.10],shinl:[1.55,0,0],footl:[-.10,0,0],thighr:[-.20,0,.12],shinr:[2.10,0,0],footr:[1.00,0,0],spine:[.28,0,0],neck:[-.18,0,0],head:[-.12,0,0]};
+const KNEEL_ROOT={y:-.43,z:-.02};
+function cover(cls:WeaponClass,t:number):CombatFrame{
+ const w=Math.sin(t*Math.PI*2),root={...KNEEL_ROOT,y:KNEEL_ROOT.y+.006*w};
+ if(cls==='pistol'){const hold:Hold={anchor:'GRIP_R',pos:[-.05,.80,.28],rot:[-.95,.15,0]};
+  return sample([{t:0,root,bones:{...KNEEL,chest:[.05+.01*w,-.05,0],upperarmr:[-.70,0,.90],forearmr:[0,1.6,0],upperarml:[-.70,0,-.90],forearml:[0,-1.5,0]},hold,r:['GRIP_R',1],l:['GRIP_L',1]}],0,false);}
+ const hold:Hold={anchor:'STOCK',pos:[-.12,.82,.08],rot:[-.95,.35,0]};
+ return sample([{t:0,root,bones:{...KNEEL,chest:[.05+.01*w,-.20,0],upperarmr:[-.20,0,1.0],forearmr:[0,1.6,0],upperarml:[-.80,0,-.80],forearml:[0,-1.2,0]},hold,r:['GRIP_R',1],l:['GRIP_L',1]}],0,false);
+}
+// Rising from the kneel to aim over the cover top: the legs half-straighten, the upper body is the normal aim.
+function coverAim(cls:WeaponClass,t:number):CombatFrame{
+ const start=cover(cls,0),h=HOLD[cls],aim=cls==='pistol'?PISTOL_AIM:LONG_AIM,lift=-.12;
+ const up:Hold={...h.aim,pos:[h.aim.pos[0],h.aim.pos[1]+lift,h.aim.pos[2]]};
+ const legs:Bones={pelvis:[-.02,0,0],thighl:[-.62,0,-.10],shinl:[.60,0,0],footl:[.02,0,0],thighr:[.10,0,.10],shinr:[.55,0,0],footr:[-.30,0,0],spine:[.06,0,0]};
+ return sample([{t:0,root:start.pose.root,bones:start.pose.bones as Bones,hold:start.weapon,r:['GRIP_R',1],l:['GRIP_L',1]},{t:1,root:{y:lift,z:-.01},bones:{...legs,...aim},hold:up,r:['GRIP_R',1],l:['GRIP_L',1]}],t,false);
+}
+// ---------- bystanders (no weapon) ----------
+function flee(t:number):CombatFrame{
+ // Over the run: hunched, upper arms raised in front so both forearms fold back over the head, a small shake out of step with the legs.
+ const s=Math.sin(t*Math.PI*2);
+ return sample([{t:0,bones:{chest:[.22,.04*s,0],neck:[.20,0,0],head:[.18,.05*s,0],upperarml:[-2.45,0,-1.62],upperarmr:[-2.45,0,1.62],forearml:[0,-2.05,0],forearmr:[0,2.05,0],handl:[0,0,.2],handr:[0,0,-.2]}}],0,true);
+}
+function duck(t:number):CombatFrame{
+ // Drop to a crouch and cover the head (first third), then hold with a tremble.
+ const u=Math.min(1,t*3),shake=t>.34?Math.sin(t*Math.PI*14)*.015:0;
+ const down:Bones={pelvis:[-.10,0,0],thighl:[-1.70,0,-.22],thighr:[-1.70,0,.22],shinl:[2.30,0,0],shinr:[2.30,0,0],footl:[-.60,0,0],footr:[-.60,0,0],spine:[.40,0,0],chest:[.22+shake,0,0],neck:[.05,0,0],head:[.15,0,0],upperarml:[-2.25,0,-1.78],upperarmr:[-2.25,0,1.78],forearml:[0,-2.60,0],forearmr:[0,2.60,0]};
+ return sample([{t:0,bones:{}},{t:1,root:{y:-.47,z:.02,pitch:0},bones:down}],u,false);
+}
+
+export function sampleCombat(kind:CombatKind,cls:WeaponClass,progress:number):CombatFrame{
+ const loop=COMBAT_LOOPS.includes(kind),t=loop?((progress%1)+1)%1:clamp(progress);
+ switch(kind){
+  case 'draw':return draw(cls,t);
+  case 'holster':return draw(cls,1-t);
+  case 'aim':return aimLoop(cls,t);
+  case 'fire':return fire(cls,t);
+  case 'reload':return reload(cls,t);
+  case 'hit':return hit(cls,t);
+  case 'cover':return cover(cls,t);
+  case 'coverAim':return coverAim(cls,t);
+  case 'flee':return flee(t);
+  case 'duck':return duck(t);
+ }
+}
+/** The holstered pistol is concealed under the jacket; the guard's own pistol is worn openly. */
+export function weaponVisible(kind:CombatKind,cls:WeaponClass,progress:number,concealed:boolean){
+ if(kind==='flee'||kind==='duck')return false;
+ if(!concealed||cls!=='pistol')return true;
+ const t=clamp(progress);return kind==='draw'?t>.30:kind==='holster'?t<.70:true;
+}

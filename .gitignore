@@ -1,0 +1,20 @@
+# Dependencies (app/node_modules is a link to the m1 prototype's folder)
+node_modules
+# Build folders (vite)
+app/dist/
+app/dist-*/
+# Pages rebuilt by `npm run build:all` (each is ~7 MB with the models inside); make them again after a checkout.
+/index.html
+/party-prototype.html
+/club-prototype.html
+/clean-hands-mobile.html
+/ai-lab.html
+/animation-lab.html
+/item-lab.html
+/ui-lab.html
+# Python caches
+__pycache__/
+*.pyc
+# Editors and OS
+.DS_Store
+Thumbs.db
