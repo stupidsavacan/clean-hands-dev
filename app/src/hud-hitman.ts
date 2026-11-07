@@ -63,7 +63,8 @@ export class HitmanHud{
   this.text('SUSPICION',tx,by,8.5,DIM,{font:LATIN,spacing:2});this.text(s.who,tx+bw,by,10.5,v>0?PAPER:DIM,{align:'right'});
   c.fillStyle='rgba(243,239,230,.12)';c.fillRect(tx,by+5,bw,6);if(v>0){c.fillStyle=s.suspicionColor;c.fillRect(tx,by+5,bw*v,6);}for(const t of [.3,.6]){c.fillStyle='rgba(11,15,18,.8)';c.fillRect(tx+bw*t-1,by+4,2,8);}
   if(s.health!==undefined){const hy=by+26,hv=Math.max(0,Math.min(1,s.health));this.text('HEALTH',tx,hy,8.5,DIM,{font:LATIN,spacing:2});c.fillStyle='rgba(243,239,230,.12)';c.fillRect(tx,hy+5,bw,4);c.fillStyle=hv<.35?RED:PAPER;c.fillRect(tx,hy+5,bw*hv,4);}
-  if(s.ghost){const gx=x+S-14,gy=y+14,col=s.ghost==='ok'?PAPER:s.ghost==='erase'?AMBER:RED;c.save();c.translate(gx,gy);c.rotate(Math.PI/4);c.lineWidth=2;c.strokeStyle=col;c.strokeRect(-6,-6,12,12);if(s.ghost==='ok'){c.fillStyle=col;c.fillRect(-3,-3,6,6);}c.restore();
+  // 2026-11-08: above the map's top-right corner, so the label never lies over the map lines (UI lab finding).
+  if(s.ghost){const gx=x+S-8,gy=y-14,col=s.ghost==='ok'?PAPER:s.ghost==='erase'?AMBER:RED;c.save();c.translate(gx,gy);c.rotate(Math.PI/4);c.lineWidth=2;c.strokeStyle=col;c.strokeRect(-6,-6,12,12);if(s.ghost==='ok'){c.fillStyle=col;c.fillRect(-3,-3,6,6);}c.restore();
    this.text(s.ghost==='ok'?'GHOST':s.ghost==='erase'?'GHOST · 録画を消す':'GHOST ×',gx-14,gy+4,9,col,{font:LATIN,weight:700,align:'right',spacing:1});}
   if(s.coins&&!s.inventory)this.text(`G コイン ×${s.coins}`,tx,by+52,11,DIM);}
  // Bottom-right: what is in hand, on the back, in the case; the gun and its rounds sit above it (#combat-status).
@@ -75,7 +76,7 @@ export class HitmanHud{
   st.items.forEach((it,i)=>{const x=x0+i*(cw+gap),on=i===st.cursor;c.fillStyle=on?'rgba(243,239,230,.16)':'rgba(11,15,18,.78)';c.fillRect(x,y,cw,ch);c.strokeStyle=on?PAPER:'rgba(243,239,230,.2)';c.lineWidth=on?2:1;c.strokeRect(x+.5,y+.5,cw-1,ch-1);
    if(i===st.current){c.fillStyle=RED;c.fillRect(x,y+ch-3,cw,3);}this.text(String(i+1),x+7,y+15,10,DIM,{font:LATIN,weight:700});this.text(it.kind,x+cw-7,y+15,8.5,DIM,{font:LATIN,align:'right',spacing:1});
    let t=it.label;while(this.measure(t,13,600)>cw-14&&t.length>2)t=t.slice(0,-2)+'…';this.text(t,x+cw/2,y+40,13,on?PAPER:'rgba(243,239,230,.8)',{weight:600,align:'center'});});
-  this.text('ホイール・数字キーで選ぶ',this.w/2,y-10,10.5,DIM,{align:'center'});}
+  this.text(document.body.classList.contains('touch-enabled')?'持ち物ボタンで選ぶ':'ホイール・数字キーで選ぶ',this.w/2,y-10,10.5,DIM,{align:'center'});}
  // Around the centre of the screen: one mark per person getting suspicious, pointing their way and filling as they do.
  private watchers(s:HudState){const c=this.c,cx=this.w/2,cy=this.h/2,R=Math.min(this.w,this.h)*.13;for(const m of s.marks){if(m.pct<=1&&!m.hot)continue;const a=Math.atan2(m.y-cy,m.x-cx),k=Math.min(1,m.pct/100);
    c.save();c.translate(cx+Math.cos(a)*R,cy+Math.sin(a)*R);c.rotate(a);c.lineWidth=3;c.lineCap='round';c.strokeStyle='rgba(11,15,18,.55)';c.beginPath();c.moveTo(-6,-11);c.lineTo(4,0);c.lineTo(-6,11);c.stroke();

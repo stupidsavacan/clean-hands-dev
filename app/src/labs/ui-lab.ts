@@ -135,7 +135,7 @@ function runShell(){
 <div id="stage"><div id="frame-wrap"><iframe id="frame" title="画面"></iframe></div></div></main>
 <aside id="panel"><section><h2>この版の扱い</h2><p>ゲームは前の画面（作戦準備・一時停止・結果・HUD）のまま。ここの判定がすべて通り、課題が片づき、見た目も確かめられたら、ゲームをこの画面に切り替える。</p></section>
 <section><h2>決まり</h2><ul><li>銃は1丁まで。身につけて持ち込むか、持ち込みの場所に先に置くか。</li><li>持ち込みは、選んだ銃の置き場所（2丁目は置けない）。</li><li>道具 1・2 に同じ物は入らない。ワイヤーはいつも持つ。</li><li>PC と iPad 横で、はみ出さず、スクロールなしで「作戦開始」が見え、ボタンは 44px 以上。</li></ul></section>
-<section><h2>残っている課題</h2><ul><li>HUD：疑われている時、地図の上の「GHOST · 録画を消す」が地図の線に重なる。</li><li>HUD：iPad でも持ち物の列に「ホイール・数字キーで選ぶ」と出る（タッチの言い方にする）。</li><li>HUD：ゲームに入れる時、状況・体力・GHOST・持ち物の作り方を game.ts に戻す（docs/DEVELOPMENT.md）。</li><li>iPad の実機（タッチ）ではまだ見ていない。</li></ul></section>
+<section><h2>残っている課題</h2><ul><li>済み（11/8）：GHOST の表示を地図の上の外に出した。iPad では「持ち物ボタンで選ぶ」と出す。</li><li>ゲームに入れる時：操作の表（controls.ts）に持ち物の列のキーとタッチの「持ち物」ボタンを戻す。</li><li>HUD：ゲームに入れる時、状況・体力・GHOST・持ち物の作り方を game.ts に戻す（docs/DEVELOPMENT.md）。</li><li>iPad の実機（タッチ）ではまだ見ていない。</li></ul></section>
 <section><h2>今の装備</h2><pre id="loadout">—</pre></section>
 <section><h2>自動判定</h2><button id="run">すべて判定（4画面 × 2サイズ）</button><div id="summary"></div><div id="results"></div></section></aside></div>`;
  const style=document.createElement('style');style.textContent=`html,body,#app{overflow:hidden}#lab{display:grid;grid-template-columns:1fr 380px;height:100vh}
