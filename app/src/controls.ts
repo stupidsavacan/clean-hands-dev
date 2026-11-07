@@ -31,7 +31,7 @@ export const CONTROLS:Control[]=[
  {id:'tools',code:'more',label:'道具の列を開く（タッチだけ）',owner:'game',touch:{group:'toggle',label:'道具',sub:'TOOLS',kind:'tap'}},
  // Actions (the right-thumb ring)
  {id:'use',code:'KeyE',label:'使う・拾う・運ぶ・はしご・隠れる',owner:'game',shared:true,touch:{group:'tool',label:'使う・拾う',sub:'USE / PICK UP',kind:'hold',at:5.5},note:'タッチの大きな丸ボタンも E（銃を構えている時は撃つ）'},
- {id:'subdue',code:'KeyF',label:'気絶させる・格闘・鈍器で殴る',owner:'m3',touch:{group:'action',label:'気絶・格闘',sub:'SUBDUE · FIGHT',kind:'hold'}},
+ {id:'subdue',code:'KeyF',label:'気絶させる・格闘・鈍器で殴る・投降する（ふり、M06）',owner:'m3',touch:{group:'action',label:'気絶・格闘',sub:'SUBDUE · FIGHT',kind:'hold'}},
  {id:'lethal',code:'KeyX',label:'排除・刺す・とどめ・格闘の2打目',owner:'m3',touch:{group:'action',label:'排除',sub:'LETHAL',kind:'hold'}},
  {id:'disguise',code:'KeyT',label:'着替える',owner:'m4',touch:{group:'action',label:'着替え',sub:'DISGUISE',kind:'hold'}},
  // Tools (the chip row)

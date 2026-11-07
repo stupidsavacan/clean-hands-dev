@@ -11,7 +11,9 @@ export type Action={id:number;kind:'ko'|'kill'|'hide';npc:Npc;elapsed:number;dur
  // a finishing blow to someone out cold.
  mode?:'punch'|'brawl'|'finish';stage?:number;stageAt?:number;hitAt?:number;
  // Struck from behind (M15) rather than from the front (M14): a sword stabs instead of cutting.
- behind?:boolean};
+ behind?:boolean;
+ // M06: the fight that follows a fake surrender (its failure is an arrest, not a fight).
+ surrender?:boolean};
 const flat=(a:{x:number;z:number},b:{x:number;z:number})=>Math.hypot(a.x-b.x,a.z-b.z);
 export class HotelAlert{
  level=0;quiet=0;readonly reported=new Set<string>();
@@ -22,12 +24,19 @@ export class HotelAlert{
 // Simulation state is independent of meshes and render frame rate.
 // HD09: how many guards answer a body found, and what a floor of stairs counts as in metres when picking the nearest.
 export const BODY_BACKUP=2,BACKUP_FLOOR_M=8;
+// M06: how near a detaining guard must be to surrender to, and how near he comes before the counter starts (metres).
+export const SURRENDER_RANGE=6,SURRENDER_REACH=1.3;
 export class M3System{
  onAccidentFound?: (body:Npc,witness:Npc)=>void;
  // Every body's first discovery (unconscious or dead, accident or not), for scoring.
  onFound?: (body:Npc,witness:Npc)=>void;
  onReaction?: (n:Npc, reaction:string, reason:string, at:Position)=>void;
  action:Action|null=null;dragged:Npc|null=null;readonly hotel=new HotelAlert();
+ // M06 (2026-11-08; S03 M06, HITMAN's Fake Surrender): hands up before a guard who comes to arrest; once he is in reach
+ // the counter is the fight's keys (BRAWL_KEYS). Success knocks him out; a miss lets him make the arrest.
+ surrendering:{guard:Npc;at:number}|null=null;
+ /** The guard whose counter failed this step: the game ends the mission as caught (M06). */
+ failedCounter:Npc|null=null;
  // 2026-11-06: the thing in the agent's hand (DetectionSystem.held); a blunt one swings (F), a blade stabs (X), melee.ts.
  heldItem?: ()=>string;
  // ROADMAP H33 (2026-11-06): the agent hiding in a locker (it takes one of its places, like a body). A guard who saw
@@ -40,6 +49,8 @@ export class M3System{
  readonly director:Director;readonly hides:HideDef[];readonly rules:M3Rules;
  constructor(director:Director,hides:HideDef[],rules:M3Rules){this.director=director;this.hides=hides;this.rules=rules;for(const h of hides)this.slots.set(h.id,[]);}
  get locked(){return this.action!==null||!!this.hiddenIn;}
+ /** The guard coming to arrest the agent, in view and near enough to surrender to (M06). */
+ detainer(p:PlayerView){if(p.weaponDrawn)return undefined;return this.director.npcs.filter(n=>n.active&&!n.busy&&n.guard&&n.state==='alert'&&n.arrest&&n.visibility>0&&flat(n.pos,p)<=SURRENDER_RANGE&&Math.abs(n.pos.y-p.y)<1).sort((a,b)=>flat(a.pos,p)-flat(b.pos,p))[0];}
  get progress(){return this.action?this.action.elapsed/this.action.duration:0;}
  cancel(){if(this.action){this.action.npc.busy=false;this.action=null;}}
  canAttack(p:Position,n:Npc){if(!n.active||n.busy||n.state==='alert'||Math.abs(p.y-n.pos.y)>.35||flat(p,n.pos)>this.rules.distance)return false;
@@ -66,23 +77,29 @@ export class M3System{
  target(p:Position){return this.director.npcs.filter(n=>this.canAttack(p,n)).sort((a,b)=>flat(a.pos,p)-flat(b.pos,p))[0];}
  body(p:Position){return this.director.npcs.filter(n=>n.life!=='active'&&n.bodyMode==='ground'&&flat(p,n.pos)<1.3&&Math.abs(p.y-n.pos.y)<.35&&segmentClear(this.director.boxes,{...p,y:p.y+.5},{...n.pos,y:n.pos.y+.2})).sort((a,b)=>flat(a.pos,p)-flat(b.pos,p))[0];}
  container(p:Position){return this.hides.find(h=>Math.abs(p.y-h.y)<.35&&flat(p,{x:h.x+h.approach.x,z:h.z+h.approach.z})<this.rules.hideRadius&&segmentClear(this.director.boxes,{...p,y:p.y+.7},{x:h.x+h.approach.x,y:h.y+.7,z:h.z+h.approach.z}));}
- prompt(p:Position){if(this.hiddenIn)return `E ${this.hiddenIn.label}から出る · 隠れている`;const a=this.action;if(a){if(a.mode==='brawl')return a.stage!>=BRAWL_KEYS.length?'格闘：決まった…':`格闘中：${keyLabel(BRAWL_KEYS[a.stage!])} を押す（${a.stage!+1}/${BRAWL_KEYS.length}）`;if(a.mode==='finish')return 'X とどめを刺している…';if(a.mode==='punch')return 'F 殴っている…';
+ prompt(p:Position){if(this.hiddenIn)return `E ${this.hiddenIn.label}から出る · 隠れている`;if(this.surrendering)return `投降している（ふり） · ${this.surrendering.guard.label}が近づいたら反撃のキーが出る · 動くと手を下ろす`;const a=this.action;if(a){if(a.mode==='brawl')return a.stage!>=BRAWL_KEYS.length?(a.surrender?'反撃：決まった…':'格闘：決まった…'):`${a.surrender?'反撃':'格闘中'}：${keyLabel(BRAWL_KEYS[a.stage!])} を押す（${a.stage!+1}/${BRAWL_KEYS.length}）`;if(a.mode==='finish')return 'X とどめを刺している…';if(a.mode==='punch')return 'F 殴っている…';
    return `${a.kind==='ko'?'F 気絶させている'+(a.item?'':' · X で致死に切り替え'):a.kind==='kill'?'X 排除している':'E 隠している'}…`;}
   if(this.dragged){const h=this.container(p);return h?`E ${h.label}に隠す · ${this.slots.get(h.id)!.length}/${h.capacity}${this.slots.get(h.id)!.length>=h.capacity?' 満杯':''}`:'E 身体を置く · 運搬中（走行不可）';}
   const body=this.body(p);if(body)return `E ${body.life==='dead'?'死者':'気絶した人'}を運ぶ${body.life==='unconscious'?' ／ X 長押し とどめ（致死）':''}`;
   const m=meleeOf(this.heldItem?.()),mt=m&&this.meleeTarget(p,this.facing);if(m&&mt)return m.kind==='blunt'?`F ${m.label}で殴って気絶させる · ${mt.label}`:`X ${m.label}で${m.swing&&!this.fromBehind(p,mt)?'斬る':'刺す'}（致死） · ${mt.label}`;
+  {const g=this.detainer(p as PlayerView);if(g&&!this.dragged)return `F 投降する（ふりをして隙を待つ） · ${g.label}`;}
   const n=this.target(p);if(n)return `F 長押し 気絶 ／ X 長押し 排除（致死） · ${n.label}`;
   const f=this.frontTarget(p,this.facing);if(f)return f.guard?`F 格闘する（表示されたキーを順に押す） · ${f.label}`:`F 長押し 殴って気絶させる · ${f.label}`;
   const h=this.container(p);if(!h)return '';const used=this.slots.get(h.id)!.length;return used<h.capacity&&this.canHide?.()?`E ${h.label}に隠れる · ${used}/${h.capacity}`:`${h.label} · ${used}/${h.capacity}${used>=h.capacity?' 満杯':' · 身体を運んでくる'}`;}
- step(dt:number,p:PlayerView,heading:number,keys:Set<string>,suppressNewActions=false){this.elapsed+=dt;this.notices=[];const fresh=(k:string)=>!suppressNewActions&&keys.has(k)&&!this.held.has(k);let usesE=false;
+ step(dt:number,p:PlayerView,heading:number,keys:Set<string>,suppressNewActions=false){this.elapsed+=dt;this.notices=[];this.failedCounter=null;const fresh=(k:string)=>!suppressNewActions&&keys.has(k)&&!this.held.has(k);let usesE=false;
   const moving=['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].some(k=>keys.has(k));
-  if(this.action?.mode==='brawl')this.brawlStep(this.action,dt,p,fresh,moving);
+  if(this.surrendering){const s=this.surrendering,g=s.guard;
+   // Moving puts the hands down; a guard who stops arresting (gone, fighting, calm) ends it too.
+   if(moving||!g.active||g.busy||g.state!=='alert'||!g.arrest){this.surrendering=null;if(moving)this.notices.push('手を下ろした。');}
+   else if(flat(g.pos,p)<=SURRENDER_REACH&&Math.abs(g.pos.y-p.y)<1){this.surrendering=null;this.begin('ko',g,p,undefined,undefined,'brawl');this.action!.surrender=true;this.notices.push(`今だ！ ${keyLabel(BRAWL_KEYS[0])} → ${keyLabel(BRAWL_KEYS[1])} → ${keyLabel(BRAWL_KEYS[2])} の順に押す。`);}}
+  else if(this.action?.mode==='brawl')this.brawlStep(this.action,dt,p,fresh,moving);
   else if(this.action){const a=this.action;
    // M04: X while choking from behind with bare hands: the same hold, now lethal (as far along as the choke was).
    if(a.kind==='ko'&&!a.item&&!a.mode&&fresh('KeyX')){a.elapsed=a.elapsed/a.duration*this.rules.killSeconds;a.duration=this.rules.killSeconds;a.kind='kill';}
    const key=a.kind==='ko'?'KeyF':a.kind==='kill'?'KeyX':'KeyE';usesE=a.kind==='hide';
    if(!keys.has(key)||moving||flat(p,a.start)>.16||Math.abs(p.y-a.start.y)>.2||flat(a.npc.pos,a.targetStart)>.1||a.npc.active&&a.npc.state==='alert'||a.mode==='finish'&&a.npc.life!=='unconscious'||a.kind!=='hide'&&a.mode!=='finish'&&(!a.npc.active||Math.abs(a.npc.heading-a.targetHeading)>.15)){this.cancel();}
    else{a.elapsed+=dt;if(a.elapsed>=a.duration){this.complete(a);this.action=null;}}}
+  else if(fresh('KeyF')&&!this.dragged&&!moving&&this.detainer(p)){const g=this.detainer(p)!;this.surrendering={guard:g,at:this.elapsed};this.held.add('KeyF');this.notices.push(`両手を上げた（ふり）。${g.label}が近づくのを待つ。`);}
   else if(fresh('KeyE')&&this.hiddenIn){usesE=true;this.leaveHide();this.notices.push('外に出た。');}
   else if(fresh('KeyE')){if(this.dragged){usesE=true;const h=this.container(p);if(h){if(this.slots.get(h.id)!.length>=h.capacity)this.notices.push('ロッカーは満杯です。');else this.begin('hide',this.dragged,p,h);}else if(this.bodyFits(this.dragged.pos,this.dragged.heading)){this.dragged.bodyMode='ground';this.dragged=null;}else this.notices.push('ここには置けません。広い場所へ移動してください。');}
    else{const body=this.body(p);if(body){usesE=true;body.bodyMode='dragged';this.dragged=body;}else{const h=this.container(p);if(h&&this.slots.get(h.id)!.length<h.capacity&&this.canHide?.()){usesE=true;this.enterHide(h,p);}}}}
@@ -125,7 +142,9 @@ export class M3System{
  private brawlStep(a:Action,dt:number,p:PlayerView,fresh:(k:string)=>boolean,moving:boolean){a.elapsed+=dt;const need=BRAWL_KEYS[a.stage!],pressed=['KeyF','KeyX'].find(k=>fresh(k));
   if(!a.npc.active){this.cancel();return;}
   // The third blow lands, the guard sags, and only then is he out (the motion plays to the end).
-  if(a.stage===BRAWL_KEYS.length){if(a.elapsed-a.hitAt!>=BRAWL_FINISH){this.action=null;this.down(a.npc,'ko');this.notices.push('格闘で気絶させた。Eで運べます。');}return;}
+  if(a.stage===BRAWL_KEYS.length){if(a.elapsed-a.hitAt!>=BRAWL_FINISH){this.action=null;this.down(a.npc,'ko');this.notices.push(a.surrender?'投降のふりから反撃し、気絶させた。Eで運べます。':'格闘で気絶させた。Eで運べます。');}return;}
+  // M06: a missed counter after a fake surrender is the arrest the guard came for (he is right there, still detaining).
+  if(a.surrender&&(moving||a.elapsed-a.stageAt!>BRAWL_WINDOW||pressed&&pressed!==need)){this.action=null;const n=a.npc;n.busy=false;this.notices.push('反撃に失敗した。取り押さえられる。');this.failedCounter=n;return;}
   if(moving||a.elapsed-a.stageAt!>BRAWL_WINDOW||pressed&&pressed!==need){this.action=null;const n=a.npc;n.busy=false;this.director.accuse(n,p);n.sawViolence=true;this.notices.push(`${n.label}に振りほどかれた！ 撃ってくる。`);return;}
   if(!pressed)return;a.stage!++;a.stageAt=a.elapsed;a.hitAt=a.elapsed;}
  /** Puts someone down where they stand (a finished take-down, or a thrown thing that hit them). */

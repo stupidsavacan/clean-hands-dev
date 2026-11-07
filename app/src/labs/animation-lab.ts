@@ -26,7 +26,9 @@ import {sampleMotion,type MotionKind,type MotionRole} from '../motion';
 import {applyMotion,neutral,plantedFeet,groundBody,PICKUP_SECONDS} from '../motion-runtime';
 import {sampleCombat,weaponVisible,COMBAT_SECONDS,COMBAT_LOOPS,type CombatKind,type WeaponClass} from '../combat-motion';
 import {poseCombat,prepareWeapon,type Weapon} from '../combat-runtime';
-import {holdPose,holdKind,strikePose} from '../hold-pose';
+import {holdPose,holdKind,strikePose,surrenderPose,SURRENDER_ARM} from '../hold-pose';
+// The hands-up arm angles, adjustable live from the console while tuning (window.__surrenderArm).
+Object.assign(window,{__surrenderArm:SURRENDER_ARM});
 import {MELEE} from '../melee';
 import {brawlAt,brawlMotion,BRAWL_GAP} from '../brawl-motion';
 import {plantFeetAt,reachHandsAt,aimFists} from '../motion-runtime';
@@ -42,6 +44,8 @@ type Clip={id:string;group:string;label:string;seconds:number;loop:boolean;
  item?:string;
  // 2026-11-06: one swing or stab with the item (hold-pose.ts strikePose, melee.ts), as the game plays it.
  strike?:'blunt'|'blade';
+ // 2026-11-08 (M06): hands up for a fake surrender (hold-pose.ts surrenderPose), as the game plays it.
+ surrender?:boolean;
  pair?:'brawl'|'punch'|'katana-front'|'katana-back'};
 const LOCO:[string,string,number,number][]=[['idle','立ち',0,0],['walk','歩き',WALK_SPEED,0],['run','走り',RUN_SPEED,0],['crouch','しゃがみ歩き',CROUCH_SPEED,1],['crouch-idle','しゃがみ',0,1]];
 const GESTURES:[string,string][]=[['phone','電話'],['radio','無線'],['drink','飲む'],['tasting','試飲'],['speech','スピーチ'],['chat','談笑'],['camera','撮影'],['photo','記念撮影'],['tour','見学'],['inspect','点検'],['cook','料理'],['clean','掃除'],['massage_work','施術'],['work','仕事'],['serve','給仕'],['club_press','ボタンを押す'],['dance','ダンス'],['massage','マッサージを受ける']];
@@ -54,6 +58,7 @@ const CLIPS:Clip[]=[
  ...Object.entries(MELEE).map(([item,m])=>({id:'strike-'+item,group:'道具攻撃',label:`${m.label}で${m.kind==='blunt'?'殴る':m.swing?'斬る':'刺す'}`,seconds:m.seconds,loop:true,loco:{speed:0,crouch:0},item,strike:m.swing??m.kind})),
  // 2026-11-06: the fight with a guard (M02) and the single punch (M01), the agent and the first NPC facing each other.
  // M15: the sword from behind stabs instead of cutting (full spec row 14).
+ {id:'surrender',group:'素手',label:'投降する（ふり）',seconds:1.4,loop:true,loco:{speed:0,crouch:0},surrender:true},
  {id:'strike-katana-back',group:'道具攻撃',label:'刀で刺す（背後から）',seconds:.7,loop:true,loco:{speed:0,crouch:0},item:'katana',strike:'blade'},
  {id:'pair-katana-front',group:'格闘（2人）',label:'刀・正面（袈裟斬り）',seconds:1.0,loop:true,pair:'katana-front'},
  {id:'pair-katana-back',group:'格闘（2人）',label:'刀・背後（口を押さえて突く）',seconds:1.0,loop:true,pair:'katana-back'},
@@ -188,7 +193,7 @@ function poseActor(a:Actor,clip:Clip,t:number){
  const gait=(speed:number,crouch:number):Pose=>{const step=()=>{a.pose=a.loco.update(DT,{speed,crouch,slope:0,turn:0,distance:speed*DT});a.sim+=DT;};if(t<a.sim||a.sim<0){a.loco.reset();a.loco.time=0;a.sim=0;step();}while(a.sim+DT<=t)step();return structuredClone(a.pose!);};
  hold(a,clip.item);
  if(!clip.gesture)a.props.update(rig,group,null);scenery(a,clip.gesture);
- if(clip.loco){const p=gait(clip.loco.speed,clip.loco.crouch);if(clip.item)holdPose(p,holdKind(clip.item));if(clip.strike)strikePose(p,clip.strike,progress);rig.apply(p);return;}
+ if(clip.loco){const p=gait(clip.loco.speed,clip.loco.crouch);if(clip.item)holdPose(p,holdKind(clip.item));if(clip.strike)strikePose(p,clip.strike,progress);if(clip.surrender)surrenderPose(p,progress*clip.seconds);rig.apply(p);return;}
  // Gestures: the body layer on the standing pose, then the hands reach their targets (gestures.ts, as in the game).
  if(clip.gesture){const p=gait(0,0),g=gesturePose(p,clip.gesture,t);rig.apply(p);applyGesture(rig,group,g);a.props.update(rig,group,g);return;}
  if(clip.m3){applyMotion(rig,model,sampleMotion(clip.m3,role,progress));

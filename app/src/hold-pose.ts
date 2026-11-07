@@ -24,6 +24,11 @@ export function holdPose(p:Pose,kind:HoldKind){
 //  blade: drawn back to the hip, then an underhand thrust forward at belly height (the fist grip points the blade
 //         forward only while the forearm points down-forward; thrust level, it stood straight up), then back.
 //  punch: the fist comes up to the chest, then a straight jab at shoulder height (bare hands, M01/M02).
+// M06 (2026-11-08): hands up for a (fake) surrender — both arms raised forward and up, elbows bent, hands by the head.
+export function surrenderPose(p:Pose,t:number){const u=Math.min(1,Math.max(0,t/.35)),e=u*u*(3-2*u);
+ for(const a of p.arms){a.swing+=SURRENDER_ARM.swing*e;a.elbow=Math.max(0,a.elbow+SURRENDER_ARM.elbow*e);a.shoulder+=SURRENDER_ARM.shoulder*e;}
+ p.spine-=.04*e;p.head-=.06*e;return p;}
+export const SURRENDER_ARM={swing:-2.9,elbow:1.0,shoulder:.3};// tuned in the animation lab 2026-11-08 (hands above the head)
 export function strikePose(p:Pose,kind:'blunt'|'blade'|'punch',t:number){
  const a=p.arms[1],s=(x:number,lo:number,hi:number)=>{const u=Math.min(1,Math.max(0,(x-lo)/(hi-lo)));return u*u*(3-2*u);};
  const wind=s(t,0,.4),hit=s(t,.4,.58),back=s(t,.72,1),k=1-back;

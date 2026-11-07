@@ -54,7 +54,7 @@ import {meleeOf,THROW_RANGE,isCase} from '../melee';
 import {GesturePlayer} from '../gestures';
 const playerGestures=new GesturePlayer();
 import {RestartHold} from '../restart-hold';
-import {holdPose,holdKind,strikePose} from '../hold-pose';
+import {holdPose,holdKind,strikePose,surrenderPose} from '../hold-pose';
 import {loadItemModels,itemModel} from '../item-models';
 import {DeviceSystem,DEVICE_KINDS,type DeviceDef} from '../devices';
 import {ChoreSystem} from '../chores';
@@ -405,7 +405,9 @@ function fixedUpdate(dt:number){if(restartHold.step(dt/(training?1:clock.rate),k
  const actionKeys=new Set([...keys,...actionPresses]);actionPresses.clear();if(!m4.hasWire)actionKeys.delete('KeyX');
  const e53=!training&&map.stage>=3&&m53.step(dt,playerView(),actionKeys,m3.locked||m4.locked||!!m3.dragged||m3View.transferBusy||m57.locked),e57=!training&&m57.step(dt,playerView(),actionKeys,m3.locked||m4.locked||!!m3.dragged||m3View.transferBusy||m53.locked||e53),fieldE=e53||e57;
  const m3Keys=fieldE?new Set([...actionKeys].filter(k=>k!=='KeyE')):actionKeys;
- const usedE=m3.step(dt,playerView(),heading,m3Keys,m3View.transferBusy||m4.locked||m53.locked);m4.step(dt,playerView(),heading,keys,!!m3.action||!!m3.dragged||m3View.transferBusy||m53.locked);
+ const usedE=m3.step(dt,playerView(),heading,m3Keys,m3View.transferBusy||m4.locked||m53.locked);
+ // M06: a missed counter after a fake surrender is the arrest.
+ if(m3.failedCounter&&!training){for(const s of m3.notices)toast(s);flow.fail('caught',clock.elapsed);endMission();return;}m4.step(dt,playerView(),heading,keys,!!m3.action||!!m3.dragged||m3View.transferBusy||m53.locked);
  for(const notice of [...m3.notices,...m4.notices,...m53.notices,...m57.notices])toast(notice);
  if(m4.action?.guard)targetHeading=Math.atan2(m4.action.guard.pos.x-position.x,m4.action.guard.pos.z-position.z);if(m3.action){const target=m3.action.container??m3.action.npc.pos;targetHeading=Math.atan2(target.x-position.x,target.z-position.z);}
  if(m3.stats.kills>killsBefore)crowd.violence(playerView(),clock.elapsed,'kill');
@@ -436,7 +438,7 @@ function fixedUpdate(dt:number){if(restartHold.step(dt/(training?1:clock.rate),k
  if(m4.stats.frisks&&currentFloor===1)enteredStaff=true;
  if(guideIndex<0)stepAi(dt);
 }
-function playerView():PlayerView{return {hidden:!!m3.hiddenIn,x:position.x,y:position.y,z:position.z,floor:currentFloor,speed:currentSpeed,running:currentSpeed>2.6,crouched,tampering:tampering||m53.tampering||m57.tampering,disguise:m4.disguise,blending:!training&&(!!detection.blend||!combat.hand&&!m3.action&&!m3.dragged&&crowd.blends(position)),illegal:!training&&combat.illegalIn(m4.disguise),weaponDrawn:!training&&!!combat.hand,illegalVisibleCarry:!training&&(combat.shown(m4.disguise)||detection.illegalShown(m4.disguise)),suspiciousItem:!training&&detection.suspiciousHeld(m4.disguise)};}
+function playerView():PlayerView{return {hidden:!!m3.hiddenIn,surrendering:!!m3.surrendering,x:position.x,y:position.y,z:position.z,floor:currentFloor,speed:currentSpeed,running:currentSpeed>2.6,crouched,tampering:tampering||m53.tampering||m57.tampering,disguise:m4.disguise,blending:!training&&(!!detection.blend||!combat.hand&&!m3.action&&!m3.dragged&&crowd.blends(position)),illegal:!training&&combat.illegalIn(m4.disguise),weaponDrawn:!training&&!!combat.hand,illegalVisibleCarry:!training&&(combat.shown(m4.disguise)||detection.illegalShown(m4.disguise)),suspiciousItem:!training&&detection.suspiciousHeld(m4.disguise)};}
 const EVENT_TEXT:Partial<Record<AiEvent['type'],(n:string)=>string>>={curious:n=>`${n}が振り向いた。`,investigate:n=>`${n}が確かめに来る。`,alert:n=>`${n}に見つかった。逃げろ。`,search:n=>`${n}が見失った。捜索している。`,report:n=>`${n}が警備に知らせに行く。`,warn:n=>`${n}「ここは立入禁止だ。出ていけ」`,arrest:n=>`${n}が取り押さえに来る。逃げろ。`};
 // Warned for acting oddly where the outfit is merely out of place (a guest in the parking lot), not for trespassing.
 const WARN_ODD=(n:string)=>`${n}「おい、何をしている。ここから離れろ」`;
@@ -605,6 +607,8 @@ function animateActor(dt:number){crouchBlend=T.MathUtils.damp(crouchBlend,crouch
  if(!detection.blend&&detection.held&&!combat.hand)holdPose(lastPose,holdKind(detection.held));
  // A swing, a stab or a punch (melee.ts): the right arm only, the take-down itself is M3System's.
  {const st=m3.strike;if(st)strikePose(lastPose,st.kind,st.t);}
+ // M06: hands up while (fake) surrendering.
+ if(m3.surrendering)surrenderPose(lastPose,m3.elapsed-m3.surrendering.at);
  // Blending in: the job's gesture, blended in and out (gestures.ts GesturePlayer, as the staff doing it), then the hands.
  if(rig){playerGestures.pose(lastPose,detection.blend?.action,performance.now()/1000,dt);applyPose(lastPose);playerGestures.apply(rig,leanGroup);}
  

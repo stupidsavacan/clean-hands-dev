@@ -229,6 +229,24 @@
    "tests": [
     "tests/loadout.test.ts"
    ]
+  },
+  {
+   "id": "HD14",
+   "topic": "偽装投降からの反撃",
+   "refs": [
+    "S03 M06",
+    "ROADMAP M06"
+   ],
+   "hitman": "捕まえに来た警備の前で投降したふりをし、近づいたところで反撃して気絶させる（連続の QTE）。",
+   "ours": "同じ。F で両手を上げ、手が届いたら F→X→F。失敗すると捕まる。捕まえに来た警備は、2.5秒は触れても捕まえない（その間に投降できる）。",
+   "decision": "align",
+   "by": "claude",
+   "date": "2026-11-08",
+   "status": "done",
+   "reason": "資料に明記（HITMAN 2016 公式マニュアル）。キーは格闘と同じ F→X→F にして、覚える物を増やさない。",
+   "tests": [
+    "tests/surrender.test.ts"
+   ]
   }
  ]
 }

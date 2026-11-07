@@ -27,7 +27,10 @@ export type Rules={disguises:Record<string,Record<string,string>>;rates:{run:num
 // F04 / HITMAN "Found Trespassing": a guard walks up to warnDistance and tells the agent to leave. Doing nothing wrong
 // for complySeconds ends it; still trespassing after warnSeconds within warnRange turns it into an arrest.
 // hostileZones: zone types where guards arrest at once (HITMAN's hostile areas).
-export type Arrest={warnSeconds:number;warnDistance:number;warnRange:number;complySeconds:number;hostileZones:string[]};
+// handsUpSeconds (M06, 2026-11-08): a guard who starts an arrest first orders hands up; only after this long can the
+// arrest by touch be made, so the agent has a moment to (fake) surrender even when the guard is already beside them.
+export type Arrest={warnSeconds:number;warnDistance:number;warnRange:number;complySeconds:number;hostileZones:string[];handsUpSeconds?:number};
+export const HANDS_UP_SECONDS=2.5;
 const ARREST:Arrest={warnSeconds:3,warnDistance:2,warnRange:4,complySeconds:1,hostileZones:['secure']};
 // Seconds to fill the white gauge at a distance: [[metres, seconds], ...], interpolated, nothing beyond range.
 export type EnforcerSpeed={range:number;front:number;table:number[][];boost:number;crowdRange:number;decay:number;verify:number;postMargin:number;verifyStop:number};
@@ -37,7 +40,7 @@ export type Tier='near'|'mid'|'far';
 // blending: doing the outfit's job at a BLEND_ spot; suspiciousItem: a suspicious thing the outfit may not carry (M5.6).
 // F05 keeps three things apart: weaponDrawn: a gun in hand; illegalVisibleCarry: a long gun on the back this outfit may
 // not carry openly (security uniforms may, as in HITMAN); illegal: either of them (illegal weapon handling).
-export type PlayerView={x:number;y:number;z:number;floor:number;speed:number;running:boolean;crouched:boolean;tampering:boolean;disguise:string;restricted?:boolean;blending?:boolean;illegal?:boolean;suspiciousItem?:boolean;weaponDrawn?:boolean;illegalVisibleCarry?:boolean;
+export type PlayerView={x:number;y:number;z:number;floor:number;speed:number;running:boolean;crouched:boolean;tampering:boolean;disguise:string;surrendering?:boolean;restricted?:boolean;blending?:boolean;illegal?:boolean;suspiciousItem?:boolean;weaponDrawn?:boolean;illegalVisibleCarry?:boolean;
  // Inside a locker (2026-11-06, ROADMAP H33): nobody and no camera sees the agent.
  hidden?:boolean};
 // warn: a guard tells a trespasser to leave; arrest: a guard moves to detain (only then can the agent be caught).
@@ -84,6 +87,7 @@ export class Npc{
  witness:{what:'act'|'body'|'suspect';at:Position;key:string;disguise?:string}|null=null;
  // F04: why this guard is after the agent, whether they are detaining (not just warning), and the warning clocks.
  cause:Cause='';arrest=false;warnT=0;complyT=0;now=0;
+ /** Seconds this guard has been detaining (M06 hands-up order). */ detainT=0;
  // F06: the last few things this person learned (not a log).
  readonly knowledge:Knowledge[]=[];
  readonly faction:string;readonly securityRole:string;readonly combatProfile?:string;readonly loadout?:string;readonly disguiseId?:string;
@@ -113,7 +117,7 @@ export class Npc{
  hasConfirmedIdentity(p:{disguise:string}){return this.knownDisguises.has(p.disguise)||this.hearsReports&&this.shared.has(p.disguise);}
  learn(k:Knowledge){this.knowledge.push(k);if(this.knowledge.length>8)this.knowledge.shift();}
  /** From a warning to detaining: they now know the agent in this outfit. */
- detain(p:PlayerView){this.arrest=true;this.knownDisguises.add(p.disguise);this.learn({eventType:'sighting',lastSeenPosition:{x:p.x,y:p.y,z:p.z},confirmedActor:true,identifiedDisguise:p.disguise,confidence:1,observedAt:this.now});}
+ detain(p:PlayerView){if(!this.arrest)this.detainT=0;this.arrest=true;this.knownDisguises.add(p.disguise);this.learn({eventType:'sighting',lastSeenPosition:{x:p.x,y:p.y,z:p.z},confirmedActor:true,identifiedDisguise:p.disguise,confidence:1,observedAt:this.now});}
  // Away from their usual post a face-knower is just passing through and does not look closely.
  atPost(zones:Zone[],margin:number){if(!this.post.length)return true;return this.post.some(id=>{const z=zones.find(z=>z.id===id);return !!z&&floorOf(this.pos.y)===z.floor&&inside(z,this.pos.x,this.pos.z,-margin);});}
  // Witnesses, the alerted and anyone checking a face keep full-rate perception wherever they are.
@@ -288,7 +292,10 @@ export class Director{
   for(let i=0;i<this.npcs.length;i++)for(let j=i+1;j<this.npcs.length;j++){const a=this.npcs[i],b=this.npcs[j];if(!a.active||!b.active||a.busy||b.busy)continue;const dx=b.pos.x-a.pos.x,dz=b.pos.z-a.pos.z;if(Math.abs(dx)>=.55||Math.abs(dz)>=.55||Math.abs(a.pos.y-b.pos.y)>=1)continue;const d=Math.hypot(dx,dz);if(d>1e-3&&d<.55){const push=(.55-d)/2;a.pos=this.world.move(a.pos,-dx/d*push,-dz/d*push);b.pos=this.world.move(b.pos,dx/d*push,dz/d*push);}}
   // F04: caught only by a guard who is detaining (not warning), knows who the agent is and reaches them. A gun in hand
   // is not detained but fought (combat.ts).
-  if(!this.caught)for(const n of this.npcs)if(n.active&&!n.busy&&n.guard&&n.state==='alert'&&n.arrest&&!p.weaponDrawn&&n.visibility>0&&n.hasConfirmedIdentity(p)&&flat(n.pos,p)<this.rules.catch&&Math.abs(n.pos.y-p.y)<1){this.caught=true;events.push({type:'caught',npc:n});break;}
+  // M06: not while the agent stands with hands up (the fake surrender's counter decides it, m3.ts).
+  for(const n of this.npcs)if(n.arrest&&n.state==='alert')n.detainT+=dt;
+  const handsUp=(this.rules.arrest??ARREST).handsUpSeconds??HANDS_UP_SECONDS;
+  if(!this.caught&&!p.surrendering)for(const n of this.npcs)if(n.active&&!n.busy&&n.guard&&n.state==='alert'&&n.arrest&&n.detainT>=handsUp&&!p.weaponDrawn&&n.visibility>0&&n.hasConfirmedIdentity(p)&&flat(n.pos,p)<this.rules.catch&&Math.abs(n.pos.y-p.y)<1){this.caught=true;events.push({type:'caught',npc:n});break;}
   return events;}
  /** A guard's radio call about the agent: blown outfit, zone alert 2, colleagues within radio range come to the spot. */
  private radioIn(n:Npc,p:PlayerView,at:Position){this.alerts++;this.onSpotted?.(n);this.compromised.add(p.disguise);this.raiseZone(at,2);
