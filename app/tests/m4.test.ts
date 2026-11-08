@@ -14,6 +14,27 @@ function setup(){const level=structuredClone(map)as Mission;level.npcs=[{id:'sou
 function hold(m:M4System,key:string,seconds:number,p=player()){for(let t=0;t<seconds;t+=1/60)m.step(1/60,{...p,disguise:m.disguise},0,new Set([key]));m.step(1/60,{...p,disguise:m.disguise},0,new Set());}
 test('every disguise row (nine, and five outsiders added in M5.7) is data driven and unknown outfits do not grant access',()=>{const {d}=setup(),staff={...map.zones.find((z:{type:string})=>z.type==='staff')};assert.equal(Object.keys(d.rules.disguises).length,14);assert.equal(permission(d.rules,'suit',staff),'deny');assert.equal(permission(d.rules,'waiter',staff),'allow');assert.equal(permission(d.rules,'guard',staff),'allow');assert.equal(permission(d.rules,'unknown',staff),'deny');d.rules.disguises.waiter.staff='deny';assert.equal(permission(d.rules,'waiter',staff),'deny');});
 test('taking a uniform consumes one source and leaves recoverable original clothes',()=>{const {m,source}=setup();hold(m,'KeyT',2);assert.equal(m.disguise,'guard');assert.ok(m.taken.has(source.id));assert.equal(m.clothes.length,1);assert.equal(m.clothes[0].disguise,'suit');assert.equal(m.stats.changes,1);hold(m,'KeyT',2);assert.equal(m.disguise,'suit');assert.equal(m.clothes.length,1);assert.equal(m.clothes[0].disguise,'guard');assert.equal(m.stats.changes,2);});
+test('the revived owner recognises their own uniform even after it has been put down and picked up again',()=>{
+ const {m,d,source,observer}=setup();
+ hold(m,'KeyT',2);assert.equal(m.outfitOwner,source.id);
+ hold(m,'KeyT',2);assert.equal(m.outfitOwner,undefined);
+ assert.equal(m.clothes[0].owner,source.id);
+ hold(m,'KeyT',2);assert.equal(m.outfitOwner,source.id);
+ source.life='active';source.fall=0;source.heading=0;source.look!.splice(0,2,-8,9);
+ source.post.push('ZONE_public_lobby');
+ const p=player(-8,8.5,'guard');
+ for(let i=0;i<30;i++)d.step(1/60,p);
+ assert.equal(source.face,0,'an identical uniform from another source is insufficient');
+ d.boxes.push({minX:-9,maxX:-7,minY:0,maxY:3,minZ:7.5,maxZ:7.6});
+ for(let i=0;i<30;i++)d.step(1/60,{...p,outfitOwner:m.outfitOwner});
+ assert.equal(source.face,0,'the owner must see the uniform');
+ d.boxes.pop();
+ let checked=false;
+ for(let i=0;i<140&&!checked;i++)checked=d.step(1/60,{...p,outfitOwner:m.outfitOwner}).some(e=>e.npc===source&&e.type==='verify');
+ assert.ok(checked);
+ assert.equal(observer.face,0);
+ m.disguise='guard';assert.equal(m.outfitOwner,undefined);
+});
 test('active, hidden, distant or wall-obstructed people are not uniform sources',()=>{const {m,d,source}=setup();source.life='active';assert.equal(m.source(player()),undefined);source.life='unconscious';source.bodyMode='hidden';assert.equal(m.source(player()),undefined);source.bodyMode='ground';assert.equal(m.source(player(5,9)),undefined);d.boxes.push({minX:-9,maxX:-7,minY:0,maxY:3,minZ:7.3,maxZ:7.4});assert.equal(m.source(player()),undefined);});
 test('cancelled clothes changes leave outfit and sources intact',()=>{const {m,source}=setup();hold(m,'KeyT',.5);assert.equal(m.disguise,'suit');assert.equal(m.taken.has(source.id),false);assert.equal(m.action,null);assert.equal(m.clothes.length,0);});
 function faceSetup(knows=['guard']){const {d,observer}=setup();d.npcs.splice(0,2);observer.pos={x:-8,y:0,z:7};observer.heading=0;observer.route.splice(0,1,[-8,7,600]);observer.look?.splice(0,2,-8,10);observer.knowsFaces.push(...knows);return{d,observer};}

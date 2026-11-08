@@ -41,7 +41,7 @@ export type Tier='near'|'mid'|'far';
 // blending: doing the outfit's job at a BLEND_ spot; suspiciousItem: a suspicious thing the outfit may not carry (M5.6).
 // F05 keeps three things apart: weaponDrawn: a gun in hand; illegalVisibleCarry: a long gun on the back this outfit may
 // not carry openly (security uniforms may, as in HITMAN); illegal: either of them (illegal weapon handling).
-export type PlayerView={x:number;y:number;z:number;floor:number;speed:number;running:boolean;crouched:boolean;tampering:boolean;disguise:string;surrendering?:boolean;restricted?:boolean;blending?:boolean;illegal?:boolean;suspiciousItem?:boolean;weaponDrawn?:boolean;illegalVisibleCarry?:boolean;
+export type PlayerView={x:number;y:number;z:number;floor:number;speed:number;running:boolean;crouched:boolean;tampering:boolean;disguise:string;outfitOwner?:string;surrendering?:boolean;restricted?:boolean;blending?:boolean;illegal?:boolean;suspiciousItem?:boolean;weaponDrawn?:boolean;illegalVisibleCarry?:boolean;
  // Inside a locker (2026-11-06, ROADMAP H33): nobody and no camera sees the agent.
  hidden?:boolean};
 // warn: a guard tells a trespasser to leave; arrest: a guard moves to detain (only then can the agent be caught).
@@ -109,7 +109,7 @@ export class Npc{
  constructor(def:NpcDef,level:Level,shared=new Set<string>()){this.id=def.id;this.role=def.role as Role;this.label=def.label;this.route=def.route.map(r=>[...r]);this.look=def.look&&[...def.look];this.knowsFaces=def.knowsFaces??[];this.post=def.post===undefined?[]:[def.post].flat();this.target=!!def.target;this.outfit=def.outfit;this.shared=shared;const r=def.route[0];this.homeY=plateY(level,def.floor);this.pos={x:r[0],y:this.homeY,z:r[1]};
   this.faction=def.faction??'';this.securityRole=def.securityRole??'';this.combatProfile=def.combatProfile;this.loadout=def.loadout;this.disguiseId=def.disguiseId??def.outfit;
   const next=def.route[1]??def.look;this.heading=next?Math.atan2(next[0]-r[0],next[1]-r[1]):0;}
- knowsFace(disguise:string){return this.knowsFaces.includes(disguise);}
+ knowsFace(disguise:string,outfitOwner?:string){return this.id===outfitOwner||this.knowsFaces.includes(disguise);}
  // F07: three different questions instead of one recognizes().
  /** Can see through this outfit with the white gauge (the face-knowers), whatever their rank. */
  isEnforcerFor(disguise:string){return this.knowsFace(disguise);}
@@ -183,8 +183,8 @@ export class Npc{
   return out;}
  // The white gauge of a face-knower: separate from suspicion, it fills only up close, in front and at their post.
  watchFace(dt:number,p:PlayerView,crowd:number,rules:Rules,zones:Zone[]):AiEvent['type'][]{const f=rules.m4?.enforcerSpeed,out:AiEvent['type'][]=[];if(!f)return out;
-  const relevant=!this.scriptedImmune&&this.knowsFace(p.disguise)&&!this.hasConfirmedIdentity(p)&&['patrol','curious','distracted','verify'].includes(this.state);
-  const d=this.distance,front=relevant&&this.visibility>0&&d<=f.range&&this.off<=f.front&&(this.state==='verify'||this.atPost(zones,f.postMargin));
+  const relevant=!this.scriptedImmune&&this.knowsFace(p.disguise,p.outfitOwner)&&!this.hasConfirmedIdentity(p)&&['patrol','curious','distracted','verify'].includes(this.state);
+  const d=this.distance,front=relevant&&this.visibility>0&&d<=f.range&&this.off<=f.front&&(this.state==='verify'||this.id===p.outfitOwner||this.atPost(zones,f.postMargin));
   // In a crowd the face is lost unless they are right next to the agent.
   const hidden=(crowd>=rules.multipliers.crowdCount||!!p.blending)&&d>f.crowdRange;
   if(front&&!hidden)this.face=Math.min(1,this.face+dt/enforcerSeconds(f,d)*(p.running||p.illegal?f.boost:1));else this.face=Math.max(0,this.face-f.decay*dt);
@@ -279,7 +279,7 @@ export class Director{
   // Perception is tiered by distance and staggered so the NPCs do not all cast rays on the same step.
   this.npcs.forEach((n,i)=>{n.witnessCooldown=Math.max(0,n.witnessCooldown-dt);if(!n.active||n.busy)return;n.tier=this.tier(n,p);n.outdoor=this.outdoorAt(n.pos);const every=n.tier==='mid'?this.lod.midEvery:this.lod.nearEvery;
    if(n.tier==='far'){n.visibility=0;n.distance=flat(n.pos,p);}else if((this.frame+i)%every===0)n.perceive(p,this.boxes,this.rules);});
-  for(const n of this.npcs)if(n.active&&!n.busy&&n.knowsFaces.length)for(const type of n.watchFace(dt,p,crowd,this.rules,this.mission.zones)){if(type==='compromised')this.accuse(n,p,'identity');events.push(stimuli?{type,npc:n,stimuli:['known_face']}:{type,npc:n});}
+  for(const n of this.npcs)if(n.active&&!n.busy&&(n.knowsFaces.length||n.id===p.outfitOwner||n.state==='verify'))for(const type of n.watchFace(dt,p,crowd,this.rules,this.mission.zones)){if(type==='compromised')this.accuse(n,p,'identity');events.push(stimuli?{type,npc:n,stimuli:['known_face']}:{type,npc:n});}
   for(const n of this.npcs)if(n.active&&!n.busy)for(const type of n.think(dt,p,base,crowd,this.rules,s))events.push(stimuli?{type,npc:n,stimuli:n.cause==='identity'?['confirmed_identity']:stimuli}:{type,npc:n});
   for(const e of events){const at=e.npc.lastSeen;if(!at)continue;
    // A guard who identified the agent radios it in: the outfit is blown and colleagues in radio range come.

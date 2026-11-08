@@ -9,14 +9,17 @@ export type Checkpoint={id:string;label:string;x:number;y:number;z:number;normal
 // legality: illegal | suspicious | normal (items.json).
 export type Item={legality:string;concealable:boolean;friskDetect?:boolean;allowedFor?:string[]};
 export type M4Rules={changeSeconds:number;friskSeconds:number;friskValidSeconds:number;friskRange:number;friskStandDistance:number;friskArrivalDistance:number;guardRadius:number;lootRadius:number;compromisedClearDistance:number;roleDisguise:Record<string,string>;uniformModels:Record<string,string>;uniformHides?:Record<string,string[]>;undressed?:{default:string;byModel:Record<string,string|null>};items:Record<string,Item>};
-export type Clothes={id:string;disguise:string;pos:Position;npc?:Npc};
+export type Clothes={id:string;disguise:string;pos:Position;npc?:Npc;owner?:string};
 export type M4Action={id:number;kind:'change'|'frisk';elapsed:number;duration:number;start:Position;source?:Clothes;checkpoint?:Checkpoint;guard?:Npc;guardHome?:Position;guardTarget?:Position;guardPath?:Position[]};
 const distance=(a:{x:number;z:number},b:{x:number;z:number})=>Math.hypot(a.x-b.x,a.z-b.z);
 export class M4System{
  extraInventory?:()=>string[];
  restrictPickups=false;
  guardRecovering?:(id:string)=>boolean;
- disguise='suit';hasWire=true;elapsed=0;action:M4Action|null=null;notices:string[]=[];revision=0;private nextId=0;private held=new Set<string>();private witnesses=new Set<string>();
+ private currentDisguise='suit';outfitOwner?:string;
+ get disguise(){return this.currentDisguise;}
+ set disguise(value:string){this.currentDisguise=value;this.outfitOwner=undefined;}
+ hasWire=true;elapsed=0;action:M4Action|null=null;notices:string[]=[];revision=0;private nextId=0;private held=new Set<string>();private witnesses=new Set<string>();
  readonly taken=new Set<string>();readonly clothes:Clothes[]=[];readonly stashes:{id:number;pos:Position}[]=[];readonly passes=new Map<string,{until:number;disguise:string;carried:string}>();
  // F01: the shared item table (main.ts hands in the merged one; alone it knows rules.json m4.items).
  items:ItemMaster;
@@ -88,7 +91,7 @@ export class M4System{
     if(a.guard?.active)this.director.accuse(a.guard,p,'crime');return;}
    this.notices.push(this.hasWire?'検査を通過した。ワイヤーは見つからなかった。':'検査を通過した。');this.passes.set(a.checkpoint!.id,{until:this.elapsed+this.rules.friskValidSeconds,disguise:this.disguise,carried:this.carried()});return;}
   const source=a.source!;if(source.npc)this.taken.add(source.npc.id);else{const i=this.clothes.findIndex(c=>c.id===source.id);if(i<0)return;this.clothes.splice(i,1);}
-  this.clothes.push({id:'clothes-'+(++this.nextId),disguise:this.disguise,pos:{...p}});this.disguise=source.disguise;this.revision++;this.stats.changes++;this.passes.clear();this.notices.push(`${this.label}に着替えた。`);}
+  this.clothes.push({id:'clothes-'+(++this.nextId),disguise:this.disguise,pos:{...p},owner:this.outfitOwner});this.disguise=source.disguise;this.outfitOwner=source.npc?.id??source.owner;this.revision++;this.stats.changes++;this.passes.clear();this.notices.push(`${this.label}に着替えた。`);}
  private crossesInward(c:Checkpoint,from:Position,to:Position){
   if(Math.abs(to.y-c.y)>.35)return false;
   const n=c.normal,a=(from.x-c.x)*n.x+(from.z-c.z)*n.z,b=(to.x-c.x)*n.x+(to.z-c.z)*n.z;

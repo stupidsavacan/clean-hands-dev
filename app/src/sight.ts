@@ -4,10 +4,16 @@ export type Vec={x:number;y:number;z:number};
 const HEDGE=.65,STAIR_SLICES=16,CELL=4;
 // Pool and sea colliders are only fences for walking, so they do not block a view.
 export const seeThrough=(id:string)=>id.startsWith('pool')||id.startsWith('water');
+// The club renders only the top bar of a railing. Walking still uses the full height.
+export function visibleWall<T extends {id:string;y:number;h:number}>(wall:T):T{
+ if(!wall.id.startsWith('rail-'))return wall;
+ const h=wall.h*.05;
+ return {...wall,y:wall.y+wall.h-h/2,h};
+}
 // Solid volumes that block a line of sight.
 export function sightBoxes(level:Level):Aabb[]{
  const out:Aabb[]=[],add=(b:{x:number;z:number;w:number;d:number;y:number;h:number})=>out.push({minX:b.x-b.w/2,maxX:b.x+b.w/2,minY:b.y,maxY:b.y+b.h,minZ:b.z-b.d/2,maxZ:b.z+b.d/2});
- for(const w of level.walls)add(w);
+ for(const w of level.walls)add(visibleWall(w));
  for(const b of level.blockers)if(!seeThrough(b.id))add(b.id.startsWith('planter')?{...b,h:b.h+HEDGE}:b);
  // Floor plates: an upper floor is a slab under its own level; a basement is roofed by the ground slab.
  for(const f of level.floors){const top=f.y>0?f.y:0;for(const r of f.areas)out.push({minX:r.minX,maxX:r.maxX,minY:top-.5,maxY:top,minZ:r.minZ,maxZ:r.maxZ});}

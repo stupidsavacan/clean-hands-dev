@@ -1,10 +1,10 @@
 import * as T from 'three';
-import {isCase} from './melee';
-import type {DetectionSystem} from './detection';
-import type {Rig} from './rig';
-import {plateY,type Level} from './world';
-import {itemModel,onFloor} from './item-models';
-import {gripOf} from './hold-pose';
+import {isCase} from './melee.ts';
+import type {DetectionSystem} from './detection.ts';
+import type {Rig} from './rig.ts';
+import {plateY,type Level} from './world.ts';
+import {itemModel,onFloor} from './item-models.ts';
+import {gripOf} from './hold-pose.ts';
 /** What M5.6 draws: each camera's view as a blue fan on the floor (gone once it is shot), the things lying around and
  * the one in the agent's hand, and a ring at every BLEND_ spot the current outfit can use. */
 const ITEM_COLOR:Record<string,string>={wrench:'#8d969c',bottle:'#2f5a3c',mop:'#c9b48c',camera:'#25282c',tray:'#d9dcd6'};
@@ -46,8 +46,8 @@ export class DetectionView{
  private backs:T.Object3D[]=[];
  render(det:DetectionSystem,disguise:string,scene:T.Scene,rig:Rig|undefined,now:number,avatar?:T.Object3D){
   for(const [id,f] of this.fans){const dead=det.destroyed.has(id);f.visible=!dead;if(dead&&!this.broken.has(id)){this.broken.add(id);const cam=scene.getObjectByName(id);if(cam){cam.rotation.x=.9;cam.updateMatrix();cam.traverse(o=>{const m=(o as T.Mesh).material as T.MeshStandardMaterial|undefined;if(m?.emissive){m.emissive.set('#000');m.color.set('#3a2a2a');}});}}}
-  const keys=new Set(det.floor.map(f=>f.pos.x*1000+f.pos.z));for(const [k,o] of this.floor)if(!keys.has(k)){o.removeFromParent();this.floor.delete(k);}
-  for(const f of det.floor){const k=f.pos.x*1000+f.pos.z;if(this.floor.has(k))continue;const o=floorItem(f.item);o.position.set(f.pos.x,f.pos.y,f.pos.z);o.rotation.y=k%6;this.root.add(o);this.floor.set(k,o);}
+  const keys=new Set(det.floor.map(f=>f.key));for(const [k,o] of this.floor)if(!keys.has(k)){o.removeFromParent();this.floor.delete(k);}
+  for(const f of det.floor){if(this.floor.has(f.key))continue;const o=floorItem(f.item);o.position.set(f.pos.x,f.pos.y,f.pos.z);o.rotation.y=(f.pos.x*1000+f.pos.z)%6;this.root.add(o);this.floor.set(f.key,o);}
   // The thing in hand rides on the right hand bone.
   // Re-attached when the body changes too (a change of clothes swaps the agent's model and its bones, 2026-11-06).
   const hand=rig?.joints.get('handr')?.bone;if(this.heldId!==det.held||this.held&&this.held.parent!==hand){this.held?.removeFromParent();this.held=undefined;this.heldId=det.held;if(det.held&&hand){this.held=itemMesh(det.held);inHand(hand,this.held,det.held);}}

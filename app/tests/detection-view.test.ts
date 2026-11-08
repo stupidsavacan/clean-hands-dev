@@ -1,0 +1,34 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import * as T from 'three';
+import {Director,type Mission,type Rules} from '../src/ai.ts';
+import {DetectionSystem,type DetectionData} from '../src/detection.ts';
+import {DetectionView} from '../src/detection-view.ts';
+import {MissionEvents} from '../src/events.ts';
+import {HotelAlert} from '../src/m3.ts';
+import {NavGrid} from '../src/nav.ts';
+import {CollisionWorld} from '../src/world.ts';
+import map from '../src/data/club-map.json' with {type:'json'};
+import mission from '../src/data/club-mission.json' with {type:'json'};
+import rules from '../src/data/club-rules.json' with {type:'json'};
+import detection from '../src/data/club-detection.json' with {type:'json'};
+
+test('the floor model changes when the player swaps items in place',()=>{
+ const level={...map,...mission} as Mission,world=new CollisionWorld(level);
+ const director=new Director(level,world,new NavGrid(world),[],rules as unknown as Rules);
+ const brick=detection.worldItems.find(i=>i.id==='brick-smoking')!;
+ const det=new DetectionSystem(director,new MissionEvents(),new HotelAlert(),[],{...detection,worldItems:[brick]} as DetectionData,level);
+ const scene=new T.Scene(),view=new DetectionView(scene,det,level,()=>scene);
+ const render=()=>{view.render(det,'suit',scene,undefined,0);return view.root.children.map(o=>o.name);};
+ det.held='briefcase';
+ const gun={id:'pistol_silenced',mag:5,reserve:10};
+ det.caseGun=gun;
+ assert.deepEqual(render(),['item-brick']);
+ const p={x:brick.x,y:0,z:brick.z};
+ det.pickup(p);
+ assert.equal(det.held,'brick');
+ assert.deepEqual(render(),['item-briefcase']);
+ det.pickup(p);
+ assert.equal(det.held,'briefcase');assert.equal(det.caseGun,gun);
+ assert.deepEqual(render(),['item-brick']);
+});

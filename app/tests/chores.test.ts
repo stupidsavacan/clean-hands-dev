@@ -11,7 +11,7 @@ import {ChoreSystem,CLEAN_SECONDS} from '../src/chores.ts';
 const json=(f:string)=>JSON.parse(readFileSync(new URL('../src/data/'+f,import.meta.url),'utf8'));
 const map=json('marina.json'),rules=json('rules.json');
 const vacuum:DeviceDef={id:'v',kind:'vacuum',label:'掃除機',x:-2,z:4,y:0,floor:0,heading:0,approach:{x:-2,z:4.7}};
-function setup(twoCleaners=false){const level=structuredClone(map) as Mission;level.npcs=[
+function setup(twoCleaners=false,blockers:Mission['blockers']=[]){const level=structuredClone(map) as Mission;level.blockers.push(...blockers);level.npcs=[
   {id:'victim',role:'waiter',label:'給仕',floor:0,route:[[-8,7,600]],look:[-8,6]},
   {id:'g',role:'guard',label:'警備',floor:0,route:[[-4,7,600]],look:[-5,7]},
   {id:'c',role:'waiter',label:'清掃員',floor:0,route:[[0,8,600]],look:[1,8]}];
@@ -66,4 +66,30 @@ test('E09 an interrupted return leaves the vacuum where it was and another clean
  at(other!,other!.scriptedGoal);ch.step(.1);
  assert.equal(ch.job,null);assert.deepEqual([v.x,v.z],[-2,4]);
  assert.equal(other!.scriptedGoal,null);
+});
+
+test('a cleaner goes around a blocked approach to reach a blood pool',()=>{
+ const obstacle={id:'cleanup-obstacle',x:-7.44,z:6.79,y:0,floor:0,w:.26,d:.26,h:1};
+ const {ch,d,c}=setup(false,[obstacle]);
+ const m=ch.add('blood',{x:-8,y:0,z:7});m.seen=true;
+ ch.step(.1);at(c,c.scriptedGoal);
+ const direction=Math.atan2(c.pos.x-m.pos.x,c.pos.z-m.pos.z);
+ const blocked={x:m.pos.x+Math.sin(direction)*.6,y:0,z:m.pos.z+Math.cos(direction)*.6};
+ assert.equal(d.nav.clear(blocked,blocked),false);
+ ch.step(.1);
+ assert.equal(ch.job?.phase,'carry');
+ assert.notDeepEqual(c.scriptedGoal,blocked);
+ assert.ok(d.nav.clear(c.scriptedGoal!,c.scriptedGoal!));
+});
+
+test('a cleaner drops a stalled errand and can take another cleanup',()=>{
+ const {ch,c}=setup();
+ const first=ch.add('blood',{x:-8,y:0,z:7});first.seen=true;
+ const second=ch.add('blood',{x:-6,y:0,z:7});second.seen=true;
+ ch.step(.1);assert.equal(ch.job?.mess,first);
+ ch.step(3);
+ assert.equal(ch.job,null);assert.equal(c.scriptedGoal,null);
+ ch.step(.1);
+ assert.equal(ch.job?.mess,second);
+ assert.equal(first.cleaned,0);
 });

@@ -13,7 +13,7 @@ import {NavGrid} from '../src/nav.ts';
 import {PartyTraversal} from '../src/party/traversal.ts';
 import {MissionClock} from '../src/schedule.ts';
 import {computeResult,ScoreLedger} from '../src/score.ts';
-import {sightBoxes} from '../src/sight.ts';
+import {segmentClear,sightBoxes} from '../src/sight.ts';
 import {CollisionWorld,floorOf,type Position} from '../src/world.ts';
 import map from '../src/data/club-map.json' with {type:'json'};
 import rules from '../src/data/club-rules.json' with {type:'json'};
@@ -28,6 +28,14 @@ const step=1/30;
 const none=new Set<string>(),holdE=new Set(['KeyE']);
 const at=(id:string)=>stage.acts.find(a=>a.id===id)!;
 const gap=(a:Position,b:Position)=>Math.hypot(a.x-b.x,a.z-b.z,a.y-b.y);
+test('the catwalk rail blocks walking and rays through its bar, but not a shot below the bar',()=>{
+ const walls=map.walls.filter(w=>!map.collisionOnlyIds.includes(w.id));
+ const boxes=sightBoxes({...map,walls}),world=new CollisionWorld(map);
+ const from={x:16.82,y:4.9,z:29.63};
+ assert.ok(world.blocked(16.8,3.5,30));
+ assert.equal(segmentClear(boxes,from,{x:16.2,y:1.6,z:32.8}),false);
+ assert.equal(segmentClear(boxes,from,{x:16.2,y:.85,z:32.8}),true);
+});
 function club(start:Position={...map.spawn,y:0}){
  const mission=map as unknown as Mission,world=new CollisionWorld(mission),nav=new NavGrid(world);
  const director=new Director(mission,world,nav,sightBoxes({...mission,walls:mission.walls.filter(w=>!map.collisionOnlyIds.includes(w.id))}),rules as Rules);
