@@ -6,11 +6,12 @@ import {CollisionWorld}from '../src/world.ts';
 import {NavGrid}from '../src/nav.ts';
 import {sightBoxes}from '../src/sight.ts';
 import {M4System}from '../src/m4.ts';
+import type {HideDef}from '../src/m3.ts';
 import {CHARACTERS,sanitizeLook,encodeLook,decodeLook}from '../src/wardrobe.ts';
 import {sampleM4Motion}from '../src/m4-motion.ts';
 const map=JSON.parse(readFileSync(new URL('../src/data/marina.json',import.meta.url),'utf8')),rules=JSON.parse(readFileSync(new URL('../src/data/rules.json',import.meta.url),'utf8'));
 const player=(x=-8,z=7.9,disguise='suit'):PlayerView=>({x,y:0,z,floor:0,speed:0,running:false,crouched:false,tampering:false,disguise});
-function setup(){const level=structuredClone(map)as Mission;level.npcs=[{id:'source',role:'guard',label:'制服の持ち主',floor:0,route:[[-8,7,600]],look:[-8,6]},{id:'guard-service',role:'guard',label:'検査員',floor:0,route:[[-12.6,1.7,600]],look:[-12.6,0]},{id:'observer',role:'guard',label:'目撃者',floor:0,route:[[-4,7,600]],look:[-3,7]}];const world=new CollisionWorld(level),d=new Director(level,world,new NavGrid(world),sightBoxes(level),structuredClone(rules)as Rules),m=new M4System(d,map.checkpoints,rules.m4);d.npcs[0].life='unconscious';d.npcs[0].fall=1;d.npcs[2].heading=Math.PI/2;return{m,d,source:d.npcs[0],guard:d.npcs[1],observer:d.npcs[2]};}
+function setup(hides:HideDef[]=[]){const level=structuredClone(map)as Mission;level.npcs=[{id:'source',role:'guard',label:'制服の持ち主',floor:0,route:[[-8,7,600]],look:[-8,6]},{id:'guard-service',role:'guard',label:'検査員',floor:0,route:[[-12.6,1.7,600]],look:[-12.6,0]},{id:'observer',role:'guard',label:'目撃者',floor:0,route:[[-4,7,600]],look:[-3,7]}];const world=new CollisionWorld(level),d=new Director(level,world,new NavGrid(world),sightBoxes(level),structuredClone(rules)as Rules),m=new M4System(d,map.checkpoints,rules.m4,hides);d.npcs[0].life='unconscious';d.npcs[0].fall=1;d.npcs[2].heading=Math.PI/2;return{m,d,source:d.npcs[0],guard:d.npcs[1],observer:d.npcs[2]};}
 function hold(m:M4System,key:string,seconds:number,p=player()){for(let t=0;t<seconds;t+=1/60)m.step(1/60,{...p,disguise:m.disguise},0,new Set([key]));m.step(1/60,{...p,disguise:m.disguise},0,new Set());}
 test('every disguise row (nine, and five outsiders added in M5.7) is data driven and unknown outfits do not grant access',()=>{const {d}=setup(),staff={...map.zones.find((z:{type:string})=>z.type==='staff')};assert.equal(Object.keys(d.rules.disguises).length,14);assert.equal(permission(d.rules,'suit',staff),'deny');assert.equal(permission(d.rules,'waiter',staff),'allow');assert.equal(permission(d.rules,'guard',staff),'allow');assert.equal(permission(d.rules,'unknown',staff),'deny');d.rules.disguises.waiter.staff='deny';assert.equal(permission(d.rules,'waiter',staff),'deny');});
 test('taking a uniform consumes one source and leaves recoverable original clothes',()=>{const {m,source}=setup();hold(m,'KeyT',2);assert.equal(m.disguise,'guard');assert.ok(m.taken.has(source.id));assert.equal(m.clothes.length,1);assert.equal(m.clothes[0].disguise,'suit');assert.equal(m.stats.changes,1);hold(m,'KeyT',2);assert.equal(m.disguise,'suit');assert.equal(m.clothes.length,1);assert.equal(m.clothes[0].disguise,'guard');assert.equal(m.stats.changes,2);});
@@ -36,6 +37,28 @@ test('the revived owner recognises their own uniform even after it has been put 
  m.disguise='guard';assert.equal(m.outfitOwner,undefined);
 });
 test('active, hidden, distant or wall-obstructed people are not uniform sources',()=>{const {m,d,source}=setup();source.life='active';assert.equal(m.source(player()),undefined);source.life='unconscious';source.bodyMode='hidden';assert.equal(m.source(player()),undefined);source.bodyMode='ground';assert.equal(m.source(player(5,9)),undefined);d.boxes.push({minX:-9,maxX:-7,minY:0,maxY:3,minZ:7.3,maxZ:7.4});assert.equal(m.source(player()),undefined);});
+test('an undressed NPC changes only at a stocked locker and an interruption leaves the outfit missing',()=>{
+ const locker:HideDef={id:'locker',label:'ロッカー',x:-8,y:0,z:10,heading:0,capacity:1,spareClothes:true,approach:{x:0,z:-1},size:{w:.65,h:1.9,d:.55}};
+ const {m,source}=setup([{...locker,id:'empty',x:-7,z:7,spareClothes:false},locker]);
+ hold(m,'KeyT',2);
+ assert.ok(m.isUndressed(source));assert.equal(source.scriptedGoal,null);
+ source.life='active';source.fall=0;
+ const step=(dt:number)=>m.step(dt,{...player(-12,8,m.disguise),hidden:true},0,new Set());
+ step(.1);
+ const at={x:-8,y:0,z:9};
+ assert.deepEqual(source.scriptedGoal,at);assert.ok(m.isUndressed(source));
+ source.pos=at;
+ step(m.rules.changeSeconds/2);
+ source.state='search';step(.1);
+ assert.ok(m.isUndressed(source));assert.equal(source.scriptedGoal,null);
+ source.state='patrol';step(m.rules.changeSeconds/2);
+ assert.ok(m.isUndressed(source));
+ step(m.rules.changeSeconds);
+ assert.equal(m.isUndressed(source),false);assert.equal(source.scriptedGoal,null);
+ assert.equal(m.outfitOwner,source.id,'the player still wears the original uniform');
+ m.disguise='suit';source.life='unconscious';source.fall=1;
+ assert.equal(m.source(player(-8,9.4)),undefined,'the original source cannot be looted a second time');
+});
 test('cancelled clothes changes leave outfit and sources intact',()=>{const {m,source}=setup();hold(m,'KeyT',.5);assert.equal(m.disguise,'suit');assert.equal(m.taken.has(source.id),false);assert.equal(m.action,null);assert.equal(m.clothes.length,0);});
 function faceSetup(knows=['guard']){const {d,observer}=setup();d.npcs.splice(0,2);observer.pos={x:-8,y:0,z:7};observer.heading=0;observer.route.splice(0,1,[-8,7,600]);observer.look?.splice(0,2,-8,10);observer.knowsFaces.push(...knows);return{d,observer};}
 test('only a face-knower fills the white gauge, separate from suspicion, then checks and blows the outfit',()=>{const {d,observer}=faceSetup([]);const p={...player(-8,9,'guard'),speed:1.65};for(let i=0;i<90;i++)d.step(1/60,p);assert.equal(observer.face,0);assert.equal(observer.suspicion,0);

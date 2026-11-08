@@ -11,7 +11,9 @@ import {NavGrid} from '../nav.ts';
 import {segmentClear,sightBoxes} from '../sight.ts';
 import {Director,type AiEvent,type Mission,type NpcDef,type PlayerView,type Rules} from '../ai.ts';
 import {MissionEvents} from '../events.ts';
-import {M3System} from '../m3.ts';
+import {M3System,type HideDef} from '../m3.ts';
+import {M4System} from '../m4.ts';
+import {MissionClock,ScheduleSystem} from '../schedule.ts';
 import {CombatSystem,type CombatRules,type WeaponDef} from '../combat.ts';
 import rulesData from '../data/club-rules.json' with {type:'json'};
 import combatData from '../data/club-combat.json' with {type:'json'};
@@ -53,7 +55,7 @@ export function guard(id:string,x:number,z:number,heading:number,o:Partial<NpcDe
 }
 export const player=(x:number,z:number,o:Partial<PlayerView>={}):PlayerView=>({x,y:0,z,floor:0,speed:0,running:false,crouched:false,tampering:false,disguise:'suit',...o});
 
-export type Run={director:Director;combat?:CombatSystem;m3?:M3System;coin?:{mesh:Mesh;pickups:LandedCoinPickups};devices?:DeviceSystem;events:AiEvent[];log:string[];time:number;player:PlayerView;marks:Position[]};
+export type Run={director:Director;combat?:CombatSystem;m3?:M3System;outfit?:{m4:M4System;schedule:ScheduleSystem};coin?:{mesh:Mesh;pickups:LandedCoinPickups};devices?:DeviceSystem;events:AiEvent[];log:string[];time:number;player:PlayerView;marks:Position[]};
 export type Scenario={
  id:string;group:'視認'|'聴覚'|'無線'|'戦闘'|'捜索'|'経路探索'|'立入禁止'|'検問'|'救助'|'設備';title:string;expect:string;
  npcs:NpcDef[];seconds:number;combat?:boolean;
@@ -225,6 +227,28 @@ export const SCENARIOS:Scenario[]=[
    return {pass:revived&&r.log.includes('気絶者を発見')&&r.log.includes('警備1人が救助を開始')&&r.m3!.hotel.level===0,
     detail:[...r.log,revived?'気絶者が行動に復帰':'復帰せず'].join(' → ')};
   }},
+ {id:'outfit-recovery',group:'救助',title:'救助された人がロッカーで着替える',expect:'服を取られた人が救助されると、ロッカーへ向かって着替え、元の場所に戻る。',
+  npcs:[guard('g1',-17,0,Math.PI/2),guard('guest',-14,0,0,{role:'guest',knowsFaces:[]})],
+  seconds:22,player:()=>player(14,12,{hidden:true}),
+  start:r=>{
+   const locker:HideDef={id:'locker',label:'ロッカー',x:-14,y:0,z:5,heading:0,capacity:1,spareClothes:true,approach:{x:0,z:-.8},size:{w:.65,h:1.9,d:.55}};
+   const body=npc(r,'guest'),events=new MissionEvents();
+   r.m3=new M3System(r.director,[locker],rulesData.m3);
+   r.outfit={m4:new M4System(r.director,[],rulesData.m4,[locker]),
+    schedule:new ScheduleSystem({actors:{}},{},r.director,new MissionClock(rulesData.schedule,events),events)};
+   r.outfit.m4.taken.add(body.id);
+   r.marks.push({x:locker.x,y:locker.y,z:locker.z});
+   r.m3.down(body,'ko');
+  },
+  step:r=>{
+   const body=npc(r,'guest'),{m4}=r.outfit!;
+   if(body.active&&body.scriptedGoal&&m4.isUndressed(body)&&!r.log.includes('ロッカーへ向かう'))r.log.push('ロッカーへ向かう');
+   if(!m4.isUndressed(body)&&!r.log.includes('着替えた'))r.log.push('着替えた');
+  },
+  done:r=>r.log.includes('着替えた')&&flat(npc(r,'guest').pos,{x:-14,y:0,z:0})<.5,
+  judge:r=>({pass:r.log.includes('ロッカーへ向かう')&&r.log.includes('着替えた')&&flat(npc(r,'guest').pos,{x:-14,y:0,z:0})<.5,
+   detail:[...r.log,flat(npc(r,'guest').pos,{x:-14,y:0,z:0})<.5?'元の場所に戻った':'まだ移動中'].join(' → ')}),
+ },
 ];
 
 // One scenario, stepped by the caller (the lab page animates it; run() finishes it at once).
@@ -240,6 +264,8 @@ export const DT=1/60;
 export function tick(s:Scenario,r:Run){
  r.player=s.player(r.time,r);
  r.m3?.step(DT,r.player,0,new Set());
+ r.outfit?.m4.step(DT,r.player,0,new Set());
+ r.outfit?.schedule.sync(DT);
  for(const e of r.director.step(DT,r.player)){r.events.push(e);if(['curious','investigate','warn','arrest','alert','search','caught','calm','report'].includes(e.type))r.log.push(`${e.npc.id}:${e.type}`);}
  r.combat?.step(DT,r.player,r.time);
  s.step?.(r);r.time+=DT;

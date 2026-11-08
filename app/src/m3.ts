@@ -5,7 +5,7 @@ import { meleeOf, MELEE_REACH, PUNCH_SECONDS, FINISH_SECONDS, BRAWL_WINDOW, BRAW
 import { BRAWL_FINISH } from './brawl-motion.ts';
 import { BodyRescue } from './body-rescue.ts';
 
-export type HideDef={id:string;label:string;x:number;y:number;z:number;heading:number;capacity:number;approach:{x:number;z:number};size:{w:number;h:number;d:number}};
+export type HideDef={id:string;label:string;x:number;y:number;z:number;heading:number;capacity:number;spareClothes?:boolean;approach:{x:number;z:number};size:{w:number;h:number;d:number}};
 export type M3Rules={distance:number;backAngle:number;koSeconds:number;killSeconds:number;hideSeconds:number;dragSpeed:number;hideRadius:number;discoverSeconds:number;cooldownSeconds:number};
 export type Action={id:number;kind:'ko'|'kill'|'hide';npc:Npc;elapsed:number;duration:number;start:Position;targetStart:Position;targetHeading:number;container?:HideDef;item?:string;
  // Bare-hand variants (melee.ts): a punch from the front, a fight with a guard (stage, when it began, last landed blow),

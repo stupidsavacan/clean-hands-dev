@@ -38,7 +38,7 @@ export class M4View{
  }
  /** A body whose clothes were taken lies in its underwear (rules.json m4.undressed; pool guests are already in swimwear). */
  bodies(system:M4System,views:NpcView[],templates:Map<string,T.Object3D>){const u=system.rules.undressed;if(!u)return;
-  for(const v of views){const want=system.taken.has(v.npc.id)?(v.model in u.byModel?u.byModel[v.model]:u.default)??'':'',body=v.body;if((body.userData.undressed??'')===want)continue;
+  for(const v of views){const want=system.isUndressed(v.npc)?(v.model in u.byModel?u.byModel[v.model]:u.default)??'':'',body=v.body;if((body.userData.undressed??'')===want)continue;
    for(const o of [...body.children])if(o.userData.undressed)o.removeFromParent();body.traverse(o=>{if(o.userData.hiddenByUndress){o.visible=true;delete o.userData.hiddenByUndress;}});
    const template=want?templates.get(want):undefined;body.userData.undressed=template?want:'';if(!template)continue;
    body.traverse(o=>{if((o as T.Mesh).isMesh&&!o.userData.undressed&&/^(Outfit|Accessories|Details)$/.test(o.name)&&o.visible){o.visible=false;o.userData.hiddenByUndress=true;}});

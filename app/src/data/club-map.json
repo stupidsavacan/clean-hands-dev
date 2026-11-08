@@ -3712,6 +3712,7 @@
   {
    "id": "locker-cloak",
    "label": "クロークのロッカー",
+   "spareClothes": true,
    "x": 10.45,
    "y": 0,
    "z": 8.1,
@@ -3730,6 +3731,7 @@
   {
    "id": "locker-kitchen",
    "label": "厨房のロッカー",
+   "spareClothes": true,
    "x": 13.4,
    "y": 0,
    "z": 33,

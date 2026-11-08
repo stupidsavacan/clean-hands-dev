@@ -65,7 +65,7 @@ function drawRun(r:Run){
   b.tag.position.y=down ? .95 : 2.4;
   b.tag.scale.set(r.m3 ? 1.55 : 3,r.m3 ? .39 : .75,1);
   const status=r.m3
-   ? (down?'気絶':rescuing?'救助中':n.state==='investigate'?'調査中':n.guard?'待機':'復帰')
+   ? (down?'気絶':rescuing?'救助中':r.outfit?.m4.isUndressed(n)?'着替えへ':n.state==='investigate'?'調査中':n.guard?'待機':'復帰')
    : pickingUp?'拾う':down?(n.life==='unconscious'?'気絶':'死亡'):`${n.state} ${Math.round(n.suspicion)}`;
   const g=b.tagCtx;g.clearRect(0,0,256,64);g.fillStyle='rgba(0,0,0,.6)';g.fillRect(0,0,256,64);g.fillStyle='#fff';g.font='26px sans-serif';g.textAlign='center';g.fillText(`${n.id} ${status}`,128,42);b.tagTex.needsUpdate=true;}
  playerMesh.position.set(r.player.x,r.player.y+.83,r.player.z);(playerMesh.material as T.MeshStandardMaterial).color.set(r.player.weaponDrawn?'#ff5a4a':'#4f8cff');playerMesh.visible=!r.player.hidden&&r.director.npcs.length!==0;

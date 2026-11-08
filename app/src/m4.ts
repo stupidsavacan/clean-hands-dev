@@ -11,6 +11,7 @@ export type Item={legality:string;concealable:boolean;friskDetect?:boolean;allow
 export type M4Rules={changeSeconds:number;friskSeconds:number;friskValidSeconds:number;friskRange:number;friskStandDistance:number;friskArrivalDistance:number;guardRadius:number;lootRadius:number;compromisedClearDistance:number;roleDisguise:Record<string,string>;uniformModels:Record<string,string>;uniformHides?:Record<string,string[]>;undressed?:{default:string;byModel:Record<string,string|null>};items:Record<string,Item>};
 export type Clothes={id:string;disguise:string;pos:Position;npc?:Npc;owner?:string};
 export type M4Action={id:number;kind:'change'|'frisk';elapsed:number;duration:number;start:Position;source?:Clothes;checkpoint?:Checkpoint;guard?:Npc;guardHome?:Position;guardTarget?:Position;guardPath?:Position[]};
+type OutfitTrip={goal:Position;last:Position;stalled:number;changing:number};
 const distance=(a:{x:number;z:number},b:{x:number;z:number})=>Math.hypot(a.x-b.x,a.z-b.z);
 export class M4System{
  extraInventory?:()=>string[];
@@ -25,10 +26,15 @@ export class M4System{
  items:ItemMaster;
  // Where the agent last stood unseen after taking off each compromised outfit.
  readonly anchors=new Map<string,Position>();
+ private readonly outfitLockers:HideDef[];
+ private readonly outfitTrips=new Map<Npc,OutfitTrip>();
+ private readonly outfitRetry=new Map<Npc,number>();
+ private readonly redressed=new Set<string>();
+ isUndressed(n:Npc){return this.taken.has(n.id)&&!this.redressed.has(n.id);}
  private returning=new Map<Npc,{home:Position;path:Position[]}>();
  stats={changes:0,frisks:0,found:0,changeWitnesses:0,cleared:0};
  readonly hides:HideDef[];readonly director:Director;readonly checkpoints:Checkpoint[];readonly rules:M4Rules;
- constructor(director:Director,checkpoints:Checkpoint[],rules:M4Rules,hides:HideDef[]=[]){this.hides=hides;this.director=director;this.checkpoints=checkpoints;this.rules=rules;this.items=itemMaster(rules.items);}
+ constructor(director:Director,checkpoints:Checkpoint[],rules:M4Rules,hides:HideDef[]=[]){this.hides=hides;this.outfitLockers=hides.filter(h=>h.spareClothes);this.director=director;this.checkpoints=checkpoints;this.rules=rules;this.items=itemMaster(rules.items);}
  get locked(){return !!this.action;}
  get progress(){return this.action?this.action.elapsed/this.action.duration:0;}
  get label(){return this.director.rules.disguises[this.disguise]?.label??this.disguise;}
@@ -72,8 +78,55 @@ export class M4System{
   else if(fresh('KeyT')&&!moving){const source=this.source(p);if(source)this.action={id:++this.nextId,kind:'change',elapsed:0,duration:this.rules.changeSeconds,start:{...p},source};else this.notices.push('近くの倒れた人か、置いた服から着替えられます。');}
   else if(fresh('KeyB')&&!moving){const c=this.checkpoint(p),guard=c&&this.attendant(c);if(!c)this.notices.push('検問の線の前に立って B');else if(!guard)this.notices.push('検査担当の警備員が近くにいません。');else if(!this.allowed(c))this.notices.push('今の服ではこの区画へ入れません。');else if(this.passed(c))this.notices.push(this.requiresFrisk(c)?'検査は済んでいます。':'この服なら検査なしで通れます。');else if(!this.requiresFrisk(c)&&!this.mayStartFrisk(c))this.notices.push(`${this.barredText(c)}。検査を受けられません。${this.advice(c)}。`);else{const guardHome=this.returning.get(guard)?.home??{...guard.pos},guardTarget=this.director.world.move(p,Math.sin(heading)*this.rules.friskStandDistance,Math.cos(heading)*this.rules.friskStandDistance);this.returning.delete(guard);this.action={id:++this.nextId,kind:'frisk',elapsed:0,duration:this.rules.friskSeconds,start:{...p},checkpoint:c,guard,guardHome,guardTarget,guardPath:this.director.nav.find(guard.pos,guardTarget)??[]};guard.busy=true;guard.speed=0;guard.heading=Math.atan2(p.x-guard.pos.x,p.z-guard.pos.z);}}
   else if(fresh('KeyH')){if(this.hasWire){const pos=this.director.world.move(p,Math.sin(heading)*.35,Math.cos(heading)*.35);this.stashes.push({id:++this.nextId,pos});this.hasWire=false;this.notices.push('ワイヤーを置いた。Hで回収できます。');}else{const stash=this.wireStash(p);if(stash){this.stashes.splice(this.stashes.indexOf(stash),1);this.hasWire=true;this.notices.push('ワイヤーを回収した。');}else this.notices.push('回収できるワイヤーが近くにありません。');}this.passes.clear();}
+  this.stepOutfitTrips(dt);
   this.releaseCompromised(p);
   this.held=new Set(keys);}
+ // The rescued NPC walks to an existing locker before their original look returns.
+ private stepOutfitTrips(dt:number){
+  if(!this.outfitLockers.length||this.taken.size===this.redressed.size)return;
+  const {nav}=this.director;
+  for(const n of this.director.npcs){
+   if(!this.isUndressed(n))continue;
+   let trip=this.outfitTrips.get(n);
+   const available=n.active&&!n.busy&&n.state==='patrol';
+   if(trip&&(!available||n.scriptedGoal!==trip.goal)){
+    this.endOutfitTrip(n,trip);
+    continue;
+   }
+   if(!trip){
+    if(!available||n.scriptedGoal||(this.outfitRetry.get(n)??0)>this.elapsed)continue;
+    const spots=this.outfitLockers.map(h=>({goal:{x:h.x+h.approach.x,y:h.y,z:h.z+h.approach.z},heading:Math.atan2(-h.approach.x,-h.approach.z)}));
+    const gap=(p:Position)=>Math.hypot(distance(n.pos,p),n.pos.y-p.y);
+    spots.sort((a,b)=>gap(a.goal)-gap(b.goal));
+    const spot=spots.find(({goal})=>{
+     if(nav.clear(n.pos,goal))return true;
+     const end=nav.find(n.pos,goal)?.at(-1);
+     return !!end&&nav.clear(end,goal);
+    });
+    if(!spot){this.outfitRetry.set(n,this.elapsed+5);continue;}
+    trip={goal:spot.goal,last:{...n.pos},stalled:0,changing:0};
+    this.outfitTrips.set(n,trip);
+    n.scriptedGoal=trip.goal;n.scriptedHeading=spot.heading;n.scriptedAction='';
+   }
+   if(distance(n.pos,trip.goal)<=.45&&Math.abs(n.pos.y-trip.goal.y)<.3&&nav.clear(n.pos,trip.goal)){
+    trip.stalled=0;
+    trip.changing+=dt;
+    if(trip.changing>=this.rules.changeSeconds){
+     this.redressed.add(n.id);
+     this.endOutfitTrip(n,trip);
+     this.outfitRetry.delete(n);
+    }
+   }else{
+    trip.changing=0;
+    if(Math.hypot(distance(n.pos,trip.last),n.pos.y-trip.last.y)>.12){trip.last={...n.pos};trip.stalled=0;}
+    else if((trip.stalled+=dt)>=3){this.outfitRetry.set(n,this.elapsed+5);this.endOutfitTrip(n,trip);}
+   }
+  }
+ }
+ private endOutfitTrip(n:Npc,trip:OutfitTrip){
+  this.outfitTrips.delete(n);
+  if(n.scriptedGoal===trip.goal){n.scriptedGoal=null;n.scriptedHeading=null;n.scriptedAction='';}
+ }
  // A blown outfit stays blown, even if another copy is picked up, until the agent has changed out of it and walked clearDistance unseen.
  private releaseCompromised(p:PlayerView){const seen=this.director.npcs.some(n=>n.active&&n.visibility>0);
   for(const d of [...this.director.compromised]){if(d===this.disguise){this.anchors.delete(d);continue;}const at=this.anchors.get(d);
