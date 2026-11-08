@@ -13,7 +13,7 @@ import {GUN_LIST,GUN_MODELS} from '../gun-data';
 // Every gun model (2026-11-06): the game's M5.5 guns, and the generic ones in their detailed and simple versions
 // (assets/guns, assets/guns-simple). cls is the hold (combat-motion.ts): one hand or two.
 const GUNS:{id:string;label:string;cls:WeaponClass;b64:string}[]=[
- ...([['pistol_guard','警備の拳銃','pistol'],['pistol_silenced','消音ピストル','pistol'],['smg','短機関銃','long'],['rifle_npc','突撃銃（NPC専用）','long']] as const).map(([id,label,cls])=>({id:'m55:'+id,label:`${label}（ゲーム中）`,cls,b64:COMBAT_MODELS[id]})),
+ ...([['pistol_guard','警備の拳銃','pistol'],['pistol_silenced','消音ピストル','pistol'],['tranq_pistol','鎮静ダーツ銃','pistol'],['smg','短機関銃','long'],['rifle_npc','突撃銃（NPC専用）','long']] as const).map(([id,label,cls])=>({id:'m55:'+id,label:`${label}（ゲーム中）`,cls,b64:COMBAT_MODELS[id]})),
  ...GUN_LIST.map(g=>({id:g.id,label:g.label,cls:g.cls as WeaponClass,b64:GUN_MODELS[g.id]})),
 ];
 import {Rig} from '../rig';
@@ -82,7 +82,7 @@ const app=document.querySelector<HTMLDivElement>('#app')!;
 app.innerHTML=`<canvas id="view"></canvas><aside id="panel"><header><b>モーション実験ステージ</b><small>全モデルと全モーションを、同じ時計で再生します。ゲームと同じ動きの仕組みを使っています。</small></header>
 <details id="pistol-tune">
 <summary>07の拳銃を微調整</summary>
-<p>銃とグリップの位置を固定したまま、07の構えを調整します。0°が標準です。</p>
+<p>「銃」で片手銃を選べます。銃とグリップの位置を固定したまま、07の構えを調整します。調整値はすべての片手銃で共通です。0°が標準です。</p>
 <div class="row" aria-label="見る角度"><button data-pistol-angle="0">正面</button><button data-pistol-angle="-35">斜め</button><button data-pistol-angle="-90">横</button></div>
 ${PISTOL_ADJUSTMENTS.map(({id,label,limit})=>`<label class="pose-adjust" for="pistol-${id}"><span>${label}</span><output for="pistol-${id}" data-pistol-value="${id}">0°</output><input id="pistol-${id}" type="range" min="${-limit}" max="${limit}" step="1" value="0"></label>`).join('')}
 <label><input id="pistol-compare" type="checkbox"> 標準の構えを見る</label>
@@ -252,8 +252,10 @@ function syncPistolSliders(){
  }
 }
 function previewPistol(){
- const gun=$<HTMLSelectElement>('#gun');
- gun.value='m55:pistol_silenced';gun.dispatchEvent(new Event('change'));
+ if(gunSel().cls!=='pistol'){
+  const gun=$<HTMLSelectElement>('#gun');
+  gun.value='m55:pistol_silenced';gun.dispatchEvent(new Event('change'));
+ }
  for(const a of [...actors])if(a.def.id!=='agent')remove(a.def.id);
  void addActor(MODELS[0]);
  clipSel.value='combat-aim';clipSel.dispatchEvent(new Event('change'));setPlaying(false);
