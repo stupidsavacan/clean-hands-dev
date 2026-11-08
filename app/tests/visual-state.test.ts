@@ -9,7 +9,7 @@ function setup(){const world=new CollisionWorld(hotel),d=new Director(hotel,worl
 test('M5.8 busy hotel NPCs stand or chat with lowered arms instead of the rest pose',async()=>{const {d}=setup(),n=d.npcs.find(n=>n.id==='head_waiter')!,scene=new T.Scene(),v=new NpcView(await load(PLAYER_BASE64),n,scene);n.busy=true;n.speed=0;for(const action of ['', 'chat']){n.scriptedAction=action;v.render(1/60,1,()=>n.pos.y);for(const side of ['l','r']){const j=v.rig.joints.get('upperarm'+side)!;assert.ok(j.bone.quaternion.angleTo(j.q0)>1,'arm must hang below the T pose');}}});
 test('M5.8 the held guard gun clears on the next frame when dead or busy; the dropped gun remains',async()=>{const {d,c}=setup(),n=d.npcs.find(n=>n.id==='guard_parking')!,scene=new T.Scene(),v=new NpcView(await load(PLAYER_BASE64),n,scene),cv=new CombatView(scene);(cv as unknown as {templates:Map<string,T.Object3D>}).templates.set('pistol_guard',await load(COMBAT_MODELS.pistol_guard));n.state='combat';cv.npc(v,1);const held=v.group.children.find(o=>o!==v.body.parent)!;assert.ok(held.visible);n.busy=true;cv.render(c,1.1,[v]);assert.equal(held.visible,false);n.busy=false;cv.npc(v,1.2);assert.equal(held.visible,true);n.life='dead';n.state='patrol';n.fall=0;cv.render(c,1.21,[v]);assert.equal(held.visible,false);n.fall=1;c.step(1/60,{...hotel.spawn,y:0,floor:0,speed:0,running:false,crouched:false,tampering:false,disguise:'suit'},1.3);cv.render(c,1.3,[v]);assert.equal(held.visible,false);const drop=c.dropped.find(g=>Math.hypot(g.pos.x-n.pos.x,g.pos.z-n.pos.z)<1)!;assert.ok(drop);assert.ok(cv.root.children.some(o=>o.visible&&o.position.x===drop.pos.x&&o.position.z===drop.pos.z));});
 test('M5.8 crouched aim, shot, reload and draw lower both weapon classes to the shot height and retain their grips',async()=>{const model=await load(PLAYER_BASE64),actor=new T.Group();actor.add(model);const rig=new Rig(model),loco=new Locomotion();for(const cls of ['pistol','long'] as const){const weapon=prepareWeapon(await load(COMBAT_MODELS[cls==='pistol'?'pistol_silenced':'smg']),cls);for(const kind of ['aim','fire','reload','draw','holster'] as const)for(const progress of [0,.18,.4,.7,1]){let pose;for(let j=0;j<80;j++)pose=loco.update(1/60,{speed:0,crouch:1,slope:0,turn:0,distance:0,actual:0});rig.apply(pose!);const frame=sampleCombat(kind,cls,progress,true);const error=poseCombat(rig,actor,model,frame,weapon,1);assert.ok(error<.025,`${kind}/${cls}/${progress}: ${error}`);const hold=weapon.object.localToWorld(weapon.anchors[frame.weapon!.anchor].clone());assert.ok(Math.abs(hold.y-(frame.weapon!.pos[1]-poseData.chest.standing+poseData.chest.crouched))<1e-8);if(kind==='aim')assert.ok(muzzle(weapon).y<rig.joints.get('head')!.bone.getWorldPosition(new T.Vector3()).y);}}});
-test('HD15: the agent straightens the elbow at the same grip on every pistol model',async()=>{
+test('HD15: the agent aims every pistol model on a straight right arm',async()=>{
  const model=await load(PLAYER_BASE64),actor=new T.Group(),rig=new Rig(model),loco=new Locomotion();
  actor.add(model);
  const pistols=[
@@ -28,10 +28,11 @@ test('HD15: the agent straightens the elbow at the same grip on every pistol mod
    return {wrist,angle:point('upperarmr').sub(elbow).angleTo(wrist.clone().sub(elbow)),muzzle:muzzle(weapon).clone()};
   };
   const twoHands=aim(false),oneHand=aim(true),adjusted=aim(true,{torso:0,shoulder:0,elbow:8,freeArm:5});
+  // The arm is (nearly) straight and the gun further forward than the two-handed hold; tuning keeps the gun still.
   for(const pose of [oneHand,adjusted]){
-   assert.ok(pose.wrist.distanceTo(twoHands.wrist)<.01,id);
-   assert.ok(pose.angle>twoHands.angle,id);
-   assert.ok(pose.muzzle.distanceTo(twoHands.muzzle)<1e-8,id);
+   assert.ok(pose.angle>2.7,`${id} elbow ${pose.angle}`);
+   assert.ok(pose.muzzle.z>twoHands.muzzle.z+.15,id);
+   assert.ok(pose.muzzle.distanceTo(oneHand.muzzle)<1e-8,id);
   }
  }
 });

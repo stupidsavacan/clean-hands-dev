@@ -84,7 +84,7 @@ app.innerHTML=`<canvas id="view"></canvas><aside id="panel"><header><b>モーシ
 <summary>07の拳銃を微調整</summary>
 <p>「銃」で片手銃を選べます。銃とグリップの位置を固定したまま、07の構えを調整します。調整値はすべての片手銃で共通です。0°が標準です。</p>
 <div class="row" aria-label="構えの案">${Object.entries(AGENT_PISTOL_VARIANTS).map(([id,v])=>`<button data-pistol-variant="${id}" title="${v.note}">${v.label}</button>`).join('')}</div>
-<p id="pistol-variant-note">A 今の構え：両手持ちと同じ位置（顔の前）</p>
+<p id="pistol-variant-note"></p>
 <div class="row" aria-label="見る角度"><button data-pistol-angle="0">正面</button><button data-pistol-angle="-35">斜め</button><button data-pistol-angle="-90">横</button></div>
 ${PISTOL_ADJUSTMENTS.map(({id,label,limit})=>`<label class="pose-adjust" for="pistol-${id}"><span>${label}</span><output for="pistol-${id}" data-pistol-value="${id}">0°</output><input id="pistol-${id}" type="range" min="${-limit}" max="${limit}" step="1" value="0"></label>`).join('')}
 <label><input id="pistol-compare" type="checkbox"> 標準の構えを見る</label>
@@ -137,7 +137,7 @@ type Actor={def:ModelDef;group:T.Group;model:T.Object3D;rig:Rig;loco:Locomotion;
 const loader=new GLTFLoader(),bytes=(b64:string)=>Uint8Array.from(atob(b64),c=>c.charCodeAt(0)).buffer;
 const actors:Actor[]=[];const loading=new Set<string>();
 let pistolTuning=loadPistolTuning();
-let pistolVariant=new URLSearchParams(location.search).get('pistol')??'A';
+let pistolVariant=new URLSearchParams(location.search).get('pistol')??'E';
 const pistolCompare=$<HTMLInputElement>('#pistol-compare');
 const NEED=['pelvis','spine','chest','neck','head','thighl','shinl','footl','thighr','shinr','footr','upperarml','forearml','handl','upperarmr','forearmr','handr'];
 async function addActor(def:ModelDef){

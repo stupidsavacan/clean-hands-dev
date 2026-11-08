@@ -40,10 +40,15 @@ test('HD15 (S08 rows 26 and 97): only the agent aims and fires a pistol one-hand
   }
   assert.deepEqual([...goals].sort(),oneHanded?['MAG','POUCH','SLIDE']:['GRIP_L','MAG','POUCH','SLIDE']);
  }
- for(const kind of KINDS)for(let i=0;i<=20;i++){
-  const t=i/20;
-  assert.deepEqual(sampleCombat(kind,'pistol',t,true).weapon,sampleCombat(kind,'pistol',t).weapon,`${kind} at ${t}`);
- }
+ // The user's reference photo (2026-11-08): the agent's gun is out on the straight right arm, on the right of the
+ // face and further forward than the two-handed hold; holstered and kneeling holds stay shared.
+ const one=sampleCombat('aim','pistol',0,true).weapon!,two=sampleCombat('aim','pistol',0).weapon!;
+ assert.ok(one.pos[0]<-.1&&one.pos[2]>two.pos[2]+.2&&one.pos[1]>two.pos[1],JSON.stringify(one.pos));
+ for(const kind of ['cover'] as const)assert.deepEqual(sampleCombat(kind,'pistol',0,true).weapon,sampleCombat(kind,'pistol',0).weapon);
+ assert.deepEqual(sampleCombat('draw','pistol',0,true).weapon,sampleCombat('draw','pistol',0).weapon);
+ // The lab's A/B candidates: E is the game's stance; the others move the gun.
+ assert.deepEqual(sampleCombat('aim','pistol',0,true,undefined,'E'),sampleCombat('aim','pistol',0,true));
+ assert.deepEqual(sampleCombat('aim','pistol',0,true,undefined,'A').weapon,two);
  const tuning={torso:6,shoulder:5,elbow:-12,freeArm:10};
  const standard=sampleCombat('aim','pistol',0,true),adjusted=sampleCombat('aim','pistol',0,true,tuning);
  assert.notDeepEqual(adjusted.pose.bones,standard.pose.bones);
