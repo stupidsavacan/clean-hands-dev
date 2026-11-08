@@ -1,4 +1,10 @@
-import {AGENT_PISTOL_VARIANTS,COMBAT_SECONDS,sampleCombat,type CombatKind} from '../combat-motion.ts';
+import * as T from 'three';
+import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
+import {AGENT_PISTOL_VARIANTS,COMBAT_SECONDS,sampleCombat,weaponVisible,type CombatKind} from '../combat-motion.ts';
+import {poseCombat,prepareWeapon} from '../combat-runtime.ts';
+import {COMBAT_MODELS} from '../combat-data.ts';
+import {PLAYER_BASE64} from '../player-data.ts';
+import {Rig} from '../rig.ts';
 import {sampleMotion,type MotionKind} from '../motion.ts';
 import {sampleM4Motion} from '../m4-motion.ts';
 import traversalPoses from '../data/party-motions.json' with {type:'json'};
@@ -103,6 +109,35 @@ export function runElbowCheck({samples}:typeof ELBOW_CHECKS[number]){
  for(const {motion,left,right} of samples()){
   for(const [side,angle] of [['左',left],['右',right]] as const){
    if(!elbowInRange(angle))return {motion,side,degrees:angle*180/Math.PI};
+  }
+ }
+ return null;
+}
+
+export async function runAgentDrawCheck(){
+ // Use the game rig and weapon anchors without loading textures or drawing a scene.
+ const loader=new GLTFLoader().register(()=>({name:'draw-check-material',loadMaterial:()=>Promise.resolve(new T.MeshBasicMaterial())}));
+ const load=async(base64:string)=>(await loader.parseAsync(Uint8Array.from(atob(base64),c=>c.charCodeAt(0)).buffer,'')).scene;
+ const [model,gun]=await Promise.all([load(PLAYER_BASE64),load(COMBAT_MODELS.pistol_silenced)]);
+ const actor=new T.Group();
+ actor.add(model);
+ const rig=new Rig(model),weapon=prepareWeapon(gun,'pistol');
+ const elbow=rig.joints.get('forearmr')!.bone,wrist=rig.joints.get('handr')!.bone;
+ const point=new T.Vector3();
+ for(const crouch of [0,1]){
+  const loco=new Locomotion(),input={speed:0,crouch,slope:0,turn:0,distance:0};
+  for(let i=0;i<80;i++)loco.update(1/60,input);
+  const idle=loco.update(1/60,input),seconds=COMBAT_SECONDS.draw;
+  for(let frame=0;frame<=Math.ceil(seconds*30);frame++){
+   const t=Math.min(1,frame/(30*seconds));
+   if(!weaponVisible('draw','pistol',t,true))continue;
+   rig.apply(idle);
+   const gripError=poseCombat(rig,actor,model,sampleCombat('draw','pistol',t,true),weapon,crouch,1);
+   const lead=actor.worldToLocal(elbow.getWorldPosition(point)).z-actor.worldToLocal(wrist.getWorldPosition(point)).z;
+   const where=`${crouch?'しゃがみ':'立ち'} ${frame}コマ目`;
+   if(!Number.isFinite(lead)||!Number.isFinite(gripError))return `${where} · 右腕の姿勢が無効`;
+   if(lead>.02)return `${where} · 右肘が手首より ${(lead*100).toFixed(1)} cm 前`;
+   if(gripError>.025)return `${where} · 右手とグリップのずれ ${(gripError*100).toFixed(1)} cm`;
   }
  }
  return null;

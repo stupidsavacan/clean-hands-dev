@@ -28,7 +28,7 @@ import {sampleCombat,weaponVisible,COMBAT_SECONDS,COMBAT_LOOPS,AGENT_PISTOL_VARI
 import {DEFAULT_PISTOL_TUNING,PISTOL_ADJUSTMENTS,loadPistolTuning,savePistolTuning} from '../pistol-tuning.ts';
 import {poseCombat,prepareWeapon,type Weapon} from '../combat-runtime';
 import {createPoseEditor} from './pose-editor';
-import {ELBOW_CHECKS,runElbowCheck} from './motion-checks';
+import {ELBOW_CHECKS,runAgentDrawCheck,runElbowCheck} from './motion-checks';
 import {holdPose,holdKind,strikePose,surrenderPose,SURRENDER_ARM} from '../hold-pose';
 // The hands-up arm angles, adjustable live from the console while tuning (window.__surrenderArm).
 Object.assign(window,{__surrenderArm:SURRENDER_ARM});
@@ -130,18 +130,34 @@ const style=document.createElement('style');style.textContent=`
 document.head.append(style);
 const $=<E extends HTMLElement=HTMLElement>(s:string)=>document.querySelector<E>(s)!;
 
-$('#run-elbow-checks').onclick=()=>{
- const results=ELBOW_CHECKS.map(check=>({label:check.label,issue:runElbowCheck(check)}));
- const passed=results.filter(({issue})=>!issue).length;
+const runElbowChecks=$<HTMLButtonElement>('#run-elbow-checks');
+runElbowChecks.onclick=async()=>{
+ const result=$('#elbow-results');
+ runElbowChecks.disabled=true;
+ result.textContent='判定中…';
+ const results=ELBOW_CHECKS.map(({label,samples})=>{
+  const issue=runElbowCheck({label,samples});
+  const angle=issue&&Number.isFinite(issue.degrees)?issue.degrees.toFixed(1)+'°':'無効';
+  return {label,detail:issue?`${issue.motion} · ${issue.side}肘 ${angle}`:null};
+ });
+ try{
+  results.push({label:'07・銃を出す（IK後）',detail:await runAgentDrawCheck()});
+ }catch(error){
+  console.error(error);
+  results.push({label:'07・銃を出す（IK後）',detail:'判定用モデルを読み込めません'});
+ }finally{
+  runElbowChecks.disabled=false;
+ }
+ const passed=results.filter(({detail})=>!detail).length;
  const summary=document.createElement('div');
  summary.textContent=`合格 ${passed} / ${results.length}${passed===results.length?'':` · 不合格 ${results.length-passed}`}`;
- const rows=results.map(({label,issue})=>{
+ const rows=results.map(({label,detail})=>{
   const row=document.createElement('div');
-  row.className=issue?'fail':'pass';
-  row.textContent=issue?`✗ ${label} · ${issue.motion} · ${issue.side}肘 ${Number.isFinite(issue.degrees)?issue.degrees.toFixed(1)+'°':'無効'}`:`✓ ${label}`;
+  row.className=detail?'fail':'pass';
+  row.textContent=detail?`✗ ${label} · ${detail}`:`✓ ${label}`;
   return row;
  });
- $('#elbow-results').replaceChildren(summary,...rows);
+ result.replaceChildren(summary,...rows);
 };
 
 // --- scene

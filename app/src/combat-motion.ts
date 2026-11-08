@@ -135,13 +135,16 @@ function tunedPistolStance(tuning?:PistolTuning,variant?:string|PistolVariant):A
 }
 const HANG:Bones={};
 const REACH_HIP:Bones={chest:[.03,.06,0],upperarmr:[.20,0,1.20],forearmr:[0,1.0,0]};
+const AGENT_REACH_HIP:Bones={...REACH_HIP,upperarmr:[.45,0,1.45]};
+// Lift from the hip before turning into the aiming stance. Seed the elbow behind the wrist for grip IK.
+const AGENT_LIFT:Bones={chest:[.02,.25,0],neck:[.01,-.10,0],head:[.04,-.12,0],upperarmr:[.20,0,1.20]};
 const LONG_LOW:Bones={chest:[.03,-.30,0],neck:[.02,.14,0],head:[.04,.12,0],upperarmr:[-.10,0,1.0],upperarml:[-.85,0,-1.0],forearmr:[0,1.55,0],forearml:[0,-1.20,0]};
 
-function draw(cls:WeaponClass,t:number,stance:AimStance):CombatFrame{
+function draw(cls:WeaponClass,t:number,stance:AimStance,agent=false):CombatFrame{
  if(cls==='pistol'){const h=HOLD.pistol;return sample([
   {t:0,bones:HANG,hold:h.holster,r:['GRIP_R',0]},
-  {t:.30,bones:REACH_HIP,hold:h.holster,r:['GRIP_R',1]},
-  {t:.55,bones:{...stance.bones,upperarmr:[-.55,0,.95],forearmr:[0,1.0,0],...(stance.l?{upperarml:[-.40,0,-1.1] as Angles}:{})},hold:h.lift,r:['GRIP_R',1]},
+  {t:.30,bones:agent?AGENT_REACH_HIP:REACH_HIP,hold:h.holster,r:['GRIP_R',1]},
+  {t:.55,bones:{...stance.bones,upperarmr:[-.55,0,.95],forearmr:[0,1.0,0],...(stance.l?{upperarml:[-.40,0,-1.1] as Angles}:{}),...(agent?AGENT_LIFT:{})},hold:h.lift,r:['GRIP_R',1]},
   {t:.82,bones:stance.bones,hold:stance.hold,r:['GRIP_R',1],l:stance.l},
   {t:1,bones:stance.bones,hold:stance.hold,r:['GRIP_R',1],l:stance.l}],t,true);}
  const h=HOLD.long;return sample([
@@ -221,7 +224,7 @@ export function sampleCombat(kind:CombatKind,cls:WeaponClass,progress:number,age
  const loop=COMBAT_LOOPS.includes(kind),t=loop?((progress%1)+1)%1:clamp(progress);
  const stance=agent&&cls==='pistol'?tunedPistolStance(tuning,variant):AIM_STANCE[cls];
  switch(kind){
-  case 'draw':return draw(cls,t,stance);
+  case 'draw':return draw(cls,t,stance,agent);
   case 'holster':return draw(cls,1-t,stance);
   case 'aim':return aimLoop(cls,t,stance);
   case 'fire':return fire(t,stance);
