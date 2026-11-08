@@ -1,5 +1,5 @@
 // HD01 (hitman-decisions.json): one gun at most — the user's rule, kept even when aligning with HITMAN.
-// HD13 (todo): a tool may be left at the pickup too, still with one gun at most.
+// HD13: the UI lab can leave a selected tool at the pickup with one gun at most.
 // 2026-11-06: the loadout rules (src/loadout.ts). User report: the HITMAN-style planning screen let a gun be carried in
 // AND another be left at the pickup — two guns. One gun at most, wherever it waits.
 import test from 'node:test';
@@ -31,6 +31,18 @@ test('club: the pickup holds the one gun (carried in, or waiting at P1–P3), ne
  l=choose(l,club,'pickup','P1');assert.deepEqual(loadoutGuns(l),[{id:'pistol_silenced',at:'P1'}]);
  l=choose(l,club,'pistol','tranq_pistol');assert.deepEqual(loadoutGuns(l),[{id:'tranq_pistol',at:'P1'}],'changing the gun keeps where it waits');
  l=choose(l,club,'pistol','');assert.deepEqual(loadoutGuns(l),[]);assert.equal(l.pickup,'','no gun, no pickup');});
+
+test('HD13: the lab stashes one selected tool instead of the gun at the same pickup slot',()=>{
+ const mission={...club,toolPickupEnabled:true};
+ let l=cleanLoadout({tools:['coin'],pistol:'pistol_silenced',pickup:'P1'},mission);
+ assert.match(blockedReason(l,mission,'toolPickup','poison_lethal@P2'),/道具枠/);
+ l=choose(l,mission,'toolPickup','coin@P2');
+ assert.deepEqual(l.toolPickup,{tool:'coin',at:'P2'});
+ assert.deepEqual(loadoutGuns(l),[{id:'pistol_silenced',at:'carried'}]);
+ assert.equal(choose(l,mission,'gear0','').toolPickup,undefined);
+ assert.equal(choose(l,mission,'pickup','P1').toolPickup,undefined);
+ assert.equal(cleanLoadout(l,club).toolPickup,undefined,'the current game cannot load the lab-only option');
+});
 
 test('club: a pickup cannot be chosen before a gun, and says why',()=>{
  const l=defaultLoadout(club);assert.match(blockedReason(l,club,'pickup','P2'),/先に銃/);assert.deepEqual(choose(l,club,'pickup','P2'),l);

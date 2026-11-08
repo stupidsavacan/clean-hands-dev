@@ -10,7 +10,7 @@ import club from '../data/club-mission.json';
 import clubMap from '../data/club-map.json';
 import {HitmanHud,type HudState} from '../hud-hitman';
 
-const mission=club as unknown as PlanMission;
+const mission={...club,toolPickupEnabled:true} as unknown as PlanMission;
 const SIZES:{id:string;label:string;w:number;h:number}[]=[{id:'pc',label:'PC 1280×720',w:1280,h:720},{id:'ipad',label:'iPad 横 1080×810',w:1080,h:810}];
 const SCREENS:{id:string;label:string}[]=[{id:'plan',label:'作戦準備'},{id:'pause',label:'一時停止'},{id:'result',label:'結果'},{id:'hud',label:'ゲーム中の HUD'}];
 type Check={name:string;ok:boolean;detail:string};
@@ -52,7 +52,11 @@ function runEmbed(screen:string){
  post({ready:true});
 }
 function describe(l:Loadout){const g=loadoutGuns(l)[0],gun=g?mission.pistols.find(p=>p.id===g.id)?.label:'';const at=g&&g.at!=='carried'?mission.pickups?.find(p=>p.id===g.at)?.label:'';
- return [...l.tools.map(id=>mission.tools.find(t=>t.id===id)?.label??id),...(gun?[`${gun}（${at||'身につける'}）`]:[])].join('、')||'道具なし';}
+ return [...l.tools.map(id=>{
+  const label=mission.tools.find(t=>t.id===id)?.label??id;
+  const at=l.toolPickup?.tool===id?mission.pickups?.find(p=>p.id===l.toolPickup?.at):undefined;
+  return at?label+'（'+at.label+'）':label;
+ }),...(gun?[`${gun}（${at||'身につける'}）`]:[])].join('、')||'道具なし';}
 
 // The checks every screen must pass.
 function common(sheet:HTMLElement):Check[]{const out:Check[]=[],vw=innerWidth,vh=innerHeight,r=sheet.getBoundingClientRect();
@@ -83,6 +87,11 @@ function planChecks(plan:PlanScreen):Check[]{
  click('[data-slot="pistol"]');click('.opt[data-value="pistol_silenced"]');click('[data-slot="pickup"]');click('.opt[data-value="P1"]');click('[data-slot="pistol"]');click('.opt[data-value="tranq_pistol"]');
  const g=loadoutGuns(plan.plan);
  out.push({name:'持ち込みに置くのは、選んだ1丁そのもの',ok:g.length===1&&g[0].id==='tranq_pistol'&&g[0].at==='P1',detail:JSON.stringify(g)});
+ // HD13. A tool can use the pickup while the same single pistol stays carried.
+ plan.open({tools:['coin'],pistol:'pistol_silenced',start:'S1',pickup:'P1'});click('[data-slot="toolPickup"]');
+ const unavailable=plan.root.querySelector<HTMLButtonElement>('.opt[data-value="poison_lethal@P2"]');
+ click('.opt[data-value="coin@P2"]');
+ out.push({name:'道具1つを置き、銃は1丁のまま身につける',ok:unavailable?.disabled===true&&plan.plan.toolPickup?.at==='P2'&&plan.plan.toolPickup.tool==='coin'&&loadoutGuns(plan.plan)[0]?.at==='carried',detail:JSON.stringify(plan.plan)});
  // 3. Gear slots.
  plan.open({tools:['coin','poison_lethal'],pistol:'',start:'S1',pickup:''});click('[data-slot="gear1"]');const same=plan.root.querySelector<HTMLButtonElement>('.opt[data-value="coin"]');
  out.push({name:'道具 1 と 2 に同じ物は入らない',ok:!!same?.disabled,detail:same?.disabled?'もう一方の物は押せない':'押せてしまう'});
@@ -92,7 +101,7 @@ function planChecks(plan:PlanScreen):Check[]{
  // 5. Esc closes the choices; the start button stays on screen with every slot's choices open.
  click('[data-slot="pistol"]');plan.root.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}));
  out.push({name:'Esc で選択肢を閉じる',ok:!plan.slot,detail:plan.slot?'閉じない':'閉じた'});
- const hidden:string[]=[];for(const s of ['start','pistol','case','gear0','gear1','pickup']){plan.open({tools:['coin'],pistol:'pistol_silenced',start:'S1',pickup:''});click(`[data-slot="${s}"]`);sheet.scrollTop=0;
+ const hidden:string[]=[];for(const s of ['start','pistol','case','gear0','gear1','pickup','toolPickup']){plan.open({tools:['coin'],pistol:'pistol_silenced',start:'S1',pickup:''});click(`[data-slot="${s}"]`);sheet.scrollTop=0;
   const r=go.getBoundingClientRect();if(r.bottom>innerHeight+.5||r.bottom>sheet.getBoundingClientRect().bottom+.5)hidden.push(s);}
  out.push({name:'どの選択肢を開いても「作戦開始」が見える',ok:!hidden.length,detail:hidden.length?`隠れる：${hidden.join('、')}`:'すべて見える'});
  // 6. Layout, on the first view and with the largest picker open.
@@ -134,7 +143,7 @@ function runShell(){
 <select id="screen">${SCREENS.map(s=>`<option value="${s.id}">${s.label}</option>`).join('')}</select><select id="size">${SIZES.map(s=>`<option value="${s.id}">${s.label}</option>`).join('')}</select></nav>
 <div id="stage"><div id="frame-wrap"><iframe id="frame" title="画面"></iframe></div></div></main>
 <aside id="panel"><section><h2>この版の扱い</h2><p>ゲームは前の画面（作戦準備・一時停止・結果・HUD）のまま。ここの判定がすべて通り、課題が片づき、見た目も確かめられたら、ゲームをこの画面に切り替える。</p></section>
-<section><h2>決まり</h2><ul><li>銃は1丁まで。身につけて持ち込むか、持ち込みの場所に先に置くか。</li><li>持ち込みは、選んだ銃の置き場所（2丁目は置けない）。</li><li>道具 1・2 に同じ物は入らない。ワイヤーはいつも持つ。</li><li>PC と iPad 横で、はみ出さず、スクロールなしで「作戦開始」が見え、ボタンは 44px 以上。</li></ul></section>
+<section><h2>決まり</h2><ul><li>銃は1丁まで。身につけて持ち込むか、持ち込みの場所に先に置くか。</li><li>持ち込み場所には、選んだ銃か道具枠の道具を1つ置ける。</li><li>道具 1・2 に同じ物は入らない。ワイヤーはいつも持つ。</li><li>PC と iPad 横で、はみ出さず、スクロールなしで「作戦開始」が見え、ボタンは 44px 以上。</li></ul></section>
 <section><h2>残っている課題</h2><ul><li>済み（11/8）：GHOST の表示を地図の上の外に出した。iPad では「持ち物ボタンで選ぶ」と出す。</li><li>ゲームに入れる時：操作の表（controls.ts）に持ち物の列のキーとタッチの「持ち物」ボタンを戻す。</li><li>HUD：ゲームに入れる時、状況・体力・GHOST・持ち物の作り方を game.ts に戻す（docs/DEVELOPMENT.md）。</li><li>iPad の実機（タッチ）ではまだ見ていない。</li></ul></section>
 <section><h2>今の装備</h2><pre id="loadout">—</pre></section>
 <section><h2>自動判定</h2><button id="run">すべて判定（4画面 × 2サイズ）</button><div id="summary"></div><div id="results"></div></section></aside></div>`;

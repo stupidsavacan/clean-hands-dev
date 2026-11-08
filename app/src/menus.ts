@@ -4,10 +4,10 @@
 // colours and type are CLEAN HANDS's own (style.css variables). The loadout rules are loadout.ts (one gun at most).
 // Every class lives under .hm so the file can be imported into the game without touching its current screens.
 import './menus.css';
-import {blockedReason,choose,cleanLoadout,loadoutGuns,IN_CASE,type Choice,type Loadout,type LoadoutMission} from './loadout';
+import {blockedReason,choose,cleanLoadout,loadoutGuns,IN_CASE,type Choice,type Loadout,type LoadoutMission,type Slot as LoadoutSlot} from './loadout';
 
 export type PlanMission=LoadoutMission&{title:string;targets:string[];briefing:{id:string;label:string;text:string}[]};
-type SlotId='start'|'suit'|'pistol'|'case'|'gear0'|'gear1'|'pickup';
+type SlotId=LoadoutSlot|'suit';
 type Slot={id:SlotId|string;title:string;en:string;value:string;note:string;fixed?:boolean;muted?:boolean};
 const esc=(s:string)=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]!));
 
@@ -37,15 +37,24 @@ export class PlanScreen{
    {id:'suit',title:'スーツ',en:'SUIT',value:this.text.agent(),note:'押すと姿を変える'},
    {id:'pistol',title:'銃',en:'WEAPON',value:p.pistol?gun:'持ち込まない',note:p.pistol?(at?`${at.label}に置いておく`:p.pickup===IN_CASE?'ケースの中に入れておく。検査では見つかる':'身につけて持ち込む。入口の検査で止められる'):'銃は1丁まで'},
    ...(m.cases?.length?[{id:'case',title:'ケース',en:'BRIEFCASE',value:this.label(m.cases,p.case,'持たない'),note:p.case?'手に持って始める':'銃を入れて持ち込める'}]:[]),
-   {id:'gear0',title:'道具 1',en:'GEAR',value:this.label(m.tools,tool(0),'空き'),note:m.tools.find(t=>t.id===tool(0))?.note??''},
-   {id:'gear1',title:'道具 2',en:'GEAR',value:this.label(m.tools,tool(1),'空き'),note:m.tools.find(t=>t.id===tool(1))?.note??''},
+   {id:'gear0',title:'道具 1',en:'GEAR',value:this.label(m.tools,tool(0),'空き'),note:p.toolPickup?.tool===tool(0)?'持ち込み場所で回収':m.tools.find(t=>t.id===tool(0))?.note??''},
+   {id:'gear1',title:'道具 2',en:'GEAR',value:this.label(m.tools,tool(1),'空き'),note:p.toolPickup?.tool===tool(1)?'持ち込み場所で回収':m.tools.find(t=>t.id===tool(1))?.note??''},
    ...m.fixedTools.map(f=>({id:'fixed-'+f.id,title:'いつも持つ',en:'STANDARD',value:f.label,note:f.note??'',fixed:true})),
-   ...(m.pickups?.length?[{id:'pickup',title:'持ち込み',en:'AGENCY PICKUP',value:at?at.label:p.pickup===IN_CASE?'ケースの中':'使わない',note:!p.pistol?'先に銃を選ぶ':at?`${gun}を先に置いておく`:p.pickup===IN_CASE?`${gun}をケースに入れて持つ`:'銃を先に置いておく場所',muted:!p.pistol}]:[])];}
- options(slot:string):{title:string;key:SlotId;items:(Choice&{why?:string})[];current:string}|null{const m=this.m,p=this.plan,why=(k:SlotId,id:string)=>blockedReason(p,m,k as 'pistol',id);
+   ...(m.pickups?.length?[{id:'pickup',title:'持ち込み',en:'AGENCY PICKUP',value:at?at.label:p.pickup===IN_CASE?'ケースの中':'使わない',note:!p.pistol?'先に銃を選ぶ':at?`${gun}を先に置いておく`:p.pickup===IN_CASE?`${gun}をケースに入れて持つ`:'銃を先に置いておく場所',muted:!p.pistol}]:[]),
+   ...(m.toolPickupEnabled&&m.pickups?.length?[{id:'toolPickup',title:'道具の事前配置',en:'GEAR PICKUP',
+    value:p.toolPickup?this.label(m.tools,p.toolPickup.tool,'—'):'使わない',
+    note:p.toolPickup?this.label(m.pickups,p.toolPickup.at,'—'):'道具枠から1つ置く'}]:[])];}
+ options(slot:string):{title:string;key:SlotId;items:(Choice&{why?:string})[];current:string}|null{const m=this.m,p=this.plan,why=(k:LoadoutSlot,id:string)=>blockedReason(p,m,k,id);
   if(slot==='start')return {title:'開始地点',key:'start',items:m.starts.map(s=>({...s,why:why('start',s.id)})),current:p.start};
   if(slot==='pistol')return {title:'持ち込む銃（1丁まで）',key:'pistol',items:m.pistols,current:p.pistol};
   if(slot==='case')return {title:'持って始めるケース',key:'case',items:[{id:'',label:'持たない'},...(m.cases??[])],current:p.case};
   if(slot==='gear0'||slot==='gear1'){const i=slot==='gear0'?0:1;return {title:`道具 ${i+1}`,key:slot,items:[{id:'',label:'空き'},...m.tools.map(t=>({...t,why:why(slot,t.id)}))],current:p.tools[i]??''};}
+  if(slot==='toolPickup'&&m.toolPickupEnabled){
+   const items=(m.pickups??[]).flatMap(at=>m.tools.map(tool=>({id:tool.id+'@'+at.id,label:tool.label,note:at.label})));
+   return {title:'事前に置く道具（道具枠から1つ）',key:'toolPickup',
+    items:[{id:'',label:'使わない'},...items.map(item=>({...item,why:why('toolPickup',item.id)}))],
+    current:p.toolPickup?p.toolPickup.tool+'@'+p.toolPickup.at:''};
+  }
   if(slot==='pickup'){const gun=this.label(m.pistols,p.pistol,'');return {title:p.pistol?`${gun}を置いておく場所（入口の検査の内側。置けるのはこの1丁だけ）`:'銃を置いておく場所（先に銃を選ぶ。銃は1丁まで）',key:'pickup',items:[{id:'',label:'使わない',note:p.pistol?'身につけて持ち込む':''},...(m.cases?.length?[{id:IN_CASE,label:'ケースの中',note:'見えないが、検査では見つかる',why:why('pickup',IN_CASE)}]:[]),...(m.pickups??[]).map(x=>({...x,why:why('pickup',x.id)}))],current:p.pickup};}
   return null;}
  render(){const slots=this.q('slots'),picker=this.q('picker');
@@ -56,7 +65,7 @@ export class PlanScreen{
   this.q('guns').textContent=g.length?`持ち込む銃 1/1 — ${this.label(this.m.pistols,g[0].id,'')}（${g[0].at==='carried'?'身につける':at(g[0].at)}）`:'持ち込む銃 0/1';
   slots.querySelectorAll<HTMLButtonElement>('.slot').forEach(b=>b.onclick=()=>{const id=b.dataset.slot!;if(id==='suit'){this.onLook?.();return;}if(id.startsWith('fixed-'))return;this.slot=this.slot===id?'':id;this.render();
    if(this.slot)picker.querySelector<HTMLButtonElement>('.opt.on,.opt:not([disabled])')?.focus();});
-  picker.querySelectorAll<HTMLButtonElement>('.opt').forEach(b=>b.onclick=()=>{const k=b.dataset.key as SlotId,v=b.dataset.value!;this.plan=choose(this.plan,this.m,k as 'pistol',v);
+  picker.querySelectorAll<HTMLButtonElement>('.opt').forEach(b=>b.onclick=()=>{const k=b.dataset.key as LoadoutSlot,v=b.dataset.value!;this.plan=choose(this.plan,this.m,k,v);
    const back=this.slot;this.slot='';this.render();slots.querySelector<HTMLButtonElement>(`[data-slot="${back}"]`)?.focus();});}
 }
 
