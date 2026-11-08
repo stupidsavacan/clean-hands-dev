@@ -254,6 +254,9 @@ test('club gate: with the agent far from the line, even the frisker goes to look
  const deep = { x: 21, y: 0, z: 14.5 };
  assert.equal(director.noise(deep, far), frisk);
  assert.ok(frisk.goal);
+ assert.deepEqual(frisk.knowledge.at(-1)?.estimatedOrigin,deep);
+ assert.equal(frisk.knowledge.at(-1)?.lastSeenPosition,undefined);
+ assert.equal(frisk.knowledge.at(-1)?.confirmedActor,undefined);
  for (let i = 0; i < 240; i++) director.step(1/60, far);
  // No frisk without the frisker; the zone rules still apply on their own (the entrance zone is public).
  const from = { x: 22, y: 0, z: 5.7 }, to = { x: 22, y: 0, z: 6.3 };
@@ -267,4 +270,6 @@ test('club gate: a coin thrown in view turns the watcher on the thrower instead'
  assert.equal(frisk.state, 'curious');
  assert.equal(director.lastThrowSeen, true);
  assert.deepEqual(frisk.lastSeen, { x: p.x, y: p.y, z: p.z });
+ assert.deepEqual(frisk.knowledge.at(-1)?.lastSeenPosition,frisk.lastSeen);
+ assert.equal(frisk.knowledge.at(-1)?.estimatedOrigin,undefined);
 });

@@ -49,7 +49,7 @@ export type AiEvent={type:'curious'|'investigate'|'alert'|'search'|'calm'|'repor
 // F04 / HITMAN: why a guard turned on the agent. trespass and suspicious get a warning first; the rest are an arrest.
 export type Cause=''|'trespass'|'suspicious'|'identity'|'crime'|'hostile';
 // F06: what one person knows about one event. A sound gives an estimated origin; only sight gives lastSeenPosition.
-export type Knowledge={eventType:'gunshot'|'impact'|'wounded'|'sighting'|'report';estimatedOrigin?:Position;lastSeenPosition?:Position;confirmedActor?:boolean;identifiedDisguise?:string;confidence:number;observedAt:number;sourceNpcId?:string};
+export type Knowledge={eventType:'gunshot'|'impact'|'noise'|'wounded'|'sighting'|'report';estimatedOrigin?:Position;lastSeenPosition?:Position;confirmedActor?:boolean;identifiedDisguise?:string;confidence:number;observedAt:number;sourceNpcId?:string};
 // What the director tells each person about the agent this step, besides the suspicion rate.
 export type Situation={base:number;trespass:boolean;hostile:boolean;crime:boolean;time:number};
 const clamp=(v:number,a:number,b:number)=>Math.max(a,Math.min(b,v)),wrap=(a:number)=>Math.atan2(Math.sin(a),Math.cos(a)),flat=(a:Position,b:Position)=>Math.hypot(a.x-b.x,a.z-b.z);
@@ -117,7 +117,14 @@ export class Npc{
  isDisguiseCompromised(disguise:string){return this.shared.has(disguise);}
  /** This person knows the agent in this outfit is the intruder: seen themselves, told by radio, or reported. */
  hasConfirmedIdentity(p:{disguise:string}){return this.knownDisguises.has(p.disguise)||this.hearsReports&&this.shared.has(p.disguise);}
- learn(k:Knowledge){this.knowledge.push(k);if(this.knowledge.length>8)this.knowledge.shift();}
+ learn(k:Knowledge){
+  const last=this.knowledge.at(-1),at=k.estimatedOrigin,previous=last?.estimatedOrigin;
+  if(k.eventType==='noise'&&last?.eventType==='noise'&&at&&previous&&at.x===previous.x&&at.y===previous.y&&at.z===previous.z){
+   last.observedAt=k.observedAt;
+   return;
+  }
+  this.knowledge.push(k);if(this.knowledge.length>8)this.knowledge.shift();
+ }
  /** From a warning to detaining: they now know the agent in this outfit. */
  detain(p:PlayerView){if(!this.arrest)this.detainT=0;this.arrest=true;this.knownDisguises.add(p.disguise);this.learn({eventType:'sighting',lastSeenPosition:{x:p.x,y:p.y,z:p.z},confirmedActor:true,identifiedDisguise:p.disguise,confidence:1,observedAt:this.now});}
  // Away from their usual post a face-knower is just passing through and does not look closely.
@@ -321,7 +328,7 @@ export class Director{
    for(const g of this.npcs)if(g.active&&!g.busy&&g.guard&&g!==n&&g.state!=='combat'&&flat(g.pos,n.pos)<this.rules.radio){g.radio(p,this.rules,k);g.evidenceGoal=null;g.knownDisguises.add(p.disguise);g.lastSeen={x:p.x,y:p.y,z:p.z};g.suspicion=100;g.state='search';g.goal={...g.lastSeen};g.arrived=false;g.timer=this.rules.timers.search;}}}
  /** Debug view (spec 12): what each person knows and is doing, read-only. */
  debug(){return this.npcs.map(n=>({npcId:n.id,role:n.role,faction:n.faction,securityRole:n.securityRole,combatProfile:n.combatProfile??n.kind,disguiseId:n.disguiseId??'',aiState:n.state,cause:n.cause,arrest:n.arrest,suspicion:Math.round(n.suspicion),
-  lastHeardOrigin:[...n.knowledge].reverse().find(k=>k.eventType==='gunshot')?.estimatedOrigin??null,lastSeenPosition:n.lastSeen,confirmedActor:n.knowledge.some(k=>k.confirmedActor),
+  lastHeardOrigin:[...n.knowledge].reverse().find(k=>k.eventType==='gunshot'||k.eventType==='noise')?.estimatedOrigin??null,lastSeenPosition:n.lastSeen,confirmedActor:n.knowledge.some(k=>k.confirmedActor),
   enforcerDisguises:[...n.knowsFaces],knownDisguises:[...n.knownDisguises],knowledge:n.knowledge.map(k=>({...k})),currentWeapon:n.weapon}));}
  // The nearest NPC that can hear the coin walks over; only one answers.
  // 2026-11-04 (checkpoint spec): the one who would answer but saw the coin thrown turns on the thrower instead. A guard
@@ -337,7 +344,9 @@ export class Director{
    return n;}
   return turned;}
  lastThrowSeen=false;
- private sawThrow(n:Npc,p:PlayerView){const t=this.rules.thresholds;n.suspicion=Math.max(n.suspicion,t.curious);n.lastSeen={x:p.x,y:p.y,z:p.z};n.state='curious';n.timer=this.rules.timers.curiousHold;n.heading=Math.atan2(p.x-n.pos.x,p.z-n.pos.z);this.lastThrowSeen=true;return true;}
+ private sawThrow(n:Npc,p:PlayerView){const t=this.rules.thresholds;n.suspicion=Math.max(n.suspicion,t.curious);n.lastSeen={x:p.x,y:p.y,z:p.z};
+  n.learn({eventType:'sighting',lastSeenPosition:{...n.lastSeen},confidence:1,observedAt:this.time});
+  n.state='curious';n.timer=this.rules.timers.curiousHold;n.heading=Math.atan2(p.x-n.pos.x,p.z-n.pos.z);this.lastThrowSeen=true;return true;}
  mayLeavePost(n:Npc,p?:PlayerView){if(!n.holdsPost||!n.postAt)return true;const at=n.postAt;
   const partners=this.npcs.filter(m=>m!==n&&m.holdsPost&&m.postAt&&flat(m.postAt,at)<6&&Math.abs(m.postAt.y-at.y)<1);
   const away=!!p&&flat(p,at)>(this.rules.noise.postLeave??10);if(away)return true;
@@ -345,3 +354,4 @@ export class Director{
   return !n.frisks&&partners.some(m=>m.active&&!m.busy&&!['alert','search','combat','investigate'].includes(m.state)&&flat(m.pos,m.postAt!)<1.5);}
  hottest(){return this.npcs.filter(n=>n.active).reduce<Npc|undefined>((m,n)=>!m||n.suspicion>m.suspicion?n:m,undefined);}
 }
+   n.learn({eventType:'noise',estimatedOrigin:{...point},confidence:.5,observedAt:this.time});
