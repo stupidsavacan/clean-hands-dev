@@ -28,6 +28,7 @@ import {sampleCombat,weaponVisible,COMBAT_SECONDS,COMBAT_LOOPS,AGENT_PISTOL_VARI
 import {DEFAULT_PISTOL_TUNING,PISTOL_ADJUSTMENTS,loadPistolTuning,savePistolTuning} from '../pistol-tuning.ts';
 import {poseCombat,prepareWeapon,type Weapon} from '../combat-runtime';
 import {createPoseEditor} from './pose-editor';
+import {ELBOW_CHECKS,runElbowCheck} from './motion-checks';
 import {holdPose,holdKind,strikePose,surrenderPose,SURRENDER_ARM} from '../hold-pose';
 // The hands-up arm angles, adjustable live from the console while tuning (window.__surrenderArm).
 Object.assign(window,{__surrenderArm:SURRENDER_ARM});
@@ -81,6 +82,11 @@ const MODELS:ModelDef[]=[
 
 const app=document.querySelector<HTMLDivElement>('#app')!;
 app.innerHTML=`<canvas id="view"></canvas><aside id="panel"><header><b>モーション実験ステージ</b><small>全モデルと全モーションを、同じ時計で再生します。ゲームと同じ動きの仕組みを使っています。</small></header>
+<section>
+<h3>肘の自動判定（0〜180°）</h3>
+<button id="run-elbow-checks" type="button">すべて自動判定</button>
+<div id="elbow-results" role="status"></div>
+</section>
 <details id="pistol-tune">
 <summary>07の拳銃を微調整</summary>
 <p>「銃」で片手銃を選べます。銃とグリップの位置を固定したまま、07の構えを調整します。調整値はすべての片手銃で共通です。0°が標準です。</p>
@@ -106,6 +112,9 @@ const style=document.createElement('style');style.textContent=`
 #view{position:fixed;left:0;top:0;width:calc(100vw - 320px);height:calc(100vh - 56px);display:block}
 #panel{position:fixed;right:0;top:0;width:320px;height:calc(100vh - 56px);overflow:auto;background:#1d2127;border-left:1px solid #343a44;padding:12px}
 #panel header b{font-size:16px;display:block}#panel small{color:#a7a399}h3{margin:14px 0 6px;font-size:13px;color:#c9b27a}
+#run-elbow-checks{background:#3b6b4f;border-color:#5a9a72}
+#elbow-results:not(:empty){margin-top:6px}
+#elbow-results .pass{color:#6fd08c}#elbow-results .fail{color:#ffae94}
 #pistol-tune{margin-top:12px;padding:10px;border:1px solid #5a5141;border-radius:8px;background:#252725}
 #pistol-tune summary{cursor:pointer;color:#f3d28c;font-weight:650}#pistol-tune p{margin:6px 0;color:#c6c5bb}
 #pistol-tune a{color:#e3c989}#pistol-save{background:#e3c989;color:#241f14;border-color:#e3c989;font-weight:650}
@@ -120,6 +129,20 @@ const style=document.createElement('style');style.textContent=`
 @media (max-width:900px){#view{width:100vw;height:55vh}#panel{top:55vh;width:100vw;height:calc(45vh - 56px)}}`;
 document.head.append(style);
 const $=<E extends HTMLElement=HTMLElement>(s:string)=>document.querySelector<E>(s)!;
+
+$('#run-elbow-checks').onclick=()=>{
+ const results=ELBOW_CHECKS.map(check=>({label:check.label,issue:runElbowCheck(check)}));
+ const passed=results.filter(({issue})=>!issue).length;
+ const summary=document.createElement('div');
+ summary.textContent=`合格 ${passed} / ${results.length}${passed===results.length?'':` · 不合格 ${results.length-passed}`}`;
+ const rows=results.map(({label,issue})=>{
+  const row=document.createElement('div');
+  row.className=issue?'fail':'pass';
+  row.textContent=issue?`✗ ${label} · ${issue.motion} · ${issue.side}肘 ${Number.isFinite(issue.degrees)?issue.degrees.toFixed(1)+'°':'無効'}`:`✓ ${label}`;
+  return row;
+ });
+ $('#elbow-results').replaceChildren(summary,...rows);
+};
 
 // --- scene
 const canvas=$<HTMLCanvasElement>('#view'),renderer=new T.WebGLRenderer({canvas,antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.1;renderer.outputColorSpace=T.SRGBColorSpace;

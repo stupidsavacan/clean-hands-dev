@@ -69,7 +69,7 @@
 - 格闘：`app/src/brawl-motion.ts`。刀：`app/src/katana-motion.ts` と `app/src/katana-pose.ts`。持った時の腕：`app/src/hold-pose.ts`。
 - 足を地面に置く、手を相手に向ける処理は `app/src/motion-runtime.ts` です。
 - 骨の向き：+X がキャラクターの左。腕と脚の x は曲げ（マイナスが前）。y は縦軸まわり（プラスが左向き）。z はひねり。
-- `app/tests/elbow-motion.test.ts` は左右の肘の曲げを調べます。腕を伸ばした状態が0°で、逆曲げと180°を超える曲げは失敗します。IKで手を合わせる前の値を検査し、`npm run test:fast` と `npm run spec` に含まれます。
+- アニメーションラボの「肘の自動判定」は、IKで手を合わせる前の左右の曲げ角を0〜180°で検査します。`npm run test:fast` と `npm run spec` でも同じ判定を実行します。
 
 ## 地図を新しく作る
 
