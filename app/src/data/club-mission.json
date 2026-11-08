@@ -93,6 +93,17 @@
  ],
  "devices": [
   {
+   "id": "sink-kitchen",
+   "kind": "sink",
+   "label": "厨房の蛇口",
+   "x": 10.55,
+   "z": 35.4,
+   "y": 0,
+   "floor": 0,
+   "heading": 3.141592653589793,
+   "approach": {"x": 10.55, "z": 34.55}
+  },
+  {
    "id": "radio-loading",
    "kind": "radio",
    "label": "ラジカセ",

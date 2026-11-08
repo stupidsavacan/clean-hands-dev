@@ -93,3 +93,20 @@ test('a cleaner drops a stalled errand and can take another cleanup',()=>{
  assert.equal(ch.job?.mess,second);
  assert.equal(first.cleaned,0);
 });
+
+test('C09 water remains after the tap closes and is mopped up with the vacuum left at home',()=>{
+ const {d,c}=setup(),sink={...vacuum,id:'sink',kind:'sink' as const,label:'蛇口',x:-8,z:7,approach:{x:-8,z:7.6}};
+ const dev=new DeviceSystem(d,[sink,vacuum],()=>0,['c']),ch=new ChoreSystem(d,dev,['c']);
+ const spot=dev.spot(sink);
+ dev.toggle(spot);dev.step(2);ch.step(.1);ch.step(.1);
+ assert.equal(ch.messes.length,1);assert.equal(ch.messes[0].kind,'water');assert.equal(ch.job,null);
+ c.pos={...spot};c.arrived=true;dev.step(3);
+ assert.equal(dev.on.size,0);c.state='patrol';ch.step(.1);
+ assert.equal(ch.job?.phase,'carry');assert.equal(ch.job?.vacuum,undefined);
+ at(c,c.scriptedGoal);ch.step(.1);
+ assert.equal(c.scriptedAction,'mop_floor');
+ ch.step(CLEAN_SECONDS);
+ assert.equal(ch.messes.length,0);assert.equal(ch.job,null);
+ const v=dev.devices.find(d=>d.kind==='vacuum')!;
+ assert.deepEqual([v.x,v.z],[vacuum.x,vacuum.z]);assert.equal(dev.operated.size,0);
+});

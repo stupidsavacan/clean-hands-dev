@@ -156,7 +156,7 @@ const cabinetMaterials=new Map<string,T.MeshStandardMaterial>();
 function cabinetMaterial(books:boolean){const key=books?'books':'panel';let m=cabinetMaterials.get(key);if(m)return m;const c=document.createElement('canvas');c.width=128;c.height=128;const ctx=c.getContext('2d')!;ctx.fillStyle='#66503b';ctx.fillRect(0,0,128,128);if(books){for(let row=0;row<3;row++)for(let j=0;j<9;j++){ctx.fillStyle=['#4c665d','#a58b63','#855e52','#637080'][j%4];ctx.fillRect(7+j*13,8+row*39,10,31);ctx.fillStyle='#c1ad83';ctx.fillRect(9+j*13,13+row*39,6,2);}}else{ctx.fillStyle='#8d7354';ctx.fillRect(8,8,112,112);ctx.fillStyle='#6d5842';ctx.fillRect(13,13,102,102);ctx.fillStyle='#a99066';ctx.fillRect(61,13,4,102);}const map=new T.CanvasTexture(c);map.colorSpace=T.SRGBColorSpace;m=new T.MeshStandardMaterial({map,roughness:.9});cabinetMaterials.set(key,m);return m;}
 // Cars, crates, planters and counters are drawn by their M5.5 models once those load (buildCover); only the rest are boxes.
 const coverIds=coveredIds(map.blockers as Block[]);
-for(const b of map.blockers){if(b.id==='pool'||b.id.startsWith('water')||b.id==='powerpanel'||(b.id.startsWith('locker-')||b.id==='machine-freezer')||coverIds.has(b.id))continue;const color=PROP.find(([k])=>b.id.startsWith(k))?.[1]??'#8b9c88',parent=group(b.floor??0);
+for(const b of map.blockers){if(b.id==='pool'||b.id==='sink-kitchen'||b.id.startsWith('water')||b.id==='powerpanel'||(b.id.startsWith('locker-')||b.id==='machine-freezer')||coverIds.has(b.id))continue;const color=PROP.find(([k])=>b.id.startsWith(k))?.[1]??'#8b9c88',parent=group(b.floor??0);
  if(b.id==='safe-office'){
   const t=.06,shelf=.42,color='#303840';
   for(const sign of [-1,1])box('safe-side',b.x+sign*(b.w-t)/2,b.y,b.z,t,b.h,b.d,color,parent);
@@ -251,9 +251,10 @@ let flow=new MissionFlow(missionData.targets,director,events),ledger=new ScoreLe
 const combatRules=combatData as unknown as CombatRules,weaponDefs=weaponsData as unknown as Record<string,WeaponDef>;
 // ROADMAP H15 (2026-11-06): radios the agent can switch on to bring someone over (devices.ts).
 const deviceDefs:DeviceDef[]=(missionData as {devices?:DeviceDef[]}).devices??[];
-const detData=detectionData as unknown as DetectionData;let detection=new DetectionSystem(director,events,m3.hotel,map.cameras as Camera[],detData,map);const itemTable=itemMaster(weaponDefs,rulesData.m4.items,detData.items);detection.items=itemTable;m4.items=itemTable;const detectionView=new DetectionView(scene,detection,map,group);let devices=new DeviceSystem(director,deviceDefs,f=>plateY(map,f));
+const cleanerIds:string[]=(missionData as {cleaners?:string[]}).cleaners??[];
+const detData=detectionData as unknown as DetectionData;let detection=new DetectionSystem(director,events,m3.hotel,map.cameras as Camera[],detData,map);const itemTable=itemMaster(weaponDefs,rulesData.m4.items,detData.items);detection.items=itemTable;m4.items=itemTable;const detectionView=new DetectionView(scene,detection,map,group);let devices=new DeviceSystem(director,deviceDefs,f=>plateY(map,f),cleanerIds);
 // ROADMAP H06/H14/H17 (2026-11-06): blood that stays, and the cleaner who cleans it with the vacuum (chores.ts).
-const cleanerIds:string[]=(missionData as {cleaners?:string[]}).cleaners??[];let chores=new ChoreSystem(director,devices,cleanerIds);
+let chores=new ChoreSystem(director,devices,cleanerIds);
 let combat=new CombatSystem(director,events,m3.hotel,combatRules,weaponDefs,map.reinforcements).stock(),wasFighting=false,qDown=-1,fireHeld=false,firePressed=false;const combatView=new CombatView(scene);combat.items=itemTable;
 let clubWeapons:ClubWeapons;
 let npcViews:NpcView[]=[],panelProgress=0,panelDone=false,coins=rules.noise.coins,tampering=false,missionOver:''|'win'|'caught'='',missionTime=0,peakSuspicion=0;
@@ -308,7 +309,7 @@ function startMission(){director=onStage(new Director(mission,world,nav,boxes,ru
  if(!loadout.tools.includes('poison_lethal'))m53.poison=0;const carried=m4.extraInventory;m4.extraInventory=()=>[...(carried?.()??[]),...(isCase(detection.held)&&detection.caseGun?[detection.caseGun.id]:[]),...detection.back,...detection.pocket,...combat.guns.map(g=>g.id),...(coins>0?['coin']:[]),...(detection.held?[detection.held]:[])];
  combat=new CombatSystem(director,events,m3.hotel,combatRules,weaponDefs,map.reinforcements).stock();if(loadout.pistol){const at=pickups.find(p=>p.id===loadout.pickup);if(at)combat.stash(loadout.pistol,{x:at.x,y:plateY(map,at.floor),z:at.z});else combat.equip(loadout.pistol);}combatView.reset();detection=new DetectionSystem(director,events,m3.hotel,map.cameras as Camera[],detData,map);combat.items=itemTable;detection.items=itemTable;
  // HD11: a case brought in starts in hand; a gun chosen to wait in it goes inside (out of sight; a frisk finds it).
- if(loadout.case){detection.held=loadout.case;if(loadout.pistol&&loadout.pickup===IN_CASE){const g=combat.guns.find(x=>x.id===loadout.pistol);if(g){combat.guns.splice(combat.guns.indexOf(g),1);if(combat.hand===g.id)combat.hand='';detection.caseGun=g;}}}m4.items=itemTable;detectionView.reset();devices=new DeviceSystem(director,deviceDefs,f=>plateY(map,f));chores=new ChoreSystem(director,devices,cleanerIds);chores.onErrand=n=>schedule.states.delete(n.id);bindTrace();setBlackout(false);wasFighting=false;fireHeld=false;firePressed=false;
+ if(loadout.case){detection.held=loadout.case;if(loadout.pistol&&loadout.pickup===IN_CASE){const g=combat.guns.find(x=>x.id===loadout.pistol);if(g){combat.guns.splice(combat.guns.indexOf(g),1);if(combat.hand===g.id)combat.hand='';detection.caseGun=g;}}}m4.items=itemTable;detectionView.reset();devices=new DeviceSystem(director,deviceDefs,f=>plateY(map,f),cleanerIds);chores=new ChoreSystem(director,devices,cleanerIds);chores.onErrand=n=>schedule.states.delete(n.id);bindTrace();setBlackout(false);wasFighting=false;fireHeld=false;firePressed=false;
  for(const v of npcViews.splice(director.npcs.length))v.group.removeFromParent();npcViews.forEach((v,i)=>{v.bind(director.npcs[i]);v.npc.actionTime=i*.83;primeNpc(v);});panelProgress=0;panelDone=false;coins=loadout.tools.includes('coin')?rules.noise.coins:0;tampering=false;missionOver='';missionTime=0;peakSuspicion=0;clearCoinProps();(panelLamp.material as T.MeshStandardMaterial).color.set('#3fdc8c');(panelLamp.material as T.MeshStandardMaterial).emissive.set('#3fdc8c');$('#result-modal').classList.remove('open');}
 function setZoom(value:number){zoom=value;}
 function startGuide(){if(guideIndex>=0){guideIndex=-1;toast('案内ルートを中断しました。');return;}reset();guideIndex=0;guideStarted=performance.now();guideFrames=0;guideStall=0;$('#qa-result').textContent='案内ルート実行中。通常と同じ固定ステップ・衝突・カメラを使用。';toast('ロビーを抜け、大階段から2Fへ。移動キーで中断できます。');focusGame();}
@@ -335,7 +336,7 @@ window.addEventListener('keydown',e=>{if(creatorOpen||prepOpen||(e.target instan
  if(e.code==='KeyU'&&!training){const put=detection.putDown(position);if(put)toast(`${put}を置いた。`);return;}
  if(e.code==='KeyE'&&!training&&!m3.body(position)&&!m3.dragged&&!m3.locked&&!m53.locked&&!m53.prompt(playerView())&&!m57.locked&&!m57.prompt(playerView())){
   if(detection.blend){detection.stopBlend();toast('溶け込みをやめた。');return;}
-  if(devices.near(position)){const d=devices.toggle(position);if(!d)return;toast(devices.on.has(d.id)?`${d.label}を点けた。近くの人が${DEVICE_KINDS[d.kind].doing}。`:`${d.label}を消した。`);return;}
+  if(devices.near(position)){const d=devices.toggle(position);if(!d)return;toast(devices.on.has(d.id)?`${d.label}を${d.kind==='sink'?'開けた':'点けた'}。${d.kind==='sink'?'担当の清掃員が':'近くの人が'}${DEVICE_KINDS[d.kind].doing}。`:`${d.label}を${d.kind==='sink'?'閉めた':'消した'}。`);return;}
   // Taking a tool puts the gun away first, so the hand never holds both.
   if(detection.nearestItem(position)){if(combat.hand)combat.hand='';const got=detection.pickup(position)!;trace.instant(clock.elapsed,playerView(),'pickup',got);const l=detection.legality(detection.held,m4.disguise);toast(l.legality==='suspicious'?(l.ok?`${got}を持った。この服なら怪しまれない。`:`${got}を持った。この服では怪しまれる。`):`${got}を持った。`);return;}
   const spot=detection.startBlend(playerView());if(spot){targetHeading=spot.heading;toast(`${spot.label}（溶け込み中）。Eか移動でやめる。`);return;}
@@ -566,17 +567,26 @@ function throwCoin(){if(m3.locked||m3.dragged){toast('運搬・アクション�
 // A locker hides the agent only where E means nothing else (an item, a blend spot, a chance, a disguise).
 function canHide(){const p=playerView();return !training&&!detection.nearestItem(position)&&!detection.blendSpot(p)&&!m4.prompt(position)&&!m53.prompt(p)&&!m57.prompt(p)&&!combat.nearestDrop(position)&&!devices.near(position);}
 // Each device's model on its surface, and, while it plays, rings going out from its front.
-const deviceViews=new Map<string,{obj:T.Object3D;ring:T.Mesh}>();
+const deviceViews=new Map<string,{obj:T.Object3D;ring:T.Mesh;stream?:T.Mesh;spill?:T.Mesh}>();
 function renderDevices(now:number){for(const d of devices.devices){let v=deviceViews.get(d.id);const y=plateY(map,d.floor)+d.y;
  if(!v){const obj=itemModel(DEVICE_KINDS[d.kind].model);if(!obj)continue;obj.name='device-'+d.id;group(d.floor).add(obj);
-  const ring=new T.Mesh(new T.RingGeometry(.3,.34,32),new T.MeshBasicMaterial({color:'#f2c14e',transparent:true,opacity:.8,depthWrite:false,side:T.DoubleSide}));ring.position.set(d.x+Math.sin(d.heading)*.12,y+.12,d.z+Math.cos(d.heading)*.12);ring.rotation.y=d.heading;group(d.floor).add(ring);v={obj,ring};deviceViews.set(d.id,v);}
+  const ring=new T.Mesh(new T.RingGeometry(.3,.34,32),new T.MeshBasicMaterial({color:'#f2c14e',transparent:true,opacity:.8,depthWrite:false,side:T.DoubleSide}));ring.position.set(d.x+Math.sin(d.heading)*.12,y+.12,d.z+Math.cos(d.heading)*.12);ring.rotation.y=d.heading;group(d.floor).add(ring);v={obj,ring};deviceViews.set(d.id,v);
+  const outlet=obj.getObjectByName('WATER_OUTLET'),drain=obj.getObjectByName('DRAIN');
+  if(outlet&&drain){
+   const a=obj.worldToLocal(outlet.getWorldPosition(new T.Vector3())),b=obj.worldToLocal(drain.getWorldPosition(new T.Vector3()));
+   const stream=new T.Mesh(new T.CylinderGeometry(.013,.02,a.distanceTo(b),7),new T.MeshStandardMaterial({color:'#87cee1',transparent:true,opacity:.75}));
+   stream.position.copy(a).lerp(b,.5);stream.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),a.sub(b).normalize());obj.add(stream);v.stream=stream;
+   const spill=new T.Mesh(new T.CylinderGeometry(.018,.028,.895,7),stream.material);
+   spill.position.set(0,.4475,.30);obj.add(spill);v.spill=spill;
+  }
+ }
  // Where it is now (a vacuum cleaner is carried about).
  v.obj.position.set(d.x,y,d.z);v.obj.rotation.y=d.heading;v.ring.position.set(d.x+Math.sin(d.heading)*.12,y+.12,d.z+Math.cos(d.heading)*.12);v.ring.rotation.y=d.heading;
- const on=devices.on.has(d.id),k=now/700%1;v.ring.visible=on;if(on){v.ring.scale.setScalar(1+k*1.6);(v.ring.material as T.MeshBasicMaterial).opacity=.8*(1-k);}}
- // Blood pools: dark red on the floor, fading while they are cleaned.
- const live=new Set(chores.messes.map(m=>m.id));for(const [id,mesh] of messViews)if(!live.has(id)){mesh.removeFromParent();messViews.delete(id);}
- for(const m of chores.messes){let mesh=messViews.get(m.id);if(!mesh){mesh=new T.Mesh(new T.CircleGeometry(.5,20),new T.MeshBasicMaterial({color:'#5a0d0d',transparent:true,depthWrite:false}));mesh.rotation.x=-Math.PI/2;mesh.scale.set(1,.75,1);mesh.position.set(m.pos.x,m.pos.y+.02,m.pos.z);mesh.renderOrder=1;mesh.name='blood-'+m.id;scene.add(mesh);messViews.set(m.id,mesh);}
-  (mesh.material as T.MeshBasicMaterial).opacity=.85*(1-m.cleaned);}}
+ const on=devices.on.has(d.id),k=now/700%1;v.ring.visible=on&&d.kind!=='sink';if(v.stream)v.stream.visible=on;if(v.spill)v.spill.visible=devices.overflowing.has(d.id);if(on){v.ring.scale.setScalar(1+k*1.6);(v.ring.material as T.MeshBasicMaterial).opacity=.8*(1-k);}}
+ // Blood and water remain on the floor until they are cleaned.
+ const live=new Set(chores.messes.map(m=>m.id));for(const [id,mesh] of messViews)if(!live.has(id)){mesh.removeFromParent();mesh.geometry.dispose();(mesh.material as T.Material).dispose();messViews.delete(id);}
+ for(const m of chores.messes){let mesh=messViews.get(m.id);if(!mesh){mesh=new T.Mesh(new T.CircleGeometry(.5,20),new T.MeshBasicMaterial({color:m.kind==='water'?'#6ea9c0':'#5a0d0d',transparent:true,depthWrite:false}));mesh.rotation.x=-Math.PI/2;mesh.scale.set(1,m.kind==='water'?1.22:.75,1);mesh.position.set(m.pos.x,m.pos.y+.02,m.pos.z);mesh.renderOrder=1;mesh.name=m.kind+'-'+m.id;scene.add(mesh);messViews.set(m.id,mesh);}
+  (mesh.material as T.MeshBasicMaterial).opacity=(m.kind==='water'?.62:.85)*(1-m.cleaned);}}
 const messViews=new Map<number,T.Mesh>();
 // Where a throw along the view (overhead: toward the cursor) first meets a wall or the edge of the floor.
 function throwLanding(){let yaw=viewMode==='overhead'?heading:camYaw;if(viewMode==='overhead'&&cursorPoint)yaw=Math.atan2(cursorPoint.x-position.x,cursorPoint.z-position.z);

@@ -6,6 +6,7 @@ import {Group,type Mesh} from 'three';
 import {LandedCoinPickups} from '../coin-pickup.ts';
 import {coinMesh} from '../coin-pickup-pose.ts';
 import {DeviceSystem,type DeviceDef} from '../devices.ts';
+import {ChoreSystem} from '../chores.ts';
 import {CollisionWorld,type Position} from '../world.ts';
 import {NavGrid} from '../nav.ts';
 import {segmentClear,sightBoxes} from '../sight.ts';
@@ -55,7 +56,7 @@ export function guard(id:string,x:number,z:number,heading:number,o:Partial<NpcDe
 }
 export const player=(x:number,z:number,o:Partial<PlayerView>={}):PlayerView=>({x,y:0,z,floor:0,speed:0,running:false,crouched:false,tampering:false,disguise:'suit',...o});
 
-export type Run={director:Director;combat?:CombatSystem;m3?:M3System;outfit?:{m4:M4System;schedule:ScheduleSystem};coin?:{mesh:Mesh;pickups:LandedCoinPickups};devices?:DeviceSystem;events:AiEvent[];log:string[];time:number;player:PlayerView;marks:Position[]};
+export type Run={director:Director;combat?:CombatSystem;m3?:M3System;outfit?:{m4:M4System;schedule:ScheduleSystem};coin?:{mesh:Mesh;pickups:LandedCoinPickups};devices?:DeviceSystem;cleaning?:{chores:ChoreSystem;schedule:ScheduleSystem};events:AiEvent[];log:string[];time:number;player:PlayerView;marks:Position[]};
 export type Scenario={
  id:string;group:'視認'|'聴覚'|'無線'|'戦闘'|'捜索'|'経路探索'|'立入禁止'|'検問'|'救助'|'設備';title:string;expect:string;
  npcs:NpcDef[];seconds:number;combat?:boolean;
@@ -119,6 +120,25 @@ export const SCENARIOS:Scenario[]=[
   },
   done:r=>!r.devices!.on.size&&['g2','g3'].every(id=>npc(r,id).state==='patrol'),
   judge:r=>({pass:!npc(r,'g1').active&&r.log.includes('g3 が引き継いだ')&&!r.devices!.on.size&&['g2','g3'].every(id=>npc(r,id).state==='patrol'),detail:r.log.join(' → ')}),
+ },
+ {id:'sink-overflow',group:'設備',title:'蛇口を閉め、水たまりを片付ける',expect:'蛇口から水があふれ、清掃員が止めたあとも床に水が残る。モップで拭くと消える。',
+  npcs:[guard('cleaner',-16,-7,Math.PI/2,{role:'waiter',label:'清掃員'}),guard('guest',-14,-6,0,{role:'guest'})],
+  seconds:23,player:()=>player(10,12),
+  start:r=>{
+   const def:DeviceDef={id:'sink',kind:'sink',label:'蛇口',x:-13,z:-7,y:0,floor:0,heading:-Math.PI/2,approach:{x:-14,z:-7}};
+   const devices=r.devices=new DeviceSystem(r.director,[def],()=>0,['cleaner']),events=new MissionEvents();
+   r.cleaning={chores:new ChoreSystem(r.director,devices,['cleaner']),
+    schedule:new ScheduleSystem({actors:{}},{},r.director,new MissionClock(rulesData.schedule,events),events)};
+   const at=devices.spot(def);r.marks.push(at);devices.toggle(at);
+  },
+  step:r=>{
+   const devices=r.devices!,{chores}=r.cleaning!;devices.step(DT);chores.step(DT);
+   if(devices.overflowing.size&&!r.log.includes('水があふれた'))r.log.push('水があふれた');
+   if(!devices.on.size&&chores.messes.some(m=>m.kind==='water')&&!r.log.includes('止めた後も水が残った'))r.log.push('止めた後も水が残った');
+   r.log.push(...devices.notices,...chores.notices);
+  },
+  done:r=>r.log.includes('止めた後も水が残った')&&!r.cleaning!.chores.messes.length,
+  judge:r=>({pass:r.log.includes('水があふれた')&&r.log.includes('止めた後も水が残った')&&!r.cleaning!.chores.messes.length&&!r.devices!.on.size,detail:r.log.join(' → ')}),
  },
  {id:'hear-gunshot',group:'聴覚',title:'銃声で見に来る',expect:'衝立の裏で通常の拳銃を撃つと、見えていない近くの警備が音のした方へ確かめに来る（HITMAN の Gunshot Heard。2026-11-04 修正）',combat:true,
   npcs:[guard('g1',-12,0,Math.PI)],seconds:6,
@@ -272,3 +292,4 @@ export function tick(s:Scenario,r:Run){
  return r.time>=s.seconds||r.director.caught&&s.id!=='trespass-arrest'||!!s.done?.(r);
 }
 export function run(s:Scenario){const r=begin(s);if(s.seconds>0)while(!tick(s,r));return {run:r,...s.judge(r)};}
+ r.cleaning?.schedule.sync(DT);

@@ -10,7 +10,7 @@ import {floorOf,type Position} from './world.ts';
 //   (CLEAN_SECONDS, the 'clean' gesture), and takes it back. If the cleaner is alerted or put down, the job stops and the
 //   vacuum stays where it was; another cleaner may take it up later.
 // The errands use the schedule's scripted goals (schedule.ts), the same way chance scenes move people.
-export type Mess={id:number;kind:'blood';pos:Position;seen:boolean;cleaned:number;victim:string};
+export type Mess={id:number;kind:'blood'|'water';pos:Position;seen:boolean;cleaned:number;victim:string;source?:string};
 type Phase='fetch'|'carry'|'clean'|'return';
 export type Job={mess:Mess;cleaner:Npc;phase:Phase;t:number;vacuum?:string;goal:Position|null;lastStep:Position;idle:number};
 export const BLOODY=new Set(['gun','kitchen_knife','thrown_kitchen_knife','katana','thrown_katana','finish']);
@@ -29,7 +29,7 @@ export class ChoreSystem{
  onErrand?: (n:Npc)=>void;
  constructor(director:Director,devices:DeviceSystem|null,cleaners:string[]){this.director=director;this.devices=devices;this.cleaners=cleaners;
   for(const d of devices?.devices??[])if(d.kind==='vacuum')this.home.set(d.id,{x:d.x,z:d.z,y:d.y,heading:d.heading,approach:{...d.approach}});}
- add(kind:Mess['kind'],pos:Position,victim=''){const m={id:this.nextId++,kind,pos:{...pos},seen:false,cleaned:0,victim};this.messes.push(m);return m;}
+ add(kind:Mess['kind'],pos:Position,victim='',source?:string){const m={id:this.nextId++,kind,pos:{...pos},seen:false,cleaned:0,victim,source};this.messes.push(m);return m;}
  private errand(j:Job,at:Position|null,action='',heading:number|null=null){
   const n=j.cleaner;
   j.goal=n.scriptedGoal=at&&{...at};n.scriptedAction=action;n.scriptedHeading=heading;
@@ -37,14 +37,20 @@ export class ChoreSystem{
  }
  private vacuum(){return this.devices?.devices.find(d=>d.kind==='vacuum');}
  step(dt:number){this.clock+=dt;this.notices=[];const d=this.director;
+  for(const sink of this.devices?.devices??[]){
+   if(!this.devices!.overflowing.has(sink.id))continue;
+   const water=this.messes.find(m=>m.kind==='water'&&m.source===sink.id);
+   if(water)water.cleaned=0;
+   else this.add('water',this.devices!.spot(sink),'',sink.id).seen=true;
+  }
   // New bloody deaths bleed where the body lies now.
   for(const n of d.npcs)if(n.life==='dead'&&!this.bled.has(n.id)){this.bled.add(n.id);if(BLOODY.has(n.deathMethod)&&n.bodyMode==='ground')this.add('blood',n.pos,n.id);}
   // Someone notices a pool: a guard comes to look, a bystander turns to it. Then it is a job for the cleaner.
   for(const m of this.messes){if(m.seen)continue;for(const n of d.npcs){if(!n.active||n.busy||this.cleaners.includes(n.id)||!this.sees(n,m.pos))continue;m.seen=true;
    if(n.guard)n.radio({...m.pos},d.rules);else n.hear({...m.pos},d.rules);this.notices.push(`${n.label}が血だまりに気づいた。`);break;}}
   if(!this.job){
-   const returning=this.pendingReturn,m=returning?.mess??this.messes.find(m=>m.seen&&(this.retryAfter.get(m)??0)<=this.clock);
-   const v=returning?this.devices!.devices.find(d=>d.id===returning.vacuum):this.vacuum();
+   const returning=this.pendingReturn,m=returning?.mess??this.messes.find(m=>m.seen&&(!m.source||!this.devices?.on.has(m.source))&&(this.retryAfter.get(m)??0)<=this.clock);
+   const v=returning?this.devices!.devices.find(d=>d.id===returning.vacuum):m?.kind==='blood'?this.vacuum():undefined;
    const target=returning&&v?this.devices!.spot(v):m?.pos;
    if(m&&target&&(this.retryAfter.get(m)??0)<=this.clock){
     const c=d.npcs.filter(n=>this.cleaners.includes(n.id)&&n.active&&!n.busy&&!n.scriptedGoal&&n.state==='patrol'&&floorOf(n.pos.y)===floorOf(target.y))
@@ -58,8 +64,8 @@ export class ChoreSystem{
   }
   const j=this.job;if(!j)return;const c=j.cleaner,v=j.vacuum?this.devices!.devices.find(x=>x.id===j.vacuum):undefined;
   // Alerted, called away or put down: the job stops; the vacuum stays where it is.
-  if(!c.active||c.state!=='patrol'||c.busy||c.scriptedGoal!==j.goal){this.stop(j);return;}
-  const goal=j.goal,there=j.phase!=='clean'&&!!goal&&flat(c.pos,goal)<=ARRIVE&&Math.abs(c.pos.y-goal.y)<.5&&d.nav.clear(c.pos,goal);
+  if(!c.active||c.state!=='patrol'||c.busy||c.scriptedGoal!==j.goal||j.mess.source&&this.devices?.on.has(j.mess.source)){this.stop(j);return;}
+  const goal=j.goal,there=j.phase!=='clean'&&!!goal&&flat(c.pos,goal)<=(j.mess.kind==='water'?.4:ARRIVE)&&Math.abs(c.pos.y-goal.y)<.5&&d.nav.clear(c.pos,goal);
   if(j.phase!=='clean'&&!there){
    if(Math.hypot(flat(c.pos,j.lastStep),c.pos.y-j.lastStep.y)>=.12){j.lastStep={...c.pos};j.idle=0;}
    else if((j.idle+=dt)>=STUCK_SECONDS){this.defer(j);return;}
@@ -67,7 +73,7 @@ export class ChoreSystem{
   if(v&&(j.phase==='carry'||j.phase==='clean'||j.phase==='return')){const side=c.heading+Math.PI/2;v.x=c.pos.x+Math.sin(side)*.35+Math.sin(c.heading)*.25;v.z=c.pos.z+Math.cos(side)*.35+Math.cos(c.heading)*.25;v.y=0;v.heading=c.heading;v.approach={x:c.pos.x,z:c.pos.z};}
   if(j.phase==='fetch'&&there){j.phase=this.pendingReturn?'return':'carry';if(!this.go(j))this.defer(j);}
   else if(j.phase==='carry'&&there){j.phase='clean';this.go(j);if(v)this.devices!.operate(v.id,true);}
-  else if(j.phase==='clean'){j.t+=dt;j.mess.cleaned=Math.min(1,j.t/CLEAN_SECONDS);if(j.t>=CLEAN_SECONDS){this.messes.splice(this.messes.indexOf(j.mess),1);this.retryAfter.delete(j.mess);if(v)this.devices!.operate(v.id,false);this.notices.push(`${c.label}が血だまりを掃除した。`);
+  else if(j.phase==='clean'){j.t+=dt;j.mess.cleaned=Math.min(1,j.t/CLEAN_SECONDS);if(j.t>=CLEAN_SECONDS){this.messes.splice(this.messes.indexOf(j.mess),1);this.retryAfter.delete(j.mess);if(v)this.devices!.operate(v.id,false);this.notices.push(`${c.label}が${j.mess.kind==='water'?'水たまり':'血だまり'}を掃除した。`);
    if(v){this.pendingReturn={mess:j.mess,vacuum:v.id};j.phase='return';if(!this.go(j))this.defer(j);}else this.finish(j);}}
   else if(j.phase==='return'&&there){
    const h=this.home.get(v!.id)!;Object.assign(v!,{x:h.x,z:h.z,y:h.y,heading:h.heading,approach:{...h.approach}});
@@ -88,7 +94,7 @@ export class ChoreSystem{
    }
    return false;
   }
-  else if(j.phase==='clean'){const m=j.mess.pos;this.errand(j,j.goal,'clean',Math.atan2(m.x-c.pos.x,m.z-c.pos.z));}
+  else if(j.phase==='clean'){const m=j.mess.pos;this.errand(j,j.goal,j.mess.kind==='water'?'mop_floor':'clean',Math.atan2(m.x-c.pos.x,m.z-c.pos.z));}
   else if(j.phase==='return'&&v){const h=this.home.get(v.id)!;this.errand(j,{x:h.approach.x,y,z:h.approach.z});}
   return true;
  }

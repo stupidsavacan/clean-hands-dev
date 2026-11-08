@@ -130,6 +130,14 @@ function clean(p:Pose,t:number):Gesture{
  shape(p,1,-.7,1.3);shape(p,0,-.6,1.5);
  return {r:{at:[cx+.11*Math.cos(t*2.6),.96,.43+.08*Math.sin(t*2.6)],w:1},l:{at:[.2,.96,.32],w:1}};
 }
+// Push the mop across the floor, with its head below the hands.
+function mopFloor(p:Pose,t:number):Gesture{
+ alive(p,t,.4);const sway=Math.sin(t*2.8),wrist=.94;
+ p.spine+=.21;p.head+=.23;
+ shape(p,1,-.58,.88);shape(p,0,-.60,.97);
+ return {r:{at:[-.16+.13*sway,wrist,.22],w:1},l:{at:[-.08+.11*sway,1.12,.13],w:1},
+  props:{r:{id:'mop',rot:[Math.asin((wrist-.03)/1.13),sway*.23,0],off:[0,0,0]}}};
+}
 // Massage (the masseur): both hands on the table (about 0.8 m), kneading in turn, leaning their weight in.
 function massageWork(p:Pose,t:number):Gesture{
  alive(p,t,.2);const a=Math.sin(t*2.2),b=Math.sin(t*2.2+Math.PI);
@@ -179,7 +187,7 @@ function massage(p:Pose,t:number):Gesture{
 
 export const GESTURES:Record<string,(p:Pose,t:number)=>Gesture>={
  phone,radio,drink,tasting,chat,talk:chat,speech,camera,photo,tour:(p,t)=>tour(p,t),inspect:(p,t)=>tour(p,t,true),
- cook,clean,massage_work:massageWork,work,serve,club_press:clubPress,dance,massage,
+ cook,clean,mop_floor:mopFloor,massage_work:massageWork,work,serve,club_press:clubPress,dance,massage,
 };
 
 // Layer 1 on the pose (the arms' rough shape included); returns the hands for layer 2 (null: no gesture for this action).

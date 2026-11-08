@@ -56,7 +56,7 @@ type Clip={id:string;group:string;label:string;seconds:number;loop:boolean;
  surrender?:boolean;
  pair?:'brawl'|'punch'|'katana-front'|'katana-back'|'rescue'};
 const LOCO:[string,string,number,number][]=[['idle','立ち',0,0],['walk','歩き',WALK_SPEED,0],['run','走り',RUN_SPEED,0],['crouch','しゃがみ歩き',CROUCH_SPEED,1],['crouch-idle','しゃがみ',0,1]];
-const GESTURES:[string,string][]=[['phone','電話'],['radio','無線'],['drink','飲む'],['tasting','試飲'],['speech','スピーチ'],['chat','談笑'],['camera','撮影'],['photo','記念撮影'],['tour','見学'],['inspect','点検'],['cook','料理'],['clean','掃除'],['massage_work','施術'],['work','仕事'],['serve','給仕'],['club_press','ボタンを押す'],['dance','ダンス'],['massage','マッサージを受ける']];
+const GESTURES:[string,string][]=[['phone','電話'],['radio','無線'],['drink','飲む'],['tasting','試飲'],['speech','スピーチ'],['chat','談笑'],['camera','撮影'],['photo','記念撮影'],['tour','見学'],['inspect','点検'],['cook','料理'],['clean','掃除'],['mop_floor','床をモップで拭く'],['massage_work','施術'],['work','仕事'],['serve','給仕'],['club_press','ボタンを押す'],['dance','ダンス'],['massage','マッサージを受ける']];
 const M3:[MotionKind,string,number][]=[['ko','気絶させる',2],['kill','ワイヤー',2.5],['fall','倒れる',.9],['pickup','持ち上げる',PICKUP_SECONDS],['drag','引きずる',1.2],['drop','置く',.65],['hide','収納',2]];
 const COMBAT:[CombatKind,string][]=[['draw','銃を出す'],['holster','しまう'],['aim','構える'],['fire','撃つ'],['reload','弾を込める'],['hit','撃たれる'],['cover','隠れる'],['coverAim','隠れて構える'],['flee','逃げる'],['duck','伏せる']];
 const CLIPS:Clip[]=[

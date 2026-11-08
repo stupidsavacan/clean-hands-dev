@@ -50,7 +50,7 @@ test('E by the radio switches it on; someone nearby walks over, switches it off 
  assert.ok(offAt>0,'switched off');assert.ok(Math.hypot(n.pos.x+8,n.pos.z-8)<1,'at the radio');
  for(let t=0;t<15;t+=1/30)d.step(1/30,far);assert.equal(n.state,'patrol');});
 test('E again switches it off at once and no one is called',()=>{const {d,s,n}=setup();s.toggle({x:-8,y:0,z:7.8});s.toggle({x:-8,y:0,z:7.8});assert.equal(s.on.size,0);for(let t=0;t<3;t+=1/30){d.step(1/30,far);s.step(1/30);}assert.equal(n.state,'patrol');});
-test('the club radio stands on a crate at the loading dock, its front on open floor',()=>{const m=json('club-mission.json'),w=new CollisionWorld(json('club-map.json'));const r=m.devices[0];
+test('the club radio stands on a crate at the loading dock, its front on open floor',()=>{const m=json('club-mission.json'),w=new CollisionWorld(json('club-map.json'));const r=m.devices.find((d:DeviceDef)=>d.kind==='radio');
  assert.equal(r.kind,'radio');assert.ok(w.blocked(r.x,0,r.z,.3),'on the crate');assert.equal(w.blocked(r.approach.x,0,r.approach.z,.3),false);});
 // H16, H17: the kinds differ in how long the one who comes stays, and how far they are heard.
 test('a TV is watched for a while before it is switched off; a vacuum cleaner is heard from further away',()=>{
@@ -64,4 +64,18 @@ test('a TV is watched for a while before it is switched off; a vacuum cleaner is
  const r=new DeviceSystem(dd,[radio],f=>plateY(level,f));r.toggle({x:-8,y:0,z:7.8});r.step(1/30);assert.equal(r.responders.size,0);
  const v=new DeviceSystem(dd,[{...radio,id:'v',kind:'vacuum',label:'掃除機'}],f=>plateY(level,f));v.toggle({x:-8,y:0,z:7.8});v.step(1/30);assert.equal(v.responders.size,1);});
 test('the club TV stands on the office desk and the vacuum in the back corridor, each with open floor in front',()=>{const m=json('club-mission.json'),w=new CollisionWorld(json('club-map.json'));
- assert.deepEqual(m.devices.map((d:{kind:string})=>d.kind),['radio','tv','vacuum']);for(const d of m.devices)assert.equal(w.blocked(d.approach.x,0,d.approach.z,.3),false,d.id);});
+ assert.deepEqual(m.devices.filter((d:DeviceDef)=>d.kind!=='sink').map((d:DeviceDef)=>d.kind),['radio','tv','vacuum']);for(const d of m.devices)assert.equal(w.blocked(d.approach.x,0,d.approach.z,.3),false,d.id);});
+test('C08 the sink overflows after running and calls a cleaner rather than a closer visitor',()=>{
+ const {d,n}=setup();
+ const cleaner=d.addNpc({...d.mission.npcs[0],id:'cleaner',route:[[-2,8,600]]});
+ const sink={...radio,kind:'sink' as const,label:'蛇口'},s=new DeviceSystem(d,[sink],()=>0,['cleaner']);
+ const at=s.spot(sink);
+ assert.match(s.prompt(at),/開ける/);
+ s.toggle(at);s.step(.5);
+ assert.equal(s.overflowing.size,0);
+ assert.match(s.prompt(at),/閉める/);
+ s.step(1.1);
+ assert.ok(s.overflowing.has(sink.id));assert.equal(s.responders.get(sink.id),cleaner);assert.equal(n.state,'patrol');
+ cleaner.pos={...at};cleaner.arrived=true;s.step(DEVICE_KINDS.sink.stay);
+ assert.equal(s.on.size,0);assert.equal(s.overflowing.size,0);
+});
