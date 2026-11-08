@@ -69,7 +69,7 @@ const CLIPS:Clip[]=[
  {id:'pair-katana-back',group:'格闘（2人）',label:'刀・背後（口を押さえて突く）',seconds:1.0,loop:true,pair:'katana-back'},
  {id:'pair-brawl',group:'格闘（2人）',label:'警備との格闘（右・左・右）',seconds:2.8,loop:true,pair:'brawl'},
  {id:'pair-punch',group:'格闘（2人）',label:'素手で殴る（一般人）',seconds:1.4,loop:true,pair:'punch'},
- {id:'pair-rescue',group:'格闘（2人）',label:'気絶者の救助',seconds:RESCUE_SECONDS,loop:false,pair:'rescue'},
+ {id:'pair-rescue',group:'救助（2人）',label:'気絶者を起こす',seconds:RESCUE_SECONDS,loop:false,pair:'rescue'},
  ...GESTURES.map(([id,label])=>({id:'gesture-'+id,group:'予定の仕草',label,seconds:8,loop:true,gesture:id})),
  ...M3.map(([id,label,seconds])=>({id:'m3-'+id,group:'背後アクション',label,seconds,loop:id==='drag',m3:id})),
  ...COMBAT.map(([id,label])=>({id:'combat-'+id,group:'戦闘',label,seconds:COMBAT_SECONDS[id],loop:COMBAT_LOOPS.includes(id),combat:id})),
@@ -292,7 +292,16 @@ const clipSel=$<HTMLSelectElement>('#clip');
 {let group='',og:HTMLOptGroupElement|null=null;for(const c of CLIPS){if(c.group!==group){group=c.group;og=document.createElement('optgroup');og.label=group;clipSel.append(og);}const o=document.createElement('option');o.value=c.id;o.textContent=`${c.label}（${c.seconds}秒${c.loop?'・くり返し':''}）`;og!.append(o);}}
 clipSel.value='loco-walk';
 let clip=CLIPS.find(c=>c.id===clipSel.value)!,time=0,playing=true;
-clipSel.onchange=()=>{clip=CLIPS.find(c=>c.id===clipSel.value)!;time=0;for(const a of actors)a.sim=-1;};
+clipSel.onchange=()=>{
+ clip=CLIPS.find(c=>c.id===clipSel.value)!;time=0;for(const a of actors)a.sim=-1;
+ if(clip.pair==='rescue'){
+  const selected=new Set([...loading,...actors.map(a=>a.def.id)]);
+  for(const id of ['npc:guard','npc:waiter']){
+   if(selected.size>=2)break;
+   if(!selected.has(id)){selected.add(id);void addActor(MODELS.find(m=>m.id===id)!);}
+  }
+ }
+};
 $('#role').onchange=()=>{for(const a of actors)a.sim=-1;};
 $('#gun').onchange=()=>{for(const a of actors){a.sim=-1;void loadGunInto(a.weapons,gunSel().id);}};
 {const box=$('#models');let group='';for(const m of MODELS){if(m.group!==group){group=m.group;const h=document.createElement('div');h.className='grp';h.textContent=group;box.append(h);}

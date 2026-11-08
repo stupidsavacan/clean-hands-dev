@@ -6,7 +6,7 @@ import {STATE_COLOR} from '../npc-view';
 import {ARENA,SCENARIOS,begin,tick,rules,run,DT,type Run,type Scenario} from './ai-scenarios';
 
 const app=document.querySelector<HTMLDivElement>('#app')!;
-app.innerHTML=`<canvas id="lab-view"></canvas><aside id="lab-panel"><header><b>AI 実験ステージ</b><small>警備の視認・聴覚・無線・戦闘・捜索・経路探索・立入禁止。実際のゲームと同じAIで動かし、自動で合否を出します。</small></header>
+app.innerHTML=`<canvas id="lab-view"></canvas><aside id="lab-panel"><header><b>AI 実験ステージ</b><small>警備の視認・聴覚・無線・戦闘・捜索・救助・経路探索・立入禁止。実際のゲームと同じAIで動かし、自動で合否を出します。</small></header>
 <div class="lab-row"><button id="all">すべて自動判定</button><label>速さ <select id="speed"><option value="1">×1</option><option value="2">×2</option><option value="4" selected>×4</option></select></label></div>
 <div id="summary"></div><div id="list"></div><section id="detail"></section></aside>`;
 const style=document.createElement('style');style.textContent=`
@@ -26,7 +26,8 @@ const $=<E extends HTMLElement=HTMLElement>(s:string)=>document.querySelector<E>
 // --- the arena
 const canvas=$<HTMLCanvasElement>('#lab-view'),renderer=new T.WebGLRenderer({canvas,antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));
 const scene=new T.Scene();scene.background=new T.Color('#202329');
-const camera=new T.PerspectiveCamera(45,1,.1,200);camera.position.set(0,44,-20);
+const overview=new T.Vector3(0,44,-20);
+const camera=new T.PerspectiveCamera(45,1,.1,200);camera.position.copy(overview);
 const controls=new OrbitControls(camera,canvas);controls.target.set(0,0,0);controls.update();
 scene.add(new T.HemisphereLight('#ffffff','#40444c',2.2));const sun=new T.DirectionalLight('#fff',1.4);sun.position.set(10,30,-10);scene.add(sun);
 const zoneColor:Record<string,string>={public:'#3a4048',staff:'#5b4a2c'};
@@ -40,31 +41,45 @@ label('ホール',-12,12);label('職員室',13,-13.5);label('迷路',13,13.5);la
 
 // --- people
 const visionRange=rules.vision.guard.range,half=rules.vision.guard.half*Math.PI/180;
-type Body={root:T.Group;mat:T.MeshStandardMaterial;cone:T.Mesh;tag:T.Sprite;tagCtx:CanvasRenderingContext2D;tagTex:T.CanvasTexture};
+type Body={root:T.Group;figure:T.Group;mat:T.MeshStandardMaterial;cone:T.Mesh;tag:T.Sprite;tagCtx:CanvasRenderingContext2D;tagTex:T.CanvasTexture};
 const bodies=new Map<string,Body>();
 function body(id:string):Body{let b=bodies.get(id);if(b)return b;
- const root=new T.Group(),mat=new T.MeshStandardMaterial({color:'#efeadf'});
- const capsule=new T.Mesh(new T.CapsuleGeometry(.28,1.1,4,10),mat);capsule.position.y=.83;root.add(capsule);
- const nose=new T.Mesh(new T.BoxGeometry(.12,.12,.35),new T.MeshStandardMaterial({color:'#222'}));nose.position.set(0,1.5,.3);root.add(nose);
+ const root=new T.Group(),figure=new T.Group(),mat=new T.MeshStandardMaterial({color:'#efeadf'});
+ root.add(figure);
+ const capsule=new T.Mesh(new T.CapsuleGeometry(.28,1.1,4,10),mat);capsule.position.y=.83;figure.add(capsule);
+ const nose=new T.Mesh(new T.BoxGeometry(.12,.12,.35),new T.MeshStandardMaterial({color:'#222'}));nose.position.set(0,1.5,.3);figure.add(nose);
  const cone=new T.Mesh(new T.CircleGeometry(visionRange,32,Math.PI*1.5-half,half*2),new T.MeshBasicMaterial({color:'#f2e6b0',transparent:true,opacity:.12,depthWrite:false,side:T.DoubleSide}));cone.rotation.x=-Math.PI/2;cone.position.y=.03;root.add(cone);
  const c=document.createElement('canvas');c.width=256;c.height=64;const tagTex=new T.CanvasTexture(c);const tag=new T.Sprite(new T.SpriteMaterial({map:tagTex,depthTest:false}));tag.scale.set(3,.75,1);tag.position.y=2.4;root.add(tag);
- scene.add(root);b={root,mat,cone,tag,tagCtx:c.getContext('2d')!,tagTex};bodies.set(id,b);return b;}
+ scene.add(root);b={root,figure,mat,cone,tag,tagCtx:c.getContext('2d')!,tagTex};bodies.set(id,b);return b;}
 const playerMesh=new T.Mesh(new T.CapsuleGeometry(.28,1.1,4,10),new T.MeshStandardMaterial({color:'#4f8cff'}));scene.add(playerMesh);
 const marks:T.Mesh[]=[];
 function clearMarks(){for(const m of marks.splice(0))m.removeFromParent();}
 function drawRun(r:Run){
  const live=new Set(r.director.npcs.map(n=>n.id));
+ const rescues=r.m3?.rescue.playing??[];
  for(const [id,b] of bodies)b.root.visible=live.has(id);
  for(const n of r.director.npcs){const b=body(n.id);b.root.position.set(n.pos.x,n.pos.y,n.pos.z);b.root.rotation.y=n.heading;b.mat.color.set(STATE_COLOR[n.state]??'#efeadf');b.cone.visible=n.active;
-  const g=b.tagCtx;g.clearRect(0,0,256,64);g.fillStyle='rgba(0,0,0,.6)';g.fillRect(0,0,256,64);g.fillStyle='#fff';g.font='26px sans-serif';g.textAlign='center';g.fillText(`${n.id} ${n.state} ${Math.round(n.suspicion)}`,128,42);b.tagTex.needsUpdate=true;}
- playerMesh.position.set(r.player.x,r.player.y+.83,r.player.z);(playerMesh.material as T.MeshStandardMaterial).color.set(r.player.weaponDrawn?'#ff5a4a':'#4f8cff');playerMesh.visible=SCENARIOS.find(s=>s.id===current?.s.id)?.npcs.length!==0;
+  const down=n.life!=='active',rescuing=rescues.some(x=>x.guard===n);
+  b.figure.rotation.x=down ? Math.PI/2 : rescuing ? .24 : 0;
+  b.figure.position.set(0,down ? .28 : 0,down ? -.83 : 0);
+  b.figure.scale.y=rescuing ? .72 : 1;
+  b.tag.position.y=down ? .95 : 2.4;
+  b.tag.scale.set(r.m3 ? 1.55 : 3,r.m3 ? .39 : .75,1);
+  const status=r.m3
+   ? (down?'気絶':rescuing?'救助中':n.state==='investigate'?'調査中':n.guard?'待機':'復帰')
+   : down?(n.life==='unconscious'?'気絶':'死亡'):`${n.state} ${Math.round(n.suspicion)}`;
+  const g=b.tagCtx;g.clearRect(0,0,256,64);g.fillStyle='rgba(0,0,0,.6)';g.fillRect(0,0,256,64);g.fillStyle='#fff';g.font='26px sans-serif';g.textAlign='center';g.fillText(`${n.id} ${status}`,128,42);b.tagTex.needsUpdate=true;}
+ playerMesh.position.set(r.player.x,r.player.y+.83,r.player.z);(playerMesh.material as T.MeshStandardMaterial).color.set(r.player.weaponDrawn?'#ff5a4a':'#4f8cff');playerMesh.visible=!r.player.hidden&&r.director.npcs.length!==0;
  while(marks.length<r.marks.length){const p=r.marks[marks.length],m=new T.Mesh(new T.CylinderGeometry(.18,.18,.06,12),new T.MeshBasicMaterial({color:'#ffd34d'}));m.position.set(p.x,.05,p.z);scene.add(m);marks.push(m);}
 }
 
 // --- running
 const results=new Map<string,{pass:boolean;detail:string}>();
 let current:{s:Scenario;r:Run;over:boolean}|null=null;
-function start(s:Scenario){clearMarks();const r=begin(s);current={s,r,over:s.seconds<=0};if(current.over)finish();renderList();showDetail();}
+function start(s:Scenario){clearMarks();const r=begin(s),target=r.m3&&r.director.npcs.find(n=>n.life==='unconscious');
+ if(target){const {x,y,z}=target.pos;controls.target.set(x,y+.6,z);camera.position.set(x+1,y+5,z-7);controls.update();}
+ else if(current?.r.m3){controls.target.set(0,0,0);camera.position.copy(overview);controls.update();}
+ current={s,r,over:s.seconds<=0};if(current.over)finish();renderList();showDetail();}
 function finish(){if(!current)return;current.over=true;results.set(current.s.id,current.s.judge(current.r));renderList();showDetail();}
 function verdict(s:Scenario){const v=results.get(s.id);if(!v)return {icon:'・',cls:''};if(v.pass)return {icon:'✓',cls:'pass'};return s.known?{icon:'!',cls:'known'}:{icon:'✗',cls:'fail'};}
 function renderList(){

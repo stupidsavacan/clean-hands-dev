@@ -21,3 +21,5 @@
 画像は[修正前のクラブ](body-rescue-before-20261108.png)、[救助中](body-rescue-club-20261108.png)、[復帰後](body-rescue-restored-20261108.png)、[アニメーションラボ](body-rescue-lab-20261108.png)。
 
 `npm run spec` は517件中512件通過、失敗0件、既存TODO 5件。`npm run build:all` は8ページ成功。
+
+ラボからは、AI実験ステージの「救助 → 警備が気絶者を起こす」で発見・担当・復帰を自動判定できる。モーション実験ステージでは「救助（2人） → 気絶者を起こす」を選ぶ。

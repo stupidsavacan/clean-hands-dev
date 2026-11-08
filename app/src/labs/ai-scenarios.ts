@@ -49,9 +49,9 @@ export function guard(id:string,x:number,z:number,heading:number,o:Partial<NpcDe
 }
 export const player=(x:number,z:number,o:Partial<PlayerView>={}):PlayerView=>({x,y:0,z,floor:0,speed:0,running:false,crouched:false,tampering:false,disguise:'suit',...o});
 
-export type Run={director:Director;combat?:CombatSystem;events:AiEvent[];log:string[];time:number;player:PlayerView;marks:Position[]};
+export type Run={director:Director;combat?:CombatSystem;m3?:M3System;events:AiEvent[];log:string[];time:number;player:PlayerView;marks:Position[]};
 export type Scenario={
- id:string;group:'視認'|'聴覚'|'無線'|'戦闘'|'捜索'|'経路探索'|'立入禁止'|'検問';title:string;expect:string;
+ id:string;group:'視認'|'聴覚'|'無線'|'戦闘'|'捜索'|'経路探索'|'立入禁止'|'検問'|'救助';title:string;expect:string;
  npcs:NpcDef[];seconds:number;combat?:boolean;
  // A finding the lab turned up that the AI does not meet yet (the test suite lists it as todo, not as a failure).
  known?:string;
@@ -174,6 +174,27 @@ export const SCENARIOS:Scenario[]=[
   step:r=>{const g=npc(r,'g1');if(Math.abs(r.time-1)<DT/2)r.log.push(`1秒後 ${g.life}`);if(g.life!=='active'&&!r.log.some(l=>l.startsWith('眠った')))r.log.push(`眠った ${r.time.toFixed(1)}秒`);},
   judge:r=>{const g=npc(r,'g1'),g2=npc(r,'g2');
    return {pass:r.log.includes('1秒後 active')&&g.life==='unconscious'&&!r.events.some(e=>e.npc.id==='g1'&&['alert','arrest'].includes(e.type))&&g2.state==='patrol',detail:`${r.log.join(' · ')} · 今 ${g.life} · g2 ${g2.state}`};}},
+ {id:'body-rescue',group:'救助',title:'警備が気絶者を起こす',expect:'警備1人が救助を担当し、もう1人は現場を調べる。救助後、気絶者は行動に戻る。',
+  npcs:[guard('g1',-17,0,Math.PI/2),guard('g2',-10,0,-Math.PI/2),guard('guest',-14,0,0,{role:'guest',knowsFaces:[]})],
+  seconds:10,player:()=>player(14,12,{hidden:true}),
+  start:r=>{
+   const body=npc(r,'guest');
+   r.m3=new M3System(r.director,[],rulesData.m3);
+   r.m3.onFound=()=>r.log.push('気絶者を発見');
+   r.m3.down(body,'ko');
+  },
+  step:r=>{
+   const [rescue]=r.m3!.rescue.playing;
+   if(rescue?.body===npc(r,'guest')&&rescue.guard===npc(r,'g1')&&npc(r,'g2').state==='investigate'&&!r.log.includes('警備1人が救助を開始')){
+    r.log.push('警備1人が救助を開始');
+   }
+  },
+  done:r=>npc(r,'guest').active,
+  judge:r=>{
+   const body=npc(r,'guest'),revived=body.active&&body.state==='patrol';
+   return {pass:revived&&r.log.includes('気絶者を発見')&&r.log.includes('警備1人が救助を開始')&&r.m3!.hotel.level===0,
+    detail:[...r.log,revived?'気絶者が行動に復帰':'復帰せず'].join(' → ')};
+  }},
 ];
 
 // One scenario, stepped by the caller (the lab page animates it; run() finishes it at once).
@@ -188,6 +209,7 @@ export function begin(s:Scenario):Run{
 export const DT=1/60;
 export function tick(s:Scenario,r:Run){
  r.player=s.player(r.time,r);
+ r.m3?.step(DT,r.player,0,new Set());
  for(const e of r.director.step(DT,r.player)){r.events.push(e);if(['curious','investigate','warn','arrest','alert','search','caught','calm','report'].includes(e.type))r.log.push(`${e.npc.id}:${e.type}`);}
  r.combat?.step(DT,r.player,r.time);
  s.step?.(r);r.time+=DT;
