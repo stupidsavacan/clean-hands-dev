@@ -64,6 +64,7 @@
 - ほかの AI に頼む時は [MOTION-REQUEST.md](MOTION-REQUEST.md) のひな形を埋めて渡します。
 
 - 確かめる場所は [アニメーションラボ](../animation-lab.html) です。ゲームと同じ姿勢の関数を使っています。
+- 07の拳銃は [構えの微調整](../animation-lab.html#pistol-tune) で、銃の位置を固定して肩・肘などを動かせます。「保存してゲームに反映」を押し、同じブラウザ・同じサーバーからゲームを開き直すと調整を試せます。元に戻すには「標準に戻す」を押して保存します。
 - 格闘：`app/src/brawl-motion.ts`。刀：`app/src/katana-motion.ts` と `app/src/katana-pose.ts`。持った時の腕：`app/src/hold-pose.ts`。
 - 足を地面に置く、手を相手に向ける処理は `app/src/motion-runtime.ts` です。
 - 骨の向き：+X がキャラクターの左。腕と脚の x は曲げ（マイナスが前）。y は縦軸まわり（プラスが左向き）。z はひねり。

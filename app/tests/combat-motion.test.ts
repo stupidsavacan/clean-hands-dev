@@ -44,6 +44,13 @@ test('HD15 (S08 rows 26 and 97): only the agent aims and fires a pistol one-hand
   const t=i/20;
   assert.deepEqual(sampleCombat(kind,'pistol',t,true).weapon,sampleCombat(kind,'pistol',t).weapon,`${kind} at ${t}`);
  }
+ const tuning={torso:6,shoulder:5,elbow:-12,freeArm:10};
+ const standard=sampleCombat('aim','pistol',0,true),adjusted=sampleCombat('aim','pistol',0,true,tuning);
+ assert.notDeepEqual(adjusted.pose.bones,standard.pose.bones);
+ assert.deepEqual(adjusted.weapon,standard.weapon);
+ assert.deepEqual(adjusted.right,standard.right);
+ near(sampleCombat('aim','pistol',0,false,tuning),sampleCombat('aim','pistol',0));
+ near(sampleCombat('aim','long',0,true,tuning),sampleCombat('aim','long',0,true));
 });
 
 test('M5.5 the agent pistol is concealed in the holster; long guns and the guard pistol stay visible; bystanders are unarmed',()=>{

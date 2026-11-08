@@ -1,4 +1,5 @@
 import type { MotionPose } from './motion';
+import type { PistolTuning } from './pistol-tuning.ts';
 /** M5.5 gunplay motions on the shared 22-bone rig (character rest axes, XYZ radians; +X is the character's left,
  * +Y up, +Z forward). Each frame carries a body pose and where the weapon is, in the actor's own space; the runtime
  * places the weapon there and brings the hands onto it with IK, so the grip holds for every body preset.
@@ -73,6 +74,22 @@ const AIM_STANCE:Record<WeaponClass|'agentPistol',AimStance>={
  agentPistol:{...PISTOL_STANCE,bones:AGENT_PISTOL_AIM,l:undefined},
  long:{bones:LONG_AIM,hold:HOLD.long.aim,recoil:HOLD.long.recoil,reload:HOLD.long.reload,l:SUPPORT_GRIP},
 };
+function tunedPistolStance(tuning?:PistolTuning):AimStance{
+ const stance=AIM_STANCE.agentPistol;
+ if(!tuning||!Object.values(tuning).some(value=>value!==0))return stance;
+ const {torso,shoulder,elbow,freeArm}=tuning,radians=Math.PI/180;
+ const [cx,cy,cz]=stance.bones.chest,[nx,ny,nz]=stance.bones.neck,[hx,hy,hz]=stance.bones.head;
+ const [sx,sy,sz]=stance.bones.clavicler,[ax,ay,az]=stance.bones.upperarmr;
+ return {...stance,bones:{
+  ...stance.bones,
+  chest:[cx,cy-torso*radians,cz],
+  neck:[nx,ny+torso*radians/2,nz],
+  head:[hx,hy+torso*radians/2,hz],
+  clavicler:[sx,sy-shoulder*radians,sz],
+  upperarmr:[ax,ay,az-elbow*radians],
+  upperarml:[-.05-freeArm*radians,0,-1.45],
+ }};
+}
 const HANG:Bones={};
 const REACH_HIP:Bones={chest:[.03,.06,0],upperarmr:[.20,0,1.20],forearmr:[0,1.0,0]};
 const LONG_LOW:Bones={chest:[.03,-.30,0],neck:[.02,.14,0],head:[.04,.12,0],upperarmr:[-.10,0,1.0],upperarml:[-.85,0,-1.0],forearmr:[0,1.55,0],forearml:[0,-1.20,0]};
@@ -157,9 +174,9 @@ function duck(t:number):CombatFrame{
  return sample([{t:0,bones:{}},{t:1,root:{y:-.47,z:.02,pitch:0},bones:down}],u,false);
 }
 
-export function sampleCombat(kind:CombatKind,cls:WeaponClass,progress:number,agent=false):CombatFrame{
+export function sampleCombat(kind:CombatKind,cls:WeaponClass,progress:number,agent=false,tuning?:PistolTuning):CombatFrame{
  const loop=COMBAT_LOOPS.includes(kind),t=loop?((progress%1)+1)%1:clamp(progress);
- const stance=AIM_STANCE[agent&&cls==='pistol'?'agentPistol':cls];
+ const stance=agent&&cls==='pistol'?tunedPistolStance(tuning):AIM_STANCE[cls];
  switch(kind){
   case 'draw':return draw(cls,t,stance);
   case 'holster':return draw(cls,1-t,stance);

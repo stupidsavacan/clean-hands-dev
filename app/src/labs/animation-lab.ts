@@ -25,6 +25,7 @@ import {itemModel} from '../item-models';
 import {sampleMotion,type MotionKind,type MotionRole} from '../motion';
 import {applyMotion,neutral,plantedFeet,groundBody,PICKUP_SECONDS} from '../motion-runtime';
 import {sampleCombat,weaponVisible,COMBAT_SECONDS,COMBAT_LOOPS,type CombatKind,type WeaponClass} from '../combat-motion';
+import {DEFAULT_PISTOL_TUNING,PISTOL_ADJUSTMENTS,loadPistolTuning,savePistolTuning} from '../pistol-tuning.ts';
 import {poseCombat,prepareWeapon,type Weapon} from '../combat-runtime';
 import {holdPose,holdKind,strikePose,surrenderPose,SURRENDER_ARM} from '../hold-pose';
 // The hands-up arm angles, adjustable live from the console while tuning (window.__surrenderArm).
@@ -79,6 +80,16 @@ const MODELS:ModelDef[]=[
 
 const app=document.querySelector<HTMLDivElement>('#app')!;
 app.innerHTML=`<canvas id="view"></canvas><aside id="panel"><header><b>モーション実験ステージ</b><small>全モデルと全モーションを、同じ時計で再生します。ゲームと同じ動きの仕組みを使っています。</small></header>
+<details id="pistol-tune">
+<summary>07の拳銃を微調整</summary>
+<p>銃とグリップの位置を固定したまま、07の構えを調整します。0°が標準です。</p>
+<div class="row" aria-label="見る角度"><button data-pistol-angle="0">正面</button><button data-pistol-angle="-35">斜め</button><button data-pistol-angle="-90">横</button></div>
+${PISTOL_ADJUSTMENTS.map(({id,label,limit})=>`<label class="pose-adjust" for="pistol-${id}"><span>${label}</span><output for="pistol-${id}" data-pistol-value="${id}">0°</output><input id="pistol-${id}" type="range" min="${-limit}" max="${limit}" step="1" value="0"></label>`).join('')}
+<label><input id="pistol-compare" type="checkbox"> 標準の構えを見る</label>
+<div class="row"><button id="pistol-reset">標準に戻す</button><button id="pistol-save">保存してゲームに反映</button></div>
+<p id="pistol-status" role="status">保存すると、このブラウザで次に開くゲームに反映されます。</p>
+<a href="./club-prototype.html" target="_blank" rel="noopener">クラブで試す ↗</a>
+</details>
 <h3>モーション</h3><select id="clip" size="10"></select>
 <div class="row"><label>背後アクションの役 <select id="role"><option value="giver">する側</option><option value="receiver">される側</option></select></label><label>銃 <select id="gun"></select></label></div>
 <h3>キャラクター <small id="count"></small></h3><div class="row"><button id="all-npc">NPC全員</button><button id="all-char">キャラ全員</button><button id="none">外す</button></div><div id="models"></div>
@@ -92,6 +103,11 @@ const style=document.createElement('style');style.textContent=`
 #view{position:fixed;left:0;top:0;width:calc(100vw - 320px);height:calc(100vh - 56px);display:block}
 #panel{position:fixed;right:0;top:0;width:320px;height:calc(100vh - 56px);overflow:auto;background:#1d2127;border-left:1px solid #343a44;padding:12px}
 #panel header b{font-size:16px;display:block}#panel small{color:#a7a399}h3{margin:14px 0 6px;font-size:13px;color:#c9b27a}
+#pistol-tune{margin-top:12px;padding:10px;border:1px solid #5a5141;border-radius:8px;background:#252725}
+#pistol-tune summary{cursor:pointer;color:#f3d28c;font-weight:650}#pistol-tune p{margin:6px 0;color:#c6c5bb}
+#pistol-tune a{color:#e3c989}#pistol-save{background:#e3c989;color:#241f14;border-color:#e3c989;font-weight:650}
+#pistol-save:hover{background:#f0d999}.pose-adjust{display:grid;grid-template-columns:1fr auto;margin:5px 0}
+.pose-adjust input{grid-column:1/-1;width:100%;margin:2px 0;accent-color:#e3c989}.pose-adjust output{font-variant-numeric:tabular-nums}
 #clip{width:100%;background:#14171b;color:#eee;border:1px solid #3a404a;border-radius:6px;height:260px}
 .row{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0}select,button{background:#2a2f37;color:#eee;border:1px solid #474e59;border-radius:6px;padding:4px 8px}button{cursor:pointer}button:hover{background:#353b45}
 #models{display:grid;grid-template-columns:1fr 1fr;gap:2px 8px}#models label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#models .grp{grid-column:1/-1;color:#8f8b82;margin-top:6px}
@@ -108,11 +124,17 @@ for(const [x,y,z,p] of [[-3,5,3,2.6],[3,3,-2,1.6]]){const l=new T.DirectionalLig
 const floor=new T.Mesh(new T.PlaneGeometry(60,20),new T.MeshStandardMaterial({color:'#34424a',roughness:1}));floor.rotation.x=-Math.PI/2;floor.position.y=-.002;scene.add(floor);
 const grid=new T.GridHelper(60,120,'#5d6a72','#3f4b53');grid.position.y=0;scene.add(grid);
 const camera=new T.PerspectiveCamera(35,1,.01,200);camera.position.set(0,1.8,5.5);const controls=new OrbitControls(camera,canvas);controls.target.set(0,.9,0);controls.enableDamping=true;
+function viewActor(deg=30,dist=2.2,height=1.3,targetY=1.1,targetZ=0){
+ const x=actors[0]?.group.position.x??0,r=deg*Math.PI/180;
+ controls.target.set(x,targetY,targetZ);camera.position.set(x+Math.sin(r)*dist,height,targetZ+Math.cos(r)*dist);controls.update();
+}
 
 // --- actors
 type Actor={def:ModelDef;group:T.Group;model:T.Object3D;rig:Rig;loco:Locomotion;sim:number;pose?:Pose;held?:{id:string;object:T.Object3D};props:GestureProps;scenery?:{id:string;object:T.Object3D};skeleton:T.SkeletonHelper;weapons:Partial<Record<string,Weapon>>;label:T.Sprite;ok:boolean};
 const loader=new GLTFLoader(),bytes=(b64:string)=>Uint8Array.from(atob(b64),c=>c.charCodeAt(0)).buffer;
 const actors:Actor[]=[];const loading=new Set<string>();
+let pistolTuning=loadPistolTuning();
+const pistolCompare=$<HTMLInputElement>('#pistol-compare');
 const NEED=['pelvis','spine','chest','neck','head','thighl','shinl','footl','thighr','shinr','footr','upperarml','forearml','handl','upperarmr','forearmr','handr'];
 async function addActor(def:ModelDef){
  if(loading.has(def.id)||actors.some(a=>a.def.id===def.id))return;loading.add(def.id);
@@ -200,7 +222,7 @@ function poseActor(a:Actor,clip:Clip,t:number){
   if(role==='giver'&&clip.m3!=='fall')plantedFeet(rig,group,()=>0);
   if(role==='receiver'){if(['drag','drop','pickup'].includes(clip.m3))groundBody(model,0);if(clip.m3==='fall')groundBody(model,0,T.MathUtils.smoothstep(progress,.65,1));}
   return;}
- if(clip.combat){const frame=sampleCombat(clip.combat,cls,progress,a.def.id==='agent'),wp=a.weapons[gun.id]??null;
+ if(clip.combat){const frame=sampleCombat(clip.combat,cls,progress,a.def.id==='agent',pistolCompare.checked?undefined:pistolTuning),wp=a.weapons[gun.id]??null;
   if(frame.upperOnly){const speed=clip.combat==='flee'?RUN_SPEED:0;rig.apply(gait(speed,0));}else a.sim=-1;
   if(wp)wp.object.visible=weaponVisible(clip.combat,cls,progress,false);
   poseCombat(rig,group,model,frame,wp,0);
@@ -221,6 +243,44 @@ function syncChecks(){document.querySelectorAll<HTMLInputElement>('[data-model]'
 const pick=(group:string)=>{for(const m of MODELS.filter(m=>m.group===group))void addActor(m);};
 $('#all-npc').onclick=()=>pick('NPC');$('#all-char').onclick=()=>pick('キャラクター');$('#none').onclick=()=>{for(const a of [...actors])remove(a.def.id);loading.clear();syncChecks();};
 const setPlaying=(v:boolean)=>{playing=v;$('#play').textContent=v?'一時停止':'再生';};
+const pistolPanel=$<HTMLDetailsElement>('#pistol-tune'),pistolStatus=$('#pistol-status');
+function syncPistolSliders(){
+ for(const {id} of PISTOL_ADJUSTMENTS){
+  const value=pistolTuning[id];
+  $<HTMLInputElement>(`#pistol-${id}`).value=String(value);
+  $(`[data-pistol-value="${id}"]`).textContent=`${value>0?'+':''}${value}°`;
+ }
+}
+function previewPistol(){
+ const gun=$<HTMLSelectElement>('#gun');
+ gun.value='m55:pistol_silenced';gun.dispatchEvent(new Event('change'));
+ for(const a of [...actors])if(a.def.id!=='agent')remove(a.def.id);
+ void addActor(MODELS[0]);
+ clipSel.value='combat-aim';clipSel.dispatchEvent(new Event('change'));setPlaying(false);
+ viewActor(-35,2.9,1.25,1.13,.1);
+}
+pistolPanel.ontoggle=()=>{if(pistolPanel.open)previewPistol();};
+for(const {id} of PISTOL_ADJUSTMENTS){
+ const input=$<HTMLInputElement>(`#pistol-${id}`);
+ input.oninput=()=>{
+  pistolTuning[id]=input.valueAsNumber;
+  pistolCompare.checked=false;syncPistolSliders();
+  pistolStatus.textContent='プレビュー中。ゲームに反映するには保存してください。';
+ };
+}
+syncPistolSliders();
+document.querySelectorAll<HTMLButtonElement>('[data-pistol-angle]').forEach(button=>{
+ button.onclick=()=>viewActor(Number(button.dataset.pistolAngle),2.9,1.25,1.13,.1);
+});
+$('#pistol-reset').onclick=()=>{
+ pistolTuning={...DEFAULT_PISTOL_TUNING};pistolCompare.checked=false;syncPistolSliders();
+ pistolStatus.textContent='標準に戻しました。ゲームに反映するには保存してください。';
+};
+$('#pistol-save').onclick=()=>{
+ pistolStatus.textContent=savePistolTuning(pistolTuning)
+  ?'保存しました。クラブを開いて試せます。開いている場合は再読み込みしてください。'
+  :'このブラウザでは保存できません。ローカルサーバーから開いてください。';
+};
 const FRAME=1/30;
 $('#play').onclick=()=>setPlaying(!playing);
 $('#back').onclick=()=>{setPlaying(false);time=Math.max(0,time-FRAME);};
@@ -228,7 +288,7 @@ $('#fwd').onclick=()=>{setPlaying(false);time=Math.min(clip.seconds,time+FRAME);
 $<HTMLInputElement>('#timeline').oninput=()=>{setPlaying(false);time=Number($<HTMLInputElement>('#timeline').value)/1000*clip.seconds;};
 $<HTMLInputElement>('#skeleton').onchange=()=>{for(const a of actors)a.skeleton.visible=$<HTMLInputElement>('#skeleton').checked;};
 $<HTMLInputElement>('#ghost').onchange=applyGhost;
-addEventListener('keydown',e=>{if(e.target instanceof HTMLSelectElement||e.target instanceof HTMLInputElement&&e.target.type!=='range')return;
+addEventListener('keydown',e=>{if(e.target instanceof HTMLElement&&e.target.closest('#pistol-tune')||e.target instanceof HTMLSelectElement||e.target instanceof HTMLInputElement&&e.target.type!=='range')return;
  if(e.code==='Space'){e.preventDefault();setPlaying(!playing);}if(e.code==='Comma')$('#back').click();if(e.code==='Period')$('#fwd').click();});
 
 let last=performance.now();
@@ -244,7 +304,8 @@ function frame(now:number){const dt=Math.min(.1,(now-last)/1000);last=now;
 requestAnimationFrame(frame);
 // Start with the agent and a guard walking side by side (item GLBs first, so tools in hand are the real models).
 await loadItemModels();
-void addActor(MODELS[0]);const guard=MODELS.find(m=>m.id==='npc:guard');if(guard)void addActor(guard);
+if(location.hash==='#pistol-tune')pistolPanel.open=true;
+else{void addActor(MODELS[0]);const guard=MODELS.find(m=>m.id==='npc:guard');if(guard)void addActor(guard);}
 Object.assign(window,{__animLab:{
  // Look at the first character from an angle (degrees round them, 0 = in front), at a distance and height.
  // Where the first character's joints are, in their own space (x: + is their left, z: + is forward), metres.
@@ -260,6 +321,6 @@ Object.assign(window,{__animLab:{
    const w=canvas.width,h=canvas.height,side=Math.min(w,h);g.drawImage(canvas,(w-side)/2,(h-side)/2,side,side,(i%cols)*cell,Math.floor(i/cols)*cell,cell,cell);g.fillText(clip.label,(i%cols)*cell+6,Math.floor(i/cols)*cell+18);});
   document.body.append(c);return ids.length;},
  // targetZ: look at a point ahead of the first actor (pair clips: half the gap, between the two).
- view:(deg=30,dist=2.2,height=1.3,targetY=1.1,targetZ=0)=>{const a=actors[0],x=a?a.group.position.x:0,r=deg*Math.PI/180;controls.target.set(x,targetY,targetZ);camera.position.set(x+Math.sin(r)*dist,height,targetZ+Math.cos(r)*dist);controls.update();},
+ view:viewActor,
 clips:CLIPS.map(c=>c.id),models:MODELS.map(m=>m.id),actors:()=>actors.map(a=>({id:a.def.id,ok:a.ok})),
  set:(clipId:string,t:number)=>{clipSel.value=clipId;clipSel.dispatchEvent(new Event('change'));setPlaying(false);time=t;}}});
