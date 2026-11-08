@@ -24,7 +24,7 @@ import {gesturePose,applyGesture,GestureProps} from '../gestures';
 import {itemModel} from '../item-models';
 import {sampleMotion,type MotionKind,type MotionRole} from '../motion';
 import {applyMotion,neutral,plantedFeet,groundBody,PICKUP_SECONDS} from '../motion-runtime';
-import {sampleCombat,weaponVisible,COMBAT_SECONDS,COMBAT_LOOPS,type CombatKind,type WeaponClass} from '../combat-motion';
+import {sampleCombat,weaponVisible,COMBAT_SECONDS,COMBAT_LOOPS,AGENT_PISTOL_VARIANTS,type CombatKind,type WeaponClass} from '../combat-motion';
 import {DEFAULT_PISTOL_TUNING,PISTOL_ADJUSTMENTS,loadPistolTuning,savePistolTuning} from '../pistol-tuning.ts';
 import {poseCombat,prepareWeapon,type Weapon} from '../combat-runtime';
 import {holdPose,holdKind,strikePose,surrenderPose,SURRENDER_ARM} from '../hold-pose';
@@ -83,6 +83,8 @@ app.innerHTML=`<canvas id="view"></canvas><aside id="panel"><header><b>モーシ
 <details id="pistol-tune">
 <summary>07の拳銃を微調整</summary>
 <p>「銃」で片手銃を選べます。銃とグリップの位置を固定したまま、07の構えを調整します。調整値はすべての片手銃で共通です。0°が標準です。</p>
+<div class="row" aria-label="構えの案">${Object.entries(AGENT_PISTOL_VARIANTS).map(([id,v])=>`<button data-pistol-variant="${id}" title="${v.note}">${v.label}</button>`).join('')}</div>
+<p id="pistol-variant-note">A 今の構え：両手持ちと同じ位置（顔の前）</p>
 <div class="row" aria-label="見る角度"><button data-pistol-angle="0">正面</button><button data-pistol-angle="-35">斜め</button><button data-pistol-angle="-90">横</button></div>
 ${PISTOL_ADJUSTMENTS.map(({id,label,limit})=>`<label class="pose-adjust" for="pistol-${id}"><span>${label}</span><output for="pistol-${id}" data-pistol-value="${id}">0°</output><input id="pistol-${id}" type="range" min="${-limit}" max="${limit}" step="1" value="0"></label>`).join('')}
 <label><input id="pistol-compare" type="checkbox"> 標準の構えを見る</label>
@@ -106,6 +108,7 @@ const style=document.createElement('style');style.textContent=`
 #pistol-tune{margin-top:12px;padding:10px;border:1px solid #5a5141;border-radius:8px;background:#252725}
 #pistol-tune summary{cursor:pointer;color:#f3d28c;font-weight:650}#pistol-tune p{margin:6px 0;color:#c6c5bb}
 #pistol-tune a{color:#e3c989}#pistol-save{background:#e3c989;color:#241f14;border-color:#e3c989;font-weight:650}
+[data-pistol-variant].on{background:#e3c989;color:#241f14;border-color:#e3c989}
 #pistol-save:hover{background:#f0d999}.pose-adjust{display:grid;grid-template-columns:1fr auto;margin:5px 0}
 .pose-adjust input{grid-column:1/-1;width:100%;margin:2px 0;accent-color:#e3c989}.pose-adjust output{font-variant-numeric:tabular-nums}
 #clip{width:100%;background:#14171b;color:#eee;border:1px solid #3a404a;border-radius:6px;height:260px}
@@ -134,6 +137,7 @@ type Actor={def:ModelDef;group:T.Group;model:T.Object3D;rig:Rig;loco:Locomotion;
 const loader=new GLTFLoader(),bytes=(b64:string)=>Uint8Array.from(atob(b64),c=>c.charCodeAt(0)).buffer;
 const actors:Actor[]=[];const loading=new Set<string>();
 let pistolTuning=loadPistolTuning();
+let pistolVariant=new URLSearchParams(location.search).get('pistol')??'A';
 const pistolCompare=$<HTMLInputElement>('#pistol-compare');
 const NEED=['pelvis','spine','chest','neck','head','thighl','shinl','footl','thighr','shinr','footr','upperarml','forearml','handl','upperarmr','forearmr','handr'];
 async function addActor(def:ModelDef){
@@ -222,7 +226,7 @@ function poseActor(a:Actor,clip:Clip,t:number){
   if(role==='giver'&&clip.m3!=='fall')plantedFeet(rig,group,()=>0);
   if(role==='receiver'){if(['drag','drop','pickup'].includes(clip.m3))groundBody(model,0);if(clip.m3==='fall')groundBody(model,0,T.MathUtils.smoothstep(progress,.65,1));}
   return;}
- if(clip.combat){const frame=sampleCombat(clip.combat,cls,progress,a.def.id==='agent',pistolCompare.checked?undefined:pistolTuning),wp=a.weapons[gun.id]??null;
+ if(clip.combat){const frame=sampleCombat(clip.combat,cls,progress,a.def.id==='agent',pistolCompare.checked?undefined:pistolTuning,pistolVariant),wp=a.weapons[gun.id]??null;
   if(frame.upperOnly){const speed=clip.combat==='flee'?RUN_SPEED:0;rig.apply(gait(speed,0));}else a.sim=-1;
   if(wp)wp.object.visible=weaponVisible(clip.combat,cls,progress,false);
   poseCombat(rig,group,model,frame,wp,0);
@@ -271,6 +275,13 @@ for(const {id} of PISTOL_ADJUSTMENTS){
  };
 }
 syncPistolSliders();
+function setPistolVariant(id:string){
+ if(!AGENT_PISTOL_VARIANTS[id])return;pistolVariant=id;
+ document.querySelectorAll<HTMLButtonElement>('[data-pistol-variant]').forEach(b=>b.classList.toggle('on',b.dataset.pistolVariant===id));
+ const v=AGENT_PISTOL_VARIANTS[id];$('#pistol-variant-note').textContent=`${v.label}：${v.note}`;
+}
+document.querySelectorAll<HTMLButtonElement>('[data-pistol-variant]').forEach(b=>{b.onclick=()=>setPistolVariant(b.dataset.pistolVariant!);});
+setPistolVariant(pistolVariant);
 document.querySelectorAll<HTMLButtonElement>('[data-pistol-angle]').forEach(button=>{
  button.onclick=()=>viewActor(Number(button.dataset.pistolAngle),2.9,1.25,1.13,.1);
 });
@@ -324,5 +335,9 @@ Object.assign(window,{__animLab:{
   document.body.append(c);return ids.length;},
  // targetZ: look at a point ahead of the first actor (pair clips: half the gap, between the two).
  view:viewActor,
+ // Set the drawing size directly (the frame loop does this, but it does not run while the page is hidden).
+ size:(w:number,h:number)=>{renderer.setPixelRatio(1);renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();},
+ // Agent 07's one-handed pistol A/B candidates (HD15): pistol('B') switches; pistolVariants lists them.
+ pistol:(id:string)=>setPistolVariant(id),pistolVariants:Object.keys(AGENT_PISTOL_VARIANTS),
 clips:CLIPS.map(c=>c.id),models:MODELS.map(m=>m.id),actors:()=>actors.map(a=>({id:a.def.id,ok:a.ok})),
  set:(clipId:string,t:number)=>{clipSel.value=clipId;clipSel.dispatchEvent(new Event('change'));setPlaying(false);time=t;}}});

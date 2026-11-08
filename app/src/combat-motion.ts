@@ -74,8 +74,29 @@ const AIM_STANCE:Record<WeaponClass|'agentPistol',AimStance>={
  agentPistol:{...PISTOL_STANCE,bones:AGENT_PISTOL_AIM,l:undefined},
  long:{bones:LONG_AIM,hold:HOLD.long.aim,recoil:HOLD.long.recoil,reload:HOLD.long.reload,l:SUPPORT_GRIP},
 };
-function tunedPistolStance(tuning?:PistolTuning):AimStance{
- const stance=AIM_STANCE.agentPistol;
+/** A/B candidates for Agent 07's one-handed pistol (HD15, 2026-11-08), viewed in the animation lab.
+ * 'A' is the current stance (the two-handed gun position). The others move the gun onto the right arm's line. */
+export type PistolVariant={label:string;note:string;bones?:Bones;hold?:Hold};
+const shiftHold=(h:Hold,dy:number,dz:number,rx:number):Hold=>({...h,pos:[h.pos[0],h.pos[1]+dy,h.pos[2]+dz],rot:[h.rot[0]+rx,h.rot[1],h.rot[2]]});
+export const AGENT_PISTOL_VARIANTS:Record<string,PistolVariant>={
+ A:{label:'A 今の構え',note:'両手持ちと同じ位置（顔の前）'},
+ B:{label:'B 腕をまっすぐ',note:'右肩の線で腕を伸ばす・左腕は軽く曲げる',
+  bones:{chest:[.02,-.22,0],neck:[.04,.12,0],head:[.06,.10,0],clavicler:[0,-.05,0],upperarmr:[-1.45,0,.20],forearmr:[0,.10,0],upperarml:[.04,0,-1.36],forearml:[0,-.38,0]},
+  hold:{anchor:'GRIP_R',pos:[-.17,1.40,.46],rot:[0,.05,0]}},
+ C:{label:'C 半身',note:'体を大きく開き目の高さで狙う・左腕は後ろに引く',
+  bones:{chest:[0,-.80,0],neck:[.04,.40,0],head:[.06,.38,0],clavicler:[0,-.10,0],upperarmr:[-1.45,0,.25],forearmr:[0,.10,0],upperarml:[.28,0,-1.38],forearml:[0,-.30,0]},
+  hold:{anchor:'GRIP_R',pos:[-.09,1.45,.37],rot:[0,0,0]}},
+ D:{label:'D 肘をゆるめる',note:'少し低く肘に余裕・左手はみぞおち',
+  bones:{chest:[.03,-.35,0],neck:[.05,.18,0],head:[.12,.16,0],clavicler:[0,-.08,0],upperarmr:[-1.20,0,.45],forearmr:[0,.45,0],upperarml:[-.12,0,-1.38],forearml:[0,-1.30,0]},
+  hold:{anchor:'GRIP_R',pos:[-.12,1.30,.40],rot:[-.02,.06,0]}},
+};
+function variantStance(id?:string):AimStance{
+ const base=AIM_STANCE.agentPistol,v=id?AGENT_PISTOL_VARIANTS[id]:undefined;
+ if(!v?.hold)return base;
+ return {...base,bones:{...base.bones,...v.bones},hold:v.hold,recoil:shiftHold(v.hold,.02,-.03,-.38)};
+}
+function tunedPistolStance(tuning?:PistolTuning,variant?:string):AimStance{
+ const stance=variantStance(variant);
  if(!tuning||!Object.values(tuning).some(value=>value!==0))return stance;
  const {torso,shoulder,elbow,freeArm}=tuning,radians=Math.PI/180;
  const [cx,cy,cz]=stance.bones.chest,[nx,ny,nz]=stance.bones.neck,[hx,hy,hz]=stance.bones.head;
@@ -174,9 +195,9 @@ function duck(t:number):CombatFrame{
  return sample([{t:0,bones:{}},{t:1,root:{y:-.47,z:.02,pitch:0},bones:down}],u,false);
 }
 
-export function sampleCombat(kind:CombatKind,cls:WeaponClass,progress:number,agent=false,tuning?:PistolTuning):CombatFrame{
+export function sampleCombat(kind:CombatKind,cls:WeaponClass,progress:number,agent=false,tuning?:PistolTuning,variant?:string):CombatFrame{
  const loop=COMBAT_LOOPS.includes(kind),t=loop?((progress%1)+1)%1:clamp(progress);
- const stance=agent&&cls==='pistol'?tunedPistolStance(tuning):AIM_STANCE[cls];
+ const stance=agent&&cls==='pistol'?tunedPistolStance(tuning,variant):AIM_STANCE[cls];
  switch(kind){
   case 'draw':return draw(cls,t,stance);
   case 'holster':return draw(cls,1-t,stance);
