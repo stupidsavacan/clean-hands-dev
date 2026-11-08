@@ -157,6 +157,14 @@ export const SCENARIOS:Scenario[]=[
   start:r=>{const c=r.combat!;c.equip('pistol_silenced');c.hand='pistol_silenced';},
   done:r=>(r.combat?.hp??100)<(combatRules.player as {health:number}).health,
   judge:r=>{const hp=Math.round(r.combat!.hp);return {pass:has(r,'alert')||npc(r,'g1').state==='combat'?hp<(combatRules.player as {health:number}).health:false,detail:`警備 ${npc(r,'g1').state} · 体力 ${hp}`};}},
+ {id:'combat-occluded-carry',group:'戦闘',title:'体で隠れた拳銃は見つからない',expect:'警備は人物が見えても、体の反対側に隠れた拳銃には反応しない。銃が見えると戦闘に入る。',
+  npcs:[guard('g1',-12,-8,Math.atan2(-2,5))],seconds:4,combat:true,
+  player:t=>player(-14,-3,{weaponDrawn:true,carrySight:{drawn:{x:-14.25,y:1.24,z:t<1.5?-2.63:-3.37},illegalTools:[]}}),
+  start:r=>{r.combat!.equip('pistol_silenced');r.combat!.hand='pistol_silenced';},
+  step:r=>{if(r.time<1.5&&npc(r,'g1').state==='combat')r.log.push('見えない拳銃に反応');},
+  done:r=>npc(r,'g1').state==='combat',
+  judge:r=>({pass:!r.log.includes('見えない拳銃に反応')&&r.time>=1.5&&npc(r,'g1').state==='combat',detail:npc(r,'g1').state==='combat'?'銃が見えて戦闘へ':'戦闘に入らなかった'}),
+ },
  {id:'search-lose',group:'捜索',title:'見失うと捜索し、やがて戻る',expect:'警戒させてから視界の外へ消えると、捜索 → 落ち着いて持ち場へ',
   npcs:[guard('g1',13,-10,0)],seconds:40,player:(_t,r)=>npc(r,'g1').state==='alert'&&!r.log.includes('逃げた')?(r.log.push('逃げた'),player(-17,12)):r.log.includes('逃げた')?player(-17,12):player(13,-5,{speed:1}),
   done:r=>has(r,'calm')&&r.log.includes('逃げた'),
@@ -286,10 +294,10 @@ export function tick(s:Scenario,r:Run){
  r.m3?.step(DT,r.player,0,new Set());
  r.outfit?.m4.step(DT,r.player,0,new Set());
  r.outfit?.schedule.sync(DT);
+ r.cleaning?.schedule.sync(DT);
  for(const e of r.director.step(DT,r.player)){r.events.push(e);if(['curious','investigate','warn','arrest','alert','search','caught','calm','report'].includes(e.type))r.log.push(`${e.npc.id}:${e.type}`);}
  r.combat?.step(DT,r.player,r.time);
  s.step?.(r);r.time+=DT;
  return r.time>=s.seconds||r.director.caught&&s.id!=='trespass-arrest'||!!s.done?.(r);
 }
 export function run(s:Scenario){const r=begin(s);if(s.seconds>0)while(!tick(s,r));return {run:r,...s.judge(r)};}
- r.cleaning?.schedule.sync(DT);

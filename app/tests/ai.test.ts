@@ -39,7 +39,9 @@ test('leaving after the warning ends it: no arrest, no catch, the outfit is not 
 test('a running agent in public makes a guard curious but not alarmed in a short dash',()=>{const d=only('guard-pool');const g=d.npcs[0];g.pos={x:-1.4,y:0,z:8.8};g.heading=Math.PI/2;
  const ev=run(d,t=>player(0+t*4.8,10.5,{speed:4.8,running:true}),2.2);assert.ok(ev.includes('curious'));assert.ok(!ev.includes('alert'));});
 test('losing the guard leads to a search, then he calms down and returns to patrol',()=>{const d=only('guard-service');const g=d.npcs[0];g.pos={x:-11.15,y:0,z:-1.2};g.heading=Math.PI;g.routeIndex=2;
- for(let t=0;t<8&&g.state!=='alert';t+=1/60)d.step(1/60,player(-11.2,-6.5,{speed:1}));assert.equal(g.state,'alert');const ev=run(d,player(10,10),30);assert.ok(ev.includes('search')&&ev.includes('calm'),ev.join());assert.equal(d.caught,false);assert.ok(g.suspicion<60);});
+ for(let t=0;t<8&&g.state!=='alert';t+=1/60)d.step(1/60,player(-11.2,-6.5,{speed:1}));assert.equal(g.state,'alert');const pursuit=[];
+ for(let t=0;t<30;t+=1/60)for(const e of d.step(1/60,player(10,10)))if(e.pursuitReason)pursuit.push([e.type,e.pursuitReason]);
+ assert.deepEqual(pursuit,[['search','lost_contact'],['calm','search_expired']]);assert.equal(d.caught,false);assert.ok(g.suspicion<60);});
 test('a thrown coin pulls the nearest NPC over to look, then he goes back',()=>{const d=only('guard-lobby','guard-service');const spot={x:-8,y:0,z:-5};const n=d.noise(spot);assert.equal(n?.id,'guard-lobby');assert.equal(n!.state,'distracted');
  let near=9;for(let t=0;t<16;t+=1/60){d.step(1/60,player(10,10));near=Math.min(near,Math.hypot(n!.pos.x-spot.x,n!.pos.z-spot.z));}assert.ok(near<1,'walked to the coin');assert.equal(n!.state,'patrol');});
 test('blending into a group of three guests slows how fast running is noticed',()=>{const d=only('guest-a','guest-b','guest-c','guard-pool');assert.equal(d.crowdAt(2.4,10),3);});

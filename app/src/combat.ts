@@ -1,3 +1,4 @@
+import {carryPointVisible} from './carry-sight.ts';
 import combatPose from './data/combat-pose.json' with {type:'json'};
 import type {Director,Knowledge,Npc,NpcDef,PlayerView} from './ai.ts';
 import {defaultCarry,evaluateItemLegality,itemMaster,type ItemMaster} from './items.ts';
@@ -176,12 +177,16 @@ export class CombatSystem{
   const drawn=!!this.hand,shown=this.shown(p.disguise),target={x:p.x,y:p.y,z:p.z};
   for(const n of this.director.npcs){if(!n.active||n.busy||n.scheduledAway)continue;
    // Being seen with a gun out, or noticed with a gun on the back (or by a guard while the fight is on, in the blown outfit) starts or joins the fight.
-   if(n.visibility>0&&n.state!=='combat'){const armed=drawn||shown&&n.suspicion>=100;
+   if(n.visibility>0&&n.state!=='combat'){
+    const carry=p.carrySight,eye=this.director.rules.vision.eye;
+    const seenDrawn=drawn&&(!carry||carryPointVisible(n,p,carry.drawn,this.director.boxes,eye));
+    const seenLong=shown&&(!carry||carryPointVisible(n,p,carry.longGun,this.director.boxes,eye));
+    const armed=seenDrawn||seenLong&&n.suspicion>=100;
     // A guard who saw the agent kill someone fights on sight (HITMAN report G-03, 2026-11-04).
     // HD08 (2026-11-07, the user's choice: as in HITMAN): in a hostile area the guard who goes for the agent shoots, no arrest first.
-    if(n.guard&&(armed||n.sawViolence&&n.hasConfirmedIdentity(p)||this.fight&&n.hasConfirmedIdentity(p)||n.arrest&&n.cause==='hostile'))this.engage(n,p,time);
+    if(n.guard&&(armed||n.sawViolence&&n.hasConfirmedIdentity(p)||this.fight&&n.hasConfirmedIdentity(p)||n.arrest&&n.cause==='hostile'))this.engage(n,carry?{...p,weaponDrawn:seenDrawn,illegalVisibleCarry:seenLong}:p,time);
     // A bystander who sees a gun out runs to tell a guard (M5.6 witness); once shots are flying they just run away.
-    else if(!n.guard&&armed&&n.state!=='flee'&&!n.witness&&n.witnessCooldown<=0){this.director.reports++;this.director.onSpotted?.(n);n.knownDisguises.add(p.disguise);if(this.fight)this.flee(n,p);else{n.state='report';n.lastSeen={x:p.x,y:p.y,z:p.z};n.witness={what:'act',at:{x:p.x,y:p.y,z:p.z},key:'act:'+n.id,disguise:p.disguise};}this.onReaction?.(n,this.fight?'flee':'report',drawn?'gun_drawn':'visible_weapon','sight',p);}}
+    else if(!n.guard&&armed&&n.state!=='flee'&&!n.witness&&n.witnessCooldown<=0){this.director.reports++;this.director.onSpotted?.(n);n.knownDisguises.add(p.disguise);if(this.fight)this.flee(n,p);else{n.state='report';n.lastSeen={x:p.x,y:p.y,z:p.z};n.witness={what:'act',at:{x:p.x,y:p.y,z:p.z},key:'act:'+n.id,disguise:p.disguise};}this.onReaction?.(n,this.fight?'flee':'report',seenDrawn?'gun_drawn':'visible_weapon','sight',p);}}
    if(n.state==='combat')this.fightStep(n,p,dt,time);
    // Once shots fly, someone running to tell a guard runs for cover instead (the fight has already raised the alarm).
    else if(this.fight&&n.witness&&n.state==='report'){n.witness=null;this.flee(n,p);}

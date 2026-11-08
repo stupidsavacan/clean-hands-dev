@@ -2,11 +2,12 @@ import {test}from 'node:test';import assert from 'node:assert/strict';import {re
 import {Director,type Npc,type PlayerView}from '../src/ai.ts';import {CollisionWorld,floorOf}from '../src/world.ts';import {NavGrid}from '../src/nav.ts';import {sightBoxes}from '../src/sight.ts';
 import {MissionEvents}from '../src/events.ts';import {M3System}from '../src/m3.ts';import {M4System}from '../src/m4.ts';
 import {CombatSystem,hitChance,type CombatRules,type WeaponDef}from '../src/combat.ts';import {ScoreLedger,computeResult,type Scoring}from '../src/score.ts';
+import {visibleCarry} from '../src/carry-sight.ts';
 const json=(n:string)=>JSON.parse(readFileSync(new URL(`../src/data/${n}.json`,import.meta.url),'utf8')),hotel=json('hotel'),rules=json('rules'),combatRules:CombatRules=json('combat'),weapons:Record<string,WeaponDef>=json('weapons'),scoring:Scoring=json('scoring');
 const world=new CollisionWorld(hotel),nav=new NavGrid(world),boxes=sightBoxes(hotel);
 // The parking lot is open ground: people are placed there so only the line of fire matters.
 const LOT={x:-40,y:0,z:-30};
-function setup(rng=()=>0){const d=new Director(hotel,world,nav,boxes,structuredClone(rules)),e=new MissionEvents(),m3=new M3System(d,hotel.hides,rules.m3),m4=new M4System(d,hotel.checkpoints,rules.m4),c=new CombatSystem(d,e,m3.hotel,combatRules,weapons,hotel.reinforcements,rng),seen:string[]=[];e.on(x=>seen.push(x.type));
+function setup(rng=()=>0,sight=boxes){const d=new Director(hotel,world,nav,sight,structuredClone(rules)),e=new MissionEvents(),m3=new M3System(d,hotel.hides,rules.m3),m4=new M4System(d,hotel.checkpoints,rules.m4),c=new CombatSystem(d,e,m3.hotel,combatRules,weapons,hotel.reinforcements,rng),seen:string[]=[];e.on(x=>seen.push(x.type));
  const ledger=new ScoreLedger(e,id=>{const n=d.npcs.find(n=>n.id===id);return n&&{role:n.role,target:n.target};});d.onSpotted=n=>e.emit({type:'player.spotted',time:0,id:n.id});
  // Everyone else is sent far away, so only the people a test places can see or be hit.
  for(const n of d.npcs){n.pos={x:200+Math.random(),y:0,z:200};n.state='patrol';}return {d,e,m3,m4,c,seen,ledger};}
@@ -32,6 +33,38 @@ test('M5.5 a body shot that does not kill, or being seen with the gun out, start
  const shot=s.c.fire(p,{x:g.pos.x,y:1.1,z:g.pos.z},2);assert.equal(shot.killed,false);assert.equal(g.hp,50);assert.equal(g.state,'combat');assert.ok(s.c.fight);assert.ok(s.d.compromised.has('suit'));
  const s2=setup();s2.c.equip('pistol_silenced');s2.c.hand='pistol_silenced';const w=place(s2,'guard_dock',{x:LOT.x,z:LOT.z+5},AWAY),guest=place(s2,'driver_1',{x:LOT.x+2,z:LOT.z+5},AWAY);
  for(const n of [w,guest])n.perceive(view(LOT),boxes,s2.d.rules);s2.c.step(.1,view(LOT),3);assert.equal(w.state,'combat');assert.equal(guest.state,'flee');assert.equal(s2.ledger.count('spotted'),2);assert.equal(s2.ledger.count('combat'),1);});
+
+test('B12 a pillar can hide a drawn pistol from a guard who still sees the player',()=>{
+ const p:PlayerView={...view(LOT),weaponDrawn:true,carrySight:{drawn:{x:LOT.x-.25,y:1.24,z:LOT.z+.37},illegalTools:[]}};
+ const pillar={minX:LOT.x-.29,maxX:LOT.x-.15,minY:0,maxY:2,minZ:LOT.z+.95,maxZ:LOT.z+1.35};
+ const s=setup(()=>0,[...boxes,pillar]);s.c.equip('pistol_silenced');s.c.hand='pistol_silenced';
+ const guard=place(s,'guard_parking',{x:LOT.x,z:LOT.z+4},AWAY);
+ guard.perceive(p,s.d.boxes,s.d.rules);
+ assert.ok(guard.visibility>0);
+ assert.equal(visibleCarry(guard,p,s.d.boxes,s.d.rules).weaponDrawn,false);
+ s.c.step(.1,p,1);assert.equal(guard.state,'patrol');assert.equal(s.c.fight,null);
+ s.d.boxes.pop();
+ assert.equal(visibleCarry(guard,p,s.d.boxes,s.d.rules).weaponDrawn,true);
+ s.c.step(.1,p,2);assert.equal(guard.state,'combat');
+});
+
+test('B12 the player’s body hides back-carried items from the front and items in hand from the far side',()=>{
+ const s=setup(),n=place(s,'guard_parking',{x:LOT.x+2,z:LOT.z-4},TOWARD);
+ const p:PlayerView={...view(LOT),weaponDrawn:true,illegalVisibleCarry:true,suspiciousItem:true,
+  carrySight:{drawn:{x:LOT.x-.25,y:1.24,z:LOT.z+.37},longGun:{x:LOT.x-.08,y:1.23,z:LOT.z-.26},
+   suspicious:{x:LOT.x-.29,y:1.02,z:LOT.z+.21},illegalTools:[]}};
+ n.perceive(p,s.d.boxes,s.d.rules);
+ assert.ok(n.visibility>0);
+ let seen=visibleCarry(n,p,s.d.boxes,s.d.rules);
+ assert.deepEqual([seen.weaponDrawn,seen.illegalVisibleCarry,seen.suspiciousItem],[false,true,false]);
+ n.pos={x:LOT.x,y:0,z:LOT.z+4};n.heading=AWAY;n.perceive(p,s.d.boxes,s.d.rules);
+ seen=visibleCarry(n,p,s.d.boxes,s.d.rules);
+ assert.deepEqual([seen.weaponDrawn,seen.illegalVisibleCarry,seen.suspiciousItem],[true,false,true]);
+ const toolAndGun={...p,weaponDrawn:false,illegal:true,carrySight:{...p.carrySight!,illegalTools:[p.carrySight!.suspicious!]}};
+ seen=visibleCarry(n,toolAndGun,s.d.boxes,s.d.rules);
+ assert.ok(seen.illegalVisibleCarry,'the hand-held tool is still visible');
+ assert.equal(seen.illegal,false,'the hidden gun does not make face recognition faster');
+});
 
 test('M5.5 shots stop at walls; silenced shots are heard within 8 m; a loud shot is an uproar (alert 2) and a panic; a fight that goes on means alert 3 and two exits closed',()=>{
  const s=setup();s.c.equip('pistol_silenced');s.c.hand='pistol_silenced';

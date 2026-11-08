@@ -1,3 +1,4 @@
+import {carriedPoints} from '../carry-sight';
 // The shared game engine (2026-11-04). Every map runs this file: club/main.ts, and any map made from now on, passes its
 // data and its few map-only pieces (engine/types.ts GameDef) to runGame. Fix or add a system here, or in the modules it
 // uses, and every map gets it. Do not copy this file for a new map. (The hotel src/main.ts and the party
@@ -250,8 +251,8 @@ let loadout:Loadout={tools:missionData.tools.map(t=>t.id),pistol:'',start:'S1',p
 let flow=new MissionFlow(missionData.targets,director,events),ledger=new ScoreLedger(events,()=>undefined),lastResult:MissionResult|null=null;
 const combatRules=combatData as unknown as CombatRules,weaponDefs=weaponsData as unknown as Record<string,WeaponDef>;
 // ROADMAP H15 (2026-11-06): radios the agent can switch on to bring someone over (devices.ts).
-const deviceDefs:DeviceDef[]=(missionData as {devices?:DeviceDef[]}).devices??[];
 const cleanerIds:string[]=(missionData as {cleaners?:string[]}).cleaners??[];
+const deviceDefs:DeviceDef[]=(missionData as {devices?:DeviceDef[]}).devices??[];
 const detData=detectionData as unknown as DetectionData;let detection=new DetectionSystem(director,events,m3.hotel,map.cameras as Camera[],detData,map);const itemTable=itemMaster(weaponDefs,rulesData.m4.items,detData.items);detection.items=itemTable;m4.items=itemTable;const detectionView=new DetectionView(scene,detection,map,group);let devices=new DeviceSystem(director,deviceDefs,f=>plateY(map,f),cleanerIds);
 // ROADMAP H06/H14/H17 (2026-11-06): blood that stays, and the cleaner who cleans it with the vacuum (chores.ts).
 let chores=new ChoreSystem(director,devices,cleanerIds);
@@ -442,7 +443,7 @@ function fixedUpdate(dt:number){if(restartHold.step(dt/(training?1:clock.rate),k
  if(m4.stats.frisks&&currentFloor===1)enteredStaff=true;
  if(guideIndex<0)stepAi(dt);
 }
-function playerView():PlayerView{return {hidden:!!m3.hiddenIn,surrendering:!!m3.surrendering,x:position.x,y:position.y,z:position.z,floor:currentFloor,speed:currentSpeed,running:currentSpeed>2.6,crouched,tampering:tampering||m53.tampering||m57.tampering,disguise:m4.disguise,outfitOwner:m4.outfitOwner,blending:!training&&(!!detection.blend||!combat.hand&&!m3.action&&!m3.dragged&&crowd.blends(position)),illegal:!training&&combat.illegalIn(m4.disguise),weaponDrawn:!training&&!!combat.hand,illegalVisibleCarry:!training&&(combat.shown(m4.disguise)||detection.illegalShown(m4.disguise)),suspiciousItem:!training&&detection.suspiciousHeld(m4.disguise)};}
+function playerView():PlayerView{return {hidden:!!m3.hiddenIn,surrendering:!!m3.surrendering,x:position.x,y:position.y,z:position.z,floor:currentFloor,speed:currentSpeed,running:currentSpeed>2.6,crouched,tampering:tampering||m53.tampering||m57.tampering,disguise:m4.disguise,outfitOwner:m4.outfitOwner,carrySight:training?undefined:carriedPoints(position,heading,crouched,m4.disguise,combat,detection,true),blending:!training&&(!!detection.blend||!combat.hand&&!m3.action&&!m3.dragged&&crowd.blends(position)),illegal:!training&&combat.illegalIn(m4.disguise),weaponDrawn:!training&&!!combat.hand,illegalVisibleCarry:!training&&(combat.shown(m4.disguise)||detection.illegalShown(m4.disguise)),suspiciousItem:!training&&detection.suspiciousHeld(m4.disguise)};}
 const EVENT_TEXT:Partial<Record<AiEvent['type'],(n:string)=>string>>={curious:n=>`${n}が振り向いた。`,investigate:n=>`${n}が確かめに来る。`,alert:n=>`${n}に見つかった。逃げろ。`,search:n=>`${n}が見失った。捜索している。`,report:n=>`${n}が警備に知らせに行く。`,warn:n=>`${n}「ここは立入禁止だ。出ていけ」`,arrest:n=>`${n}が取り押さえに来る。逃げろ。`};
 // Warned for acting oddly where the outfit is merely out of place (a guest in the parking lot), not for trespassing.
 const WARN_ODD=(n:string)=>`${n}「おい、何をしている。ここから離れろ」`;
@@ -510,10 +511,10 @@ function playCrowdScream(){
  voice.connect(volume).connect(audio.destination);voice.start(t);voice.stop(t+.41);
 }
 function traceAi(e:AiEvent,p:PlayerView){
- if(!trace.recording||!['curious','investigate','warn','arrest','alert','report','verify','compromised'].includes(e.type))return;
+ if(!trace.recording||(!e.pursuitReason&&!['curious','investigate','warn','arrest','alert','report','verify','compromised'].includes(e.type)))return;
  const n=e.npc;
- const reason=e.stimuli?.join('+')||'accumulated_suspicion';
- trace.reaction(clock.elapsed,n.id,n.role,e.type,reason,n.visibility>0?'sight':'none',n.distance,p,n.visibility);
+ const reason=e.pursuitReason||e.stimuli?.join('+')||'accumulated_suspicion';
+ trace.reaction(clock.elapsed,n.id,n.role,e.type,reason,!e.pursuitReason&&n.visibility>0?'sight':'none',n.distance,p,n.visibility);
 }
 function atExit(){const closed=combat.closedExits();return map.exits.find(e=>!closed.includes(e.id)&&e.floor===currentFloor&&Math.hypot(position.x-e.x,position.z-e.z)<e.radius);}
 // Shots land where the crosshair (first/third person) or the cursor (overhead) is: the first person or solid on that view ray.

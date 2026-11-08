@@ -1,3 +1,4 @@
+import {carriedPoints} from '../carry-sight';
 import * as T from 'three';
 import {LandedCoinPickups} from '../coin-pickup.ts';
 import {coinMesh,renderHeldCoins} from '../coin-pickup-pose.ts';
@@ -341,7 +342,7 @@ function fixedUpdate(dt:number){if(restartHold.step(dt/(training?1:clock.rate),k
  if(m4.stats.frisks&&currentFloor===1)enteredStaff=true;
  if(guideIndex<0)stepAi(dt);
 }
-function playerView():PlayerView{return {x:position.x,y:position.y,z:position.z,floor:currentFloor,speed:currentSpeed,running:currentSpeed>2.6,crouched,tampering:tampering||m53.tampering||m57.tampering,disguise:m4.disguise,outfitOwner:m4.outfitOwner,restricted:!training&&m53.isRestricted(position),blending:!training&&(!!detection.blend||false),illegal:!training&&combat.illegalIn(m4.disguise),weaponDrawn:!training&&!!combat.hand,illegalVisibleCarry:!training&&combat.shown(m4.disguise),suspiciousItem:!training&&detection.suspiciousHeld(m4.disguise)};}
+function playerView():PlayerView{return {x:position.x,y:position.y,z:position.z,floor:currentFloor,speed:currentSpeed,running:currentSpeed>2.6,crouched,tampering:tampering||m53.tampering||m57.tampering,disguise:m4.disguise,outfitOwner:m4.outfitOwner,carrySight:training?undefined:carriedPoints(position,heading,crouched,m4.disguise,combat,detection),restricted:!training&&m53.isRestricted(position),blending:!training&&(!!detection.blend||false),illegal:!training&&combat.illegalIn(m4.disguise),weaponDrawn:!training&&!!combat.hand,illegalVisibleCarry:!training&&combat.shown(m4.disguise),suspiciousItem:!training&&detection.suspiciousHeld(m4.disguise)};}
 const EVENT_TEXT:Partial<Record<AiEvent['type'],(n:string)=>string>>={curious:n=>`${n}が振り向いた。`,investigate:n=>`${n}が確かめに来る。`,alert:n=>`${n}に見つかった。逃げろ。`,search:n=>`${n}が見失った。捜索している。`,report:n=>`${n}が警備に知らせに行く。`,warn:n=>`${n}「ここは立入禁止だ。出ていけ」`,arrest:n=>`${n}が取り押さえに来る。逃げろ。`};
 // Warned for acting oddly where the outfit is merely out of place (a guest in the parking lot), not for trespassing.
 const WARN_ODD=(n:string)=>`${n}「おい、何をしている。ここから離れろ」`;

@@ -2,6 +2,7 @@ import { inside, floorOf, plateY, type CollisionWorld, type Level, type Position
 import type { NavGrid } from './nav.ts';
 import { segmentClear, type Aabb } from './sight.ts';
 import type {CoinPickup} from './coin-pickup.ts';
+import {visibleCarry,type CarrySight} from './carry-sight.ts';
 export type Role='guard'|'guest'|'waiter';
 // combat: a guard in a gunfight (driven by CombatSystem); flee: a bystander running from gunfire, then cowering.
 export type State='patrol'|'curious'|'investigate'|'alert'|'search'|'report'|'distracted'|'verify'|'combat'|'flee';
@@ -41,11 +42,11 @@ export type Tier='near'|'mid'|'far';
 // blending: doing the outfit's job at a BLEND_ spot; suspiciousItem: a suspicious thing the outfit may not carry (M5.6).
 // F05 keeps three things apart: weaponDrawn: a gun in hand; illegalVisibleCarry: a long gun on the back this outfit may
 // not carry openly (security uniforms may, as in HITMAN); illegal: either of them (illegal weapon handling).
-export type PlayerView={x:number;y:number;z:number;floor:number;speed:number;running:boolean;crouched:boolean;tampering:boolean;disguise:string;outfitOwner?:string;surrendering?:boolean;restricted?:boolean;blending?:boolean;illegal?:boolean;suspiciousItem?:boolean;weaponDrawn?:boolean;illegalVisibleCarry?:boolean;
+export type PlayerView={x:number;y:number;z:number;floor:number;speed:number;running:boolean;crouched:boolean;tampering:boolean;disguise:string;outfitOwner?:string;carrySight?:CarrySight;surrendering?:boolean;restricted?:boolean;blending?:boolean;illegal?:boolean;suspiciousItem?:boolean;weaponDrawn?:boolean;illegalVisibleCarry?:boolean;
  // Inside a locker (2026-11-06, ROADMAP H33): nobody and no camera sees the agent.
  hidden?:boolean};
 // warn: a guard tells a trespasser to leave; arrest: a guard moves to detain (only then can the agent be caught).
-export type AiEvent={type:'curious'|'investigate'|'alert'|'search'|'calm'|'report'|'heard'|'caught'|'verify'|'compromised'|'warn'|'arrest';npc:Npc;stimuli?:string[]};
+export type AiEvent={type:'curious'|'investigate'|'alert'|'search'|'calm'|'report'|'heard'|'caught'|'verify'|'compromised'|'warn'|'arrest';npc:Npc;stimuli?:string[];pursuitReason?:'lost_contact'|'search_expired'};
 // F04 / HITMAN: why a guard turned on the agent. trespass and suspicious get a warning first; the rest are an arrest.
 export type Cause=''|'trespass'|'suspicious'|'identity'|'crime'|'hostile';
 // F06: what one person knows about one event. A sound gives an estimated origin; only sight gives lastSeenPosition.
@@ -286,15 +287,29 @@ export class Director{
   // Perception is tiered by distance and staggered so the NPCs do not all cast rays on the same step.
   this.npcs.forEach((n,i)=>{n.witnessCooldown=Math.max(0,n.witnessCooldown-dt);if(!n.active||n.busy)return;n.tier=this.tier(n,p);n.outdoor=this.outdoorAt(n.pos);const every=n.tier==='mid'?this.lod.midEvery:this.lod.nearEvery;
    if(n.tier==='far'){n.visibility=0;n.distance=flat(n.pos,p);}else if((this.frame+i)%every===0)n.perceive(p,this.boxes,this.rules);});
-  for(const n of this.npcs)if(n.active&&!n.busy&&(n.knowsFaces.length||n.id===p.outfitOwner||n.state==='verify'))for(const type of n.watchFace(dt,p,crowd,this.rules,this.mission.zones)){if(type==='compromised')this.accuse(n,p,'identity');events.push(stimuli?{type,npc:n,stimuli:['known_face']}:{type,npc:n});}
-  for(const n of this.npcs)if(n.active&&!n.busy)for(const type of n.think(dt,p,base,crowd,this.rules,s))events.push(stimuli?{type,npc:n,stimuli:n.cause==='identity'?['confirmed_identity']:stimuli}:{type,npc:n});
+  for(const n of this.npcs)if(n.active&&!n.busy&&(n.knowsFaces.length||n.id===p.outfitOwner||n.state==='verify'))for(const type of n.watchFace(dt,visibleCarry(n,p,this.boxes,this.rules),crowd,this.rules,this.mission.zones)){if(type==='compromised')this.accuse(n,p,'identity');events.push(stimuli?{type,npc:n,stimuli:['known_face']}:{type,npc:n});}
+  for(const n of this.npcs)if(n.active&&!n.busy){
+   const seen=visibleCarry(n,p,this.boxes,this.rules),localStimuli=seen===p?stimuli:stimuli?[]:undefined;
+   const rate=seen===p?base:baseRate(this.rules,seen,p.restricted?'deny':perm,zone?.type,localStimuli);
+   const situation=seen===p?s:{...s,base:rate,crime:!!(seen.tampering||seen.weaponDrawn||seen.illegalVisibleCarry)};
+   const before=n.state;
+   for(const type of n.think(dt,seen,rate,crowd,this.rules,situation)){
+    const event:AiEvent={type,npc:n};
+    if(type==='search')event.pursuitReason='lost_contact';
+    if(type==='calm'&&before==='search')event.pursuitReason='search_expired';
+    if(localStimuli)event.stimuli=n.cause==='identity'?['confirmed_identity']:localStimuli;
+    events.push(event);
+   }
+  }
   for(const e of events){const at=e.npc.lastSeen;if(!at)continue;
    // A guard who identified the agent radios it in: the outfit is blown and colleagues in radio range come.
    if(e.type==='alert'&&e.npc.arrest||e.type==='arrest')this.radioIn(e.npc,p,at);
    // A bystander runs to tell a guard (a gun seen is combat.ts's witness). Nothing is known elsewhere until they arrive.
    // Only a crime seen raises the hotel alert on arrival ('act'); a known intruder seen again is named to the guard
    // but is not a new incident (four guests seeing a blown outfit are not alert 3).
-   if(e.type==='report'&&!p.weaponDrawn&&!p.illegalVisibleCarry&&!e.npc.witness){const c=e.npc.cause,named=c!=='trespass'&&c!=='suspicious',crime=c==='crime';this.reports++;if(named)this.onSpotted?.(e.npc);
+   if(e.type==='report'&&!e.npc.witness){
+    const seen=visibleCarry(e.npc,p,this.boxes,this.rules);if(seen.weaponDrawn||seen.illegalVisibleCarry)continue;
+    const c=e.npc.cause,named=c!=='trespass'&&c!=='suspicious',crime=c==='crime';this.reports++;if(named)this.onSpotted?.(e.npc);
     e.npc.witness={what:crime?'act':'suspect',at:{...at},key:(crime?'act:':'suspect:')+e.npc.id,disguise:named?p.disguise:undefined};}}
   for(const n of this.npcs)if(n.active&&!n.busy)n.move(dt,this.world,this.nav,this.rules,p);
   // Keep bodies from overlapping one another.
@@ -339,6 +354,7 @@ export class Director{
   for(const n of this.npcs.filter(n=>n.active&&!n.busy&&Math.abs(n.pos.y-point.y)<1.5&&flat(n.pos,point)<=radius&&(!eligible||eligible(n))).sort((a,b)=>flat(a.pos,point)-flat(b.pos,point))){
    if(p&&n.visibility>0&&['patrol','curious','distracted'].includes(n.state)){this.sawThrow(n,p);return n;}
    const go=this.mayLeavePost(n,p);if(!n.hear(point,this.rules,false,go))continue;
+   n.learn({eventType:'noise',estimatedOrigin:{...point},confidence:.5,observedAt:this.time});
    // A post guard who stays only turns toward it; someone else may still walk over.
    if(n.holdsPost&&!go){turned??=n;continue;}
    return n;}
@@ -354,4 +370,3 @@ export class Director{
   return !n.frisks&&partners.some(m=>m.active&&!m.busy&&!['alert','search','combat','investigate'].includes(m.state)&&flat(m.pos,m.postAt!)<1.5);}
  hottest(){return this.npcs.filter(n=>n.active).reduce<Npc|undefined>((m,n)=>!m||n.suspicion>m.suspicion?n:m,undefined);}
 }
-   n.learn({eventType:'noise',estimatedOrigin:{...point},confidence:.5,observedAt:this.time});
