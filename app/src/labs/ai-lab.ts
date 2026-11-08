@@ -26,8 +26,7 @@ const $=<E extends HTMLElement=HTMLElement>(s:string)=>document.querySelector<E>
 // --- the arena
 const canvas=$<HTMLCanvasElement>('#lab-view'),renderer=new T.WebGLRenderer({canvas,antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));
 const scene=new T.Scene();scene.background=new T.Color('#202329');
-const overview=new T.Vector3(0,44,-20);
-const camera=new T.PerspectiveCamera(45,1,.1,200);camera.position.copy(overview);
+const camera=new T.PerspectiveCamera(45,1,.1,200);camera.position.set(0,44,-20);
 const controls=new OrbitControls(camera,canvas);controls.target.set(0,0,0);controls.update();
 scene.add(new T.HemisphereLight('#ffffff','#40444c',2.2));const sun=new T.DirectionalLight('#fff',1.4);sun.position.set(10,30,-10);scene.add(sun);
 const zoneColor:Record<string,string>={public:'#3a4048',staff:'#5b4a2c'};
@@ -76,10 +75,7 @@ function drawRun(r:Run){
 // --- running
 const results=new Map<string,{pass:boolean;detail:string}>();
 let current:{s:Scenario;r:Run;over:boolean}|null=null;
-function start(s:Scenario){clearMarks();const r=begin(s),target=r.m3&&r.director.npcs.find(n=>n.life==='unconscious');
- if(target){const {x,y,z}=target.pos;controls.target.set(x,y+.6,z);camera.position.set(x+1,y+5,z-7);controls.update();}
- else if(current?.r.m3){controls.target.set(0,0,0);camera.position.copy(overview);controls.update();}
- current={s,r,over:s.seconds<=0};if(current.over)finish();renderList();showDetail();}
+function start(s:Scenario){clearMarks();const r=begin(s);current={s,r,over:s.seconds<=0};if(current.over)finish();renderList();showDetail();}
 function finish(){if(!current)return;current.over=true;results.set(current.s.id,current.s.judge(current.r));renderList();showDetail();}
 function verdict(s:Scenario){const v=results.get(s.id);if(!v)return {icon:'・',cls:''};if(v.pass)return {icon:'✓',cls:'pass'};return s.known?{icon:'!',cls:'known'}:{icon:'✗',cls:'fail'};}
 function renderList(){
