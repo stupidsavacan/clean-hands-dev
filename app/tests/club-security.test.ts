@@ -122,6 +122,22 @@ test('a club guard walks to a visible dropped gun and removes it without opening
  assert.ok(Math.hypot(guard.pos.x-home.x,guard.pos.z-home.z)<.35);
 });
 
+test('B06 a failed recovery route does not reserve the same gun again immediately',()=>{
+ const {director,combat,weapons,outside}=entranceWeapons();
+ const guard=director.npcs.find(n=>n.id==='gate_frisk')!;
+ for(const other of director.npcs)if(other!==guard)other.busy=true;
+ combat.equip('pistol_silenced');combat.drop(outside);
+ weapons.step(0);
+ assert.equal(guard.state,'distracted');
+ guard.arrived=true;
+ weapons.step(config.weaponRecoveryScanSeconds+.01);
+ assert.equal(guard.state,'patrol');
+ assert.equal(guard.goal,null);
+ assert.equal(combat.dropped.length,1);
+ weapons.step(config.weaponRecoveryScanSeconds+director.rules.timers.noiseLook+.02);
+ assert.equal(guard.state,'distracted','a later attempt remains possible');
+});
+
 test('a club guard who sees a same-side gun pickup becomes suspicious',()=>{
  const {director,combat,weapons,outside}=entranceWeapons();
  const guard=director.npcs.find(n=>n.id==='gate_frisk')!;

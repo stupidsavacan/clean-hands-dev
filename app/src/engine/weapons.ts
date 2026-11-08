@@ -2,6 +2,7 @@ import type { Npc, PlayerView } from '../ai.ts';
 import type { CombatSystem, Dropped } from '../combat.ts';
 import type { M4System } from '../m4.ts';
 import { segmentClear } from '../sight.ts';
+import type { Position } from '../world.ts';
 
 const distance=(a:{x:number;z:number},b:{x:number;z:number})=>Math.hypot(a.x-b.x,a.z-b.z);
 type Recovery={drop:Dropped;goal:Npc['goal']};
@@ -9,6 +10,7 @@ type Recovery={drop:Dropped;goal:Npc['goal']};
 export class ClubWeapons {
  private nextScan=0;
  private recovering=new Map<Npc,Recovery>();
+ private readonly retry=new WeakMap<Dropped,Map<Npc,number>>();
  private readonly combat:CombatSystem;
  private readonly m4:M4System;
  private readonly scanSeconds:number;
@@ -70,6 +72,14 @@ export class ClubWeapons {
   return segmentClear(d.boxes,from,to)&&!n.crowdOcclusion?.(from,to);
  }
 
+ private approach(n:Npc,drop:Dropped):Position|null{
+  const d=this.combat.director,{nav}=d,{pos}=drop,range=this.m4.rules.lootRadius;
+  if(distance(n.pos,pos)<range||nav.clear(n.pos,pos))return pos;
+  const end=nav.find(n.pos,pos)?.at(-1);
+  return end&&distance(end,pos)<range&&Math.abs(end.y-pos.y)<.35&&
+   segmentClear(d.boxes,{...end,y:end.y+.65},{...pos,y:pos.y+.05})?end:null;
+ }
+
  step(time:number){
   if(time<this.nextScan||!this.combat.dropped.length&&!this.recovering.size)return;
   this.nextScan=time+this.scanSeconds;
@@ -81,16 +91,25 @@ export class ClubWeapons {
     this.combat.dropped.splice(index,1);
     this.release(n);
     this.onReaction?.(n,drop,'collect');
-   }else if(n.arrived)this.release(n);
+   }else if(n.arrived){
+    const deferred=this.retry.get(drop)??new Map<Npc,number>();
+    deferred.set(n,time+d.rules.timers.noiseLook);this.retry.set(drop,deferred);
+    this.release(n);
+   }
   }
   for(const drop of this.combat.dropped){
    if(drop.stocked)continue;
    if([...this.recovering.values()].some(job=>job.drop===drop))continue;
    // The checkpoint attendant can recover nearby evidence while still covering the entrance.
-   const guard=d.npcs.filter(n=>n.guard&&n.active&&!n.busy&&['patrol','curious'].includes(n.state)&&this.seesFloor(n,drop))
-    .sort((a,b)=>distance(a.pos,drop.pos)-distance(b.pos,drop.pos))
-    .find(n=>!this.m4.checkpoints.some(c=>c.guardId===n.id&&distance(c,drop.pos)>=this.m4.rules.guardRadius));
-   if(guard?.hear(drop.pos,d.rules,true))this.recovering.set(guard,{drop,goal:guard.goal});
+   const deferred=this.retry.get(drop);
+   const candidates=d.npcs.filter(n=>n.guard&&n.active&&!n.busy&&!n.scriptedGoal&&['patrol','curious'].includes(n.state)&&
+    (deferred?.get(n)??0)<=time&&this.seesFloor(n,drop)&&
+    !this.m4.checkpoints.some(c=>c.guardId===n.id&&distance(c,drop.pos)>=this.m4.rules.guardRadius))
+    .sort((a,b)=>distance(a.pos,drop.pos)-distance(b.pos,drop.pos));
+   for(const guard of candidates){
+    const at=this.approach(guard,drop);
+    if(at&&guard.hear(at,d.rules,true)){this.recovering.set(guard,{drop,goal:guard.goal});break;}
+   }
   }
  }
 }
