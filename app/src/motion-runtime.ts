@@ -1,6 +1,7 @@
 import * as T from 'three';
 import type { Rig } from './rig.ts';
 import { sampleMotion, type MotionPose } from './motion.ts';
+import {twoBone} from './gestures.ts';
 
 export function neutral(rig:Rig){for(const j of rig.joints.values()){j.bone.quaternion.copy(j.q0);j.bone.position.copy(j.p0);}}
 export function applyMotion(rig:Rig,root:T.Object3D,pose:MotionPose){neutral(rig);root.position.set(pose.root.x,pose.root.y,pose.root.z);root.rotation.set(pose.root.pitch,0,pose.root.roll);for(const [name,xyz]of Object.entries(pose.bones))rig.rotate(name,...xyz);root.parent?.updateWorldMatrix(true,false);root.updateMatrixWorld(true);}
@@ -22,9 +23,17 @@ export function reachHandsAt(rig:Rig,model:T.Object3D,pose:MotionPose,hands:{l:[
  for(const side of ['l','r'] as const){const [x,y,z,w]=hands[side];if(w<=0)continue;reach(rig,side,parent.localToWorld(base.clone().add(new T.Vector3(x,y,z))),w);}}
 /** Fists onto another person's body (brawl-motion.ts aim): the right at the face, the left at the stomach, stopping at
  * the surface on the side toward the striker. */
-export function aimFists(rig:Rig,target:Rig,aim:{l:number;r:number}){for(const side of ['l','r'] as const){const w=aim[side];if(w<=0)continue;
+export function aimFists(rig:Rig,target:Rig,aim:{l:number;r:number},singlePunchActor?:T.Object3D){let contactError=0;for(const side of ['l','r'] as const){const w=aim[side];if(w<=0)continue;
  const p=bonePoint(target,side==='r'?'head':'spine'),from=bonePoint(rig,'upperarm'+side);if(!p||!from)continue;if(side==='r')p.y+=.05;
- const toward=from.clone().sub(p);toward.y=0;if(toward.lengthSq()>1e-6)p.addScaledVector(toward.normalize(),side==='r'?.10:.15);reach(rig,side,p,w);}}
+ const toward=from.clone().sub(p);toward.y=0;if(toward.lengthSq()>1e-6)p.addScaledVector(toward.normalize(),side==='r'?.10:.15);
+ if(side==='r'&&singlePunchActor){
+  // Keep the hook's bend on the outside as the fist follows the other actor's face.
+  const outside=new T.Vector3(-.55,-.14,0).applyQuaternion(singlePunchActor.getWorldQuaternion(new T.Quaternion())).add(from);
+  const elbow=bonePoint(rig,'forearmr')!;
+  twoBone(rig,side,p,elbow.lerp(outside,w),w);
+ }else reach(rig,side,p,w);
+ if(w===1)contactError=Math.max(contactError,bonePoint(rig,'hand'+side)!.distanceTo(p));
+ }return contactError;}
 export function bonePoint(rig:Rig,name:string,local=new T.Vector3()){const bone=rig.joints.get(name)?.bone;return bone?bone.localToWorld(local.clone()):null;}
 
 // Match the lowest deformed vertex to the visible floor; querying bind-pose bounds is insufficient.

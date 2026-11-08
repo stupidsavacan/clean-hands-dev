@@ -28,12 +28,12 @@ import {sampleCombat,weaponVisible,COMBAT_SECONDS,COMBAT_LOOPS,AGENT_PISTOL_VARI
 import {DEFAULT_PISTOL_TUNING,PISTOL_ADJUSTMENTS,loadPistolTuning,savePistolTuning} from '../pistol-tuning.ts';
 import {poseCombat,prepareWeapon,type Weapon} from '../combat-runtime';
 import {createPoseEditor} from './pose-editor';
-import {ELBOW_CHECKS,runAgentDrawCheck,runElbowCheck} from './motion-checks';
+import {ELBOW_CHECKS,runAgentDrawCheck,runAgentHolsterCheck,runSinglePunchCheck,runElbowCheck} from './motion-checks';
 import {holdPose,holdKind,strikePose,surrenderPose,SURRENDER_ARM} from '../hold-pose';
 // The hands-up arm angles, adjustable live from the console while tuning (window.__surrenderArm).
 Object.assign(window,{__surrenderArm:SURRENDER_ARM});
 import {MELEE} from '../melee';
-import {brawlAt,brawlMotion,BRAWL_GAP} from '../brawl-motion';
+import {brawlAt,brawlMotion,singlePunchPreview,BRAWL_GAP} from '../brawl-motion';
 import {plantFeetAt,reachHandsAt,aimFists} from '../motion-runtime';
 import {poseKatana} from '../katana-pose';
 import {COIN_PICKUP_SECONDS} from '../coin-pickup';
@@ -148,11 +148,16 @@ runElbowChecks.onclick=async()=>{
   const angle=issue&&Number.isFinite(issue.degrees)?issue.degrees.toFixed(1)+'°':'無効';
   return {label,detail:issue?`${issue.motion} · ${issue.side}肘 ${angle}`:null};
  });
+ const solvedChecks=[
+  ['07・銃を出す（IK後）',runAgentDrawCheck],
+  ['07・銃をしまう（IK後）',runAgentHolsterCheck],
+  ['素手で殴る（IK後）',runSinglePunchCheck],
+ ] as const;
  try{
-  results.push({label:'07・銃を出す（IK後）',detail:await runAgentDrawCheck()});
- }catch(error){
-  console.error(error);
-  results.push({label:'07・銃を出す（IK後）',detail:'判定用モデルを読み込めません'});
+  for(const [label,check] of solvedChecks){
+   try{results.push({label,detail:await check()});}
+   catch(error){console.error(error);results.push({label,detail:'判定用モデルを読み込めません'});}
+  }
  }finally{
   runElbowChecks.disabled=false;
  }
@@ -267,12 +272,12 @@ function poseActor(a:Actor,clip:Clip,t:number){
   // Each actor's turn resets its own skeleton, so both are posed again on every turn (the second turn is the one shown).
   const first=actors[0];if(i>1)return;hold(first,'katana');if(other){hold(other,undefined);other.group.position.set(0,0,gap);other.group.rotation.y=behind?0:Math.PI;other.group.updateMatrixWorld(true);}
   poseKatana({rig:first.rig,model:first.model},other?{rig:other.rig,model:other.model}:null,behind,p,()=>0);return;}
- if(clip.pair){const i=actors.indexOf(a),r=i===0?'giver':'receiver',at=.6;
-  const at2=(role:'giver'|'receiver')=>clip.pair==='brawl'?brawlAt(role,t):t<at?brawlMotion(role,0,t,true):brawlMotion(role,3,t-at,true);
+ if(clip.pair){const i=actors.indexOf(a),r=i===0?'giver':'receiver';
+  const at2=(role:'giver'|'receiver')=>clip.pair==='brawl'?brawlAt(role,t):singlePunchPreview(role,t);
   const put=(x:Actor,p:ReturnType<typeof brawlMotion>)=>{neutral(x.rig);applyMotion(x.rig,x.model,p.pose);plantFeetAt(x.rig,x.model,p.pose,p.feet,()=>0);reachHandsAt(x.rig,x.model,p.pose,p.hands);};
   // The striker aims at the other's real body, so pose the other first.
   const other=actors[1];if(i===0&&other){other.group.position.set(0,0,BRAWL_GAP);other.group.rotation.y=Math.PI;other.group.updateMatrixWorld(true);put(other,at2('receiver'));}
-  const b=at2(r);put(a,b);if(i===0&&other)aimFists(rig,other.rig,b.aim);return;}
+  const b=at2(r);put(a,b);if(i===0&&other)aimFists(rig,other.rig,b.aim,clip.pair==='punch'?group:undefined);return;}
  for(const w of Object.values(a.weapons))if(w)w.object.visible=false;
  const progress=clip.seconds>0?T.MathUtils.clamp(t/clip.seconds,0,1):0;
  // Procedural parts (walking, idle) are simulated from the start of the clip so scrubbing back gives the same pose.

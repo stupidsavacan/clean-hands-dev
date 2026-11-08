@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {ELBOW_CHECKS,elbowInRange,runAgentDrawCheck,runElbowCheck} from '../src/labs/motion-checks.ts';
+import {ELBOW_CHECKS,elbowInRange,runAgentDrawCheck,runAgentHolsterCheck,runSinglePunchCheck,runElbowCheck} from '../src/labs/motion-checks.ts';
 
 test('elbow flexion accepts 0° and 180° and rejects backward, over-bent and non-finite values',()=>{
  for(const radians of [0,Math.PI/2,Math.PI])assert.ok(elbowInRange(radians));
@@ -22,5 +22,15 @@ test('the lab reports the motion, side and angle for the first out-of-range elbo
 
 test('Agent 07 keeps the right elbow behind the wrist and maintains the grip while drawing',async()=>{
  const issue=await runAgentDrawCheck();
+ if(issue)assert.fail(issue);
+});
+
+test('Agent 07 keeps the elbow outside the shoulder and holds the grip around holster frame 6',async()=>{
+ const issue=await runAgentHolsterCheck();
+ if(issue)assert.fail(issue);
+});
+
+test('the single punch keeps the elbow outside the shoulder around frame 24',async()=>{
+ const issue=await runSinglePunchCheck();
  if(issue)assert.fail(issue);
 });

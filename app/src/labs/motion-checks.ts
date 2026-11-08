@@ -4,11 +4,13 @@ import {AGENT_PISTOL_VARIANTS,COMBAT_SECONDS,sampleCombat,weaponVisible,type Com
 import {poseCombat,prepareWeapon} from '../combat-runtime.ts';
 import {COMBAT_MODELS} from '../combat-data.ts';
 import {PLAYER_BASE64} from '../player-data.ts';
+import {NPC_MODELS} from '../npc-data.ts';
+import {applyMotion,aimFists,plantFeetAt,reachHandsAt,bonePoint} from '../motion-runtime.ts';
 import {Rig} from '../rig.ts';
 import {sampleMotion,sampleRescueMotion,sampleCoinPickupMotion,type MotionKind} from '../motion.ts';
 import {sampleM4Motion} from '../m4-motion.ts';
 import traversalPoses from '../data/party-motions.json' with {type:'json'};
-import {brawlMotion} from '../brawl-motion.ts';
+import {BRAWL_GAP,brawlMotion,singlePunchPreview} from '../brawl-motion.ts';
 import {katanaGiver,katanaReceiver} from '../katana-motion.ts';
 import {CROUCH_SPEED,Locomotion,RUN_SPEED,WALK_SPEED,type Pose} from '../locomotion.ts';
 import {holdPose,strikePose,surrenderPose} from '../hold-pose.ts';
@@ -116,10 +118,14 @@ export function runElbowCheck({samples}:typeof ELBOW_CHECKS[number]){
  return null;
 }
 
+// Use the game rigs and weapon anchors without loading textures or drawing a scene.
+function modelLoader(){
+ const loader=new GLTFLoader().register(()=>({name:'motion-check-material',loadMaterial:()=>Promise.resolve(new T.MeshBasicMaterial())}));
+ return async(base64:string)=>(await loader.parseAsync(Uint8Array.from(atob(base64),c=>c.charCodeAt(0)).buffer,'')).scene;
+}
+
 export async function runAgentDrawCheck(){
- // Use the game rig and weapon anchors without loading textures or drawing a scene.
- const loader=new GLTFLoader().register(()=>({name:'draw-check-material',loadMaterial:()=>Promise.resolve(new T.MeshBasicMaterial())}));
- const load=async(base64:string)=>(await loader.parseAsync(Uint8Array.from(atob(base64),c=>c.charCodeAt(0)).buffer,'')).scene;
+ const load=modelLoader();
  const [model,gun]=await Promise.all([load(PLAYER_BASE64),load(COMBAT_MODELS.pistol_silenced)]);
  const actor=new T.Group();
  actor.add(model);
@@ -141,6 +147,48 @@ export async function runAgentDrawCheck(){
    if(lead>.02)return `${where} · 右肘が手首より ${(lead*100).toFixed(1)} cm 前`;
    if(gripError>.025)return `${where} · 右手とグリップのずれ ${(gripError*100).toFixed(1)} cm`;
   }
+ }
+ return null;
+}
+
+function armInboard(rig:Rig,actor:T.Object3D){
+ const shoulder=actor.worldToLocal(bonePoint(rig,'upperarmr')!);
+ const elbow=actor.worldToLocal(bonePoint(rig,'forearmr')!);
+ return elbow.x-shoulder.x;
+}
+
+export async function runAgentHolsterCheck(){
+ const load=modelLoader(),[model,gun]=await Promise.all([load(PLAYER_BASE64),load(COMBAT_MODELS.pistol_silenced)]);
+ const actor=new T.Group();actor.add(model);
+ const rig=new Rig(model),weapon=prepareWeapon(gun,'pistol'),loco=new Locomotion();
+ const idle=loco.update(1/60,{speed:0,crouch:0,slope:0,turn:0,distance:0});
+ for(const frame of [6,5,7]){
+  rig.apply(idle);
+  const t=frame/(30*COMBAT_SECONDS.holster);
+  const error=poseCombat(rig,actor,model,sampleCombat('holster','pistol',t,true),weapon,0,1);
+  const inboard=armInboard(rig,actor);
+  if(!Number.isFinite(inboard)||inboard>.035)return frame+'コマ目 · 右肘が右肩より内側に '+(inboard*100).toFixed(1)+' cm';
+  if(!Number.isFinite(error)||error>.025)return frame+'コマ目 · 右手が銃のグリップから外れた';
+ }
+ return null;
+}
+
+export async function runSinglePunchCheck(){
+ const load=modelLoader(),[model,opponent]=await Promise.all([load(PLAYER_BASE64),load(NPC_MODELS.guard)]);
+ const actor=new T.Group(),other=new T.Group();
+ actor.add(model);other.add(opponent);other.position.z=BRAWL_GAP;other.rotation.y=Math.PI;
+ const rig=new Rig(model),receiver=new Rig(opponent);
+ for(const frame of [24,22,23,25]){
+  const seconds=frame/30;
+  const g=singlePunchPreview('giver',seconds),r=singlePunchPreview('receiver',seconds);
+  applyMotion(receiver,opponent,r.pose);
+  plantFeetAt(receiver,opponent,r.pose,r.feet,()=>0);reachHandsAt(receiver,opponent,r.pose,r.hands);
+  applyMotion(rig,model,g.pose);
+  plantFeetAt(rig,model,g.pose,g.feet,()=>0);reachHandsAt(rig,model,g.pose,g.hands);
+  const contactError=aimFists(rig,receiver,g.aim,actor);
+  const inboard=armInboard(rig,actor);
+  if(!Number.isFinite(inboard)||inboard>.035)return frame+'コマ目 · 右肘が右肩より内側に '+(inboard*100).toFixed(1)+' cm';
+  if(!Number.isFinite(contactError)||contactError>.035)return frame+'コマ目 · 拳が顔の接触点から外れた';
  }
  return null;
 }

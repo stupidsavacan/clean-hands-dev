@@ -149,3 +149,15 @@ GPT-6.1 Terra（medium）が調査したところ、服を取られたNPCは警�
 - iPad実機。
 
 コイン拾いと落下銃の回収はラボで見て、直す所はなかった。
+
+
+## 第8回 素手で殴る24コマ目と銃をしまう6コマ目（11月9日）
+
+| 項目 | 原因と修正 | 確認 |
+|---|---|---|
+| 素手で殴る24コマ目（0.80秒） | 拳を相手の顔に合わせる際、手の到達点だけを解いていたため、右肘が肩より内側に約11 cm入った。単発パンチでは右肘の向きも指定し、拳の接触点を維持した。 | [正面・修正前](motion-punch-front-before-20261109.png)／[正面・修正後](motion-punch-front-after-20261109.png) · [横・修正前](motion-punch-side-before-20261109.png)／[横・修正後](motion-punch-side-after-20261109.png) · [接触・修正前](motion-punch-contact-before-20261109.png)／[接触・修正後](motion-punch-contact-after-20261109.png) · [クラブ](motion-punch-club-20261109.png) |
+| 銃をしまう6コマ目（0.20秒） | 抜銃を逆向きに使うとき、07の専用姿勢を選ぶ引数が抜けていた。逆向きでも同じ07用の動きを使い、銃の位置と握りを維持した。 | [正面・修正前](motion-holster-front-before-20261109.png)／[正面・修正後](motion-holster-front-after-20261109.png) · [横・修正前](motion-holster-side-before-20261109.png)／[横・修正後](motion-holster-side-after-20261109.png) · [握り・修正前](motion-holster-grip-before-20261109.png)／[握り・修正後](motion-holster-grip-after-20261109.png) · [クラブ](motion-holster-club-20261109.png) |
+
+既存の角度検査はIK前の0〜180°を調べるため、IK後に肘が肩の内側へ動くケースを拾えなかった。既存のIK後の検査は07の抜銃が対象で、肘と手首の前後関係と握りを調べていた。ラボと自動テストの両方に、指定コマと前後の実モデルを使った右肘の位置・拳の接触・銃の握りの検査を追加した。姿勢を直す前に回帰テスト2件が失敗し、修正後に合格した。[モーション実験ステージの自動判定](motion-ik-checks-20261109.png)
+
+npm run spec は557件中555件合格、失敗0件、既存TODO 2件。モーション実験ステージは8件合格。クラブとモーション実験ステージのビルドに成功。クラブでF長押しによる単発パンチとQによる収納を確認。

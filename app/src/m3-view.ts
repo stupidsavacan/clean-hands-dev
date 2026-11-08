@@ -42,7 +42,7 @@ export class M3View{
     const toward=new T.Vector3(avatar.position.x-a.npc.pos.x,0,avatar.position.z-a.npc.pos.z);if(toward.lengthSq()<1e-6)toward.set(Math.sin(a.npc.heading),0,Math.cos(a.npc.heading));toward.normalize();
     const close=ease(0,.25,a.elapsed),desired=new T.Vector3(a.npc.pos.x,avatar.position.y,a.npc.pos.z).addScaledVector(toward,BRAWL_GAP).lerp(avatar.position,1-close);
     model.position.add(model.parent!.worldToLocal(desired.clone()).sub(model.parent!.worldToLocal(avatar.position.clone())));model.updateMatrixWorld(true);plantFeetAt(rig,model,g.pose,g.feet,ground);reachHandsAt(rig,model,g.pose,g.hands);
-    if(target)aimFists(rig,target.rig,g.aim);}
+    if(target)aimFists(rig,target.rig,g.aim,b.single?avatar:undefined);}
    // The sword (katana-motion.ts): both bodies, the striker standing in front of (or right behind) the one struck.
    else if(a&&a.item==='katana'){const target=view(a.npc),gap=a.behind?KATANA_GAP.behind:KATANA_GAP.front;
     poseKatana({rig,model},target?{rig:target.rig,model:target.body}:null,!!a.behind,p,ground,m=>{const toward=new T.Vector3(avatar.position.x-a.npc.pos.x,0,avatar.position.z-a.npc.pos.z);if(toward.lengthSq()<1e-6)toward.set(-Math.sin(a.npc.heading),0,-Math.cos(a.npc.heading));toward.normalize();

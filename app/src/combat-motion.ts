@@ -225,7 +225,7 @@ export function sampleCombat(kind:CombatKind,cls:WeaponClass,progress:number,age
  const stance=agent&&cls==='pistol'?tunedPistolStance(tuning,variant):AIM_STANCE[cls];
  switch(kind){
   case 'draw':return draw(cls,t,stance,agent);
-  case 'holster':return draw(cls,1-t,stance);
+  case 'holster':return draw(cls,1-t,stance,agent);
   case 'aim':return aimLoop(cls,t,stance);
   case 'fire':return fire(t,stance);
   case 'reload':return reload(t,stance);

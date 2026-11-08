@@ -98,5 +98,10 @@ export function brawlMotion(role:MotionRole,blows:number,since:number,single=fal
  const before=single?R_UP:R_BEFORE[k];
  if(s<BRAWL_IMPACT-.02)return before;if(s<BRAWL_IMPACT+.08)return mix(before,R_HIT[k],span(s,BRAWL_IMPACT-.02,BRAWL_IMPACT+.08));
  return mix(R_HIT[k],R_AFTER[k],span(s,BRAWL_IMPACT+.12,k===2?BRAWL_FINISH:.65));}
+/** Windup shown in the single-punch preview, before the game's strike itself. */
+export const PUNCH_PREVIEW_WINDUP=.6;
+export function singlePunchPreview(role:MotionRole,seconds:number){
+ return seconds<PUNCH_PREVIEW_WINDUP?brawlMotion(role,0,seconds,true):brawlMotion(role,3,seconds-PUNCH_PREVIEW_WINDUP,true);
+}
 /** The same fight on a fixed timeline (labs, previews): key presses at these seconds. */
 export function brawlAt(role:MotionRole,t:number,presses:number[]=[.5,1.2,1.9]){let blows=0,last=0;for(const p of presses)if(t>=p){blows++;last=p;}return brawlMotion(role,blows,t-last);}
