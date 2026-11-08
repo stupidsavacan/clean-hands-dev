@@ -137,7 +137,7 @@ type Actor={def:ModelDef;group:T.Group;model:T.Object3D;rig:Rig;loco:Locomotion;
 const loader=new GLTFLoader(),bytes=(b64:string)=>Uint8Array.from(atob(b64),c=>c.charCodeAt(0)).buffer;
 const actors:Actor[]=[];const loading=new Set<string>();
 let pistolTuning=loadPistolTuning();
-let pistolVariant=new URLSearchParams(location.search).get('pistol')??'E';
+let pistolVariant=new URLSearchParams(location.search).get('pistol')??'F';
 const pistolCompare=$<HTMLInputElement>('#pistol-compare');
 const NEED=['pelvis','spine','chest','neck','head','thighl','shinl','footl','thighr','shinr','footr','upperarml','forearml','handl','upperarmr','forearmr','handr'];
 async function addActor(def:ModelDef){

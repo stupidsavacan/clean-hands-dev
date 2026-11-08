@@ -63,10 +63,11 @@ const HOLD={
 // ---------- upper bodies (layered over the legs) ----------
 // Arms are only roughly placed (elbows down and out); IK brings the hands onto the weapon.
 const PISTOL_AIM:Bones={chest:[.02,-.08,0],neck:[.06,.05,0],head:[.10,.04,0],clavicler:[0,.12,0],claviclel:[0,-.08,0],upperarmr:[-1.30,0,.55],upperarml:[-1.25,0,-.30],forearmr:[0,.25,0],forearml:[0,-.85,0]};
-// Agent 07's one-handed aim (HD15, chosen by the user from a reference photo on 2026-11-08): the right shoulder turns
-// toward the target, the arm is straight out from it, and the gun is near eye height; the free arm hangs relaxed.
-const AGENT_PISTOL_AIM:Bones={chest:[.02,.60,0],neck:[.02,-.30,0],head:[.12,-.28,0],clavicler:[0,.08,0],upperarmr:[-1.50,0,.10],forearmr:[0,.05,0],upperarml:[.10,0,-1.40],forearml:[0,-.25,0]};
-const AGENT_PISTOL_HOLD:Hold={anchor:'GRIP_R',pos:[-.13,1.44,.71],rot:[0,0,0]};
+// Agent 07's one-handed aim (HD15, the user's second reference photo, 2026-11-08): the chest opens well away from the
+// target with the right shoulder toward it, the arm is straight out at shoulder height, the head turns to look along
+// it, and the free arm hangs relaxed.
+const AGENT_PISTOL_AIM:Bones={chest:[0,.95,0],neck:[0,-.45,0],head:[.04,-.48,0],clavicler:[0,.05,0],upperarmr:[-1.55,0,.05],forearmr:[0,.02,0],upperarml:[.02,0,-1.42],forearml:[0,-.15,0]};
+const AGENT_PISTOL_HOLD:Hold={anchor:'GRIP_R',pos:[-.10,1.42,.75],rot:[0,0,0]};
 const shiftHold=(h:Hold,dy:number,dz:number,rx:number):Hold=>({...h,pos:[h.pos[0],h.pos[1]+dy,h.pos[2]+dz],rot:[h.rot[0]+rx,h.rot[1],h.rot[2]]});
 const LONG_AIM:Bones={chest:[.04,-.48,0],neck:[.10,.25,0],head:[.12,.22,.06],clavicler:[0,.15,-.10],claviclel:[0,-.15,0],upperarmr:[-.30,0,.55],upperarml:[-.95,0,-1.05],forearmr:[0,1.75,0],forearml:[0,-.95,0]};
 const SUPPORT_GRIP:NonNullable<Key['l']>=['GRIP_L',1];
@@ -78,11 +79,14 @@ const AIM_STANCE:Record<WeaponClass|'agentPistol',AimStance>={
  agentPistol:{...PISTOL_STANCE,bones:AGENT_PISTOL_AIM,hold:AGENT_PISTOL_HOLD,recoil:shiftHold(AGENT_PISTOL_HOLD,.02,-.03,-.38),l:undefined,reloadTurn:.25},
  long:{bones:LONG_AIM,hold:HOLD.long.aim,recoil:HOLD.long.recoil,reload:HOLD.long.reload,l:SUPPORT_GRIP},
 };
-/** Candidates for Agent 07's one-handed pistol (HD15, 2026-11-08), compared in the animation lab. E is the game's
+/** Candidates for Agent 07's one-handed pistol (HD15, 2026-11-08), compared in the animation lab. F is the game's
  * stance; A is the earlier one (the two-handed gun position, the right shoulder pulled back). */
 export type PistolVariant={label:string;note:string;bones?:Bones;hold?:Hold};
 export const AGENT_PISTOL_VARIANTS:Record<string,PistolVariant>={
- E:{label:'E 写真の撃ち方（ゲーム中）',note:'右肩を相手に向けて半身・腕を一直線に伸ばし目の高さで狙う'},
+ F:{label:'F 写真2の撃ち方（ゲーム中）',note:'体を大きく開いて右肩を相手に向け、腕を肩の高さで一直線に伸ばす'},
+ E:{label:'E 写真1の撃ち方',note:'右肩を相手に向けて半身・腕を一直線に伸ばし目の高さで狙う',
+  bones:{chest:[.02,.60,0],neck:[.02,-.30,0],head:[.12,-.28,0],clavicler:[0,.08,0],upperarmr:[-1.50,0,.10],forearmr:[0,.05,0],upperarml:[.10,0,-1.40],forearml:[0,-.25,0]},
+  hold:{anchor:'GRIP_R',pos:[-.13,1.44,.71],rot:[0,0,0]}},
  A:{label:'A 前の構え',note:'両手持ちと同じ位置（顔の前）・右肩を引く',
   bones:{chest:[.02,-.58,0],neck:[.06,.31,0],head:[.10,.30,0],clavicler:[0,-.16,0],upperarmr:[-1.24,0,.62],forearmr:[0,.38,0]},
   hold:HOLD.pistol.aim},
