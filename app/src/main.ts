@@ -387,7 +387,7 @@ function animateActor(dt:number){crouchBlend=T.MathUtils.damp(crouchBlend,crouch
  gaitSpeed=T.MathUtils.damp(gaitSpeed,currentSpeed,10,dt);const baseY=avatar.position.y+.025,h=avatar.rotation.y,ground=(z:number)=>visualGround(here.x+Math.sin(h)*z,here.z+Math.cos(h)*z,baseY)-baseY;
  lastPose=locomotion.update(dt,{speed:gaitSpeed,crouch:m3.dragged?Math.max(.35,crouchBlend):crouchBlend,slope:T.MathUtils.clamp(slope,-.6,.6),turn:turnRate,distance,ground,actual:currentSpeed,reverse:!!m3.dragged});applyPose(lastPose);
  if(detection.blend&&rig){schedulePose(lastPose,detection.blend.action,performance.now()/1000);applyPose(lastPose);}
- if(rig&&playerScene&&!training)combatView.player(rig,leanGroup,playerScene,combat,performance.now(),crouchBlend);
+ if(rig&&playerScene&&!training)combatView.player(rig,leanGroup,playerScene,combat,performance.now(),crouchBlend,1-T.MathUtils.smoothstep(gaitSpeed,.15,.9));
  // Whole-body lean pivots at the feet: forward under acceleration, inward through turns.
  leanGroup.rotation.x=T.MathUtils.damp(leanGroup.rotation.x,T.MathUtils.clamp(forwardAccel*.018,-.1,.12),10,dt);leanGroup.rotation.z=T.MathUtils.damp(leanGroup.rotation.z,T.MathUtils.clamp(-turnRate*gaitSpeed*.022,-.16,.16),10,dt);}
 function fadeWalls(dt:number){const hit=new Set<T.Mesh>();if(viewMode!=='first'){const target=new T.Vector3(avatar.position.x,avatar.position.y+1.05,avatar.position.z);for(const dx of [-.22,0,.22]){const end=target.clone();end.x+=dx;const dir=end.sub(camera.position);fadeRay.set(camera.position,dir.clone().normalize());fadeRay.far=dir.length()-.15;for(const h of fadeRay.intersectObjects(occluders,false)){const m=h.object as T.Mesh;if(m.userData.fadeFloor<=currentFloor)hit.add(m);}}}

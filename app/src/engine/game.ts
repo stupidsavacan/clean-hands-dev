@@ -612,7 +612,7 @@ function animateActor(dt:number){crouchBlend=T.MathUtils.damp(crouchBlend,crouch
  // Blending in: the job's gesture, blended in and out (gestures.ts GesturePlayer, as the staff doing it), then the hands.
  if(rig){playerGestures.pose(lastPose,detection.blend?.action,performance.now()/1000,dt);applyPose(lastPose);playerGestures.apply(rig,leanGroup);}
  
- if(rig&&playerScene&&!training)combatView.player(rig,leanGroup,playerScene,combat,performance.now(),crouchBlend);
+ if(rig&&playerScene&&!training)combatView.player(rig,leanGroup,playerScene,combat,performance.now(),crouchBlend,1-T.MathUtils.smoothstep(gaitSpeed,.15,.9));
  // Whole-body lean pivots at the feet: forward under acceleration, inward through turns.
  leanGroup.rotation.x=T.MathUtils.damp(leanGroup.rotation.x,T.MathUtils.clamp(forwardAccel*.018,-.1,.12),10,dt);leanGroup.rotation.z=T.MathUtils.damp(leanGroup.rotation.z,T.MathUtils.clamp(-turnRate*gaitSpeed*.022,-.16,.16),10,dt);}
 function finishItems(){for(const o of detectionView.root.children){if(o.name!=='item-poison_lethal'||o.userData.finished)continue;for(const c of [...o.children]){o.remove(c);const m=c as T.Mesh;m.geometry?.dispose();if(m.material&&!Array.isArray(m.material))m.material.dispose();}const vial=new T.Mesh(new T.CylinderGeometry(.045,.045,.14,8),material('#5d8176'));vial.position.y=.08;const cap=new T.Mesh(new T.CylinderGeometry(.025,.025,.035,8),material('#b4a277'));cap.position.y=.1675;o.add(vial,cap);o.userData.finished=true;}}

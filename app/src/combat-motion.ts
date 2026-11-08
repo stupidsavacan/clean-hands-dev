@@ -14,11 +14,15 @@ type Bones=Record<string,Angles>;
 export type Hold={anchor:'GRIP_R'|'STOCK';pos:Angles;rot:Angles};
 /** Hand goals. GRIP_R/GRIP_L/MAG/SLIDE are points on the weapon; POUCH is the magazine pouch on the left hip. */
 export type HandGoal='GRIP_R'|'GRIP_L'|'MAG'|'SLIDE'|'POUCH';
-export type CombatFrame={pose:MotionPose;upperOnly:boolean;weapon:Hold|null;right:{to:HandGoal;weight:number};left:{to:HandGoal;weight:number}};
+/** stand (0-1): how much of the pose's own hips and legs to use over the walk/stand underneath (upper-only frames;
+ * the agent's one-handed pistol when standing still). */
+export type CombatFrame={pose:MotionPose;upperOnly:boolean;stand?:number;weapon:Hold|null;right:{to:HandGoal;weight:number};left:{to:HandGoal;weight:number}};
 export const COMBAT_SECONDS:Record<CombatKind,number>={draw:.7,holster:.7,aim:3,fire:.25,reload:1.8,hit:.6,cover:3,coverAim:.5,flee:.8,duck:1.2};
 /** Kinds that are loops (sampled with t wrapping) rather than one-shots. */
 export const COMBAT_LOOPS:CombatKind[]=['aim','cover','flee'];
 export const POUCH:Angles=[.17,.97,.06];
+/** Hips and legs a standing stance may set (CombatFrame.stand). */
+export const LOWER=['pelvis','spine','thighl','thighr','shinl','shinr','footl','footr'];
 export const UPPER=['chest','neck','head','claviclel','clavicler','upperarml','upperarmr','forearml','forearmr','handl','handr','thumbl','thumbr'];
 const CHANNELS=['root','pelvis','spine','chest','neck','head','claviclel','clavicler','upperarml','upperarmr','forearml','forearmr','handl','handr','thighl','thighr','shinl','shinr','footl','footr','thumbl','thumbr'];
 const clamp=(v:number)=>Number.isFinite(v)?Math.max(0,Math.min(1,v)):0;
@@ -26,7 +30,7 @@ const smooth=(t:number)=>t*t*(3-2*t);
 const mix=(a:number,b:number,t:number)=>a+(b-a)*t;
 const mix3=(a:Angles,b:Angles,t:number):Angles=>[mix(a[0],b[0],t),mix(a[1],b[1],t),mix(a[2],b[2],t)];
 
-type Key={t:number;root?:Partial<MotionPose['root']>;bones?:Bones;hold?:Hold|null;r?:[HandGoal,number];l?:[HandGoal,number]};
+type Key={t:number;stand?:number;root?:Partial<MotionPose['root']>;bones?:Bones;hold?:Hold|null;r?:[HandGoal,number];l?:[HandGoal,number]};
 function neutral():MotionPose{const bones:Bones={};for(const n of CHANNELS)bones[n]=[0,0,0];bones.upperarml=[-.05,0,-1.45];bones.upperarmr=[-.05,0,1.45];bones.forearml=[0,-.24,0];bones.forearmr=[0,.24,0];return {root:{x:0,y:0,z:0,pitch:0,roll:0},bones};}
 function poseOf(k:Key):MotionPose{const p=neutral();Object.assign(p.root,k.root??{});for(const [n,v] of Object.entries(k.bones??{}))p.bones[n]=[...v];return p;}
 function sample(keys:Key[],t:number,upperOnly:boolean):CombatFrame{
@@ -40,7 +44,8 @@ function sample(keys:Key[],t:number,upperOnly:boolean):CombatFrame{
  const hand=(x?:[HandGoal,number],y?:[HandGoal,number])=>{const p=x??['GRIP_R',0],q=y??['GRIP_R',0];
   // Changing goal: the weight dips through zero so the hand never slides along the weapon between two points.
   if(p[0]===q[0])return {to:p[0],weight:mix(p[1],q[1],u)};return u<.5?{to:p[0],weight:p[1]*(1-2*u)}:{to:q[0],weight:q[1]*(2*u-1)};};
- return {pose,upperOnly,weapon,right:hand(a.r??['GRIP_R',0],b.r??['GRIP_R',0]),left:hand(a.l??['GRIP_L',0],b.l??['GRIP_L',0])};
+ const stand=(k:Key)=>k.stand??(k.bones?.pelvis?1:0),st=mix(stand(a),stand(b),u);
+ return {pose,upperOnly,...(st>0?{stand:st}:{}),weapon,right:hand(a.r??['GRIP_R',0],b.r??['GRIP_R',0]),left:hand(a.l??['GRIP_L',0],b.l??['GRIP_L',0])};
 }
 
 // ---------- holds ----------
@@ -63,11 +68,15 @@ const HOLD={
 // ---------- upper bodies (layered over the legs) ----------
 // Arms are only roughly placed (elbows down and out); IK brings the hands onto the weapon.
 const PISTOL_AIM:Bones={chest:[.02,-.08,0],neck:[.06,.05,0],head:[.10,.04,0],clavicler:[0,.12,0],claviclel:[0,-.08,0],upperarmr:[-1.30,0,.55],upperarml:[-1.25,0,-.30],forearmr:[0,.25,0],forearml:[0,-.85,0]};
-// Agent 07's one-handed aim (HD15, the user's second reference photo, 2026-11-08): the chest opens well away from the
+const AGENT_PISTOL_LEGS:Bones={pelvis:[0,.60,0],spine:[0,0,0],thighl:[-.06,0,.10],thighr:[-.10,0,-.10],shinl:[.12,0,0],shinr:[.16,0,0],footl:[-.06,0,-.10],footr:[-.06,0,.10]};
+// Agent 07's one-handed aim (HD15, the user's second reference photo, shaped by the user in the pose editor, 2026-11-08): the chest opens well away from the
 // target with the right shoulder toward it, the arm is straight out at shoulder height, the head turns to look along
 // it, and the free arm hangs relaxed.
-const AGENT_PISTOL_AIM:Bones={chest:[0,.95,0],neck:[0,-.45,0],head:[.04,-.48,0],clavicler:[0,.05,0],upperarmr:[-1.55,0,.05],forearmr:[0,.02,0],upperarml:[.02,0,-1.42],forearml:[0,-.15,0]};
-const AGENT_PISTOL_HOLD:Hold={anchor:'GRIP_R',pos:[-.10,1.42,.75],rot:[0,0,0]};
+const AGENT_PISTOL_AIM:Bones={chest:[0,1.117,0],neck:[0,-.559,0],head:[.04,-.48,0],clavicler:[0,.05,0],upperarmr:[-1.55,0,.05],forearmr:[0,.02,0],upperarml:[.02,0,-1.361],forearml:[0,-.15,0],
+ // Standing still, the hips and feet turn with the chest (the right foot comes forward); poseCombat keeps the chest's
+ // turn in the world the same, so the upper body above is as the user shaped it.
+ ...AGENT_PISTOL_LEGS};
+const AGENT_PISTOL_HOLD:Hold={anchor:'GRIP_R',pos:[-.141,1.563,.742],rot:[0,0,0]};
 const shiftHold=(h:Hold,dy:number,dz:number,rx:number):Hold=>({...h,pos:[h.pos[0],h.pos[1]+dy,h.pos[2]+dz],rot:[h.rot[0]+rx,h.rot[1],h.rot[2]]});
 const LONG_AIM:Bones={chest:[.04,-.48,0],neck:[.10,.25,0],head:[.12,.22,.06],clavicler:[0,.15,-.10],claviclel:[0,-.15,0],upperarmr:[-.30,0,.55],upperarml:[-.95,0,-1.05],forearmr:[0,1.75,0],forearml:[0,-.95,0]};
 const SUPPORT_GRIP:NonNullable<Key['l']>=['GRIP_L',1];
@@ -105,7 +114,8 @@ export const AGENT_PISTOL_VARIANTS:Record<string,PistolVariant>={
 function variantStance(id?:string|PistolVariant):AimStance{
  const base=AIM_STANCE.agentPistol,v=typeof id==='string'?AGENT_PISTOL_VARIANTS[id]:id;
  if(!v?.hold)return base;
- return {...base,bones:{...v.bones},hold:v.hold,recoil:shiftHold(v.hold,.02,-.03,-.38)};
+ // The pose editor's stance (an object) keeps the standing legs; the lab's older candidates (by id) have none.
+ return {...base,bones:{...(typeof id==='string'?{}:AGENT_PISTOL_LEGS),...v.bones},hold:v.hold,recoil:shiftHold(v.hold,.02,-.03,-.38)};
 }
 function tunedPistolStance(tuning?:PistolTuning,variant?:string|PistolVariant):AimStance{
  const stance=variantStance(variant);

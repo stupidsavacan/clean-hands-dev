@@ -232,7 +232,7 @@ function poseActor(a:Actor,clip:Clip,t:number){
  if(clip.combat){const frame=sampleCombat(clip.combat,cls,progress,a.def.id==='agent',pistolCompare.checked||poseEditor?.active?undefined:pistolTuning,poseEditor?.active?editorStance??'F':pistolVariant),wp=a.weapons[gun.id]??null;
   if(frame.upperOnly){const speed=clip.combat==='flee'?RUN_SPEED:0;rig.apply(gait(speed,0));}else a.sim=-1;
   if(wp)wp.object.visible=weaponVisible(clip.combat,cls,progress,false);
-  const miss=poseCombat(rig,group,model,frame,wp,0);if(a.def.id==='agent')agentGripMiss=miss;
+  const miss=poseCombat(rig,group,model,frame,wp,0,clip.combat==='flee'?0:1);if(a.def.id==='agent')agentGripMiss=miss;
   if(clip.combat==='hit')plantedFeet(rig,group,()=>0);}
 }
 

@@ -2,7 +2,7 @@ import * as T from 'three';
 import combatPose from './data/combat-pose.json' with {type:'json'};
 import type { Rig } from './rig.ts';
 import { applyMotion, reach } from './motion-runtime.ts';
-import { POUCH, UPPER, type CombatFrame, type HandGoal, type WeaponClass } from './combat-motion.ts';
+import { POUCH, UPPER, LOWER, type CombatFrame, type HandGoal, type WeaponClass } from './combat-motion.ts';
 
 /** A loaded weapon GLB (assets/m55-combat) with its anchors measured once in the weapon's own space. */
 export type Weapon={object:T.Object3D;cls:WeaponClass;anchors:Record<string,T.Vector3>};
@@ -27,8 +27,14 @@ export function layerUpper(rig:Rig,pose:CombatFrame['pose']){for(const n of UPPE
 
 /** Poses the body, places the weapon in the actor's space and closes both hands on it.
  * Full-body frames reset the rig; upper-only frames expect the legs to be posed already. Returns the worst hand error (m). */
-export function poseCombat(rig:Rig,actor:T.Object3D,model:T.Object3D,frame:CombatFrame,weapon:Weapon|null,crouch=0){
- if(frame.upperOnly){layerUpper(rig,frame.pose);if(crouch>0)rig.rotate('spine',combatPose.crouch.spinePitch*crouch);model.updateMatrixWorld(true);}else applyMotion(rig,model,frame.pose);
+/** still (0-1): how still the body stands (1 = not walking). A frame with `stand` then turns the hips and legs toward
+ * its own pose by stand x still, and takes that turn back out of the chest so the upper body stays where it was aimed. */
+export function poseCombat(rig:Rig,actor:T.Object3D,model:T.Object3D,frame:CombatFrame,weapon:Weapon|null,crouch=0,still=0){
+ if(frame.upperOnly){const w=(frame.stand??0)*still*(1-crouch);
+  if(w>0)for(const n of LOWER){const b=rig.joints.get(n)?.bone,r=frame.pose.bones[n];if(!b||!r)continue;const from=b.quaternion.clone();rig.rotate(n,r[0],r[1],r[2]);b.quaternion.slerpQuaternions(from,b.quaternion.clone(),w);}
+  layerUpper(rig,frame.pose);
+  if(w>0){const c=frame.pose.bones.chest,turn=((frame.pose.bones.pelvis?.[1]??0)+(frame.pose.bones.spine?.[1]??0))*w;rig.rotate('chest',c[0],c[1]-turn,c[2]);}
+  if(crouch>0)rig.rotate('spine',combatPose.crouch.spinePitch*crouch);model.updateMatrixWorld(true);}else applyMotion(rig,model,frame.pose);
  actor.updateMatrixWorld(true);
  if(!weapon||!frame.weapon)return 0;
  const w=weapon.object,hold=frame.weapon;

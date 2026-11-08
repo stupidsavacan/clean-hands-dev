@@ -32,7 +32,8 @@ export class CombatView{
  /** The agent's moves: draw, holster, a shot and a reload start their short clips. */
  play(kind:CombatKind,now:number,gun:string){this.anim={kind,start:now,gun};}
  private mineFor(id:string){let w=this.mine.get(id);if(!w){w=this.weapon(id,this.root);if(w)this.mine.set(id,w);}return w;}
- player(rig:Rig,actor:T.Object3D,model:T.Object3D,c:CombatSystem,now:number,crouch=0){for(const w of this.mine.values())w.object.visible=false;if(this.flash)this.flash.visible=false;
+ /** still: 1 while standing, 0 while walking (the agent's pistol stance turns the hips and feet only when still). */
+ player(rig:Rig,actor:T.Object3D,model:T.Object3D,c:CombatSystem,now:number,crouch=0,still=0){for(const w of this.mine.values())w.object.visible=false;if(this.flash)this.flash.visible=false;
   const a=this.anim,since=(now-a.start)/1000,holstering=!c.hand&&a.kind==='holster'&&since<COMBAT_SECONDS.holster,id=c.hand||(holstering?a.gun:'');
   // A long gun that is carried but not in hand hangs across the back, in plain view.
   const slung=c.guns.find(g=>CLASS[g.id]==='long'&&g.id!==id);if(slung){const w=this.mineFor(slung.id);if(w){w.object.visible=true;actor.updateMatrixWorld(true);w.object.position.copy(actor.localToWorld(new T.Vector3(-.02,1.18,-.17)));w.object.quaternion.copy(actor.getWorldQuaternion(new T.Quaternion())).multiply(new T.Quaternion().setFromEuler(new T.Euler(-1.15,0,.6)));}}
@@ -42,7 +43,7 @@ export class CombatView{
   else if(c.reloadT>0){kind='reload';t=1-c.reloadT/c.rules.reloadSeconds;}
   else if(a.kind==='draw'&&since<COMBAT_SECONDS.draw){kind='draw';t=since/COMBAT_SECONDS.draw;}
   else if(a.kind==='fire'&&since<COMBAT_SECONDS.fire){kind='fire';t=since/COMBAT_SECONDS.fire;}
-  poseCombat(rig,actor,model,sampleCombat(kind,cls,t,true,this.pistolTuning),w,crouch);w.object.visible=weaponVisible(kind,cls,t,true);
+  poseCombat(rig,actor,model,sampleCombat(kind,cls,t,true,this.pistolTuning),w,crouch,still);w.object.visible=weaponVisible(kind,cls,t,true);
   if(this.flash&&a.kind==='fire'&&since<.06){this.flash.visible=true;this.flash.position.copy(muzzle(w));this.flash.quaternion.copy(w.object.quaternion);this.flash.scale.setScalar(cls==='long'?1.4:1);}}
  /** Hooked into NpcView: guards in a fight aim their own gun; bystanders run with their arms over their heads, then cower. */
  npc(view:NpcView,time:number){const n=view.npc;let w=this.npcGuns.get(view);
