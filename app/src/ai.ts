@@ -1,6 +1,7 @@
 import { inside, floorOf, plateY, type CollisionWorld, type Level, type Position } from './world.ts';
 import type { NavGrid } from './nav.ts';
 import { segmentClear, type Aabb } from './sight.ts';
+import type {CoinPickup} from './coin-pickup.ts';
 export type Role='guard'|'guest'|'waiter';
 // combat: a guard in a gunfight (driven by CombatSystem); flee: a bystander running from gunfire, then cowering.
 export type State='patrol'|'curious'|'investigate'|'alert'|'search'|'report'|'distracted'|'verify'|'combat'|'flee';
@@ -102,6 +103,7 @@ export class Npc{
  hearsReports=true;
  life:'active'|'unconscious'|'dead'='active';bodyMode:'ground'|'dragged'|'hidden'='ground';busy=false;fall=0;evidenceGoal:Position|null=null;
  pos:Position;heading:number;state:State='patrol';suspicion=0;visibility=0;distance=Infinity;off=180;lastSeen:Position|null=null;goal:Position|null=null;
+ coinPickup:CoinPickup|null=null;
  speed=0;arrived=false;timer=0;scanBase=0;scanT=0;loseT=0;routeIndex=0;wait=0;face=0;tier:Tier='near';
  private path:Position[]=[];private pathGoal:Position|null=null;private lastPos:Position|null=null;private repath=0;private stuck=0;private noticed=false;
  constructor(def:NpcDef,level:Level,shared=new Set<string>()){this.id=def.id;this.role=def.role as Role;this.label=def.label;this.route=def.route.map(r=>[...r]);this.look=def.look&&[...def.look];this.knowsFaces=def.knowsFaces??[];this.post=def.post===undefined?[]:[def.post].flat();this.target=!!def.target;this.outfit=def.outfit;this.shared=shared;const r=def.route[0];this.homeY=plateY(level,def.floor);this.pos={x:r[0],y:this.homeY,z:r[1]};

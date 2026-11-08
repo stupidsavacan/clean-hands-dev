@@ -58,18 +58,19 @@ function drawRun(r:Run){
  const rescues=r.m3?.rescue.playing??[];
  for(const [id,b] of bodies)b.root.visible=live.has(id);
  for(const n of r.director.npcs){const b=body(n.id);b.root.position.set(n.pos.x,n.pos.y,n.pos.z);b.root.rotation.y=n.heading;b.mat.color.set(STATE_COLOR[n.state]??'#efeadf');b.cone.visible=n.active;
-  const down=n.life!=='active',rescuing=rescues.some(x=>x.guard===n);
-  b.figure.rotation.x=down ? Math.PI/2 : rescuing ? .24 : 0;
+  const down=n.life!=='active',rescuing=rescues.some(x=>x.guard===n),pickingUp=!!n.coinPickup;
+  b.figure.rotation.x=down ? Math.PI/2 : rescuing||pickingUp ? .24 : 0;
   b.figure.position.set(0,down ? .28 : 0,down ? -.83 : 0);
-  b.figure.scale.y=rescuing ? .72 : 1;
+  b.figure.scale.y=rescuing||pickingUp ? .72 : 1;
   b.tag.position.y=down ? .95 : 2.4;
   b.tag.scale.set(r.m3 ? 1.55 : 3,r.m3 ? .39 : .75,1);
   const status=r.m3
    ? (down?'気絶':rescuing?'救助中':n.state==='investigate'?'調査中':n.guard?'待機':'復帰')
-   : down?(n.life==='unconscious'?'気絶':'死亡'):`${n.state} ${Math.round(n.suspicion)}`;
+   : pickingUp?'拾う':down?(n.life==='unconscious'?'気絶':'死亡'):`${n.state} ${Math.round(n.suspicion)}`;
   const g=b.tagCtx;g.clearRect(0,0,256,64);g.fillStyle='rgba(0,0,0,.6)';g.fillRect(0,0,256,64);g.fillStyle='#fff';g.font='26px sans-serif';g.textAlign='center';g.fillText(`${n.id} ${status}`,128,42);b.tagTex.needsUpdate=true;}
  playerMesh.position.set(r.player.x,r.player.y+.83,r.player.z);(playerMesh.material as T.MeshStandardMaterial).color.set(r.player.weaponDrawn?'#ff5a4a':'#4f8cff');playerMesh.visible=!r.player.hidden&&r.director.npcs.length!==0;
  while(marks.length<r.marks.length){const p=r.marks[marks.length],m=new T.Mesh(new T.CylinderGeometry(.18,.18,.06,12),new T.MeshBasicMaterial({color:'#ffd34d'}));m.position.set(p.x,.05,p.z);scene.add(m);marks.push(m);}
+ if(r.coin)marks[0].visible=!!r.coin.mesh.parent;
 }
 
 // --- running

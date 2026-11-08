@@ -195,8 +195,8 @@ const v=new T.Vector3(),pv=new T.Vector3();
 // The shoulder stays; the elbow goes where the upper arm and forearm lengths allow, on the side of `pole`.
 const S=new T.Vector3(),E=new T.Vector3(),H=new T.Vector3(),W=new T.Vector3(),D=new T.Vector3(),P=new T.Vector3(),Ed=new T.Vector3(),q=new T.Quaternion(),wq=new T.Quaternion(),pq=new T.Quaternion(),a1=new T.Vector3(),a2=new T.Vector3();
 function aim(bone:T.Object3D,from:T.Vector3,to:T.Vector3){if(from.lengthSq()<1e-10||to.lengthSq()<1e-10)return;q.setFromUnitVectors(a1.copy(from).normalize(),a2.copy(to).normalize());bone.getWorldQuaternion(wq).premultiply(q);bone.parent!.getWorldQuaternion(pq).invert();bone.quaternion.copy(pq.multiply(wq));bone.updateWorldMatrix(true,true);}
-export function twoBone(rig:Rig,side:'l'|'r',target:T.Vector3,pole:T.Vector3,weight=1){
- const upper=rig.joints.get('upperarm'+side)?.bone,fore=rig.joints.get('forearm'+side)?.bone,hand=rig.joints.get('hand'+side)?.bone;if(!upper||!fore||!hand)return;
+export function twoBone(rig:Rig,side:'l'|'r',target:T.Vector3,pole:T.Vector3,weight=1,leg=false){
+ const upper=rig.joints.get((leg?'thigh':'upperarm')+side)?.bone,fore=rig.joints.get((leg?'shin':'forearm')+side)?.bone,hand=rig.joints.get((leg?'foot':'hand')+side)?.bone;if(!upper||!fore||!hand)return;
  upper.getWorldPosition(S);fore.getWorldPosition(E);hand.getWorldPosition(H);
  const a=E.distanceTo(S),b=H.distanceTo(E);W.copy(H).lerp(target,clamp01(weight));
  D.copy(W).sub(S);const d=Math.min(Math.max(D.length(),Math.abs(a-b)+1e-4),a+b-1e-4);D.normalize();

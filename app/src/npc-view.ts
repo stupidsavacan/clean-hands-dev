@@ -6,6 +6,7 @@ import { Rig } from './rig.ts';
 import type { Npc } from './ai.ts';
 import { neutral, applyMotion, groundBody } from './motion-runtime.ts';
 import { sampleMotion } from './motion.ts';
+import {poseCoinPickup} from './coin-pickup-pose.ts';
 import {GesturePlayer} from './gestures.ts';
 // Each NPC is a clone of its own character GLB (Astra's cast on the agent's 22-bone rig), so the procedural gait drives them unchanged.
 // Face morphs calm / curious / alert follow the AI state.
@@ -38,7 +39,13 @@ export class NpcView{
   // The receiver rests face-up on the existing massage table, beside their navigation anchor.
   if(n.state==='patrol'&&n.scheduleAction==='massage'&&n.speed<.3){this.body.rotation.set(-Math.PI/2,Math.PI/2,0,'YXZ');this.body.position.set(1,.9,-1.2);}
   const d=Math.atan2(Math.sin(n.heading-p.h),Math.cos(n.heading-p.h));
-  g.position.set(T.MathUtils.lerp(p.x,n.pos.x,blend),T.MathUtils.lerp(p.y,n.pos.y,blend)-.025,T.MathUtils.lerp(p.z,n.pos.z,blend));const oldH=g.rotation.y;g.rotation.y=p.h+d*blend;if(dt<=0&&this.pose){this.rig.apply(this.pose);this.gestures.apply(this.rig,this.body.parent!);return;}
+  g.position.set(T.MathUtils.lerp(p.x,n.pos.x,blend),T.MathUtils.lerp(p.y,n.pos.y,blend)-.025,T.MathUtils.lerp(p.z,n.pos.z,blend));const oldH=g.rotation.y;g.rotation.y=p.h+d*blend;
+  if(n.coinPickup){
+   this.gestures.reset(this.rig,this.body.parent!);
+   poseCoinPickup({rig:this.rig,model:this.body,group:g},n.coinPickup,ground);
+   return;
+  }
+  if(dt<=0&&this.pose){this.rig.apply(this.pose);this.gestures.apply(this.rig,this.body.parent!);return;}
   // A person never posed yet is posed now, paused or far away (they used to keep the rest pose, arms straight out,
   // until their turn in the skipping below came: the far T-poses in the paused stage-2 pictures).
   const first=!this.pose;if(dt<=0)dt=1/60;

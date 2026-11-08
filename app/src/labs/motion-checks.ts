@@ -5,7 +5,7 @@ import {poseCombat,prepareWeapon} from '../combat-runtime.ts';
 import {COMBAT_MODELS} from '../combat-data.ts';
 import {PLAYER_BASE64} from '../player-data.ts';
 import {Rig} from '../rig.ts';
-import {sampleMotion,sampleRescueMotion,type MotionKind} from '../motion.ts';
+import {sampleMotion,sampleRescueMotion,sampleCoinPickupMotion,type MotionKind} from '../motion.ts';
 import {sampleM4Motion} from '../m4-motion.ts';
 import traversalPoses from '../data/party-motions.json' with {type:'json'};
 import {brawlMotion} from '../brawl-motion.ts';
@@ -50,6 +50,7 @@ function* pairedActions(){
  const paired=['ko','kill','fall','drag','pickup','drop','hide'] as const satisfies readonly MotionKind[];
  for(let frame=0;frame<=200;frame++){
   const t=frame/200,progress=`${frame/2}%`;
+  yield motionSample(sampleCoinPickupMotion(t),'coin-pickup '+progress);
   for(const role of ['giver','receiver'] as const){
    for(const kind of paired)yield motionSample(sampleMotion(kind,role,t),`${kind}/${role} ${progress}`);
    for(const kind of ['change','frisk'] as const)yield motionSample(sampleM4Motion(kind,role,t),`${kind}/${role} ${progress}`);

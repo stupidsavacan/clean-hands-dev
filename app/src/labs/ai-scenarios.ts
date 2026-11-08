@@ -2,6 +2,9 @@
 // same nav, sight, combat and rules every map uses) and judges the outcome automatically. The lab page
 // (labs/ai-lab.ts) shows them in 3D; tests/ai-lab.test.ts runs them headless, so a change that breaks a sense fails
 // the test suite too. Rules are the club's (data/club-rules.json), the newest the engine runs.
+import {Group,type Mesh} from 'three';
+import {LandedCoinPickups} from '../coin-pickup.ts';
+import {coinMesh} from '../coin-pickup-pose.ts';
 import {CollisionWorld,type Position} from '../world.ts';
 import {NavGrid} from '../nav.ts';
 import {segmentClear,sightBoxes} from '../sight.ts';
@@ -49,7 +52,7 @@ export function guard(id:string,x:number,z:number,heading:number,o:Partial<NpcDe
 }
 export const player=(x:number,z:number,o:Partial<PlayerView>={}):PlayerView=>({x,y:0,z,floor:0,speed:0,running:false,crouched:false,tampering:false,disguise:'suit',...o});
 
-export type Run={director:Director;combat?:CombatSystem;m3?:M3System;events:AiEvent[];log:string[];time:number;player:PlayerView;marks:Position[]};
+export type Run={director:Director;combat?:CombatSystem;m3?:M3System;coin?:{mesh:Mesh;pickups:LandedCoinPickups};events:AiEvent[];log:string[];time:number;player:PlayerView;marks:Position[]};
 export type Scenario={
  id:string;group:'視認'|'聴覚'|'無線'|'戦闘'|'捜索'|'経路探索'|'立入禁止'|'検問'|'救助';title:string;expect:string;
  npcs:NpcDef[];seconds:number;combat?:boolean;
@@ -82,12 +85,18 @@ export const SCENARIOS:Scenario[]=[
  {id:'sight-crouch-run',group:'視認',title:'走ると目立つ',expect:'ホールで走ると、正面の警備が振り向く（公共の場でも）',
   npcs:[guard('g1',-14,-8,0)],seconds:4,player:t=>player(-17+t*4.8,-2,{speed:4.8,running:true}),
   judge:r=>({pass:has(r,'curious')&&!has(r,'alert'),detail:`反応：${r.log.join(' → ')||'なし'}`})},
- {id:'hear-coin',group:'聴覚',title:'コインの音を確かめに行き、戻る',expect:'投げたコインにいちばん近い警備が歩いて行き、確かめてから持ち場へ戻る',
+ {id:'hear-coin',group:'聴覚',title:'コインを拾い、持ち場へ戻る',expect:'投げたコインにいちばん近い警備が歩いて行き、拾ってから持ち場へ戻る',
   npcs:[guard('g1',-14,-8,0),guard('g2',-14,8,Math.PI)],seconds:18,
-  start:r=>{const spot={x:-10,y:0,z:-6};r.marks.push(spot);const n=r.director.noise(spot);r.log.push(`コイン → ${n?.id??'誰も聞かない'}`);},
+  start:r=>{const spot={x:-10,y:.01,z:-6};r.marks.push(spot);
+   const mesh=coinMesh(),pickups=new LandedCoinPickups();mesh.position.copy(spot);new Group().add(mesh);
+   const n=r.director.noise(spot);pickups.watch(mesh,n);r.coin={mesh,pickups};r.log.push(`コイン → ${n?.id??'誰も聞かない'}`);},
   player:()=>player(10,12),
-  judge:r=>{const g=npc(r,'g1'),g2=npc(r,'g2'),reached=r.log.some(l=>l==='g1 がコインに着いた');return {pass:reached&&g.state==='patrol'&&g2.state==='patrol'&&flat(g2.pos,{x:-14,y:0,z:8})<.5,detail:`${r.log.join(' · ')} · 今 ${g.state}`};},
-  step:r=>{const g=npc(r,'g1');if(!r.log.includes('g1 がコインに着いた')&&flat(g.pos,{x:-10,y:0,z:-6})<1.2)r.log.push('g1 がコインに着いた');}},
+  judge:r=>{const g=npc(r,'g1'),g2=npc(r,'g2'),reached=r.log.some(l=>l==='g1 がコインに着いた');return {pass:reached&&r.log.includes('g1 がコインを拾った')&&!r.coin!.mesh.parent&&g.state==='patrol'&&g2.state==='patrol'&&flat(g2.pos,{x:-14,y:0,z:8})<.5,detail:`${r.log.join(' · ')} · 今 ${g.state}`};},
+  step:r=>{const g=npc(r,'g1'),{pickups}=r.coin!;
+   if(!r.log.includes('g1 がコインに着いた')&&flat(g.pos,r.marks[0])<1.2)r.log.push('g1 がコインに着いた');
+   pickups.step(DT,r.director.boxes);
+   if(pickups.held.some(p=>p.npc===g)&&!r.log.includes('g1 がコインを拾った'))r.log.push('g1 がコインを拾った');
+  }},
  {id:'hear-gunshot',group:'聴覚',title:'銃声で見に来る',expect:'衝立の裏で通常の拳銃を撃つと、見えていない近くの警備が音のした方へ確かめに来る（HITMAN の Gunshot Heard。2026-11-04 修正）',combat:true,
   npcs:[guard('g1',-12,0,Math.PI)],seconds:6,
   start:r=>{const c=r.combat!;c.equip('pistol_guard');c.hand='pistol_guard';const p=player(-3,0,{weaponDrawn:true});c.fire(p,{x:-3,y:1,z:-5},0);r.log.push('発砲（通常の拳銃）');},

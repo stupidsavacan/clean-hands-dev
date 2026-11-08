@@ -35,6 +35,14 @@ function collapse():MotionPose{return pose({y:-.26,z:.025,pitch:.10,roll:.04},{p
 /** Stable ground pose, also fall(receiver,1), drop(receiver,1). No breathing loop for bodies. */
 export function restingMotion():MotionPose{return pose({y:.20,z:-.80,pitch:Math.PI/2,roll:.035},{pelvis:[-.025,.035,0],spine:[.035,0,0],chest:[-.055,.025,0],neck:[-.06,-.12,0],head:[.025,-.20,.05],thighl:[-.035,0,-.09],thighr:[-.08,0,.06],shinl:[.06,0,0],shinr:[.08,0,0],footl:[-.04,0,-.07],footr:[-.03,0,.09],upperarml:[-.015,0,-1.35],upperarmr:[.015,0,1.35],forearml:[0,-.04,0],forearmr:[0,.06,0],handl:[0,0,-.03],handr:[0,0,.04]});}
 
+export function sampleCoinPickupMotion(t:number):MotionPose{
+ const grasp=pose({x:.055,y:-.48,z:-.04,pitch:.13},{spine:[1.14,.12,0],chest:[.47,0,-.10],neck:[-.26,0,0],
+  thighl:[-1.06,0,-.11],shinl:[1.88,0,0],thighr:[-1.00,0,.11],shinr:[1.88,0,0],
+  upperarml:[-.38,0,-1.14],forearml:[0,-.65,0],upperarmr:[-.10,0,1.27],forearmr:[0,.30,0]});
+ const stow=pose({}, {upperarmr:[-.38,0,1.31],forearmr:[0,.73,0]});
+ return track([{t:0,pose:pose()},{t:.39,pose:grasp},{t:.49,pose:grasp},{t:.78,pose:stow},{t:1,pose:pose()}],t);
+}
+
 export function sampleRescueMotion(role:MotionRole,t:number):MotionPose{
  if(role==='giver'){
   const crouch=pose({y:-.33,pitch:.25},{spine:[.28,0,0],neck:[.20,0,0],upperarmr:[-.74,0,1.02],forearmr:[0,.50,0],

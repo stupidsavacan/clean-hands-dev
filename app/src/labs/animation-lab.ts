@@ -36,6 +36,8 @@ import {MELEE} from '../melee';
 import {brawlAt,brawlMotion,BRAWL_GAP} from '../brawl-motion';
 import {plantFeetAt,reachHandsAt,aimFists} from '../motion-runtime';
 import {poseKatana} from '../katana-pose';
+import {COIN_PICKUP_SECONDS} from '../coin-pickup';
+import {coinMesh,placePickupCoin,poseCoinPickup} from '../coin-pickup-pose';
 import {poseRescue} from '../rescue-pose';
 import {RESCUE_SECONDS} from '../body-rescue';
 import {KATANA_GAP} from '../katana-motion';
@@ -47,6 +49,7 @@ type Clip={id:string;group:string;label:string;seconds:number;loop:boolean;
  loco?:{speed:number;crouch:number};gesture?:string;m3?:MotionKind;combat?:CombatKind;
  // A tool in the right hand (hold-pose.ts), with the walk in `loco`.
  item?:string;
+ coinPickup?:true;
  // 2026-11-06: one swing or stab with the item (hold-pose.ts strikePose, melee.ts), as the game plays it.
  strike?:'blunt'|'blade';
  // 2026-11-08 (M06): hands up for a fake surrender (hold-pose.ts surrenderPose), as the game plays it.
@@ -60,6 +63,7 @@ const CLIPS:Clip[]=[
  ...LOCO.map(([id,label,speed,crouch])=>({id:'loco-'+id,group:'移動',label,seconds:2,loop:true,loco:{speed,crouch}})),
  // 2026-11-05: carrying a tool (HITMAN WoA carry research): the same walk, the right arm holds it.
  ...[['wrench','スパナ'],['bottle','ボトル'],['mop','モップ'],['briefcase','ブリーフケース'],['toolbox','工具箱'],['katana','刀']].flatMap(([item,name])=>LOCO.map(([id,label,speed,crouch])=>({id:`item-${item}-${id}`,group:'持ち物',label:`${name}・${label}`,seconds:2,loop:true,loco:{speed,crouch},item}))),
+ {id:'coin-pickup',group:'持ち物',label:'コインを拾う',seconds:COIN_PICKUP_SECONDS,loop:false,coinPickup:true},
  ...Object.entries(MELEE).map(([item,m])=>({id:'strike-'+item,group:'道具攻撃',label:`${m.label}で${m.kind==='blunt'?'殴る':m.swing?'斬る':'刺す'}`,seconds:m.seconds,loop:true,loco:{speed:0,crouch:0},item,strike:m.swing??m.kind})),
  // 2026-11-06: the fight with a guard (M02) and the single punch (M01), the agent and the first NPC facing each other.
  // M15: the sword from behind stabs instead of cutting (full spec row 14).
@@ -225,10 +229,10 @@ function hold(a:Actor,item?:string){
 // What the gesture is done at, in front of the person (the game has its own furniture there): a standing desk with a PC
 // (assets/props desk_pc), a counter, a massage table, the club's button panel.
 function scenery(a:Actor,gesture?:string){
- const want=gesture&&['work','cook','clean','massage_work','club_press'].includes(gesture)?gesture:'';
+ const want=gesture&&['work','cook','clean','massage_work','club_press','coin-pickup'].includes(gesture)?gesture:'';
  if(a.scenery?.id===want)return;a.scenery?.object.removeFromParent();a.scenery=undefined;if(!want)return;
  const m=new T.MeshStandardMaterial({color:'#6d5a48',roughness:.9}),boxAt=(w:number,h:number,d:number,z:number,y=0)=>{const o=new T.Mesh(new T.BoxGeometry(w,h,d),m);o.position.set(0,y+h/2,z+d/2);return o;};
- const o=want==='work'?(()=>{const g=new T.Group(),pc=itemModel('desk_pc');if(pc){pc.position.z=.2;g.add(pc);}return g;})()
+ const o=want==='coin-pickup'?coinMesh():want==='work'?(()=>{const g=new T.Group(),pc=itemModel('desk_pc');if(pc){pc.position.z=.2;g.add(pc);}return g;})()
   :want==='massage_work'?boxAt(.8,.78,1.9,.25):want==='club_press'?boxAt(.3,.3,.08,.54,1.05):boxAt(1.0,.94,.6,.22);
  a.group.add(o);a.scenery={id:want,object:o};
 }
@@ -245,6 +249,7 @@ const DT=1/60;
 function poseActor(a:Actor,clip:Clip,t:number){
  const {rig,model,group}=a,role=$<HTMLSelectElement>('#role').value as MotionRole,gun=gunSel(),cls=gun.cls;
  neutral(rig);model.position.set(0,0,0);model.rotation.set(0,0,0);
+ if(a.scenery?.id==='coin-pickup'&&!clip.coinPickup)scenery(a);
  // Pair clips stand the first two actors face to face; the rest keep their places in the row.
  {const i=actors.indexOf(a);if(clip.pair&&i<2){if(!(i===1&&clip.pair.startsWith('katana'))){group.position.set(0,0,i?BRAWL_GAP:0);group.rotation.y=i?Math.PI:0;}}else{group.position.set((i-(actors.length-1)/2)*SPACING,0,0);group.rotation.y=0;}}
  if(clip.pair==='rescue'){
@@ -272,7 +277,13 @@ function poseActor(a:Actor,clip:Clip,t:number){
  // Procedural parts (walking, idle) are simulated from the start of the clip so scrubbing back gives the same pose.
  const gait=(speed:number,crouch:number):Pose=>{const step=()=>{a.pose=a.loco.update(DT,{speed,crouch,slope:0,turn:0,distance:speed*DT});a.sim+=DT;};if(t<a.sim||a.sim<0){a.loco.reset();a.loco.time=0;a.sim=0;step();}while(a.sim+DT<=t)step();return structuredClone(a.pose!);};
  hold(a,clip.item);
- if(!clip.gesture)a.props.update(rig,group,null);scenery(a,clip.gesture);
+ if(!clip.gesture)a.props.update(rig,group,null);scenery(a,clip.coinPickup?'coin-pickup':clip.gesture);
+ if(clip.coinPickup){
+  const at=group.localToWorld(new T.Vector3(0,.01,.55)),pickup={at,progress};
+  poseCoinPickup(a,pickup,()=>0);
+  placePickupCoin(a.scenery!.object as T.Mesh,rig,pickup);
+  return;
+ }
  if(clip.loco){const p=gait(clip.loco.speed,clip.loco.crouch);if(clip.item)holdPose(p,holdKind(clip.item));if(clip.strike)strikePose(p,clip.strike,progress);if(clip.surrender)surrenderPose(p,progress*clip.seconds);rig.apply(p);return;}
  // Gestures: the body layer on the standing pose, then the hands reach their targets (gestures.ts, as in the game).
  if(clip.gesture){const p=gait(0,0),g=gesturePose(p,clip.gesture,t);rig.apply(p);applyGesture(rig,group,g);a.props.update(rig,group,g);return;}
