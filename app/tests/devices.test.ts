@@ -6,13 +6,44 @@ import {Director,type Mission,type Rules} from '../src/ai.ts';
 import {CollisionWorld,plateY} from '../src/world.ts';
 import {NavGrid} from '../src/nav.ts';
 import {sightBoxes} from '../src/sight.ts';
-import {DeviceSystem,DEVICE_KINDS,type DeviceDef} from '../src/devices.ts';
+import {CALL_EVERY,DeviceSystem,DEVICE_KINDS,type DeviceDef} from '../src/devices.ts';
 const json=(f:string)=>JSON.parse(readFileSync(new URL('../src/data/'+f,import.meta.url),'utf8'));
 const map=json('marina.json'),rules=json('rules.json');
 const radio:DeviceDef={id:'r',kind:'radio',label:'ラジカセ',x:-8,z:7,y:.9,floor:0,heading:0,approach:{x:-8,z:8}};
 function setup(){const level=structuredClone(map) as Mission;level.npcs=[{id:'w',role:'waiter',label:'給仕',floor:0,route:[[-3,8,600]],look:[-2,8]}];
  const world=new CollisionWorld(level),d=new Director(level,world,new NavGrid(world),sightBoxes(level),rules as Rules);return {d,s:new DeviceSystem(d,[radio],f=>plateY(level,f)),n:d.npcs[0]};}
 const far={x:30,y:0,z:30,floor:0,speed:0,running:false,crouched:false,tampering:false,disguise:'suit'};
+test('C07 simultaneous devices assign different responders and preserve each destination',()=>{
+ const {d,n}=setup();
+ d.addNpc({...d.mission.npcs[0],id:'other',route:[[-2,8,600]]});
+ const tv={...radio,id:'t',kind:'tv' as const,x:-7,z:10,approach:{x:-7,z:10.8}};
+ const s=new DeviceSystem(d,[radio,tv],()=>0);
+ s.toggle(s.spot(radio));s.toggle(s.spot(tv));
+ s.step(1/60);
+ assert.equal(s.responders.get('r'),n);
+ assert.equal(s.responders.get('t')?.id,'other');
+ assert.deepEqual(n.goal,s.spot(radio));
+ assert.deepEqual(s.responders.get('t')?.goal,s.spot(tv));
+});
+
+test('C07 and G11 a new investigation interrupts the responder and the powered device waits for the replacement',()=>{
+ const {d,s,n}=setup(),spot=s.spot(radio);
+ const other=d.addNpc({...d.mission.npcs[0],id:'other',route:[[-2,8,600]]});
+ s.toggle(spot);s.step(1/60);
+ n.pos={...spot};n.arrived=true;s.step(DEVICE_KINDS.radio.stay-.25);
+ assert.ok(s.on.has('r'));
+ const interruption={x:-1,y:0,z:8};
+ n.hear(interruption,d.rules);
+ s.step(CALL_EVERY);
+ assert.deepEqual(n.goal,interruption);
+ assert.equal(s.responders.get('r'),other);
+ assert.ok(s.on.has('r'));
+ other.pos={...spot};other.arrived=true;s.step(.5);
+ assert.ok(s.on.has('r'),'the replacement gets its own wait');
+ s.step(DEVICE_KINDS.radio.stay);
+ assert.equal(s.on.size,0);
+ assert.equal(s.responders.size,0);
+});
 test('E by the radio switches it on; someone nearby walks over, switches it off and goes back',()=>{const {d,s,n}=setup();
  assert.match(s.prompt({x:-8,y:0,z:7.8}),/点ける/);s.toggle({x:-8,y:0,z:7.8});assert.ok(s.on.has('r'));
  let offAt=-1;for(let t=0;t<25&&offAt<0;t+=1/30){d.step(1/30,far);s.step(1/30);if(!s.on.has('r'))offAt=t;}

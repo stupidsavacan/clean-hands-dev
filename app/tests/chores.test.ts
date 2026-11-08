@@ -11,12 +11,13 @@ import {ChoreSystem,CLEAN_SECONDS} from '../src/chores.ts';
 const json=(f:string)=>JSON.parse(readFileSync(new URL('../src/data/'+f,import.meta.url),'utf8'));
 const map=json('marina.json'),rules=json('rules.json');
 const vacuum:DeviceDef={id:'v',kind:'vacuum',label:'掃除機',x:-2,z:4,y:0,floor:0,heading:0,approach:{x:-2,z:4.7}};
-function setup(){const level=structuredClone(map) as Mission;level.npcs=[
+function setup(twoCleaners=false){const level=structuredClone(map) as Mission;level.npcs=[
   {id:'victim',role:'waiter',label:'給仕',floor:0,route:[[-8,7,600]],look:[-8,6]},
   {id:'g',role:'guard',label:'警備',floor:0,route:[[-4,7,600]],look:[-5,7]},
   {id:'c',role:'waiter',label:'清掃員',floor:0,route:[[0,8,600]],look:[1,8]}];
  const world=new CollisionWorld(level),d=new Director(level,world,new NavGrid(world),sightBoxes(level),rules as Rules),dev=new DeviceSystem(d,[vacuum],f=>plateY(level,f));
- const [victim,g,c]=d.npcs;g.heading=-Math.PI/2;return {d,dev,ch:new ChoreSystem(d,dev,['c']),victim,g,c};}
+ const [victim,g,c]=d.npcs;const other=twoCleaners?d.addNpc({...level.npcs[2],id:'other',route:[[4,8,600]]}):undefined;
+ g.heading=-Math.PI/2;return {d,dev,ch:new ChoreSystem(d,dev,other?['c',other.id]:['c']),victim,g,c,other};}
 const at=(n:{pos:{x:number;y:number;z:number}},p:{x:number;y:number;z:number}|null)=>{n.pos={...p!};};
 test('a shot leaves blood; a guard who sees it looks; the cleaner fetches the vacuum, cleans and takes it back',()=>{const {dev,ch,victim,g,c}=setup();
  victim.life='dead';victim.deathMethod='gun';ch.step(.1);assert.equal(ch.messes.length,1);assert.equal(ch.messes[0].seen,true);assert.notEqual(g.state,'patrol');
@@ -29,3 +30,40 @@ test('a wire kill leaves no blood; unseen blood is not cleaned; an alerted clean
  const b=setup();b.g.heading=Math.PI/2;b.victim.life='dead';b.victim.deathMethod='kitchen_knife';b.ch.step(.1);assert.equal(b.ch.messes[0].seen,false);assert.equal(b.ch.job,null);
  const c=setup();c.victim.life='dead';c.victim.deathMethod='finish';c.ch.step(.1);at(c.c,c.c.scriptedGoal);c.ch.step(.1);c.c.state='alert';c.ch.step(.1);assert.equal(c.ch.job,null);assert.equal(c.c.scriptedGoal,null);assert.equal(c.ch.messes.length,1);});
 test('the club has a cleaner and a vacuum for the job',()=>{const m=json('club-mission.json');assert.deepEqual(m.cleaners,['cleaner']);assert.ok(m.devices.some((d:{kind:string})=>d.kind==='vacuum'));});
+test('C12 another cleaner resumes from the same partial cleanup after the first is called away',()=>{
+ const {ch,dev,c,other}=setup(true);
+ const m=ch.add('blood',{x:-8,y:0,z:7});m.seen=true;
+ ch.step(.1);assert.equal(ch.job?.cleaner,c);
+ at(c,c.scriptedGoal);ch.step(.1);at(c,c.scriptedGoal);ch.step(.1);
+ ch.step(CLEAN_SECONDS*.5);
+ assert.equal(m.cleaned,.5);
+ const otherTask={x:9,y:0,z:8};c.scriptedGoal=otherTask;
+ ch.step(.1);
+ assert.equal(ch.job,null);assert.equal(c.scriptedGoal,otherTask);assert.equal(dev.on.size,0);
+ ch.step(.1);
+ assert.equal(ch.job?.cleaner,other);
+ at(other!,other!.scriptedGoal);ch.step(.1);at(other!,other!.scriptedGoal);ch.step(.1);
+ assert.equal(ch.job?.phase,'clean');assert.equal(m.cleaned,.5);
+ ch.step(CLEAN_SECONDS*.25);
+ assert.equal(m.cleaned,.75);
+ ch.step(CLEAN_SECONDS*.25);
+ assert.equal(ch.messes.length,0);assert.equal(ch.job?.phase,'return');
+});
+
+test('E09 an interrupted return leaves the vacuum where it was and another cleaner brings it home',()=>{
+ const {ch,dev,c,other}=setup(true);
+ const m=ch.add('blood',{x:-8,y:0,z:7});m.seen=true;
+ ch.step(.1);at(c,c.scriptedGoal);ch.step(.1);at(c,c.scriptedGoal);ch.step(.1);
+ ch.step(CLEAN_SECONDS);assert.equal(ch.job?.phase,'return');assert.equal(ch.messes.length,0);
+ const v=dev.devices[0],leftAt=dev.spot(v);
+ c.life='unconscious';ch.step(.1);
+ assert.equal(ch.job,null);assert.deepEqual(dev.spot(v),leftAt);
+ ch.step(.1);
+ assert.equal(ch.job?.cleaner,other);assert.equal(ch.job?.phase,'fetch');
+ assert.deepEqual(other!.scriptedGoal,leftAt);
+ at(other!,other!.scriptedGoal);ch.step(.1);
+ assert.equal(ch.job?.phase,'return');assert.equal(dev.on.size,0);
+ at(other!,other!.scriptedGoal);ch.step(.1);
+ assert.equal(ch.job,null);assert.deepEqual([v.x,v.z],[-2,4]);
+ assert.equal(other!.scriptedGoal,null);
+});

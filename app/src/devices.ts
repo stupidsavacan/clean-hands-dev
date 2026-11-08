@@ -1,4 +1,5 @@
 import type {Director,Npc} from './ai.ts';
+import {segmentClear} from './sight.ts';
 import {floorOf,type Position} from './world.ts';
 // ROADMAP H15 (2026-11-06): things the agent can switch on to move people (HITMAN's radio). A radio switched on is
 // heard nearby; the nearest person who can leave what they are doing walks over (Director.noise, the same as a coin)
@@ -20,8 +21,10 @@ export const DEVICE_KINDS:Record<DeviceKind,{model:string;stay:number;radius:num
 const flat=(a:{x:number;z:number},b:{x:number;z:number})=>Math.hypot(a.x-b.x,a.z-b.z);
 
 export class DeviceSystem{
- readonly on=new Set<string>();readonly responders=new Map<string,Npc>();
- private calledAt=new Map<string,number>();private standing=new Map<string,number>();private clock=0;
+ readonly on=new Set<string>();
+ private readonly assignments=new Map<string,{npc:Npc;goal:Position;standing:number}>();
+ private calledAt=new Map<string,number>();private clock=0;
+ get responders(){return new Map([...this.assignments].map(([id,job])=>[id,job.npc]));}
  /** What happened, for the HUD (cleared every step). */
  notices:string[]=[];
  readonly director:Director;readonly devices:DeviceDef[];readonly plate:(floor:number)=>number;
@@ -29,21 +32,40 @@ export class DeviceSystem{
  constructor(director:Director,devices:DeviceDef[],plate:(floor:number)=>number){this.director=director;this.devices=devices.map(d=>({...d,approach:{...d.approach}}));this.plate=plate;}
  /** Running because someone is working with it (chores.ts): nobody comes to switch it off. */
  readonly operated=new Set<string>();
- operate(id:string,on:boolean){if(on){this.operated.add(id);this.on.add(id);this.responders.delete(id);this.standing.delete(id);}else{this.operated.delete(id);this.on.delete(id);}}
+ operate(id:string,on:boolean){if(on){this.operated.add(id);this.on.add(id);this.assignments.delete(id);}else{this.operated.delete(id);this.on.delete(id);}}
  /** The floor point in front of the device. */
  spot(d:DeviceDef):Position{return {x:d.approach.x,y:this.plate(d.floor),z:d.approach.z};}
  near(p:Position){return this.devices.find(d=>floorOf(p.y)===d.floor&&flat(d,p)<USE_RADIUS);}
  prompt(p:Position){const d=this.near(p);return d?`E ${d.label}を${this.on.has(d.id)?'消す':'点ける'}`:'';}
  toggle(p:Position){const d=this.near(p);if(!d||this.operated.has(d.id))return null;if(this.on.has(d.id))this.off(d);else{this.on.add(d.id);this.calledAt.set(d.id,-Infinity);}return d;}
- private off(d:DeviceDef){this.on.delete(d.id);this.responders.delete(d.id);this.standing.delete(d.id);}
+ private off(d:DeviceDef){this.on.delete(d.id);this.assignments.delete(d.id);}
  step(dt:number){this.clock+=dt;this.notices=[];
-  for(const d of this.devices){if(!this.on.has(d.id)||this.operated.has(d.id))continue;const at=this.spot(d);let n=this.responders.get(d.id);
-   // The one walking over gave up (alerted, knocked out, called away): someone else may come.
-   if(n&&(!n.active||!['distracted','curious'].includes(n.state))){this.responders.delete(d.id);this.standing.delete(d.id);n=undefined;}
-   if(!n){if(this.clock-(this.calledAt.get(d.id)??-Infinity)<CALL_EVERY)continue;this.calledAt.set(d.id,this.clock);n=this.director.noise(at,undefined,DEVICE_KINDS[d.kind].radius);if(n&&n.goal)this.responders.set(d.id,n);continue;}
-   // Keep them coming until it is off (the noise look would otherwise time out on the way).
-   if(n.state==='distracted'&&n.timer<1)n.timer=1;
-   if(flat(n.pos,at)<.8&&Math.abs(n.pos.y-at.y)<1){n.heading=Math.atan2(d.x-n.pos.x,d.z-n.pos.z);const t=(this.standing.get(d.id)??0)+dt;this.standing.set(d.id,t);
-    if(t>=DEVICE_KINDS[d.kind].stay){this.off(d);n.timer=Math.min(n.timer,1);this.notices.push(`${n.label}が${d.label}を消した。`);}}}}
+  for(const d of this.devices){
+   if(!this.on.has(d.id)||this.operated.has(d.id))continue;
+   const at=this.spot(d),job=this.assignments.get(d.id),n=job?.npc;
+   const near=!!n&&flat(n.pos,at)<.8&&Math.abs(n.pos.y-at.y)<.5&&
+    segmentClear(this.director.boxes,{...n.pos,y:n.pos.y+.25},{...at,y:at.y+.25});
+   if(job&&n?.active&&!n.busy&&!n.scriptedGoal&&n.state==='distracted'&&n.goal===job.goal&&(!n.arrived||near)){
+    // Keep the investigation alive while the responder walks, then apply the device's usual wait.
+    n.timer=Math.max(n.timer,1);
+    if(!near){job.standing=0;continue;}
+    n.heading=Math.atan2(d.x-n.pos.x,d.z-n.pos.z);
+    job.standing+=dt;
+    if(job.standing>=DEVICE_KINDS[d.kind].stay){
+     this.off(d);
+     n.timer=Math.min(n.timer,1);
+     this.notices.push(`${n.label}が${d.label}を消した。`);
+    }
+    continue;
+   }
+   // A different investigation, an interruption or an unreachable approach frees the device.
+   this.assignments.delete(d.id);
+   if(this.clock-(this.calledAt.get(d.id)??-Infinity)<CALL_EVERY)continue;
+   this.calledAt.set(d.id,this.clock);
+   const replacement=this.director.noise(at,undefined,DEVICE_KINDS[d.kind].radius,
+    candidate=>!candidate.scriptedGoal&&candidate.state!=='distracted');
+   if(replacement?.goal)this.assignments.set(d.id,{npc:replacement,goal:replacement.goal,standing:0});
+  }
+ }
  snapshot(){return {on:[...this.on],responders:Object.fromEntries([...this.responders].map(([k,n])=>[k,n.id]))};}
 }

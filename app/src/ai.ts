@@ -328,8 +328,8 @@ export class Director{
  // holding a post goes to look only when the post stays covered: a partner is still at it (two-man checkpoint; the
  // last one stays), or, alone, the agent is not near it (rules.noise.postLeave m). Otherwise they only turn.
  // radius: how far it is heard (a coin by default; a loud machine further, devices.ts).
- noise(point:Position,p?:PlayerView,radius=this.rules.noise.coin){let turned:Npc|undefined;
-  for(const n of this.npcs.filter(n=>n.active&&!n.busy&&Math.abs(n.pos.y-point.y)<1.5&&flat(n.pos,point)<=radius).sort((a,b)=>flat(a.pos,point)-flat(b.pos,point))){
+ noise(point:Position,p?:PlayerView,radius=this.rules.noise.coin,eligible?:(n:Npc)=>boolean){let turned:Npc|undefined;
+  for(const n of this.npcs.filter(n=>n.active&&!n.busy&&Math.abs(n.pos.y-point.y)<1.5&&flat(n.pos,point)<=radius&&(!eligible||eligible(n))).sort((a,b)=>flat(a.pos,point)-flat(b.pos,point))){
    if(p&&n.visibility>0&&['patrol','curious','distracted'].includes(n.state)){this.sawThrow(n,p);return n;}
    const go=this.mayLeavePost(n,p);if(!n.hear(point,this.rules,false,go))continue;
    // A post guard who stays only turns toward it; someone else may still walk over.

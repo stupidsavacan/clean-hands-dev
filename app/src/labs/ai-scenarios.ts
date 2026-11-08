@@ -5,6 +5,7 @@
 import {Group,type Mesh} from 'three';
 import {LandedCoinPickups} from '../coin-pickup.ts';
 import {coinMesh} from '../coin-pickup-pose.ts';
+import {DeviceSystem,type DeviceDef} from '../devices.ts';
 import {CollisionWorld,type Position} from '../world.ts';
 import {NavGrid} from '../nav.ts';
 import {segmentClear,sightBoxes} from '../sight.ts';
@@ -52,9 +53,9 @@ export function guard(id:string,x:number,z:number,heading:number,o:Partial<NpcDe
 }
 export const player=(x:number,z:number,o:Partial<PlayerView>={}):PlayerView=>({x,y:0,z,floor:0,speed:0,running:false,crouched:false,tampering:false,disguise:'suit',...o});
 
-export type Run={director:Director;combat?:CombatSystem;m3?:M3System;coin?:{mesh:Mesh;pickups:LandedCoinPickups};events:AiEvent[];log:string[];time:number;player:PlayerView;marks:Position[]};
+export type Run={director:Director;combat?:CombatSystem;m3?:M3System;coin?:{mesh:Mesh;pickups:LandedCoinPickups};devices?:DeviceSystem;events:AiEvent[];log:string[];time:number;player:PlayerView;marks:Position[]};
 export type Scenario={
- id:string;group:'視認'|'聴覚'|'無線'|'戦闘'|'捜索'|'経路探索'|'立入禁止'|'検問'|'救助';title:string;expect:string;
+ id:string;group:'視認'|'聴覚'|'無線'|'戦闘'|'捜索'|'経路探索'|'立入禁止'|'検問'|'救助'|'設備';title:string;expect:string;
  npcs:NpcDef[];seconds:number;combat?:boolean;
  // A finding the lab turned up that the AI does not meet yet (the test suite lists it as todo, not as a failure).
  known?:string;
@@ -97,6 +98,26 @@ export const SCENARIOS:Scenario[]=[
    pickups.step(DT,r.director.boxes);
    if(pickups.held.some(p=>p.npc===g)&&!r.log.includes('g1 がコインを拾った'))r.log.push('g1 がコインを拾った');
   }},
+ {id:'device-handoff',group:'設備',title:'設備を別々に担当し、途中で引き継ぐ',expect:'2人が別々のラジカセに向かう。片方が行動不能になれば別の警備が引き継ぎ、両方が消える。',
+  npcs:[guard('g1',-16,-7,Math.PI/2),guard('g2',-16,-1,Math.PI/2),guard('g3',-19,-5,Math.PI/2)],
+  seconds:18,player:()=>player(10,12),
+  start:r=>{
+   const defs:DeviceDef[]=[-7,-1].map((z,i)=>({id:'r'+(i+1),kind:'radio',label:'ラジカセ'+(i+1),x:-13,z,y:.8,floor:0,heading:-Math.PI/2,approach:{x:-14,z}}));
+   const devices=r.devices=new DeviceSystem(r.director,defs,()=>0);
+   for(const def of defs){const at=devices.spot(def);r.marks.push(at);devices.toggle(at);}
+  },
+  step:r=>{
+   const devices=r.devices!;devices.step(DT);const owners=devices.responders;
+   if(r.time>=.8&&npc(r,'g1').active&&owners.get('r1')?.id==='g1'&&owners.get('r2')?.id==='g2'){
+    const first=npc(r,'g1');first.life='unconscious';first.fall=1;
+    r.log.push('別々に担当 → g1 が行動不能');
+   }
+   if(owners.get('r1')?.id==='g3'&&!r.log.includes('g3 が引き継いだ'))r.log.push('g3 が引き継いだ');
+   r.log.push(...devices.notices);
+  },
+  done:r=>!r.devices!.on.size&&['g2','g3'].every(id=>npc(r,id).state==='patrol'),
+  judge:r=>({pass:!npc(r,'g1').active&&r.log.includes('g3 が引き継いだ')&&!r.devices!.on.size&&['g2','g3'].every(id=>npc(r,id).state==='patrol'),detail:r.log.join(' → ')}),
+ },
  {id:'hear-gunshot',group:'聴覚',title:'銃声で見に来る',expect:'衝立の裏で通常の拳銃を撃つと、見えていない近くの警備が音のした方へ確かめに来る（HITMAN の Gunshot Heard。2026-11-04 修正）',combat:true,
   npcs:[guard('g1',-12,0,Math.PI)],seconds:6,
   start:r=>{const c=r.combat!;c.equip('pistol_guard');c.hand='pistol_guard';const p=player(-3,0,{weaponDrawn:true});c.fire(p,{x:-3,y:1,z:-5},0);r.log.push('発砲（通常の拳銃）');},

@@ -335,7 +335,7 @@ window.addEventListener('keydown',e=>{if(creatorOpen||prepOpen||(e.target instan
  if(e.code==='KeyU'&&!training){const put=detection.putDown(position);if(put)toast(`${put}を置いた。`);return;}
  if(e.code==='KeyE'&&!training&&!m3.body(position)&&!m3.dragged&&!m3.locked&&!m53.locked&&!m53.prompt(playerView())&&!m57.locked&&!m57.prompt(playerView())){
   if(detection.blend){detection.stopBlend();toast('溶け込みをやめた。');return;}
-  if(devices.near(position)){const d=devices.toggle(position)!;toast(devices.on.has(d.id)?`${d.label}を点けた。近くの人が${DEVICE_KINDS[d.kind].doing}。`:`${d.label}を消した。`);return;}
+  if(devices.near(position)){const d=devices.toggle(position);if(!d)return;toast(devices.on.has(d.id)?`${d.label}を点けた。近くの人が${DEVICE_KINDS[d.kind].doing}。`:`${d.label}を消した。`);return;}
   // Taking a tool puts the gun away first, so the hand never holds both.
   if(detection.nearestItem(position)){if(combat.hand)combat.hand='';const got=detection.pickup(position)!;trace.instant(clock.elapsed,playerView(),'pickup',got);const l=detection.legality(detection.held,m4.disguise);toast(l.legality==='suspicious'?(l.ok?`${got}を持った。この服なら怪しまれない。`:`${got}を持った。この服では怪しまれる。`):`${got}を持った。`);return;}
   const spot=detection.startBlend(playerView());if(spot){targetHeading=spot.heading;toast(`${spot.label}（溶け込み中）。Eか移動でやめる。`);return;}
