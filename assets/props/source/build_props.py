@@ -16,6 +16,7 @@ import bpy
 
 OUT = Path(__file__).resolve().parent.parent
 RED = 2
+PALE_SAGE = 11
 TOP = .95
 
 
@@ -120,6 +121,79 @@ def build_vacuum():
     return m, {'BUTTON': (0, -.05, .48), 'GRIP': (0, .07, 1.05)}
 
 
+def sink_ring(half_width, back, front, height, corner):
+    """Chamfered rectangle, counterclockwise in Blender's XY plane."""
+    w, c = half_width, corner
+    return [(x, y, height) for x, y in [
+        (w - c, -front), (w, -front + c), (w, back - c), (w - c, back),
+        (-w + c, back), (-w, back - c), (-w, -front + c), (-w + c, -front),
+    ]]
+
+
+def build_sink():
+    # Floor-centred vanity, cabinet doors and user approach on +Z in glTF.
+    m = Mesh()
+    m.box((-.35, -.188, 0), (.35, .258, .12), GRAPHITE)                       # recessed toe kick
+    m.solid([sink_ring(.397, .275, .236, h, .016) for h in (.082, .745)], TEAL)
+    for x in (-.188, .188):
+        m.box((x - .179, -.254, .118), (x + .179, -.231, .721), TEAL)         # inset cabinet door
+        pull_x = x - math.copysign(.083, x)
+        for offset in (-.037, .037):
+            m.box((pull_x + offset - .007, -.268, .641),
+                  (pull_x + offset + .007, -.252, .657), METAL)
+        m.box((pull_x - .048, -.28, .64), (pull_x + .048, -.265, .658), STEELBLUE)
+
+    # One closed ceramic shell. Its top rim connects to a recessed, sloped bowl.
+    basin = [
+        sink_ring(.403, .277, .268, .742, .022),
+        sink_ring(.424, .289, .289, .839, .022),
+        sink_ring(.424, .289, .289, .883, .022),
+        sink_ring(.415, .28, .28, .895, .022),
+        sink_ring(.318, .148, .222, .895, .059),
+        sink_ring(.301, .132, .205, .873, .055),
+        sink_ring(.248, .095, .14, .764, .046),
+        sink_ring(.208, .08, .118, .749, .042),
+    ]
+    first_bowl_face = len(m.c)
+    segments = len(basin[0])
+    m.solid(basin, PAPER)
+    m.c[first_bowl_face + 5 * segments:first_bowl_face + 7 * segments] = [PALE_SAGE] * (2 * segments)
+    m.c[-1] = PALE_SAGE
+
+    drain = fz(.014, .754)
+    m.tube(fz(.014, .748), fz(.014, .753), .039, 12, METAL)
+    m.tube(fz(.014, .753), drain, .025, 12, GRAPHITE)
+    m.tube(fz(-.124, .836), fz(-.113, .836), .014, 10, METAL)                 # overflow on the rear slope
+    m.tube(fz(-.114, .836), fz(-.112, .836), .008, 10, GRAPHITE)
+
+    # Swept eight-sided gooseneck with a downturned aerator.
+    m.tube(fz(-.216, .893), fz(-.216, .912), .046, 12, METAL)
+    path = [(-.216, .907), (-.216, 1.057), (-.198, 1.102), (-.158, 1.127),
+            (-.087, 1.127), (-.029, 1.107), (.006, 1.072), (.014, 1.039),
+            (.014, 1.024)]
+    spout_rings = []
+    for i, (forward, height) in enumerate(path):
+        before = path[max(i - 1, 0)]
+        after = path[min(i + 1, len(path) - 1)]
+        df, dh = after[0] - before[0], after[1] - before[1]
+        length = math.hypot(df, dh)
+        ring = []
+        for j in range(8):
+            angle = j * math.tau / 8
+            radial = .019 * math.sin(angle) / length
+            ring.append(fz(forward + dh * radial, height - df * radial, .019 * math.cos(angle)))
+        spout_rings.append(ring)
+    m.solid(spout_rings, STEELBLUE)
+    outlet = fz(.014, 1.011)
+    m.tube(fz(.014, 1.033), fz(.014, 1.012), .023, 10, METAL)
+    m.tube(fz(.014, 1.013), outlet, .014, 10, GRAPHITE)
+
+    m.tube(fz(-.217, .893, .13), fz(-.217, .937, .13), .029, 10, METAL)     # mixer base
+    m.box((.112, .145, .93), (.148, .231, .949), STEELBLUE)                    # lever towards the bowl
+    return m, {'HANDLE': fz(-.153, .949, .13), 'WATER_OUTLET': outlet,
+               'DRAIN': drain, 'STAND': fz(.64, 0)}
+
+
 PROPS = {
     'phone': ('hand', build_phone, 'スマートフォン'),
     'wine_glass': ('hand', build_wine_glass, 'ワイングラス'),
@@ -128,6 +202,7 @@ PROPS = {
     'boombox': ('furniture', build_boombox, 'ラジカセ'),
     'tv': ('furniture', build_tv, 'テレビ'),
     'vacuum': ('furniture', build_vacuum, '掃除機'),
+    'sink': ('furniture', build_sink, '洗面台'),
 }
 
 
