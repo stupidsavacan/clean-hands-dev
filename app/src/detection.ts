@@ -119,9 +119,9 @@ export class DetectionSystem{
  private nearestGuard(n:Npc){let best:Npc|null=null,d=Infinity;for(const g of this.director.npcs){if(!g.active||g.busy||!g.guard||g.state==='combat')continue;const k=flat(g.pos,n.pos)+Math.abs(g.pos.y-n.pos.y)*20;if(k<d){d=k;best=g;}}return best;}
  private deliver(n:Npc,g:Npc|null,time:number){const w=n.witness!;n.witness=null;n.witnessCooldown=this.data.witness.repeatSeconds;n.state=g?'patrol':'flee';n.suspicion=0;n.goal=null;n.arrived=!g;n.timer=this.data.witness.repeatSeconds;this.running.delete(n.id);
   // F08: someone acting oddly is looked into; a crime or a body raises the hotel alert, and a named outfit is now blown.
-  if(w.what!=='suspect')this.hotel.discover(w.key);if(w.disguise)this.director.compromised.add(w.disguise);this.director.raiseZone(w.at,w.what==='suspect'?1:2);
+  if(w.what!=='suspect'&&w.what!=='unconscious')this.hotel.discover(w.key);if(w.disguise)this.director.compromised.add(w.disguise);if(w.what!=='unconscious')this.director.raiseZone(w.at,w.what==='suspect'?1:2);
   this.events.emit({type:'witness.reported',time,id:n.id,reason:w.what});
-  if(g){g.radio(w.at,this.director.rules,{eventType:'report',estimatedOrigin:{...w.at},identifiedDisguise:w.disguise,confirmedActor:!!w.disguise,confidence:.6,observedAt:time,sourceNpcId:n.id});if(w.disguise)g.knownDisguises.add(w.disguise);g.evidenceGoal=w.what==='body'?{...w.at}:null;}}
+  if(g){g.radio(w.at,this.director.rules,{eventType:'report',estimatedOrigin:{...w.at},identifiedDisguise:w.disguise,confirmedActor:!!w.disguise,confidence:.6,observedAt:time,sourceNpcId:n.id});if(w.disguise)g.knownDisguises.add(w.disguise);if(w.what!=='unconscious')g.evidenceGoal=w.what==='body'?{...w.at}:null;}}
  snapshot(p?:PlayerView){return {held:this.held,back:[...this.back],pocket:[...this.pocket],caseGun:this.caseGun?.id??null,blend:this.blend?.id??null,recorded:this.recorded,recordReason:this.recordReason,destroyed:[...this.destroyed],action:this.action&&{...this.action},
   witnesses:this.director.npcs.filter(n=>n.active&&n.witness).map(n=>({id:n.id,what:n.witness!.what})),floor:this.floor.map(f=>({item:f.item,pos:f.pos})),watching:p?this.watching(p):[]};}
 }

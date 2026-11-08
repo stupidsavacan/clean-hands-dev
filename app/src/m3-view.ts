@@ -11,6 +11,8 @@ import { KATANA_GAP } from './katana-motion';
 import { poseKatana } from './katana-pose';
 import { applyMotion, plantFeetAt, reachHandsAt, aimFists, plantedFeet, bonePoint, reach, groundBody, pickupContact, PICKUP_SECONDS } from './motion-runtime';
 import { M3_MODELS } from './m3-data';
+import { RESCUE_SECONDS } from './body-rescue';
+import { poseRescue } from './rescue-pose';
 
 export class M3View{
  private owner?:M3System;private previousAction:{id:number;kind:'ko'|'kill'|'hide';npc:Npc;progress:number;offset?:T.Vector3}|null=null;private previousDrag:Npc|null=null;private transition:{kind:'pickup'|'drop'|'recover';npc:Npc;at:number;pose?:MotionPose;received?:MotionPose;offset?:T.Vector3}|null=null;metrics={handError:0};
@@ -60,6 +62,11 @@ export class M3View{
    }else if(system.dragged){const target=view(system.dragged),phase=now*.85%1,pose=sampleMotion('drag','giver',phase);model.position.set(0,0,0);model.rotation.set(0,0,pose.root.roll);for(const [name,xyz]of Object.entries(pose.bones))if(/^(spine|chest|neck|head|clavicle|upperarm|forearm|hand)/.test(name))rig.rotate(name,...xyz);
     if(target){applyMotion(target.rig,target.body,sampleMotion('drag','receiver',phase));groundBody(target.body,ground(target.npc.pos.x,target.npc.pos.z,target.npc.pos.y));target.group.updateMatrixWorld(true);avatar.updateMatrixWorld(true);for(const [side,sign]of [['l',1],['r',-1]]as const){const desired=avatar.localToWorld(new T.Vector3(sign*.15,.65,.35));const other=side==='l'?'r':'l';reach(target.rig,other,desired);const hand=bonePoint(target.rig,'hand'+other);if(hand)this.metrics.handError=Math.max(this.metrics.handError,reach(rig,side,hand));}}
    }else{model.position.set(0,0,0);model.rotation.set(0,0,0);}
+  }
+  for(const rescue of system.rescue.playing){
+   const guard=view(rescue.guard),body=view(rescue.body);
+   if(guard&&body&&(guard.group.visible||body.group.visible))poseRescue(
+    {rig:guard.rig,model:guard.body,group:guard.group},{rig:body.rig,model:body.body,group:body.group},rescue.elapsed/RESCUE_SECONDS,ground);
   }
   if(this.wire){this.wire.visible=!!a&&a.kind==='kill'&&!a.item&&!a.mode&&p>.16&&p<.94;if(this.wire.visible&&rig){avatar.updateMatrixWorld(true);const l=bonePoint(rig,'handl'),r=bonePoint(rig,'handr');if(l&&r){this.wire.position.copy(l).add(r).multiplyScalar(.5);this.wire.quaternion.setFromUnitVectors(new T.Vector3(1,0,0),r.clone().sub(l).normalize());this.wire.scale.set(Math.max(.1,l.distanceTo(r)/.32),1,1);}this.wire.getObjectByName('Wire_coiled')!.visible=false;this.wire.getObjectByName('Wire_taut')!.visible=true;}}
   const sourceRoot=a?sampleMotion(a.kind,'giver',p).root:null;

@@ -3,6 +3,7 @@ import type { Position } from './world.ts';
 import { segmentClear } from './sight.ts';
 import { meleeOf, MELEE_REACH, PUNCH_SECONDS, FINISH_SECONDS, BRAWL_WINDOW, BRAWL_KEYS, keyLabel } from './melee.ts';
 import { BRAWL_FINISH } from './brawl-motion.ts';
+import { BodyRescue } from './body-rescue.ts';
 
 export type HideDef={id:string;label:string;x:number;y:number;z:number;heading:number;capacity:number;approach:{x:number;z:number};size:{w:number;h:number;d:number}};
 export type M3Rules={distance:number;backAngle:number;koSeconds:number;killSeconds:number;hideSeconds:number;dragSpeed:number;hideRadius:number;discoverSeconds:number;cooldownSeconds:number};
@@ -47,7 +48,8 @@ export class M3System{
  readonly slots=new Map<string,string[]>();readonly discovered=new Map<string,Set<string>>();readonly deadFound=new Set<string>();readonly unconsciousFound=new Set<string>();
  stats={knockouts:0,kills:0,hidden:0,witnesses:0};notices:string[]=[];elapsed=0;private sequence=0;private held=new Set<string>();private witnessed=new Set<string>();private discoverClock=0;
  readonly director:Director;readonly hides:HideDef[];readonly rules:M3Rules;
- constructor(director:Director,hides:HideDef[],rules:M3Rules){this.director=director;this.hides=hides;this.rules=rules;for(const h of hides)this.slots.set(h.id,[]);}
+ readonly rescue:BodyRescue;
+ constructor(director:Director,hides:HideDef[],rules:M3Rules){this.director=director;this.hides=hides;this.rules=rules;this.rescue=new BodyRescue(director);for(const h of hides)this.slots.set(h.id,[]);}
  get locked(){return this.action!==null||!!this.hiddenIn;}
  /** The guard coming to arrest the agent, in view and near enough to surrender to (M06). */
  detainer(p:PlayerView){if(p.weaponDrawn)return undefined;return this.director.npcs.filter(n=>n.active&&!n.busy&&n.guard&&n.state==='alert'&&n.arrest&&n.visibility>0&&flat(n.pos,p)<=SURRENDER_RANGE&&Math.abs(n.pos.y-p.y)<1).sort((a,b)=>flat(a.pos,p)-flat(b.pos,p))[0];}
@@ -113,7 +115,8 @@ export class M3System{
   if(this.action&&this.action.kind!=='hide')this.witness(p,`action-${this.action.id}`);
   if(this.dragged)this.witness(p,'drag-'+this.dragged.id);
   for(const n of this.director.npcs)if(n.life!=='active')n.fall=Math.min(1,n.fall+dt/n.fallSeconds);
-  this.discoverClock+=dt;if(this.discoverClock>=this.rules.discoverSeconds){this.discoverClock=0;this.discover();}
+  this.rescue.step(dt,body=>this.discovered.delete(body.id+':unconscious'));
+  this.discoverClock+=dt;if(this.discoverClock>=this.rules.discoverSeconds){this.discoverClock=0;this.discover();this.rescue.assign();}
   this.hotel.step(dt,!this.action&&!this.dragged&&!this.director.npcs.some(n=>n.active&&['alert','report','investigate','search'].includes(n.state)),this.rules.cooldownSeconds);
   this.held=new Set(keys);this.facing=heading;return usesE;}
  private facing=0;
@@ -158,14 +161,14 @@ export class M3System{
   if(d>v.range||angle>v.half||Math.abs(n.pos.y-body.pos.y)>2)return false;
   return [-.45,0,.45].some(t=>segmentClear(this.director.boxes,{...n.pos,y:n.pos.y+this.director.rules.vision.eye},{x:body.pos.x+Math.sin(body.heading)*t,y:body.pos.y+.22,z:body.pos.z+Math.cos(body.heading)*t}));}
  discover(){for(const body of this.director.npcs){if(body.life==='active'||body.bodyMode!=='ground'||body.fall<1)continue;
-   for(const n of this.director.npcs){if(!n.active||n.busy||n===body||!n.guard&&n.witnessCooldown>0||!this.sees(n,body))continue;const key=body.id+':'+body.life;let known=this.discovered.get(key);if(!known){known=new Set();this.discovered.set(key,known);}if(known.has(n.id))continue;known.add(n.id);
+   for(const n of this.director.npcs){if(!n.active||n.busy||n===body||!n.guard&&n.witnessCooldown>0||!this.sees(n,body))continue;if(n.guard)this.rescue.request(body);const key=body.id+':'+body.life;let known=this.discovered.get(key);if(!known){known=new Set();this.discovered.set(key,known);}if(known.has(n.id))continue;known.add(n.id);
     const first=body.life==='dead'?!this.deadFound.has(body.id):!this.unconsciousFound.has(body.id);// A guard radios a murder in at once; a bystander has to get to a guard first (M5.6 witness), which can be stopped.
     if(body.life==='dead'){this.deadFound.add(body.id);if(body.deathKind==='murder'&&n.guard)this.hotel.discover(body.id);}else this.unconsciousFound.add(body.id);if(first)this.onFound?.(body,n);
     if(body.life==='dead'&&body.deathKind==='combat')continue;
     if(body.life==='dead'&&body.deathKind==='accident'){if(first){this.notices.push('事故だ！ 警備が現場を立入禁止にする。');this.onAccidentFound?.(body,n);}continue;}
     if(first)this.notices.push(body.life==='dead'?'死体が発見された。ホテル警戒度が上がった。':'気絶した人が発見された。');
     // Evidence alone identifies a location, never the perpetrator.
-    if(n.state!=='alert'&&n.state!=='search'){if(n.guard)n.radio(body.pos,this.director.rules);else{n.state='report';n.timer=this.director.rules.timers.report;this.director.reports++;if(body.life==='dead'&&body.deathKind==='murder')n.witness={what:'body',at:{...body.pos},key:body.id};}
+    if(n.state!=='alert'&&n.state!=='search'){if(n.guard){if(!this.rescue.assigned(n))n.radio(body.pos,this.director.rules);}else{n.state='report';n.timer=this.director.rules.timers.report;this.director.reports++;if(body.life==='unconscious'&&!n.witness||body.life==='dead'&&body.deathKind==='murder')n.witness={what:body.life==='unconscious'?'unconscious':'body',at:{...body.pos},key:body.id};}
      this.onReaction?.(n,n.guard?'investigate':n.witness?'report':'alert',body.life==='dead'?'body':'unconscious_body',body.pos);}
     // radio() leaves a guard alone who is fighting or already on the way to this body (2026-11-04, AI report P0-A/P1-A).
     // HD09 (2026-11-07, the user's choice): backup comes from any floor of the building — the two nearest free guards
@@ -174,7 +177,7 @@ export class M3System{
    }}}
  /** The guards who answer a body radio call: the nearest free ones, any floor (HD09). */
  backup(caller:Npc,at:Position,count=BODY_BACKUP){const floorGap=(g:Npc)=>Math.abs(Math.round((g.pos.y-at.y)/3));
-  return this.director.npcs.filter(g=>g.active&&!g.busy&&g.guard&&g!==caller&&g.state!=='alert'&&g.state!=='search'&&g.state!=='combat')
+  return this.director.npcs.filter(g=>g.active&&!g.busy&&g.guard&&g!==caller&&!this.rescue.assigned(g)&&g.state!=='alert'&&g.state!=='search'&&g.state!=='combat')
    .map(g=>({g,d:flat(g.pos,at)+floorGap(g)*BACKUP_FLOOR_M})).sort((a,b)=>a.d-b.d).slice(0,count).map(x=>x.g);}
  bodyFits(p:Position,heading:number){for(const t of [-.6,-.3,0,.3,.6]){const x=p.x+Math.sin(heading)*t,z=p.z+Math.cos(heading)*t,y=this.director.world.surface(x,z,p.y);if(y===null||Math.abs(y-p.y)>.3||this.director.world.blocked(x,y,z,.5))return false;}return true;}
  constrainMove(from:Position,to:Position,heading:number):Position{if(!this.dragged)return to;const n=this.dragged,w=this.director.world;

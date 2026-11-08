@@ -36,6 +36,8 @@ import {MELEE} from '../melee';
 import {brawlAt,brawlMotion,BRAWL_GAP} from '../brawl-motion';
 import {plantFeetAt,reachHandsAt,aimFists} from '../motion-runtime';
 import {poseKatana} from '../katana-pose';
+import {poseRescue} from '../rescue-pose';
+import {RESCUE_SECONDS} from '../body-rescue';
 import {KATANA_GAP} from '../katana-motion';
 import {itemMesh,inHand} from '../detection-view';
 import {loadItemModels} from '../item-models';
@@ -49,7 +51,7 @@ type Clip={id:string;group:string;label:string;seconds:number;loop:boolean;
  strike?:'blunt'|'blade';
  // 2026-11-08 (M06): hands up for a fake surrender (hold-pose.ts surrenderPose), as the game plays it.
  surrender?:boolean;
- pair?:'brawl'|'punch'|'katana-front'|'katana-back'};
+ pair?:'brawl'|'punch'|'katana-front'|'katana-back'|'rescue'};
 const LOCO:[string,string,number,number][]=[['idle','立ち',0,0],['walk','歩き',WALK_SPEED,0],['run','走り',RUN_SPEED,0],['crouch','しゃがみ歩き',CROUCH_SPEED,1],['crouch-idle','しゃがみ',0,1]];
 const GESTURES:[string,string][]=[['phone','電話'],['radio','無線'],['drink','飲む'],['tasting','試飲'],['speech','スピーチ'],['chat','談笑'],['camera','撮影'],['photo','記念撮影'],['tour','見学'],['inspect','点検'],['cook','料理'],['clean','掃除'],['massage_work','施術'],['work','仕事'],['serve','給仕'],['club_press','ボタンを押す'],['dance','ダンス'],['massage','マッサージを受ける']];
 const M3:[MotionKind,string,number][]=[['ko','気絶させる',2],['kill','ワイヤー',2.5],['fall','倒れる',.9],['pickup','持ち上げる',PICKUP_SECONDS],['drag','引きずる',1.2],['drop','置く',.65],['hide','収納',2]];
@@ -67,6 +69,7 @@ const CLIPS:Clip[]=[
  {id:'pair-katana-back',group:'格闘（2人）',label:'刀・背後（口を押さえて突く）',seconds:1.0,loop:true,pair:'katana-back'},
  {id:'pair-brawl',group:'格闘（2人）',label:'警備との格闘（右・左・右）',seconds:2.8,loop:true,pair:'brawl'},
  {id:'pair-punch',group:'格闘（2人）',label:'素手で殴る（一般人）',seconds:1.4,loop:true,pair:'punch'},
+ {id:'pair-rescue',group:'格闘（2人）',label:'気絶者の救助',seconds:RESCUE_SECONDS,loop:false,pair:'rescue'},
  ...GESTURES.map(([id,label])=>({id:'gesture-'+id,group:'予定の仕草',label,seconds:8,loop:true,gesture:id})),
  ...M3.map(([id,label,seconds])=>({id:'m3-'+id,group:'背後アクション',label,seconds,loop:id==='drag',m3:id})),
  ...COMBAT.map(([id,label])=>({id:'combat-'+id,group:'戦闘',label,seconds:COMBAT_SECONDS[id],loop:COMBAT_LOOPS.includes(id),combat:id})),
@@ -244,6 +247,15 @@ function poseActor(a:Actor,clip:Clip,t:number){
  neutral(rig);model.position.set(0,0,0);model.rotation.set(0,0,0);
  // Pair clips stand the first two actors face to face; the rest keep their places in the row.
  {const i=actors.indexOf(a);if(clip.pair&&i<2){if(!(i===1&&clip.pair.startsWith('katana'))){group.position.set(0,0,i?BRAWL_GAP:0);group.rotation.y=i?Math.PI:0;}}else{group.position.set((i-(actors.length-1)/2)*SPACING,0,0);group.rotation.y=0;}}
+ if(clip.pair==='rescue'){
+  const [guard,body]=actors;
+  if(!body||a!==body)return;
+  hold(guard,undefined);hold(body,undefined);
+  guard.group.position.set(-.78,0,0);guard.group.rotation.y=Math.PI/2;
+  body.group.position.set(0,0,0);body.group.rotation.y=0;
+  poseRescue(guard,body,t/clip.seconds,()=>0);
+  return;
+ }
  // The sword pair: the first actor holds it, the second is struck (posed together, from the first one's turn).
  if(clip.pair==='katana-front'||clip.pair==='katana-back'){const i=actors.indexOf(a),other=actors[1],behind=clip.pair==='katana-back',gap=behind?KATANA_GAP.behind:KATANA_GAP.front,p=t/clip.seconds;
   // Each actor's turn resets its own skeleton, so both are posed again on every turn (the second turn is the one shown).

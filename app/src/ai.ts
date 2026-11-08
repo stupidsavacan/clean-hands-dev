@@ -84,7 +84,7 @@ export class Npc{
  witnessCooldown=0;
  // suspect: they only saw someone behaving oddly (a guard comes to look; the outfit is not blown); disguise: the outfit
  // they can name, told to the guard on arrival (F08: a report travels only as fast as the witness).
- witness:{what:'act'|'body'|'suspect';at:Position;key:string;disguise?:string}|null=null;
+ witness:{what:'act'|'body'|'suspect'|'unconscious';at:Position;key:string;disguise?:string}|null=null;
  // F04: why this guard is after the agent, whether they are detaining (not just warning), and the warning clocks.
  cause:Cause='';arrest=false;warnT=0;complyT=0;now=0;
  /** Seconds this guard has been detaining (M06 hands-up order). */ detainT=0;

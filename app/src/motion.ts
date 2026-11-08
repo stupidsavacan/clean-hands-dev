@@ -34,6 +34,19 @@ function track(keys:Key[],t:number):MotionPose{
 function collapse():MotionPose{return pose({y:-.26,z:.025,pitch:.10,roll:.04},{pelvis:[-.10,0,.025],spine:[.23,0,0],chest:[.16,0,-.05],neck:[.14,0,0],head:[.12,.06,0],thighl:[-.52,0,-.07],thighr:[-.39,0,.10],shinl:[1.02,0,0],shinr:[.87,0,0],footl:[-.45,0,0],footr:[-.39,0,0],upperarml:[-.65,0,-.85],upperarmr:[-.52,0,.95],forearml:[0,-.90,0],forearmr:[0,.75,0]});}
 /** Stable ground pose, also fall(receiver,1), drop(receiver,1). No breathing loop for bodies. */
 export function restingMotion():MotionPose{return pose({y:.20,z:-.80,pitch:Math.PI/2,roll:.035},{pelvis:[-.025,.035,0],spine:[.035,0,0],chest:[-.055,.025,0],neck:[-.06,-.12,0],head:[.025,-.20,.05],thighl:[-.035,0,-.09],thighr:[-.08,0,.06],shinl:[.06,0,0],shinr:[.08,0,0],footl:[-.04,0,-.07],footr:[-.03,0,.09],upperarml:[-.015,0,-1.35],upperarmr:[.015,0,1.35],forearml:[0,-.04,0],forearmr:[0,.06,0],handl:[0,0,-.03],handr:[0,0,.04]});}
+
+export function sampleRescueMotion(role:MotionRole,t:number):MotionPose{
+ if(role==='giver'){
+  const crouch=pose({y:-.33,pitch:.25},{spine:[.28,0,0],neck:[.20,0,0],upperarmr:[-.74,0,1.02],forearmr:[0,.50,0],
+   thighl:[-.82,0,0],shinl:[1.24,0,0],footl:[-.42,0,0],thighr:[-.75,0,0],shinr:[1.16,0,0],footr:[-.41,0,0]});
+  return track([{t:0,pose:pose()},{t:.28,pose:crouch},{t:.55,pose:crouch},{t:.90,pose:pose()}],t);
+ }
+ const sit=pose({y:-.48,z:-.39,pitch:.22},{spine:[.12,0,0],head:[.15,0,0],upperarml:[.35,0,-1.25],forearml:[0,-.45,0],
+  thighl:[-1.28,0,0],shinl:[.65,0,0],thighr:[-1.33,0,0],shinr:[.72,0,0]});
+ const crouch=pose({y:-.30,z:-.13,pitch:.16},{spine:[.22,0,0],upperarmr:[-.40,0,1.2],
+  thighl:[-.85,0,0],shinl:[1.2,0,0],footl:[-.35,0,0],thighr:[-.79,0,0],shinr:[1.15,0,0],footr:[-.36,0,0]});
+ return track([{t:0,pose:restingMotion()},{t:.30,pose:restingMotion()},{t:.56,pose:sit},{t:.76,pose:crouch},{t:1,pose:pose()}],t);
+}
 function fall(t:number):MotionPose{return track([{t:0,pose:collapse()},{t:.32,pose:pose({y:-.43,z:-.08,pitch:.34,roll:.085},{pelvis:[-.15,0,.04],spine:[.36,0,0],chest:[.28,0,-.08],neck:[.18,0,0],head:[.12,.08,0],thighl:[-.77,0,-.10],thighr:[-.59,0,.14],shinl:[1.55,0,0],shinr:[1.30,0,0],footl:[-.70,0,0],footr:[-.60,0,0],upperarml:[-.95,0,-.75],upperarmr:[-.82,0,.85],forearml:[0,-.65,0],forearmr:[0,.55,0]})},{t:.70,pose:pose({y:.13,z:-.65,pitch:1.33,roll:.06},{pelvis:[-.10,0,0],spine:[.20,0,0],chest:[-.10,0,0],neck:[-.13,-.08,0],head:[-.06,-.12,0],thighl:[-.24,0,-.10],thighr:[-.34,0,.09],shinl:[.65,0,0],shinr:[.85,0,0],footl:[-.25,0,0],footr:[-.30,0,0],upperarml:[-.45,0,-1.10],upperarmr:[-.60,0,1.0],forearml:[0,-.50,0],forearmr:[0,.65,0]})},{t:1,pose:restingMotion()}],t);}
 function hold(wire:boolean):MotionPose{return pose({y:-.06,z:.06,pitch:.03},{pelvis:[0,.05,-.02],spine:[.20,0,0],chest:[.10,-.07,0],neck:[-.16,0,0],head:[-.10,0,0],thighl:[-.32,0,-.08],thighr:[-.23,0,.08],shinl:[.58,0,0],shinr:[.47,0,0],footl:[-.25,0,0],footr:[-.22,0,0],upperarml:[-1.28,0,wire?-.38:-.22],upperarmr:[-1.20,0,wire?.38:.58],forearml:[0,wire?-1.0:-1.35,0],forearmr:[0,wire?1.0:1.55,0],handl:[-.12,0,0],handr:[-.12,0,0]});}
 function attack(kind:'ko'|'kill',role:MotionRole,t:number):MotionPose{

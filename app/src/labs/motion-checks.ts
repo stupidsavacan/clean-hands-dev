@@ -5,7 +5,7 @@ import {poseCombat,prepareWeapon} from '../combat-runtime.ts';
 import {COMBAT_MODELS} from '../combat-data.ts';
 import {PLAYER_BASE64} from '../player-data.ts';
 import {Rig} from '../rig.ts';
-import {sampleMotion,type MotionKind} from '../motion.ts';
+import {sampleMotion,sampleRescueMotion,type MotionKind} from '../motion.ts';
 import {sampleM4Motion} from '../m4-motion.ts';
 import traversalPoses from '../data/party-motions.json' with {type:'json'};
 import {brawlMotion} from '../brawl-motion.ts';
@@ -53,6 +53,7 @@ function* pairedActions(){
   for(const role of ['giver','receiver'] as const){
    for(const kind of paired)yield motionSample(sampleMotion(kind,role,t),`${kind}/${role} ${progress}`);
    for(const kind of ['change','frisk'] as const)yield motionSample(sampleM4Motion(kind,role,t),`${kind}/${role} ${progress}`);
+   yield motionSample(sampleRescueMotion(role,t),`rescue/${role} ${progress}`);
    for(const blows of [0,1,2,3])yield motionSample(brawlMotion(role,blows,t).pose,`brawl ${blows}/${role} ${t}秒`);
    yield motionSample(brawlMotion(role,3,t,true).pose,`single punch/${role} ${t}秒`);
   }
