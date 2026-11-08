@@ -24,9 +24,10 @@ import {gesturePose,applyGesture,GestureProps} from '../gestures';
 import {itemModel} from '../item-models';
 import {sampleMotion,type MotionKind,type MotionRole} from '../motion';
 import {applyMotion,neutral,plantedFeet,groundBody,PICKUP_SECONDS} from '../motion-runtime';
-import {sampleCombat,weaponVisible,COMBAT_SECONDS,COMBAT_LOOPS,AGENT_PISTOL_VARIANTS,type CombatKind,type WeaponClass} from '../combat-motion';
+import {sampleCombat,weaponVisible,COMBAT_SECONDS,COMBAT_LOOPS,AGENT_PISTOL_VARIANTS,type PistolVariant,type CombatKind,type WeaponClass} from '../combat-motion';
 import {DEFAULT_PISTOL_TUNING,PISTOL_ADJUSTMENTS,loadPistolTuning,savePistolTuning} from '../pistol-tuning.ts';
 import {poseCombat,prepareWeapon,type Weapon} from '../combat-runtime';
+import {createPoseEditor} from './pose-editor';
 import {holdPose,holdKind,strikePose,surrenderPose,SURRENDER_ARM} from '../hold-pose';
 // The hands-up arm angles, adjustable live from the console while tuning (window.__surrenderArm).
 Object.assign(window,{__surrenderArm:SURRENDER_ARM});
@@ -137,7 +138,9 @@ type Actor={def:ModelDef;group:T.Group;model:T.Object3D;rig:Rig;loco:Locomotion;
 const loader=new GLTFLoader(),bytes=(b64:string)=>Uint8Array.from(atob(b64),c=>c.charCodeAt(0)).buffer;
 const actors:Actor[]=[];const loading=new Set<string>();
 let pistolTuning=loadPistolTuning();
-let pistolVariant=new URLSearchParams(location.search).get('pistol')??'F';
+let pistolVariant:string|PistolVariant=new URLSearchParams(location.search).get('pistol')??'F';
+// The pose editor's stance while it is open (it overrides the variant buttons and the saved tuning).
+let editorStance:PistolVariant|null=null,agentGripMiss=0;
 const pistolCompare=$<HTMLInputElement>('#pistol-compare');
 const NEED=['pelvis','spine','chest','neck','head','thighl','shinl','footl','thighr','shinr','footr','upperarml','forearml','handl','upperarmr','forearmr','handr'];
 async function addActor(def:ModelDef){
@@ -226,10 +229,10 @@ function poseActor(a:Actor,clip:Clip,t:number){
   if(role==='giver'&&clip.m3!=='fall')plantedFeet(rig,group,()=>0);
   if(role==='receiver'){if(['drag','drop','pickup'].includes(clip.m3))groundBody(model,0);if(clip.m3==='fall')groundBody(model,0,T.MathUtils.smoothstep(progress,.65,1));}
   return;}
- if(clip.combat){const frame=sampleCombat(clip.combat,cls,progress,a.def.id==='agent',pistolCompare.checked?undefined:pistolTuning,pistolVariant),wp=a.weapons[gun.id]??null;
+ if(clip.combat){const frame=sampleCombat(clip.combat,cls,progress,a.def.id==='agent',pistolCompare.checked||poseEditor?.active?undefined:pistolTuning,poseEditor?.active?editorStance??'F':pistolVariant),wp=a.weapons[gun.id]??null;
   if(frame.upperOnly){const speed=clip.combat==='flee'?RUN_SPEED:0;rig.apply(gait(speed,0));}else a.sim=-1;
   if(wp)wp.object.visible=weaponVisible(clip.combat,cls,progress,false);
-  poseCombat(rig,group,model,frame,wp,0);
+  const miss=poseCombat(rig,group,model,frame,wp,0);if(a.def.id==='agent')agentGripMiss=miss;
   if(clip.combat==='hit')plantedFeet(rig,group,()=>0);}
 }
 
@@ -301,7 +304,7 @@ $('#fwd').onclick=()=>{setPlaying(false);time=Math.min(clip.seconds,time+FRAME);
 $<HTMLInputElement>('#timeline').oninput=()=>{setPlaying(false);time=Number($<HTMLInputElement>('#timeline').value)/1000*clip.seconds;};
 $<HTMLInputElement>('#skeleton').onchange=()=>{for(const a of actors)a.skeleton.visible=$<HTMLInputElement>('#skeleton').checked;};
 $<HTMLInputElement>('#ghost').onchange=applyGhost;
-addEventListener('keydown',e=>{if(e.target instanceof HTMLElement&&e.target.closest('#pistol-tune')||e.target instanceof HTMLSelectElement||e.target instanceof HTMLInputElement&&e.target.type!=='range')return;
+addEventListener('keydown',e=>{if(e.target instanceof HTMLElement&&e.target.closest('#pistol-tune,#pose-edit')||e.target instanceof HTMLSelectElement||e.target instanceof HTMLInputElement&&e.target.type!=='range')return;
  if(e.code==='Space'){e.preventDefault();setPlaying(!playing);}if(e.code==='Comma')$('#back').click();if(e.code==='Period')$('#fwd').click();});
 
 let last=performance.now();
@@ -313,11 +316,22 @@ function frame(now:number){const dt=Math.min(.1,(now-last)/1000);last=now;
  $<HTMLInputElement>('#timeline').value=String(Math.round(time/clip.seconds*1000));
  $('#time').textContent=`${time.toFixed(2)} / ${clip.seconds.toFixed(2)} 秒 · ${Math.round(time*30)}コマ`;
  const w=canvas.clientWidth,h=canvas.clientHeight;if(canvas.width!==Math.floor(w*renderer.getPixelRatio())||canvas.height!==Math.floor(h*renderer.getPixelRatio())){renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
- controls.update();renderer.render(scene,camera);requestAnimationFrame(frame);}
+ poseEditor.tick(now);controls.update();renderer.render(scene,camera);requestAnimationFrame(frame);}
+const poseEditor=createPoseEditor({camera,controls,canvas,scene,
+ agentGroup:()=>actors.find(a=>a.def.id==='agent')?.group,
+ setStance:v=>{editorStance=v;},
+ play:(id,play)=>{clipSel.value=id;clipSel.dispatchEvent(new Event('change'));setPlaying(play);},
+ render:()=>{actors.forEach(a=>poseActor(a,clip,time));renderer.render(scene,camera);},
+ measure:()=>{const a=actors.find(x=>x.def.id==='agent');if(!a||!clip.combat)return null;
+  const p=(n:string)=>a.rig.joints.get(n)!.bone.getWorldPosition(new T.Vector3()),e=p('forearmr');
+  return {grip:agentGripMiss,elbow:T.MathUtils.radToDeg(p('upperarmr').sub(e).angleTo(p('handr').sub(e)))};},
+ prepare:()=>{if(pistolPanel.open)pistolPanel.open=false;previewPistol();viewActor(60,3.2,1.35,1.15,.2);},
+},$('#panel header'));
 requestAnimationFrame(frame);
 // Start with the agent and a guard walking side by side (item GLBs first, so tools in hand are the real models).
 await loadItemModels();
 if(location.hash==='#pistol-tune')pistolPanel.open=true;
+else if(location.hash==='#pose-edit')poseEditor.open();
 else{void addActor(MODELS[0]);const guard=MODELS.find(m=>m.id==='npc:guard');if(guard)void addActor(guard);}
 Object.assign(window,{__animLab:{
  // Look at the first character from an angle (degrees round them, 0 = in front), at a distance and height.
@@ -338,6 +352,6 @@ Object.assign(window,{__animLab:{
  // Set the drawing size directly (the frame loop does this, but it does not run while the page is hidden).
  size:(w:number,h:number)=>{renderer.setPixelRatio(1);renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();},
  // Agent 07's one-handed pistol A/B candidates (HD15): pistol('B') switches; pistolVariants lists them.
- pistol:(id:string)=>setPistolVariant(id),pistolVariants:Object.keys(AGENT_PISTOL_VARIANTS),
+ pistol:(id:string)=>setPistolVariant(id),editor:()=>poseEditor,pistolVariants:Object.keys(AGENT_PISTOL_VARIANTS),
 clips:CLIPS.map(c=>c.id),models:MODELS.map(m=>m.id),actors:()=>actors.map(a=>({id:a.def.id,ok:a.ok})),
  set:(clipId:string,t:number)=>{clipSel.value=clipId;clipSel.dispatchEvent(new Event('change'));setPlaying(false);time=t;}}});

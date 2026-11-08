@@ -82,6 +82,8 @@ const AIM_STANCE:Record<WeaponClass|'agentPistol',AimStance>={
 /** Candidates for Agent 07's one-handed pistol (HD15, 2026-11-08), compared in the animation lab. F is the game's
  * stance; A is the earlier one (the two-handed gun position, the right shoulder pulled back). */
 export type PistolVariant={label:string;note:string;bones?:Bones;hold?:Hold};
+/** The game's stance as data (the pose editor in the animation lab starts from it). */
+export const AGENT_PISTOL_STANCE={bones:AGENT_PISTOL_AIM,hold:AGENT_PISTOL_HOLD} as const;
 export const AGENT_PISTOL_VARIANTS:Record<string,PistolVariant>={
  F:{label:'F 写真2の撃ち方（ゲーム中）',note:'体を大きく開いて右肩を相手に向け、腕を肩の高さで一直線に伸ばす'},
  E:{label:'E 写真1の撃ち方',note:'右肩を相手に向けて半身・腕を一直線に伸ばし目の高さで狙う',
@@ -100,12 +102,12 @@ export const AGENT_PISTOL_VARIANTS:Record<string,PistolVariant>={
   bones:{chest:[.03,-.35,0],neck:[.05,.18,0],head:[.12,.16,0],clavicler:[0,-.08,0],upperarmr:[-1.20,0,.45],forearmr:[0,.45,0],upperarml:[-.12,0,-1.38],forearml:[0,-1.30,0]},
   hold:{anchor:'GRIP_R',pos:[-.12,1.30,.40],rot:[-.02,.06,0]}},
 };
-function variantStance(id?:string):AimStance{
- const base=AIM_STANCE.agentPistol,v=id?AGENT_PISTOL_VARIANTS[id]:undefined;
+function variantStance(id?:string|PistolVariant):AimStance{
+ const base=AIM_STANCE.agentPistol,v=typeof id==='string'?AGENT_PISTOL_VARIANTS[id]:id;
  if(!v?.hold)return base;
  return {...base,bones:{...v.bones},hold:v.hold,recoil:shiftHold(v.hold,.02,-.03,-.38)};
 }
-function tunedPistolStance(tuning?:PistolTuning,variant?:string):AimStance{
+function tunedPistolStance(tuning?:PistolTuning,variant?:string|PistolVariant):AimStance{
  const stance=variantStance(variant);
  if(!tuning||!Object.values(tuning).some(value=>value!==0))return stance;
  const {torso,shoulder,elbow,freeArm}=tuning,radians=Math.PI/180;
@@ -205,7 +207,7 @@ function duck(t:number):CombatFrame{
  return sample([{t:0,bones:{}},{t:1,root:{y:-.47,z:.02,pitch:0},bones:down}],u,false);
 }
 
-export function sampleCombat(kind:CombatKind,cls:WeaponClass,progress:number,agent=false,tuning?:PistolTuning,variant?:string):CombatFrame{
+export function sampleCombat(kind:CombatKind,cls:WeaponClass,progress:number,agent=false,tuning?:PistolTuning,variant?:string|PistolVariant):CombatFrame{
  const loop=COMBAT_LOOPS.includes(kind),t=loop?((progress%1)+1)%1:clamp(progress);
  const stance=agent&&cls==='pistol'?tunedPistolStance(tuning,variant):AIM_STANCE[cls];
  switch(kind){
