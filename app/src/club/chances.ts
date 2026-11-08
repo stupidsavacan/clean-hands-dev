@@ -35,7 +35,7 @@ export class ClubChances {
  private blackoutUntil=-Infinity;
  private targetDown=false;
  // HITMAN's VIP protection (config.vip). lockdown: the target taken to a safe room with up to four guards round them.
- private lockdown:{room:typeof config.vip.lockdown.rooms[number];escorts:Npc[];holdUntil:number|null}|null=null;
+ private lockdown:{room:typeof config.vip.lockdown.rooms[number];escorts:Map<Npc,Position>;holdUntil:number|null}|null=null;
  private lockdowns=0;
  // Escort check: where and when the target stopped (dead or out cold), and how far the check has gone (0 none, 1 one
  // guard sent, 2 the wider search).
@@ -48,7 +48,7 @@ export class ClubChances {
  private readonly searchFaces=new Map<Npc,string[]>();
  private gathered:{npc:Npc;until:number}[]=[];
  onTargetDown?:(at:Position,time:number)=>void;
- action:{id:string;elapsed:number;duration:number;start:Position}|null=null;
+ action:{id:string;elapsed:number;duration:number;start:Position;tool?:string}|null=null;
  poison=1;notices:string[]=[];reactionText='';reactionUntil=0;
 
  constructor(d:Director,m3:M3System,m4:M4System,c:MissionClock,e:MissionEvents,data:ChancesData,schedule:ScheduleSystem){
@@ -114,7 +114,9 @@ export class ClubChances {
  prompt(p:PlayerView){
   if(this.action)return {text:'E 長押し 操作中…',progress:this.progress};
   const spot=this.spot(p);
-  return spot?{text:this.blocked(spot,p)||`E 長押し ${spot.label}`,progress:0}:null;
+  if(!spot)return null;
+  const tool=spot.tool&&this.m3.heldItem?.()===spot.tool.item?spot.tool:undefined;
+  return {text:this.blocked(spot,p)||`E 長押し ${tool?.label??spot.label}`,progress:0};
  }
  step(dt:number,p:PlayerView,keys:Set<string>,suppressed=false){
   this.notices=[];
@@ -126,15 +128,16 @@ export class ClubChances {
   }
   if(this.action){
    const a=this.action,spot=this.spot(p);
-   if(suppressed||!held||spot?.id!==a.id||!this.near(p,a.start)||this.blocked(spot,p)){this.action=null;this.released=false;return true;}
+   if(suppressed||!held||spot?.id!==a.id||!this.near(p,a.start)||this.blocked(spot,p)||a.tool&&this.m3.heldItem?.()!==a.tool){this.action=null;this.released=false;return true;}
    a.elapsed+=dt;
-   if(a.elapsed>=a.duration){this.complete(spot);this.action=null;this.released=false;}
+   if(a.elapsed>=a.duration){if(a.tool)this.events.emit({type:'item.used',time:this.clock.elapsed,id:a.tool});this.complete(spot);this.action=null;this.released=false;}
    return true;
   }
   if(suppressed||!held||!this.released)return false;
   const spot=this.spot(p);
   if(!spot||this.blocked(spot,p))return false;
-  this.action={id:spot.id,elapsed:0,duration:spot.seconds,start:{x:p.x,y:p.y,z:p.z}};
+  const tool=spot.tool&&this.m3.heldItem?.()===spot.tool.item?spot.tool:undefined;
+  this.action={id:spot.id,elapsed:0,duration:tool?.seconds??spot.seconds,start:{x:p.x,y:p.y,z:p.z},tool:tool?.item};
   return true;
  }
  private complete(spot:Act){
@@ -205,12 +208,14 @@ export class ClubChances {
   const escorts=d.npcs.filter(m=>m.active&&!m.busy&&m.guard&&m.state!=='combat'&&dist(m)<v.lockdown.guardRadius)
    .sort((a,b)=>(a===this.escort?-1:b===this.escort?1:0)||dist(a)-dist(b))
    .slice(0,v.lockdown.guards);
+  const posts=new Map<Npc,Position>();
   escorts.forEach((m,i)=>{
    const post=this.free(room.posts[i%room.posts.length]);if(!post)return;
    m.state='patrol';m.goal=null;m.arrived=false;m.suspicion=Math.min(m.suspicion,d.rules.thresholds.curious-1);
    this.goal(m,post,'idle',Math.atan2(post.x-room.at.x,post.z-room.at.z));
+   posts.set(m,post);
   });
-  this.lockdown={room,escorts,holdUntil:null};this.lockdowns++;
+  this.lockdown={room,escorts:posts,holdUntil:null};this.lockdowns++;
   this.flag('vip_lockdown',reason);
   this.say(`投資家が${room.label}へ避難する。警備が囲んでいる。`);
  }
@@ -225,7 +230,7 @@ export class ClubChances {
  }
  private endLockdown(){
   if(!this.lockdown)return;
-  for(const m of this.lockdown.escorts)if(m.active)this.goal(m,null);
+  for(const [m,post] of this.lockdown.escorts)if(m.scriptedGoal===post)this.goal(m,null);
   const n=this.investor;if(n.active&&n.state==='flee'){n.state='patrol';n.goal=null;n.arrived=false;}
   this.lockdown=null;
   this.flag('vip_lockdown_end');

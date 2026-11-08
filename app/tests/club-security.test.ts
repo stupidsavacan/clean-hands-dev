@@ -110,13 +110,18 @@ test('a club guard walks to a visible dropped gun and removes it without opening
  combat.drop(outside);
  const beyond={...outside,z:6.55};
  const home={...guard.pos};
- const collected:string[]=[];
+ const collected:string[]=[];let bent=false,lifted=false;
  weapons.onReaction=(n,_drop,action)=>{if(action==='collect')collected.push(n.id);};
  for(let i=0;i<240;i++){
   director.step(1/60,outside);
   weapons.step(i/60);
+  bent||=!!guard.coinPickup;
+  if(combat.dropped[0]?.beingLiftedBy===guard){
+   lifted=true;assert.equal(combat.nearestDrop(outside),undefined,'the gun is already in the guard’s hand');
+  }
   assert.equal(m4.constrain(outside,beyond),outside);
  }
+ assert.ok(bent&&lifted,'the guard reaches and lifts before the floor item disappears');
  assert.deepEqual(collected,[guard.id]);
  assert.equal(combat.dropped.length,0);
  assert.ok(Math.hypot(guard.pos.x-home.x,guard.pos.z-home.z)<.35);

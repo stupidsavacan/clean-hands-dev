@@ -21,7 +21,7 @@ export type CombatRules={player:{health:number;regen:{delay:number;perSecond:num
  localResponse?:LocalResponse;
  reinforcements:{atAlert:number;spawn:string[];size:number;waves:number;interval:number;firstDelay?:number;model?:string;sweepSeconds?:number};placed?:{gun:string;x:number;y:number;z:number;where:string}[];compromised:{clearDistance:number};reloadSeconds:number;range:number;noiseSmall:number;noiseLoudOutdoor:number;noiseLoudIndoor?:number;noiseFloorFactor?:number;noiseWallFactor?:number;loseSeconds:number;endSeconds:number;coverSearch:number;fleeDistance:number;cowerSeconds:number;closedExitsAtAlert3:string[];alert3After?:number};
 export type Gun={id:string;mag:number;reserve:number};
-export type Dropped={key:number;gun:Gun;pos:Position;stocked?:true};
+export type Dropped={key:number;gun:Gun;pos:Position;stocked?:true;beingLiftedBy?:Npc};
 export type Fight={start:number;end:number|null;hits:number;damage:number;shots:number;kills:number;survived:boolean|null;returned:boolean|null};
 export type Tracer={from:Position;to:Position;time:number;npc:boolean;hit:boolean};
 export type ShotResult={fired:boolean;hit:Npc|null;head:boolean;killed:boolean;to:Position};
@@ -72,7 +72,7 @@ export class CombatSystem{
  // With nothing in hand the gun is put down without drawing it (playtest 2026-11-02: a picked-up SMG or guard pistol
  // could only be dropped by drawing it in view, so a frisk checkpoint stayed shut): the long gun first, then the pistol.
  drop(p:Position){const g=this.held??this.guns.find(g=>this.def(g.id).class==='long')??this.guns[0];if(!g)return null;this.guns.splice(this.guns.indexOf(g),1);this.hand='';this.reloadT=0;this.dropped.push({key:this.nextKey++,gun:g,pos:{...p}});return g;}
- nearestDrop(p:Position){return this.dropped.filter(d=>flat(d.pos,p)<1.3&&d.pos.y-p.y>-.5&&d.pos.y-p.y<1.3&&this.canPickUp?.(p,d.pos)!==false).sort((a,b)=>flat(a.pos,p)-flat(b.pos,p))[0];}
+ nearestDrop(p:Position){return this.dropped.filter(d=>!d.beingLiftedBy&&flat(d.pos,p)<1.3&&d.pos.y-p.y>-.5&&d.pos.y-p.y<1.3&&this.canPickUp?.(p,d.pos)!==false).sort((a,b)=>flat(a.pos,p)-flat(b.pos,p))[0];}
  /** Picks up a dropped gun: the same model adds its rounds as reserve; a different one of the same class (one pistol,
   * one long gun) is swapped, leaving the old one on the floor. */
  pickup(p:Position){const d=this.nearestDrop(p);if(!d)return null;const def=this.def(d.gun.id),same=this.guns.find(g=>g.id===d.gun.id);this.dropped.splice(this.dropped.indexOf(d),1);
@@ -136,9 +136,11 @@ export class CombatSystem{
   return d<=range*(R.noiseWallFactor??.5)||segmentClear(this.director.boxes,{x:origin.x,y:origin.y+1.4,z:origin.z},{x:n.pos.x,y:n.pos.y+1.6,z:n.pos.z});}
  /** Who hears a shot, and what they do: guards come to look where it was, bystanders run. The list is returned. */
  noise(from:Position,kind:'small'|'loud',p:PlayerView,time:number){const origin={x:from.x,y:from.y-1.4,z:from.z},outdoor=this.director.outdoorAt(origin),heard:Npc[]=[];
+  const incidents=this.director.incidents,incident=incidents.identify(origin,'gunshot');
   for(const n of this.director.npcs){if(!n.active||n.busy||n.scheduledAway||n.state==='combat'||!this.canHearGunshot(n,origin,kind,outdoor))continue;heard.push(n);
+   incidents.write(incident,'noticed',origin,n.id,'sound');
    // Who fired is only known by seeing them armed or in the blown outfit; the sound gives where, not who.
-   const k:Knowledge={eventType:'gunshot',estimatedOrigin:{...origin},confidence:kind==='loud'?.6:.8,observedAt:time};
+   const k:Knowledge={eventType:'gunshot',estimatedOrigin:{...origin},confidence:kind==='loud'?.6:.8,observedAt:time,incidentId:incident.id};
    if(n.guard){if(this.rules.localResponse)n.learn(k);else n.radio(origin,this.director.rules,k);if(!this.rules.localResponse)this.onReaction?.(n,'investigate','gunshot','sound',origin);}
    else{n.learn(k);if(n.state!=='flee'){this.flee(n,from);this.onReaction?.(n,'flee','gunshot','sound',origin);}}}
   // F03/F08: a shot nobody heard changes nothing. A loud one heard is an uproar (alert 2: the targets go to their safe

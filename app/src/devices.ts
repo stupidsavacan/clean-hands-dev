@@ -37,15 +37,21 @@ export class DeviceSystem{
  constructor(director:Director,devices:DeviceDef[],plate:(floor:number)=>number,cleaners:readonly string[]=[]){this.director=director;this.devices=devices.map(d=>({...d,approach:{...d.approach}}));this.plate=plate;this.cleaners=cleaners;}
  /** Running because someone is working with it (chores.ts): nobody comes to switch it off. */
  readonly operated=new Set<string>();
- operate(id:string,on:boolean){if(on){this.operated.add(id);this.on.add(id);this.assignments.delete(id);}else{this.operated.delete(id);this.on.delete(id);}}
+ operate(id:string,on:boolean){if(on){this.operated.add(id);this.on.add(id);this.assignments.delete(id);
+  const device=this.devices.find(d=>d.id===id);
+  if(device)this.director.incidents.end(device,'cancelled',this.spot(device));
+ }else{this.operated.delete(id);this.on.delete(id);}}
  /** The floor point in front of the device. */
  spot(d:DeviceDef):Position{return {x:d.approach.x,y:this.plate(d.floor),z:d.approach.z};}
  near(p:Position){return this.devices.find(d=>floorOf(p.y)===d.floor&&
   (d.kind==='sink'?flat(d.approach,p)<.8&&segmentClear(this.director.boxes,{...p,y:p.y+.4},{...this.spot(d),y:this.spot(d).y+.4}):flat(d,p)<USE_RADIUS));}
  verb(d:DeviceDef){return d.kind==='sink'?(this.on.has(d.id)?'閉める':'開ける'):(this.on.has(d.id)?'消す':'点ける');}
  prompt(p:Position){const d=this.near(p);return d?`E ${d.label}を${this.verb(d)}`:'';}
- toggle(p:Position){const d=this.near(p);if(!d||this.operated.has(d.id))return null;if(this.on.has(d.id))this.off(d);else{this.on.add(d.id);this.calledAt.set(d.id,-Infinity);}return d;}
- private off(d:DeviceDef){this.on.delete(d.id);this.assignments.delete(d.id);this.waterTime.delete(d.id);this.overflowing.delete(d.id);}
+ toggle(p:Position){const d=this.near(p);if(!d||this.operated.has(d.id))return null;if(this.on.has(d.id))this.off(d,'player');else{this.on.add(d.id);this.calledAt.set(d.id,-Infinity);}return d;}
+ private off(d:DeviceDef,actor:string){
+  this.on.delete(d.id);this.assignments.delete(d.id);this.waterTime.delete(d.id);this.overflowing.delete(d.id);
+  this.director.incidents.end(d,'completed',this.spot(d),actor);
+ }
  step(dt:number){this.clock+=dt;this.notices=[];
   for(const d of this.devices){
    if(!this.on.has(d.id)||this.operated.has(d.id))continue;
@@ -65,19 +71,24 @@ export class DeviceSystem{
     n.heading=Math.atan2(d.x-n.pos.x,d.z-n.pos.z);
     job.standing+=dt;
     if(job.standing>=DEVICE_KINDS[d.kind].stay){
-     this.off(d);
+     this.off(d,n.id);
      n.timer=Math.min(n.timer,1);
      this.notices.push(`${n.label}が${d.label}を${d.kind==='sink'?'閉めた':'消した'}。`);
     }
     continue;
    }
    // A different investigation, an interruption or an unreachable approach frees the device.
+   const incidents=this.director.incidents,incident=incidents.identify(d,'equipment',d.id);
+   if(job)incidents.write(incident,'released',at,job.npc.id);
    this.assignments.delete(d.id);
    if(this.clock-(this.calledAt.get(d.id)??-Infinity)<CALL_EVERY)continue;
    this.calledAt.set(d.id,this.clock);
    const replacement=this.director.noise(at,undefined,DEVICE_KINDS[d.kind].radius,
-    candidate=>!candidate.scriptedGoal&&candidate.state!=='distracted'&&(d.kind!=='sink'||this.cleaners.includes(candidate.id)));
-   if(replacement?.goal)this.assignments.set(d.id,{npc:replacement,goal:replacement.goal,standing:0});
+    candidate=>!candidate.scriptedGoal&&candidate.state!=='distracted'&&(d.kind!=='sink'||this.cleaners.includes(candidate.id)),incident);
+   if(replacement?.goal){
+    this.assignments.set(d.id,{npc:replacement,goal:replacement.goal,standing:0});
+    incidents.write(incident,'assigned',at,replacement.id);
+   }
   }
  }
  snapshot(){return {on:[...this.on],overflowing:[...this.overflowing],responders:Object.fromEntries([...this.responders].map(([k,n])=>[k,n.id]))};}

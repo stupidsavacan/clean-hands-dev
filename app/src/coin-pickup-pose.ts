@@ -55,6 +55,27 @@ export function placePickupCoin(mesh:T.Mesh,rig:Rig,{at,progress}:CoinPickup){
  mesh.rotation.z=Math.PI/3*T.MathUtils.smoothstep(progress,COIN_GRASP,.65);
 }
 
+export function placePickupWeapon(o:T.Object3D,rig:Rig,{at,progress}:CoinPickup,yaw:number){
+ const hand=rig.joints.get('handr')?.bone;
+ o.visible=progress<COIN_STOW;
+ if(progress<COIN_GRASP||!hand){
+  const point=new T.Vector3(at.x,at.y,at.z);
+  o.position.copy(o.parent?o.parent.worldToLocal(point):point);
+  o.rotation.set(0,yaw,Math.PI/2);
+  return;
+ }
+ const grip=bonePoint(rig,'handr',new T.Vector3(0,GRIP_LENGTH,0))!;
+ const rotation=hand.getWorldQuaternion(new T.Quaternion()).multiply(new T.Quaternion().setFromEuler(new T.Euler(Math.PI/2,0,0)));
+ o.position.copy(o.parent?o.parent.worldToLocal(grip):grip);
+ if(o.parent)rotation.premultiply(o.parent.getWorldQuaternion(new T.Quaternion()).invert());
+ o.quaternion.copy(rotation);
+ const anchor=o.getObjectByName('GRIP_R');
+ if(anchor){
+  const local=o.worldToLocal(anchor.getWorldPosition(new T.Vector3()));
+  o.position.sub(local.multiply(o.scale).applyQuaternion(rotation));
+ }
+}
+
 export function renderHeldCoins(pickups:Iterable<{npc:NpcView['npc'];mesh:T.Mesh}&CoinPickup>,views:readonly NpcView[]){
  for(const pickup of pickups){
   const view=views.find(v=>v.npc===pickup.npc);

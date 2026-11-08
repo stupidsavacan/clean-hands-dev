@@ -6052,6 +6052,19 @@
    "h": 0.8
   }
  ],
+ "doors": [
+  {
+   "id": "vip-staff-door",
+   "label": "VIP通路の扉",
+   "x": 14,
+   "z": 29,
+   "w": 0.14,
+   "d": 1,
+   "y": 3.5,
+   "h": 2.2,
+   "floor": 1
+  }
+ ],
  "openings": [
   {
    "id": "front",

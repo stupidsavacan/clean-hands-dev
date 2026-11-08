@@ -6,6 +6,7 @@ import {Director,type Mission,type Rules} from '../src/ai.ts';
 import {CollisionWorld,plateY} from '../src/world.ts';
 import {NavGrid} from '../src/nav.ts';
 import {sightBoxes} from '../src/sight.ts';
+import {ClubTrace} from '../src/engine/trace.ts';
 import {CALL_EVERY,DeviceSystem,DEVICE_KINDS,type DeviceDef} from '../src/devices.ts';
 const json=(f:string)=>JSON.parse(readFileSync(new URL('../src/data/'+f,import.meta.url),'utf8'));
 const map=json('marina.json'),rules=json('rules.json');
@@ -28,6 +29,8 @@ test('C07 simultaneous devices assign different responders and preserve each des
 
 test('C07 and G11 a new investigation interrupts the responder and the powered device waits for the replacement',()=>{
  const {d,s,n}=setup(),spot=s.spot(radio);
+ const trace=new ClubTrace(d);
+ trace.drain(true);d.incidents.onEvent=e=>trace.incident(d.time,e);
  const other=d.addNpc({...d.mission.npcs[0],id:'other',route:[[-2,8,600]]});
  s.toggle(spot);s.step(1/60);
  n.pos={...spot};n.arrived=true;s.step(DEVICE_KINDS.radio.stay-.25);
@@ -43,6 +46,11 @@ test('C07 and G11 a new investigation interrupts the responder and the powered d
  s.step(DEVICE_KINDS.radio.stay);
  assert.equal(s.on.size,0);
  assert.equal(s.responders.size,0);
+ const records=(trace.drain() as {incidentId:number;phase:string;actor:string;kind:string}[]).filter(e=>e.kind==='incident');
+ assert.equal(new Set(records.map(e=>e.incidentId)).size,1);
+ assert.deepEqual(records.map(e=>[e.phase,e.actor]),[
+  ['noticed','w'],['assigned','w'],['released','w'],['noticed','other'],['assigned','other'],['completed','other'],
+ ]);
 });
 test('E by the radio switches it on; someone nearby walks over, switches it off and goes back',()=>{const {d,s,n}=setup();
  assert.match(s.prompt({x:-8,y:0,z:7.8}),/点ける/);s.toggle({x:-8,y:0,z:7.8});assert.ok(s.on.has('r'));

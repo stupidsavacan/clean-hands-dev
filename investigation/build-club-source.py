@@ -150,13 +150,18 @@ for name in ['rules','detection','mission','actions']:
  if name=='detection':
   a['blend']=[];a['recorder'].update(x=1000,z=1000)
   # 2026-11-06: the tools lie where their work is (ROADMAP N01/N03/N04/N07/N33; swung, stabbed or thrown, app/src/melee.ts).
-  a['worldItems']=[dict(id='hammer-equipment',item='hammer',x=34.6,z=31.0,floor=0),dict(id='crowbar-loading',item='crowbar',x=5.2,z=38.4,floor=0),
+  a['worldItems']=[dict(id='wrench-equipment',item='wrench',x=34.1,z=31.0,floor=0),dict(id='hammer-equipment',item='hammer',x=34.6,z=31.0,floor=0),dict(id='crowbar-loading',item='crowbar',x=5.2,z=38.4,floor=0),
    dict(id='knife-kitchen',item='kitchen_knife',x=6.0,z=31.2,floor=0),dict(id='pan-kitchen',item='frying_pan',x=11.2,z=34.3,floor=0),
    dict(id='brick-smoking',item='brick',x=4.5,z=10.5,floor=0),
+   dict(id='earphones-smoking',item='wire_earphones',x=4.0,z=10.5,floor=0),
+   dict(id='tape-equipment',item='wire_tape',x=34.9,z=31.0,floor=0),
    dict(id='briefcase-office',item='briefcase',x=17.2,z=33.2,floor=0),dict(id='toolbox-loading',item='toolbox',x=6.6,z=38.6,floor=0),dict(id='katana-vip',item='katana',x=10.0,z=22.0,floor=1)]
   # 2026-11-05: the hand-held items with GLBs (assets/items); placed above (2026-11-06).
+  a['items']['wrench']['allowedFor']=['technician','cleaner','guard','bodyguard']
   a['items'].update(hammer=dict(label='ハンマー',legality='suspicious',concealable=False,allowedFor=['technician','cleaner']),
    crowbar=dict(label='バール',legality='suspicious',concealable=False,allowedFor=['technician']),
+   wire_earphones=dict(label='イヤホン型ワイヤー',legality='illegal',concealable=True),
+   wire_tape=dict(label='メジャー型ワイヤー',legality='illegal',concealable=True),
    kitchen_knife=dict(label='包丁',legality='illegal',concealable=True,allowedFor=['chef']),
    frying_pan=dict(label='フライパン',legality='suspicious',concealable=False,allowedFor=['chef']),
    brick=dict(label='レンガ',legality='normal',concealable=False),

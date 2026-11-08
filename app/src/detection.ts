@@ -121,7 +121,10 @@ export class DetectionSystem{
   // F08: someone acting oddly is looked into; a crime or a body raises the hotel alert, and a named outfit is now blown.
   if(w.what!=='suspect'&&w.what!=='unconscious')this.hotel.discover(w.key);if(w.disguise)this.director.compromised.add(w.disguise);if(w.what!=='unconscious')this.director.raiseZone(w.at,w.what==='suspect'?1:2);
   this.events.emit({type:'witness.reported',time,id:n.id,reason:w.what});
-  if(g){g.radio(w.at,this.director.rules,{eventType:'report',estimatedOrigin:{...w.at},identifiedDisguise:w.disguise,confirmedActor:!!w.disguise,confidence:.6,observedAt:time,sourceNpcId:n.id});if(w.disguise)g.knownDisguises.add(w.disguise);if(w.what!=='unconscious')g.evidenceGoal=w.what==='body'?{...w.at}:null;}}
+  if(g){
+   const incidents=this.director.incidents,incident=w.incident??incidents.identify(w,'report',w.key);
+   incidents.write(incident,'reported',w.at,g.id,'none',n.id);
+   g.radio(w.at,this.director.rules,{eventType:'report',estimatedOrigin:{...w.at},identifiedDisguise:w.disguise,confirmedActor:!!w.disguise,confidence:.6,observedAt:time,sourceNpcId:n.id,incidentId:incident.id});if(w.disguise)g.knownDisguises.add(w.disguise);if(w.what!=='unconscious')g.evidenceGoal=w.what==='body'?{...w.at}:null;}}
  snapshot(p?:PlayerView){return {held:this.held,back:[...this.back],pocket:[...this.pocket],caseGun:this.caseGun?.id??null,blend:this.blend?.id??null,recorded:this.recorded,recordReason:this.recordReason,destroyed:[...this.destroyed],action:this.action&&{...this.action},
   witnesses:this.director.npcs.filter(n=>n.active&&n.witness).map(n=>({id:n.id,what:n.witness!.what})),floor:this.floor.map(f=>({item:f.item,pos:f.pos})),watching:p?this.watching(p):[]};}
 }

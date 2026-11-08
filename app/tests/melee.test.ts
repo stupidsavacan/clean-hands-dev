@@ -28,7 +28,7 @@ test('a thrown blunt thing knocks out, a thrown blade kills, and a witness sees 
  const b=setup('kitchen_knife');b.d.npcs[1].heading=-Math.PI/2;b.m.thrownHit(b.n,p(),'kill','thrown_kitchen_knife');assert.equal(b.n.life,'dead');assert.equal(b.n.deathMethod,'thrown_kitchen_knife');assert.equal(b.d.npcs[1].state,'alert');assert.equal(b.d.npcs[1].sawViolence,true);});
 test('every melee thing has a model and a carry rule in the club',()=>{const det=json('club-detection.json');for(const id of Object.keys(MELEE).filter(id=>!['wrench','bottle'].includes(id)))assert.ok(det.items[id],id);assert.equal(meleeOf('kitchen_knife')?.kind,'blade');});
 test('the club tools lie on open floor where their work is',()=>{const det=json('club-detection.json'),club=json('club-map.json'),w=new CollisionWorld(club);
- assert.deepEqual(det.worldItems.map((i:{item:string})=>i.item).sort(),['brick','briefcase','crowbar','frying_pan','hammer','katana','kitchen_knife','toolbox']);// toolbox: HD12 (2026-11-07)
+ assert.deepEqual(det.worldItems.map((i:{item:string})=>i.item).sort(),['brick','briefcase','crowbar','frying_pan','hammer','katana','kitchen_knife','toolbox','wire_earphones','wire_tape','wrench']);
  for(const i of det.worldItems){const y=plateY(club,i.floor);assert.equal(w.blocked(i.x,y,i.z,.3),false,i.id);assert.notEqual(w.surface(i.x,i.z,y),null,i.id);}});
 test('M14/M15: a sword kills from the front with X; a briefcase knocks out with F (M09/M10)',()=>{const a=setup('katana');hold(a.m,'KeyX',1.05);assert.equal(a.n.life,'dead');assert.equal(a.n.deathMethod,'katana');
  const b=setup('briefcase');hold(b.m,'KeyF',.75);assert.equal(b.n.life,'unconscious');assert.equal(meleeOf('briefcase')?.throwable,true);});
@@ -46,6 +46,21 @@ test('M02: a guard faced unarmed is a fight won by pressing F, X, F in time',()=
 test('M02: a wrong key or a late press loses the fight and the guard fights back',()=>{const a=setup('');a.m.step(1/60,p(),0,new Set());a.m.step(1/60,p(),0,new Set(['KeyF']));press(a.m,'KeyX');
  assert.equal(a.n.life,'active');assert.equal(a.m.action,null);assert.equal(a.n.busy,false);assert.equal(a.n.sawViolence,true);assert.equal(a.n.state,'alert');
  const b=setup('');b.m.step(1/60,p(),0,new Set());b.m.step(1/60,p(),0,new Set(['KeyF']));press(b.m,'KeyF',1.3);assert.equal(b.n.life,'active');assert.equal(b.n.sawViolence,true);});
+test('S08 rows 193/194: both variants use the rear wire attack and stop if put down',()=>{
+ for(const id of ['wire_earphones','wire_tape']){
+  const {m,n}=setup(id),back=p(-8,7.9),keys=new Set(['KeyX']);
+  m.step(1/60,back,Math.PI,keys);
+  assert.equal(m.action?.wireItem,id);
+  m.heldItem=()=>'';
+  m.step(1/60,back,Math.PI,keys);
+  assert.equal(m.action,null);assert.equal(n.life,'active');
+  m.step(1/60,back,Math.PI,new Set());
+  m.heldItem=()=>id;
+  hold(m,'KeyX',3.5,Math.PI,back);
+  assert.equal(n.life,'dead');assert.equal(n.deathMethod,'direct');
+ }
+});
+
 test('M04: X during a bare-hand choke from behind turns it lethal',()=>{const {m,n}=setup('');const back=p(-8,7.9);hold(m,'KeyF',1,Math.PI,back);
  m.step(1/60,back,Math.PI,new Set(['KeyF']));for(let t=0;t<1;t+=1/60)m.step(1/60,back,Math.PI,new Set(['KeyF']));assert.equal(m.action?.kind,'ko');
  m.step(1/60,back,Math.PI,new Set(['KeyF','KeyX']));assert.equal(m.action?.kind,'kill');hold(m,'KeyX',2,Math.PI,back);assert.equal(n.life,'dead');assert.equal(m.stats.kills,1);assert.equal(m.stats.knockouts,0);});

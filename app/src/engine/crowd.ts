@@ -1,5 +1,6 @@
 import type { Director, PlayerView } from '../ai.ts';
 import { segmentClear } from '../sight.ts';
+import { carryPointClear } from '../carry-sight.ts';
 import type { Position } from '../world.ts';
 
 type Point = { x:number; z:number; heading:number; phase:number; speed:number; height:number; pose:string; seat:boolean };
@@ -74,7 +75,7 @@ export class ClubCrowd {
   }
  };
  private scare(c:Cluster,at:Position,time:number,reason:string,sense:'sight'|'sound',d:number){
-  if(c.origin)return;
+  if(c.origin)return false;
   c.origin={...at};c.started=time;c.until=time+this.data.calm;
   const p=c.place,noise={x:p.x,y:p.floor*3.5,z:p.z};
   this.reaction?.(p.id,'scream',reason,sense,d,at);
@@ -88,24 +89,40 @@ export class ClubCrowd {
    g.n.radio(noise,this.director.rules,{eventType:'report',estimatedOrigin:noise,confirmedActor:false,confidence:.5,observedAt:time});
    this.reaction?.(g.n.id,'investigate','crowd_scream','sound',g.d,noise);
   }
+  return true;
+ }
+ private spread(sources:Cluster[],time:number){
+  const range=this.data.hear*.6;
+  for(const source of sources){
+   const {x,z,floor}=source.place,at={x,y:floor*3.5,z};
+   for(const c of this.clusters){
+    if(c.origin||c.place.floor!==floor)continue;
+    const listener=c.people.find(n=>distance(n,at)<=range&&
+     segmentClear(this.director.boxes,{...n,y:n.y+1.5},{...at,y:at.y+1.4}));
+    if(listener)this.scare(c,at,time,'crowd_scream','sound',distance(listener,at));
+   }
+  }
  }
  gunshot(at:Position,time:number,kind:'small'|'loud'){
-  const range=this.data.hear*(kind==='small'?.6:1);
+  const range=this.data.hear*(kind==='small'?.6:1),sources:Cluster[]=[];
   for(const c of this.clusters){
    const n=c.people.find(n=>{
     const d=distance(n,at);
     return d<=range&&(d<range*.38||segmentClear(this.director.boxes,{...n,y:n.y+1.5},{...at,y:at.y+1.4}));
    });
-   if(n)this.scare(c,at,time,'gunshot','sound',distance(n,at));
+   if(n&&this.scare(c,at,time,'gunshot','sound',distance(n,at)))sources.push(c);
   }
+  this.spread(sources,time);
  }
  violence(p:PlayerView,time:number,reason:'kill'|'gun_drawn'){
+  const gun=reason==='gun_drawn'?p.carrySight?.drawn:undefined,sources:Cluster[]=[];
   for(const c of this.clusters){
-   const n=c.people.find(n=>this.sees(n,p));
+   const n=c.people.find(n=>this.sees(n,p)&&(!gun||carryPointClear(p,gun,{...n,y:n.y+(n.crouch?.88:1.57)},this.director.boxes)));
    if(!n)continue;
    if(reason==='kill'&&this.data.ghostWitness)this.witnessed?.(c.place.id);
-   this.scare(c,p,time,reason,'sight',distance(n,p));
+   if(this.scare(c,p,time,reason,'sight',distance(n,p)))sources.push(c);
   }
+  this.spread(sources,time);
  }
  // Dancers step aside for anyone walking through (the target and their escort above all), then drift back: up to
  // 0.9 m away from a walker within 1.2 m (2026-11-03: the investor walked through people to the stage).

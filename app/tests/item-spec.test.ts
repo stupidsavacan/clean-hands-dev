@@ -8,7 +8,16 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {existsSync,readFileSync} from 'node:fs';
-import {MELEE,meleeOf,BACK_ITEMS,BACK_MAX} from '../src/melee.ts';
+import {MELEE,meleeOf,BACK_ITEMS,BACK_MAX,isWireVariant} from '../src/melee.ts';
+import {Director,type PlayerView} from '../src/ai.ts';
+import {CollisionWorld} from '../src/world.ts';
+import {NavGrid} from '../src/nav.ts';
+import {PartyTraversal} from '../src/party/traversal.ts';
+import {carriedPoints,visibleCarry} from '../src/carry-sight.ts';
+import {CombatSystem} from '../src/combat.ts';
+import {DetectionSystem} from '../src/detection.ts';
+import {MissionEvents} from '../src/events.ts';
+import {M3System} from '../src/m3.ts';
 const here=(p:string)=>new URL(p,import.meta.url);
 const json=(f:string)=>JSON.parse(readFileSync(here('../src/data/'+f),'utf8'));
 const SRC='../../investigation/material-audit-20261106/sources/';
@@ -61,13 +70,51 @@ test('S08 row 97 large SMG: two-handed and taken on the map, not chosen before t
 
 // Not built yet.
 test.todo('S08 row 3 crowbar: opens locked things (施錠物の操作にも使われる)');
-test.todo('S08 row 2 wrench: used on machinery (設備とのインタラクションにも使われる) beyond the hotel\'s set pieces');
+test('S08 row 2 wrench: used on machinery in the club',()=>{
+ cite(2,'設備とのインタラクションにも使われる');
+ const lighting=json('club-stage3.json').acts.find((a:{id:string})=>a.id==='drop_lights');
+ assert.equal(lighting.tool.item,'wrench');
+ assert.ok(lighting.tool.seconds<lighting.seconds);
+ assert.ok(club.worldItems.some((i:{item:string})=>i.item==='wrench'));
+});
 test('HD11 S08 row 21 briefcase: can be chosen before the mission (ケース選択), and is still found on the map',()=>{cite(21,'可能（ケース選択','装備選択で持込／ステージ内のケースを拾得');
  assert.ok((mission.cases??[]).some((c:{id:string})=>c.id==='briefcase'),'a loadout choice in the club');assert.ok(placed.has('briefcase'),'and placed on the map');});
 test('HD12 S08 row 22 toolbox case: a second case like the briefcase, picked up on the map, with its own lid',()=>{cite(22,'工具箱型ケース','内部に別のアイテムを収納・取り出す','ケース本体＋開閉状態＋収納物');
  assert.ok(placed.has('toolbox'),'placed in the club');assert.equal(club.items.toolbox?.legality,'normal');
  const glb=readFileSync(here('../../assets/toolbox/models/toolbox/toolbox.glb')),len=glb.readUInt32LE(12),gl=JSON.parse(glb.subarray(20,20+len).toString('utf8'));
  const names=gl.nodes.map((n:{name:string})=>n.name);for(const n of ['LID','CONTENT','GRIP_R','HINGE'])assert.ok(names.includes(n),n);});
-test.todo('S08 rows 193/194 earphones and measuring tape: wire-type melee only (イヤホン型・メジャー型ワイヤー)');
-test.todo('S09 row 62: ladders and climbing re-check what is in view (はしご・よじ登り中)');
+test('S08 rows 193/194: earphones and tape measure use only the wire action',()=>{
+ cite(193,'イヤホン型ワイヤー','ワイヤー系の近接専用アニメーション');
+ cite(194,'メジャー型ワイヤー','ワイヤー系の近接専用アニメーション');
+ for(const id of ['wire_earphones','wire_tape']){
+  assert.ok(isWireVariant(id));assert.ok(placed.has(id));assert.equal(meleeOf(id),undefined);
+ }
+});
+test('S09 row 62: gear is rechecked at the climbing hand as it goes behind a ledge',()=>{
+ cite09('はしご・よじ登り中','違法装備の可視状態は個別に再計算');
+ const map=json('hotel.json'),rules=json('rules.json'),world=new CollisionWorld(map),nav=new NavGrid(world);
+ const at={x:-40,y:0,z:-30};
+ const ledge={minX:at.x-.17,maxX:at.x-.07,minY:1.61,maxY:2.1,minZ:at.z+1.9,maxZ:at.z+2.1};
+ const director=new Director({...map,npcs:map.npcs.filter((n:{id:string})=>n.id==='guard_parking')},world,nav,[ledge],rules);
+ const guard=director.npcs[0];
+ guard.pos={...at,z:at.z+4};guard.heading=Math.PI;
+ const events=new MissionEvents(),m3=new M3System(director,[],rules.m3);
+ const combat=new CombatSystem(director,events,m3.hotel,json('combat.json'),weapons,map.reinforcements);
+ const items=new DetectionSystem(director,events,m3.hotel,[],hotel,map);
+ combat.equip('pistol_silenced');combat.hand='pistol_silenced';
+ const climbing=new PartyTraversal(director,[{id:'ladder',a:'a',b:'b',kind:'ladder',start:at,end:{...at,y:2},seconds:2}],{radius:1,suspicionPerSecond:0});
+ const p:PlayerView={...at,floor:0,speed:0,running:false,crouched:false,tampering:true,disguise:'suit',weaponDrawn:true};
+ const keys=new Set(['KeyE']);
+ climbing.step(0,p,keys);
+ const read=(position:PlayerView)=>{
+  const frame=climbing.frame(position)!;
+  const player={...position,carrySight:carriedPoints(position,frame.heading,false,'suit',combat,items,true,frame.hand?.(-1))};
+  guard.perceive(player,director.boxes,rules);
+  assert.ok(guard.visibility>0,'the body remains visible');
+  return visibleCarry(guard,player,director.boxes,rules).weaponDrawn;
+ };
+ assert.equal(read(p),true);
+ climbing.step(.7,p,keys);
+ assert.equal(read({...p,...climbing.takeTransfer()!}),false);
+});
 test.todo('S09 rows 32/120: Kali Sticks share the two back slots (刀・Kali Sticks)');

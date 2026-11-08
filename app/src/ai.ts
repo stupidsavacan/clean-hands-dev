@@ -3,6 +3,7 @@ import type { NavGrid } from './nav.ts';
 import { segmentClear, type Aabb } from './sight.ts';
 import type {CoinPickup} from './coin-pickup.ts';
 import {visibleCarry,type CarrySight} from './carry-sight.ts';
+import {IncidentLog,type IncidentRef} from './incidents.ts';
 export type Role='guard'|'guest'|'waiter';
 // combat: a guard in a gunfight (driven by CombatSystem); flee: a bystander running from gunfire, then cowering.
 export type State='patrol'|'curious'|'investigate'|'alert'|'search'|'report'|'distracted'|'verify'|'combat'|'flee';
@@ -50,7 +51,7 @@ export type AiEvent={type:'curious'|'investigate'|'alert'|'search'|'calm'|'repor
 // F04 / HITMAN: why a guard turned on the agent. trespass and suspicious get a warning first; the rest are an arrest.
 export type Cause=''|'trespass'|'suspicious'|'identity'|'crime'|'hostile';
 // F06: what one person knows about one event. A sound gives an estimated origin; only sight gives lastSeenPosition.
-export type Knowledge={eventType:'gunshot'|'impact'|'noise'|'wounded'|'sighting'|'report';estimatedOrigin?:Position;lastSeenPosition?:Position;confirmedActor?:boolean;identifiedDisguise?:string;confidence:number;observedAt:number;sourceNpcId?:string};
+export type Knowledge={eventType:'gunshot'|'impact'|'noise'|'wounded'|'sighting'|'body'|'report';estimatedOrigin?:Position;lastSeenPosition?:Position;confirmedActor?:boolean;identifiedDisguise?:string;confidence:number;observedAt:number;sourceNpcId?:string;incidentId?:number};
 // What the director tells each person about the agent this step, besides the suspicion rate.
 export type Situation={base:number;trespass:boolean;hostile:boolean;crime:boolean;time:number};
 const clamp=(v:number,a:number,b:number)=>Math.max(a,Math.min(b,v)),wrap=(a:number)=>Math.atan2(Math.sin(a),Math.cos(a)),flat=(a:Position,b:Position)=>Math.hypot(a.x-b.x,a.z-b.z);
@@ -86,7 +87,7 @@ export class Npc{
  witnessCooldown=0;
  // suspect: they only saw someone behaving oddly (a guard comes to look; the outfit is not blown); disguise: the outfit
  // they can name, told to the guard on arrival (F08: a report travels only as fast as the witness).
- witness:{what:'act'|'body'|'suspect'|'unconscious';at:Position;key:string;disguise?:string}|null=null;
+ witness:{what:'act'|'body'|'suspect'|'unconscious';at:Position;key:string;disguise?:string;incident?:IncidentRef}|null=null;
  // F04: why this guard is after the agent, whether they are detaining (not just warning), and the warning clocks.
  cause:Cause='';arrest=false;warnT=0;complyT=0;now=0;
  /** Seconds this guard has been detaining (M06 hands-up order). */ detainT=0;
@@ -225,13 +226,14 @@ export class Npc{
   this.timer=rules.timers.evidenceLook??Math.max(rules.timers.lookAround,6);}
  move(dt:number,world:CollisionWorld,nav:NavGrid,rules:Rules,p:PlayerView){const sp=rules.speeds;let want:Position|null=null,speed=sp.walk,face:number|null=null;
   const toward=(q:{x:number;z:number})=>Math.atan2(q.x-this.pos.x,q.z-this.pos.z);
+  const reached=(q:Position,range:number)=>flat(this.pos,q)<range&&Math.abs(this.pos.y-q.y)<.45;
   switch(this.state){
    case 'patrol':{if(this.scheduled){want=this.scheduleTarget;face=this.scheduleHeading;speed=this.scheduleSpeed;break;}// The route is on the person's own floor: after a chase upstairs they walk back down to it (they used to aim at
     // the route's x,z at the height they stood, found no path and stood there for good).
     const r=this.route[this.routeIndex],at={x:r[0],y:this.homeY,z:r[1]};
-    if(this.route.length===1){if(flat(this.pos,at)>.3)want=at;else face=this.look?toward({x:this.look[0],z:this.look[1]}):null;break;}
+    if(this.route.length===1){if(!reached(at,.3))want=at;else face=this.look?toward({x:this.look[0],z:this.look[1]}):null;break;}
     if(this.wait>0){this.wait-=dt;if(r[3]!==undefined)face=r[3]*Math.PI/180;if(this.wait<=0)this.routeIndex=(this.routeIndex+1)%this.route.length;break;}
-    if(flat(this.pos,at)<.3){this.wait=r[2]||.01;break;}want=at;break;}
+    if(reached(at,.3)){this.wait=r[2]||.01;break;}want=at;break;}
    case 'curious':if(this.lastSeen)face=toward(this.lastSeen);break;
    // A witness runs to the nearest guard (goal kept current by the detection system); others just stare.
    case 'report':if(this.witness&&this.goal){want=this.goal;speed=sp.chase;}else if(this.lastSeen)face=toward(this.lastSeen);break;
@@ -241,8 +243,8 @@ export class Npc{
    case 'alert':{const at=this.visibility>0?{x:p.x,y:p.y,z:p.z}:this.lastSeen;speed=sp.chase;if(!this.arrest&&at&&this.visibility>0){speed=sp.investigate;if(flat(this.pos,at)>(rules.arrest??ARREST).warnDistance)want=at;else face=toward(at);}else want=at;break;}
    // In a gunfight: run to the chosen spot (cover, or closer), and keep facing the agent.
    case 'combat':speed=sp.chase;if(this.combatGoal&&flat(this.pos,this.combatGoal)>.4)want=this.combatGoal;else if(this.lastSeen)face=toward(this.lastSeen);break;
-   case 'flee':speed=sp.chase*1.1;if(this.goal&&!this.arrived){want=this.goal;if(flat(this.pos,this.goal)<.6)this.arrived=true;}break;
-   default:speed=this.state==='search'?sp.search:sp.investigate;if(this.goal&&!this.arrived){want=this.goal;if(flat(this.pos,this.goal)<.6){this.arrived=true;this.scanBase=this.heading;this.scanT=0;}}
+   case 'flee':speed=sp.chase*1.1;if(this.goal&&!this.arrived){want=this.goal;if(reached(this.goal,.6))this.arrived=true;}break;
+   default:speed=this.state==='search'?sp.search:sp.investigate;if(this.goal&&!this.arrived){want=this.goal;if(reached(this.goal,.6)){this.arrived=true;this.scanBase=this.heading;this.scanT=0;}}
   }
   // After arriving, sweep the head side to side to look around.
   if(this.arrived&&this.state!=='patrol'&&this.state!=='alert'&&this.state!=='flee'&&this.state!=='combat'&&!want){this.scanT+=dt;face=this.scanBase+Math.sin(this.scanT*1.7)*1.1+(this.state==='search'||this.evidenceGoal?Math.floor(this.scanT/1.6)*Math.PI/2:0);}
@@ -256,7 +258,9 @@ export class Npc{
   else{this.speed=Math.max(0,this.speed-6*dt);this.path=[];this.pathGoal=null;}
   if(face!==null)this.turn(face,dt,4);}
  private turn(target:number,dt:number,rate:number){const d=wrap(target-this.heading);this.heading=wrap(this.heading+clamp(d,-rate*dt,rate*dt));}
+ private routeRevision=0;
  private travel(dt:number,world:CollisionWorld,nav:NavGrid,target:Position,speed:number){this.repath-=dt;
+  if(this.routeRevision!==world.revision){this.routeRevision=world.revision;this.pathGoal=null;this.path=[];}
   if(!this.pathGoal||flat(this.pathGoal,target)>.6||Math.abs(this.pathGoal.y-target.y)>.3||(this.state==='alert'&&this.repath<=0)){const found=nav.findSoon(this.pos,target);if(found===undefined){this.stuck=0;return 1;}this.path=found??[];this.pathGoal={...target};this.repath=.4;}
   while(this.path.length>1&&Math.hypot(this.pos.x-this.path[0].x,this.pos.y-this.path[0].y,this.pos.z-this.path[0].z)<.1&&nav.clear(this.pos,this.path[1]))this.path.shift();const next=this.path[0];if(!next)return 0;
   const dx=next.x-this.pos.x,dz=next.z-this.pos.z,d=Math.hypot(dx,dz),left=Math.hypot(this.pos.x-target.x,this.pos.y-target.y,this.pos.z-target.z);
@@ -266,6 +270,8 @@ export class Npc{
 }
 
 export class Director{
+ readonly incidents=new IncidentLog();
+ soundClear?:(at:Position,listener:Position)=>boolean;
  readonly npcs:Npc[];frame=0;time=0;caught=false;alerts=0;reports=0;
  // Someone recognised the agent as an intruder (alerted on them, ran to report them, or saw them do something).
  onSpotted?:(n:Npc)=>void;
@@ -323,8 +329,12 @@ export class Director{
   return events;}
  /** A guard's radio call about the agent: blown outfit, zone alert 2, colleagues within radio range come to the spot. */
  private radioIn(n:Npc,p:PlayerView,at:Position){this.alerts++;this.onSpotted?.(n);this.compromised.add(p.disguise);this.raiseZone(at,2);
-  const k:Knowledge={eventType:'report',estimatedOrigin:{...at},identifiedDisguise:p.disguise,confirmedActor:true,confidence:.8,observedAt:this.time,sourceNpcId:n.id};
-  for(const g of this.npcs)if(g.active&&!g.busy&&g!==n&&flat(g.pos,n.pos)<=this.rules.radio){g.radio(at,this.rules,k);if(g.guard)g.knownDisguises.add(p.disguise);}}
+  const incident=this.incidents.identify(at,'report',n.id);
+  const k:Knowledge={eventType:'report',estimatedOrigin:{...at},identifiedDisguise:p.disguise,confirmedActor:true,confidence:.8,observedAt:this.time,sourceNpcId:n.id,incidentId:incident.id};
+  for(const g of this.npcs)if(g.active&&!g.busy&&g!==n&&flat(g.pos,n.pos)<=this.rules.radio){
+   g.radio(at,this.rules,k);this.incidents.write(incident,'reported',at,g.id,'radio',n.id);
+   if(g.guard)g.knownDisguises.add(p.disguise);
+  }}
  raiseZone(at:Position,level:number){const z=zoneAt(this.mission.zones,at.x,at.z,floorOf(at.y));if(z)this.zoneAlert.set(z.id,Math.max(level,this.zoneAlert.get(z.id)??0));}
 
  // Reinforcements arrive during the mission; they join the same shared state (compromised outfits) as everyone else.
@@ -350,18 +360,21 @@ export class Director{
  // holding a post goes to look only when the post stays covered: a partner is still at it (two-man checkpoint; the
  // last one stays), or, alone, the agent is not near it (rules.noise.postLeave m). Otherwise they only turn.
  // radius: how far it is heard (a coin by default; a loud machine further, devices.ts).
- noise(point:Position,p?:PlayerView,radius=this.rules.noise.coin,eligible?:(n:Npc)=>boolean){let turned:Npc|undefined;
-  for(const n of this.npcs.filter(n=>n.active&&!n.busy&&Math.abs(n.pos.y-point.y)<1.5&&flat(n.pos,point)<=radius&&(!eligible||eligible(n))).sort((a,b)=>flat(a.pos,point)-flat(b.pos,point))){
-   if(p&&n.visibility>0&&['patrol','curious','distracted'].includes(n.state)){this.sawThrow(n,p);return n;}
+ noise(point:Position,p?:PlayerView,radius=this.rules.noise.coin,eligible?:(n:Npc)=>boolean,incident?:IncidentRef){let turned:Npc|undefined;
+  for(const n of this.npcs.filter(n=>n.active&&!n.busy&&Math.abs(n.pos.y-point.y)<1.5&&flat(n.pos,point)<=radius&&(!eligible||eligible(n))&&this.soundClear?.(point,n.pos)!==false).sort((a,b)=>flat(a.pos,point)-flat(b.pos,point))){
+   if(p&&n.visibility>0&&['patrol','curious','distracted'].includes(n.state)){this.sawThrow(n,p,incident??this.incidents.identify(point,'noise'));return n;}
    const go=this.mayLeavePost(n,p);if(!n.hear(point,this.rules,false,go))continue;
-   n.learn({eventType:'noise',estimatedOrigin:{...point},confidence:.5,observedAt:this.time});
+   incident??=this.incidents.identify(point,'noise');
+   n.learn({eventType:'noise',estimatedOrigin:{...point},confidence:.5,observedAt:this.time,incidentId:incident.id});
+   this.incidents.write(incident,'noticed',point,n.id,'sound');
    // A post guard who stays only turns toward it; someone else may still walk over.
    if(n.holdsPost&&!go){turned??=n;continue;}
    return n;}
   return turned;}
  lastThrowSeen=false;
- private sawThrow(n:Npc,p:PlayerView){const t=this.rules.thresholds;n.suspicion=Math.max(n.suspicion,t.curious);n.lastSeen={x:p.x,y:p.y,z:p.z};
-  n.learn({eventType:'sighting',lastSeenPosition:{...n.lastSeen},confidence:1,observedAt:this.time});
+ private sawThrow(n:Npc,p:PlayerView,incident:IncidentRef){const t=this.rules.thresholds;n.suspicion=Math.max(n.suspicion,t.curious);n.lastSeen={x:p.x,y:p.y,z:p.z};
+  n.learn({eventType:'sighting',lastSeenPosition:{...n.lastSeen},confidence:1,observedAt:this.time,incidentId:incident.id});
+  this.incidents.write(incident,'noticed',n.lastSeen,n.id,'sight');
   n.state='curious';n.timer=this.rules.timers.curiousHold;n.heading=Math.atan2(p.x-n.pos.x,p.z-n.pos.z);this.lastThrowSeen=true;return true;}
  mayLeavePost(n:Npc,p?:PlayerView){if(!n.holdsPost||!n.postAt)return true;const at=n.postAt;
   const partners=this.npcs.filter(m=>m!==n&&m.holdsPost&&m.postAt&&flat(m.postAt,at)<6&&Math.abs(m.postAt.y-at.y)<1);

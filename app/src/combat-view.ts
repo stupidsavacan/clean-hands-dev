@@ -4,6 +4,7 @@ import {COMBAT_MODELS} from './combat-data.ts';
 import {sampleCombat,weaponVisible,COMBAT_SECONDS,type CombatKind,type WeaponClass} from './combat-motion.ts';
 import {poseCombat,prepareWeapon,muzzle,layerUpper,type Weapon} from './combat-runtime.ts';
 import {applyMotion} from './motion-runtime.ts';
+import {placePickupWeapon} from './coin-pickup-pose.ts';
 import {loadPistolTuning} from './pistol-tuning.ts';
 import type {CombatSystem} from './combat.ts';
 import type {Rig} from './rig.ts';
@@ -74,5 +75,16 @@ export class CombatView{
    if(!show){if(s)s.object.visible=false;continue;}
    if(!s){const o=this.carried(id);if(!o)continue;v.group.add(o);s={id,object:o};this.stowed.set(v,s);}s.object.visible=true;}
   const keys=new Set(c.dropped.map(d=>d.key));for(const [key,o] of this.floor)if(!keys.has(key)){o.removeFromParent();this.floor.delete(key);}
-  for(const d of c.dropped)if(!this.floor.has(d.key)){const o=this.make(d.gun.id);if(!o)continue;o.position.set(d.pos.x,d.pos.y+.03,d.pos.z);o.rotation.set(0,d.key*1.7,Math.PI/2);this.root.add(o);this.floor.set(d.key,o);}}
+  for(const d of c.dropped){
+   let o=this.floor.get(d.key);
+   if(!o){o=this.make(d.gun.id);if(!o)continue;this.root.add(o);this.floor.set(d.key,o);}
+   const lift=d.beingLiftedBy,view=lift&&npcViews.find(v=>v.npc===lift);
+   if(view&&lift?.coinPickup){
+    o.visible=view.group.visible;
+    if(o.visible)placePickupWeapon(o,view.rig,lift.coinPickup,d.key*1.7);
+   }else{
+    o.visible=true;o.position.set(d.pos.x,d.pos.y+.03,d.pos.z);o.rotation.set(0,d.key*1.7,Math.PI/2);
+   }
+  }
+ }
 }

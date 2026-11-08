@@ -146,6 +146,30 @@ def build_briefcase():
     return m, {'GRIP_R': (0, 0, 0), 'TIP': fz(0, -.36)}
 
 
+def build_wire_earphones():
+    m = Mesh()
+    for i in range(12):
+        a, b = i * math.tau / 12, (i + 1) * math.tau / 12
+        point = lambda t: (.034 * math.cos(t), .038 * math.sin(t), .002)
+        m.tube(point(a), point(b), .0018, 5, PAPER)
+    for x in (-.026, .026):
+        m.tube((x, -.017, .002), (x, -.037, .002), .0028, 6, PAPER)
+        m.box((x - .006, -.042, -.004), (x + .006, -.031, .008), PAPER)
+        m.box((x - .0035, -.043, -.002), (x + .0035, -.040, .005), GRAPHITE)
+    return m, {'GRIP_R': (0, 0, 0)}
+
+
+def build_wire_tape():
+    m = Mesh()
+    m.box((-.036, .026, -.017), (.036, -.031, .019), YELLOW)
+    m.box((-.038, .021, -.011), (.038, -.026, .012), GRAPHITE)
+    m.box((-.035, .024, -.016), (.035, -.03, .016), YELLOW)
+    m.box((-.019, .019, .019), (.005, .005, .023), GRAPHITE)
+    m.box((-.014, -.031, -.005), (.014, -.065, -.003), METAL)
+    m.box((-.014, -.068, -.011), (.014, -.064, -.002), GRAPHITE)
+    return m, {'GRIP_R': (0, 0, 0)}
+
+
 # id: (kind, builder, label). kind: tool (carried, may be suspicious), melee (a weapon in hand), throw (thrown only).
 ITEMS = {
     'wrench': ('tool', build_wrench, 'スパナ'),
@@ -158,6 +182,8 @@ ITEMS = {
     'kitchen_knife': ('melee', build_kitchen_knife, '包丁'),
     'frying_pan': ('melee', build_frying_pan, 'フライパン'),
     'coin': ('throw', build_coin, 'コイン'),
+    'wire_earphones': ('melee', build_wire_earphones, 'イヤホン型ワイヤー'),
+    'wire_tape': ('melee', build_wire_tape, 'メジャー型ワイヤー'),
     'brick': ('throw', build_brick, 'レンガ'),
     'katana': ('melee', build_katana, '刀'),
     'briefcase': ('melee', build_briefcase, 'ブリーフケース'),

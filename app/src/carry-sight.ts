@@ -6,12 +6,12 @@ import type {Position} from './world.ts';
 
 export type CarrySight={drawn?:Position;longGun?:Position;illegalTools:Position[];suspicious?:Position};
 
-export function carriedPoints(p:Position,heading:number,crouched:boolean,disguise:string,combat:CombatSystem,items:DetectionSystem,includeTools=false):CarrySight|undefined{
+export function carriedPoints(p:Position,heading:number,crouched:boolean,disguise:string,combat:CombatSystem,items:DetectionSystem,includeTools=false,traversalHand?:Position):CarrySight|undefined{
  const s=Math.sin(heading),c=Math.cos(heading);
  const point=(forward:number,right:number,y:number):Position=>({x:p.x+s*forward-c*right,y:p.y+y,z:p.z+c*forward+s*right});
- const drawn=combat.hand?point(.37,.25,crouched?.81:1.24):undefined;
+ const drawn=combat.hand?(traversalHand??point(.37,.25,crouched?.81:1.24)):undefined;
  const longGun=combat.shown(disguise)?point(-.26,.08,crouched?.78:1.23):undefined;
- const hand=point(.21,.29,crouched?.65:1.02);
+ const hand=traversalHand??point(.21,.29,crouched?.65:1.02);
  const suspicious=items.suspiciousHeld(disguise)?hand:undefined;
  const illegalTools:Position[]=[];
  if(includeTools){
@@ -25,6 +25,10 @@ export function carriedPoints(p:Position,heading:number,crouched:boolean,disguis
 export function carryPointVisible(n:Npc,p:PlayerView,point:Position|undefined,boxes:Aabb[],eyeHeight:number){
  if(!point||p.hidden||n.visibility<=0)return false;
  const eye={...n.pos,y:n.pos.y+eyeHeight};
+ return carryPointClear(p,point,eye,boxes)&&!n.crowdOcclusion?.(eye,point);
+}
+
+export function carryPointClear(p:PlayerView,point:Position,eye:Position,boxes:Aabb[]){
  const dx=point.x-eye.x,dz=point.z-eye.z,len=dx*dx+dz*dz;
  const t=len>0?((p.x-eye.x)*dx+(p.z-eye.z)*dz)/len:0;
  // The player's torso can hide the item while the watcher can still see their head.
@@ -32,7 +36,7 @@ export function carryPointVisible(n:Npc,p:PlayerView,point:Position|undefined,bo
   const x=eye.x+dx*t-p.x,z=eye.z+dz*t-p.z,y=eye.y+(point.y-eye.y)*t-p.y;
   if(x*x+z*z<.23*.23&&y>(p.crouched?.28:.66)&&y<(p.crouched?1.01:1.52))return false;
  }
- return segmentClear(boxes,eye,point)&&!n.crowdOcclusion?.(eye,point);
+ return segmentClear(boxes,eye,point);
 }
 
 export function visibleCarry(n:Npc,p:PlayerView,boxes:Aabb[],rules:Rules):PlayerView{

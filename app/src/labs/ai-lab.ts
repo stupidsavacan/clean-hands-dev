@@ -51,9 +51,20 @@ function body(id:string):Body{let b=bodies.get(id);if(b)return b;
  const c=document.createElement('canvas');c.width=256;c.height=64;const tagTex=new T.CanvasTexture(c);const tag=new T.Sprite(new T.SpriteMaterial({map:tagTex,depthTest:false}));tag.scale.set(3,.75,1);tag.position.y=2.4;root.add(tag);
  scene.add(root);b={root,figure,mat,cone,tag,tagCtx:c.getContext('2d')!,tagTex};bodies.set(id,b);return b;}
 const playerMesh=new T.Mesh(new T.CapsuleGeometry(.28,1.1,4,10),new T.MeshStandardMaterial({color:'#4f8cff'}));scene.add(playerMesh);
-const marks:T.Mesh[]=[];
-function clearMarks(){for(const m of marks.splice(0))m.removeFromParent();}
+const marks:T.Mesh[]=[],doorLeaves:T.Mesh[]=[];
+function clearMarks(){
+ for(const m of marks.splice(0))m.removeFromParent();
+ for(const m of doorLeaves.splice(0)){m.removeFromParent();m.geometry.dispose();}
+}
 function drawRun(r:Run){
+ for(const [i,door] of (r.doors?.doors??[]).entries()){
+  const d=door.def;
+  if(!doorLeaves[i]){
+   const mesh=new T.Mesh(new T.BoxGeometry(d.w,d.h,d.d),wallMat);
+   mesh.position.set(d.x,d.y+d.h/2,d.z);scene.add(mesh);doorLeaves.push(mesh);
+  }
+  doorLeaves[i].visible=door.closed;
+ }
  const live=new Set(r.director.npcs.map(n=>n.id));
  const rescues=r.m3?.rescue.playing??[];
  for(const [id,b] of bodies)b.root.visible=live.has(id);

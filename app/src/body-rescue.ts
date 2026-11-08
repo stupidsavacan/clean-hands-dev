@@ -34,6 +34,7 @@ export class BodyRescue{
     // The current body alert may already have sent this guard to the middle of the body.
     guard.goal={...at};guard.evidenceGoal={...at};guard.arrived=false;
     request.rescue={body,guard,at,elapsed:0};
+    this.director.incidents.write(this.incident(body),'assigned',at,guard.id);
     break;
    }
   }
@@ -43,17 +44,20 @@ export class BodyRescue{
   for(const [body,request] of this.requests){
    if(!down(body)||!near(request.origin,body.pos,.25)){
     this.requests.delete(body);
+    if(body.bodyMode==='ground'&&body.life==='unconscious'){
+     if(request.rescue)this.release(request,request.rescue);
+    }else this.director.incidents.end(body,'cancelled',body.pos,request.rescue?.guard.id,body.id+':unconscious');
     continue;
    }
    const rescue=request.rescue;
    if(!rescue)continue;
    const {guard,at}=rescue;
    if(body.busy||!guard.active||guard.busy||guard.state!=='investigate'||!guard.evidenceGoal||!near(guard.evidenceGoal,at,.2)){
-    request.rescue=undefined;
+    this.release(request,rescue);
     continue;
    }
    if(!near(guard.pos,body.pos,1.02)||!segmentClear(this.director.boxes,{...guard.pos,y:guard.pos.y+.9},{...body.pos,y:body.pos.y+.35})){
-    if(guard.arrived){request.unreachable.add(guard);request.rescue=undefined;}
+    if(guard.arrived){request.unreachable.add(guard);this.release(request,rescue);}
     else rescue.elapsed=0;
     continue;
    }
@@ -62,6 +66,7 @@ export class BodyRescue{
    rescue.elapsed+=dt;
    if(rescue.elapsed<RESCUE_SECONDS)continue;
    this.requests.delete(body);
+   this.director.incidents.end(body,'completed',body.pos,guard.id);
    body.life='active';body.fall=0;body.fallOrigin=null;body.arrived=false;body.arrest=false;body.detainT=0;
    body.state=body.witness?'report':'patrol';
    if(body.witness)body.timer=this.director.rules.timers.report;
@@ -69,6 +74,11 @@ export class BodyRescue{
   }
  }
 
+ private incident(body:Npc){return this.director.incidents.identify(body,'body',body.id+':unconscious');}
+ private release(request:Request,rescue:Rescue){
+  this.director.incidents.write(this.incident(rescue.body),'released',rescue.at,rescue.guard.id);
+  request.rescue=undefined;
+ }
  private approach(body:Npc,guard:Npc){
   const {nav}=this.director,c=Math.cos(body.heading)*.40,s=Math.sin(body.heading)*.40;
   const positions=[{...body.pos,x:body.pos.x+c,z:body.pos.z-s},{...body.pos,x:body.pos.x-c,z:body.pos.z+s}];

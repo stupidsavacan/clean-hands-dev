@@ -7,6 +7,7 @@ import {LandedCoinPickups} from '../coin-pickup.ts';
 import {coinMesh} from '../coin-pickup-pose.ts';
 import {DeviceSystem,type DeviceDef} from '../devices.ts';
 import {ChoreSystem} from '../chores.ts';
+import {DoorSystem} from '../doors.ts';
 import {CollisionWorld,type Position} from '../world.ts';
 import {NavGrid} from '../nav.ts';
 import {segmentClear,sightBoxes} from '../sight.ts';
@@ -48,7 +49,8 @@ export const ARENA:Mission={
 export const rules=rulesData as unknown as Rules;
 const combatRules=combatData as unknown as CombatRules,weapons=weaponsData as unknown as Record<string,WeaponDef>;
 let shared:{world:CollisionWorld;nav:NavGrid;boxes:ReturnType<typeof sightBoxes>}|undefined;
-export function arena(){return shared??=(()=>{const world=new CollisionWorld(ARENA);return {world,nav:new NavGrid(world),boxes:sightBoxes(ARENA)};})();}
+function newArena(){const world=new CollisionWorld(ARENA);return {world,nav:new NavGrid(world),boxes:sightBoxes(ARENA)};}
+export function arena(){return shared??=newArena();}
 
 // A guard standing at x,z facing `heading` (radians, 0 = +z), or walking `route`.
 export function guard(id:string,x:number,z:number,heading:number,o:Partial<NpcDef>={}):NpcDef{
@@ -56,10 +58,10 @@ export function guard(id:string,x:number,z:number,heading:number,o:Partial<NpcDe
 }
 export const player=(x:number,z:number,o:Partial<PlayerView>={}):PlayerView=>({x,y:0,z,floor:0,speed:0,running:false,crouched:false,tampering:false,disguise:'suit',...o});
 
-export type Run={director:Director;combat?:CombatSystem;m3?:M3System;outfit?:{m4:M4System;schedule:ScheduleSystem};coin?:{mesh:Mesh;pickups:LandedCoinPickups};devices?:DeviceSystem;cleaning?:{chores:ChoreSystem;schedule:ScheduleSystem};events:AiEvent[];log:string[];time:number;player:PlayerView;marks:Position[]};
+export type Run={director:Director;combat?:CombatSystem;m3?:M3System;outfit?:{m4:M4System;schedule:ScheduleSystem};coin?:{mesh:Mesh;pickups:LandedCoinPickups};devices?:DeviceSystem;cleaning?:{chores:ChoreSystem;schedule:ScheduleSystem};doors?:DoorSystem;events:AiEvent[];log:string[];time:number;player:PlayerView;marks:Position[]};
 export type Scenario={
  id:string;group:'視認'|'聴覚'|'無線'|'戦闘'|'捜索'|'経路探索'|'立入禁止'|'検問'|'救助'|'設備';title:string;expect:string;
- npcs:NpcDef[];seconds:number;combat?:boolean;
+ npcs:NpcDef[];seconds:number;combat?:boolean;isolated?:boolean;
  // A finding the lab turned up that the AI does not meet yet (the test suite lists it as todo, not as a failure).
  known?:string;
  // Called once before the first step (throw a coin, start a radio call…).
@@ -101,6 +103,23 @@ export const SCENARIOS:Scenario[]=[
    pickups.step(DT,r.director.boxes);
    if(pickups.held.some(p=>p.npc===g)&&!r.log.includes('g1 がコインを拾った'))r.log.push('g1 がコインを拾った');
   }},
+ {id:'door-senses',group:'設備',title:'扉の開閉で視線と音が変わる',expect:'閉めた扉の向こうの人と物音に気づかず、開けると物音に反応できる。',
+  npcs:[guard('g1',4,-7.1,Math.PI/2)],seconds:2,isolated:true,player:()=>player(8,-7.1),
+  start:r=>{
+   const {world,boxes}=r.director;
+   const doors=r.doors=new DoorSystem(world,boxes,[{id:'staff-door',label:'職員室の扉',x:6,y:0,z:-7.1,w:.2,d:3.8,h:2.4,startsClosed:true}]);
+   r.director.soundClear=(at,listener)=>doors.soundClear(at,listener);
+  },
+  step:r=>{
+   if(r.time<1||r.log.includes('扉を開けた'))return;
+   const d=r.director,g=npc(r,'g1');
+   if(!g.visibility&&!d.noise(r.player))r.log.push('閉めた状態では見えず、聞こえない');
+   r.doors!.use(r.doors!.doors[0],'',[],[]);
+   r.log.push('扉を開けた');
+   if(d.noise(r.player)?.id===g.id)r.log.push('開けると聞こえた');
+  },
+  judge:r=>({pass:r.log.includes('閉めた状態では見えず、聞こえない')&&r.log.includes('開けると聞こえた')&&npc(r,'g1').visibility>0,detail:r.log.join(' → ')}),
+ },
  {id:'device-handoff',group:'設備',title:'設備を別々に担当し、途中で引き継ぐ',expect:'2人が別々のラジカセに向かう。片方が行動不能になれば別の警備が引き継ぎ、両方が消える。',
   npcs:[guard('g1',-16,-7,Math.PI/2),guard('g2',-16,-1,Math.PI/2),guard('g3',-19,-5,Math.PI/2)],
   seconds:18,player:()=>player(10,12),
@@ -281,7 +300,7 @@ export const SCENARIOS:Scenario[]=[
 
 // One scenario, stepped by the caller (the lab page animates it; run() finishes it at once).
 export function begin(s:Scenario):Run{
- const {world,nav,boxes}=arena();
+ const {world,nav,boxes}=s.isolated?newArena():arena();
  const director=new Director({...ARENA,npcs:structuredClone(s.npcs)},world,nav,boxes,structuredClone(rules));
  const r:Run={director,events:[],log:[],time:0,player:player(0,0),marks:[]};r.player=s.player(0,r);
  if(s.combat){const m3=new M3System(director,[],rulesData.m3 as never);r.combat=new CombatSystem(director,new MissionEvents(),m3.hotel,combatRules,weapons,[],()=>0);}

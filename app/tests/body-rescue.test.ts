@@ -7,6 +7,7 @@ import {M3System} from '../src/m3.ts';
 import {DetectionSystem} from '../src/detection.ts';
 import detectionData from '../src/data/detection.json' with {type:'json'};
 import {MissionEvents} from '../src/events.ts';
+import type {IncidentEvent} from '../src/incidents.ts';
 import {NavGrid} from '../src/nav.ts';
 import {CollisionWorld} from '../src/world.ts';
 import {sightBoxes} from '../src/sight.ts';
@@ -46,6 +47,8 @@ test('A04–A08: one guard rescues a discovered unconscious person, whose knowle
 
 test('A09: another guard takes over if the rescuer is knocked out, and moving the body interrupts the job',()=>{
  const {m3,body,first,second,until,tick}=setup();
+ const records:IncidentEvent[]=[];
+ m3.director.incidents.onEvent=e=>{if(e.subject===body.id+':unconscious')records.push(e);};
  until(()=>m3.rescue.playing[0]?.guard===first);
  m3.down(first,'ko');
  until(()=>m3.rescue.playing.some(r=>r.body===body&&r.guard===second));
@@ -54,6 +57,23 @@ test('A09: another guard takes over if the rescuer is knocked out, and moving th
  assert.ok(!m3.rescue.playing.some(r=>r.body===body));
  for(let i=0;i<200;i++)tick();
  assert.equal(body.life,'unconscious');
+ assert.equal(new Set(records.map(e=>e.incidentId)).size,1);
+ assert.deepEqual(records.filter(e=>['assigned','released','cancelled'].includes(e.phase)).map(e=>[e.phase,e.actor]),[
+  ['assigned','first'],['released','first'],['assigned','second'],['cancelled','second'],
+ ]);
+});
+
+test('E05: the same person can be found again after being rescued, as a new incident',()=>{
+ const {m3,body,first,until}=setup();
+ const discovered:number[]=[];
+ m3.director.incidents.onEvent=e=>{if(e.subject===body.id+':unconscious'&&e.phase==='noticed'&&e.actor===first.id)discovered.push(e.incidentId);};
+ let calls=0;m3.onFound=(who)=>{if(who===body)calls++;};
+ until(()=>body.active);
+ first.heading=Math.atan2(body.pos.x-first.pos.x,body.pos.z-first.pos.z);
+ m3.down(body,'ko');body.fall=1;
+ m3.discover();m3.discover();
+ assert.equal(calls,2);
+ assert.equal(new Set(discovered).size,2);
 });
 
 test('dead and hidden bodies cannot be revived',()=>{
@@ -77,6 +97,7 @@ test('a civilian reports the unconscious person without identifying the player o
  assert.equal(first.evidenceGoal?.x,body.pos.x);
  assert.equal(first.knowledge.at(-1)?.sourceNpcId,guest.id);
  assert.equal(first.knowledge.at(-1)?.confirmedActor,false);
+ assert.equal(typeof first.knowledge.at(-1)?.incidentId,'number');
  assert.equal(m3.hotel.level,0);
 });
 

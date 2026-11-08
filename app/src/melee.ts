@@ -38,5 +38,7 @@ export const MELEE_REACH=1.4,THROW_RANGE=12;
 //      key, a late press or a step away and the guard throws the agent off and fights.
 //  M04 X while choking from behind turns the take-down lethal.
 //  M05 X held by someone out cold finishes them (FINISH_SECONDS).
+export function isWireVariant(id:string){return id==='wire_earphones'||id==='wire_tape';}
+
 export const PUNCH_SECONDS=.9,FINISH_SECONDS=1.2,BRAWL_WINDOW=1.1,BRAWL_KEYS=['KeyF','KeyX','KeyF'];
 export const keyLabel=(code:string)=>code.replace(/^Key/,'');

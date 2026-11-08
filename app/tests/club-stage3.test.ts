@@ -36,6 +36,17 @@ test('the catwalk rail blocks walking and rays through its bar, but not a shot b
  assert.equal(segmentClear(boxes,from,{x:16.2,y:1.6,z:32.8}),false);
  assert.equal(segmentClear(boxes,from,{x:16.2,y:.85,z:32.8}),true);
 });
+test('S08 row 2: the club lighting can be prepared with the wrench, which must stay in hand',()=>{
+ const spot=at('drop_lights'),g=club(spot.at);
+ let held='wrench';g.m3.heldItem=()=>held;
+ assert.match(g.field.prompt(g.p())?.text??'',/スパナ/);
+ g.run(.55,holdE);held='';g.run(.65,holdE);
+ assert.ok(!g.field.flags.has('drop_lights'));
+ g.tick();held='wrench';g.run(1.1,holdE);
+ assert.ok(g.field.flags.has('drop_lights'));
+ assert.ok(g.log.some(e=>e.type==='item.used'&&e.id==='wrench'));
+});
+
 function club(start:Position={...map.spawn,y:0}){
  const mission=map as unknown as Mission,world=new CollisionWorld(mission),nav=new NavGrid(world);
  const director=new Director(mission,world,nav,sightBoxes({...mission,walls:mission.walls.filter(w=>!map.collisionOnlyIds.includes(w.id))}),rules as Rules);
@@ -124,6 +135,27 @@ test('club drop clue, live wiring, second performance and accident score',()=>{
  const result=computeResult(scoring,g.ledger.counts,g.clock.elapsed,true);
  assert.equal(result.lines.find(l=>l.key==='accident_kill')?.count,1);
  assert.equal(result.lines.find(l=>l.key==='chance_complete')?.count,1);
+});
+
+test('F02: a visible drawn gun can panic another crowd by sound, but a hidden gun cannot start the panic',()=>{
+ const {director,p}=club({x:0,y:0,z:0});
+ const data=structuredClone(crowdData);
+ const template=data.places[0],person=template.points[0];
+ data.places=[
+  {...template,id:'sees',x:0,z:4,floor:0,count:1,points:[{...person,x:0,z:4,heading:Math.PI}]},
+  {...template,id:'hears',x:5,z:4,floor:0,count:1,points:[{...person,x:5,z:4,heading:0}]},
+  {...template,id:'upstairs',x:5,z:4,floor:1,count:1,points:[{...person,x:5,z:4,heading:0}]},
+ ];
+ data.hear=10;
+ director.boxes.splice(0,director.boxes.length,{minX:-.29,maxX:-.12,minY:0,maxY:2,minZ:.95,maxZ:1.35});
+ const crowd=new ClubCrowd(director,data,1),events:string[]=[];
+ crowd.reaction=(id,action,reason)=>{if(action==='scream')events.push(id+':'+reason);};
+ const agent={...p(),weaponDrawn:true,carrySight:{drawn:{x:-.25,y:1.24,z:.37},illegalTools:[]}};
+ crowd.violence(agent,0,'gun_drawn');
+ assert.deepEqual(events,[]);
+ director.boxes.length=0;
+ crowd.violence(agent,1,'gun_drawn');
+ assert.deepEqual(events,['sees:gun_drawn','hears:crowd_scream']);
 });
 
 test('club blackout scales floor NPC and crowd vision and restores it afterwards',()=>{
@@ -252,11 +284,15 @@ test('club VIP lockdown: a shot near the investor sends them to a safe room with
  assert.ok(Math.hypot(g.investor.pos.x-room.at.x,g.investor.pos.z-room.at.z)<1.2,JSON.stringify(g.investor.pos));
  const guards=g.director.npcs.filter(n=>n.guard&&n.active&&Math.hypot(n.pos.x-room.at.x,n.pos.z-room.at.z)<5);
  assert.ok(guards.length>=2,`guards at the room ${guards.map(n=>n.id)}`);
+ const escort=g.director.npcs.find(n=>n.id==='escort')!;
+ assert.ok(escort.scriptedGoal,'the VIP escort has a lockdown post');
+ const nextJob={...escort.pos};escort.scriptedGoal=nextJob;
  g.field.alarm(at,'gunshot','loud');
  assert.equal(g.log.filter(e=>e.type==='flag.set'&&e.id==='vip_lockdown').length,1,'no second lockdown while holding');
  g.run(stage.vip.lockdown.holdSeconds+2);
  assert.ok(g.log.some(e=>e.type==='flag.set'&&e.id==='vip_lockdown_end'));
  assert.notEqual(g.investor.state,'flee');
+ assert.equal(escort.scriptedGoal,nextJob,'ending the lockdown preserves a newer order');
 });
 
 test('club VIP escort check: a quietly downed investor is looked for after the set time',()=>{

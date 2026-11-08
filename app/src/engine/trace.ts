@@ -1,5 +1,6 @@
 import { permission, type Director, type Npc, type PlayerView } from '../ai.ts';
 import type { Position } from '../world.ts';
+import type { IncidentEvent } from '../incidents.ts';
 
 const round = (n:number) => Math.round(n*100)/100;
 type CrowdSight = {visible:number;places:string[]};
@@ -14,7 +15,8 @@ export class ClubTrace {
  private drawPending=false;
  private drawReactions=new Map<string,{reaction:string;reason:string;sense:string;distance:number;visibility?:number}>();
  crowdSight?: (p:PlayerView)=>CrowdSight;
- constructor(private readonly director:Director) {}
+ private readonly director:Director;
+ constructor(director:Director){this.director=director;}
  get recording(){return this.enabled;}
  drain(enable?:boolean){
   const rows=this.pending;this.pending=[];
@@ -41,6 +43,11 @@ export class ClubTrace {
  }
  instant(time:number,p:PlayerView,action:string,detail?:string){
   this.action(time,p,action,'start',detail);this.action(time,p,action,'end',detail);
+ }
+ incident(time:number,event:IncidentEvent){
+  if(!this.enabled)return;
+  const {x,y,z}=event.at;
+  this.pending.push({kind:'incident',t:round(time),...event,at:{x:round(x),y:round(y),z:round(z)}});
  }
  reaction(time:number,id:string,role:string,reaction:string,reason:string,sense:'sight'|'sound'|'none',distance:number,at:Position,visibility?:number){
   if(!this.enabled)return;

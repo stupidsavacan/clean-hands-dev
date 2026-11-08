@@ -42,6 +42,16 @@ test('losing the guard leads to a search, then he calms down and returns to patr
  for(let t=0;t<8&&g.state!=='alert';t+=1/60)d.step(1/60,player(-11.2,-6.5,{speed:1}));assert.equal(g.state,'alert');const pursuit=[];
  for(let t=0;t<30;t+=1/60)for(const e of d.step(1/60,player(10,10)))if(e.pursuitReason)pursuit.push([e.type,e.pursuitReason]);
  assert.deepEqual(pursuit,[['search','lost_contact'],['calm','search_expired']]);assert.equal(d.caught,false);assert.ok(g.suspicion<60);});
+test('a guard at the right x and z on the wrong floor keeps travelling to the evidence',()=>{
+ const d=only('guard-service'),g=d.npcs[0];
+ const ground={x:-12.6,y:0,z:-4};
+ g.pos={...ground,y:3.5};
+ g.radio(ground,d.rules);
+ g.move(1/60,world,nav,rules,player(10,10));
+ assert.equal(g.arrived,false);
+ assert.equal(g.state,'investigate');
+});
+
 test('a thrown coin pulls the nearest NPC over to look, then he goes back',()=>{const d=only('guard-lobby','guard-service');const spot={x:-8,y:0,z:-5};const n=d.noise(spot);assert.equal(n?.id,'guard-lobby');assert.equal(n!.state,'distracted');
  let near=9;for(let t=0;t<16;t+=1/60){d.step(1/60,player(10,10));near=Math.min(near,Math.hypot(n!.pos.x-spot.x,n!.pos.z-spot.z));}assert.ok(near<1,'walked to the coin');assert.equal(n!.state,'patrol');});
 test('blending into a group of three guests slows how fast running is noticed',()=>{const d=only('guest-a','guest-b','guest-c','guard-pool');assert.equal(d.crowdAt(2.4,10),3);});

@@ -37,7 +37,7 @@ import {brawlAt,brawlMotion,BRAWL_GAP} from '../brawl-motion';
 import {plantFeetAt,reachHandsAt,aimFists} from '../motion-runtime';
 import {poseKatana} from '../katana-pose';
 import {COIN_PICKUP_SECONDS} from '../coin-pickup';
-import {coinMesh,placePickupCoin,poseCoinPickup} from '../coin-pickup-pose';
+import {coinMesh,placePickupCoin,placePickupWeapon,poseCoinPickup} from '../coin-pickup-pose';
 import {poseRescue} from '../rescue-pose';
 import {RESCUE_SECONDS} from '../body-rescue';
 import {KATANA_GAP} from '../katana-motion';
@@ -49,7 +49,7 @@ type Clip={id:string;group:string;label:string;seconds:number;loop:boolean;
  loco?:{speed:number;crouch:number};gesture?:string;m3?:MotionKind;combat?:CombatKind;
  // A tool in the right hand (hold-pose.ts), with the walk in `loco`.
  item?:string;
- coinPickup?:true;
+ coinPickup?:true;weaponPickup?:true;
  // 2026-11-06: one swing or stab with the item (hold-pose.ts strikePose, melee.ts), as the game plays it.
  strike?:'blunt'|'blade';
  // 2026-11-08 (M06): hands up for a fake surrender (hold-pose.ts surrenderPose), as the game plays it.
@@ -64,6 +64,7 @@ const CLIPS:Clip[]=[
  // 2026-11-05: carrying a tool (HITMAN WoA carry research): the same walk, the right arm holds it.
  ...[['wrench','スパナ'],['bottle','ボトル'],['mop','モップ'],['briefcase','ブリーフケース'],['toolbox','工具箱'],['katana','刀']].flatMap(([item,name])=>LOCO.map(([id,label,speed,crouch])=>({id:`item-${item}-${id}`,group:'持ち物',label:`${name}・${label}`,seconds:2,loop:true,loco:{speed,crouch},item}))),
  {id:'coin-pickup',group:'持ち物',label:'コインを拾う',seconds:COIN_PICKUP_SECONDS,loop:false,coinPickup:true},
+ {id:'weapon-pickup',group:'持ち物',label:'落下銃を回収する',seconds:COIN_PICKUP_SECONDS,loop:false,weaponPickup:true},
  ...Object.entries(MELEE).map(([item,m])=>({id:'strike-'+item,group:'道具攻撃',label:`${m.label}で${m.kind==='blunt'?'殴る':m.swing?'斬る':'刺す'}`,seconds:m.seconds,loop:true,loco:{speed:0,crouch:0},item,strike:m.swing??m.kind})),
  // 2026-11-06: the fight with a guard (M02) and the single punch (M01), the agent and the first NPC facing each other.
  // M15: the sword from behind stabs instead of cutting (full spec row 14).
@@ -278,10 +279,14 @@ function poseActor(a:Actor,clip:Clip,t:number){
  const gait=(speed:number,crouch:number):Pose=>{const step=()=>{a.pose=a.loco.update(DT,{speed,crouch,slope:0,turn:0,distance:speed*DT});a.sim+=DT;};if(t<a.sim||a.sim<0){a.loco.reset();a.loco.time=0;a.sim=0;step();}while(a.sim+DT<=t)step();return structuredClone(a.pose!);};
  hold(a,clip.item);
  if(!clip.gesture)a.props.update(rig,group,null);scenery(a,clip.coinPickup?'coin-pickup':clip.gesture);
- if(clip.coinPickup){
-  const at=group.localToWorld(new T.Vector3(0,.01,.55)),pickup={at,progress};
+ if(clip.coinPickup||clip.weaponPickup){
+  const at=group.localToWorld(new T.Vector3(0,clip.weaponPickup?.03:.01,.55)),pickup={at,progress};
   poseCoinPickup(a,pickup,()=>0);
-  placePickupCoin(a.scenery!.object as T.Mesh,rig,pickup);
+  if(clip.coinPickup)placePickupCoin(a.scenery!.object as T.Mesh,rig,pickup);
+  else{
+   const weapon=a.weapons[gun.id];
+   if(weapon)placePickupWeapon(weapon.object,rig,pickup,1.7);
+  }
   return;
  }
  if(clip.loco){const p=gait(clip.loco.speed,clip.loco.crouch);if(clip.item)holdPose(p,holdKind(clip.item));if(clip.strike)strikePose(p,clip.strike,progress);if(clip.surrender)surrenderPose(p,progress*clip.seconds);rig.apply(p);return;}

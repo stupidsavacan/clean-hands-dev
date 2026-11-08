@@ -342,7 +342,7 @@ function fixedUpdate(dt:number){if(restartHold.step(dt/(training?1:clock.rate),k
  if(m4.stats.frisks&&currentFloor===1)enteredStaff=true;
  if(guideIndex<0)stepAi(dt);
 }
-function playerView():PlayerView{return {x:position.x,y:position.y,z:position.z,floor:currentFloor,speed:currentSpeed,running:currentSpeed>2.6,crouched,tampering:tampering||m53.tampering||m57.tampering,disguise:m4.disguise,outfitOwner:m4.outfitOwner,carrySight:training?undefined:carriedPoints(position,heading,crouched,m4.disguise,combat,detection),restricted:!training&&m53.isRestricted(position),blending:!training&&(!!detection.blend||false),illegal:!training&&combat.illegalIn(m4.disguise),weaponDrawn:!training&&!!combat.hand,illegalVisibleCarry:!training&&combat.shown(m4.disguise),suspiciousItem:!training&&detection.suspiciousHeld(m4.disguise)};}
+function playerView():PlayerView{const traversal=m57.frame(position);return {x:position.x,y:position.y,z:position.z,floor:currentFloor,speed:currentSpeed,running:currentSpeed>2.6,crouched,tampering:tampering||m53.tampering||m57.tampering,disguise:m4.disguise,outfitOwner:m4.outfitOwner,carrySight:training?undefined:carriedPoints(position,traversal?.heading??heading,crouched,m4.disguise,combat,detection,!!m57.action,traversal?.hand?.(-1)),restricted:!training&&m53.isRestricted(position),blending:!training&&(!!detection.blend||false),illegal:!training&&combat.illegalIn(m4.disguise),weaponDrawn:!training&&!!combat.hand,illegalVisibleCarry:!training&&(combat.shown(m4.disguise)||!!traversal&&detection.illegalShown(m4.disguise)),suspiciousItem:!training&&detection.suspiciousHeld(m4.disguise)};}
 const EVENT_TEXT:Partial<Record<AiEvent['type'],(n:string)=>string>>={curious:n=>`${n}が振り向いた。`,investigate:n=>`${n}が確かめに来る。`,alert:n=>`${n}に見つかった。逃げろ。`,search:n=>`${n}が見失った。捜索している。`,report:n=>`${n}が警備に知らせに行く。`,warn:n=>`${n}「ここは立入禁止だ。出ていけ」`,arrest:n=>`${n}が取り押さえに来る。逃げろ。`};
 // Warned for acting oddly where the outfit is merely out of place (a guest in the parking lot), not for trespassing.
 const WARN_ODD=(n:string)=>`${n}「おい、何をしている。ここから離れろ」`;
@@ -418,16 +418,15 @@ function finishItems(){for(const o of detectionView.root.children){if(o.name!=='
 // the wrong way the arms crossed. Climbing faces the wall the rails are drawn on (+z), hands and feet on alternate
 // rungs 0.3 m apart; a diagonal climb (over the delivery fence) faces the way it goes. A window is vaulted with both
 // hands on the sill while the body passes over it.
-const RUNG=.3;
-function poseTraversal(){const a=m57.action;if(!a||!rig)return;const points=[a.reverse?a.link.end:a.link.start,...(a.reverse?[...(a.link.via??[])].reverse():a.link.via??[]),a.to],n=points.length-1,i=Math.min(n-1,Math.floor(m57.progress*n)),p=points[i],q=points[i+1];
- const flat=Math.hypot(q.x-p.x,q.z-p.z),climb=Math.abs(q.y-p.y)>.5,vault=a.link.kind==='window';if(!climb&&!vault){avatar.rotation.y=Math.atan2(q.x-p.x,q.z-p.z);return;}
- const face=climb&&flat<.2?0:vault?Math.atan2(points[n].x-points[0].x,points[n].z-points[0].z):Math.atan2(q.x-p.x,q.z-p.z),s=Math.sin(face),c=Math.cos(face);avatar.rotation.y=face;
- const at=(x:number,y:number,z:number,from:{x:number;y:number;z:number}=position)=>new T.Vector3(from.x+x*c+z*s,from.y+y,from.z-x*s+z*c);
- const pose=partyMotions[vault?'vault':'climb'];for(const [bone,angles]of Object.entries(pose.bones))rig.rotate(bone,angles[0],angles[1],angles[2]);leanGroup.rotation.x=vault?pose.root.pitch:.12;avatar.updateMatrixWorld(true);
- if(vault){const v=a.link.via??[],sill=v.length?{x:(v[0].x+v[v.length-1].x)/2,y:Math.min(...points.map(o=>o.y))+1.05,z:(v[0].z+v[v.length-1].z)/2}:{...position,y:position.y+1};for(const [side,sign]of [['l',1],['r',-1]]as const)reach(rig,side,at(sign*.28,0,0,sill));return;}
- // One cycle per two rungs: each hand reaches up while the opposite foot steps up, then holds.
- const phase=(position.y/(2*RUNG))%1,lift=(u:number)=>Math.min(1,Math.max(0,Math.sin(u*Math.PI*2)*1.4));
- for(const [side,sign,shift]of [['l',1,0],['r',-1,.5]]as const){const u=(phase+shift)%1;reach(rig,side,at(sign*.22,1.3+RUNG*.8*lift(u),.3));reach(rig,side,at(sign*.12,.25+RUNG*lift((u+.5)%1),.22),1,true);}}
+function poseTraversal(){const frame=m57.frame(position);if(!frame||!rig)return;
+ avatar.rotation.y=frame.heading;
+ if(!frame.hand)return;
+ const pose=partyMotions[frame.vault?'vault':'climb'];for(const [bone,angles]of Object.entries(pose.bones))rig.rotate(bone,angles[0],angles[1],angles[2]);leanGroup.rotation.x=frame.vault?pose.root.pitch:.12;avatar.updateMatrixWorld(true);
+ const vector=({x,y,z}:Position)=>new T.Vector3(x,y,z);
+ for(const [side,sign]of [['l',1],['r',-1]]as const){
+  reach(rig,side,vector(frame.hand(sign)));
+  if(frame.foot)reach(rig,side,vector(frame.foot(sign)),1,true);
+ }}
 function fadeWalls(dt:number){const hit=new Set<T.Mesh>();if(viewMode!=='first'){const target=new T.Vector3(avatar.position.x,avatar.position.y+1.05,avatar.position.z);for(const dx of [-.22,0,.22]){const end=target.clone();end.x+=dx;const dir=end.sub(camera.position);fadeRay.set(camera.position,dir.clone().normalize());fadeRay.far=dir.length()-.15;for(const h of fadeRay.intersectObjects(occluders,false)){const m=h.object as T.Mesh;if(m.userData.fadeFloor<=currentFloor)hit.add(m);}}}
  faded=0;for(const m of occluders){const target=hit.has(m)?.16:1;m.material.opacity=T.MathUtils.damp(m.material.opacity,target,12,dt);m.material.depthWrite=m.material.opacity>.99;if(m.userData.fadeFloor<=currentFloor&&m.material.opacity<.8)faded++;}if(faded)sawFade=true;}
 function drawMap(canvas:HTMLCanvasElement,floor:number){const c=canvas.getContext('2d')!,w=canvas.width,h=canvas.height,g=map.ground;c.clearRect(0,0,w,h);c.fillStyle='#0d1316';c.fillRect(0,0,w,h);

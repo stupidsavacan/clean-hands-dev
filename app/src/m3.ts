@@ -1,13 +1,13 @@
 import type { Director, Npc, PlayerView } from './ai.ts';
 import type { Position } from './world.ts';
 import { segmentClear } from './sight.ts';
-import { meleeOf, MELEE_REACH, PUNCH_SECONDS, FINISH_SECONDS, BRAWL_WINDOW, BRAWL_KEYS, keyLabel } from './melee.ts';
+import {isWireVariant, meleeOf, MELEE_REACH, PUNCH_SECONDS, FINISH_SECONDS, BRAWL_WINDOW, BRAWL_KEYS, keyLabel } from './melee.ts';
 import { BRAWL_FINISH } from './brawl-motion.ts';
 import { BodyRescue } from './body-rescue.ts';
 
 export type HideDef={id:string;label:string;x:number;y:number;z:number;heading:number;capacity:number;spareClothes?:boolean;approach:{x:number;z:number};size:{w:number;h:number;d:number}};
 export type M3Rules={distance:number;backAngle:number;koSeconds:number;killSeconds:number;hideSeconds:number;dragSpeed:number;hideRadius:number;discoverSeconds:number;cooldownSeconds:number};
-export type Action={id:number;kind:'ko'|'kill'|'hide';npc:Npc;elapsed:number;duration:number;start:Position;targetStart:Position;targetHeading:number;container?:HideDef;item?:string;
+export type Action={id:number;kind:'ko'|'kill'|'hide';npc:Npc;elapsed:number;duration:number;start:Position;targetStart:Position;targetHeading:number;container?:HideDef;item?:string;wireItem?:string;
  // Bare-hand variants (melee.ts): a punch from the front, a fight with a guard (stage, when it began, last landed blow),
  // a finishing blow to someone out cold.
  mode?:'punch'|'brawl'|'finish';stage?:number;stageAt?:number;hitAt?:number;
@@ -97,9 +97,9 @@ export class M3System{
   else if(this.action?.mode==='brawl')this.brawlStep(this.action,dt,p,fresh,moving);
   else if(this.action){const a=this.action;
    // M04: X while choking from behind with bare hands: the same hold, now lethal (as far along as the choke was).
-   if(a.kind==='ko'&&!a.item&&!a.mode&&fresh('KeyX')){a.elapsed=a.elapsed/a.duration*this.rules.killSeconds;a.duration=this.rules.killSeconds;a.kind='kill';}
+   if(a.kind==='ko'&&!a.item&&!a.mode&&fresh('KeyX')){a.elapsed=a.elapsed/a.duration*this.rules.killSeconds;a.duration=this.rules.killSeconds;a.kind='kill';a.wireItem=this.wireInHand();}
    const key=a.kind==='ko'?'KeyF':a.kind==='kill'?'KeyX':'KeyE';usesE=a.kind==='hide';
-   if(!keys.has(key)||moving||flat(p,a.start)>.16||Math.abs(p.y-a.start.y)>.2||flat(a.npc.pos,a.targetStart)>.1||a.npc.active&&a.npc.state==='alert'||a.mode==='finish'&&a.npc.life!=='unconscious'||a.kind!=='hide'&&a.mode!=='finish'&&(!a.npc.active||Math.abs(a.npc.heading-a.targetHeading)>.15)){this.cancel();}
+   if(a.wireItem&&this.heldItem?.()!==a.wireItem||!keys.has(key)||moving||flat(p,a.start)>.16||Math.abs(p.y-a.start.y)>.2||flat(a.npc.pos,a.targetStart)>.1||a.npc.active&&a.npc.state==='alert'||a.mode==='finish'&&a.npc.life!=='unconscious'||a.kind!=='hide'&&a.mode!=='finish'&&(!a.npc.active||Math.abs(a.npc.heading-a.targetHeading)>.15)){this.cancel();}
    else{a.elapsed+=dt;if(a.elapsed>=a.duration){this.complete(a);this.action=null;}}}
   else if(fresh('KeyF')&&!this.dragged&&!moving&&this.detainer(p)){const g=this.detainer(p)!;this.surrendering={guard:g,at:this.elapsed};this.held.add('KeyF');this.notices.push(`両手を上げた（ふり）。${g.label}が近づくのを待つ。`);}
   else if(fresh('KeyE')&&this.hiddenIn){usesE=true;this.leaveHide();this.notices.push('外に出た。');}
@@ -115,18 +115,22 @@ export class M3System{
   if(this.action&&this.action.kind!=='hide')this.witness(p,`action-${this.action.id}`);
   if(this.dragged)this.witness(p,'drag-'+this.dragged.id);
   for(const n of this.director.npcs)if(n.life!=='active')n.fall=Math.min(1,n.fall+dt/n.fallSeconds);
-  this.rescue.step(dt,body=>this.discovered.delete(body.id+':unconscious'));
+  this.rescue.step(dt,body=>{
+   this.discovered.delete(body.id+':unconscious');
+   this.unconsciousFound.delete(body.id);
+  });
   this.discoverClock+=dt;if(this.discoverClock>=this.rules.discoverSeconds){this.discoverClock=0;this.discover();this.rescue.assign();}
   this.hotel.step(dt,!this.action&&!this.dragged&&!this.director.npcs.some(n=>n.active&&['alert','report','investigate','search'].includes(n.state)),this.rules.cooldownSeconds);
   this.held=new Set(keys);this.facing=heading;return usesE;}
  private facing=0;
- private begin(kind:Action['kind'],npc:Npc,p:Position,container?:HideDef,item?:string,mode?:Action['mode']){npc.busy=true;npc.speed=0;const behind=(p.x-npc.pos.x)*Math.sin(npc.heading)+(p.z-npc.pos.z)*Math.cos(npc.heading)<0;if(mode==='brawl'||mode==='punch')npc.heading=Math.atan2(p.x-npc.pos.x,p.z-npc.pos.z);this.action={id:++this.sequence,kind,npc,container,item,mode,behind,stage:0,stageAt:0,elapsed:0,
+ private wireInHand(){const id=this.heldItem?.()??'';return isWireVariant(id)?id:undefined;}
+ private begin(kind:Action['kind'],npc:Npc,p:Position,container?:HideDef,item?:string,mode?:Action['mode']){npc.busy=true;npc.speed=0;const behind=(p.x-npc.pos.x)*Math.sin(npc.heading)+(p.z-npc.pos.z)*Math.cos(npc.heading)<0;if(mode==='brawl'||mode==='punch')npc.heading=Math.atan2(p.x-npc.pos.x,p.z-npc.pos.z);this.action={id:++this.sequence,kind,npc,container,item,wireItem:kind==='kill'&&!item&&!mode?this.wireInHand():undefined,mode,behind,stage:0,stageAt:0,elapsed:0,
   duration:item?meleeOf(item)!.seconds:mode==='punch'?PUNCH_SECONDS:mode==='finish'?FINISH_SECONDS:mode==='brawl'?BRAWL_KEYS.length*BRAWL_WINDOW:kind==='ko'?this.rules.koSeconds:kind==='kill'?this.rules.killSeconds:this.rules.hideSeconds,start:{...p},targetStart:{...npc.pos},targetHeading:npc.heading};if(kind!=='hide')this.closeCombatNoise(p,npc);}
  // HITMAN "Close Combat Heard" (2026-11-05): a struggle is heard close by (rules closeCombatHear, default 2 m). Someone
  // who does not see it looks: a guard comes to the spot, anyone else turns and walks over. Hearing never names anyone;
  // those who see it are witnesses (witness() below).
  closeCombatNoise(at:Position,victim:Npc){const r=(this.rules as {closeCombatHear?:number}).closeCombatHear??2,rules=this.director.rules;
-  for(const n of this.director.npcs){if(n===victim||!n.active||n.busy||n.visibility>0||Math.abs(n.pos.y-at.y)>1.5||flat(n.pos,at)>r)continue;
+  for(const n of this.director.npcs){if(n===victim||!n.active||n.busy||n.visibility>0||Math.abs(n.pos.y-at.y)>1.5||flat(n.pos,at)>r||this.director.soundClear?.(at,n.pos)===false)continue;
    if(n.guard)n.radio({...at},rules);else n.hear({...at},rules);this.onReaction?.(n,n.guard?'investigate':'heard','close_combat',at);}}
  private complete(a:Action){const n=a.npc;n.busy=false;
   if(a.kind==='hide'){const h=a.container!;const slots=this.slots.get(h.id)!;if(slots.length>=h.capacity){this.notices.push('収納できませんでした。');return;}slots.push(n.id);n.bodyMode='hidden';n.pos={x:h.x,y:h.y,z:h.z};this.dragged=null;this.stats.hidden++;this.notices.push('身体を隠した。');}
@@ -162,18 +166,25 @@ export class M3System{
   return [-.45,0,.45].some(t=>segmentClear(this.director.boxes,{...n.pos,y:n.pos.y+this.director.rules.vision.eye},{x:body.pos.x+Math.sin(body.heading)*t,y:body.pos.y+.22,z:body.pos.z+Math.cos(body.heading)*t}));}
  discover(){for(const body of this.director.npcs){if(body.life==='active'||body.bodyMode!=='ground'||body.fall<1)continue;
    for(const n of this.director.npcs){if(!n.active||n.busy||n===body||!n.guard&&n.witnessCooldown>0||!this.sees(n,body))continue;if(n.guard)this.rescue.request(body);const key=body.id+':'+body.life;let known=this.discovered.get(key);if(!known){known=new Set();this.discovered.set(key,known);}if(known.has(n.id))continue;known.add(n.id);
+    const incident=this.director.incidents.identify(body,'body',key);
+    n.learn({eventType:'body',estimatedOrigin:{...body.pos},confirmedActor:false,confidence:1,observedAt:this.elapsed,incidentId:incident.id});
+    this.director.incidents.write(incident,'noticed',body.pos,n.id,'sight');
     const first=body.life==='dead'?!this.deadFound.has(body.id):!this.unconsciousFound.has(body.id);// A guard radios a murder in at once; a bystander has to get to a guard first (M5.6 witness), which can be stopped.
     if(body.life==='dead'){this.deadFound.add(body.id);if(body.deathKind==='murder'&&n.guard)this.hotel.discover(body.id);}else this.unconsciousFound.add(body.id);if(first)this.onFound?.(body,n);
     if(body.life==='dead'&&body.deathKind==='combat')continue;
     if(body.life==='dead'&&body.deathKind==='accident'){if(first){this.notices.push('事故だ！ 警備が現場を立入禁止にする。');this.onAccidentFound?.(body,n);}continue;}
     if(first)this.notices.push(body.life==='dead'?'死体が発見された。ホテル警戒度が上がった。':'気絶した人が発見された。');
     // Evidence alone identifies a location, never the perpetrator.
-    if(n.state!=='alert'&&n.state!=='search'){if(n.guard){if(!this.rescue.assigned(n))n.radio(body.pos,this.director.rules);}else{n.state='report';n.timer=this.director.rules.timers.report;this.director.reports++;if(body.life==='unconscious'&&!n.witness||body.life==='dead'&&body.deathKind==='murder')n.witness={what:body.life==='unconscious'?'unconscious':'body',at:{...body.pos},key:body.id};}
+    if(n.state!=='alert'&&n.state!=='search'){if(n.guard){if(!this.rescue.assigned(n))n.radio(body.pos,this.director.rules);}else{n.state='report';n.timer=this.director.rules.timers.report;this.director.reports++;if(body.life==='unconscious'&&!n.witness||body.life==='dead'&&body.deathKind==='murder')n.witness={what:body.life==='unconscious'?'unconscious':'body',at:{...body.pos},key:body.id,incident};}
      this.onReaction?.(n,n.guard?'investigate':n.witness?'report':'alert',body.life==='dead'?'body':'unconscious_body',body.pos);}
     // radio() leaves a guard alone who is fighting or already on the way to this body (2026-11-04, AI report P0-A/P1-A).
     // HD09 (2026-11-07, the user's choice): backup comes from any floor of the building — the two nearest free guards
     // (a floor apart counts as BACKUP_FLOOR_M metres), instead of everyone within a flat radio radius.
-    if(n.guard)for(const g of this.backup(n,body.pos))g.radio(body.pos,this.director.rules);
+    if(n.guard)for(const g of this.backup(n,body.pos)){
+     g.radio(body.pos,this.director.rules,{eventType:'report',estimatedOrigin:{...body.pos},confirmedActor:false,confidence:.8,
+      observedAt:this.elapsed,sourceNpcId:n.id,incidentId:incident.id});
+     this.director.incidents.write(incident,'reported',body.pos,g.id,'radio',n.id);
+    }
    }}}
  /** The guards who answer a body radio call: the nearest free ones, any floor (HD09). */
  backup(caller:Npc,at:Position,count=BODY_BACKUP){const floorGap=(g:Npc)=>Math.abs(Math.round((g.pos.y-at.y)/3));

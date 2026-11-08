@@ -240,6 +240,44 @@
     }
   },
   {
+    "id": "wire_earphones",
+    "kind": "melee",
+    "label": "イヤホン型ワイヤー",
+    "triangles": 280,
+    "bytes": 22044,
+    "size_m": [
+      0.071,
+      0.012,
+      0.083
+    ],
+    "anchors": {
+      "GRIP_R": [
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  {
+    "id": "wire_tape",
+    "kind": "melee",
+    "label": "メジャー型ワイヤー",
+    "triangles": 72,
+    "bytes": 8488,
+    "size_m": [
+      0.076,
+      0.04,
+      0.094
+    ],
+    "anchors": {
+      "GRIP_R": [
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  {
     "id": "brick",
     "kind": "throw",
     "label": "レンガ",

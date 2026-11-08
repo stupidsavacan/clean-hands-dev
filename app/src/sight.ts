@@ -28,6 +28,7 @@ export function sightBoxes(level:Level):Aabb[]{
 }
 // A coarse grid over the boxes so a ray only tests what lies under it. Rebuilt when boxes are added (tests push extra walls).
 type Indexed=Aabb[]&{index?:{count:number;cells:Map<number,number[]>}};
+export function invalidateSight(boxes:Indexed){delete boxes.index;}
 const key=(x:number,z:number)=>(x+4096)*8192+(z+4096);
 function index(boxes:Indexed){if(boxes.index?.count===boxes.length)return boxes.index.cells;const cells=new Map<number,number[]>();
  boxes.forEach((b,i)=>{for(let x=Math.floor(b.minX/CELL);x<=Math.floor(b.maxX/CELL);x++)for(let z=Math.floor(b.minZ/CELL);z<=Math.floor(b.maxZ/CELL);z++){const k=key(x,z),l=cells.get(k);if(l)l.push(i);else cells.set(k,[i]);}});

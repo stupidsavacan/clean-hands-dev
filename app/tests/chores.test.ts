@@ -94,6 +94,18 @@ test('a cleaner drops a stalled errand and can take another cleanup',()=>{
  assert.equal(first.cleaned,0);
 });
 
+test('two cleaners can mop and vacuum concurrently without double-assigning the vacuum',()=>{
+ const {ch,c,other}=setup(true);
+ const blood=ch.add('blood',{x:-7,y:0,z:7}),water=ch.add('water',{x:6,y:0,z:8}),another=ch.add('blood',{x:-6,y:0,z:7});
+ blood.seen=water.seen=another.seen=true;
+ ch.step(.1);
+ assert.deepEqual(ch.snapshot().jobs.map(j=>[j.cleaner,j.phase,j.mess]),[[c.id,'fetch',blood.id],[other!.id,'carry',water.id]]);
+ at(other!,other!.scriptedGoal);
+ ch.step(.1);ch.step(CLEAN_SECONDS);
+ assert.equal(ch.messes.includes(water),false);
+ assert.ok(ch.messes.includes(another));
+});
+
 test('C09 water remains after the tap closes and is mopped up with the vacuum left at home',()=>{
  const {d,c}=setup(),sink={...vacuum,id:'sink',kind:'sink' as const,label:'蛇口',x:-8,z:7,approach:{x:-8,z:7.6}};
  const dev=new DeviceSystem(d,[sink,vacuum],()=>0,['c']),ch=new ChoreSystem(d,dev,['c']);

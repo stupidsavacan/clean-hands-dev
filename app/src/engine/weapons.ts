@@ -3,9 +3,11 @@ import type { CombatSystem, Dropped } from '../combat.ts';
 import type { M4System } from '../m4.ts';
 import { segmentClear } from '../sight.ts';
 import type { Position } from '../world.ts';
+import { COIN_GRASP,COIN_PICKUP_SECONDS,type CoinPickup } from '../coin-pickup.ts';
 
 const distance=(a:{x:number;z:number},b:{x:number;z:number})=>Math.hypot(a.x-b.x,a.z-b.z);
-type Recovery={drop:Dropped;goal:Npc['goal']};
+type Recovery={drop:Dropped;goal:Npc['goal'];lift?:CoinPickup&{started:number}};
+const GRAB_RANGE=.68;
 
 export class ClubWeapons {
  private nextScan=0;
@@ -50,13 +52,21 @@ export class ClubWeapons {
    n.lastSeen={x:p.x,y:p.y,z:p.z};
    this.onReaction?.(n,drop,'curious',p);
   }
+  this.combat.director.incidents.end(drop,'cancelled',drop.pos,'player');
   return label;
  }
 
- private release(n:Npc){
+ private release(n:Npc,completed=false){
   const job=this.recovering.get(n);
   if(job&&n.state==='distracted'&&n.goal===job.goal){
    n.state='patrol';n.goal=null;n.arrived=false;
+  }
+  if(job){
+   if(n.coinPickup===job.lift)n.coinPickup=null;
+   if(job.drop.beingLiftedBy===n)delete job.drop.beingLiftedBy;
+   const incidents=this.combat.director.incidents;
+   if(completed)incidents.end(job.drop,'completed',job.drop.pos,n.id);
+   else incidents.write(incidents.identify(job.drop,'weapon',job.drop.gun.id),'released',job.drop.pos,n.id);
   }
   this.recovering.delete(n);
  }
@@ -73,7 +83,7 @@ export class ClubWeapons {
  }
 
  private approach(n:Npc,drop:Dropped):Position|null{
-  const d=this.combat.director,{nav}=d,{pos}=drop,range=this.m4.rules.lootRadius;
+  const d=this.combat.director,{nav}=d,{pos}=drop,range=GRAB_RANGE;
   if(distance(n.pos,pos)<range||nav.clear(n.pos,pos))return pos;
   const end=nav.find(n.pos,pos)?.at(-1);
   return end&&distance(end,pos)<range&&Math.abs(end.y-pos.y)<.35&&
@@ -81,22 +91,40 @@ export class ClubWeapons {
  }
 
  step(time:number){
-  if(time<this.nextScan||!this.combat.dropped.length&&!this.recovering.size)return;
-  this.nextScan=time+this.scanSeconds;
+  if(!this.combat.dropped.length&&!this.recovering.size)return;
+  const scan=time>=this.nextScan;
+  if(scan)this.nextScan=time+this.scanSeconds;
   const d=this.combat.director;
-  for(const [n,{drop,goal}] of this.recovering){
+  for(const [n,job] of this.recovering){
+   const {drop,goal,lift}=job;
    const index=this.combat.dropped.indexOf(drop);
-   if(index<0||!n.active||n.busy||n.state!=='distracted'||n.goal!==goal){this.release(n);continue;}
-   if(distance(n.pos,drop.pos)<this.m4.rules.lootRadius&&this.seesFloor(n,drop)){
-    this.combat.dropped.splice(index,1);
-    this.release(n);
-    this.onReaction?.(n,drop,'collect');
+   if(index<0||!n.active||n.busy||n.state!=='distracted'||n.goal!==goal){this.release(n);if(index<0)d.incidents.end(drop,'cancelled',drop.pos);continue;}
+   if(lift){
+    n.timer=Math.max(n.timer,.4);
+    lift.progress=Math.min(1,(time-lift.started)/COIN_PICKUP_SECONDS);
+    if(lift.progress>=COIN_GRASP)drop.beingLiftedBy=n;
+    if(lift.progress>=1){
+     this.combat.dropped.splice(index,1);
+     this.release(n,true);
+     this.onReaction?.(n,drop,'collect');
+    }
+    continue;
+   }
+   if(!scan)continue;
+   if(distance(n.pos,drop.pos)<GRAB_RANGE&&this.seesFloor(n,drop)&&!n.coinPickup&&
+      segmentClear(d.boxes,{...n.pos,y:n.pos.y+.32},{...drop.pos,y:drop.pos.y+.05})){
+    n.arrived=true;n.speed=0;n.timer=Math.max(n.timer,.4);
+    if(distance(n.pos,drop.pos)>.04)n.heading=Math.atan2(drop.pos.x-n.pos.x,drop.pos.z-n.pos.z);
+    n.scanBase=n.heading;n.scanT=0;
+    job.lift={at:{...drop.pos,y:drop.pos.y+.03},progress:0,started:time};
+    n.coinPickup=job.lift;
    }else if(n.arrived){
     const deferred=this.retry.get(drop)??new Map<Npc,number>();
     deferred.set(n,time+d.rules.timers.noiseLook);this.retry.set(drop,deferred);
     this.release(n);
    }
   }
+  if(!scan)return;
   for(const drop of this.combat.dropped){
    if(drop.stocked)continue;
    if([...this.recovering.values()].some(job=>job.drop===drop))continue;
@@ -108,7 +136,12 @@ export class ClubWeapons {
     .sort((a,b)=>distance(a.pos,drop.pos)-distance(b.pos,drop.pos));
    for(const guard of candidates){
     const at=this.approach(guard,drop);
-    if(at&&guard.hear(at,d.rules,true)){this.recovering.set(guard,{drop,goal:guard.goal});break;}
+    if(!at||!guard.hear(at,d.rules,true))continue;
+    const incident=d.incidents.identify(drop,'weapon',drop.gun.id);
+    d.incidents.write(incident,'noticed',drop.pos,guard.id,'sight');
+    this.recovering.set(guard,{drop,goal:guard.goal});
+    d.incidents.write(incident,'assigned',at,guard.id);
+    break;
    }
   }
  }

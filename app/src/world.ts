@@ -14,8 +14,17 @@ export function inside(r:Rect,x:number,z:number,margin=0){return x>=r.minX+margi
 export function bounds(b:Block):Rect{return {minX:b.x-b.w/2,maxX:b.x+b.w/2,minZ:b.z-b.d/2,maxZ:b.z+b.d/2};}
 export class CollisionWorld{
  readonly level:Level;readonly grid=new Map<string,Block[]>();readonly cells=2;
+ private readonly dynamic=new Set<Block>();
+ revision=0;
+ setDynamic(block:Block,closed:boolean){
+  if(this.dynamic.has(block)===closed)return;
+  if(closed)this.dynamic.add(block);else this.dynamic.delete(block);
+  this.revision++;
+ }
  constructor(level:Level){this.level=level;for(const b of [...level.walls,...level.blockers]){const r=bounds(b);for(let x=Math.floor(r.minX/2);x<=Math.floor(r.maxX/2);x++)for(let z=Math.floor(r.minZ/2);z<=Math.floor(r.maxZ/2);z++){const k=`${x},${z}`;const a=this.grid.get(k)||[];a.push(b);this.grid.set(k,a);}}}
- nearby(x:number,z:number){const out=new Set<Block>();for(let a=Math.floor((x-RADIUS)/2);a<=Math.floor((x+RADIUS)/2);a++)for(let b=Math.floor((z-RADIUS)/2);b<=Math.floor((z+RADIUS)/2);b++)for(const block of this.grid.get(`${a},${b}`)||[])out.add(block);return out;}
+ nearby(x:number,z:number){const out=new Set<Block>();for(let a=Math.floor((x-RADIUS)/2);a<=Math.floor((x+RADIUS)/2);a++)for(let b=Math.floor((z-RADIUS)/2);b<=Math.floor((z+RADIUS)/2);b++)for(const block of this.grid.get(`${a},${b}`)||[])out.add(block);
+  for(const block of this.dynamic)out.add(block);
+  return out;}
  surface(x:number,z:number,oldY:number):number|null{
   if(!inside(this.level.ground,x,z,RADIUS))return null;
   const y=surfaces(this.level,x,z).reduce((m,v)=>Math.abs(v-oldY)<Math.abs(m-oldY)?v:m);

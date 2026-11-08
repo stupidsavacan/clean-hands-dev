@@ -40,7 +40,7 @@
    "legality": "suspicious",
    "concealable": false,
    "allowedFor": [
-    "waiter",
+    "technician",
     "cleaner",
     "guard",
     "bodyguard"
@@ -140,6 +140,16 @@
    "legality": "normal",
    "concealable": false
   },
+  "wire_earphones": {
+   "label": "イヤホン型ワイヤー",
+   "legality": "illegal",
+   "concealable": true
+  },
+  "wire_tape": {
+   "label": "メジャー型ワイヤー",
+   "legality": "illegal",
+   "concealable": true
+  },
   "toolbox": {
    "label": "工具箱",
    "legality": "normal",
@@ -147,6 +157,13 @@
   }
  },
  "worldItems": [
+  {
+   "id": "wrench-equipment",
+   "item": "wrench",
+   "x": 34.1,
+   "z": 31.0,
+   "floor": 0
+  },
   {
    "id": "hammer-equipment",
    "item": "hammer",
@@ -180,6 +197,20 @@
    "item": "brick",
    "x": 4.5,
    "z": 10.5,
+   "floor": 0
+  },
+  {
+   "id": "earphones-smoking",
+   "item": "wire_earphones",
+   "x": 4.0,
+   "z": 10.5,
+   "floor": 0
+  },
+  {
+   "id": "tape-equipment",
+   "item": "wire_tape",
+   "x": 34.9,
+   "z": 31.0,
    "floor": 0
   },
   {
