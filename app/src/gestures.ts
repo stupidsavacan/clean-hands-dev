@@ -130,13 +130,17 @@ function clean(p:Pose,t:number):Gesture{
  shape(p,1,-.7,1.3);shape(p,0,-.6,1.5);
  return {r:{at:[cx+.11*Math.cos(t*2.6),.96,.43+.08*Math.sin(t*2.6)],w:1},l:{at:[.2,.96,.32],w:1}};
 }
-// Push the mop across the floor, with its head below the hands.
+// Push the mop across the floor, with its head below the hands. Both hands hold the handle (2026-11-08 review: the
+// left hand floated in front of the chest): the right at the top end, which is the mop's grip origin, the left 0.30 m
+// further down the handle toward the head (+Z, TIP 1.13 m).
+export const MOP_HANDS_APART=.30;
 function mopFloor(p:Pose,t:number):Gesture{
- alive(p,t,.4);const sway=Math.sin(t*2.8),wrist=.94;
- p.spine+=.21;p.head+=.23;
+ alive(p,t,.4);const sway=Math.sin(t*2.8),push=Math.sin(t*1.4),wrist=.98;
+ p.spine+=.25;p.head+=.23;
  shape(p,1,-.58,.88);shape(p,0,-.60,.97);
- return {r:{at:[-.16+.13*sway,wrist,.22],w:1},l:{at:[-.08+.11*sway,1.12,.13],w:1},
-  props:{r:{id:'mop',rot:[Math.asin((wrist-.03)/1.13),sway*.23,0],off:[0,0,0]}}};
+ const r:V3=[-.10+.10*sway,wrist,.34+.05*push],pitch=Math.asin((wrist-.03)/1.13),yaw=sway*.23,down=MOP_HANDS_APART;
+ const l:V3=[r[0]+down*Math.cos(pitch)*Math.sin(yaw),r[1]-down*Math.sin(pitch),r[2]+down*Math.cos(pitch)*Math.cos(yaw)];
+ return {r:{at:r,w:1},l:{at:l,w:1},props:{r:{id:'mop',rot:[pitch,yaw,0],off:[0,0,0]}}};
 }
 // Massage (the masseur): both hands on the table (about 0.8 m), kneading in turn, leaning their weight in.
 function massageWork(p:Pose,t:number):Gesture{

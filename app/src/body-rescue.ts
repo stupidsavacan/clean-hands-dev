@@ -3,6 +3,9 @@ import {segmentClear} from './sight.ts';
 import type {Position} from './world.ts';
 
 export const RESCUE_SECONDS=2.4;
+// Where the rescuer kneels, in the person's space: beside the shoulder, clear of the body as it gets up (2026-11-08 review).
+export const RESCUE_SPOT={side:.62,forward:.30};
+const STEP_IN_SPEED=1.2;
 const distance=(a:Position,b:Position)=>Math.hypot(a.x-b.x,a.z-b.z);
 const near=(a:Position,b:Position,radius:number)=>distance(a,b)<radius&&Math.abs(a.y-b.y)<.35;
 const down=(body:Npc)=>body.life==='unconscious'&&body.bodyMode==='ground'&&body.fall>=1;
@@ -56,12 +59,22 @@ export class BodyRescue{
     this.release(request,rescue);
     continue;
    }
-   if(!near(guard.pos,body.pos,1.02)||!segmentClear(this.director.boxes,{...guard.pos,y:guard.pos.y+.9},{...body.pos,y:body.pos.y+.35})){
+   if(!near(guard.pos,at,.8)||!segmentClear(this.director.boxes,{...guard.pos,y:guard.pos.y+.9},{...body.pos,y:body.pos.y+.35})){
     if(guard.arrived){request.unreachable.add(guard);this.release(request,rescue);}
     else rescue.elapsed=0;
     continue;
    }
-   guard.arrived=true;guard.speed=0;guard.heading=Math.atan2(body.pos.x-guard.pos.x,body.pos.z-guard.pos.z);
+   // Walking stops within the arrival radius; the last steps go to the kneeling spot, so the hands meet the shoulder.
+   const off=distance(guard.pos,at);
+   if(rescue.elapsed===0&&off>.03){
+    const step=Math.min(off,STEP_IN_SPEED*dt);
+    guard.pos.x+=(at.x-guard.pos.x)*step/off;guard.pos.z+=(at.z-guard.pos.z)*step/off;
+    guard.arrived=true;guard.speed=step/dt;guard.heading=Math.atan2(at.x-guard.pos.x,at.z-guard.pos.z);
+    guard.timer=Math.max(guard.timer,2*dt);
+    continue;
+   }
+   guard.arrived=true;guard.speed=0;
+   const shoulder=this.shoulder(body);guard.heading=Math.atan2(shoulder.x-guard.pos.x,shoulder.z-guard.pos.z);
    guard.timer=Math.max(guard.timer,2*dt);
    rescue.elapsed+=dt;
    if(rescue.elapsed<RESCUE_SECONDS)continue;
@@ -79,9 +92,12 @@ export class BodyRescue{
   this.director.incidents.write(this.incident(rescue.body),'released',rescue.at,rescue.guard.id);
   request.rescue=undefined;
  }
+ private shoulder(body:Npc):Position{
+  const f=RESCUE_SPOT.forward;return {...body.pos,x:body.pos.x+Math.sin(body.heading)*f,z:body.pos.z+Math.cos(body.heading)*f};
+ }
  private approach(body:Npc,guard:Npc){
-  const {nav}=this.director,c=Math.cos(body.heading)*.40,s=Math.sin(body.heading)*.40;
-  const positions=[{...body.pos,x:body.pos.x+c,z:body.pos.z-s},{...body.pos,x:body.pos.x-c,z:body.pos.z+s}];
+  const {nav}=this.director,c=Math.cos(body.heading)*RESCUE_SPOT.side,s=Math.sin(body.heading)*RESCUE_SPOT.side,at=this.shoulder(body);
+  const positions=[{...at,x:at.x+c,z:at.z-s},{...at,x:at.x-c,z:at.z+s}];
   return positions.sort((a,b)=>distance(a,guard.pos)-distance(b,guard.pos)).find(at=>
    nav.clear(at,at)&&segmentClear(this.director.boxes,{...at,y:at.y+.9},{...body.pos,y:body.pos.y+.35}));
  }

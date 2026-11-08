@@ -12,6 +12,13 @@ import {NavGrid} from '../src/nav.ts';
 import {CollisionWorld} from '../src/world.ts';
 import {sightBoxes} from '../src/sight.ts';
 import {sampleRescueMotion,restingMotion} from '../src/motion.ts';
+import * as T from 'three';
+import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
+import {PLAYER_BASE64} from '../src/player-data.ts';
+import {Rig} from '../src/rig.ts';
+import {bonePoint} from '../src/motion-runtime.ts';
+import {poseRescue,rescueTouch,rescuePalms} from '../src/rescue-pose.ts';
+import {RESCUE_SPOT} from '../src/body-rescue.ts';
 
 function setup(){
  const level={...hotel,npcs:[
@@ -106,4 +113,29 @@ test('G06: the rescue starts from the resting pose and finishes with both people
  assert.equal(sampleRescueMotion('receiver',1).root.pitch,0);
  assert.ok(sampleRescueMotion('giver',.4).root.y<-.2);
  assert.deepEqual(sampleRescueMotion('giver',0),sampleRescueMotion('giver',1));
+});
+
+// 2026-11-08 review: the old get-up swung the person up stiffly from the floor and the guard's head went through theirs.
+test('G06: the rescuer kneels beside the shoulder and the person pushes up, kneels and stands without the heads meeting',async()=>{
+ const {m3,body,until}=setup();
+ until(()=>m3.rescue.playing.length>0);
+ const {guard}=m3.rescue.playing[0],gap=Math.hypot(guard.pos.x-body.pos.x,guard.pos.z-body.pos.z);
+ assert.ok(Math.abs(gap-Math.hypot(RESCUE_SPOT.side,RESCUE_SPOT.forward))<.3,`rescuer ${gap.toFixed(2)} m from the body`);
+ const load=async()=>{const scene=(await new GLTFLoader().register(()=>({name:'pose-only-no-textures',loadTexture:()=>Promise.resolve(null)})).parseAsync(Uint8Array.from(atob(PLAYER_BASE64),c=>c.charCodeAt(0)).buffer,'')).scene,group=new T.Group();group.add(scene);return {rig:new Rig(scene),model:scene,group};};
+ const g=await load(),b=await load();
+ g.group.position.set(-RESCUE_SPOT.side,0,RESCUE_SPOT.forward);g.group.rotation.y=Math.PI/2;
+ for(let i=0;i<=48;i++){
+  const t=i/48;poseRescue(g,b,t,()=>0);
+  const heads=bonePoint(g.rig,'head')!.distanceTo(bonePoint(b.rig,'head')!);
+  assert.ok(heads>.35,`heads ${heads.toFixed(2)} m apart at ${t}`);
+  for(const a of [g,b]){const low=new T.Box3().setFromObject(a.model,true).min.y;assert.ok(low>-.03,`${a===g?"rescuer":"person"} ${low.toFixed(3)} below the floor at ${t}`);}
+  if(rescueTouch(t)===1){
+   const hand=bonePoint(g.rig,'handr')!,arm=Math.min(...['l','r'].map(s=>hand.distanceTo(bonePoint(b.rig,'upperarm'+s)!)));
+   assert.ok(arm<.25,`the rescuer's hand ${arm.toFixed(2)} m from the shoulder at ${t}`);
+  }
+  if(rescuePalms(t)===1)for(const s of ['l','r'])assert.ok(bonePoint(b.rig,'hand'+s)!.y<.14,`palm ${s} off the floor at ${t}`);
+ }
+ // The person ends standing where they lay, not stepping out from under the rescuer.
+ const feet=bonePoint(b.rig,'footl')!.add(bonePoint(b.rig,'footr')!).multiplyScalar(.5);
+ assert.ok(Math.hypot(feet.x,feet.z)<.25);
 });

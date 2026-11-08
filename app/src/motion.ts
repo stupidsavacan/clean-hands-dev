@@ -44,16 +44,26 @@ export function sampleCoinPickupMotion(t:number):MotionPose{
 }
 
 export function sampleRescueMotion(role:MotionRole,t:number):MotionPose{
+ // 2026-11-08 review: the guard kneels on the right knee beside the person's shoulder, upright enough that the heads
+ // never meet, then rises with them (the hands are placed by rescue-pose.ts).
  if(role==='giver'){
-  const crouch=pose({y:-.33,pitch:.25},{spine:[.28,0,0],neck:[.20,0,0],upperarmr:[-.74,0,1.02],forearmr:[0,.50,0],
-   thighl:[-.82,0,0],shinl:[1.24,0,0],footl:[-.42,0,0],thighr:[-.75,0,0],shinr:[1.16,0,0],footr:[-.41,0,0]});
-  return track([{t:0,pose:pose()},{t:.28,pose:crouch},{t:.55,pose:crouch},{t:.90,pose:pose()}],t);
+  const kneel=pose({y:-.45,pitch:.08},{spine:[.30,0,0],chest:[.10,0,0],neck:[.22,0,0],head:[.12,0,0],
+   thighl:[-1.45,0,-.10],shinl:[1.50,0,0],footl:[-.05,0,0],thighr:[-.05,0,.10],shinr:[1.62,0,0],footr:[.55,0,0]});
+  const rise=pose({y:-.20,pitch:.04},{spine:[.16,0,0],neck:[.12,0,0],
+   thighl:[-.80,0,-.08],shinl:[1.05,0,0],footl:[-.25,0,0],thighr:[-.55,0,.08],shinr:[.95,0,0],footr:[-.20,0,0]});
+  // Leaning down to the shoulder of someone still flat on the floor, then upright as they push up.
+  const reachDown=pose({y:-.50,pitch:.12},{...kneel.bones,spine:[.62,0,0],chest:[.20,0,0],neck:[.10,0,0]});
+  return track([{t:0,pose:pose()},{t:.24,pose:reachDown},{t:.36,pose:reachDown},{t:.52,pose:kneel},{t:.64,pose:kneel},{t:.84,pose:rise},{t:1,pose:pose()}],t);
  }
- const sit=pose({y:-.48,z:-.39,pitch:.22},{spine:[.12,0,0],head:[.15,0,0],upperarml:[.35,0,-1.25],forearml:[0,-.45,0],
-  thighl:[-1.28,0,0],shinl:[.65,0,0],thighr:[-1.33,0,0],shinr:[.72,0,0]});
- const crouch=pose({y:-.30,z:-.13,pitch:.16},{spine:[.22,0,0],upperarmr:[-.40,0,1.2],
-  thighl:[-.85,0,0],shinl:[1.2,0,0],footl:[-.35,0,0],thighr:[-.79,0,0],shinr:[1.15,0,0],footr:[-.36,0,0]});
- return track([{t:0,pose:restingMotion()},{t:.30,pose:restingMotion()},{t:.56,pose:sit},{t:.76,pose:crouch},{t:1,pose:pose()}],t);
+ // Face down on the floor (restingMotion), the person pushes up on the hands, brings the knees under the hips, comes
+ // up on one knee and stands. Each key keeps a knee or the shins on the floor, so the body never swings up stiffly.
+ const press=pose({z:-.55,pitch:1.12},{spine:[-.10,0,0],chest:[-.12,0,0],neck:[-.30,0,0],head:[-.20,0,0],
+  thighl:[.42,0,-.06],thighr:[.42,0,.06],shinl:[.10,0,0],shinr:[.10,0,0],footl:[.60,0,0],footr:[.60,0,0]});
+ const fours=pose({z:-.45,pitch:1.25},{spine:[.05,0,0],neck:[-.35,0,0],head:[-.25,0,0],
+  thighl:[-1.25,0,-.08],thighr:[-1.25,0,.08],shinl:[1.60,0,0],shinr:[1.60,0,0],footl:[.70,0,0],footr:[.70,0,0]});
+ const knee=pose({z:-.25,pitch:.06},{spine:[.22,0,0],neck:[.05,0,0],
+  thighr:[-1.45,0,.06],shinr:[1.45,0,0],footr:[-.02,0,0],thighl:[-.05,0,-.06],shinl:[1.62,0,0],footl:[.65,0,0]});
+ return track([{t:0,pose:restingMotion()},{t:.26,pose:restingMotion()},{t:.44,pose:press},{t:.60,pose:fours},{t:.80,pose:knee},{t:1,pose:pose()}],t);
 }
 function fall(t:number):MotionPose{return track([{t:0,pose:collapse()},{t:.32,pose:pose({y:-.43,z:-.08,pitch:.34,roll:.085},{pelvis:[-.15,0,.04],spine:[.36,0,0],chest:[.28,0,-.08],neck:[.18,0,0],head:[.12,.08,0],thighl:[-.77,0,-.10],thighr:[-.59,0,.14],shinl:[1.55,0,0],shinr:[1.30,0,0],footl:[-.70,0,0],footr:[-.60,0,0],upperarml:[-.95,0,-.75],upperarmr:[-.82,0,.85],forearml:[0,-.65,0],forearmr:[0,.55,0]})},{t:.70,pose:pose({y:.13,z:-.65,pitch:1.33,roll:.06},{pelvis:[-.10,0,0],spine:[.20,0,0],chest:[-.10,0,0],neck:[-.13,-.08,0],head:[-.06,-.12,0],thighl:[-.24,0,-.10],thighr:[-.34,0,.09],shinl:[.65,0,0],shinr:[.85,0,0],footl:[-.25,0,0],footr:[-.30,0,0],upperarml:[-.45,0,-1.10],upperarmr:[-.60,0,1.0],forearml:[0,-.50,0],forearmr:[0,.65,0]})},{t:1,pose:restingMotion()}],t);}
 function hold(wire:boolean):MotionPose{return pose({y:-.06,z:.06,pitch:.03},{pelvis:[0,.05,-.02],spine:[.20,0,0],chest:[.10,-.07,0],neck:[-.16,0,0],head:[-.10,0,0],thighl:[-.32,0,-.08],thighr:[-.23,0,.08],shinl:[.58,0,0],shinr:[.47,0,0],footl:[-.25,0,0],footr:[-.22,0,0],upperarml:[-1.28,0,wire?-.38:-.22],upperarmr:[-1.20,0,wire?.38:.58],forearml:[0,wire?-1.0:-1.35,0],forearmr:[0,wire?1.0:1.55,0],handl:[-.12,0,0],handr:[-.12,0,0]});}

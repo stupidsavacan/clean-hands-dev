@@ -39,7 +39,7 @@ import {poseKatana} from '../katana-pose';
 import {COIN_PICKUP_SECONDS} from '../coin-pickup';
 import {coinMesh,placePickupCoin,placePickupWeapon,poseCoinPickup} from '../coin-pickup-pose';
 import {poseRescue} from '../rescue-pose';
-import {RESCUE_SECONDS} from '../body-rescue';
+import {RESCUE_SECONDS,RESCUE_SPOT} from '../body-rescue';
 import {KATANA_GAP} from '../katana-motion';
 import {itemMesh,inHand} from '../detection-view';
 import {loadItemModels} from '../item-models';
@@ -257,7 +257,7 @@ function poseActor(a:Actor,clip:Clip,t:number){
   const [guard,body]=actors;
   if(!body||a!==body)return;
   hold(guard,undefined);hold(body,undefined);
-  guard.group.position.set(-.78,0,0);guard.group.rotation.y=Math.PI/2;
+  guard.group.position.set(-RESCUE_SPOT.side,0,RESCUE_SPOT.forward);guard.group.rotation.y=Math.PI/2;
   body.group.position.set(0,0,0);body.group.rotation.y=0;
   poseRescue(guard,body,t/clip.seconds,()=>0);
   return;
