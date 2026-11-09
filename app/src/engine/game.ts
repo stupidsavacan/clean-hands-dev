@@ -7,8 +7,7 @@ import {DoorSystem,type DoorDef} from '../doors';
 import * as T from 'three';
 import {LandedCoinPickups} from '../coin-pickup.ts';
 import {coinMesh,renderHeldCoins} from '../coin-pickup-pose.ts';
-import partyMotions from '../data/party-motions.json';
-import {reach} from '../motion-runtime';
+import {applyTraversalPose,traversalContacts} from '../traversal-pose.ts';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
@@ -33,15 +32,13 @@ import {CHARACTER_MODELS} from '../character-data';
 import {M4System,type Checkpoint} from '../m4';
 import {M4View} from '../m4-view';
 import {MissionEvents} from '../events';
-import {MissionClock} from '../schedule';
+import {MissionClock,ScheduleSystem} from '../schedule';
 import {DialogueSystem} from '../dialogue';
-import type {ScheduleData} from '../schedule';
 import {ClubCrowd} from './crowd';
 import {CrowdView} from './crowd-view';
 import {ClubWeapons} from './weapons';
 import {ClubTrace} from './trace';
-import {ClubSchedule} from './schedule';
-import {PartyTraversal} from '../party/traversal';
+import {PartyTraversal,ladderGeometry,traversalPoints} from '../party/traversal';
 import {batchScenery} from '../static-batches';
 import {npcLayerVisible} from '../npc-culling';
 import {ScoreLedger,computeResult,type MissionResult} from '../score';
@@ -65,14 +62,14 @@ import {ChoreSystem} from '../chores';
 import scoringData from '../data/scoring.json';
 import type partyMap from '../data/party.json';
 import type partyMission from '../data/party-mission.json';
-import type {GameDef,MissionScript} from './types';
+import type {EngineSchedule,GameDef,MissionScript} from './types';
 import '../style.css';
 export type {GameDef,MissionScript} from './types';
 export function runGame(def:GameDef){
-const rawClubData=def.map as {collisionOnlyIds:string[];doors?:DoorDef[]};
-const hotelData=rawClubData as unknown as typeof partyMap;
+const rawMap=def.map as {collisionOnlyIds?:string[];doors?:DoorDef[];devices?:DeviceDef[]};
+const hotelData=rawMap as unknown as typeof partyMap;
 const clubLook=def.look,rulesData=def.rules,combatData=def.combat,dialogueData=def.dialogue,chancesData=def.chances,killsData=def.actions,crowdData=def.crowd;
-const scheduleData=def.schedule as ScheduleData;
+const scheduleData=def.schedule;
 const missionData=def.mission as typeof partyMission;
 const detectionData=def.detection;
 const restartHold=new RestartHold(rulesData.controls.restartHoldSeconds);
@@ -145,7 +142,7 @@ for(const [i,r] of groundRooms.entries())for(const p of cut(r,[...groundHoles,..
 // Floor plates: 2F and RF slabs (their undersides are the ceilings below) and the cellar floor.
 for(const f of map.floors)for(const a of f.areas){const c=centre(a),room=map.rooms.find(r=>r.floor===f.floor&&c.x>=r.minX&&c.x<=r.maxX&&c.z>=r.minZ&&c.z<=r.maxZ);clubFloor(box('NAV_plate',c.x,f.y-.5,c.z,c.w,.5,c.d,SURFACE[room?.surface??'paving']??'#ddd3ba',group(f.floor)),room?.label??'',c.w,c.d);}
 // Pool: a recessed basin ringed with stone.
-for(const wall of map.walls){const rail=wall.id.startsWith('rail-'),visible=visibleWall(wall);const mesh=box(rail?'rail-'+wall.id:'FADE_'+wall.id,wall.x,visible.y,wall.z,wall.w,visible.h,wall.d,rail?clubLook.rail:wall.id.startsWith('glass')?'#5c9daf':clubLook.walls.find(([k])=>wall.id.includes(k))![1],group(wall.floor??0),!rail&&!wall.id.startsWith('glass'));if(wall.id.startsWith('glass')){mesh.material=new T.MeshStandardMaterial({color:'#80c1d5',transparent:true,opacity:.16,roughness:.2,depthWrite:false});box('glass-frame',wall.x,wall.y+1.05,wall.z,wall.w,.05,wall.d,'#c5a46a',group(1));}}
+for(const wall of map.walls){const rail=wall.id.startsWith('rail-'),visible=visibleWall(wall);const mesh=box(rail?'rail-'+wall.id:'FADE_'+wall.id,wall.x,visible.y,wall.z,wall.w,visible.h,wall.d,rail?clubLook.rail:wall.id.startsWith('glass')?'#5c9daf':(clubLook.walls.find(([k])=>wall.id.includes(k))?.[1]??'#bcbca5'),group(wall.floor??0),!rail&&!wall.id.startsWith('glass'));if(wall.id.startsWith('glass')){mesh.material=new T.MeshStandardMaterial({color:'#80c1d5',transparent:true,opacity:.16,roughness:.2,depthWrite:false});box('glass-frame',wall.x,wall.y+1.05,wall.z,wall.w,.05,wall.d,'#c5a46a',group(1));}}
 // Stairs: 32 treads per flight, solid underneath, built along the direction of climb.
 const STAIR_STEPS=32;
 for(const s of map.stairs){const geos:T.BufferGeometry[]=[],along=s.rise==='-z'||s.rise==='+z',len=(along?s.maxZ-s.minZ:s.maxX-s.minX)/STAIR_STEPS;
@@ -183,11 +180,14 @@ const exitRings=map.exits.map(e=>{
 // Security cameras (CAM_): a small housing on the wall, turned toward what it watches.
 for(const c of map.cameras){const cam=new T.Group();cam.position.set(c.x,c.y,c.z);cam.rotation.y=c.heading;const body=new T.Mesh(new T.BoxGeometry(.22,.18,.38),material('#2c3034'));body.position.z=.12;body.rotation.x=.35;const lens=new T.Mesh(new T.CylinderGeometry(.05,.05,.04,10),new T.MeshStandardMaterial({color:'#1b4d6b',emissive:'#1b4d6b',emissiveIntensity:.6}));lens.rotation.x=Math.PI/2;lens.position.set(0,-.06,.32);cam.add(body,lens);cam.name=c.id;group(c.floor).add(cam);}
 for(const t of map.traversals){for(const p of [t.start,t.end]){const ring=new T.Mesh(new T.TorusGeometry(.35,.035,5,16),material('#b89e6f'));ring.rotation.x=Math.PI/2;ring.position.set(p.x,p.y+.04,p.z);group(floorOf(p.y)).add(ring);}
- const points=[t.start,...(t.via??[]),t.end];for(let i=1;i<points.length;i++){const p=points[i-1],q=points[i],a=new T.Vector3(p.x,p.y,p.z),b=new T.Vector3(q.x,q.y,q.z);
+ // Ladders and drainpipes: the same rails and rungs as the generic ladder motion (ladder-motion.ts) climbs.
+ const ladder=ladderGeometry(t),vec=(p:Position)=>new T.Vector3(p.x,p.y,p.z);
+ for(const [a,b] of ladder?.rails??[])cylinder('ladder-rail-'+t.id,vec(a),vec(b),.025,'#b89e6f');
+ for(const [a,b] of ladder?.rungs??[])cylinder('rung-'+t.id,vec(a),vec(b),.025,'#b89e6f');
+ const points=traversalPoints(t);for(let i=1;i<points.length;i++){const p=points[i-1],q=points[i],a=new T.Vector3(p.x,p.y,p.z),b=new T.Vector3(q.x,q.y,q.z);
  if(t.kind==='window')for(const side of [-.35,.35])cylinder('window-handhold-'+t.id,a.clone().add(new T.Vector3(side,1,0)),b.clone().add(new T.Vector3(side,1,0)),.025,'#b89e6f');
  if(Math.abs(p.y-q.y)<.5)cylinder('route-'+t.id,a,b,.025,'#b89e6f');
- if(Math.abs(p.y-q.y)>.5&&Math.hypot(p.x-q.x,p.z-q.z)<.2){const low=Math.min(p.y,q.y),high=Math.max(p.y,q.y)+1.3;for(const side of [-.3,.3])cylinder('ladder-rail-'+t.id,new T.Vector3(p.x+side,low,p.z+.35),new T.Vector3(p.x+side,high,p.z+.35),.025,'#b89e6f');for(let h=low;h<=high;h+=.3)cylinder('rung-'+t.id,new T.Vector3(p.x-.3,h,p.z+.35),new T.Vector3(p.x+.3,h,p.z+.35),.025,'#b89e6f');}
- else if(Math.abs(p.y-q.y)<.01){const length=a.distanceTo(b),plank=box('traversal-footing-'+t.id,(p.x+q.x)/2,p.y-.08,(p.z+q.z)/2,.8,.08,length,'#8b7554');plank.rotation.y=Math.atan2(q.x-p.x,q.z-p.z);}
+ if(Math.abs(p.y-q.y)<.01){const length=a.distanceTo(b),plank=box('traversal-footing-'+t.id,(p.x+q.x)/2,p.y-.08,(p.z+q.z)/2,.8,.08,length,'#8b7554');plank.rotation.y=Math.atan2(q.x-p.x,q.z-p.z);}
  }}
 // Small props mark existing actions; their low profile does not add invisible collision.
 for(const m of map.markers){const {x,y,z}=m.at,parent=group(floorOf(y));
@@ -228,7 +228,7 @@ const spawnParam=new URLSearchParams(location.search).get('spawn')?.split(',').m
 const hides=map.hides as HideDef[];
 // People who start on the raised stage stand on its boards, not 28 cm inside it.
 function onStage(d:Director){for(const n of d.npcs){const y=world.surface(n.pos.x,n.pos.z,n.pos.y);if(y!==null)n.pos.y=y;}return d;}
-const world=new CollisionWorld(map);const mission=map as unknown as Mission,rules=rulesData as Rules,nav=new NavGrid(world),boxes=sightBoxes({...map,walls:map.walls.filter(w=>!rawClubData.collisionOnlyIds.includes(w.id))});const doors=new DoorSystem(world,boxes,rawClubData.doors??[]);
+const world=new CollisionWorld(map);const mission=map as unknown as Mission,rules=rulesData as Rules,nav=new NavGrid(world),boxes=sightBoxes({...map,walls:map.walls.filter(w=>!rawMap.collisionOnlyIds?.includes(w.id))});const doors=new DoorSystem(world,boxes,rawMap.doors??[]);
 const doorViews=doors.doors.map(state=>{
  const d=state.def,leaf=box('door-leaf-'+d.id,d.x,d.y,d.z,d.w,d.h,d.d,'#625844',group(d.floor??0));
  leaf.matrixAutoUpdate=true;leaf.visible=state.closed;
@@ -240,7 +240,9 @@ const crowdMultiplier=crowdCount==='0'?0:crowdCount==='120'?2:1;
 let crowdAudio:AudioContext|undefined,lastScream=-Infinity;
 let crowd=new ClubCrowd(director,crowdData,crowdMultiplier),crowdView:CrowdView|undefined;
 let trace=new ClubTrace(director);
-let events=new MissionEvents(),clock=new MissionClock(rulesData.schedule,events),schedule=new ClubSchedule(scheduleData,map.schedulePlaces,director,clock,events,map.traversals[0]),dialogue=new DialogueSystem(dialogueData,map.schedulePlaces,director,clock,rulesData.dialogue,events);
+const makeSchedule=(clock:MissionClock,events:MissionEvents):EngineSchedule=>def.createSchedule?.({data:scheduleData,places:map.schedulePlaces,director,clock,events,traversals:map.traversals})
+ ??new ScheduleSystem(scheduleData,map.schedulePlaces,director,clock,events);
+let events=new MissionEvents(),clock=new MissionClock(rulesData.schedule,events),schedule=makeSchedule(clock,events),dialogue=new DialogueSystem(dialogueData,map.schedulePlaces,director,clock,rulesData.dialogue,events);
 let lastAlert=0;let exploration=false;
 function toggleExploration(){exploration=!exploration;document.body.classList.toggle('exploration',exploration);$('#explore').textContent=`探索表示 ${exploration?'なし':'あり'} · N`;}
 let m3=new M3System(director,hides,rulesData.m3);m3.heldItem=()=>detection.held;m3.canHide=canHide;const m3View=new M3View(scene);let m4=new M4System(director,map.checkpoints as Checkpoint[],rulesData.m4,hides);const m4View=new M4View(scene);let training=false,m4Training=false,enteredStaff=false;
@@ -259,7 +261,7 @@ let flow=new MissionFlow(missionData.targets,director,events),ledger=new ScoreLe
 const combatRules=combatData as unknown as CombatRules,weaponDefs=weaponsData as unknown as Record<string,WeaponDef>;
 // ROADMAP H15 (2026-11-06): radios the agent can switch on to bring someone over (devices.ts).
 const cleanerIds:string[]=(missionData as {cleaners?:string[]}).cleaners??[];
-const deviceDefs:DeviceDef[]=(missionData as {devices?:DeviceDef[]}).devices??[];
+const deviceDefs:DeviceDef[]=rawMap.devices??(missionData as {devices?:DeviceDef[]}).devices??[];
 const detData=detectionData as unknown as DetectionData;let detection=new DetectionSystem(director,events,m3.hotel,map.cameras as Camera[],detData,map);const itemTable=itemMaster(weaponDefs,rulesData.m4.items,detData.items);detection.items=itemTable;m4.items=itemTable;const detectionView=new DetectionView(scene,detection,map,group);let devices=new DeviceSystem(director,deviceDefs,f=>plateY(map,f),cleanerIds);
 // ROADMAP H06/H14/H17 (2026-11-06): blood that stays, and the cleaner who cleans it with the vacuum (chores.ts).
 let chores=new ChoreSystem(director,devices,cleanerIds);
@@ -308,7 +310,7 @@ function setMap(value:boolean){mapOpen=value;keys.clear();actionPresses.clear();
 function setView(mode:ViewMode){viewMode=mode;camera.fov=mode==='overhead'?30:mode==='first'?72:55;camera.near=mode==='overhead'?.1:.04;camera.updateProjectionMatrix();setZoom(mode==='overhead'?0:1);camPitch=mode==='first'?.1:.3;camYaw=heading;
  document.body.dataset.view=mode;$('#view-mode').textContent=`視点 ${VIEW_LABEL[mode]} · V`;if(mode==='overhead')unlockPointer();snapCamera();}
 function reset(){restartHold.clear();training=false;m4Training=false;enteredStaff=false;position={...map.spawn,y:0};previous={...position};currentFloor=0;guideIndex=-1;heading=previousHeading=targetHeading=camYaw=map.spawnHeading;turnRate=0;velocity={x:0,z:0};slope=forwardAccel=gaitSpeed=0;locomotion.reset();crouched=false;crouchBlend=0;travelled=0;sawFade=false;visitedUpper=false;returned=false;guideTrace.length=0;keys.clear();actionPresses.clear();startMission();snapCamera();}
-function startMission(){doors.reset();for(const v of doorViews)v.offset=v.state.closed?0:1;director=onStage(new Director(mission,world,nav,boxes,rules));trace=new ClubTrace(director);crowd=new ClubCrowd(director,crowdData,crowdMultiplier);crowdView?.sync(crowd);events=new MissionEvents();clock=new MissionClock(rulesData.schedule,events);schedule=new ClubSchedule(scheduleData,map.schedulePlaces,director,clock,events,map.traversals[0]);dialogue=new DialogueSystem(dialogueData,map.schedulePlaces,director,clock,rulesData.dialogue,events);lastAlert=0;$<HTMLSelectElement>('#time-rate').value='1';m3=new M3System(director,hides,rulesData.m3);m3.heldItem=()=>detection.held;m3.canHide=canHide;m4=new M4System(director,map.checkpoints as Checkpoint[],rulesData.m4,hides);m53=def.createScript({director,m3,m4,clock,events,chances:chancesData,schedule});m53.onTargetDown=(at,t)=>crowd.gasp(at,t);crowd.onPanic=at=>m53.alarm?.(at,'scream');m57=newM57();
+function startMission(){doors.reset();for(const v of doorViews)v.offset=v.state.closed?0:1;director=onStage(new Director(mission,world,nav,boxes,rules));trace=new ClubTrace(director);crowd=new ClubCrowd(director,crowdData,crowdMultiplier);crowdView?.sync(crowd);events=new MissionEvents();clock=new MissionClock(rulesData.schedule,events);schedule=makeSchedule(clock,events);dialogue=new DialogueSystem(dialogueData,map.schedulePlaces,director,clock,rulesData.dialogue,events);lastAlert=0;$<HTMLSelectElement>('#time-rate').value='1';m3=new M3System(director,hides,rulesData.m3);m3.heldItem=()=>detection.held;m3.canHide=canHide;m4=new M4System(director,map.checkpoints as Checkpoint[],rulesData.m4,hides);m53=def.createScript({director,m3,m4,clock,events,chances:chancesData,schedule});m53.onTargetDown=(at,t)=>crowd.gasp(at,t);crowd.onPanic=at=>m53.alarm?.(at,'scream');m57=newM57();
  flow=new MissionFlow(missionData.targets,director,events);ledger=new ScoreLedger(events,id=>{const n=director.npcs.find(n=>n.id===id);return n&&{role:n.role,target:n.target};});lastResult=null;
  director.onSpotted=n=>events.emit({type:'player.spotted',time:clock.elapsed,id:n.id});m3.onFound=(body,witness)=>{m53.bodyFound?.(body,witness);events.emit({type:'body.found',time:clock.elapsed,id:body.id,life:body.life==='dead'?'dead':'unconscious',judgement:body.deathKind});
  // A body found in its underwear tells security whose uniform the intruder wears (Hitman 2: Silent Assassin; playtest
@@ -440,7 +442,8 @@ function fixedUpdate(dt:number){if(restartHold.step(dt/(training?1:clock.rate),k
  if(crowd.people.length&&currentFloor===0&&crowd.blends(position))speed*=.8;
  const tx=direction.x*speed,tz=direction.z*speed,dvx=tx-velocity.x,dvz=tz-velocity.z,dv=Math.hypot(dvx,dvz),oldSpeed=Math.hypot(velocity.x,velocity.z);
  const rate=(Math.hypot(tx,tz)>oldSpeed+.01?15:22)*dt;if(dv>rate){velocity.x+=dvx/dv*rate;velocity.z+=dvz/dv*rate;}else velocity={x:tx,z:tz};
- const stepped=m3.constrainMove(position,world.move(position,(m3.locked||m3View.transferBusy||m4.locked||m53.locked||m57.locked)?0:velocity.x*dt,(m3.locked||m3View.transferBusy||m4.locked||m53.locked||m57.locked)?0:velocity.z*dt,crouched?1.45:1.8),heading);const transfer=m57.takeTransfer();const next=transfer??(guideIndex<0?m4.constrain(position,stepped):stepped),mx=next.x-position.x,mz=next.z-position.z;moving=Math.hypot(mx,mz);if(detection.blend&&moving>1e-3){detection.stopBlend();toast('溶け込みをやめた。');}
+ const collisionStart=performance.now();
+ const stepped=m3.constrainMove(position,world.move(position,(m3.locked||m3View.transferBusy||m4.locked||m53.locked||m57.locked)?0:velocity.x*dt,(m3.locked||m3View.transferBusy||m4.locked||m53.locked||m57.locked)?0:velocity.z*dt,crouched?1.45:1.8),heading);frameCollisionMs+=performance.now()-collisionStart;const transfer=m57.takeTransfer();const next=transfer??(guideIndex<0?m4.constrain(position,stepped):stepped),mx=next.x-position.x,mz=next.z-position.z;moving=Math.hypot(mx,mz);if(detection.blend&&moving>1e-3){detection.stopBlend();toast('溶け込みをやめた。');}
  // Keep only the velocity the collider allowed, so pushing into a wall does not store speed.
  if(map.stage>1&&!transfer)for(const gate of map.uniformGates){if(Math.abs(position.y-gate.y)<.3&&position.z<=gate.z&&next.z>gate.z&&Math.abs(next.x-gate.x)<gate.width/2&&permission(rules,m4.disguise,map.zones.find(z=>z.id===gate.zone) as any)!=='allow'){next.x=position.x;next.y=position.y;next.z=position.z;}}velocity=transfer?{x:0,z:0}:{x:mx/dt,z:mz/dt};currentSpeed=transfer?0:moving/dt;travelled+=moving;
  // NPC bodies are solid: the agent is pushed out of them rather than walking through.
@@ -454,11 +457,13 @@ function fixedUpdate(dt:number){if(restartHold.step(dt/(training?1:clock.rate),k
  else if(currentSpeed>.35)targetHeading=Math.atan2(velocity.x,velocity.z);
  else if(viewMode==='overhead'&&guideIndex<0&&performance.now()-lastPointer<=1600&&cursorPoint){const dx=cursorPoint.x-position.x,dz=cursorPoint.z-position.z;if(Math.hypot(dx,dz)>.35)targetHeading=Math.atan2(dx,dz);}
  const turn=angleDelta(heading,targetHeading),step=viewMode==='first'&&guideIndex<0?turn:Math.sign(turn)*Math.min(Math.abs(turn),Math.min(11*dt,Math.abs(turn)*(1-Math.exp(-(currentSpeed>.35?13:9)*dt))+.6*dt));heading=angleDelta(0,heading+step);
+ // On a ladder, window or ledge the body faces where the traversal turns it, and keeps that heading when it ends.
+ const traversalFrame=m57.frame();if(traversalFrame){heading=targetHeading=angleDelta(0,traversalFrame.heading);}
  turnRate=T.MathUtils.damp(turnRate,step/dt,12,dt);
  if(m4.stats.frisks&&currentFloor===1)enteredStaff=true;
  if(guideIndex<0)stepAi(dt);
 }
-function playerView():PlayerView{const traversal=m57.frame(position);return {hidden:!!m3.hiddenIn,surrendering:!!m3.surrendering,x:position.x,y:position.y,z:position.z,floor:currentFloor,speed:currentSpeed,running:currentSpeed>2.6,crouched,tampering:tampering||m53.tampering||m57.tampering,disguise:m4.disguise,outfitOwner:m4.outfitOwner,carrySight:training?undefined:carriedPoints(position,traversal?.heading??heading,crouched,m4.disguise,combat,detection,true,traversal?.hand?.(-1)),blending:!training&&(!!detection.blend||!combat.hand&&!m3.action&&!m3.dragged&&crowd.blends(position)),illegal:!training&&combat.illegalIn(m4.disguise),weaponDrawn:!training&&!!combat.hand,illegalVisibleCarry:!training&&(combat.shown(m4.disguise)||detection.illegalShown(m4.disguise)),suspiciousItem:!training&&detection.suspiciousHeld(m4.disguise)};}
+function playerView():PlayerView{const traversal=m57.frame();return {hidden:!!m3.hiddenIn,surrendering:!!m3.surrendering,x:position.x,y:position.y,z:position.z,floor:currentFloor,speed:currentSpeed,running:currentSpeed>2.6,crouched,tampering:tampering||m53.tampering||m57.tampering,disguise:m4.disguise,outfitOwner:m4.outfitOwner,carrySight:training?undefined:carriedPoints(position,traversal?.heading??heading,crouched,m4.disguise,combat,detection,true,traversal?.weight===1?traversal.hand?.(-1):undefined),blending:!training&&(!!detection.blend||!combat.hand&&!m3.action&&!m3.dragged&&crowd.blends(position)),illegal:!training&&combat.illegalIn(m4.disguise),weaponDrawn:!training&&!!combat.hand,illegalVisibleCarry:!training&&(combat.shown(m4.disguise)||detection.illegalShown(m4.disguise)),suspiciousItem:!training&&detection.suspiciousHeld(m4.disguise)};}
 const EVENT_TEXT:Partial<Record<AiEvent['type'],(n:string)=>string>>={curious:n=>`${n}が振り向いた。`,investigate:n=>`${n}が確かめに来る。`,alert:n=>`${n}に見つかった。逃げろ。`,search:n=>`${n}が見失った。捜索している。`,report:n=>`${n}が警備に知らせに行く。`,warn:n=>`${n}「ここは立入禁止だ。出ていけ」`,arrest:n=>`${n}が取り押さえに来る。逃げろ。`};
 // Warned for acting oddly where the outfit is merely out of place (a guest in the parking lot), not for trespassing.
 const WARN_ODD=(n:string)=>`${n}「おい、何をしている。ここから離れろ」`;
@@ -472,11 +477,11 @@ function syncBlackout(){
  if(dark!==lightsOut)setBlackout(dark);
  m53.applyBlackout?.(crowd);
 }
-function stepAi(dt:number){if(!training){clock.step(dt);m53.beforeAi();syncBlackout();schedule.sync(dt);schedule.step(dt);}const context=traceContext();trace.before(context);crowd.step(clock.elapsed,context.p);const aiEvents=director.step(dt,context.p);if(!training){devices.step(dt);chores.step(dt);for(const s of [...devices.notices,...chores.notices])toast(s);}
+function stepAi(dt:number){if(!training){clock.step(dt);m53.beforeAi();syncBlackout();schedule.sync(dt);schedule.step?.(dt);}const context=traceContext();trace.before(context);crowd.step(clock.elapsed,context.p);const aiStart=performance.now();const aiEvents=director.step(dt,context.p);frameAiMs+=performance.now()-aiStart;if(!training){devices.step(dt);chores.step(dt);for(const s of [...devices.notices,...chores.notices])toast(s);}
  // A coin someone walked over to is picked up (HITMAN WoA item research, row 134).
  coinPickups.step(dt,director.boxes);missionTime+=dt;if(!training){schedule.sync(0);if(lastAlert!==m3.hotel.level){lastAlert=m3.hotel.level;events.emit({type:'alert.level',time:clock.elapsed,value:lastAlert});}dialogue.step(dt,position,m3.hotel.level);m53.afterAi(context.p);syncBlackout();for(const notice of m53.notices)toast(notice);}const hot=director.hottest();if(hot)peakSuspicion=Math.max(peakSuspicion,hot.suspicion);
  for(const e of aiEvents){traceAi(e,context.p);if(e.type==='caught'){flow.fail('caught',clock.elapsed);endMission();return;}const text=e.type==='warn'&&e.npc.cause!=='trespass'?WARN_ODD:EVENT_TEXT[e.type];if(text)toast(text(e.npc.label));}
- if(training)return;stepCombat(dt);stepDetection(dt);if(trace.recording)trace.after(traceContext());if(combat.dead){if(flow.fail('killed',clock.elapsed))endMission();return;}
+ if(training)return;stepCombat(dt);stepDetection(dt);if(trace.recording){trace.after(traceContext());trace.schedule(clock.elapsed,schedule.states);}if(combat.dead){if(flow.fail('killed',clock.elapsed))endMission();return;}
  // The target got away (the club's config.vip.escape).
  if(m53.escaped&&flow.fail('target_escaped',clock.elapsed)){endMission();return;}
  if(map.stage>=3&&flow.update(clock.elapsed))toast(def.text.targetDown);
@@ -647,20 +652,12 @@ function animateActor(dt:number){crouchBlend=T.MathUtils.damp(crouchBlend,crouch
  // Whole-body lean pivots at the feet: forward under acceleration, inward through turns.
  leanGroup.rotation.x=T.MathUtils.damp(leanGroup.rotation.x,T.MathUtils.clamp(forwardAccel*.018,-.1,.12),10,dt);leanGroup.rotation.z=T.MathUtils.damp(leanGroup.rotation.z,T.MathUtils.clamp(-turnRate*gaitSpeed*.022,-.16,.16),10,dt);}
 function finishItems(){for(const o of detectionView.root.children){if(o.name!=='item-poison_lethal'||o.userData.finished)continue;for(const c of [...o.children]){o.remove(c);const m=c as T.Mesh;m.geometry?.dispose();if(m.material&&!Array.isArray(m.material))m.material.dispose();}const vial=new T.Mesh(new T.CylinderGeometry(.045,.045,.14,8),material('#5d8176'));vial.position.y=.08;const cap=new T.Mesh(new T.CylinderGeometry(.025,.025,.035,8),material('#b4a277'));cap.position.y=.1675;o.add(vial,cap);o.userData.finished=true;}}
-// Traversal poses (playtest 2026-11-03: "ladders and drainpipes need their own motion"). Offsets are in the agent's
-// own frame (x left, z forward) and turned with them; the hands used to be placed in world axes, so on a window crossed
-// the wrong way the arms crossed. Climbing faces the wall the rails are drawn on (+z), hands and feet on alternate
-// rungs 0.3 m apart; a diagonal climb (over the delivery fence) faces the way it goes. A window is vaulted with both
-// hands on the sill while the body passes over it.
-function poseTraversal(){const frame=m57.frame(position);if(!frame||!rig)return;
- avatar.rotation.y=frame.heading;
- if(!frame.hand)return;
- const pose=partyMotions[frame.vault?'vault':'climb'];for(const [bone,angles]of Object.entries(pose.bones))rig.rotate(bone,angles[0],angles[1],angles[2]);leanGroup.rotation.x=frame.vault?pose.root.pitch:.12;avatar.updateMatrixWorld(true);
- const vector=({x,y,z}:Position)=>new T.Vector3(x,y,z);
- for(const [side,sign]of [['l',1],['r',-1]]as const){
-  reach(rig,side,vector(frame.hand(sign)));
-  if(frame.foot)reach(rig,side,vector(frame.foot(sign)),1,true);
- }}
+let renderedTraversal:ReturnType<PartyTraversal['frame']>;
+function poseTraversal(){
+ renderedTraversal=m57.frame();
+ if(renderedTraversal&&rig)applyTraversalPose(rig,avatar,leanGroup,renderedTraversal);
+}
+
 function renderDoors(dt:number){
  for(const v of doorViews){
   const d=v.state.def,target=v.state.closed?0:1;
@@ -741,7 +738,12 @@ function gunReticle(){const el=$('#gun-reticle'),on=!!combat.hand&&!missionOver&
  const at=viewMode==='overhead'?{x:(pointer.x*.5+.5)*innerWidth,y:(-pointer.y*.5+.5)*innerHeight}:{x:innerWidth/2,y:innerHeight/2};el.style.left=at.x+'px';el.style.top=at.y+'px';}
 function resize(){const w=innerWidth,h=innerHeight;hud.resize();renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}addEventListener('resize',resize);resize();
 let last=performance.now(),accumulator=0,nextHud=0;const dt=1/60;
-function tick(now:number){lastNow=now;const start=performance.now(),elapsed=Math.min((now-last)/1000,.1);last=now;frameMs=T.MathUtils.lerp(frameMs,elapsed*1000,.05);const frozen=paused||mapOpen||helpOpen||!modelReady||document.hidden||!!missionOver||creatorOpen||prepOpen;if(frozen){restartHold.clear();accumulator=0;previous={...position};}else{accumulator+=elapsed*(training?1:clock.rate);while(accumulator>=dt){fixedUpdate(dt);accumulator-=dt;}}
+const perf={simulationMs:0,aiMs:0,renderSubmitMs:0,playerCollisionMs:0};
+let frameAiMs=0,frameCollisionMs=0;
+function tick(now:number){lastNow=now;const start=performance.now(),elapsed=Math.min((now-last)/1000,.1);last=now;frameAiMs=frameCollisionMs=0;frameMs=T.MathUtils.lerp(frameMs,elapsed*1000,.05);const frozen=paused||mapOpen||helpOpen||!modelReady||document.hidden||!!missionOver||creatorOpen||prepOpen;if(frozen){restartHold.clear();accumulator=0;previous={...position};}else{accumulator+=elapsed*(training?1:clock.rate);while(accumulator>=dt){fixedUpdate(dt);accumulator-=dt;}}
+ perf.simulationMs=T.MathUtils.lerp(perf.simulationMs,performance.now()-start,.08);
+ perf.aiMs=T.MathUtils.lerp(perf.aiMs,frameAiMs,.08);
+ perf.playerCollisionMs=T.MathUtils.lerp(perf.playerCollisionMs,frameCollisionMs,.08);
  const blend=accumulator/dt;avatar.position.set(T.MathUtils.lerp(previous.x,position.x,blend),T.MathUtils.lerp(previous.y,position.y,blend)-.025,T.MathUtils.lerp(previous.z,position.z,blend));avatar.rotation.y=frozen?heading:previousHeading+angleDelta(previousHeading,heading)*blend;animateActor(frozen?0:elapsed);for(const v of npcViews){const n=v.npc,o=n.fallOrigin,t=n.fall;const px=o&&t<1?T.MathUtils.lerp(o.x,n.pos.x,t):n.pos.x,py=o&&t<1?T.MathUtils.lerp(o.y,n.pos.y,t):n.pos.y,pz=o&&t<1?T.MathUtils.lerp(o.z,n.pos.z,t):n.pos.z;npcSphere.center.set(px,py+.9,pz);v.offscreen=!frustum.intersectsSphere(npcSphere);npcShadowSphere.center.copy(npcSphere.center);v.culled=!frustum.intersectsSphere(npcShadowSphere)||viewMode==='overhead'&&!npcLayerVisible(map,o&&t<1?{x:px,y:py,z:pz}:n.pos,currentFloor,camera.position,npcSphere.radius,rulesData.render.npcOcclusionMargin);v.render(frozen?0:elapsed*(training?1:clock.rate),frozen?1:blend,visualGround);}m3View.render(m3,rig,avatar,playerScene,npcViews,visualGround);if(!training){combatView.render(combat,clock.elapsed,npcViews);if(!training)detectionView.render(detection,m4.disguise,scene,rig,performance.now(),avatar);renderDevices(performance.now());renderDoors(frozen?0:elapsed);if(m53.locked&&rig){rig.rotate('upperarmr',-.75,0,1.1);rig.rotate('forearmr',0,1.4);}}if(playerScene&&rig){m4View.refresh(playerScene,rig,m4,agentLook,npcTemplates);m4View.bodies(m4,npcViews,npcTemplates);m4View.render(m4,rig,npcViews);}poseTraversal();finishItems();renderHeldCoins(coinPickups.held,npcViews);if(!frozen){animateProps(elapsed);deco.step?.(now/1000,elapsed,lightsOut,clock.elapsed);}
  if(viewMode==='overhead'){for(const [f,g] of floorGroups)g.visible=f<=Math.max(0,currentFloor);const desiredTarget=new T.Vector3(avatar.position.x+(zoom===0?3:0),avatar.position.y+.8,avatar.position.z-(zoom===0?1:0));camTarget.lerp(desiredTarget,1-Math.exp(-9*elapsed));camDesired.copy(camTarget).add(offset(distanceForZoom()));camera.position.lerp(camDesired,1-Math.exp(-9*elapsed));camera.lookAt(camTarget);camera.updateMatrixWorld();}
  else{for(const g of floorGroups.values())g.visible=true;if(guideIndex>=0&&viewMode==='third'&&!frozen)camYaw+=angleDelta(camYaw,heading)*(1-Math.exp(-2.5*elapsed));placeViewCamera(frozen?0:elapsed);}
@@ -750,11 +752,12 @@ function tick(now:number){lastNow=now;const start=performance.now(),elapsed=Math
  // Fade rays hit static scenery. The renderer updates moving objects before drawing.
  aimRay.setFromCamera(pointer,camera);cursorPoint=aimRay.ray.intersectPlane(new T.Plane(new T.Vector3(0,1,0),-position.y),new T.Vector3());fadeWalls(elapsed);
  // The game view is not drawn behind the loading screen or the creator.
- if(modelReady&&!creatorOpen){sun.position.set(avatar.position.x-12,avatar.position.y+23,avatar.position.z+10);sun.target.position.set(avatar.position.x,avatar.position.y,avatar.position.z);sun.target.updateMatrixWorld();cullSections();crowdView?.step(clock.elapsed,crowd);renderer.render(scene,camera);
+ if(modelReady&&!creatorOpen){sun.position.set(avatar.position.x-12,avatar.position.y+23,avatar.position.z+10);sun.target.position.set(avatar.position.x,avatar.position.y,avatar.position.z);sun.target.updateMatrixWorld();cullSections();crowdView?.step(clock.elapsed,crowd);const renderStart=performance.now();renderer.render(scene,camera);
+  perf.renderSubmitMs=T.MathUtils.lerp(perf.renderSubmitMs,performance.now()-renderStart,.08);
   if(now>=nextHud){nextHud=Math.max(now,nextHud+1000/rulesData.render.hudFps);drawHud(now);}}
  frameCost=T.MathUtils.lerp(frameCost,performance.now()-start,.08);updateUi(now);requestAnimationFrame(tick);
 }
-Object.assign(window,{__cleanHands:{clubTrace:(enabled?:boolean)=>{if(enabled!==undefined)director.captureStimuli=enabled;return trace.drain(enabled);},crowd:()=>({count:crowd.people.length,panic:crowd.clusters.filter(c=>c.origin).map(c=>c.place.id)}),inspectionObjects:()=>({staticLockers:staticLockers.map(o=>({name:o.name,box:new T.Box3().setFromObject(o)})),lockers:m3View.lockers.map(l=>({id:l.id,box:new T.Box3().setFromObject(l.root)})),npcs:npcViews.map(v=>({id:v.npc.id,visible:v.group.visible,hand:v.rig.joints.get('handr')?.bone.getWorldPosition(new T.Vector3()),shoulder:v.rig.joints.get('upperarmr')?.bone.getWorldPosition(new T.Vector3()),position:v.group.position.clone(),bodyMode:v.npc.bodyMode})),combat:combatView.root.children.map(o=>({name:o.name,visible:o.visible,position:o.position.clone(),box:new T.Box3().setFromObject(o)})),chandelier:{attached:!!chandelier.parent,position:chandelier.getWorldPosition(new T.Vector3())},player:{position:avatar.position.clone(),hand:rig?.joints.get('handr')?.bone.getWorldPosition(new T.Vector3()),foot:rig?.joints.get('footr')?.bone.getWorldPosition(new T.Vector3())}}),m3System:()=>m3,inspectionView:()=>setView('first'),inspectionCamera:(eye:Position,target:Position)=>{inspectionCamera={eye,target};setView('first');},inspectionRelease:()=>{inspectionCamera=null;setPause(false);},inspectionStep:(held:string[],frames:number)=>{keys=new Set(held);for(let i=0;i<frames;i++)fixedUpdate(1/60);keys.clear();for(const v of npcViews)primeNpc(v);return {...position};},inspectionPause:()=>setPause(true),director:()=>director,teleport:(x:number,z:number,y=0)=>{position={x,y,z};previous={...position};velocity={x:0,z:0};currentSpeed=0;currentFloor=floorAt(y,floorOf(y));snapCamera();},view:(yaw:number,pitch=.3)=>{camYaw=yaw;camPitch=pitch;},faces:()=>npcViews.map(v=>v.face?.morphTargetInfluences?.map(x=>+x.toFixed(2))),state:()=>({exploration,position,panelProgress,panelDone,missionOver,coins,coinProps:{flying:coinsInFlight.filter(c=>c.mesh.parent===scene).length,landed:landedCoins.filter(c=>c.parent===scene).length,ripples:ripples.filter(c=>c.parent===scene).length},currentFloor,paused,mapOpen,helpOpen,creatorOpen,modelReady,clock:clock.snapshot(),schedule:schedule.snapshot(),dialogue:dialogue.snapshot(),alert:m3.hotel.level}),clock:()=>clock.snapshot(),schedule:()=>schedule.snapshot(),dialogue:()=>dialogue.snapshot(),events:()=>events.recent.map(e=>({...e})),eventBus:()=>events,timeScale:(rate:number)=>clock.setRate(rate),jumpTime:(seconds:number)=>jumpTime(seconds),disguise:(id:string)=>{if(!rules.disguises[id])throw new Error('未知の変装');m4.disguise=id;m4.revision++;},performance:()=>({width:canvas.width,height:canvas.height,pixelRatio:renderer.getPixelRatio(),fps:1000/frameMs,jsFrameMs:frameCost,drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles,visibleNpcModels:npcViews.filter(v=>v.group.visible).length}),m57:()=>m57.snapshot(),m57System:()=>m57,m53:()=>m53.snapshot(),detectionView:()=>detectionView,doors:()=>doors.doors.map(({def,closed,locked})=>({id:def.id,closed,locked})),devices:()=>devices.snapshot(),chores:()=>chores.snapshot(),choreSystem:()=>chores,deviceSystem:()=>devices,combat:()=>combat.snapshot(),detection:()=>detection.snapshot(playerView()),detectionSystem:()=>detection,combatSystem:()=>combat,aim:()=>{const h=aimHit();return {npc:h.npc?.id??null,head:h.head,point:h.point};},shoot:(x:number,y:number,z:number)=>{const r=combat.fire(playerView(),{x,y,z},clock.elapsed);if(r.fired)combatView.play('fire',performance.now(),combat.hand);return {fired:r.fired,hit:r.hit?.id??null,head:r.head,killed:r.killed};},mission:()=>({phase:flow.phase,outcome:flow.outcome,targets:flow.targets,remaining:flow.remaining(),loadout,prepOpen,counts:Object.fromEntries(ledger.counts),ghost:ledger.ghost(scoringData),result:lastResult}),score:()=>computeResult(scoringData,ledger.counts,clock.elapsed,true),chances:()=>m53.chanceSnapshot(),traps:()=>({flags:[...m53.flags],definitions:killsData}),killLog:()=>m53.snapshot().kills,field:()=>m53,hotel:()=>m3.hotel}});
+Object.assign(window,{__cleanHands:{clubTrace:(enabled?:boolean)=>{if(enabled!==undefined)director.captureStimuli=enabled;return trace.drain(enabled);},crowd:()=>({count:crowd.people.length,panic:crowd.clusters.filter(c=>c.origin).map(c=>c.place.id)}),inspectionObjects:()=>({staticLockers:staticLockers.map(o=>({name:o.name,box:new T.Box3().setFromObject(o)})),lockers:m3View.lockers.map(l=>({id:l.id,box:new T.Box3().setFromObject(l.root)})),npcs:npcViews.map(v=>({id:v.npc.id,visible:v.group.visible,hand:v.rig.joints.get('handr')?.bone.getWorldPosition(new T.Vector3()),shoulder:v.rig.joints.get('upperarmr')?.bone.getWorldPosition(new T.Vector3()),position:v.group.position.clone(),bodyMode:v.npc.bodyMode})),combat:combatView.root.children.map(o=>({name:o.name,visible:o.visible,position:o.position.clone(),box:new T.Box3().setFromObject(o)})),chandelier:{attached:!!chandelier.parent,position:chandelier.getWorldPosition(new T.Vector3())},player:{position:avatar.position.clone(),hand:rig?.joints.get('handr')?.bone.getWorldPosition(new T.Vector3()),foot:rig?.joints.get('footr')?.bone.getWorldPosition(new T.Vector3())}}),m3System:()=>m3,inspectionView:()=>setView('first'),inspectionCamera:(eye:Position,target:Position)=>{inspectionCamera={eye,target};setView('first');},inspectionRelease:()=>{inspectionCamera=null;setPause(false);},inspectionStep:(held:string[],frames:number)=>{keys=new Set(held);for(let i=0;i<frames;i++)fixedUpdate(1/60);keys.clear();for(const v of npcViews)primeNpc(v);return {...position};},inspectionPause:()=>setPause(true),director:()=>director,teleport:(x:number,z:number,y=0)=>{position={x,y,z};previous={...position};velocity={x:0,z:0};currentSpeed=0;currentFloor=floorAt(y,floorOf(y));snapCamera();},view:(yaw:number,pitch=.3)=>{camYaw=yaw;camPitch=pitch;},faces:()=>npcViews.map(v=>v.face?.morphTargetInfluences?.map(x=>+x.toFixed(2))),state:()=>({exploration,position,panelProgress,panelDone,missionOver,coins,coinProps:{flying:coinsInFlight.filter(c=>c.mesh.parent===scene).length,landed:landedCoins.filter(c=>c.parent===scene).length,ripples:ripples.filter(c=>c.parent===scene).length},currentFloor,paused,mapOpen,helpOpen,creatorOpen,modelReady,clock:clock.snapshot(),schedule:schedule.snapshot(),dialogue:dialogue.snapshot(),alert:m3.hotel.level}),clock:()=>clock.snapshot(),schedule:()=>schedule.snapshot(),dialogue:()=>dialogue.snapshot(),events:()=>events.recent.map(e=>({...e})),eventBus:()=>events,timeScale:(rate:number)=>clock.setRate(rate),jumpTime:(seconds:number)=>jumpTime(seconds),disguise:(id:string)=>{if(!rules.disguises[id])throw new Error('未知の変装');m4.disguise=id;m4.revision++;},performance:()=>({width:canvas.width,height:canvas.height,pixelRatio:renderer.getPixelRatio(),fps:1000/frameMs,jsFrameMs:frameCost,...perf,drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles,visibleNpcModels:npcViews.filter(v=>v.group.visible).length}),traversalInspection:()=>{const frame=renderedTraversal;return frame&&rig?{phase:frame.phase,weight:frame.weight,contacts:traversalContacts(rig,frame)}:null;},m57:()=>m57.snapshot(),m57System:()=>m57,m53:()=>m53.snapshot(),detectionView:()=>detectionView,doors:()=>doors.doors.map(({def,closed,locked})=>({id:def.id,closed,locked})),devices:()=>devices.snapshot(),chores:()=>chores.snapshot(),choreSystem:()=>chores,deviceSystem:()=>devices,combat:()=>combat.snapshot(),detection:()=>detection.snapshot(playerView()),detectionSystem:()=>detection,combatSystem:()=>combat,aim:()=>{const h=aimHit();return {npc:h.npc?.id??null,head:h.head,point:h.point};},shoot:(x:number,y:number,z:number)=>{const r=combat.fire(playerView(),{x,y,z},clock.elapsed);if(r.fired)combatView.play('fire',performance.now(),combat.hand);return {fired:r.fired,hit:r.hit?.id??null,head:r.head,killed:r.killed};},mission:()=>({phase:flow.phase,outcome:flow.outcome,targets:flow.targets,remaining:flow.remaining(),loadout,prepOpen,counts:Object.fromEntries(ledger.counts),ghost:ledger.ghost(scoringData),result:lastResult}),score:()=>computeResult(scoringData,ledger.counts,clock.elapsed,true),chances:()=>m53.chanceSnapshot(),traps:()=>({flags:[...m53.flags],definitions:killsData}),killLog:()=>m53.snapshot().kills,field:()=>m53,hotel:()=>m3.hotel}});
 void loadPlayer();requestAnimationFrame(tick);
 
 

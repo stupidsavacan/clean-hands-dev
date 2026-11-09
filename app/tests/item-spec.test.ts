@@ -107,14 +107,15 @@ test('S09 row 62: gear is rechecked at the climbing hand as it goes behind a led
  const keys=new Set(['KeyE']);
  climbing.step(0,p,keys);
  const read=(position:PlayerView)=>{
-  const frame=climbing.frame(position)!;
+  const frame=climbing.frame()!;
   const player={...position,carrySight:carriedPoints(position,frame.heading,false,'suit',combat,items,true,frame.hand?.(-1))};
   guard.perceive(player,director.boxes,rules);
   assert.ok(guard.visibility>0,'the body remains visible');
   return visibleCarry(guard,player,director.boxes,rules).weaponDrawn;
  };
  assert.equal(read(p),true);
- climbing.step(.7,p,keys);
+ // Off the floor and climbing (generic ladder motion: stepping on takes LADDER.bottom seconds), the gun hand goes up behind the ledge.
+ climbing.step(1.6,p,keys);
  assert.equal(read({...p,...climbing.takeTransfer()!}),false);
 });
 test.todo('S09 rows 32/120: Kali Sticks share the two back slots (刀・Kali Sticks)');

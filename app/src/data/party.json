@@ -10285,7 +10285,6 @@
     "y": -3.5,
     "z": 34
    },
-   "seconds": 8,
    "kind": "ladder",
    "via": [
     {
@@ -10319,7 +10318,6 @@
     "y": 3.5,
     "z": 27
    },
-   "seconds": 7,
    "kind": "drainpipe",
    "via": [
     {
@@ -10343,7 +10341,6 @@
     "y": 3.5,
     "z": 35
    },
-   "seconds": 5,
    "kind": "ladder",
    "via": [
     {

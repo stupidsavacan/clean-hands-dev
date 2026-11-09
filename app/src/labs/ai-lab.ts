@@ -1,3 +1,4 @@
+import {mountDevelopmentInspector} from './development-inspector';
 // AI Test Lab page (2026-11-04): the scenarios of labs/ai-scenarios.ts in 3D, each judged pass/fail automatically.
 // It runs the same AI the maps run, so what passes here is how guards behave in the game.
 import * as T from 'three';
@@ -8,7 +9,7 @@ import {ARENA,SCENARIOS,begin,tick,rules,run,DT,type Run,type Scenario} from './
 const app=document.querySelector<HTMLDivElement>('#app')!;
 app.innerHTML=`<canvas id="lab-view"></canvas><aside id="lab-panel"><header><b>AI 実験ステージ</b><small>警備の視認・聴覚・無線・戦闘・捜索・救助・経路探索・立入禁止。実際のゲームと同じAIで動かし、自動で合否を出します。</small></header>
 <div class="lab-row"><button id="all">すべて自動判定</button><label>速さ <select id="speed"><option value="1">×1</option><option value="2">×2</option><option value="4" selected>×4</option></select></label></div>
-<div id="summary"></div><div id="list"></div><section id="detail"></section></aside>`;
+<div id="summary"></div><div id="list"></div><section id="detail"></section><section id="development-inspector"></section></aside>`;
 const style=document.createElement('style');style.textContent=`
 body{margin:0;background:#15171b;color:#e9e6dd;font:14px/1.5 system-ui,sans-serif;overflow:hidden}
 #lab-view{position:fixed;inset:0 380px 0 0;width:calc(100vw - 380px);height:100vh;display:block}
@@ -21,6 +22,7 @@ body{margin:0;background:#15171b;color:#e9e6dd;font:14px/1.5 system-ui,sans-seri
 #detail{margin-top:12px;padding:10px;background:#15171b;border-radius:6px;min-height:80px;white-space:pre-wrap;font-size:13px}#summary{font-size:13px;color:#cfcac0}
 @media (max-width:900px){#lab-view{inset:0 0 45vh 0;width:100vw;height:55vh}#lab-panel{top:55vh;width:100vw;height:45vh}}`;
 document.head.append(style);
+mountDevelopmentInspector(document.querySelector<HTMLElement>('#development-inspector')!);
 const $=<E extends HTMLElement=HTMLElement>(s:string)=>document.querySelector<E>(s)!;
 
 // --- the arena

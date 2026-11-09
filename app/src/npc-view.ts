@@ -8,6 +8,7 @@ import { neutral, applyMotion, groundBody } from './motion-runtime.ts';
 import { sampleMotion } from './motion.ts';
 import {poseCoinPickup} from './coin-pickup-pose.ts';
 import {GesturePlayer} from './gestures.ts';
+import {applyTraversalPose} from './traversal-pose.ts';
 // Each NPC is a clone of its own character GLB (Astra's cast on the agent's 22-bone rig), so the procedural gait drives them unchanged.
 // Face morphs calm / curious / alert follow the AI state.
 const EXPRESSION:Record<string,number>={patrol:0,distracted:1,curious:1,investigate:1,search:1,verify:1,alert:2,report:2,combat:2,flee:2};
@@ -59,6 +60,6 @@ export class NpcView{
   // Curious or alarmed people turn their head toward what they noticed.
   if(n.lastSeen&&n.state!=='patrol'&&n.state!=='distracted'){const want=Math.atan2(n.lastSeen.x-x,n.lastSeen.z-z),off=T.MathUtils.clamp(Math.atan2(Math.sin(want-h),Math.cos(want-h)),-1,1);this.pose.headYaw+=off*.8;}
   // The hands go to the gesture's targets after the body is posed; the props follow them.
-  this.rig.apply(this.pose);this.gestures.apply(this.rig,this.body.parent!);this.onPosed?.(this,dt);
+  this.rig.apply(this.pose);this.gestures.apply(this.rig,this.body.parent!);if(n.traversal)applyTraversalPose(this.rig,g,this.body.parent!,n.traversal);else this.body.parent!.rotation.x=0;this.onPosed?.(this,dt);
   if(this.face){const want=EXPRESSION[n.state]??0,w=this.face.morphTargetInfluences!;for(let k=0;k<3;k++)w[k]=T.MathUtils.damp(w[k],k===want?1:0,6,dt);}}
 }

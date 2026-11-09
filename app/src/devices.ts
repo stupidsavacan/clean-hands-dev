@@ -10,7 +10,9 @@ export type DeviceDef={id:string;kind:DeviceKind;label:string;x:number;z:number;
  /** Height of the surface it stands on and its heading (its front, +Z of the model, turned by this). */
  y:number;heading:number;
  /** Where someone stands to switch it off (on the floor in front of it). */
- approach:{x:number;z:number}};
+ approach:{x:number;z:number};
+ /** Optional allowlist of NPCs who can respond. Sinks still require a cleaner. */
+ responders?:string[]};
 export const SINK_OVERFLOW_SECONDS=1.5;
 export const OFF_SECONDS=2.5,CALL_EVERY=2,USE_RADIUS=1.4;
 // 2026-11-06 (H16, H17): what each kind is drawn with, how long the one who comes stays at it before switching it off
@@ -84,7 +86,7 @@ export class DeviceSystem{
    if(this.clock-(this.calledAt.get(d.id)??-Infinity)<CALL_EVERY)continue;
    this.calledAt.set(d.id,this.clock);
    const replacement=this.director.noise(at,undefined,DEVICE_KINDS[d.kind].radius,
-    candidate=>!candidate.scriptedGoal&&candidate.state!=='distracted'&&(d.kind!=='sink'||this.cleaners.includes(candidate.id)),incident);
+    candidate=>!candidate.scriptedGoal&&candidate.state!=='distracted'&&(d.responders===undefined||d.responders.includes(candidate.id))&&(d.kind!=='sink'||this.cleaners.includes(candidate.id)),incident);
    if(replacement?.goal){
     this.assignments.set(d.id,{npc:replacement,goal:replacement.goal,standing:0});
     incidents.write(incident,'assigned',at,replacement.id);

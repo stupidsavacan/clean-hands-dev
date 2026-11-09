@@ -87,3 +87,12 @@ test('C08 the sink overflows after running and calls a cleaner rather than a clo
  cleaner.pos={...at};cleaner.arrived=true;s.step(DEVICE_KINDS.sink.stay);
  assert.equal(s.on.size,0);assert.equal(s.overflowing.size,0);
 });
+
+test('an equipment responder allowlist overrides the nearer eligible NPC',()=>{
+ const {d,n}=setup();
+ const other=d.addNpc({...d.mission.npcs[0],id:'other',route:[[-2,8,600]]});
+ const fixed={...radio,responders:['other']},s=new DeviceSystem(d,[fixed],()=>0);
+ s.toggle(s.spot(fixed));s.step(1/60);
+ assert.equal(s.responders.get('r'),other);
+ assert.equal(n.state,'patrol');
+});

@@ -2,7 +2,7 @@
 // src/engine and the modules it uses; change them there and every map follows.
 import * as T from 'three';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
-import {runGame} from '../engine/game';
+import {runGame,type GameDef} from '../engine/game';
 import mapData from '../data/club-map.json';
 import look from '../data/club-look.json';
 import rules from '../data/club-rules.json';
@@ -15,15 +15,17 @@ import combat from '../data/club-combat.json';
 import detection from '../data/club-detection.json';
 import crowd from '../data/club-crowd.json';
 import stage3 from '../data/club-stage3.json';
+import {ClubSchedule} from '../engine/schedule';
 import {ClubChances} from './chances';
 import {ClubShow} from './show';
 import type {CrowdData} from '../engine/crowd';
 import type {ChancesData} from '../chances';
 
 runGame({
- map:mapData,schedule,mission,detection,look,rules,combat,dialogue,actions,
+ map:mapData,schedule,mission,detection,look,rules:rules as GameDef['rules'],combat,dialogue,actions,
  chances:chances as ChancesData,crowd:crowd as CrowdData,
  // The investor, the drop, the meeting and VIP protection.
+ createSchedule:c=>new ClubSchedule(c.data,c.places,c.director,c.clock,c.events,c.traversals[0]),
  createScript:c=>new ClubChances(c.director,c.m3,c.m4,c.clock,c.events,c.chances,c.schedule),
  decorate:({scene,hemi,group,box})=>{
   // The mirror ball over the dance floor (it spins).

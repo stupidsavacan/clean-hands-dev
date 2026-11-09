@@ -1,5 +1,6 @@
 import { permission, type Director, type Npc, type PlayerView } from '../ai.ts';
 import type { Position } from '../world.ts';
+import type {ActorState} from '../schedule.ts';
 import type { IncidentEvent } from '../incidents.ts';
 
 const round = (n:number) => Math.round(n*100)/100;
@@ -13,6 +14,7 @@ export class ClubTrace {
  private nextFoot=0;
  private nextSight=0;
  private drawPending=false;
+ private schedules=new Map<string,string>();
  private drawReactions=new Map<string,{reaction:string;reason:string;sense:string;distance:number;visibility?:number}>();
  crowdSight?: (p:PlayerView)=>CrowdSight;
  private readonly director:Director;
@@ -21,7 +23,7 @@ export class ClubTrace {
  drain(enable?:boolean){
   const rows=this.pending;this.pending=[];
   if(enable!==undefined&&enable!==this.enabled){
-   this.enabled=enable;this.actions.clear();this.nextFoot=0;this.nextSight=0;
+   this.enabled=enable;this.actions.clear();this.schedules.clear();this.nextFoot=0;this.nextSight=0;
    this.drawPending=false;this.drawReactions.clear();
   }
   return rows;
@@ -54,6 +56,20 @@ export class ClubTrace {
   if(this.drawPending)this.drawReactions.set(id,{reaction,reason,sense,distance:round(distance),visibility:sense==='sight'?visibility:undefined});
   this.pending.push({kind:'reaction',t:round(time),id,role,reaction,reason,sense,distance:round(distance),visibility:sense==='sight'?visibility:undefined,
                      at:{x:round(at.x),y:round(at.y),z:round(at.z)}});
+ }
+ schedule(time:number,states:ReadonlyMap<string,ActorState>){
+  if(!this.enabled)return;
+  for(const n of this.director.npcs){
+   const planned=states.get(n.id);
+   const state={phase:planned?.phase,place:planned?.place,planned:planned?.action,actual:n.scriptedAction||n.scheduleAction,
+    state:n.state,cause:n.cause,life:n.life,busy:n.busy,timedOut:planned?.timedOut,navigation:n.navigationStatus};
+   const key=JSON.stringify(state);
+   if(this.schedules.get(n.id)===key)continue;
+   this.schedules.set(n.id,key);
+   const nav=n.navigationDebug();
+   const destination=n.scriptedGoal??n.scheduleTarget??n.goal??nav.destination;
+   this.pending.push({kind:'npc-decision',t:round(time),id:n.id,...state,destination,position:{...n.pos},path:nav.path});
+  }
  }
  before({p,time,actions,hand}:Context){
   if(!this.enabled)return;

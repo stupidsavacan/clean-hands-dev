@@ -123,6 +123,8 @@
  function sample(c) { run.samples.push(snapshot(c)); }
  function snapshot(c) {
   const st = safe(() => c.state()) ?? {}, cb = safe(() => c.combat()) ?? {}, dt = safe(() => c.detection()) ?? {}, d = safe(() => c.director()), pf = safe(() => c.performance()) ?? {};
+  const traversal = safe(() => c.traversalInspection?.());
+  const traversalErrorCm = traversal?.weight === 1 && traversal.contacts.length ? Math.max(...traversal.contacts.map(c => c.error)) * 100 : null;
   const hot = safe(() => d.hottest()), watchers = safe(() => d.npcs.filter(n => n.suspicion > 1).length), clock = st.clock ?? {};
   // Where the targets are and what they do, and who is around the agent (id, distance, state, suspicion, can see).
   const P = st.position, npcs = safe(() => d.npcs) ?? [], r1 = v => +v.toFixed(1);
@@ -133,7 +135,9 @@
    floor: st.currentFloor, disguise, compromised: safe(() => [...d.compromised]), held: dt.held || '', blend: dt.blend || null, recorded: !!dt.recorded,
    hp: cb.hp, hand: cb.hand || '', guns: (cb.guns ?? []).map(g => g.id), inCombat: (cb.inCombat ?? []).length, alert: st.alert,
    suspicion: hot ? Math.round(hot.suspicion) : 0, suspiciousOf: hot && hot.suspicion > .5 ? hot.id : null, watchers,
-   paused: !!st.paused, map: !!st.mapOpen, fps: pf.fps ? Math.round(pf.fps) : null, targets, near});
+   paused: !!st.paused, map: !!st.mapOpen, fps: pf.fps ? Math.round(pf.fps) : null, traversalErrorCm,
+   ...Object.fromEntries(['jsFrameMs', 'simulationMs', 'aiMs', 'renderSubmitMs', 'playerCollisionMs', 'drawCalls', 'triangles']
+    .filter(k => Number.isFinite(pf[k])).map(k => [k, +pf[k].toFixed(2)])), targets, near});
  }
  function finish(c, why, unloading = false) {
   if (!run || run.end) return;

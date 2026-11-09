@@ -37,7 +37,8 @@ for id,label,x0,z0,x1,z1,rise in [('S1','正面階段',12,16,14,23,'+z'),('S2','
 # corners; a low lip along the rest of the front keeps people to the steps. ground=True: the floor under it is gone.
 for id,x0,x1 in [('SA',18.3,19.5),('SB',28.5,29.7)]:v['stairs'].append(dict(id=id,**rect(x0,28.8,x1,30),low=0,high=.28,rise='+z',floor=0))
 v['platforms']=[dict(id='stage',**rect(18,30,30,34),y=.28)]
-v['traversals']=[dict(id='X1',a='H',b='M',kind='ladder',start=dict(x=36,y=0,z=32),end=dict(x=36,y=3.5,z=30.8),via=[dict(x=36,y=3.5,z=32)],seconds=4)]
+v['traversals']=[dict(id='X1',a='H',b='M',kind='ladder',start=dict(x=36,y=0,z=32),end=dict(x=36,y=3.5,z=30.8),via=[dict(x=36,y=3.5,z=32)])]
+v['geometry']=dict(floors=[dict(floor=1,y=3.5)],shafts=[dict(**rect(35.4,31.4,36.6,32.6),floor=1)],collisionOnlyPrefixes=['glass'])
 def wall(id,x,z,w,d,h=6.8,y=0,floor=None):v['walls'].append(dict(id=id,x=x,z=z,w=w,d=d,h=h,y=y,floor=round(y/3.5) if floor is None else floor))
 def line(id,axis,k,lo,hi,openings=[],h=6.8,y=0,lintel=None):
  parts=[(lo,hi)]

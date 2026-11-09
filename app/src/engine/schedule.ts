@@ -1,11 +1,11 @@
 import { ScheduleSystem } from '../schedule.ts';
-import { floorOf, type Position } from '../world.ts';
-import type { Traversal } from '../party/traversal.ts';
+import { floorOf } from '../world.ts';
+import { sampleTraversal, traversalSeconds, type Traversal } from '../party/traversal.ts';
 
-// The club technician uses the same shaft as the player. Ordinary routes
-// still use the collision navigation grid, including both stairs.
+// The club technician uses the same shaft as the player, with the same generic ladder motion (ladder-motion.ts).
+// Ordinary routes still use the collision navigation grid, including both stairs.
 export class ClubSchedule extends ScheduleSystem {
- private climb: { points: Position[]; elapsed: number } | null = null;
+ private climb: { reverse: boolean; elapsed: number } | null = null;
  private readonly ladder: Traversal;
 
  constructor(data: ScheduleSystem['data'], places: ScheduleSystem['places'],
@@ -17,30 +17,32 @@ export class ClubSchedule extends ScheduleSystem {
 
  step(dt: number) {
   const tech = this.director.npcs.find(n => n.id === 'technician');
-  if (!tech?.active) { this.climb = null; return; }
+  if (!tech?.active) { if (tech) tech.traversal = null; this.climb = null; return; }
   if (this.climb) {
-   const { points } = this.climb;
-   this.climb.elapsed = Math.min(this.ladder.seconds, this.climb.elapsed + dt);
-   const progress = this.climb.elapsed / this.ladder.seconds * (points.length - 1);
-   const index = Math.min(points.length - 2, Math.floor(progress));
-   const a = points[index], b = points[index + 1], t = progress - index;
-   tech.pos = { x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t, z: a.z + (b.z - a.z) * t };
-   if (this.climb.elapsed === this.ladder.seconds) {
+   const seconds = traversalSeconds(this.ladder);
+   this.climb.elapsed = Math.min(seconds, this.climb.elapsed + dt);
+   const frame = sampleTraversal(this.ladder, this.climb.reverse, this.climb.elapsed / seconds);
+   tech.pos = { ...frame.position };
+   tech.heading = frame.heading;
+   tech.traversal = frame;
+   if (this.climb.elapsed === seconds) {
     tech.busy = false;
+    tech.traversal = null;
     this.climb = null;
    }
    return;
   }
   const goal = tech.scheduleTarget;
   if (tech.busy || !goal || floorOf(tech.pos.y) === floorOf(goal.y)) return;
-  const { start, end, via = [] } = this.ladder;
-  const points = goal.y > tech.pos.y ? [start, ...via, end] : [end, ...[...via].reverse(), start];
-  const from = points[0];
+  const { start, end } = this.ladder;
+  // Forwards when the start is on the floor the technician is on.
+  const reverse = (goal.y > tech.pos.y) !== (end.y > start.y);
+  const from = reverse ? end : start;
   tech.scheduleTarget = from;
   if (Math.hypot(tech.pos.x - from.x, tech.pos.z - from.z) <= .12) {
    tech.busy = true;
    tech.speed = 0;
-   this.climb = { points, elapsed: 0 };
+   this.climb = { reverse, elapsed: 0 };
   }
  }
 }

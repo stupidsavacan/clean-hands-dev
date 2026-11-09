@@ -10,7 +10,8 @@ import {markDead} from '../src/kills.ts';
 import {M3System} from '../src/m3.ts';
 import {M4System,type Checkpoint} from '../src/m4.ts';
 import {NavGrid} from '../src/nav.ts';
-import {PartyTraversal} from '../src/party/traversal.ts';
+import {PartyTraversal,traversalSeconds} from '../src/party/traversal.ts';
+import {ClubTrace} from '../src/engine/trace.ts';
 import {MissionClock} from '../src/schedule.ts';
 import {computeResult,ScoreLedger} from '../src/score.ts';
 import {segmentClear,sightBoxes} from '../src/sight.ts';
@@ -98,7 +99,7 @@ function club(start:Position={...map.spawn,y:0}){
   run(at(id).seconds+2*step,holdE);tick();
   assert.ok(field.flags.has(id),`no ${id} at ${JSON.stringify(pos)}`);
  }
- return {world,nav,director,events,clock,m3,m4,field,crowd,dialogue,ledger,log,investor,escort,p,tick,run,jump,walk,use,
+ return {world,nav,director,events,clock,m3,m4,field,crowd,dialogue,ledger,log,schedule,investor,escort,p,tick,run,jump,walk,use,
   frontSteps:()=>frontSteps,caughtAt:()=>caughtAt};
 }
 
@@ -187,7 +188,7 @@ test('club wiring can be reached in the technician uniform or from the catwalk l
  const ladder=map.traversals[0];
  const above=club({x:25,y:3.5,z:29});
  above.walk({x:36,y:3.5,z:29});above.walk(ladder.end);
- above.run(ladder.seconds+2*step,holdE);above.tick();
+ above.run(traversalSeconds(ladder)+2*step,holdE);above.tick();
  assert.ok(gap(above.p(),ladder.start)<.1);
  assert.equal(above.m4.disguise,'suit');
  above.walk(at('drop_wires').at);above.use('drop_wires');
@@ -307,4 +308,19 @@ test('club VIP escort check: a quietly downed investor is looked for after the s
  const guard=g.director.npcs.find(n=>n.id===check.reason)!;
  assert.equal(guard.id,'escort');
  assert.equal(guard.state,'investigate');
+});
+
+test('trace records the scheduled actor stopping and returning after an interruption',()=>{
+ const g=club(),trace=new ClubTrace(g.director);
+ trace.drain(true);
+ g.schedule.sync(0);trace.schedule(0,g.schedule.states);
+ g.investor.busy=true;g.schedule.sync(0);trace.schedule(1,g.schedule.states);
+ g.investor.busy=false;g.schedule.sync(0);trace.schedule(2,g.schedule.states);
+ trace.schedule(3,g.schedule.states);
+ const records=(trace.drain() as Array<{kind:string;id:string;phase:string;navigation:string;t:number}>)
+  .filter(row=>row.kind==='npc-decision'&&row.id===g.investor.id);
+ assert.deepEqual(records.map(row=>row.t),[0,1,2]);
+ assert.equal(records[1].phase,'paused');
+ assert.equal(records[1].navigation,'busy');
+ assert.notEqual(records[2].phase,'paused');
 });

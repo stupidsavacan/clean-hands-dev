@@ -2,19 +2,18 @@
 // A new map is data in the club formats plus this object; it never copies engine code. Anything the engine learns
 // (AI, security, combat, crowd, camera, HUD) reaches every map that calls runGame.
 import type * as T from 'three';
-import type {Director,Npc,PlayerView} from '../ai';
-import type {M3System} from '../m3';
-import type {M4System} from '../m4';
-import type {MissionClock,ScheduleSystem} from '../schedule';
+import type {Director,Npc,PlayerView,Rules} from '../ai';
+import type {M3System,M3Rules} from '../m3';
+import type {M4System,M4Rules} from '../m4';
+import type {MissionClock,ScheduleSystem,ScheduleData,ScheduleRules,SchedulePlace} from '../schedule';
 import type {MissionEvents} from '../events';
 import type {Chances,ChancesData} from '../chances';
 import type {NpcView} from '../npc-view';
-import type {Position} from '../world';
+import type {Position,Rect} from '../world';
 import type {ClubCrowd as Crowd,CrowdData} from './crowd';
-import type lookShape from '../data/club-look.json';
-import type rulesShape from '../data/club-rules.json';
-import type combatShape from '../data/club-combat.json';
-import type dialogueShape from '../data/club-dialogue.json';
+import type {CombatRules} from '../combat';
+import type {DialogueData,DialogueRules} from '../dialogue';
+import type {Traversal} from '../party/traversal';
 
 // What the engine asks of a map's mission script (the club's is club/chances.ts). Optional members are features a
 // map may leave out.
@@ -58,16 +57,30 @@ export type Decor={
  dressNpc?(view:NpcView):void;
 };
 
-export type LookData=typeof lookShape;
-export type RulesData=typeof rulesShape;
-export type CombatData=typeof combatShape;
-export type DialogueData=typeof dialogueShape;
+type Lighting=Position&{color:string;intensity:number;distance:number};
+type DecorBlock={x:number;z:number;w:number;d:number;h:number;color:string};
+export type LookData={
+ background:string;ambientSky:string;ambientGround:string;ambientIntensity:number;
+ sunColor:string;sunIntensity:number;exposure:number;street:string;rail:string;
+ floors:Record<string,(string|number)[]>;walls:string[][];stairs:Record<string,string>;props:string[][];
+ linings:DecorBlock[];ceilings:Array<Rect&{y:number;color:string;emissive:string}>;
+ points:Lighting[];emissive:Array<DecorBlock&{id:string;y:number}>;
+};
+export type RulesData=Omit<Rules,'m4'>&{
+ m3:M3Rules;m4:M4Rules&Rules['m4'];schedule:ScheduleRules;dialogue:DialogueRules;
+ render:{pixelRatioCap:number;npcShadowCullRadius:number;npcOcclusionMargin:number;hudFps:number};
+ controls:{restartHoldSeconds:number};
+};
+export type CombatData=Omit<CombatRules,'placed'>&{placed:unknown[];weaponRecoveryScanSeconds:number};
+export type EngineSchedule=ScheduleSystem&{step?:(dt:number)=>void};
+type ScheduleContext={data:ScheduleData;places:Record<string,SchedulePlace>;director:Director;clock:MissionClock;events:MissionEvents;traversals:Traversal[]};
 
 export type GameDef={
  // Built by scripts/build-club.ts from the map's sources (same format for every map).
- map:unknown;schedule:unknown;mission:unknown;detection:unknown;
+ map:unknown;schedule:ScheduleData;mission:unknown;detection:unknown;
  look:LookData;rules:RulesData;combat:CombatData;dialogue:DialogueData;
  chances:ChancesData;actions:unknown;crowd:CrowdData;
+ createSchedule?:(ctx:ScheduleContext)=>EngineSchedule;
  createScript(ctx:ScriptContext):MissionScript;
  decorate?(ctx:DecorContext):Decor;
  // Words on screen that name the map.

@@ -1791,8 +1791,7 @@
      "y": 3.5,
      "z": 32
     }
-   ],
-   "seconds": 4
+   ]
   }
  ],
  "traversalRules": {
@@ -6276,4 +6275,10 @@
    "radius": 1
   }
  ]
+,
+ "geometry": {
+  "floors": [{"floor": 1, "y": 3.5}],
+  "shafts": [{"minX": 35.4, "minZ": 31.4, "maxX": 36.6, "maxZ": 32.6, "floor": 1}],
+  "collisionOnlyPrefixes": ["glass"]
+ }
 }

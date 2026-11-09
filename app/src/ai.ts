@@ -2,6 +2,7 @@ import { inside, floorOf, plateY, type CollisionWorld, type Level, type Position
 import type { NavGrid } from './nav.ts';
 import { segmentClear, type Aabb } from './sight.ts';
 import type {CoinPickup} from './coin-pickup.ts';
+import type {TraversalFrame} from './party/traversal.ts';
 import {visibleCarry,type CarrySight} from './carry-sight.ts';
 import {IncidentLog,type IncidentRef} from './incidents.ts';
 export type Role='guard'|'guest'|'waiter';
@@ -106,7 +107,12 @@ export class Npc{
  life:'active'|'unconscious'|'dead'='active';bodyMode:'ground'|'dragged'|'hidden'='ground';busy=false;fall=0;evidenceGoal:Position|null=null;
  pos:Position;heading:number;state:State='patrol';suspicion=0;visibility=0;distance=Infinity;off=180;lastSeen:Position|null=null;goal:Position|null=null;
  coinPickup:CoinPickup|null=null;
+ // On a ladder (or other traversal): the same generic motion as the player (ladder-motion.ts), drawn by NpcView.
+ traversal:TraversalFrame|null=null;
  speed=0;arrived=false;timer=0;scanBase=0;scanT=0;loseT=0;routeIndex=0;wait=0;face=0;tier:Tier='near';
+ private routeStatus:'idle'|'waiting'|'no-route'|'moving'|'blocked'='idle';
+ get navigationStatus(){return this.busy?'busy':this.routeStatus;}
+ navigationDebug(){return {status:this.navigationStatus,destination:this.pathGoal&&{...this.pathGoal},path:this.path.map(p=>({...p}))};}
  private path:Position[]=[];private pathGoal:Position|null=null;private lastPos:Position|null=null;private repath=0;private stuck=0;private noticed=false;
  constructor(def:NpcDef,level:Level,shared=new Set<string>()){this.id=def.id;this.role=def.role as Role;this.label=def.label;this.route=def.route.map(r=>[...r]);this.look=def.look&&[...def.look];this.knowsFaces=def.knowsFaces??[];this.post=def.post===undefined?[]:[def.post].flat();this.target=!!def.target;this.outfit=def.outfit;this.shared=shared;const r=def.route[0];this.homeY=plateY(level,def.floor);this.pos={x:r[0],y:this.homeY,z:r[1]};
   this.faction=def.faction??'';this.securityRole=def.securityRole??'';this.combatProfile=def.combatProfile;this.loadout=def.loadout;this.disguiseId=def.disguiseId??def.outfit;
@@ -254,14 +260,14 @@ export class Npc{
   // Progress is judged on where the body actually got since the last step, after the crowd pushed it: two people
   // heading for the same waypoint push each other back every frame, each stepping forward, and otherwise never stop.
   const net=this.lastPos?Math.hypot(this.pos.x-this.lastPos.x,this.pos.z-this.lastPos.z):Infinity;this.lastPos={...this.pos};
-  if(want){const moved=Math.min(this.travel(dt,world,nav,want,speed),net);if(moved<.002*dt*60){this.stuck+=dt;if(this.stuck>1.2){this.path=[];this.pathGoal=null;this.stuck=0;if(this.state==='patrol')this.wait=.5;else this.arrived=true;}}else this.stuck=0;}
-  else{this.speed=Math.max(0,this.speed-6*dt);this.path=[];this.pathGoal=null;}
+  if(want){const moved=Math.min(this.travel(dt,world,nav,want,speed),net);if(moved<.002*dt*60){this.stuck+=dt;if(this.stuck>1.2){this.path=[];this.pathGoal=null;this.stuck=0;if(this.routeStatus==='moving')this.routeStatus='blocked';if(this.state==='patrol')this.wait=.5;else this.arrived=true;}}else this.stuck=0;}
+  else{this.routeStatus='idle';this.speed=Math.max(0,this.speed-6*dt);this.path=[];this.pathGoal=null;}
   if(face!==null)this.turn(face,dt,4);}
  private turn(target:number,dt:number,rate:number){const d=wrap(target-this.heading);this.heading=wrap(this.heading+clamp(d,-rate*dt,rate*dt));}
  private routeRevision=0;
  private travel(dt:number,world:CollisionWorld,nav:NavGrid,target:Position,speed:number){this.repath-=dt;
   if(this.routeRevision!==world.revision){this.routeRevision=world.revision;this.pathGoal=null;this.path=[];}
-  if(!this.pathGoal||flat(this.pathGoal,target)>.6||Math.abs(this.pathGoal.y-target.y)>.3||(this.state==='alert'&&this.repath<=0)){const found=nav.findSoon(this.pos,target);if(found===undefined){this.stuck=0;return 1;}this.path=found??[];this.pathGoal={...target};this.repath=.4;}
+  if(!this.pathGoal||flat(this.pathGoal,target)>.6||Math.abs(this.pathGoal.y-target.y)>.3||(this.state==='alert'&&this.repath<=0)){const found=nav.findSoon(this.pos,target);if(found===undefined){this.routeStatus='waiting';this.stuck=0;return 1;}this.routeStatus=found?.length?'moving':'no-route';this.path=found??[];this.pathGoal={...target};this.repath=.4;}
   while(this.path.length>1&&Math.hypot(this.pos.x-this.path[0].x,this.pos.y-this.path[0].y,this.pos.z-this.path[0].z)<.1&&nav.clear(this.pos,this.path[1]))this.path.shift();const next=this.path[0];if(!next)return 0;
   const dx=next.x-this.pos.x,dz=next.z-this.pos.z,d=Math.hypot(dx,dz),left=Math.hypot(this.pos.x-target.x,this.pos.y-target.y,this.pos.z-target.z);
   // Ease into a stop so the gait settles instead of snapping.
