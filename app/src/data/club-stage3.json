@@ -71,14 +71,14 @@
    "widenRadius": 6
   },
   "escape": {
-   "_note": "【未検証・false】afterLockdowns 回避難したあと、次の騒ぎで投資家が搬入口の車へ逃げる。着いたら失敗（target_escaped）。",
-   "enabled": false,
+   "_note": "afterLockdowns 回避難したあと、次の騒ぎで投資家が搬入口の車へ逃げる。着いたら失敗（target_escaped）。2026-11-10 AI実験ステージ（要人）で確かめて有効化。exit は車の運転席側（車の中だと着けない）。",
+   "enabled": true,
    "afterLockdowns": 2,
-   "exit": {"x": 13, "y": 0, "z": 38.2}
+   "exit": {"x": 12.4, "y": 0, "z": 38.5}
   },
   "searchEnforcers": {
-   "_note": "【未検証・false】殺しの死体が見つかったら seconds 秒の間、警備は全員どの服でも見破る（三部作の Searching）。",
-   "enabled": false,
+   "_note": "殺しの死体が見つかったら seconds 秒の間、警備は全員どの服でも見破る（三部作の Searching）。2026-11-10 AI実験ステージ（要人）で確かめて有効化。",
+   "enabled": true,
    "seconds": 120
   }
  },

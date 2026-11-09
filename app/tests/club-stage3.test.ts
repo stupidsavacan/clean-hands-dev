@@ -297,6 +297,38 @@ test('club VIP lockdown: a shot near the investor sends them to a safe room with
  assert.equal(escort.scriptedGoal,nextJob,'ending the lockdown preserves a newer order');
 });
 
+test('club VIP escape (on 2026-11-10): after two lockdowns the next shot sends the investor to the car, and reaching it fails the mission',()=>{
+ const g=club({x:2,y:0,z:20});
+ g.run(1);
+ const shot=()=>g.field.alarm({x:g.investor.pos.x+3,y:g.investor.pos.y,z:g.investor.pos.z},'gunshot','small');
+ const count=(id:string)=>g.log.filter(e=>e.type==='flag.set'&&e.id===id).length;
+ for(let i=1;i<=2;i++){
+  shot();assert.equal(count('vip_lockdown'),i);
+  for(let t=0;t<stage.vip.lockdown.holdSeconds+60&&count('vip_lockdown_end')<i;t+=2)g.run(2);
+  assert.equal(count('vip_lockdown_end'),i,'lockdown '+i+' ended');
+ }
+ shot();
+ assert.equal(count('vip_lockdown'),2,'no third safe room');
+ assert.equal(count('target_fleeing'),1);
+ for(let t=0;t<90&&!g.field.escaped;t+=2)g.run(2);
+ assert.ok(g.field.escaped,'the investor reached the car '+JSON.stringify(g.investor.pos));
+ assert.ok(Math.hypot(g.investor.pos.x-stage.vip.escape.exit.x,g.investor.pos.z-stage.vip.escape.exit.z)<1.2);
+});
+
+test('club searching (on 2026-11-10): a murdered body found makes every guard see through every outfit for the set time',()=>{
+ const g=club({x:2,y:0,z:20});
+ const guards=g.director.npcs.filter(n=>n.guard),before=new Map(guards.map(n=>[n,[...n.knowsFaces]]));
+ assert.ok(guards.some(n=>!n.knowsFace('waiter')),'normally not every guard knows the waiter outfit');
+ g.events.emit({type:'body.found',time:g.clock.elapsed,id:'guest_01',life:'dead',judgement:'murder'});
+ assert.ok(g.log.some(e=>e.type==='flag.set'&&e.id==='search_enforcers'));
+ assert.ok(guards.filter(n=>n.active).every(n=>n.knowsFace('waiter')&&n.knowsFace('suit')));
+ g.run(stage.vip.searchEnforcers.seconds+1);
+ for(const n of guards)assert.deepEqual(n.knowsFaces,before.get(n),n.id+' forgets the outfits it was given');
+ // An accident does not start it.
+ g.events.emit({type:'body.found',time:g.clock.elapsed,id:'guest_02',life:'dead',judgement:'accident'});
+ assert.equal(g.log.filter(e=>e.type==='flag.set'&&e.id==='search_enforcers').length,1);
+});
+
 test('club VIP escort check: a quietly downed investor is looked for after the set time',()=>{
  const g=club({x:2,y:0,z:20});
  g.investor.pos={x:2,y:0,z:26};

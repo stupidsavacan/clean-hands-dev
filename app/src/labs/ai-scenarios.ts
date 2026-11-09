@@ -20,6 +20,10 @@ import {CombatSystem,type CombatRules,type WeaponDef} from '../combat.ts';
 import rulesData from '../data/club-rules.json' with {type:'json'};
 import combatData from '../data/club-combat.json' with {type:'json'};
 import weaponsData from '../data/weapons.json' with {type:'json'};
+import clubStage from '../data/club-stage3.json' with {type:'json'};
+import {Errands} from '../engine/errands.ts';
+import {VipProtection,type VipConfig} from '../engine/vip.ts';
+import {markDead} from '../kills.ts';
 
 // The arena, 40 x 30 m, one floor:
 //  west  (x<6)  public hall with a free-standing wall (sight test) at x=-6
@@ -58,9 +62,9 @@ export function guard(id:string,x:number,z:number,heading:number,o:Partial<NpcDe
 }
 export const player=(x:number,z:number,o:Partial<PlayerView>={}):PlayerView=>({x,y:0,z,floor:0,speed:0,running:false,crouched:false,tampering:false,disguise:'suit',...o});
 
-export type Run={director:Director;combat?:CombatSystem;m3?:M3System;outfit?:{m4:M4System;schedule:ScheduleSystem};coin?:{mesh:Mesh;pickups:LandedCoinPickups};devices?:DeviceSystem;cleaning?:{chores:ChoreSystem;schedule:ScheduleSystem};doors?:DoorSystem;events:AiEvent[];log:string[];time:number;player:PlayerView;marks:Position[]};
+export type Run={vipShotAt?:number;vip?:{protection:VipProtection;clock:MissionClock;events:MissionEvents;flags:string[]};director:Director;combat?:CombatSystem;m3?:M3System;outfit?:{m4:M4System;schedule:ScheduleSystem};coin?:{mesh:Mesh;pickups:LandedCoinPickups};devices?:DeviceSystem;cleaning?:{chores:ChoreSystem;schedule:ScheduleSystem};doors?:DoorSystem;events:AiEvent[];log:string[];time:number;player:PlayerView;marks:Position[]};
 export type Scenario={
- id:string;group:'視認'|'聴覚'|'無線'|'戦闘'|'捜索'|'経路探索'|'立入禁止'|'検問'|'救助'|'設備';title:string;expect:string;
+ id:string;group:'視認'|'聴覚'|'無線'|'戦闘'|'捜索'|'経路探索'|'立入禁止'|'検問'|'救助'|'設備'|'要人';title:string;expect:string;
  npcs:NpcDef[];seconds:number;combat?:boolean;isolated?:boolean;
  // A finding the lab turned up that the AI does not meet yet (the test suite lists it as todo, not as a failure).
  known?:string;
@@ -296,7 +300,69 @@ export const SCENARIOS:Scenario[]=[
   judge:r=>({pass:r.log.includes('ロッカーへ向かう')&&r.log.includes('着替えた')&&flat(npc(r,'guest').pos,{x:-14,y:0,z:0})<.5,
    detail:[...r.log,flat(npc(r,'guest').pos,{x:-14,y:0,z:0})<.5?'元の場所に戻った':'まだ移動中'].join(' → ')}),
  },
+
+ // 2026-11-10: the two VIP parts that were built but off in the club (club-stage3.json vip.escape, vip.searchEnforcers),
+ // run here with the club's own settings turned on. Only waiting times are shortened (noted in each) so a run is short.
+ {id:'vip-escape',group:'要人',title:'避難を重ねた要人は車へ逃げる',expect:'銃声のたびに要人が安全な部屋へ避難し、2回の避難の後の3回目の騒ぎでは部屋ではなく車へ走る。着くと逃走（作戦失敗）になる。',
+  npcs:[guard('mayor',-8,4,0,{role:'guest',knowsFaces:[]}),guard('aide',-7,4,0,{securityRole:'escort'}),guard('g1',-3,8,Math.PI)],
+  seconds:90,isolated:true,player:()=>player(14,12,{hidden:true}),
+  start:r=>{
+   // The club's numbers, with a 3 s hold instead of 90 s and the arena's rooms and car.
+   const config:VipConfig={...clubStage.vip,target:'mayor',escort:'aide',
+    lockdown:{...clubStage.vip.lockdown,holdSeconds:3,rooms:[{id:'safe',label:'控室',at:{x:-15,y:0,z:-10},posts:[{x:-13,y:0,z:-10},{x:-15,y:0,z:-8}]}]},
+    escape:{...clubStage.vip.escape,enabled:true,exit:{x:-18,y:0,z:13}}};
+   startVip(r,config);
+   r.marks.push({x:-15,y:0,z:-10},{x:-18,y:0,z:13});
+  },
+  step:r=>{
+   const v=r.vip!,m=npc(r,'mayor');stepVip(r);
+   // A shot near the mayor whenever they are back in the hall, three times.
+   const shots=r.log.filter(l=>l==='銃声').length;
+   if(shots<3&&!v.protection.lockedDown&&m.state!=='flee'&&r.time>=(shots?r.vipShotAt!+6:.5)){r.vipShotAt=r.time;r.log.push('銃声');v.protection.alarm({x:m.pos.x+3,y:0,z:m.pos.z},'gunshot','small');}
+  },
+  done:r=>r.vip!.protection.escaped,
+  judge:r=>{
+   const f=r.vip!.flags,locks=f.filter(x=>x==='vip_lockdown').length;
+   return {pass:locks===2&&f.includes('target_fleeing')&&f.includes('target_escaped')&&r.vip!.protection.escaped,
+    detail:[`避難 ${locks}回`,f.includes('target_fleeing')?'車へ逃走':'逃走せず',f.includes('target_escaped')?'車に着いた（失敗）':'着かず'].join(' → ')};
+  }},
+ {id:'vip-search',group:'要人',title:'殺しの死体が見つかると、警備はどの服でも見破る',expect:'給仕の服で警備の前に立っても普段は気づかれない。殺された死体が見つかると、決まった時間だけ警備が給仕の服を見破って確かめに来る。時間が過ぎると元に戻る。',
+  npcs:[guard('mayor',10,12,0,{role:'guest',knowsFaces:[]}),guard('g1',-17,-6,Math.PI/2),guard('g2',0,-12,0),guard('victim',-14,-6,0,{role:'guest',knowsFaces:[]})],
+  seconds:30,isolated:true,player:()=>player(0,-8.5,{disguise:'waiter'}),
+  start:r=>{
+   // The club's numbers, searching for 8 s instead of 120 s.
+   const config:VipConfig={...clubStage.vip,target:'mayor',searchEnforcers:{...clubStage.vip.searchEnforcers,enabled:true,seconds:8},
+    lockdown:{...clubStage.vip.lockdown,enabled:false}};
+   startVip(r,config);
+   const v=r.vip!,body=npc(r,'victim');
+   r.m3=new M3System(r.director,[],rulesData.m3);
+   r.m3.onFound=b=>{r.log.push('死体を発見');v.events.emit({type:'body.found',time:v.clock.elapsed,id:b.id,life:b.life==='dead'?'dead':'unconscious',judgement:b.deathKind});};
+   void body;
+  },
+  step:r=>{
+   stepVip(r);
+   const g2=npc(r,'g2'),body=npc(r,'victim');
+   // For 3 s nobody is dead, so g2's view of the waiter is seen before any search; then the guest is murdered.
+   if(r.time>=3&&body.life==='active'){r.log.push(`捜索前の疑い ${Math.round(g2.suspicion)}`);markDead(body,'test',{kind:'murder',witnesses:[],cameras:[],illegal:false,reasons:[]});}
+   if(g2.knowsFaces.includes('waiter')&&!r.log.includes('給仕の服を見破る'))r.log.push('給仕の服を見破る');
+   if(r.log.includes('給仕の服を見破る')&&g2.suspicion>=rules.thresholds.curious&&!r.log.includes('警備が気づく'))r.log.push('警備が気づく');
+   if(r.log.includes('給仕の服を見破る')&&!g2.knowsFaces.includes('waiter')&&!r.log.includes('元に戻る'))r.log.push('元に戻る');
+  },
+  done:r=>r.log.includes('元に戻る'),
+  judge:r=>{
+   const before=Number(r.log.find(l=>l.startsWith('捜索前の疑い'))?.split(' ')[1]??NaN);
+   return {pass:before<1&&r.log.includes('死体を発見')&&r.vip!.flags.includes('search_enforcers')&&r.log.includes('警備が気づく')&&r.log.includes('元に戻る')&&
+    npc(r,'g2').knowsFaces.join()==='guard',detail:r.log.filter(l=>l!=='g1:investigate').join(' → ')};
+  }},
 ];
+
+function startVip(r:Run,config:VipConfig){
+ const events=new MissionEvents(),clock=new MissionClock(rulesData.schedule,events),flags:string[]=[];
+ const m3=r.m3??new M3System(r.director,[],rulesData.m3);
+ const protection=new VipProtection(r.director,m3,clock,events,new Errands({states:new Map()}),config,id=>{flags.push(id);r.log.push(id);},()=>{});
+ r.vip={protection,clock,events,flags};
+}
+function stepVip(r:Run){const v=r.vip!;v.clock.step(DT);v.protection.step(v.clock.elapsed);}
 
 // One scenario, stepped by the caller (the lab page animates it; run() finishes it at once).
 export function begin(s:Scenario):Run{
