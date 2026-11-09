@@ -10,7 +10,7 @@ import type {MissionEvents} from '../events';
 import type {Chances,ChancesData} from '../chances';
 import type {NpcView} from '../npc-view';
 import type {Position,Rect} from '../world';
-import type {ClubCrowd as Crowd,CrowdData} from './crowd';
+import type {CrowdData} from './crowd';
 import type {CombatRules} from '../combat';
 import type {DialogueData,DialogueRules} from '../dialogue';
 import type {Traversal} from '../party/traversal';
@@ -20,7 +20,9 @@ import type {Traversal} from '../party/traversal';
 export interface MissionScript {
  readonly chances:Pick<Chances,'track'>;
  readonly flags:Set<string>;
- notices:string[];reactionText:string;reactionUntil:number;poison:number;
+ notices:string[];reactionText:string;reactionUntil:number;
+ // Doses of the mission's lethal poison left (a map without one leaves it out).
+ poison?:number;
  readonly locked:boolean;readonly tampering:boolean;
  // Lights-out (the club's drop); the engine calls the map's decorate().blackout when it changes.
  readonly blackout?:boolean;
@@ -32,7 +34,8 @@ export interface MissionScript {
  seek():void;beforeAi():void;afterAi(p:PlayerView):void;
  chanceSnapshot():ReturnType<Chances['snapshot']>;
  snapshot():{kills:readonly unknown[]};
- applyBlackout?(crowd:Crowd):void;
+ // Zones dark now and how far sight reaches in each (0..1); engine/lighting.ts applies it to NPCs and the crowd.
+ darkZones?():Record<string,number>;
  // Something happened near the target (VIP protection): a shot, a scream, a body the target or escort found.
  alarm?(at:Position,reason:'gunshot'|'scream'|'body'|'witness',kind?:'small'|'loud'):void;
  bodyFound?(body:Npc,witness:Npc):void;
@@ -75,14 +78,29 @@ export type CombatData=Omit<CombatRules,'placed'>&{placed:unknown[];weaponRecove
 export type EngineSchedule=ScheduleSystem&{step?:(dt:number)=>void};
 type ScheduleContext={data:ScheduleData;places:Record<string,SchedulePlace>;director:Director;clock:MissionClock;events:MissionEvents;traversals:Traversal[]};
 
+export type TrainingDef={
+ player:{x:number;z:number;heading:number};
+ // Everyone else is put out of the way; these stand (or lie, `down`) here. `zone` gives a guard that post.
+ actors:{id:string;x:number;z:number;heading:number;down?:boolean;zone?:string}[];
+ clothes?:{id:string;disguise:string;x:number;z:number}[];
+ text:string;hint?:string;
+ objectives?:{text:string;done:'changes'|'frisks'|'upstairs'|'downed'|'hidden'}[];
+ // The "make them look" button: who turns, which way, and what it says.
+ discover?:{id:string;heading:number;text:string};
+};
 export type GameDef={
  // Built by scripts/build-club.ts from the map's sources (same format for every map).
  map:unknown;schedule:ScheduleData;mission:unknown;detection:unknown;
  look:LookData;rules:RulesData;combat:CombatData;dialogue:DialogueData;
  chances:ChancesData;actions:unknown;crowd:CrowdData;
  createSchedule?:(ctx:ScheduleContext)=>EngineSchedule;
- createScript(ctx:ScriptContext):MissionScript;
+ // Only what the map has: missing members get stand-ins (engine/script.ts).
+ createScript(ctx:ScriptContext):Partial<MissionScript>;
  decorate?(ctx:DecorContext):Decor;
  // Words on screen that name the map.
- text:{mapTitle:string;mapLabel:string;pause:string;help:string;prepEyebrow:string;loadSmall:string;loading:string;brief:string;targetDown:string};
+ text:{mapTitle:string;mapLabel:string;pause:string;help:string;prepEyebrow:string;loadSmall:string;loading:string;brief:string;targetDown:string;
+  // The standing hint at the bottom of the HUD while nothing more urgent is shown.
+  hint?:string};
+ // Practice set-ups behind the debug panel's buttons (none: the buttons are hidden).
+ training?:{m3?:TrainingDef;m4?:TrainingDef};
 };

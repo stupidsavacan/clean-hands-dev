@@ -116,7 +116,7 @@ def populate(v):
            approach=dict(x=-1,z=0),size=dict(w=.65,d=1.2,h=1.9))]
     v['furniture']=[b for b in v['furniture'] if b['id']!='locker-static']
     v['furniture'] += [dict(id=h['id'],x=h['x'],y=h['y'],z=h['z'],floor=0,**h['size']) for h in v['hides']]
-    v['furniture'].append(dict(id='safe-office',x=16.5,y=0,z=31.5,floor=0,w=.65,d=.65,h=.8))
+    v['furniture'].append(dict(id='safe-office',x=16.5,y=0,z=31.5,floor=0,w=.65,d=.65,h=.8,prefab='safe'))
     # 2026-11-03: every guard wears the black suit (bouncers included).
     # Enforcers (HITMAN): each staff outfit is seen through by the one or two people who work beside its wearer.
     assert len(v['npcs'])==(38 if EXTRA_VIP_GUARDS else 36)

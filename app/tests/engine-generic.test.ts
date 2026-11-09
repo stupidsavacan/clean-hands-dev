@@ -15,6 +15,10 @@ import {KillEvents,TargetWatch} from '../src/engine/target-watch.ts';
 import {M3System} from '../src/m3.ts';
 import {markDead} from '../src/kills.ts';
 import type {PlayerView} from '../src/ai.ts';
+import {readFileSync,readdirSync} from 'node:fs';
+import {buildGameMap,type MapLayout} from '../src/map-layout.ts';
+import layout from '../src/data/club-layout.json' with {type:'json'};
+import clubMission from '../src/data/club-mission.json' with {type:'json'};
 import map from '../src/data/club-map.json' with {type:'json'};
 import rules from '../src/data/club-rules.json' with {type:'json'};
 
@@ -134,4 +138,25 @@ test('a target going down: onlookers gather and go back, and npc.killed is sent 
  assert.deepEqual(killed,[{id:'heir',place:'stage'}]);
  g.run(6);watch.step(g.clock.elapsed);
  assert.equal(watch.gathering(g.npc('fan')),false);assert.equal(g.npc('fan').scriptedGoal,null);
+});
+
+test('the shared engine names none of the club NPCs, zones, rooms, props, starts or exits',()=>{
+ const ids=new Set<string>([...layout.npcs.map(n=>n.id),...layout.rooms.map(r=>r.id),...layout.furniture.map(f=>f.id),...layout.exits.map(e=>e.id),
+  ...clubMission.starts.map(s=>s.id),...Object.keys(layout.schedulePlaces),'gate_frisk','safe-office','sink-kitchen','locker-static','shelf-F21']);
+ // Ids that are also ordinary words in code.
+ for(const word of ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','Q','R','escort','patrol'])ids.delete(word);
+ const dir=new URL('../src/engine/',import.meta.url);
+ for(const file of readdirSync(dir).filter(f=>f.endsWith('.ts'))){
+  const src=readFileSync(new URL(file,dir),'utf8').replace(/\/\/.*$/gm,'');
+  for(const id of ids)assert.ok(!src.includes(`'${id}'`)&&!src.includes(`"${id}"`),`${file} names ${id}`);
+ }
+});
+
+test('any layout builds a complete game map the same way the club does',()=>{
+ const blank={name:'検証ステージ',ground:{minX:0,maxX:20,minZ:0,maxZ:12},spawn:{x:2,z:2},rooms:[{id:'hall',label:'ホール',floor:0,minX:0,maxX:20,minZ:0,maxZ:12}],
+  walls:[],furniture:[],stairs:[],traversals:[],geometry:{floors:[],shafts:[]}} as MapLayout;
+ const map=buildGameMap(blank);
+ for(const key of ['water','palms','labels','reinforcements','cameras','exits','walls','blockers','floors','zones','sections','guide'] as const)assert.ok(Array.isArray(map[key]),key);
+ assert.equal(map.sections[0].label,'検証ステージ');
+ assert.equal('pool' in map,false);
 });

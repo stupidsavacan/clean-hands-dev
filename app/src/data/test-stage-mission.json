@@ -1,0 +1,70 @@
+{
+ "vip": {
+  "target": "host",
+  "escort": "bodyguard",
+  "lockdown": {
+   "enabled": true,
+   "guards": 2,
+   "guardRadius": 30,
+   "gunshotSmall": 10,
+   "gunshotLoud": 30,
+   "screamRadius": 14,
+   "holdSeconds": 60,
+   "rooms": [
+    {
+     "id": "back",
+     "label": "奥の部屋",
+     "at": {
+      "x": 6,
+      "y": 0,
+      "z": 17
+     },
+     "posts": [
+      {
+       "x": 6,
+       "y": 0,
+       "z": 14
+      },
+      {
+       "x": 9,
+       "y": 0,
+       "z": 16
+      }
+     ]
+    }
+   ]
+  },
+  "escortCheck": {
+   "enabled": true,
+   "seconds": 30,
+   "widenSeconds": 20,
+   "widenGuards": 1,
+   "widenRadius": 4
+  },
+  "escape": {
+   "enabled": false,
+   "afterLockdowns": 2,
+   "exit": {
+    "x": 15,
+    "y": 0,
+    "z": 1
+   }
+  },
+  "searchEnforcers": {
+   "enabled": false,
+   "seconds": 0
+  }
+ },
+ "acts": [
+  {
+   "id": "breaker",
+   "label": "作業場のブレーカーを落とす",
+   "at": {
+    "x": 28.5,
+    "y": 0,
+    "z": 14
+   },
+   "seconds": 3
+  }
+ ]
+}

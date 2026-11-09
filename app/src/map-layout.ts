@@ -89,3 +89,21 @@ export function assertMapLayout(value:unknown):asserts value is MapLayout{
   (m.platforms!==undefined&&(!Array.isArray(m.platforms)||!m.platforms.every(p=>validRect(p)&&finite(p.y)))))
   throw new Error('区画・壁・家具・階段・経路に不正な座標や寸法があります');
 }
+
+/** Options a map's build gives the game map beyond its layout (all optional). */
+export type GameMapOptions={
+ /** The single outdoor section covering the grounds (rendering and long path searches work per section). */
+ section?:{id:string;label:string;surface:string};
+ /** The tutorial walk from the start, as [x, z] points. */
+ guide?:number[][];
+};
+/** The game map the engine (runGame) reads, from a layout: compiled geometry plus empty defaults for what the layout
+ * leaves out (water, palms, labels, cameras, reinforcements). The same for every map (2026-11-10, Issue #1); the club
+ * no longer inherits the hotel's leftovers. */
+export function buildGameMap(layout:MapLayout&Record<string,unknown>,options:GameMapOptions={}){
+ const {geometry:_geometry,editedInMapLab:_edited,...spec}=layout;
+ const compiled=compileMapGeometry(layout);
+ const section=options.section??{id:'map',label:String(layout.name),surface:'asphalt'};
+ return {water:[],palms:[],labels:[],reinforcements:[],cameras:[],exits:[],
+  ...spec,...compiled,sections:[{...section,...layout.ground,outdoor:true}],guide:options.guide??[]};
+}

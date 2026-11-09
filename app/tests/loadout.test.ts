@@ -81,4 +81,4 @@ test('HD11: the briefcase can be chosen, and the gun can go inside it (still one
 test('HD11: the game starts with the case in hand and the gun inside when chosen',()=>{
  const src=readFileSync(new URL('../src/engine/game.ts',import.meta.url),'utf8');
  assert.match(src,/if\(loadout\.case\)\{detection\.held=loadout\.case;if\(loadout\.pistol&&loadout\.pickup===IN_CASE\)/);
- assert.match(src,/loadout=cleanLoadout\(\{tools:picked\('tool'\),pistol:picked\('pistol'\)\[0\]\?\?'',start:picked\('start'\)\[0\]\?\?'S1',pickup:picked\('pickup'\)\[0\]\?\?'',case:picked\('case'\)\[0\]\?\?''\},loadoutMission\)/,'the current prep screen goes through the same rules');});
+ assert.match(src,/loadout=cleanLoadout\(\{tools:picked\('tool'\),pistol:picked\('pistol'\)\[0\]\?\?'',start:picked\('start'\)\[0\]\?\?firstStart,pickup:picked\('pickup'\)\[0\]\?\?'',case:picked\('case'\)\[0\]\?\?''\},loadoutMission\)/,'the current prep screen goes through the same rules');});

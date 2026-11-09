@@ -1,0 +1,54 @@
+{
+ "actors": {
+  "host": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 120,
+     "place": "host_lobby",
+     "do": "chat"
+    },
+    {
+     "from": 120,
+     "to": 1800,
+     "place": "host_back",
+     "do": "phone"
+    }
+   ]
+  },
+  "bodyguard": {
+   "plan": [],
+   "follow": "host",
+   "offset": [
+    1,
+    1
+   ]
+  },
+  "rigger": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 40,
+     "place": "rig_works",
+     "do": "work"
+    },
+    {
+     "from": 40,
+     "to": 1800,
+     "place": "rig_gallery",
+     "do": "work"
+    }
+   ]
+  },
+  "clerk": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 1800,
+     "place": "clerk_desk",
+     "do": "phone"
+    }
+   ]
+  }
+ }
+}

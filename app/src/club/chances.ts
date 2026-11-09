@@ -7,7 +7,6 @@ import type {M3System} from '../m3.ts';
 import type {M4System} from '../m4.ts';
 import type {MissionClock,ScheduleSystem} from '../schedule.ts';
 import type {MissionEvents} from '../events.ts';
-import type {ClubCrowd} from './crowd.ts';
 import {Chances,type ChancesData} from '../chances.ts';
 import {judgeKill,markDead,type KillRecord} from '../kills.ts';
 import {floorOf,type Position} from '../world.ts';
@@ -77,13 +76,8 @@ export class ClubChances {
  get progress(){return this.holds.progress;}
  get escaped(){return this.vip.escaped;}
  get blackout(){return this.clock.elapsed<this.blackoutUntil;}
- applyBlackout(crowd:ClubCrowd){
-  const dark=this.blackout;
-  if(!dark&&crowd.floorSightScale===1)return;
-  const {zone,sightScale}=config.drop.blackout;
-  crowd.floorSightScale=dark?sightScale:1;
-  for(const n of this.director.npcs)n.visionScale=dark&&zoneAt(this.director.mission.zones,n.pos.x,n.pos.z,floorOf(n.pos.y))?.id===zone?sightScale:1;
- }
+ /** The dance floor while the drop's lights are out (engine/lighting.ts does the rest). */
+ darkZones(){return this.blackout?{[config.drop.blackout.zone]:config.drop.blackout.sightScale}:{};}
  private flag(id:string,reason?:string){
   this.flags.add(id);
   this.events.emit({type:'flag.set',time:this.clock.elapsed,id,reason});

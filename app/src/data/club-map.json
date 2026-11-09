@@ -1,168 +1,440 @@
 {
- "_note": "M5 5.1 グランド・マリーナ・ホテル（仮の見た目）。scripts/build-hotel.ts が生成する。平面計画 v0.3 の10px＝1m。",
+ "water": [],
+ "palms": [],
+ "labels": [],
+ "reinforcements": [],
+ "cameras": [],
+ "exits": [
+  {
+   "id": "E1",
+   "label": "正門前",
+   "x": 22,
+   "z": 1.1,
+   "floor": 0,
+   "radius": 1
+  },
+  {
+   "id": "E2",
+   "label": "西の搬入路",
+   "x": 1.25,
+   "z": 40.7,
+   "floor": 0,
+   "radius": 1
+  }
+ ],
+ "version": 1,
+ "stage": 3,
  "name": "クラブ 第3段階",
- "spawn": {
-  "x": 22,
-  "z": 2
- },
- "spawnHeading": 0,
  "ground": {
   "minX": 0,
   "minZ": 0,
   "maxX": 48,
   "maxZ": 42
  },
- "floors": [
+ "spawn": {
+  "x": 22,
+  "z": 2
+ },
+ "spawnHeading": 0,
+ "rooms": [
   {
-   "floor": 1,
-   "y": 3.5,
-   "areas": [
-    {
-     "id": "I",
-     "label": "VIP席",
-     "floor": 1,
-     "type": "secure",
-     "minX": 4,
-     "minZ": 14,
-     "maxX": 14,
-     "maxZ": 16,
-     "surface": "carpet",
-     "indoor": true,
-     "allowedDisguises": [
-      "vip_guest",
-      "bottle_server",
-      "bodyguard"
-     ]
-    },
-    {
-     "minX": 6,
-     "maxX": 14,
-     "minZ": 23,
-     "maxZ": 30
-    },
-    {
-     "minX": 4,
-     "maxX": 12,
-     "minZ": 16,
-     "maxZ": 23
-    },
-    {
-     "id": "M",
-     "label": "キャットウォーク",
-     "floor": 1,
-     "type": "staff",
-     "minX": 14,
-     "minZ": 28,
-     "maxX": 38,
-     "maxZ": 30,
-     "surface": "service",
-     "indoor": true,
-     "allowedDisguises": [
-      "technician"
-     ]
-    },
-    {
-     "id": "M",
-     "label": "技術足場",
-     "floor": 1,
-     "type": "staff",
-     "minX": 34,
-     "minZ": 30,
-     "maxX": 38,
-     "maxZ": 31.4,
-     "surface": "service",
-     "indoor": true,
-     "allowedDisguises": [
-      "technician"
-     ]
-    },
-    {
-     "id": "M",
-     "label": "技術足場",
-     "floor": 1,
-     "type": "staff",
-     "minX": 34,
-     "minZ": 32.6,
-     "maxX": 38,
-     "maxZ": 34,
-     "surface": "service",
-     "indoor": true,
-     "allowedDisguises": [
-      "technician"
-     ]
-    },
-    {
-     "minX": 34,
-     "maxX": 35.4,
-     "minZ": 31.4,
-     "maxZ": 32.6
-    },
-    {
-     "minX": 36.6,
-     "maxX": 38,
-     "minZ": 31.4,
-     "maxZ": 32.6
-    }
+   "id": "A",
+   "label": "表通り",
+   "floor": 0,
+   "type": "public",
+   "minX": 0,
+   "minZ": 0,
+   "maxX": 48,
+   "maxZ": 6,
+   "surface": "carpet",
+   "indoor": false,
+   "allowedDisguises": []
+  },
+  {
+   "id": "F",
+   "label": "喫煙所",
+   "floor": 0,
+   "type": "public",
+   "minX": 0,
+   "minZ": 6,
+   "maxX": 10,
+   "maxZ": 14,
+   "surface": "carpet",
+   "indoor": false,
+   "allowedDisguises": []
+  },
+  {
+   "id": "Q",
+   "label": "クローク裏",
+   "floor": 0,
+   "type": "staff",
+   "minX": 10,
+   "minZ": 6,
+   "maxX": 13.5,
+   "maxZ": 9,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "bartender",
+    "manager",
+    "guard",
+    "bodyguard"
    ]
   },
   {
+   "id": "B",
+   "label": "入口・クローク",
    "floor": 0,
-   "y": 0.28,
-   "ground": true,
-   "areas": [
-    {
-     "minX": 18,
-     "maxX": 30,
-     "minZ": 30,
-     "maxZ": 34
-    }
+   "type": "public",
+   "minX": 10,
+   "minZ": 6,
+   "maxX": 30,
+   "maxZ": 14,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": []
+  },
+  {
+   "id": "E",
+   "label": "トイレ",
+   "floor": 0,
+   "type": "public",
+   "minX": 30,
+   "minZ": 6,
+   "maxX": 44,
+   "maxZ": 14,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": []
+  },
+  {
+   "id": "N",
+   "label": "ラウンジ",
+   "floor": 0,
+   "type": "public",
+   "minX": 4,
+   "minZ": 14,
+   "maxX": 14,
+   "maxZ": 30,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": []
+  },
+  {
+   "id": "C",
+   "label": "フロア",
+   "floor": 0,
+   "type": "public",
+   "minX": 14,
+   "minZ": 14,
+   "maxX": 34,
+   "maxZ": 30,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": []
+  },
+  {
+   "id": "D",
+   "label": "バー",
+   "floor": 0,
+   "type": "public",
+   "minX": 34,
+   "minZ": 14,
+   "maxX": 38,
+   "maxZ": 30,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": []
+  },
+  {
+   "id": "D1",
+   "label": "バー内",
+   "floor": 0,
+   "type": "staff",
+   "minX": 38,
+   "minZ": 14,
+   "maxX": 44,
+   "maxZ": 30,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "bartender",
+    "bottle_server",
+    "manager",
+    "guard",
+    "bodyguard"
    ]
-  }
- ],
- "stairs": [
+  },
+  {
+   "id": "O",
+   "label": "バー倉庫",
+   "floor": 0,
+   "type": "staff",
+   "minX": 38,
+   "minZ": 30,
+   "maxX": 44,
+   "maxZ": 34,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "bartender",
+    "bottle_server",
+    "manager",
+    "guard",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "G",
+   "label": "DJブース",
+   "floor": 0,
+   "type": "staff",
+   "minX": 18,
+   "minZ": 30,
+   "maxX": 30,
+   "maxZ": 34,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "technician",
+    "dj",
+    "manager",
+    "guard",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "H",
+   "label": "機材室",
+   "floor": 0,
+   "type": "staff",
+   "minX": 30,
+   "minZ": 30,
+   "maxX": 38,
+   "maxZ": 34,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "technician",
+    "guard",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "L",
+   "label": "事務所",
+   "floor": 0,
+   "type": "staff",
+   "minX": 14,
+   "minZ": 30,
+   "maxX": 18,
+   "maxZ": 34,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "manager",
+    "guard",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "R",
+   "label": "裏通路",
+   "floor": 0,
+   "type": "staff",
+   "minX": 14,
+   "minZ": 34,
+   "maxX": 44,
+   "maxZ": 36,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "bartender",
+    "chef",
+    "bottle_server",
+    "technician",
+    "manager",
+    "dj",
+    "cleaner",
+    "guard",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "J",
+   "label": "厨房",
+   "floor": 0,
+   "type": "staff",
+   "minX": 4,
+   "minZ": 30,
+   "maxX": 14,
+   "maxZ": 36,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "bartender",
+    "chef",
+    "cleaner",
+    "bottle_server",
+    "manager",
+    "guard",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "K",
+   "label": "搬入口",
+   "floor": 0,
+   "type": "staff",
+   "minX": 0,
+   "minZ": 36,
+   "maxX": 20,
+   "maxZ": 42,
+   "surface": "service",
+   "indoor": false,
+   "allowedDisguises": [
+    "bartender",
+    "chef",
+    "cleaner",
+    "manager",
+    "guard",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "K",
+   "label": "裏路地",
+   "floor": 0,
+   "type": "staff",
+   "minX": 0,
+   "minZ": 14,
+   "maxX": 4,
+   "maxZ": 36,
+   "surface": "service",
+   "indoor": false,
+   "allowedDisguises": [
+    "bartender",
+    "chef",
+    "cleaner",
+    "manager",
+    "guard",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "I",
+   "label": "VIP席",
+   "floor": 1,
+   "type": "secure",
+   "minX": 4,
+   "minZ": 14,
+   "maxX": 14,
+   "maxZ": 30,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": [
+    "vip_guest",
+    "bottle_server",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "M",
+   "label": "キャットウォーク",
+   "floor": 1,
+   "type": "staff",
+   "minX": 14,
+   "minZ": 28,
+   "maxX": 38,
+   "maxZ": 30,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "technician"
+   ]
+  },
+  {
+   "id": "M",
+   "label": "技術足場",
+   "floor": 1,
+   "type": "staff",
+   "minX": 34,
+   "minZ": 30,
+   "maxX": 38,
+   "maxZ": 34,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "technician"
+   ]
+  },
   {
    "id": "S1",
+   "label": "正面階段",
+   "floor": 0,
+   "type": "secure",
    "minX": 12,
    "minZ": 16,
    "maxX": 14,
    "maxZ": 23,
-   "low": 0,
-   "high": 3.5,
-   "rise": "+z",
-   "floor": 0
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": [
+    "vip_guest",
+    "bottle_server",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "S1",
+   "label": "正面階段",
+   "floor": 1,
+   "type": "secure",
+   "minX": 12,
+   "minZ": 16,
+   "maxX": 14,
+   "maxZ": 23,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": [
+    "vip_guest",
+    "bottle_server",
+    "bodyguard"
+   ]
   },
   {
    "id": "S2",
+   "label": "裏階段",
+   "floor": 0,
+   "type": "secure",
    "minX": 4,
    "minZ": 23,
    "maxX": 6,
    "maxZ": 30,
-   "low": 0,
-   "high": 3.5,
-   "rise": "-z",
-   "floor": 0
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": [
+    "vip_guest",
+    "bottle_server",
+    "bodyguard"
+   ]
   },
   {
-   "id": "SA",
-   "minX": 18.3,
-   "minZ": 28.8,
-   "maxX": 19.5,
+   "id": "S2",
+   "label": "裏階段",
+   "floor": 1,
+   "type": "secure",
+   "minX": 4,
+   "minZ": 23,
+   "maxX": 6,
    "maxZ": 30,
-   "low": 0,
-   "high": 0.28,
-   "rise": "+z",
-   "floor": 0
-  },
-  {
-   "id": "SB",
-   "minX": 28.5,
-   "minZ": 28.8,
-   "maxX": 29.7,
-   "maxZ": 30,
-   "low": 0,
-   "high": 0.28,
-   "rise": "+z",
-   "floor": 0
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": [
+    "vip_guest",
+    "bottle_server",
+    "bodyguard"
+   ]
   }
  ],
  "walls": [
@@ -1017,7 +1289,7 @@
    "floor": 1
   }
  ],
- "blockers": [
+ "furniture": [
   {
    "id": "counter-cloak",
    "x": 16.2,
@@ -1436,2355 +1708,243 @@
    "floor": 0,
    "w": 0.65,
    "d": 0.65,
-   "h": 0.8
-  },
-  {
-   "id": "stair-cheek-S1-0--1",
-   "x": 11.88,
-   "z": 16.21875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 1.21875,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-0-1",
-   "x": 14.12,
-   "z": 16.21875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 1.21875,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-1--1",
-   "x": 11.88,
-   "z": 16.65625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 1.4375,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-1-1",
-   "x": 14.12,
-   "z": 16.65625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 1.4375,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-2--1",
-   "x": 11.88,
-   "z": 17.09375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 1.65625,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-2-1",
-   "x": 14.12,
-   "z": 17.09375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 1.65625,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-3--1",
-   "x": 11.88,
-   "z": 17.53125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 1.875,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-3-1",
-   "x": 14.12,
-   "z": 17.53125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 1.875,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-4--1",
-   "x": 11.88,
-   "z": 17.96875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 2.09375,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-4-1",
-   "x": 14.12,
-   "z": 17.96875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 2.09375,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-5--1",
-   "x": 11.88,
-   "z": 18.40625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 2.3125,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-5-1",
-   "x": 14.12,
-   "z": 18.40625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 2.3125,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-6--1",
-   "x": 11.88,
-   "z": 18.84375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 2.53125,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-6-1",
-   "x": 14.12,
-   "z": 18.84375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 2.53125,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-7--1",
-   "x": 11.88,
-   "z": 19.28125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 2.75,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-7-1",
-   "x": 14.12,
-   "z": 19.28125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 2.75,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-8--1",
-   "x": 11.88,
-   "z": 19.71875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 2.96875,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-8-1",
-   "x": 14.12,
-   "z": 19.71875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 2.96875,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-9--1",
-   "x": 11.88,
-   "z": 20.15625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 3.1875,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-9-1",
-   "x": 14.12,
-   "z": 20.15625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 3.1875,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-10--1",
-   "x": 11.88,
-   "z": 20.59375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 3.40625,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-10-1",
-   "x": 14.12,
-   "z": 20.59375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 3.40625,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-11--1",
-   "x": 11.88,
-   "z": 21.03125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 3.625,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-11-1",
-   "x": 14.12,
-   "z": 21.03125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 3.625,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-12--1",
-   "x": 11.88,
-   "z": 21.46875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 3.84375,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-12-1",
-   "x": 14.12,
-   "z": 21.46875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 3.84375,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-13--1",
-   "x": 11.88,
-   "z": 21.90625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 4.0625,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-13-1",
-   "x": 14.12,
-   "z": 21.90625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 4.0625,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-14--1",
-   "x": 11.88,
-   "z": 22.34375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 4.28125,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-14-1",
-   "x": 14.12,
-   "z": 22.34375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 4.28125,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-15--1",
-   "x": 11.88,
-   "z": 22.78125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 4.5,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S1-15-1",
-   "x": 14.12,
-   "z": 22.78125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 4.5,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-0--1",
-   "x": 3.88,
-   "z": 23.21875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 4.5,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-0-1",
-   "x": 6.12,
-   "z": 23.21875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 4.5,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-1--1",
-   "x": 3.88,
-   "z": 23.65625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 4.28125,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-1-1",
-   "x": 6.12,
-   "z": 23.65625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 4.28125,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-2--1",
-   "x": 3.88,
-   "z": 24.09375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 4.0625,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-2-1",
-   "x": 6.12,
-   "z": 24.09375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 4.0625,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-3--1",
-   "x": 3.88,
-   "z": 24.53125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 3.84375,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-3-1",
-   "x": 6.12,
-   "z": 24.53125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 3.84375,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-4--1",
-   "x": 3.88,
-   "z": 24.96875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 3.625,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-4-1",
-   "x": 6.12,
-   "z": 24.96875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 3.625,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-5--1",
-   "x": 3.88,
-   "z": 25.40625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 3.40625,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-5-1",
-   "x": 6.12,
-   "z": 25.40625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 3.40625,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-6--1",
-   "x": 3.88,
-   "z": 25.84375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 3.1875,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-6-1",
-   "x": 6.12,
-   "z": 25.84375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 3.1875,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-7--1",
-   "x": 3.88,
-   "z": 26.28125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 2.96875,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-7-1",
-   "x": 6.12,
-   "z": 26.28125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 2.96875,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-8--1",
-   "x": 3.88,
-   "z": 26.71875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 2.75,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-8-1",
-   "x": 6.12,
-   "z": 26.71875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 2.75,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-9--1",
-   "x": 3.88,
-   "z": 27.15625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 2.53125,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-9-1",
-   "x": 6.12,
-   "z": 27.15625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 2.53125,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-10--1",
-   "x": 3.88,
-   "z": 27.59375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 2.3125,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-10-1",
-   "x": 6.12,
-   "z": 27.59375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 2.3125,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-11--1",
-   "x": 3.88,
-   "z": 28.03125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 2.09375,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-11-1",
-   "x": 6.12,
-   "z": 28.03125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 2.09375,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-12--1",
-   "x": 3.88,
-   "z": 28.46875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 1.875,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-12-1",
-   "x": 6.12,
-   "z": 28.46875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 1.875,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-13--1",
-   "x": 3.88,
-   "z": 28.90625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 1.65625,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-13-1",
-   "x": 6.12,
-   "z": 28.90625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 1.65625,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-14--1",
-   "x": 3.88,
-   "z": 29.34375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 1.4375,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-14-1",
-   "x": 6.12,
-   "z": 29.34375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 1.4375,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-15--1",
-   "x": 3.88,
-   "z": 29.78125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 1.21875,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-S2-15-1",
-   "x": 6.12,
-   "z": 29.78125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.4375,
-   "h": 1.21875,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-0--1",
-   "x": 18.18,
-   "z": 28.837500000000002,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.0175,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-0-1",
-   "x": 19.62,
-   "z": 28.837500000000002,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.0175,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-1--1",
-   "x": 18.18,
-   "z": 28.9125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.035,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-1-1",
-   "x": 19.62,
-   "z": 28.9125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.035,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-2--1",
-   "x": 18.18,
-   "z": 28.9875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.0525,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-2-1",
-   "x": 19.62,
-   "z": 28.9875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.0525,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-3--1",
-   "x": 18.18,
-   "z": 29.0625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.07,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-3-1",
-   "x": 19.62,
-   "z": 29.0625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.07,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-4--1",
-   "x": 18.18,
-   "z": 29.1375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.0875,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-4-1",
-   "x": 19.62,
-   "z": 29.1375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.0875,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-5--1",
-   "x": 18.18,
-   "z": 29.212500000000002,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.105,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-5-1",
-   "x": 19.62,
-   "z": 29.212500000000002,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.105,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-6--1",
-   "x": 18.18,
-   "z": 29.2875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.1225,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-6-1",
-   "x": 19.62,
-   "z": 29.2875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.1225,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-7--1",
-   "x": 18.18,
-   "z": 29.3625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.1400000000000001,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-7-1",
-   "x": 19.62,
-   "z": 29.3625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.1400000000000001,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-8--1",
-   "x": 18.18,
-   "z": 29.4375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.1575,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-8-1",
-   "x": 19.62,
-   "z": 29.4375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.1575,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-9--1",
-   "x": 18.18,
-   "z": 29.5125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.175,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-9-1",
-   "x": 19.62,
-   "z": 29.5125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.175,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-10--1",
-   "x": 18.18,
-   "z": 29.5875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.1925,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-10-1",
-   "x": 19.62,
-   "z": 29.5875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.1925,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-11--1",
-   "x": 18.18,
-   "z": 29.6625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.21,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-11-1",
-   "x": 19.62,
-   "z": 29.6625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.21,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-12--1",
-   "x": 18.18,
-   "z": 29.7375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.2275,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-12-1",
-   "x": 19.62,
-   "z": 29.7375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.2275,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-13--1",
-   "x": 18.18,
-   "z": 29.8125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.245,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-13-1",
-   "x": 19.62,
-   "z": 29.8125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.245,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-14--1",
-   "x": 18.18,
-   "z": 29.8875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.2625,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-14-1",
-   "x": 19.62,
-   "z": 29.8875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.2625,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-15--1",
-   "x": 18.18,
-   "z": 29.9625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.28,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SA-15-1",
-   "x": 19.62,
-   "z": 29.9625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.28,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-0--1",
-   "x": 28.38,
-   "z": 28.837500000000002,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.0175,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-0-1",
-   "x": 29.82,
-   "z": 28.837500000000002,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.0175,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-1--1",
-   "x": 28.38,
-   "z": 28.9125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.035,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-1-1",
-   "x": 29.82,
-   "z": 28.9125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.035,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-2--1",
-   "x": 28.38,
-   "z": 28.9875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.0525,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-2-1",
-   "x": 29.82,
-   "z": 28.9875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.0525,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-3--1",
-   "x": 28.38,
-   "z": 29.0625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.07,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-3-1",
-   "x": 29.82,
-   "z": 29.0625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.07,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-4--1",
-   "x": 28.38,
-   "z": 29.1375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.0875,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-4-1",
-   "x": 29.82,
-   "z": 29.1375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.0875,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-5--1",
-   "x": 28.38,
-   "z": 29.212500000000002,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.105,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-5-1",
-   "x": 29.82,
-   "z": 29.212500000000002,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.105,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-6--1",
-   "x": 28.38,
-   "z": 29.2875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.1225,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-6-1",
-   "x": 29.82,
-   "z": 29.2875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.1225,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-7--1",
-   "x": 28.38,
-   "z": 29.3625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.1400000000000001,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-7-1",
-   "x": 29.82,
-   "z": 29.3625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.1400000000000001,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-8--1",
-   "x": 28.38,
-   "z": 29.4375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.1575,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-8-1",
-   "x": 29.82,
-   "z": 29.4375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.1575,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-9--1",
-   "x": 28.38,
-   "z": 29.5125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.175,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-9-1",
-   "x": 29.82,
-   "z": 29.5125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.175,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-10--1",
-   "x": 28.38,
-   "z": 29.5875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.1925,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-10-1",
-   "x": 29.82,
-   "z": 29.5875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.1925,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-11--1",
-   "x": 28.38,
-   "z": 29.6625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.21,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-11-1",
-   "x": 29.82,
-   "z": 29.6625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.21,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-12--1",
-   "x": 28.38,
-   "z": 29.7375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.2275,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-12-1",
-   "x": 29.82,
-   "z": 29.7375,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.2275,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-13--1",
-   "x": 28.38,
-   "z": 29.8125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.245,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-13-1",
-   "x": 29.82,
-   "z": 29.8125,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.245,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-14--1",
-   "x": 28.38,
-   "z": 29.8875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.2625,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-14-1",
-   "x": 29.82,
-   "z": 29.8875,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.2625,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-15--1",
-   "x": 28.38,
-   "z": 29.9625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.28,
-   "floor": 0
-  },
-  {
-   "id": "stair-cheek-SB-15-1",
-   "x": 29.82,
-   "z": 29.9625,
-   "y": 0,
-   "w": 0.14,
-   "d": 0.07499999999999996,
-   "h": 1.28,
-   "floor": 0
+   "h": 0.8,
+   "prefab": "safe"
   }
  ],
- "sections": [
+ "doors": [
   {
-   "id": "club",
-   "label": "クラブ",
-   "surface": "asphalt",
-   "minX": 0,
-   "minZ": 0,
-   "maxX": 48,
-   "maxZ": 42,
-   "outdoor": true
+   "id": "vip-staff-door",
+   "label": "VIP通路の扉",
+   "x": 14,
+   "z": 29,
+   "w": 0.14,
+   "d": 1,
+   "y": 3.5,
+   "h": 2.2,
+   "floor": 1
   }
  ],
- "rooms": [
+ "openings": [
   {
-   "id": "A",
-   "label": "表通り",
-   "floor": 0,
-   "type": "public",
-   "minX": 0,
-   "minZ": 0,
-   "maxX": 48,
-   "maxZ": 6,
-   "surface": "carpet",
-   "indoor": false,
-   "allowedDisguises": []
+   "id": "front",
+   "axis": "z",
+   "at": 22,
+   "k": 6,
+   "width": 2.4
   },
   {
-   "id": "F",
-   "label": "喫煙所",
-   "floor": 0,
-   "type": "public",
-   "minX": 0,
-   "minZ": 6,
-   "maxX": 10,
-   "maxZ": 14,
-   "surface": "carpet",
-   "indoor": false,
-   "allowedDisguises": []
+   "id": "cloak-room",
+   "axis": "x",
+   "at": 8.3,
+   "k": 13.5,
+   "width": 1
   },
   {
-   "id": "Q",
-   "label": "クローク裏",
-   "floor": 0,
-   "type": "staff",
-   "minX": 10,
-   "minZ": 6,
-   "maxX": 13.5,
-   "maxZ": 9,
-   "surface": "service",
-   "indoor": true,
-   "allowedDisguises": [
-    "bartender",
-    "manager",
-    "guard",
-    "bodyguard"
-   ]
+   "id": "smoking-lobby",
+   "axis": "x",
+   "at": 10,
+   "k": 10,
+   "width": 1.6
   },
   {
-   "id": "B",
-   "label": "入口・クローク",
-   "floor": 0,
-   "type": "public",
-   "minX": 10,
-   "minZ": 6,
-   "maxX": 30,
-   "maxZ": 14,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": []
+   "id": "entry",
+   "axis": "z",
+   "at": 20,
+   "k": 14,
+   "width": 3
   },
   {
-   "id": "E",
-   "label": "トイレ",
-   "floor": 0,
-   "type": "public",
-   "minX": 30,
-   "minZ": 6,
-   "maxX": 44,
-   "maxZ": 14,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": []
+   "id": "west",
+   "axis": "x",
+   "at": 33,
+   "k": 4,
+   "width": 1.4
   },
   {
-   "id": "N",
-   "label": "ラウンジ",
-   "floor": 0,
-   "type": "public",
-   "minX": 4,
-   "minZ": 14,
-   "maxX": 14,
-   "maxZ": 30,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": []
+   "id": "rear",
+   "axis": "z",
+   "at": 6,
+   "k": 36,
+   "width": 1.6
   },
   {
-   "id": "C",
-   "label": "フロア",
-   "floor": 0,
-   "type": "public",
-   "minX": 14,
-   "minZ": 14,
-   "maxX": 34,
-   "maxZ": 30,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": []
+   "id": "rear",
+   "axis": "z",
+   "at": 16,
+   "k": 36,
+   "width": 2
   },
   {
-   "id": "D",
-   "label": "バー",
-   "floor": 0,
-   "type": "public",
-   "minX": 34,
-   "minZ": 14,
-   "maxX": 38,
-   "maxZ": 30,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": []
+   "id": "vip-north",
+   "axis": "z",
+   "at": 5,
+   "k": 30,
+   "width": 2
   },
   {
-   "id": "D1",
-   "label": "バー内",
-   "floor": 0,
-   "type": "staff",
-   "minX": 38,
-   "minZ": 14,
-   "maxX": 44,
-   "maxZ": 30,
-   "surface": "service",
-   "indoor": true,
-   "allowedDisguises": [
-    "bartender",
-    "bottle_server",
-    "manager",
-    "guard",
-    "bodyguard"
-   ]
+   "id": "toilet",
+   "axis": "x",
+   "at": 12.6,
+   "k": 30,
+   "width": 1.4
   },
   {
-   "id": "O",
-   "label": "バー倉庫",
-   "floor": 0,
-   "type": "staff",
-   "minX": 38,
-   "minZ": 30,
-   "maxX": 44,
-   "maxZ": 34,
-   "surface": "service",
-   "indoor": true,
-   "allowedDisguises": [
-    "bartender",
-    "bottle_server",
-    "manager",
-    "guard",
-    "bodyguard"
-   ]
+   "id": "kitchen-office",
+   "axis": "x",
+   "at": 35,
+   "k": 14,
+   "width": 1.4
   },
   {
-   "id": "G",
-   "label": "DJブース",
-   "floor": 0,
-   "type": "staff",
-   "minX": 18,
-   "minZ": 30,
-   "maxX": 30,
-   "maxZ": 34,
-   "surface": "service",
-   "indoor": true,
-   "allowedDisguises": [
-    "technician",
-    "dj",
-    "manager",
-    "guard",
-    "bodyguard"
-   ]
+   "id": "stage-front",
+   "axis": "z",
+   "at": 18.9,
+   "k": 30,
+   "width": 1.2
   },
   {
-   "id": "H",
-   "label": "機材室",
-   "floor": 0,
-   "type": "staff",
-   "minX": 30,
-   "minZ": 30,
-   "maxX": 38,
-   "maxZ": 34,
-   "surface": "service",
-   "indoor": true,
-   "allowedDisguises": [
-    "technician",
-    "guard",
-    "bodyguard"
-   ]
+   "id": "stage-front",
+   "axis": "z",
+   "at": 29.1,
+   "k": 30,
+   "width": 1.2
   },
   {
-   "id": "L",
-   "label": "事務所",
-   "floor": 0,
-   "type": "staff",
-   "minX": 14,
-   "minZ": 30,
-   "maxX": 18,
-   "maxZ": 34,
-   "surface": "service",
-   "indoor": true,
-   "allowedDisguises": [
-    "manager",
-    "guard",
-    "bodyguard"
-   ]
+   "id": "bar-store",
+   "axis": "z",
+   "at": 41,
+   "k": 30,
+   "width": 1.4
   },
   {
-   "id": "R",
-   "label": "裏通路",
-   "floor": 0,
-   "type": "staff",
-   "minX": 14,
-   "minZ": 34,
-   "maxX": 44,
-   "maxZ": 36,
-   "surface": "service",
-   "indoor": true,
-   "allowedDisguises": [
-    "bartender",
-    "chef",
-    "bottle_server",
-    "technician",
-    "manager",
-    "dj",
-    "cleaner",
-    "guard",
-    "bodyguard"
-   ]
+   "id": "stage-equipment",
+   "axis": "x",
+   "at": 32,
+   "k": 30,
+   "width": 1.4
   },
   {
-   "id": "J",
-   "label": "厨房",
-   "floor": 0,
-   "type": "staff",
-   "minX": 4,
-   "minZ": 30,
-   "maxX": 14,
-   "maxZ": 36,
-   "surface": "service",
-   "indoor": true,
-   "allowedDisguises": [
-    "bartender",
-    "chef",
-    "cleaner",
-    "bottle_server",
-    "manager",
-    "guard",
-    "bodyguard"
-   ]
+   "id": "corridor",
+   "axis": "z",
+   "at": 16,
+   "k": 34,
+   "width": 1.2
   },
   {
-   "id": "K",
-   "label": "搬入口",
-   "floor": 0,
-   "type": "staff",
-   "minX": 0,
-   "minZ": 36,
-   "maxX": 20,
-   "maxZ": 42,
-   "surface": "service",
-   "indoor": false,
-   "allowedDisguises": [
-    "bartender",
-    "chef",
-    "cleaner",
-    "manager",
-    "guard",
-    "bodyguard"
-   ]
+   "id": "corridor",
+   "axis": "z",
+   "at": 24,
+   "k": 34,
+   "width": 1.4
   },
   {
-   "id": "K",
-   "label": "裏路地",
-   "floor": 0,
-   "type": "staff",
-   "minX": 0,
-   "minZ": 14,
-   "maxX": 4,
-   "maxZ": 36,
-   "surface": "service",
-   "indoor": false,
-   "allowedDisguises": [
-    "bartender",
-    "chef",
-    "cleaner",
-    "manager",
-    "guard",
-    "bodyguard"
-   ]
+   "id": "corridor",
+   "axis": "z",
+   "at": 34,
+   "k": 34,
+   "width": 1.2
   },
   {
-   "id": "I",
-   "label": "VIP席",
-   "floor": 1,
-   "type": "secure",
-   "minX": 4,
-   "minZ": 14,
-   "maxX": 14,
-   "maxZ": 30,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": [
-    "vip_guest",
-    "bottle_server",
-    "bodyguard"
-   ]
+   "id": "corridor",
+   "axis": "z",
+   "at": 41,
+   "k": 34,
+   "width": 1.2
   },
   {
-   "id": "M",
-   "label": "キャットウォーク",
-   "floor": 1,
-   "type": "staff",
-   "minX": 14,
-   "minZ": 28,
-   "maxX": 38,
-   "maxZ": 30,
-   "surface": "service",
-   "indoor": true,
-   "allowedDisguises": [
-    "technician"
-   ]
+   "id": "smoking-alley",
+   "axis": "z",
+   "at": 2,
+   "k": 14,
+   "width": 1.4
   },
   {
-   "id": "M",
-   "label": "技術足場",
-   "floor": 1,
-   "type": "staff",
-   "minX": 34,
-   "minZ": 30,
-   "maxX": 38,
-   "maxZ": 34,
-   "surface": "service",
-   "indoor": true,
-   "allowedDisguises": [
-    "technician"
-   ]
-  },
+   "id": "vip-staff-door",
+   "axis": "x",
+   "at": 29,
+   "k": 14,
+   "width": 1
+  }
+ ],
+ "stairs": [
   {
    "id": "S1",
-   "label": "正面階段",
-   "floor": 0,
-   "type": "secure",
    "minX": 12,
    "minZ": 16,
    "maxX": 14,
    "maxZ": 23,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": [
-    "vip_guest",
-    "bottle_server",
-    "bodyguard"
-   ]
-  },
-  {
-   "id": "S1",
-   "label": "正面階段",
-   "floor": 1,
-   "type": "secure",
-   "minX": 12,
-   "minZ": 16,
-   "maxX": 14,
-   "maxZ": 23,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": [
-    "vip_guest",
-    "bottle_server",
-    "bodyguard"
-   ]
+   "low": 0,
+   "high": 3.5,
+   "rise": "+z",
+   "floor": 0
   },
   {
    "id": "S2",
-   "label": "裏階段",
-   "floor": 0,
-   "type": "secure",
    "minX": 4,
    "minZ": 23,
    "maxX": 6,
    "maxZ": 30,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": [
-    "vip_guest",
-    "bottle_server",
-    "bodyguard"
-   ]
+   "low": 0,
+   "high": 3.5,
+   "rise": "-z",
+   "floor": 0
   },
   {
-   "id": "S2",
-   "label": "裏階段",
-   "floor": 1,
-   "type": "secure",
-   "minX": 4,
-   "minZ": 23,
-   "maxX": 6,
-   "maxZ": 30,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": [
-    "vip_guest",
-    "bottle_server",
-    "bodyguard"
-   ]
-  }
- ],
- "zones": [
-  {
-   "id": "A",
-   "label": "表通り",
-   "floor": 0,
-   "type": "public",
-   "minX": 0,
-   "minZ": 0,
-   "maxX": 48,
-   "maxZ": 6,
-   "surface": "carpet",
-   "indoor": false,
-   "allowedDisguises": []
-  },
-  {
-   "id": "F",
-   "label": "喫煙所",
-   "floor": 0,
-   "type": "public",
-   "minX": 0,
-   "minZ": 6,
-   "maxX": 10,
-   "maxZ": 14,
-   "surface": "carpet",
-   "indoor": false,
-   "allowedDisguises": []
-  },
-  {
-   "id": "Q",
-   "label": "クローク裏",
-   "floor": 0,
-   "type": "staff",
-   "minX": 10,
-   "minZ": 6,
-   "maxX": 13.5,
-   "maxZ": 9,
-   "surface": "service",
-   "indoor": true,
-   "allowedDisguises": [
-    "bartender",
-    "manager",
-    "guard",
-    "bodyguard"
-   ]
-  },
-  {
-   "id": "B",
-   "label": "入口・クローク",
-   "floor": 0,
-   "type": "public",
-   "minX": 10,
-   "minZ": 6,
-   "maxX": 30,
-   "maxZ": 14,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": []
-  },
-  {
-   "id": "E",
-   "label": "トイレ",
-   "floor": 0,
-   "type": "public",
-   "minX": 30,
-   "minZ": 6,
-   "maxX": 44,
-   "maxZ": 14,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": []
-  },
-  {
-   "id": "N",
-   "label": "ラウンジ",
-   "floor": 0,
-   "type": "public",
-   "minX": 4,
-   "minZ": 14,
-   "maxX": 14,
-   "maxZ": 16,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": []
-  },
-  {
-   "id": "N",
-   "label": "ラウンジ",
-   "floor": 0,
-   "type": "public",
-   "minX": 6,
-   "minZ": 23,
-   "maxX": 14,
-   "maxZ": 30,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": []
-  },
-  {
-   "id": "N",
-   "label": "ラウンジ",
-   "floor": 0,
-   "type": "public",
-   "minX": 4,
-   "minZ": 16,
-   "maxX": 12,
-   "maxZ": 23,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": []
-  },
-  {
-   "id": "C",
-   "label": "フロア",
-   "floor": 0,
-   "type": "public",
-   "minX": 14,
-   "minZ": 14,
-   "maxX": 34,
-   "maxZ": 28.8,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": []
-  },
-  {
-   "id": "C",
-   "label": "フロア",
-   "floor": 0,
-   "type": "public",
-   "minX": 14,
+   "id": "SA",
+   "minX": 18.3,
    "minZ": 28.8,
-   "maxX": 18.3,
+   "maxX": 19.5,
    "maxZ": 30,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": []
+   "low": 0,
+   "high": 0.28,
+   "rise": "+z",
+   "floor": 0
   },
   {
-   "id": "C",
-   "label": "フロア",
-   "floor": 0,
-   "type": "public",
-   "minX": 19.5,
+   "id": "SB",
+   "minX": 28.5,
    "minZ": 28.8,
-   "maxX": 28.5,
+   "maxX": 29.7,
    "maxZ": 30,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": []
-  },
+   "low": 0,
+   "high": 0.28,
+   "rise": "+z",
+   "floor": 0
+  }
+ ],
+ "traversals": [
   {
-   "id": "C",
-   "label": "フロア",
-   "floor": 0,
-   "type": "public",
-   "minX": 29.7,
-   "minZ": 28.8,
-   "maxX": 34,
-   "maxZ": 30,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": []
-  },
-  {
-   "id": "D",
-   "label": "バー",
-   "floor": 0,
-   "type": "public",
-   "minX": 34,
-   "minZ": 14,
-   "maxX": 38,
-   "maxZ": 30,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": []
-  },
-  {
-   "id": "D1",
-   "label": "バー内",
-   "floor": 0,
-   "type": "staff",
-   "minX": 38,
-   "minZ": 14,
-   "maxX": 44,
-   "maxZ": 30,
-   "surface": "service",
-   "indoor": true,
-   "allowedDisguises": [
-    "bartender",
-    "bottle_server",
-    "manager",
-    "guard",
-    "bodyguard"
-   ]
-  },
-  {
-   "id": "O",
-   "label": "バー倉庫",
-   "floor": 0,
-   "type": "staff",
-   "minX": 38,
-   "minZ": 30,
-   "maxX": 44,
-   "maxZ": 34,
-   "surface": "service",
-   "indoor": true,
-   "allowedDisguises": [
-    "bartender",
-    "bottle_server",
-    "manager",
-    "guard",
-    "bodyguard"
-   ]
-  },
-  {
-   "id": "G",
-   "label": "DJブース",
-   "floor": 0,
-   "type": "staff",
-   "minX": 18,
-   "minZ": 30,
-   "maxX": 30,
-   "maxZ": 34,
-   "surface": "service",
-   "indoor": true,
-   "allowedDisguises": [
-    "technician",
-    "dj",
-    "manager",
-    "guard",
-    "bodyguard"
-   ]
-  },
-  {
-   "id": "H",
-   "label": "機材室",
-   "floor": 0,
-   "type": "staff",
-   "minX": 30,
-   "minZ": 30,
-   "maxX": 38,
-   "maxZ": 34,
-   "surface": "service",
-   "indoor": true,
-   "allowedDisguises": [
-    "technician",
-    "guard",
-    "bodyguard"
-   ]
-  },
-  {
-   "id": "L",
-   "label": "事務所",
-   "floor": 0,
-   "type": "staff",
-   "minX": 14,
-   "minZ": 30,
-   "maxX": 18,
-   "maxZ": 34,
-   "surface": "service",
-   "indoor": true,
-   "allowedDisguises": [
-    "manager",
-    "guard",
-    "bodyguard"
-   ]
-  },
-  {
-   "id": "R",
-   "label": "裏通路",
-   "floor": 0,
-   "type": "staff",
-   "minX": 14,
-   "minZ": 34,
-   "maxX": 44,
-   "maxZ": 36,
-   "surface": "service",
-   "indoor": true,
-   "allowedDisguises": [
-    "bartender",
-    "chef",
-    "bottle_server",
-    "technician",
-    "manager",
-    "dj",
-    "cleaner",
-    "guard",
-    "bodyguard"
-   ]
-  },
-  {
-   "id": "J",
-   "label": "厨房",
-   "floor": 0,
-   "type": "staff",
-   "minX": 4,
-   "minZ": 30,
-   "maxX": 14,
-   "maxZ": 36,
-   "surface": "service",
-   "indoor": true,
-   "allowedDisguises": [
-    "bartender",
-    "chef",
-    "cleaner",
-    "bottle_server",
-    "manager",
-    "guard",
-    "bodyguard"
-   ]
-  },
-  {
-   "id": "K",
-   "label": "搬入口",
-   "floor": 0,
-   "type": "staff",
-   "minX": 0,
-   "minZ": 36,
-   "maxX": 20,
-   "maxZ": 42,
-   "surface": "service",
-   "indoor": false,
-   "allowedDisguises": [
-    "bartender",
-    "chef",
-    "cleaner",
-    "manager",
-    "guard",
-    "bodyguard"
-   ]
-  },
-  {
-   "id": "K",
-   "label": "裏路地",
-   "floor": 0,
-   "type": "staff",
-   "minX": 0,
-   "minZ": 14,
-   "maxX": 4,
-   "maxZ": 36,
-   "surface": "service",
-   "indoor": false,
-   "allowedDisguises": [
-    "bartender",
-    "chef",
-    "cleaner",
-    "manager",
-    "guard",
-    "bodyguard"
-   ]
-  },
-  {
-   "id": "I",
-   "label": "VIP席",
-   "floor": 1,
-   "type": "secure",
-   "minX": 4,
-   "minZ": 14,
-   "maxX": 14,
-   "maxZ": 16,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": [
-    "vip_guest",
-    "bottle_server",
-    "bodyguard"
-   ]
-  },
-  {
-   "id": "I",
-   "label": "VIP席",
-   "floor": 1,
-   "type": "secure",
-   "minX": 6,
-   "minZ": 23,
-   "maxX": 14,
-   "maxZ": 30,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": [
-    "vip_guest",
-    "bottle_server",
-    "bodyguard"
-   ]
-  },
-  {
-   "id": "I",
-   "label": "VIP席",
-   "floor": 1,
-   "type": "secure",
-   "minX": 4,
-   "minZ": 16,
-   "maxX": 12,
-   "maxZ": 23,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": [
-    "vip_guest",
-    "bottle_server",
-    "bodyguard"
-   ]
-  },
-  {
-   "id": "M",
-   "label": "キャットウォーク",
-   "floor": 1,
-   "type": "staff",
-   "minX": 14,
-   "minZ": 28,
-   "maxX": 38,
-   "maxZ": 30,
-   "surface": "service",
-   "indoor": true,
-   "allowedDisguises": [
+   "id": "X1",
+   "a": "H",
+   "b": "M",
+   "kind": "ladder",
+   "users": [
     "technician"
-   ]
-  },
-  {
-   "id": "M",
-   "label": "技術足場",
-   "floor": 1,
-   "type": "staff",
-   "minX": 34,
-   "minZ": 30,
-   "maxX": 38,
-   "maxZ": 34,
-   "surface": "service",
-   "indoor": true,
-   "allowedDisguises": [
-    "technician"
-   ]
-  },
-  {
-   "id": "S1",
-   "label": "正面階段",
-   "floor": 0,
-   "type": "secure",
-   "minX": 12,
-   "minZ": 16,
-   "maxX": 14,
-   "maxZ": 23,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": [
-    "vip_guest",
-    "bottle_server",
-    "bodyguard"
-   ]
-  },
-  {
-   "id": "S1",
-   "label": "正面階段",
-   "floor": 1,
-   "type": "secure",
-   "minX": 12,
-   "minZ": 16,
-   "maxX": 14,
-   "maxZ": 23,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": [
-    "vip_guest",
-    "bottle_server",
-    "bodyguard"
-   ]
-  },
-  {
-   "id": "S2",
-   "label": "裏階段",
-   "floor": 0,
-   "type": "secure",
-   "minX": 4,
-   "minZ": 23,
-   "maxX": 6,
-   "maxZ": 30,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": [
-    "vip_guest",
-    "bottle_server",
-    "bodyguard"
-   ]
-  },
-  {
-   "id": "S2",
-   "label": "裏階段",
-   "floor": 1,
-   "type": "secure",
-   "minX": 4,
-   "minZ": 23,
-   "maxX": 6,
-   "maxZ": 30,
-   "surface": "carpet",
-   "indoor": true,
-   "allowedDisguises": [
-    "vip_guest",
-    "bottle_server",
-    "bodyguard"
+   ],
+   "start": {
+    "x": 36,
+    "y": 0,
+    "z": 32
+   },
+   "end": {
+    "x": 36,
+    "y": 3.5,
+    "z": 30.8
+   },
+   "via": [
+    {
+     "x": 36,
+     "y": 3.5,
+     "z": 32
+    }
    ]
   }
  ],
- "guide": [
-  [
-   22,
-   2
-  ],
-  [
-   20,
-   15
-  ]
- ],
- "objectives": {
-  "panel": {
-   "x": -22.6,
-   "z": 14,
-   "radius": 0.9,
-   "seconds": 3,
-   "label": "配電盤"
-  },
-  "exit": {
-   "x": 58,
-   "z": 19.4,
-   "radius": 1.8,
-   "label": "浜辺の小舟"
-  }
+ "traversalRules": {
+  "radius": 0.8,
+  "suspicionPerSecond": 0
  },
- "exits": [
-  {
-   "id": "E1",
-   "label": "正門前",
-   "x": 22,
-   "z": 1.1,
-   "floor": 0,
-   "radius": 1
-  },
-  {
-   "id": "E2",
-   "label": "西の搬入路",
-   "x": 1.25,
-   "z": 40.7,
-   "floor": 0,
-   "radius": 1
-  }
- ],
- "spawns": [
-  {
-   "id": "S1",
-   "label": "正面車寄せ",
-   "x": 14.8,
-   "z": -30
-  },
-  {
-   "id": "S2",
-   "label": "搬入口",
-   "x": -44,
-   "z": -9
-  },
-  {
-   "id": "S3",
-   "label": "桟橋",
-   "x": -7,
-   "z": 27
-  }
- ],
- "reinforcements": [],
- "checkpoints": [
-  {
-   "id": "front_frisk",
-   "label": "入口の身体検査",
-   "x": 22,
-   "y": 0,
-   "z": 6,
-   "width": 2.8,
-   "normal": {
-    "x": 0,
-    "z": -1
-   },
-   "zone": "public",
-   "guardId": "gate_frisk",
-   "weaponPolicy": "no_weapons",
-   "exempt": [
-    "guard",
-    "bodyguard"
-   ]
-  }
- ],
- "cameras": [],
- "hides": [
-  {
-   "id": "locker-cloak",
-   "label": "クロークのロッカー",
-   "spareClothes": true,
-   "x": 10.45,
-   "y": 0,
-   "z": 8.1,
-   "heading": 1.5707963267948966,
-   "capacity": 1,
-   "approach": {
-    "x": 1,
-    "z": 0
-   },
-   "size": {
-    "w": 0.65,
-    "d": 0.55,
-    "h": 1.9
-   }
-  },
-  {
-   "id": "locker-kitchen",
-   "label": "厨房のロッカー",
-   "spareClothes": true,
-   "x": 13.4,
-   "y": 0,
-   "z": 33,
-   "heading": 0,
-   "capacity": 1,
-   "approach": {
-    "x": -1,
-    "z": 0
-   },
-   "size": {
-    "w": 0.65,
-    "d": 1.2,
-    "h": 1.9
-   }
-  },
-  {
-   "id": "machine-freezer",
-   "label": "厨房の冷凍庫",
-   "x": 12.9,
-   "y": 0,
-   "z": 31,
-   "heading": 1.5707963267948966,
-   "capacity": 1,
-   "approach": {
-    "x": -1.05,
-    "z": 0
-   },
-   "size": {
-    "w": 1.2,
-    "d": 1.4,
-    "h": 2
-   }
-  }
- ],
- "palms": [],
- "labels": [],
- "pool": {
-  "minX": 100,
-  "maxX": 101,
-  "minZ": 100,
-  "maxZ": 101
- },
- "water": [],
  "npcs": [
   {
    "id": "guest_01",
@@ -4681,1564 +2841,6 @@
    ]
   }
  ],
- "schedulePlaces": {
-  "guest_01_0": {
-   "x": 17,
-   "y": 0,
-   "z": 18,
-   "heading": 0.8512768233991377,
-   "label": "フロア",
-   "outdoor": false
-  },
-  "guest_01_1": {
-   "x": 35,
-   "y": 0,
-   "z": 15,
-   "heading": 0.947510705875668,
-   "label": "バー",
-   "outdoor": false
-  },
-  "guest_01_2": {
-   "x": 7.9,
-   "y": 0,
-   "z": 17,
-   "heading": -2.137062926168854,
-   "label": "ラウンジ",
-   "outdoor": false
-  },
-  "guest_01_3": {
-   "x": 34.4,
-   "y": 0,
-   "z": 7.65,
-   "heading": 3.1257062043470873,
-   "label": "トイレ",
-   "outdoor": false
-  },
-  "guest_01_4": {
-   "x": 3.3,
-   "y": 0,
-   "z": 7.4,
-   "heading": -1.6340894682646137,
-   "label": "喫煙所",
-   "outdoor": true
-  },
-  "guest_02_0": {
-   "x": 19.05,
-   "y": 0,
-   "z": 18,
-   "heading": 1.8385785775598458,
-   "label": "フロア",
-   "outdoor": false
-  },
-  "guest_02_1": {
-   "x": 36.3,
-   "y": 0,
-   "z": 15,
-   "heading": -0.5416192252918672,
-   "label": "バー",
-   "outdoor": false
-  },
-  "guest_02_2": {
-   "x": 9.02,
-   "y": 0,
-   "z": 17,
-   "heading": -0.7890711521149067,
-   "label": "ラウンジ",
-   "outdoor": false
-  },
-  "guest_02_3": {
-   "x": 35.97,
-   "y": 0,
-   "z": 7.65,
-   "heading": 2.3430638330444187,
-   "label": "トイレ",
-   "outdoor": false
-  },
-  "guest_02_4": {
-   "x": 5.05,
-   "y": 0,
-   "z": 7.4,
-   "heading": -2.954107456282777,
-   "label": "喫煙所",
-   "outdoor": true
-  },
-  "guest_03_0": {
-   "x": 21.1,
-   "y": 0,
-   "z": 18,
-   "heading": 0.09361516594053532,
-   "label": "フロア",
-   "outdoor": false
-  },
-  "guest_03_1": {
-   "x": 35,
-   "y": 0,
-   "z": 16.7,
-   "heading": 0.18127157403046024,
-   "label": "バー",
-   "outdoor": false
-  },
-  "guest_03_2": {
-   "x": 10.14,
-   "y": 0,
-   "z": 17,
-   "heading": 2.979809218104448,
-   "label": "ラウンジ",
-   "outdoor": false
-  },
-  "guest_03_3": {
-   "x": 37.54,
-   "y": 0,
-   "z": 7.65,
-   "heading": 2.404749408544365,
-   "label": "トイレ",
-   "outdoor": false
-  },
-  "guest_03_4": {
-   "x": 6.8,
-   "y": 0,
-   "z": 7.4,
-   "heading": -2.8324376431282374,
-   "label": "喫煙所",
-   "outdoor": true
-  },
-  "guest_04_0": {
-   "x": 23.15,
-   "y": 0,
-   "z": 18,
-   "heading": -2.117596057040884,
-   "label": "フロア",
-   "outdoor": false
-  },
-  "guest_04_1": {
-   "x": 36.3,
-   "y": 0,
-   "z": 16.7,
-   "heading": 1.1292495630067987,
-   "label": "バー",
-   "outdoor": false
-  },
-  "guest_04_2": {
-   "x": 7.9,
-   "y": 0,
-   "z": 18.35,
-   "heading": -2.195584049060866,
-   "label": "ラウンジ",
-   "outdoor": false
-  },
-  "guest_04_3": {
-   "x": 39.11,
-   "y": 0,
-   "z": 7.65,
-   "heading": -0.7106952842866066,
-   "label": "トイレ",
-   "outdoor": false
-  },
-  "guest_04_4": {
-   "x": 8.55,
-   "y": 0,
-   "z": 7.4,
-   "heading": -0.4909922801822133,
-   "label": "喫煙所",
-   "outdoor": true
-  },
-  "guest_05_0": {
-   "x": 25.2,
-   "y": 0,
-   "z": 18,
-   "heading": -2.4128076143514816,
-   "label": "フロア",
-   "outdoor": false
-  },
-  "guest_05_1": {
-   "x": 35,
-   "y": 0,
-   "z": 18.4,
-   "heading": 0.3170606333105841,
-   "label": "バー",
-   "outdoor": false
-  },
-  "guest_05_2": {
-   "x": 9.02,
-   "y": 0,
-   "z": 18.35,
-   "heading": 2.8919546717557725,
-   "label": "ラウンジ",
-   "outdoor": false
-  },
-  "guest_05_3": {
-   "x": 34.4,
-   "y": 0,
-   "z": 9.18,
-   "heading": -2.802071684979967,
-   "label": "トイレ",
-   "outdoor": false
-  },
-  "guest_05_4": {
-   "x": 3.3,
-   "y": 0,
-   "z": 8.9,
-   "heading": 2.7059525825693194,
-   "label": "喫煙所",
-   "outdoor": true
-  },
-  "guest_06_0": {
-   "x": 27.25,
-   "y": 0,
-   "z": 18,
-   "heading": -3.0656273230792985,
-   "label": "フロア",
-   "outdoor": false
-  },
-  "guest_06_1": {
-   "x": 36.3,
-   "y": 0,
-   "z": 18.4,
-   "heading": 1.108018385754249,
-   "label": "バー",
-   "outdoor": false
-  },
-  "guest_06_2": {
-   "x": 10.14,
-   "y": 0,
-   "z": 18.35,
-   "heading": -2.641039055693364,
-   "label": "ラウンジ",
-   "outdoor": false
-  },
-  "guest_06_3": {
-   "x": 35.97,
-   "y": 0,
-   "z": 9.18,
-   "heading": -2.8854325953062694,
-   "label": "トイレ",
-   "outdoor": false
-  },
-  "guest_06_4": {
-   "x": 5.05,
-   "y": 0,
-   "z": 8.9,
-   "heading": -0.40934201042640295,
-   "label": "喫煙所",
-   "outdoor": true
-  },
-  "guest_07_0": {
-   "x": 29.299999999999997,
-   "y": 0,
-   "z": 18,
-   "heading": 1.3797227692619862,
-   "label": "フロア",
-   "outdoor": false
-  },
-  "guest_07_1": {
-   "x": 35,
-   "y": 0,
-   "z": 20.1,
-   "heading": -2.8658590891024236,
-   "label": "バー",
-   "outdoor": false
-  },
-  "guest_07_2": {
-   "x": 7.9,
-   "y": 0,
-   "z": 19.7,
-   "heading": -2.752220381045619,
-   "label": "ラウンジ",
-   "outdoor": false
-  },
-  "guest_07_3": {
-   "x": 37.54,
-   "y": 0,
-   "z": 9.18,
-   "heading": -0.3464221621311978,
-   "label": "トイレ",
-   "outdoor": false
-  },
-  "guest_07_4": {
-   "x": 6.8,
-   "y": 0,
-   "z": 8.9,
-   "heading": 2.809529389015624,
-   "label": "喫煙所",
-   "outdoor": true
-  },
-  "guest_08_0": {
-   "x": 31.349999999999998,
-   "y": 0,
-   "z": 18,
-   "heading": -0.306634521579757,
-   "label": "フロア",
-   "outdoor": false
-  },
-  "guest_08_1": {
-   "x": 36.3,
-   "y": 0,
-   "z": 20.1,
-   "heading": -2.8120743965260258,
-   "label": "バー",
-   "outdoor": false
-  },
-  "guest_08_2": {
-   "x": 9.02,
-   "y": 0,
-   "z": 19.7,
-   "heading": 1.252749501204955,
-   "label": "ラウンジ",
-   "outdoor": false
-  },
-  "guest_08_3": {
-   "x": 39.11,
-   "y": 0,
-   "z": 9.18,
-   "heading": -0.4521197378765325,
-   "label": "トイレ",
-   "outdoor": false
-  },
-  "guest_08_4": {
-   "x": 8.55,
-   "y": 0,
-   "z": 8.9,
-   "heading": -2.514646090140892,
-   "label": "喫煙所",
-   "outdoor": true
-  },
-  "guest_09_0": {
-   "x": 17,
-   "y": 0,
-   "z": 23.2,
-   "heading": -2.499544377371581,
-   "label": "フロア",
-   "outdoor": false
-  },
-  "guest_09_1": {
-   "x": 35,
-   "y": 0,
-   "z": 21.8,
-   "heading": -1.3401031364807887,
-   "label": "バー",
-   "outdoor": false
-  },
-  "guest_09_2": {
-   "x": 10.14,
-   "y": 0,
-   "z": 19.7,
-   "heading": -0.9091989333005581,
-   "label": "ラウンジ",
-   "outdoor": false
-  },
-  "guest_09_3": {
-   "x": 34.4,
-   "y": 0,
-   "z": 10.71,
-   "heading": -2.289876764787082,
-   "label": "トイレ",
-   "outdoor": false
-  },
-  "guest_09_4": {
-   "x": 3.3,
-   "y": 0,
-   "z": 10.4,
-   "heading": 0.09423562165862576,
-   "label": "喫煙所",
-   "outdoor": true
-  },
-  "guest_10_0": {
-   "x": 19.05,
-   "y": 0,
-   "z": 23.2,
-   "heading": -2.32987462799459,
-   "label": "フロア",
-   "outdoor": false
-  },
-  "guest_10_1": {
-   "x": 36.3,
-   "y": 0,
-   "z": 21.8,
-   "heading": -1.9951901164478059,
-   "label": "バー",
-   "outdoor": false
-  },
-  "guest_10_2": {
-   "x": 7.9,
-   "y": 0,
-   "z": 21.05,
-   "heading": 0.09217815962078868,
-   "label": "ラウンジ",
-   "outdoor": false
-  },
-  "guest_10_3": {
-   "x": 35.97,
-   "y": 0,
-   "z": 10.71,
-   "heading": -2.219558965287071,
-   "label": "トイレ",
-   "outdoor": false
-  },
-  "guest_10_4": {
-   "x": 5.05,
-   "y": 0,
-   "z": 10.4,
-   "heading": -2.711782531055147,
-   "label": "喫煙所",
-   "outdoor": true
-  },
-  "guest_11_0": {
-   "x": 21.1,
-   "y": 0,
-   "z": 23.2,
-   "heading": 3.093259607805058,
-   "label": "フロア",
-   "outdoor": false
-  },
-  "guest_11_1": {
-   "x": 35,
-   "y": 0,
-   "z": 23.5,
-   "heading": -0.13277280526002322,
-   "label": "バー",
-   "outdoor": false
-  },
-  "guest_11_2": {
-   "x": 9.02,
-   "y": 0,
-   "z": 21.05,
-   "heading": 0.8278341526852859,
-   "label": "ラウンジ",
-   "outdoor": false
-  },
-  "guest_11_3": {
-   "x": 37.54,
-   "y": 0,
-   "z": 10.71,
-   "heading": 2.2964361634800334,
-   "label": "トイレ",
-   "outdoor": false
-  },
-  "guest_11_4": {
-   "x": 6.8,
-   "y": 0,
-   "z": 10.4,
-   "heading": -1.3022926695761143,
-   "label": "喫煙所",
-   "outdoor": true
-  },
-  "guest_12_0": {
-   "x": 23.15,
-   "y": 0,
-   "z": 23.2,
-   "heading": -2.415305524491569,
-   "label": "フロア",
-   "outdoor": false
-  },
-  "guest_12_1": {
-   "x": 36.3,
-   "y": 0,
-   "z": 23.5,
-   "heading": 3.0970639503029065,
-   "label": "バー",
-   "outdoor": false
-  },
-  "guest_12_2": {
-   "x": 10.14,
-   "y": 0,
-   "z": 21.05,
-   "heading": -1.0450229781591753,
-   "label": "ラウンジ",
-   "outdoor": false
-  },
-  "guest_12_3": {
-   "x": 39.11,
-   "y": 0,
-   "z": 10.71,
-   "heading": 3.030061028966069,
-   "label": "トイレ",
-   "outdoor": false
-  },
-  "guest_12_4": {
-   "x": 8.55,
-   "y": 0,
-   "z": 10.4,
-   "heading": -2.291916614453516,
-   "label": "喫煙所",
-   "outdoor": true
-  },
-  "guest_13_0": {
-   "x": 25.2,
-   "y": 0,
-   "z": 23.2,
-   "heading": -2.2671397199509116,
-   "label": "フロア",
-   "outdoor": false
-  },
-  "guest_13_1": {
-   "x": 35,
-   "y": 0,
-   "z": 25.2,
-   "heading": -1.1768036954704113,
-   "label": "バー",
-   "outdoor": false
-  },
-  "guest_13_2": {
-   "x": 7.9,
-   "y": 0,
-   "z": 22.4,
-   "heading": -2.7315121979427954,
-   "label": "ラウンジ",
-   "outdoor": false
-  },
-  "guest_13_3": {
-   "x": 34.4,
-   "y": 0,
-   "z": 12.24,
-   "heading": -0.8363869231694663,
-   "label": "トイレ",
-   "outdoor": false
-  },
-  "guest_13_4": {
-   "x": 3.3,
-   "y": 0,
-   "z": 11.9,
-   "heading": 0.5990173453381518,
-   "label": "喫煙所",
-   "outdoor": true
-  },
-  "guest_14_0": {
-   "x": 27.25,
-   "y": 0,
-   "z": 23.2,
-   "heading": 1.3864758014132197,
-   "label": "フロア",
-   "outdoor": false
-  },
-  "guest_14_1": {
-   "x": 36.3,
-   "y": 0,
-   "z": 25.2,
-   "heading": 2.008580602298039,
-   "label": "バー",
-   "outdoor": false
-  },
-  "guest_14_2": {
-   "x": 9.02,
-   "y": 0,
-   "z": 22.4,
-   "heading": 2.3167097986539473,
-   "label": "ラウンジ",
-   "outdoor": false
-  },
-  "guest_14_3": {
-   "x": 35.97,
-   "y": 0,
-   "z": 12.24,
-   "heading": -3.1152065699248674,
-   "label": "トイレ",
-   "outdoor": false
-  },
-  "guest_14_4": {
-   "x": 5.05,
-   "y": 0,
-   "z": 11.9,
-   "heading": -1.6386614516159315,
-   "label": "喫煙所",
-   "outdoor": true
-  },
-  "guest_15_0": {
-   "x": 29.299999999999997,
-   "y": 0,
-   "z": 23.2,
-   "heading": 1.5797132602052133,
-   "label": "フロア",
-   "outdoor": false
-  },
-  "guest_15_1": {
-   "x": 35,
-   "y": 0,
-   "z": 26.9,
-   "heading": -2.0267947374767363,
-   "label": "バー",
-   "outdoor": false
-  },
-  "guest_15_2": {
-   "x": 10.14,
-   "y": 0,
-   "z": 22.4,
-   "heading": 2.5026633871865145,
-   "label": "ラウンジ",
-   "outdoor": false
-  },
-  "guest_15_3": {
-   "x": 37.54,
-   "y": 0,
-   "z": 12.24,
-   "heading": -2.1641666093186678,
-   "label": "トイレ",
-   "outdoor": false
-  },
-  "guest_15_4": {
-   "x": 6.8,
-   "y": 0,
-   "z": 11.9,
-   "heading": 1.2025581195088777,
-   "label": "喫煙所",
-   "outdoor": true
-  },
-  "guest_16_0": {
-   "x": 31.349999999999998,
-   "y": 0,
-   "z": 23.2,
-   "heading": 1.0549268633643707,
-   "label": "フロア",
-   "outdoor": false
-  },
-  "guest_16_1": {
-   "x": 36.3,
-   "y": 0,
-   "z": 26.9,
-   "heading": -0.9201056478978069,
-   "label": "バー",
-   "outdoor": false
-  },
-  "guest_16_2": {
-   "x": 7.9,
-   "y": 0,
-   "z": 23.75,
-   "heading": 0.7668291428581329,
-   "label": "ラウンジ",
-   "outdoor": false
-  },
-  "guest_16_3": {
-   "x": 39.11,
-   "y": 0,
-   "z": 12.24,
-   "heading": -2.0951933087627603,
-   "label": "トイレ",
-   "outdoor": false
-  },
-  "guest_16_4": {
-   "x": 8.55,
-   "y": 0,
-   "z": 11.9,
-   "heading": 0.24551646576807284,
-   "label": "喫煙所",
-   "outdoor": true
-  },
-  "vip_1_0": {
-   "x": 8.9,
-   "y": 3.5,
-   "z": 16.5,
-   "heading": 1.2,
-   "label": "VIP席",
-   "outdoor": false
-  },
-  "vip_1_1": {
-   "x": 35.1,
-   "y": 0,
-   "z": 16,
-   "heading": -1.2,
-   "label": "バー",
-   "outdoor": false
-  },
-  "vip_2_0": {
-   "x": 10.35,
-   "y": 3.5,
-   "z": 16.5,
-   "heading": 1.2,
-   "label": "VIP席",
-   "outdoor": false
-  },
-  "vip_2_1": {
-   "x": 35.1,
-   "y": 0,
-   "z": 19,
-   "heading": -1.2,
-   "label": "バー",
-   "outdoor": false
-  },
-  "vip_3_0": {
-   "x": 8.9,
-   "y": 3.5,
-   "z": 20.5,
-   "heading": 1.2,
-   "label": "VIP席",
-   "outdoor": false
-  },
-  "vip_3_1": {
-   "x": 35.1,
-   "y": 0,
-   "z": 22,
-   "heading": -1.2,
-   "label": "バー",
-   "outdoor": false
-  },
-  "vip_4_0": {
-   "x": 10.35,
-   "y": 3.5,
-   "z": 20.5,
-   "heading": 1.2,
-   "label": "VIP席",
-   "outdoor": false
-  },
-  "vip_4_1": {
-   "x": 35.1,
-   "y": 0,
-   "z": 25,
-   "heading": -1.2,
-   "label": "バー",
-   "outdoor": false
-  },
-  "investor_0": {
-   "x": 11.1,
-   "y": 3.5,
-   "z": 26.1,
-   "heading": 1.7,
-   "label": "VIP席",
-   "outdoor": false
-  },
-  "investor_1": {
-   "x": 26,
-   "y": 0,
-   "z": 26,
-   "heading": 3,
-   "label": "フロア",
-   "outdoor": false
-  },
-  "investor_2": {
-   "x": 36.4,
-   "y": 0,
-   "z": 27.8,
-   "heading": 1.4,
-   "label": "バー",
-   "outdoor": false
-  },
-  "investor_3": {
-   "x": 35.3,
-   "y": 0,
-   "z": 11.4,
-   "heading": 2,
-   "label": "トイレ",
-   "outdoor": false
-  },
-  "escort_0": {
-   "x": 12,
-   "y": 3.5,
-   "z": 25.4,
-   "heading": 1,
-   "label": "VIP席",
-   "outdoor": false
-  },
-  "gate_frisk_0": {
-   "x": 21,
-   "y": 0,
-   "z": 7.25,
-   "heading": 3.14,
-   "label": "入口",
-   "outdoor": false
-  },
-  "gate_watch_0": {
-   "x": 24.1,
-   "y": 0,
-   "z": 7.4,
-   "heading": 3.14,
-   "label": "入口",
-   "outdoor": false
-  },
-  "vip_guard_0": {
-   "x": 11,
-   "y": 0,
-   "z": 15.1,
-   "heading": 1.3,
-   "label": "ラウンジ",
-   "outdoor": false
-  },
-  "patrol_0": {
-   "x": 30,
-   "y": 0,
-   "z": 26,
-   "heading": 2,
-   "label": "フロア",
-   "outdoor": false
-  },
-  "patrol_1": {
-   "x": 37,
-   "y": 0,
-   "z": 27.7,
-   "heading": 3,
-   "label": "バー",
-   "outdoor": false
-  },
-  "patrol_2": {
-   "x": 8.8,
-   "y": 0,
-   "z": 11.7,
-   "heading": 3,
-   "label": "喫煙所",
-   "outdoor": true
-  },
-  "stage_guard_0": {
-   "x": 24,
-   "y": 0,
-   "z": 29.2,
-   "heading": 3.14,
-   "label": "フロア",
-   "outdoor": false
-  },
-  "back_patrol_0": {
-   "x": 17,
-   "y": 0,
-   "z": 35,
-   "heading": 1.57,
-   "label": "裏通路",
-   "outdoor": false
-  },
-  "back_patrol_1": {
-   "x": 33,
-   "y": 0,
-   "z": 35,
-   "heading": -1.57,
-   "label": "裏通路",
-   "outdoor": false
-  },
-  "bartender_1_0": {
-   "x": 40,
-   "y": 0,
-   "z": 18,
-   "heading": -1.57,
-   "label": "バー内",
-   "outdoor": false
-  },
-  "bartender_1_1": {
-   "x": 39.6,
-   "y": 0,
-   "z": 31.7,
-   "heading": 1,
-   "label": "バー倉庫",
-   "outdoor": false
-  },
-  "bartender_2_0": {
-   "x": 41.7,
-   "y": 0,
-   "z": 24,
-   "heading": -1.57,
-   "label": "バー内",
-   "outdoor": false
-  },
-  "bartender_2_1": {
-   "x": 40.9,
-   "y": 0,
-   "z": 31.7,
-   "heading": 1,
-   "label": "バー倉庫",
-   "outdoor": false
-  },
-  "bottle_server_0": {
-   "x": 6.6,
-   "y": 0,
-   "z": 31.2,
-   "heading": 1,
-   "label": "厨房",
-   "outdoor": false
-  },
-  "bottle_server_1": {
-   "x": 7.1,
-   "y": 3.5,
-   "z": 27.3,
-   "heading": 1.1,
-   "label": "VIP席",
-   "outdoor": false
-  },
-  "dj_0": {
-   "x": 24,
-   "y": 0.28,
-   "z": 32.6,
-   "heading": 3.14,
-   "label": "DJブース",
-   "outdoor": false
-  },
-  "technician_0": {
-   "x": 34.7,
-   "y": 0,
-   "z": 32.5,
-   "heading": 1,
-   "label": "機材室",
-   "outdoor": false
-  },
-  "technician_1": {
-   "x": 28,
-   "y": 0.28,
-   "z": 32.8,
-   "heading": -1.5,
-   "label": "DJブース",
-   "outdoor": false
-  },
-  "technician_2": {
-   "x": 26,
-   "y": 3.5,
-   "z": 29,
-   "heading": 3.14,
-   "label": "キャットウォーク",
-   "outdoor": false
-  },
-  "chef_0": {
-   "x": 8.3,
-   "y": 0,
-   "z": 31.7,
-   "heading": 0,
-   "label": "厨房",
-   "outdoor": false
-  },
-  "chef_1": {
-   "x": 10.8,
-   "y": 0,
-   "z": 34,
-   "heading": 3.14,
-   "label": "厨房",
-   "outdoor": false
-  },
-  "cleaner_0": {
-   "x": 8.9,
-   "y": 0,
-   "z": 34.4,
-   "heading": 0,
-   "label": "厨房",
-   "outdoor": false
-  },
-  "cleaner_1": {
-   "x": 3.8,
-   "y": 0,
-   "z": 39.5,
-   "heading": -1.6,
-   "label": "搬入口",
-   "outdoor": true
-  },
-  "manager_0": {
-   "x": 16.25,
-   "y": 0,
-   "z": 32.6,
-   "heading": -1.57,
-   "label": "事務所",
-   "outdoor": false
-  },
-  "manager_1": {
-   "x": 42.2,
-   "y": 0,
-   "z": 27.3,
-   "heading": -1.5,
-   "label": "バー内",
-   "outdoor": false
-  }
- },
- "_routeNote": "route: [x, z, 待ち秒, 待つ間の向き(度)]。向きは0=南（海側）、90=東、180=北、-90=西。",
- "version": 1,
- "stage": 3,
- "furniture": [
-  {
-   "id": "counter-cloak",
-   "x": 16.2,
-   "z": 6.8,
-   "w": 4,
-   "d": 0.8,
-   "h": 1.1,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "counter-bar-16",
-   "x": 38.4,
-   "z": 16,
-   "w": 0.8,
-   "d": 2,
-   "h": 1.1,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "counter-bar-18",
-   "x": 38.4,
-   "z": 18,
-   "w": 0.8,
-   "d": 2,
-   "h": 1.1,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "counter-bar-20",
-   "x": 38.4,
-   "z": 20,
-   "w": 0.8,
-   "d": 2,
-   "h": 1.1,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "counter-bar-22",
-   "x": 38.4,
-   "z": 22,
-   "w": 0.8,
-   "d": 2,
-   "h": 1.1,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "counter-bar-24",
-   "x": 38.4,
-   "z": 24,
-   "w": 0.8,
-   "d": 2,
-   "h": 1.1,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "counter-bar-26",
-   "x": 38.4,
-   "z": 26,
-   "w": 0.8,
-   "d": 2,
-   "h": 1.1,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "shelf-bottles-18",
-   "x": 43.6,
-   "z": 18,
-   "w": 0.5,
-   "d": 2,
-   "h": 2,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "shelf-bottles-24",
-   "x": 43.6,
-   "z": 24,
-   "w": 0.5,
-   "d": 2,
-   "h": 2,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "sofa-lounge-west",
-   "x": 4.8,
-   "z": 18,
-   "w": 1,
-   "d": 4,
-   "h": 0.8,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "table-lounge-west",
-   "x": 6.6,
-   "z": 18,
-   "w": 1,
-   "d": 1.6,
-   "h": 0.5,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "sofa-lounge-north",
-   "x": 10,
-   "z": 29.4,
-   "w": 4,
-   "d": 1,
-   "h": 0.8,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "table-lounge-north",
-   "x": 10,
-   "z": 27.8,
-   "w": 1.6,
-   "d": 1,
-   "h": 0.5,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "sofa-vip",
-   "x": 4.8,
-   "z": 18.5,
-   "w": 1.2,
-   "d": 4,
-   "h": 0.8,
-   "y": 3.5,
-   "floor": 1
-  },
-  {
-   "id": "table-vip",
-   "x": 7.2,
-   "z": 18.5,
-   "w": 1.3,
-   "d": 2,
-   "h": 0.5,
-   "y": 3.5,
-   "floor": 1
-  },
-  {
-   "id": "sofa-vip-south",
-   "x": 9.5,
-   "z": 14.8,
-   "w": 4,
-   "d": 1,
-   "h": 0.8,
-   "y": 3.5,
-   "floor": 1
-  },
-  {
-   "id": "speaker-18.7",
-   "x": 18.7,
-   "z": 33.4,
-   "w": 0.8,
-   "d": 1.1,
-   "h": 2.3,
-   "y": 0.28,
-   "floor": 0
-  },
-  {
-   "id": "speaker-29.3",
-   "x": 29.3,
-   "z": 33.4,
-   "w": 0.8,
-   "d": 1.1,
-   "h": 2.3,
-   "y": 0.28,
-   "floor": 0
-  },
-  {
-   "id": "desk-dj",
-   "x": 24,
-   "z": 31.6,
-   "w": 5,
-   "d": 1,
-   "h": 1,
-   "y": 0.28,
-   "floor": 0
-  },
-  {
-   "id": "machine-lighting",
-   "x": 32,
-   "z": 33.2,
-   "w": 1.2,
-   "d": 1,
-   "h": 1.4,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "rack-equip",
-   "x": 31,
-   "z": 31,
-   "w": 0.8,
-   "d": 1,
-   "h": 2,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "desk-office",
-   "x": 14.6,
-   "z": 31.5,
-   "w": 0.8,
-   "d": 2.5,
-   "h": 0.8,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "counter-kitchen",
-   "x": 9,
-   "z": 32.8,
-   "w": 4,
-   "d": 1,
-   "h": 0.9,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "sink-kitchen",
-   "x": 10.55,
-   "z": 35.4,
-   "w": 0.848,
-   "d": 0.578,
-   "h": 0.895,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "counter-wash",
-   "x": 9,
-   "z": 35.4,
-   "w": 2,
-   "d": 0.8,
-   "h": 0.9,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "machine-freezer",
-   "x": 12.9,
-   "z": 31,
-   "w": 1.2,
-   "d": 1.4,
-   "h": 2,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "crate-store-0",
-   "x": 42.6,
-   "z": 31.2,
-   "w": 1.2,
-   "d": 1.2,
-   "h": 1.2,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "crate-store-1",
-   "x": 42.6,
-   "z": 32.8,
-   "w": 1.2,
-   "d": 1.2,
-   "h": 1.2,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "crate-2-38",
-   "x": 2,
-   "z": 38,
-   "w": 1.2,
-   "d": 1.2,
-   "h": 1.2,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "crate-3.3-38",
-   "x": 3.3,
-   "z": 38,
-   "w": 1.2,
-   "d": 1.2,
-   "h": 1.2,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "crate-2-39.3",
-   "x": 2,
-   "z": 39.3,
-   "w": 1.2,
-   "d": 1.2,
-   "h": 1.2,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "car-loading",
-   "x": 14,
-   "z": 39.5,
-   "w": 1.8,
-   "d": 4,
-   "h": 1.3,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "planter-entry",
-   "x": 18.5,
-   "z": 5,
-   "w": 1.2,
-   "d": 0.8,
-   "h": 1,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "planter-entry-2",
-   "x": 25.5,
-   "z": 5,
-   "w": 1.2,
-   "d": 0.8,
-   "h": 1,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "planter-smoking",
-   "x": 2,
-   "z": 8,
-   "w": 1.2,
-   "d": 1.2,
-   "h": 1,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "toilet-partition-8",
-   "x": 42,
-   "z": 8,
-   "w": 4,
-   "d": 0.12,
-   "h": 2,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "toilet-partition-10",
-   "x": 42,
-   "z": 10,
-   "w": 4,
-   "d": 0.12,
-   "h": 2,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "toilet-partition-12",
-   "x": 42,
-   "z": 12,
-   "w": 4,
-   "d": 0.12,
-   "h": 2,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "counter-wash-toilet",
-   "x": 37,
-   "z": 6.6,
-   "w": 4,
-   "d": 0.8,
-   "h": 0.9,
-   "y": 0,
-   "floor": 0
-  },
-  {
-   "id": "locker-cloak",
-   "x": 10.45,
-   "y": 0,
-   "z": 8.1,
-   "floor": 0,
-   "w": 0.65,
-   "d": 0.55,
-   "h": 1.9
-  },
-  {
-   "id": "locker-kitchen",
-   "x": 13.4,
-   "y": 0,
-   "z": 33,
-   "floor": 0,
-   "w": 0.65,
-   "d": 1.2,
-   "h": 1.9
-  },
-  {
-   "id": "safe-office",
-   "x": 16.5,
-   "y": 0,
-   "z": 31.5,
-   "floor": 0,
-   "w": 0.65,
-   "d": 0.65,
-   "h": 0.8
-  }
- ],
- "doors": [
-  {
-   "id": "vip-staff-door",
-   "label": "VIP通路の扉",
-   "x": 14,
-   "z": 29,
-   "w": 0.14,
-   "d": 1,
-   "y": 3.5,
-   "h": 2.2,
-   "floor": 1
-  }
- ],
- "openings": [
-  {
-   "id": "front",
-   "axis": "z",
-   "at": 22,
-   "k": 6,
-   "width": 2.4
-  },
-  {
-   "id": "cloak-room",
-   "axis": "x",
-   "at": 8.3,
-   "k": 13.5,
-   "width": 1
-  },
-  {
-   "id": "smoking-lobby",
-   "axis": "x",
-   "at": 10,
-   "k": 10,
-   "width": 1.6
-  },
-  {
-   "id": "entry",
-   "axis": "z",
-   "at": 20,
-   "k": 14,
-   "width": 3
-  },
-  {
-   "id": "west",
-   "axis": "x",
-   "at": 33,
-   "k": 4,
-   "width": 1.4
-  },
-  {
-   "id": "rear",
-   "axis": "z",
-   "at": 6,
-   "k": 36,
-   "width": 1.6
-  },
-  {
-   "id": "rear",
-   "axis": "z",
-   "at": 16,
-   "k": 36,
-   "width": 2
-  },
-  {
-   "id": "vip-north",
-   "axis": "z",
-   "at": 5,
-   "k": 30,
-   "width": 2
-  },
-  {
-   "id": "toilet",
-   "axis": "x",
-   "at": 12.6,
-   "k": 30,
-   "width": 1.4
-  },
-  {
-   "id": "kitchen-office",
-   "axis": "x",
-   "at": 35,
-   "k": 14,
-   "width": 1.4
-  },
-  {
-   "id": "stage-front",
-   "axis": "z",
-   "at": 18.9,
-   "k": 30,
-   "width": 1.2
-  },
-  {
-   "id": "stage-front",
-   "axis": "z",
-   "at": 29.1,
-   "k": 30,
-   "width": 1.2
-  },
-  {
-   "id": "bar-store",
-   "axis": "z",
-   "at": 41,
-   "k": 30,
-   "width": 1.4
-  },
-  {
-   "id": "stage-equipment",
-   "axis": "x",
-   "at": 32,
-   "k": 30,
-   "width": 1.4
-  },
-  {
-   "id": "corridor",
-   "axis": "z",
-   "at": 16,
-   "k": 34,
-   "width": 1.2
-  },
-  {
-   "id": "corridor",
-   "axis": "z",
-   "at": 24,
-   "k": 34,
-   "width": 1.4
-  },
-  {
-   "id": "corridor",
-   "axis": "z",
-   "at": 34,
-   "k": 34,
-   "width": 1.2
-  },
-  {
-   "id": "corridor",
-   "axis": "z",
-   "at": 41,
-   "k": 34,
-   "width": 1.2
-  },
-  {
-   "id": "smoking-alley",
-   "axis": "z",
-   "at": 2,
-   "k": 14,
-   "width": 1.4
-  },
-  {
-   "id": "vip-staff-door",
-   "axis": "x",
-   "at": 29,
-   "k": 14,
-   "width": 1
-  }
- ],
- "traversals": [
-  {
-   "id": "X1",
-   "a": "H",
-   "b": "M",
-   "kind": "ladder",
-   "users": [
-    "technician"
-   ],
-   "start": {
-    "x": 36,
-    "y": 0,
-    "z": 32
-   },
-   "end": {
-    "x": 36,
-    "y": 3.5,
-    "z": 30.8
-   },
-   "via": [
-    {
-     "x": 36,
-     "y": 3.5,
-     "z": 32
-    }
-   ]
-  }
- ],
- "traversalRules": {
-  "radius": 0.8,
-  "suspicionPerSecond": 0
- },
  "actors": {
   "guest_01": {
    "plan": [
@@ -8765,7 +5367,1032 @@
    ]
   }
  },
+ "schedulePlaces": {
+  "guest_01_0": {
+   "x": 17,
+   "y": 0,
+   "z": 18,
+   "heading": 0.8512768233991377,
+   "label": "フロア",
+   "outdoor": false
+  },
+  "guest_01_1": {
+   "x": 35,
+   "y": 0,
+   "z": 15,
+   "heading": 0.947510705875668,
+   "label": "バー",
+   "outdoor": false
+  },
+  "guest_01_2": {
+   "x": 7.9,
+   "y": 0,
+   "z": 17,
+   "heading": -2.137062926168854,
+   "label": "ラウンジ",
+   "outdoor": false
+  },
+  "guest_01_3": {
+   "x": 34.4,
+   "y": 0,
+   "z": 7.65,
+   "heading": 3.1257062043470873,
+   "label": "トイレ",
+   "outdoor": false
+  },
+  "guest_01_4": {
+   "x": 3.3,
+   "y": 0,
+   "z": 7.4,
+   "heading": -1.6340894682646137,
+   "label": "喫煙所",
+   "outdoor": true
+  },
+  "guest_02_0": {
+   "x": 19.05,
+   "y": 0,
+   "z": 18,
+   "heading": 1.8385785775598458,
+   "label": "フロア",
+   "outdoor": false
+  },
+  "guest_02_1": {
+   "x": 36.3,
+   "y": 0,
+   "z": 15,
+   "heading": -0.5416192252918672,
+   "label": "バー",
+   "outdoor": false
+  },
+  "guest_02_2": {
+   "x": 9.02,
+   "y": 0,
+   "z": 17,
+   "heading": -0.7890711521149067,
+   "label": "ラウンジ",
+   "outdoor": false
+  },
+  "guest_02_3": {
+   "x": 35.97,
+   "y": 0,
+   "z": 7.65,
+   "heading": 2.3430638330444187,
+   "label": "トイレ",
+   "outdoor": false
+  },
+  "guest_02_4": {
+   "x": 5.05,
+   "y": 0,
+   "z": 7.4,
+   "heading": -2.954107456282777,
+   "label": "喫煙所",
+   "outdoor": true
+  },
+  "guest_03_0": {
+   "x": 21.1,
+   "y": 0,
+   "z": 18,
+   "heading": 0.09361516594053532,
+   "label": "フロア",
+   "outdoor": false
+  },
+  "guest_03_1": {
+   "x": 35,
+   "y": 0,
+   "z": 16.7,
+   "heading": 0.18127157403046024,
+   "label": "バー",
+   "outdoor": false
+  },
+  "guest_03_2": {
+   "x": 10.14,
+   "y": 0,
+   "z": 17,
+   "heading": 2.979809218104448,
+   "label": "ラウンジ",
+   "outdoor": false
+  },
+  "guest_03_3": {
+   "x": 37.54,
+   "y": 0,
+   "z": 7.65,
+   "heading": 2.404749408544365,
+   "label": "トイレ",
+   "outdoor": false
+  },
+  "guest_03_4": {
+   "x": 6.8,
+   "y": 0,
+   "z": 7.4,
+   "heading": -2.8324376431282374,
+   "label": "喫煙所",
+   "outdoor": true
+  },
+  "guest_04_0": {
+   "x": 23.15,
+   "y": 0,
+   "z": 18,
+   "heading": -2.117596057040884,
+   "label": "フロア",
+   "outdoor": false
+  },
+  "guest_04_1": {
+   "x": 36.3,
+   "y": 0,
+   "z": 16.7,
+   "heading": 1.1292495630067987,
+   "label": "バー",
+   "outdoor": false
+  },
+  "guest_04_2": {
+   "x": 7.9,
+   "y": 0,
+   "z": 18.35,
+   "heading": -2.195584049060866,
+   "label": "ラウンジ",
+   "outdoor": false
+  },
+  "guest_04_3": {
+   "x": 39.11,
+   "y": 0,
+   "z": 7.65,
+   "heading": -0.7106952842866066,
+   "label": "トイレ",
+   "outdoor": false
+  },
+  "guest_04_4": {
+   "x": 8.55,
+   "y": 0,
+   "z": 7.4,
+   "heading": -0.4909922801822133,
+   "label": "喫煙所",
+   "outdoor": true
+  },
+  "guest_05_0": {
+   "x": 25.2,
+   "y": 0,
+   "z": 18,
+   "heading": -2.4128076143514816,
+   "label": "フロア",
+   "outdoor": false
+  },
+  "guest_05_1": {
+   "x": 35,
+   "y": 0,
+   "z": 18.4,
+   "heading": 0.3170606333105841,
+   "label": "バー",
+   "outdoor": false
+  },
+  "guest_05_2": {
+   "x": 9.02,
+   "y": 0,
+   "z": 18.35,
+   "heading": 2.8919546717557725,
+   "label": "ラウンジ",
+   "outdoor": false
+  },
+  "guest_05_3": {
+   "x": 34.4,
+   "y": 0,
+   "z": 9.18,
+   "heading": -2.802071684979967,
+   "label": "トイレ",
+   "outdoor": false
+  },
+  "guest_05_4": {
+   "x": 3.3,
+   "y": 0,
+   "z": 8.9,
+   "heading": 2.7059525825693194,
+   "label": "喫煙所",
+   "outdoor": true
+  },
+  "guest_06_0": {
+   "x": 27.25,
+   "y": 0,
+   "z": 18,
+   "heading": -3.0656273230792985,
+   "label": "フロア",
+   "outdoor": false
+  },
+  "guest_06_1": {
+   "x": 36.3,
+   "y": 0,
+   "z": 18.4,
+   "heading": 1.108018385754249,
+   "label": "バー",
+   "outdoor": false
+  },
+  "guest_06_2": {
+   "x": 10.14,
+   "y": 0,
+   "z": 18.35,
+   "heading": -2.641039055693364,
+   "label": "ラウンジ",
+   "outdoor": false
+  },
+  "guest_06_3": {
+   "x": 35.97,
+   "y": 0,
+   "z": 9.18,
+   "heading": -2.8854325953062694,
+   "label": "トイレ",
+   "outdoor": false
+  },
+  "guest_06_4": {
+   "x": 5.05,
+   "y": 0,
+   "z": 8.9,
+   "heading": -0.40934201042640295,
+   "label": "喫煙所",
+   "outdoor": true
+  },
+  "guest_07_0": {
+   "x": 29.299999999999997,
+   "y": 0,
+   "z": 18,
+   "heading": 1.3797227692619862,
+   "label": "フロア",
+   "outdoor": false
+  },
+  "guest_07_1": {
+   "x": 35,
+   "y": 0,
+   "z": 20.1,
+   "heading": -2.8658590891024236,
+   "label": "バー",
+   "outdoor": false
+  },
+  "guest_07_2": {
+   "x": 7.9,
+   "y": 0,
+   "z": 19.7,
+   "heading": -2.752220381045619,
+   "label": "ラウンジ",
+   "outdoor": false
+  },
+  "guest_07_3": {
+   "x": 37.54,
+   "y": 0,
+   "z": 9.18,
+   "heading": -0.3464221621311978,
+   "label": "トイレ",
+   "outdoor": false
+  },
+  "guest_07_4": {
+   "x": 6.8,
+   "y": 0,
+   "z": 8.9,
+   "heading": 2.809529389015624,
+   "label": "喫煙所",
+   "outdoor": true
+  },
+  "guest_08_0": {
+   "x": 31.349999999999998,
+   "y": 0,
+   "z": 18,
+   "heading": -0.306634521579757,
+   "label": "フロア",
+   "outdoor": false
+  },
+  "guest_08_1": {
+   "x": 36.3,
+   "y": 0,
+   "z": 20.1,
+   "heading": -2.8120743965260258,
+   "label": "バー",
+   "outdoor": false
+  },
+  "guest_08_2": {
+   "x": 9.02,
+   "y": 0,
+   "z": 19.7,
+   "heading": 1.252749501204955,
+   "label": "ラウンジ",
+   "outdoor": false
+  },
+  "guest_08_3": {
+   "x": 39.11,
+   "y": 0,
+   "z": 9.18,
+   "heading": -0.4521197378765325,
+   "label": "トイレ",
+   "outdoor": false
+  },
+  "guest_08_4": {
+   "x": 8.55,
+   "y": 0,
+   "z": 8.9,
+   "heading": -2.514646090140892,
+   "label": "喫煙所",
+   "outdoor": true
+  },
+  "guest_09_0": {
+   "x": 17,
+   "y": 0,
+   "z": 23.2,
+   "heading": -2.499544377371581,
+   "label": "フロア",
+   "outdoor": false
+  },
+  "guest_09_1": {
+   "x": 35,
+   "y": 0,
+   "z": 21.8,
+   "heading": -1.3401031364807887,
+   "label": "バー",
+   "outdoor": false
+  },
+  "guest_09_2": {
+   "x": 10.14,
+   "y": 0,
+   "z": 19.7,
+   "heading": -0.9091989333005581,
+   "label": "ラウンジ",
+   "outdoor": false
+  },
+  "guest_09_3": {
+   "x": 34.4,
+   "y": 0,
+   "z": 10.71,
+   "heading": -2.289876764787082,
+   "label": "トイレ",
+   "outdoor": false
+  },
+  "guest_09_4": {
+   "x": 3.3,
+   "y": 0,
+   "z": 10.4,
+   "heading": 0.09423562165862576,
+   "label": "喫煙所",
+   "outdoor": true
+  },
+  "guest_10_0": {
+   "x": 19.05,
+   "y": 0,
+   "z": 23.2,
+   "heading": -2.32987462799459,
+   "label": "フロア",
+   "outdoor": false
+  },
+  "guest_10_1": {
+   "x": 36.3,
+   "y": 0,
+   "z": 21.8,
+   "heading": -1.9951901164478059,
+   "label": "バー",
+   "outdoor": false
+  },
+  "guest_10_2": {
+   "x": 7.9,
+   "y": 0,
+   "z": 21.05,
+   "heading": 0.09217815962078868,
+   "label": "ラウンジ",
+   "outdoor": false
+  },
+  "guest_10_3": {
+   "x": 35.97,
+   "y": 0,
+   "z": 10.71,
+   "heading": -2.219558965287071,
+   "label": "トイレ",
+   "outdoor": false
+  },
+  "guest_10_4": {
+   "x": 5.05,
+   "y": 0,
+   "z": 10.4,
+   "heading": -2.711782531055147,
+   "label": "喫煙所",
+   "outdoor": true
+  },
+  "guest_11_0": {
+   "x": 21.1,
+   "y": 0,
+   "z": 23.2,
+   "heading": 3.093259607805058,
+   "label": "フロア",
+   "outdoor": false
+  },
+  "guest_11_1": {
+   "x": 35,
+   "y": 0,
+   "z": 23.5,
+   "heading": -0.13277280526002322,
+   "label": "バー",
+   "outdoor": false
+  },
+  "guest_11_2": {
+   "x": 9.02,
+   "y": 0,
+   "z": 21.05,
+   "heading": 0.8278341526852859,
+   "label": "ラウンジ",
+   "outdoor": false
+  },
+  "guest_11_3": {
+   "x": 37.54,
+   "y": 0,
+   "z": 10.71,
+   "heading": 2.2964361634800334,
+   "label": "トイレ",
+   "outdoor": false
+  },
+  "guest_11_4": {
+   "x": 6.8,
+   "y": 0,
+   "z": 10.4,
+   "heading": -1.3022926695761143,
+   "label": "喫煙所",
+   "outdoor": true
+  },
+  "guest_12_0": {
+   "x": 23.15,
+   "y": 0,
+   "z": 23.2,
+   "heading": -2.415305524491569,
+   "label": "フロア",
+   "outdoor": false
+  },
+  "guest_12_1": {
+   "x": 36.3,
+   "y": 0,
+   "z": 23.5,
+   "heading": 3.0970639503029065,
+   "label": "バー",
+   "outdoor": false
+  },
+  "guest_12_2": {
+   "x": 10.14,
+   "y": 0,
+   "z": 21.05,
+   "heading": -1.0450229781591753,
+   "label": "ラウンジ",
+   "outdoor": false
+  },
+  "guest_12_3": {
+   "x": 39.11,
+   "y": 0,
+   "z": 10.71,
+   "heading": 3.030061028966069,
+   "label": "トイレ",
+   "outdoor": false
+  },
+  "guest_12_4": {
+   "x": 8.55,
+   "y": 0,
+   "z": 10.4,
+   "heading": -2.291916614453516,
+   "label": "喫煙所",
+   "outdoor": true
+  },
+  "guest_13_0": {
+   "x": 25.2,
+   "y": 0,
+   "z": 23.2,
+   "heading": -2.2671397199509116,
+   "label": "フロア",
+   "outdoor": false
+  },
+  "guest_13_1": {
+   "x": 35,
+   "y": 0,
+   "z": 25.2,
+   "heading": -1.1768036954704113,
+   "label": "バー",
+   "outdoor": false
+  },
+  "guest_13_2": {
+   "x": 7.9,
+   "y": 0,
+   "z": 22.4,
+   "heading": -2.7315121979427954,
+   "label": "ラウンジ",
+   "outdoor": false
+  },
+  "guest_13_3": {
+   "x": 34.4,
+   "y": 0,
+   "z": 12.24,
+   "heading": -0.8363869231694663,
+   "label": "トイレ",
+   "outdoor": false
+  },
+  "guest_13_4": {
+   "x": 3.3,
+   "y": 0,
+   "z": 11.9,
+   "heading": 0.5990173453381518,
+   "label": "喫煙所",
+   "outdoor": true
+  },
+  "guest_14_0": {
+   "x": 27.25,
+   "y": 0,
+   "z": 23.2,
+   "heading": 1.3864758014132197,
+   "label": "フロア",
+   "outdoor": false
+  },
+  "guest_14_1": {
+   "x": 36.3,
+   "y": 0,
+   "z": 25.2,
+   "heading": 2.008580602298039,
+   "label": "バー",
+   "outdoor": false
+  },
+  "guest_14_2": {
+   "x": 9.02,
+   "y": 0,
+   "z": 22.4,
+   "heading": 2.3167097986539473,
+   "label": "ラウンジ",
+   "outdoor": false
+  },
+  "guest_14_3": {
+   "x": 35.97,
+   "y": 0,
+   "z": 12.24,
+   "heading": -3.1152065699248674,
+   "label": "トイレ",
+   "outdoor": false
+  },
+  "guest_14_4": {
+   "x": 5.05,
+   "y": 0,
+   "z": 11.9,
+   "heading": -1.6386614516159315,
+   "label": "喫煙所",
+   "outdoor": true
+  },
+  "guest_15_0": {
+   "x": 29.299999999999997,
+   "y": 0,
+   "z": 23.2,
+   "heading": 1.5797132602052133,
+   "label": "フロア",
+   "outdoor": false
+  },
+  "guest_15_1": {
+   "x": 35,
+   "y": 0,
+   "z": 26.9,
+   "heading": -2.0267947374767363,
+   "label": "バー",
+   "outdoor": false
+  },
+  "guest_15_2": {
+   "x": 10.14,
+   "y": 0,
+   "z": 22.4,
+   "heading": 2.5026633871865145,
+   "label": "ラウンジ",
+   "outdoor": false
+  },
+  "guest_15_3": {
+   "x": 37.54,
+   "y": 0,
+   "z": 12.24,
+   "heading": -2.1641666093186678,
+   "label": "トイレ",
+   "outdoor": false
+  },
+  "guest_15_4": {
+   "x": 6.8,
+   "y": 0,
+   "z": 11.9,
+   "heading": 1.2025581195088777,
+   "label": "喫煙所",
+   "outdoor": true
+  },
+  "guest_16_0": {
+   "x": 31.349999999999998,
+   "y": 0,
+   "z": 23.2,
+   "heading": 1.0549268633643707,
+   "label": "フロア",
+   "outdoor": false
+  },
+  "guest_16_1": {
+   "x": 36.3,
+   "y": 0,
+   "z": 26.9,
+   "heading": -0.9201056478978069,
+   "label": "バー",
+   "outdoor": false
+  },
+  "guest_16_2": {
+   "x": 7.9,
+   "y": 0,
+   "z": 23.75,
+   "heading": 0.7668291428581329,
+   "label": "ラウンジ",
+   "outdoor": false
+  },
+  "guest_16_3": {
+   "x": 39.11,
+   "y": 0,
+   "z": 12.24,
+   "heading": -2.0951933087627603,
+   "label": "トイレ",
+   "outdoor": false
+  },
+  "guest_16_4": {
+   "x": 8.55,
+   "y": 0,
+   "z": 11.9,
+   "heading": 0.24551646576807284,
+   "label": "喫煙所",
+   "outdoor": true
+  },
+  "vip_1_0": {
+   "x": 8.9,
+   "y": 3.5,
+   "z": 16.5,
+   "heading": 1.2,
+   "label": "VIP席",
+   "outdoor": false
+  },
+  "vip_1_1": {
+   "x": 35.1,
+   "y": 0,
+   "z": 16,
+   "heading": -1.2,
+   "label": "バー",
+   "outdoor": false
+  },
+  "vip_2_0": {
+   "x": 10.35,
+   "y": 3.5,
+   "z": 16.5,
+   "heading": 1.2,
+   "label": "VIP席",
+   "outdoor": false
+  },
+  "vip_2_1": {
+   "x": 35.1,
+   "y": 0,
+   "z": 19,
+   "heading": -1.2,
+   "label": "バー",
+   "outdoor": false
+  },
+  "vip_3_0": {
+   "x": 8.9,
+   "y": 3.5,
+   "z": 20.5,
+   "heading": 1.2,
+   "label": "VIP席",
+   "outdoor": false
+  },
+  "vip_3_1": {
+   "x": 35.1,
+   "y": 0,
+   "z": 22,
+   "heading": -1.2,
+   "label": "バー",
+   "outdoor": false
+  },
+  "vip_4_0": {
+   "x": 10.35,
+   "y": 3.5,
+   "z": 20.5,
+   "heading": 1.2,
+   "label": "VIP席",
+   "outdoor": false
+  },
+  "vip_4_1": {
+   "x": 35.1,
+   "y": 0,
+   "z": 25,
+   "heading": -1.2,
+   "label": "バー",
+   "outdoor": false
+  },
+  "investor_0": {
+   "x": 11.1,
+   "y": 3.5,
+   "z": 26.1,
+   "heading": 1.7,
+   "label": "VIP席",
+   "outdoor": false
+  },
+  "investor_1": {
+   "x": 26,
+   "y": 0,
+   "z": 26,
+   "heading": 3,
+   "label": "フロア",
+   "outdoor": false
+  },
+  "investor_2": {
+   "x": 36.4,
+   "y": 0,
+   "z": 27.8,
+   "heading": 1.4,
+   "label": "バー",
+   "outdoor": false
+  },
+  "investor_3": {
+   "x": 35.3,
+   "y": 0,
+   "z": 11.4,
+   "heading": 2,
+   "label": "トイレ",
+   "outdoor": false
+  },
+  "escort_0": {
+   "x": 12,
+   "y": 3.5,
+   "z": 25.4,
+   "heading": 1,
+   "label": "VIP席",
+   "outdoor": false
+  },
+  "gate_frisk_0": {
+   "x": 21,
+   "y": 0,
+   "z": 7.25,
+   "heading": 3.14,
+   "label": "入口",
+   "outdoor": false
+  },
+  "gate_watch_0": {
+   "x": 24.1,
+   "y": 0,
+   "z": 7.4,
+   "heading": 3.14,
+   "label": "入口",
+   "outdoor": false
+  },
+  "vip_guard_0": {
+   "x": 11,
+   "y": 0,
+   "z": 15.1,
+   "heading": 1.3,
+   "label": "ラウンジ",
+   "outdoor": false
+  },
+  "patrol_0": {
+   "x": 30,
+   "y": 0,
+   "z": 26,
+   "heading": 2,
+   "label": "フロア",
+   "outdoor": false
+  },
+  "patrol_1": {
+   "x": 37,
+   "y": 0,
+   "z": 27.7,
+   "heading": 3,
+   "label": "バー",
+   "outdoor": false
+  },
+  "patrol_2": {
+   "x": 8.8,
+   "y": 0,
+   "z": 11.7,
+   "heading": 3,
+   "label": "喫煙所",
+   "outdoor": true
+  },
+  "stage_guard_0": {
+   "x": 24,
+   "y": 0,
+   "z": 29.2,
+   "heading": 3.14,
+   "label": "フロア",
+   "outdoor": false
+  },
+  "back_patrol_0": {
+   "x": 17,
+   "y": 0,
+   "z": 35,
+   "heading": 1.57,
+   "label": "裏通路",
+   "outdoor": false
+  },
+  "back_patrol_1": {
+   "x": 33,
+   "y": 0,
+   "z": 35,
+   "heading": -1.57,
+   "label": "裏通路",
+   "outdoor": false
+  },
+  "bartender_1_0": {
+   "x": 40,
+   "y": 0,
+   "z": 18,
+   "heading": -1.57,
+   "label": "バー内",
+   "outdoor": false
+  },
+  "bartender_1_1": {
+   "x": 39.6,
+   "y": 0,
+   "z": 31.7,
+   "heading": 1,
+   "label": "バー倉庫",
+   "outdoor": false
+  },
+  "bartender_2_0": {
+   "x": 41.7,
+   "y": 0,
+   "z": 24,
+   "heading": -1.57,
+   "label": "バー内",
+   "outdoor": false
+  },
+  "bartender_2_1": {
+   "x": 40.9,
+   "y": 0,
+   "z": 31.7,
+   "heading": 1,
+   "label": "バー倉庫",
+   "outdoor": false
+  },
+  "bottle_server_0": {
+   "x": 6.6,
+   "y": 0,
+   "z": 31.2,
+   "heading": 1,
+   "label": "厨房",
+   "outdoor": false
+  },
+  "bottle_server_1": {
+   "x": 7.1,
+   "y": 3.5,
+   "z": 27.3,
+   "heading": 1.1,
+   "label": "VIP席",
+   "outdoor": false
+  },
+  "dj_0": {
+   "x": 24,
+   "y": 0.28,
+   "z": 32.6,
+   "heading": 3.14,
+   "label": "DJブース",
+   "outdoor": false
+  },
+  "technician_0": {
+   "x": 34.7,
+   "y": 0,
+   "z": 32.5,
+   "heading": 1,
+   "label": "機材室",
+   "outdoor": false
+  },
+  "technician_1": {
+   "x": 28,
+   "y": 0.28,
+   "z": 32.8,
+   "heading": -1.5,
+   "label": "DJブース",
+   "outdoor": false
+  },
+  "technician_2": {
+   "x": 26,
+   "y": 3.5,
+   "z": 29,
+   "heading": 3.14,
+   "label": "キャットウォーク",
+   "outdoor": false
+  },
+  "chef_0": {
+   "x": 8.3,
+   "y": 0,
+   "z": 31.7,
+   "heading": 0,
+   "label": "厨房",
+   "outdoor": false
+  },
+  "chef_1": {
+   "x": 10.8,
+   "y": 0,
+   "z": 34,
+   "heading": 3.14,
+   "label": "厨房",
+   "outdoor": false
+  },
+  "cleaner_0": {
+   "x": 8.9,
+   "y": 0,
+   "z": 34.4,
+   "heading": 0,
+   "label": "厨房",
+   "outdoor": false
+  },
+  "cleaner_1": {
+   "x": 3.8,
+   "y": 0,
+   "z": 39.5,
+   "heading": -1.6,
+   "label": "搬入口",
+   "outdoor": true
+  },
+  "manager_0": {
+   "x": 16.25,
+   "y": 0,
+   "z": 32.6,
+   "heading": -1.57,
+   "label": "事務所",
+   "outdoor": false
+  },
+  "manager_1": {
+   "x": 42.2,
+   "y": 0,
+   "z": 27.3,
+   "heading": -1.5,
+   "label": "バー内",
+   "outdoor": false
+  }
+ },
+ "hides": [
+  {
+   "id": "locker-cloak",
+   "label": "クロークのロッカー",
+   "spareClothes": true,
+   "x": 10.45,
+   "y": 0,
+   "z": 8.1,
+   "heading": 1.5707963267948966,
+   "capacity": 1,
+   "approach": {
+    "x": 1,
+    "z": 0
+   },
+   "size": {
+    "w": 0.65,
+    "d": 0.55,
+    "h": 1.9
+   }
+  },
+  {
+   "id": "locker-kitchen",
+   "label": "厨房のロッカー",
+   "spareClothes": true,
+   "x": 13.4,
+   "y": 0,
+   "z": 33,
+   "heading": 0,
+   "capacity": 1,
+   "approach": {
+    "x": -1,
+    "z": 0
+   },
+   "size": {
+    "w": 0.65,
+    "d": 1.2,
+    "h": 1.9
+   }
+  },
+  {
+   "id": "machine-freezer",
+   "label": "厨房の冷凍庫",
+   "x": 12.9,
+   "y": 0,
+   "z": 31,
+   "heading": 1.5707963267948966,
+   "capacity": 1,
+   "approach": {
+    "x": -1.05,
+    "z": 0
+   },
+   "size": {
+    "w": 1.2,
+    "d": 1.4,
+    "h": 2
+   }
+  }
+ ],
  "markers": [],
+ "checkpoints": [
+  {
+   "id": "front_frisk",
+   "label": "入口の身体検査",
+   "x": 22,
+   "y": 0,
+   "z": 6,
+   "width": 2.8,
+   "normal": {
+    "x": 0,
+    "z": -1
+   },
+   "zone": "public",
+   "guardId": "gate_frisk",
+   "weaponPolicy": "no_weapons",
+   "exempt": [
+    "guard",
+    "bodyguard"
+   ]
+  }
+ ],
  "uniformGates": [],
  "platforms": [
   {
@@ -8777,11 +6404,2321 @@
    "y": 0.28
   }
  ],
+ "blockers": [
+  {
+   "id": "counter-cloak",
+   "x": 16.2,
+   "z": 6.8,
+   "w": 4,
+   "d": 0.8,
+   "h": 1.1,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "counter-bar-16",
+   "x": 38.4,
+   "z": 16,
+   "w": 0.8,
+   "d": 2,
+   "h": 1.1,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "counter-bar-18",
+   "x": 38.4,
+   "z": 18,
+   "w": 0.8,
+   "d": 2,
+   "h": 1.1,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "counter-bar-20",
+   "x": 38.4,
+   "z": 20,
+   "w": 0.8,
+   "d": 2,
+   "h": 1.1,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "counter-bar-22",
+   "x": 38.4,
+   "z": 22,
+   "w": 0.8,
+   "d": 2,
+   "h": 1.1,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "counter-bar-24",
+   "x": 38.4,
+   "z": 24,
+   "w": 0.8,
+   "d": 2,
+   "h": 1.1,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "counter-bar-26",
+   "x": 38.4,
+   "z": 26,
+   "w": 0.8,
+   "d": 2,
+   "h": 1.1,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "shelf-bottles-18",
+   "x": 43.6,
+   "z": 18,
+   "w": 0.5,
+   "d": 2,
+   "h": 2,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "shelf-bottles-24",
+   "x": 43.6,
+   "z": 24,
+   "w": 0.5,
+   "d": 2,
+   "h": 2,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "sofa-lounge-west",
+   "x": 4.8,
+   "z": 18,
+   "w": 1,
+   "d": 4,
+   "h": 0.8,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "table-lounge-west",
+   "x": 6.6,
+   "z": 18,
+   "w": 1,
+   "d": 1.6,
+   "h": 0.5,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "sofa-lounge-north",
+   "x": 10,
+   "z": 29.4,
+   "w": 4,
+   "d": 1,
+   "h": 0.8,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "table-lounge-north",
+   "x": 10,
+   "z": 27.8,
+   "w": 1.6,
+   "d": 1,
+   "h": 0.5,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "sofa-vip",
+   "x": 4.8,
+   "z": 18.5,
+   "w": 1.2,
+   "d": 4,
+   "h": 0.8,
+   "y": 3.5,
+   "floor": 1
+  },
+  {
+   "id": "table-vip",
+   "x": 7.2,
+   "z": 18.5,
+   "w": 1.3,
+   "d": 2,
+   "h": 0.5,
+   "y": 3.5,
+   "floor": 1
+  },
+  {
+   "id": "sofa-vip-south",
+   "x": 9.5,
+   "z": 14.8,
+   "w": 4,
+   "d": 1,
+   "h": 0.8,
+   "y": 3.5,
+   "floor": 1
+  },
+  {
+   "id": "speaker-18.7",
+   "x": 18.7,
+   "z": 33.4,
+   "w": 0.8,
+   "d": 1.1,
+   "h": 2.3,
+   "y": 0.28,
+   "floor": 0
+  },
+  {
+   "id": "speaker-29.3",
+   "x": 29.3,
+   "z": 33.4,
+   "w": 0.8,
+   "d": 1.1,
+   "h": 2.3,
+   "y": 0.28,
+   "floor": 0
+  },
+  {
+   "id": "desk-dj",
+   "x": 24,
+   "z": 31.6,
+   "w": 5,
+   "d": 1,
+   "h": 1,
+   "y": 0.28,
+   "floor": 0
+  },
+  {
+   "id": "machine-lighting",
+   "x": 32,
+   "z": 33.2,
+   "w": 1.2,
+   "d": 1,
+   "h": 1.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "rack-equip",
+   "x": 31,
+   "z": 31,
+   "w": 0.8,
+   "d": 1,
+   "h": 2,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "desk-office",
+   "x": 14.6,
+   "z": 31.5,
+   "w": 0.8,
+   "d": 2.5,
+   "h": 0.8,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "counter-kitchen",
+   "x": 9,
+   "z": 32.8,
+   "w": 4,
+   "d": 1,
+   "h": 0.9,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "sink-kitchen",
+   "x": 10.55,
+   "z": 35.4,
+   "w": 0.848,
+   "d": 0.578,
+   "h": 0.895,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "counter-wash",
+   "x": 9,
+   "z": 35.4,
+   "w": 2,
+   "d": 0.8,
+   "h": 0.9,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "machine-freezer",
+   "x": 12.9,
+   "z": 31,
+   "w": 1.2,
+   "d": 1.4,
+   "h": 2,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "crate-store-0",
+   "x": 42.6,
+   "z": 31.2,
+   "w": 1.2,
+   "d": 1.2,
+   "h": 1.2,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "crate-store-1",
+   "x": 42.6,
+   "z": 32.8,
+   "w": 1.2,
+   "d": 1.2,
+   "h": 1.2,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "crate-2-38",
+   "x": 2,
+   "z": 38,
+   "w": 1.2,
+   "d": 1.2,
+   "h": 1.2,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "crate-3.3-38",
+   "x": 3.3,
+   "z": 38,
+   "w": 1.2,
+   "d": 1.2,
+   "h": 1.2,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "crate-2-39.3",
+   "x": 2,
+   "z": 39.3,
+   "w": 1.2,
+   "d": 1.2,
+   "h": 1.2,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "car-loading",
+   "x": 14,
+   "z": 39.5,
+   "w": 1.8,
+   "d": 4,
+   "h": 1.3,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "planter-entry",
+   "x": 18.5,
+   "z": 5,
+   "w": 1.2,
+   "d": 0.8,
+   "h": 1,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "planter-entry-2",
+   "x": 25.5,
+   "z": 5,
+   "w": 1.2,
+   "d": 0.8,
+   "h": 1,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "planter-smoking",
+   "x": 2,
+   "z": 8,
+   "w": 1.2,
+   "d": 1.2,
+   "h": 1,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "toilet-partition-8",
+   "x": 42,
+   "z": 8,
+   "w": 4,
+   "d": 0.12,
+   "h": 2,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "toilet-partition-10",
+   "x": 42,
+   "z": 10,
+   "w": 4,
+   "d": 0.12,
+   "h": 2,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "toilet-partition-12",
+   "x": 42,
+   "z": 12,
+   "w": 4,
+   "d": 0.12,
+   "h": 2,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "counter-wash-toilet",
+   "x": 37,
+   "z": 6.6,
+   "w": 4,
+   "d": 0.8,
+   "h": 0.9,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "locker-cloak",
+   "x": 10.45,
+   "y": 0,
+   "z": 8.1,
+   "floor": 0,
+   "w": 0.65,
+   "d": 0.55,
+   "h": 1.9
+  },
+  {
+   "id": "locker-kitchen",
+   "x": 13.4,
+   "y": 0,
+   "z": 33,
+   "floor": 0,
+   "w": 0.65,
+   "d": 1.2,
+   "h": 1.9
+  },
+  {
+   "id": "safe-office",
+   "x": 16.5,
+   "y": 0,
+   "z": 31.5,
+   "floor": 0,
+   "w": 0.65,
+   "d": 0.65,
+   "h": 0.8,
+   "prefab": "safe"
+  },
+  {
+   "id": "stair-cheek-S1-0--1",
+   "x": 11.88,
+   "z": 16.21875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 1.21875,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-0-1",
+   "x": 14.12,
+   "z": 16.21875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 1.21875,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-1--1",
+   "x": 11.88,
+   "z": 16.65625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 1.4375,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-1-1",
+   "x": 14.12,
+   "z": 16.65625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 1.4375,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-2--1",
+   "x": 11.88,
+   "z": 17.09375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 1.65625,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-2-1",
+   "x": 14.12,
+   "z": 17.09375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 1.65625,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-3--1",
+   "x": 11.88,
+   "z": 17.53125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 1.875,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-3-1",
+   "x": 14.12,
+   "z": 17.53125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 1.875,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-4--1",
+   "x": 11.88,
+   "z": 17.96875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 2.09375,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-4-1",
+   "x": 14.12,
+   "z": 17.96875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 2.09375,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-5--1",
+   "x": 11.88,
+   "z": 18.40625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 2.3125,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-5-1",
+   "x": 14.12,
+   "z": 18.40625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 2.3125,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-6--1",
+   "x": 11.88,
+   "z": 18.84375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 2.53125,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-6-1",
+   "x": 14.12,
+   "z": 18.84375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 2.53125,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-7--1",
+   "x": 11.88,
+   "z": 19.28125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 2.75,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-7-1",
+   "x": 14.12,
+   "z": 19.28125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 2.75,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-8--1",
+   "x": 11.88,
+   "z": 19.71875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 2.96875,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-8-1",
+   "x": 14.12,
+   "z": 19.71875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 2.96875,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-9--1",
+   "x": 11.88,
+   "z": 20.15625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 3.1875,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-9-1",
+   "x": 14.12,
+   "z": 20.15625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 3.1875,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-10--1",
+   "x": 11.88,
+   "z": 20.59375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 3.40625,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-10-1",
+   "x": 14.12,
+   "z": 20.59375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 3.40625,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-11--1",
+   "x": 11.88,
+   "z": 21.03125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 3.625,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-11-1",
+   "x": 14.12,
+   "z": 21.03125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 3.625,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-12--1",
+   "x": 11.88,
+   "z": 21.46875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 3.84375,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-12-1",
+   "x": 14.12,
+   "z": 21.46875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 3.84375,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-13--1",
+   "x": 11.88,
+   "z": 21.90625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 4.0625,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-13-1",
+   "x": 14.12,
+   "z": 21.90625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 4.0625,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-14--1",
+   "x": 11.88,
+   "z": 22.34375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 4.28125,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-14-1",
+   "x": 14.12,
+   "z": 22.34375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 4.28125,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-15--1",
+   "x": 11.88,
+   "z": 22.78125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 4.5,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S1-15-1",
+   "x": 14.12,
+   "z": 22.78125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 4.5,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-0--1",
+   "x": 3.88,
+   "z": 23.21875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 4.5,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-0-1",
+   "x": 6.12,
+   "z": 23.21875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 4.5,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-1--1",
+   "x": 3.88,
+   "z": 23.65625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 4.28125,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-1-1",
+   "x": 6.12,
+   "z": 23.65625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 4.28125,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-2--1",
+   "x": 3.88,
+   "z": 24.09375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 4.0625,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-2-1",
+   "x": 6.12,
+   "z": 24.09375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 4.0625,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-3--1",
+   "x": 3.88,
+   "z": 24.53125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 3.84375,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-3-1",
+   "x": 6.12,
+   "z": 24.53125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 3.84375,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-4--1",
+   "x": 3.88,
+   "z": 24.96875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 3.625,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-4-1",
+   "x": 6.12,
+   "z": 24.96875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 3.625,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-5--1",
+   "x": 3.88,
+   "z": 25.40625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 3.40625,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-5-1",
+   "x": 6.12,
+   "z": 25.40625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 3.40625,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-6--1",
+   "x": 3.88,
+   "z": 25.84375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 3.1875,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-6-1",
+   "x": 6.12,
+   "z": 25.84375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 3.1875,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-7--1",
+   "x": 3.88,
+   "z": 26.28125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 2.96875,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-7-1",
+   "x": 6.12,
+   "z": 26.28125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 2.96875,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-8--1",
+   "x": 3.88,
+   "z": 26.71875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 2.75,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-8-1",
+   "x": 6.12,
+   "z": 26.71875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 2.75,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-9--1",
+   "x": 3.88,
+   "z": 27.15625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 2.53125,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-9-1",
+   "x": 6.12,
+   "z": 27.15625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 2.53125,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-10--1",
+   "x": 3.88,
+   "z": 27.59375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 2.3125,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-10-1",
+   "x": 6.12,
+   "z": 27.59375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 2.3125,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-11--1",
+   "x": 3.88,
+   "z": 28.03125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 2.09375,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-11-1",
+   "x": 6.12,
+   "z": 28.03125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 2.09375,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-12--1",
+   "x": 3.88,
+   "z": 28.46875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 1.875,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-12-1",
+   "x": 6.12,
+   "z": 28.46875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 1.875,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-13--1",
+   "x": 3.88,
+   "z": 28.90625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 1.65625,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-13-1",
+   "x": 6.12,
+   "z": 28.90625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 1.65625,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-14--1",
+   "x": 3.88,
+   "z": 29.34375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 1.4375,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-14-1",
+   "x": 6.12,
+   "z": 29.34375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 1.4375,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-15--1",
+   "x": 3.88,
+   "z": 29.78125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 1.21875,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-S2-15-1",
+   "x": 6.12,
+   "z": 29.78125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.4375,
+   "h": 1.21875,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-0--1",
+   "x": 18.18,
+   "z": 28.837500000000002,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.0175,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-0-1",
+   "x": 19.62,
+   "z": 28.837500000000002,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.0175,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-1--1",
+   "x": 18.18,
+   "z": 28.9125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.035,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-1-1",
+   "x": 19.62,
+   "z": 28.9125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.035,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-2--1",
+   "x": 18.18,
+   "z": 28.9875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.0525,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-2-1",
+   "x": 19.62,
+   "z": 28.9875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.0525,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-3--1",
+   "x": 18.18,
+   "z": 29.0625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.07,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-3-1",
+   "x": 19.62,
+   "z": 29.0625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.07,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-4--1",
+   "x": 18.18,
+   "z": 29.1375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.0875,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-4-1",
+   "x": 19.62,
+   "z": 29.1375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.0875,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-5--1",
+   "x": 18.18,
+   "z": 29.212500000000002,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.105,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-5-1",
+   "x": 19.62,
+   "z": 29.212500000000002,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.105,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-6--1",
+   "x": 18.18,
+   "z": 29.2875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.1225,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-6-1",
+   "x": 19.62,
+   "z": 29.2875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.1225,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-7--1",
+   "x": 18.18,
+   "z": 29.3625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.1400000000000001,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-7-1",
+   "x": 19.62,
+   "z": 29.3625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.1400000000000001,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-8--1",
+   "x": 18.18,
+   "z": 29.4375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.1575,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-8-1",
+   "x": 19.62,
+   "z": 29.4375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.1575,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-9--1",
+   "x": 18.18,
+   "z": 29.5125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.175,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-9-1",
+   "x": 19.62,
+   "z": 29.5125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.175,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-10--1",
+   "x": 18.18,
+   "z": 29.5875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.1925,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-10-1",
+   "x": 19.62,
+   "z": 29.5875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.1925,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-11--1",
+   "x": 18.18,
+   "z": 29.6625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.21,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-11-1",
+   "x": 19.62,
+   "z": 29.6625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.21,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-12--1",
+   "x": 18.18,
+   "z": 29.7375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.2275,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-12-1",
+   "x": 19.62,
+   "z": 29.7375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.2275,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-13--1",
+   "x": 18.18,
+   "z": 29.8125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.245,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-13-1",
+   "x": 19.62,
+   "z": 29.8125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.245,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-14--1",
+   "x": 18.18,
+   "z": 29.8875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.2625,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-14-1",
+   "x": 19.62,
+   "z": 29.8875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.2625,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-15--1",
+   "x": 18.18,
+   "z": 29.9625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.28,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SA-15-1",
+   "x": 19.62,
+   "z": 29.9625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.28,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-0--1",
+   "x": 28.38,
+   "z": 28.837500000000002,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.0175,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-0-1",
+   "x": 29.82,
+   "z": 28.837500000000002,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.0175,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-1--1",
+   "x": 28.38,
+   "z": 28.9125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.035,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-1-1",
+   "x": 29.82,
+   "z": 28.9125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.035,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-2--1",
+   "x": 28.38,
+   "z": 28.9875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.0525,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-2-1",
+   "x": 29.82,
+   "z": 28.9875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.0525,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-3--1",
+   "x": 28.38,
+   "z": 29.0625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.07,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-3-1",
+   "x": 29.82,
+   "z": 29.0625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.07,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-4--1",
+   "x": 28.38,
+   "z": 29.1375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.0875,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-4-1",
+   "x": 29.82,
+   "z": 29.1375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.0875,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-5--1",
+   "x": 28.38,
+   "z": 29.212500000000002,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.105,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-5-1",
+   "x": 29.82,
+   "z": 29.212500000000002,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.105,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-6--1",
+   "x": 28.38,
+   "z": 29.2875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.1225,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-6-1",
+   "x": 29.82,
+   "z": 29.2875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.1225,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-7--1",
+   "x": 28.38,
+   "z": 29.3625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.1400000000000001,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-7-1",
+   "x": 29.82,
+   "z": 29.3625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.1400000000000001,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-8--1",
+   "x": 28.38,
+   "z": 29.4375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.1575,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-8-1",
+   "x": 29.82,
+   "z": 29.4375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.1575,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-9--1",
+   "x": 28.38,
+   "z": 29.5125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.175,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-9-1",
+   "x": 29.82,
+   "z": 29.5125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.175,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-10--1",
+   "x": 28.38,
+   "z": 29.5875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.1925,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-10-1",
+   "x": 29.82,
+   "z": 29.5875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.1925,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-11--1",
+   "x": 28.38,
+   "z": 29.6625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.21,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-11-1",
+   "x": 29.82,
+   "z": 29.6625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.21,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-12--1",
+   "x": 28.38,
+   "z": 29.7375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.2275,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-12-1",
+   "x": 29.82,
+   "z": 29.7375,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.2275,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-13--1",
+   "x": 28.38,
+   "z": 29.8125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.245,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-13-1",
+   "x": 29.82,
+   "z": 29.8125,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.245,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-14--1",
+   "x": 28.38,
+   "z": 29.8875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.2625,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-14-1",
+   "x": 29.82,
+   "z": 29.8875,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.2625,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-15--1",
+   "x": 28.38,
+   "z": 29.9625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.28,
+   "floor": 0
+  },
+  {
+   "id": "stair-cheek-SB-15-1",
+   "x": 29.82,
+   "z": 29.9625,
+   "y": 0,
+   "w": 0.14,
+   "d": 0.07499999999999996,
+   "h": 1.28,
+   "floor": 0
+  }
+ ],
+ "floors": [
+  {
+   "floor": 1,
+   "y": 3.5,
+   "areas": [
+    {
+     "id": "I",
+     "label": "VIP席",
+     "floor": 1,
+     "type": "secure",
+     "minX": 4,
+     "minZ": 14,
+     "maxX": 14,
+     "maxZ": 16,
+     "surface": "carpet",
+     "indoor": true,
+     "allowedDisguises": [
+      "vip_guest",
+      "bottle_server",
+      "bodyguard"
+     ]
+    },
+    {
+     "minX": 6,
+     "maxX": 14,
+     "minZ": 23,
+     "maxZ": 30
+    },
+    {
+     "minX": 4,
+     "maxX": 12,
+     "minZ": 16,
+     "maxZ": 23
+    },
+    {
+     "id": "M",
+     "label": "キャットウォーク",
+     "floor": 1,
+     "type": "staff",
+     "minX": 14,
+     "minZ": 28,
+     "maxX": 38,
+     "maxZ": 30,
+     "surface": "service",
+     "indoor": true,
+     "allowedDisguises": [
+      "technician"
+     ]
+    },
+    {
+     "id": "M",
+     "label": "技術足場",
+     "floor": 1,
+     "type": "staff",
+     "minX": 34,
+     "minZ": 30,
+     "maxX": 38,
+     "maxZ": 31.4,
+     "surface": "service",
+     "indoor": true,
+     "allowedDisguises": [
+      "technician"
+     ]
+    },
+    {
+     "id": "M",
+     "label": "技術足場",
+     "floor": 1,
+     "type": "staff",
+     "minX": 34,
+     "minZ": 32.6,
+     "maxX": 38,
+     "maxZ": 34,
+     "surface": "service",
+     "indoor": true,
+     "allowedDisguises": [
+      "technician"
+     ]
+    },
+    {
+     "minX": 34,
+     "maxX": 35.4,
+     "minZ": 31.4,
+     "maxZ": 32.6
+    },
+    {
+     "minX": 36.6,
+     "maxX": 38,
+     "minZ": 31.4,
+     "maxZ": 32.6
+    }
+   ]
+  },
+  {
+   "floor": 0,
+   "y": 0.28,
+   "ground": true,
+   "areas": [
+    {
+     "minX": 18,
+     "maxX": 30,
+     "minZ": 30,
+     "maxZ": 34
+    }
+   ]
+  }
+ ],
+ "zones": [
+  {
+   "id": "A",
+   "label": "表通り",
+   "floor": 0,
+   "type": "public",
+   "minX": 0,
+   "minZ": 0,
+   "maxX": 48,
+   "maxZ": 6,
+   "surface": "carpet",
+   "indoor": false,
+   "allowedDisguises": []
+  },
+  {
+   "id": "F",
+   "label": "喫煙所",
+   "floor": 0,
+   "type": "public",
+   "minX": 0,
+   "minZ": 6,
+   "maxX": 10,
+   "maxZ": 14,
+   "surface": "carpet",
+   "indoor": false,
+   "allowedDisguises": []
+  },
+  {
+   "id": "Q",
+   "label": "クローク裏",
+   "floor": 0,
+   "type": "staff",
+   "minX": 10,
+   "minZ": 6,
+   "maxX": 13.5,
+   "maxZ": 9,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "bartender",
+    "manager",
+    "guard",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "B",
+   "label": "入口・クローク",
+   "floor": 0,
+   "type": "public",
+   "minX": 10,
+   "minZ": 6,
+   "maxX": 30,
+   "maxZ": 14,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": []
+  },
+  {
+   "id": "E",
+   "label": "トイレ",
+   "floor": 0,
+   "type": "public",
+   "minX": 30,
+   "minZ": 6,
+   "maxX": 44,
+   "maxZ": 14,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": []
+  },
+  {
+   "id": "N",
+   "label": "ラウンジ",
+   "floor": 0,
+   "type": "public",
+   "minX": 4,
+   "minZ": 14,
+   "maxX": 14,
+   "maxZ": 16,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": []
+  },
+  {
+   "id": "N",
+   "label": "ラウンジ",
+   "floor": 0,
+   "type": "public",
+   "minX": 6,
+   "minZ": 23,
+   "maxX": 14,
+   "maxZ": 30,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": []
+  },
+  {
+   "id": "N",
+   "label": "ラウンジ",
+   "floor": 0,
+   "type": "public",
+   "minX": 4,
+   "minZ": 16,
+   "maxX": 12,
+   "maxZ": 23,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": []
+  },
+  {
+   "id": "C",
+   "label": "フロア",
+   "floor": 0,
+   "type": "public",
+   "minX": 14,
+   "minZ": 14,
+   "maxX": 34,
+   "maxZ": 28.8,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": []
+  },
+  {
+   "id": "C",
+   "label": "フロア",
+   "floor": 0,
+   "type": "public",
+   "minX": 14,
+   "minZ": 28.8,
+   "maxX": 18.3,
+   "maxZ": 30,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": []
+  },
+  {
+   "id": "C",
+   "label": "フロア",
+   "floor": 0,
+   "type": "public",
+   "minX": 19.5,
+   "minZ": 28.8,
+   "maxX": 28.5,
+   "maxZ": 30,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": []
+  },
+  {
+   "id": "C",
+   "label": "フロア",
+   "floor": 0,
+   "type": "public",
+   "minX": 29.7,
+   "minZ": 28.8,
+   "maxX": 34,
+   "maxZ": 30,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": []
+  },
+  {
+   "id": "D",
+   "label": "バー",
+   "floor": 0,
+   "type": "public",
+   "minX": 34,
+   "minZ": 14,
+   "maxX": 38,
+   "maxZ": 30,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": []
+  },
+  {
+   "id": "D1",
+   "label": "バー内",
+   "floor": 0,
+   "type": "staff",
+   "minX": 38,
+   "minZ": 14,
+   "maxX": 44,
+   "maxZ": 30,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "bartender",
+    "bottle_server",
+    "manager",
+    "guard",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "O",
+   "label": "バー倉庫",
+   "floor": 0,
+   "type": "staff",
+   "minX": 38,
+   "minZ": 30,
+   "maxX": 44,
+   "maxZ": 34,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "bartender",
+    "bottle_server",
+    "manager",
+    "guard",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "G",
+   "label": "DJブース",
+   "floor": 0,
+   "type": "staff",
+   "minX": 18,
+   "minZ": 30,
+   "maxX": 30,
+   "maxZ": 34,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "technician",
+    "dj",
+    "manager",
+    "guard",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "H",
+   "label": "機材室",
+   "floor": 0,
+   "type": "staff",
+   "minX": 30,
+   "minZ": 30,
+   "maxX": 38,
+   "maxZ": 34,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "technician",
+    "guard",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "L",
+   "label": "事務所",
+   "floor": 0,
+   "type": "staff",
+   "minX": 14,
+   "minZ": 30,
+   "maxX": 18,
+   "maxZ": 34,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "manager",
+    "guard",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "R",
+   "label": "裏通路",
+   "floor": 0,
+   "type": "staff",
+   "minX": 14,
+   "minZ": 34,
+   "maxX": 44,
+   "maxZ": 36,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "bartender",
+    "chef",
+    "bottle_server",
+    "technician",
+    "manager",
+    "dj",
+    "cleaner",
+    "guard",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "J",
+   "label": "厨房",
+   "floor": 0,
+   "type": "staff",
+   "minX": 4,
+   "minZ": 30,
+   "maxX": 14,
+   "maxZ": 36,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "bartender",
+    "chef",
+    "cleaner",
+    "bottle_server",
+    "manager",
+    "guard",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "K",
+   "label": "搬入口",
+   "floor": 0,
+   "type": "staff",
+   "minX": 0,
+   "minZ": 36,
+   "maxX": 20,
+   "maxZ": 42,
+   "surface": "service",
+   "indoor": false,
+   "allowedDisguises": [
+    "bartender",
+    "chef",
+    "cleaner",
+    "manager",
+    "guard",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "K",
+   "label": "裏路地",
+   "floor": 0,
+   "type": "staff",
+   "minX": 0,
+   "minZ": 14,
+   "maxX": 4,
+   "maxZ": 36,
+   "surface": "service",
+   "indoor": false,
+   "allowedDisguises": [
+    "bartender",
+    "chef",
+    "cleaner",
+    "manager",
+    "guard",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "I",
+   "label": "VIP席",
+   "floor": 1,
+   "type": "secure",
+   "minX": 4,
+   "minZ": 14,
+   "maxX": 14,
+   "maxZ": 16,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": [
+    "vip_guest",
+    "bottle_server",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "I",
+   "label": "VIP席",
+   "floor": 1,
+   "type": "secure",
+   "minX": 6,
+   "minZ": 23,
+   "maxX": 14,
+   "maxZ": 30,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": [
+    "vip_guest",
+    "bottle_server",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "I",
+   "label": "VIP席",
+   "floor": 1,
+   "type": "secure",
+   "minX": 4,
+   "minZ": 16,
+   "maxX": 12,
+   "maxZ": 23,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": [
+    "vip_guest",
+    "bottle_server",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "M",
+   "label": "キャットウォーク",
+   "floor": 1,
+   "type": "staff",
+   "minX": 14,
+   "minZ": 28,
+   "maxX": 38,
+   "maxZ": 30,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "technician"
+   ]
+  },
+  {
+   "id": "M",
+   "label": "技術足場",
+   "floor": 1,
+   "type": "staff",
+   "minX": 34,
+   "minZ": 30,
+   "maxX": 38,
+   "maxZ": 34,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "technician"
+   ]
+  },
+  {
+   "id": "S1",
+   "label": "正面階段",
+   "floor": 0,
+   "type": "secure",
+   "minX": 12,
+   "minZ": 16,
+   "maxX": 14,
+   "maxZ": 23,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": [
+    "vip_guest",
+    "bottle_server",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "S1",
+   "label": "正面階段",
+   "floor": 1,
+   "type": "secure",
+   "minX": 12,
+   "minZ": 16,
+   "maxX": 14,
+   "maxZ": 23,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": [
+    "vip_guest",
+    "bottle_server",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "S2",
+   "label": "裏階段",
+   "floor": 0,
+   "type": "secure",
+   "minX": 4,
+   "minZ": 23,
+   "maxX": 6,
+   "maxZ": 30,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": [
+    "vip_guest",
+    "bottle_server",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "S2",
+   "label": "裏階段",
+   "floor": 1,
+   "type": "secure",
+   "minX": 4,
+   "minZ": 23,
+   "maxX": 6,
+   "maxZ": 30,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": [
+    "vip_guest",
+    "bottle_server",
+    "bodyguard"
+   ]
+  }
+ ],
  "traversalShafts": [
   {
    "minX": 35.4,
-   "maxX": 36.6,
    "minZ": 31.4,
+   "maxX": 36.6,
    "maxZ": 32.6,
    "floor": 1
   }
@@ -8790,5 +8727,27 @@
   "glass-vip-0-0",
   "glass-vip-0-1",
   "glass-vip-0-2"
+ ],
+ "sections": [
+  {
+   "id": "club",
+   "label": "クラブ",
+   "surface": "asphalt",
+   "minX": 0,
+   "minZ": 0,
+   "maxX": 48,
+   "maxZ": 42,
+   "outdoor": true
+  }
+ ],
+ "guide": [
+  [
+   22,
+   2
+  ],
+  [
+   20,
+   15
+  ]
  ]
 }

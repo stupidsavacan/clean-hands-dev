@@ -20,7 +20,8 @@ export class ClubCrowd {
  readonly clusters:Cluster[];
  readonly people:Extra[];
  changed=false;
- floorSightScale=1;
+ // Dark zones (engine/lighting.ts): how far the crowd sees in each, 0..1 of normal.
+ zoneSight:Record<string,number>={};
  reaction?:Reaction;
  // A cluster screamed (the VIP lockdown listens: config.vip.lockdown.screamRadius).
  onPanic?:(at:Position,time:number)=>void;
@@ -34,10 +35,12 @@ export class ClubCrowd {
    people:place.points.slice(0,place.count*multiplier).map(home=>({...home,home,place,y:place.floor*3.5,crouch:false}))}));
   this.people=this.clusters.flatMap(c=>c.people);
  }
+ // A guard who staffs a checkpoint stays at it (the club's door frisk).
+ private staffing(id:string){return ((this.director.mission as {checkpoints?:{guardId?:string}[]}).checkpoints??[]).some(c=>c.guardId===id);}
  private sees(person:Extra,p:PlayerView){
   const x=p.x-person.x,z=p.z-person.z,d=Math.hypot(x,z);
   const {touch,frontDot,floorTolerance}=this.data.sight;
-  return Math.abs(p.y-person.y)<floorTolerance&&d<=this.data.see*(person.place.zone==='C'?this.floorSightScale:1)&&
+  return Math.abs(p.y-person.y)<floorTolerance&&d<=this.data.see*(this.zoneSight[person.place.zone]??1)&&
    (d<touch||x*Math.sin(person.heading)+z*Math.cos(person.heading)>=d*frontDot)&&
    segmentClear(this.director.boxes,{...person,y:person.y+(person.crouch?.88:1.57)},{...p,y:p.y+(p.crouched?.82:1.3)});
  }
@@ -81,7 +84,7 @@ export class ClubCrowd {
   this.reaction?.(p.id,'scream',reason,sense,d,at);
   this.reaction?.(p.id,'flee',reason,sense,d,at);
   this.onPanic?.(noise,time);
-  const guards=this.director.npcs.filter(n=>n.active&&!n.busy&&n.guard&&n.state==='patrol'&&n.securityRole!=='escort'&&n.id!=='gate_frisk')
+  const guards=this.director.npcs.filter(n=>n.active&&!n.busy&&n.guard&&n.state==='patrol'&&n.securityRole!=='escort'&&!this.staffing(n.id))
    .map(n=>({n,d:distance(n.pos,noise)})).filter(({n,d})=>d<=this.data.guardHear&&Math.abs(n.pos.y-noise.y)<1.5)
    .sort((a,b)=>a.d-b.d);
   const g=guards.find(({n,d})=>d<this.data.guardHear*.45||segmentClear(this.director.boxes,{...n.pos,y:n.pos.y+1.5},{...noise,y:noise.y+1.4}));

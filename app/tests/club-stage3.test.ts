@@ -4,6 +4,7 @@ import {Director,type Mission,type PlayerView,type Rules} from '../src/ai.ts';
 import {ClubChances} from '../src/club/chances.ts';
 import {ClubCrowd} from '../src/club/crowd.ts';
 import {TraversalSchedule} from '../src/engine/schedule.ts';
+import {applyDarkZones} from '../src/engine/lighting.ts';
 import {DialogueSystem} from '../src/dialogue.ts';
 import {MissionEvents} from '../src/events.ts';
 import {markDead} from '../src/kills.ts';
@@ -73,11 +74,11 @@ function club(start:Position={...map.spawn,y:0}){
    if(to)pos=to;
   }else m3.step(step,p(),0,used?none:keys,field.locked||m4.locked);
   m4.step(step,p(),0,keys,m3.locked||field.locked||!!m3.dragged);
-  clock.step(step);field.beforeAi();field.applyBlackout(crowd);schedule.sync(step);schedule.step(step);
+  clock.step(step);field.beforeAi();applyDarkZones(director,crowd,field.darkZones());schedule.sync(step);schedule.step(step);
   const seen=director.step(step,p()).find(e=>e.type==='caught');
   if(seen)caughtAt={time:clock.time,position:{...pos},guard:seen.npc.id};
   schedule.sync(0);
-  dialogue.step(step,p(),m3.hotel.level);field.afterAi(p());field.applyBlackout(crowd);
+  dialogue.step(step,p(),m3.hotel.level);field.afterAi(p());applyDarkZones(director,crowd,field.darkZones());
   if(investor.pos.x>=12&&investor.pos.x<=14&&investor.pos.y>.15&&investor.pos.y<3.35)frontSteps++;
  }
  function run(seconds:number,keys=none){for(let i=0;i<Math.ceil(seconds/step);i++)tick(keys);}
@@ -168,12 +169,12 @@ test('club blackout scales floor NPC and crowd vision and restores it afterwards
  assert.ok(n);
  assert.equal(n.vision(rules as Rules).range,rules.vision[n.role].range*stage.drop.blackout.sightScale);
  assert.equal(n.vision(rules as Rules).sensitivity,rules.vision[n.role].sensitivity*stage.drop.blackout.sightScale);
- assert.equal(g.crowd.floorSightScale,stage.drop.blackout.sightScale);
+ assert.equal(g.crowd.zoneSight[stage.drop.blackout.zone],stage.drop.blackout.sightScale);
  assert.equal(g.escort.visionScale,1);
  g.run(stage.drop.blackout.seconds);
  assert.equal(g.field.blackout,false);
  assert.equal(n.visionScale,1);
- assert.equal(g.crowd.floorSightScale,1);
+ assert.equal(g.crowd.zoneSight[stage.drop.blackout.zone]??1,1);
 });
 
 test('club wiring can be reached in the technician uniform or from the catwalk ladder',()=>{

@@ -16,7 +16,7 @@
 | 全ページを作り直す | `npm run build:all` |
 | 一部だけ作り直す | `npm run build:all -- club ui-lab` |
 
-`build:all` の対象は `hotel`、`party`、`club`、`mobile`、`ai-lab`、`animation-lab`、`item-lab`、`ui-lab`、`map-lab` です（`scripts/build-all.mjs`）。
+`build:all` の対象は `hotel`、`party`、`club`、`mobile`、`ai-lab`、`animation-lab`、`item-lab`、`ui-lab`、`map-lab`、`test-stage` です（`scripts/build-all.mjs`）。
 
 ## 仕様の正本（どこに書いてあるか）
 
@@ -92,6 +92,13 @@
 3. `scripts/build-all.mjs` の `TARGETS` に1行足します。
 4. `app/scripts/spec-items.ts` の `MAPS` に1行足します。これで、その地図の持ち物と置き場所も試験の対象になります。
 5. `npm run spec` を実行します。
+
+見本は検証ステージ（`app/src/test-stage/main.ts`、http://127.0.0.1:8795/test-stage ）です。クラブにない人物・部屋・はしご・安全な部屋を、クラブのコードを写さずに動かしています（2026-11-10、Issue #1）。
+- 地図：`<地図>-layout.json` を書けば、`node --experimental-strip-types scripts/build-map.ts <地図>`（またはページの中で `buildGameMap`）でゲーム用の地図になります。マップ編集（8795/map-lab）で描いてもよいです。
+- はしご・雨どい・窓をNPCに使わせる時は、その経路の `users` にNPCの id を書きます（`engine/schedule.ts`）。
+- 家具の見た目は `prefab`（safe・bookshelf・cabinet・locker・none）か id の頭（shelf-・car- など）で決まります。隠れ場所と設備は自分で描きます。
+- 共通の部品（`app/src/engine/`）：一時的な指示と予定への復帰 `errands.ts`、要人警護 `vip.ts`、E長押しの操作 `hold-actions.ts`、標的が倒れた時の人だかりと npc.killed `target-watch.ts`、暗い区画の視界 `lighting.ts`。地図のスクリプト（`createScript`）は、使う物だけを書けば残りは `engine/script.ts` が補います。
+- 画面の文言：下の案内は `text.hint`、出口の文は地図の `exits` から作ります。練習ボタンは `training` を渡した地図だけに出ます。
 
 ## 持ち込み・初期装備を HITMAN に合わせる時
 

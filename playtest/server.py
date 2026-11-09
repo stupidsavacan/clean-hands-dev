@@ -133,7 +133,7 @@ class Handler(BaseHTTPRequestHandler):
             page = page.replace('</body>', tag + '</body>') if '</body>' in page else page + tag
             return self.send(200, page, 'text/html; charset=utf-8')
         # The two lab stages (2026-11-04): plain pages, no play recording.
-        if path in ('/ai-lab', '/animation-lab', '/item-lab', '/map-lab', '/ui-lab'):
+        if path in ('/ai-lab', '/animation-lab', '/item-lab', '/map-lab', '/ui-lab', '/test-stage'):
             return self.send(200, (HERE.parent / (path[1:] + '.html')).read_text(encoding='utf-8'), 'text/html; charset=utf-8')
         if path in ('/playtest.js', '/debug.js'):
             return self.send(200, (HERE / path[1:]).read_bytes(), 'text/javascript; charset=utf-8')
