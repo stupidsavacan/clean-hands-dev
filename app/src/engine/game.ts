@@ -32,7 +32,8 @@ import {CHARACTER_MODELS} from '../character-data';
 import {M4System,type Checkpoint} from '../m4';
 import {M4View} from '../m4-view';
 import {MissionEvents} from '../events';
-import {MissionClock,ScheduleSystem} from '../schedule';
+import {MissionClock} from '../schedule';
+import {TraversalSchedule} from './schedule';
 import {DialogueSystem} from '../dialogue';
 import {ClubCrowd} from './crowd';
 import {CrowdView} from './crowd-view';
@@ -241,7 +242,7 @@ let crowdAudio:AudioContext|undefined,lastScream=-Infinity;
 let crowd=new ClubCrowd(director,crowdData,crowdMultiplier),crowdView:CrowdView|undefined;
 let trace=new ClubTrace(director);
 const makeSchedule=(clock:MissionClock,events:MissionEvents):EngineSchedule=>def.createSchedule?.({data:scheduleData,places:map.schedulePlaces,director,clock,events,traversals:map.traversals})
- ??new ScheduleSystem(scheduleData,map.schedulePlaces,director,clock,events);
+ ??new TraversalSchedule(scheduleData,map.schedulePlaces,director,clock,events,map.traversals);
 let events=new MissionEvents(),clock=new MissionClock(rulesData.schedule,events),schedule=makeSchedule(clock,events),dialogue=new DialogueSystem(dialogueData,map.schedulePlaces,director,clock,rulesData.dialogue,events);
 let lastAlert=0;let exploration=false;
 function toggleExploration(){exploration=!exploration;document.body.classList.toggle('exploration',exploration);$('#explore').textContent=`探索表示 ${exploration?'なし':'あり'} · N`;}

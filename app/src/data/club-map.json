@@ -6213,6 +6213,9 @@
    "a": "H",
    "b": "M",
    "kind": "ladder",
+   "users": [
+    "technician"
+   ],
    "start": {
     "x": 36,
     "y": 0,

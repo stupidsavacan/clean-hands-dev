@@ -3,7 +3,7 @@ import {test} from 'node:test';
 import {Director,type Mission,type PlayerView,type Rules} from '../src/ai.ts';
 import {ClubChances} from '../src/club/chances.ts';
 import {ClubCrowd} from '../src/club/crowd.ts';
-import {ClubSchedule} from '../src/club/schedule.ts';
+import {TraversalSchedule} from '../src/engine/schedule.ts';
 import {DialogueSystem} from '../src/dialogue.ts';
 import {MissionEvents} from '../src/events.ts';
 import {markDead} from '../src/kills.ts';
@@ -53,7 +53,7 @@ function club(start:Position={...map.spawn,y:0}){
  const director=new Director(mission,world,nav,sightBoxes({...mission,walls:mission.walls.filter(w=>!map.collisionOnlyIds.includes(w.id))}),rules as Rules);
  const events=new MissionEvents(),clock=new MissionClock(rules.schedule,events);
  const m3=new M3System(director,map.hides,rules.m3),m4=new M4System(director,map.checkpoints as Checkpoint[],rules.m4,map.hides);
- const schedule=new ClubSchedule(plans,map.schedulePlaces,director,clock,events,map.traversals[0]);
+ const schedule=new TraversalSchedule(plans,map.schedulePlaces,director,clock,events,map.traversals);
  const field=new ClubChances(director,m3,m4,clock,events,chances,schedule);
  const dialogue=new DialogueSystem(lines,map.schedulePlaces,director,clock,rules.dialogue,events);
  const crowd=new ClubCrowd(director,crowdData,1);
