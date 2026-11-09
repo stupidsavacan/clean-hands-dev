@@ -1,4 +1,10 @@
 import test from 'node:test';
+import * as T from 'three';
+import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
+import {PLAYER_BASE64} from '../src/player-data.ts';
+import {Rig} from '../src/rig.ts';
+import {neutral} from '../src/motion-runtime.ts';
+import {applyTraversalPose} from '../src/traversal-pose.ts';
 import assert from 'node:assert/strict';
 import club from '../src/data/club-map.json' with {type:'json'};
 import layout from '../src/data/club-layout.json' with {type:'json'};
@@ -97,4 +103,22 @@ test('the editor and club builder compile the same geometry without any club ide
   rooms:[{id:'upper',label:'Upper',floor:5,minX:0,maxX:3,minZ:0,maxZ:3}],walls:[],furniture:[],stairs:[],platforms:[]};
  assert.deepEqual(compileMapGeometry(small).floors.map(f=>[f.floor,f.y,f.areas.length]),[[5,2,4]]);
  assert.throws(()=>assertMapLayout({...small,ground:{minX:2,maxX:1,minZ:0,maxZ:1}}));
+});
+
+test('on the ladder the knees bend forward toward the rungs and the elbows stay near 100 degrees',async()=>{
+ const scene=(await new GLTFLoader().register(()=>({name:'pose-only-no-textures',loadTexture:()=>Promise.resolve(null)})).parseAsync(Uint8Array.from(atob(PLAYER_BASE64),c=>c.charCodeAt(0)).buffer,'')).scene;
+ const avatar=new T.Group(),lean=new T.Group();avatar.add(lean);lean.add(scene);const rig=new Rig(scene);
+ const at=(n:string)=>rig.joints.get(n)!.bone.getWorldPosition(new T.Vector3());
+ const angle=(a:string,b:string,c:string)=>at(a).sub(at(b)).angleTo(at(c).sub(at(b)))*180/Math.PI;
+ const total=traversalSeconds(SAMPLE_LADDER);
+ for(const part of traversalParts(SAMPLE_LADDER,false)!)for(let i=0;i<=24;i++){
+  const f=sampleTraversal(SAMPLE_LADDER,false,(part.start+part.seconds*i/24)/total),id=part.kind+' '+(i/24).toFixed(2);
+  neutral(rig);lean.rotation.x=0;avatar.position.set(f.position.x,f.position.y,f.position.z);avatar.updateMatrixWorld(true);
+  applyTraversalPose(rig,avatar,lean,f);
+  for(const s of ['l','r']){
+   const hip=avatar.worldToLocal(at('thigh'+s)),knee=avatar.worldToLocal(at('shin'+s)),foot=avatar.worldToLocal(at('foot'+s));
+   if(angle('thigh'+s,'shin'+s,'foot'+s)<170)assert.ok(knee.z>(hip.z+foot.z)/2,id+' knee '+s+' folds backward');
+   if(part.kind==='climb')assert.ok(Math.abs(angle('upperarm'+s,'forearm'+s,'hand'+s)-95)<=22,id+' elbow '+s+' '+angle('upperarm'+s,'forearm'+s,'hand'+s).toFixed(0));
+  }
+ }
 });

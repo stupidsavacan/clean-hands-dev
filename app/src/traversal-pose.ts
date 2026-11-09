@@ -3,9 +3,10 @@ import poses from './data/party-motions.json' with {type:'json'};
 import type {TraversalFrame} from './party/traversal.ts';
 import {LADDER} from './ladder-motion.ts';
 import {reach} from './motion-runtime.ts';
+import {twoBone} from './gestures.ts';
 import type {Rig} from './rig.ts';
 
-const base=new T.Quaternion(),target=new T.Vector3();
+const base=new T.Quaternion(),target=new T.Vector3(),pole=new T.Vector3();
 
 /** The traversal layer on top of the normal rig, the same for the player, NPCs and the lab. The frame's heading is
  * the body's whole heading (the game keeps the player's heading in step with it, so nothing snaps at the end). */
@@ -18,7 +19,8 @@ export function applyTraversalPose(rig:Rig,avatar:T.Object3D,lean:T.Object3D,fra
  const swing=vault?0:Math.sin(cycle*2*Math.PI);
  for(const [name,[x,y,z]] of Object.entries(pose.bones)){
   const bone=rig.joints.get(name)?.bone;
-  if(!bone)continue;
+  // On a ladder the legs come from the IK below alone (the fixed pose bent the knees backward).
+  if(!bone||!vault&&/^(thigh|shin)/.test(name))continue;
   const side=name.endsWith('l')?1:-1;
   base.copy(bone.quaternion);
   const step=name.startsWith('thigh')||name.startsWith('upperarm')?swing*.25*side:0;
@@ -28,8 +30,14 @@ export function applyTraversalPose(rig:Rig,avatar:T.Object3D,lean:T.Object3D,fra
  avatar.updateMatrixWorld(true);
  for(const [side,sign] of [['l',1],['r',-1]] as const){
   const hand=frame.hand?.(sign),foot=frame.foot?.(sign);
-  if(hand&&frame.hands>0)reach(rig,side,target.set(hand.x,hand.y,hand.z),frame.hands);
-  if(foot&&frame.feet>0)reach(rig,side,target.set(foot.x,foot.y,foot.z),frame.feet,true);
+  // Climbing: the knees bend forward toward the rungs and the elbows out and down (2026-11-09: the knees used to
+  // fold backward from the old fixed pose). Over a window sill the hands still reach from the vault pose.
+  if(vault){
+   if(hand&&frame.hands>0)reach(rig,side,target.set(hand.x,hand.y,hand.z),frame.hands);
+   continue;
+  }
+  if(hand&&frame.hands>0)twoBone(rig,side,target.set(hand.x,hand.y,hand.z),avatar.localToWorld(pole.set(sign*.75,.95,-.15)),frame.hands);
+  if(foot&&frame.feet>0)twoBone(rig,side,target.set(foot.x,foot.y,foot.z),avatar.localToWorld(pole.set(sign*.1,.55,1)),frame.feet,true);
  }
 }
 

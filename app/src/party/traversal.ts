@@ -125,6 +125,8 @@ function sampleLadder(link:Traversal,reverse:boolean,progress:number,ladder:Ladd
   position=entering?walk(plan.before,plan.beforeLength-pose.away).position:walk(plan.after,pose.away).position;
   heading=turnTo(f,entering?plan.approach:plan.leave,pose.turn);
  }
+ // Hanging back from the rungs (opposite the way the climber faces on the ladder).
+ position={...position,x:position.x-Math.sin(f)*pose.hang,z:position.z-Math.cos(f)*pose.hang};
  return {position,heading,phase:part.kind,weight:pose.weight,hands:pose.hands,feet:pose.feet,cycle:pose.y/(2*LADDER.rung),vault:false,
   hand:side=>toWorld(ladder,pose.hand(side)),foot:side=>toWorld(ladder,pose.foot(side))};
 }
