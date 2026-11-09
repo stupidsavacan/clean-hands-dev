@@ -12,7 +12,13 @@ const actors=(plans as ScheduleData).actors;
 const places=club.schedulePlaces as Record<string,{label:string}>;
 const mmss=(time:number)=>Math.floor(time/60)+':'+String(Math.floor(time%60)).padStart(2,'0');
 const clock=(row:Row)=>Number(row.t??row.time??row.play??0);
-const outcome=(run:RecordRun)=>String(run.end?.outcome??'未終了');
+// The recorder saves {success,reason} when a mission ends and a short word when the page is closed (playtest/server.py).
+const REASONS:Record<string,string>={caught:'捕まった',killed:'倒された',target_escaped:'標的が逃げた'};
+const outcome=(run:RecordRun)=>{
+ const o=run.end?.outcome as {success?:boolean;reason?:string}|string|undefined;
+ if(o&&typeof o==='object')return o.success?'成功（脱出）':'失敗：'+(REASONS[String(o.reason)]??String(o.reason));
+ return String(o??run.end?.why??'未終了');
+};
 const mean=(values:number[])=>values.length?values.reduce((sum,n)=>sum+n,0)/values.length:null;
 const amount=(v:number|null)=>v===null?'記録なし':v.toFixed(2);
 const samples=(run:RecordRun,key:string)=>mean((run.samples??[]).flatMap(s=>typeof s[key]==='number'&&Number.isFinite(s[key])?[s[key]]:[]));

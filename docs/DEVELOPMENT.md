@@ -102,8 +102,11 @@
 
 - 遊びながらの記録：`playtest/start.bat`（または `playtest` で `python server.py`）で http://127.0.0.1:8795/ が開きます。F8 でメモ（画面とその時の状態を JSON で `playtest/runs/` に保存）、F9 でデバッグ画面。ホテル・夜会・クラブの今のページで動きます。説明は `playtest/README.md`。
 
-- 確認用のサーバーは止めません（8796：このフォルダ、8797：画像の保存、8798：描画を止めない写し）。
-- ブラウザの画面が隠れていると描画が止まります。8798 の写し（`requestAnimationFrame` を時間で回す版）で確かめます。
+- 確認用のサーバーは `start-dev.bat`（このフォルダの一番上）を1回開くと全部起動します。1つのウィンドウ（`tools/dev-servers.py`）が次の4つを受け持ち、閉じると止まります。止めません。
+  - 8795：記録つきで遊ぶ（`/`、`/party`、`/club`、`/ai-lab`、`/animation-lab`、`/item-lab`、`/map-lab`、`/ui-lab`、記録の一覧 `/runs`・`/memos`）
+  - 8796：このフォルダのファイル（`/club-prototype.html`、`/animation-lab.html` など）
+  - 8797：ラボの画像の保存（`POST /save?name=名前` → `playtest/shots/`、git には入れません）
+  - 8798：8796 と同じページを、ブラウザの画面が隠れていても描画を止めずに出します（`requestAnimationFrame` を時間で回す版。いつも今のビルドです）
 - 画面の画像は、Chrome のヘッドレスで撮れます（`--headless=new --screenshot=... --window-size=1280,720`）。1回ごとに別の `--user-data-dir` を使います。
 
 ## 履歴（git）

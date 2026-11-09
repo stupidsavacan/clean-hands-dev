@@ -19,3 +19,5 @@ __pycache__/
 # Editors and OS
 .DS_Store
 Thumbs.db
+# Pictures saved by the labs through port 8797
+/playtest/shots/

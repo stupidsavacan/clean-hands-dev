@@ -1,0 +1,100 @@
+"""CLEAN HANDS: every local check server in one process (start-dev.bat starts this). Localhost only.
+
+  8795  the games with the recorder (F8 notes, F9 debug)  /  /party  /club  /ai-lab /animation-lab /item-lab /map-lab /ui-lab
+        and the saved runs /runs  /memos  (playtest/server.py)
+  8796  this folder as files: /club-prototype.html, /animation-lab.html, /map-lab.html ...
+  8797  saves a picture posted from a lab page: POST /save?name=x with a PNG data URL -> playtest/shots/x.png
+  8798  the same files as 8796, but pages keep drawing while the browser pane is hidden
+        (requestAnimationFrame runs on a timer)
+"""
+import base64, functools, os, re, sys, threading, urllib.parse
+from http.server import SimpleHTTPRequestHandler, BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+SHOTS = ROOT / 'playtest' / 'shots'
+HOST = '127.0.0.1'
+sys.path.insert(0, str(ROOT / 'playtest'))
+import server as playtest  # noqa: E402
+
+RAF = (b'<script>window.requestAnimationFrame=cb=>setTimeout(()=>cb(performance.now()),33);'
+       b'window.cancelAnimationFrame=id=>clearTimeout(id);</script>')
+
+
+class Files(SimpleHTTPRequestHandler):
+    def __init__(self, *a, **k):
+        super().__init__(*a, directory=str(ROOT), **k)
+
+    def end_headers(self):
+        self.send_header('Cache-Control', 'no-store')
+        super().end_headers()
+
+    def log_message(self, *a):
+        pass
+
+
+class AlwaysDrawing(Files):
+    def do_GET(self):
+        path = urllib.parse.unquote(urllib.parse.urlparse(self.path).path)
+        file = (ROOT / path.lstrip('/')).resolve()
+        if file.suffix == '.html' and file.is_file() and ROOT in file.parents:
+            page = file.read_bytes()
+            page = re.sub(rb'<head>', b'<head>' + RAF, page, count=1) if b'<head>' in page else RAF + page
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/html; charset=utf-8')
+            self.send_header('Content-Length', str(len(page)))
+            self.end_headers()
+            self.wfile.write(page)
+            return
+        super().do_GET()
+
+
+class Saver(BaseHTTPRequestHandler):
+    def cors(self, code):
+        self.send_response(code)
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Headers', '*')
+        self.end_headers()
+
+    def do_OPTIONS(self):
+        self.cors(204)
+
+    def do_POST(self):
+        name = os.path.basename(urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query).get('name', ['shot'])[0]) or 'shot'
+        data = self.rfile.read(int(self.headers['Content-Length'])).decode()
+        SHOTS.mkdir(parents=True, exist_ok=True)
+        (SHOTS / (name + '.png')).write_bytes(base64.b64decode(data.split(',', 1)[1]))
+        self.cors(200)
+        self.wfile.write(b'ok')
+
+    def log_message(self, *a):
+        pass
+
+
+class Server(ThreadingHTTPServer):
+    # On Windows a reused address lets a second server bind the same port silently, and the older one keeps answering.
+    allow_reuse_address = False
+
+
+def serve(port, handler):
+    try:
+        server = Server((HOST, port), handler)
+    except OSError:
+        print(f'  {port}: すでに使われています（前に起動したものが動いていればそのままで大丈夫です）')
+        return None
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    return server
+
+
+if __name__ == '__main__':
+    started = [serve(playtest.PORT, playtest.Handler), serve(8796, Files), serve(8797, Saver), serve(8798, AlwaysDrawing)]
+    if not any(started):
+        print('すべてのサーバーは、もう動いています。下のアドレスを開いてください。')
+    print('CLEAN HANDS 確認用サーバー（このウィンドウを閉じると止まります）' if any(started) else 'CLEAN HANDS 確認用サーバー')
+    print(f'  8795  記録つきで遊ぶ  http://{HOST}:8795/club   記録の一覧 http://{HOST}:8795/runs')
+    print(f'  8796  ページ         http://{HOST}:8796/club-prototype.html  /animation-lab.html  /map-lab.html')
+    print(f'  8797  画像の保存先    {SHOTS}')
+    print(f'  8798  描画を止めない  http://{HOST}:8798/animation-lab.html')
+    if not any(started):
+        sys.exit(0)
+    threading.Event().wait()
