@@ -39,10 +39,12 @@
   {"id": "drop_wires", "label": "ドロップの配線を外す", "at": {"x": 32.3, "y": 0, "z": 31.95}, "seconds": 3},
   {"id": "drop_lights", "label": "ドロップで照明を落とす", "at": {"x": 33.25, "y": 0, "z": 33.15}, "seconds": 2, "tool": {"item": "wrench", "label": "スパナで照明を仕込む", "seconds": 1}},
   {"id": "meet_note", "label": "机のメモを読む", "at": {"x": 15.45, "y": 0, "z": 30.9}, "seconds": 0.5},
-  {"id": "meet_call", "label": "内線で「相手が早く着いた」と伝える", "at": {"x": 15.45, "y": 0, "z": 32.2}, "seconds": 2}
+  {"id": "meet_call", "label": "内線で「相手が早く着いた」と伝える", "at": {"x": 15.45, "y": 0, "z": 32.2}, "seconds": 2, "repeat": true}
  ],
  "freezerApproach": {"x": -1.05, "z": 0},
  "vip": {
+  "target": "investor",
+  "escort": "escort",
   "_note": "HITMANの要人警備（2016年版の講演 Bodyguards and VIPs と三部作の Target Lockdown）。enabled を false にすると、その仕組みだけ止まる。",
   "lockdown": {
    "_note": "要人の避難。投資家が近くの銃声・群衆の悲鳴・倒れた人に気づくと、近くの警備（最大guards人）が囲み、安全な部屋へ連れて行く。holdSeconds守ったあと元の予定へ戻る。",
