@@ -3,7 +3,7 @@ from math import atan2, hypot, pi
 from random import Random
 from runpy import run_path
 from club_population import populate
-import json
+import json,sys
 P=Path(__file__).resolve().parent; D=P.parent/'app/src/data'
 def read(n):return json.loads((D/n).read_text(encoding='utf-8'))
 def write(n,v):(D/n).write_text(json.dumps(v,ensure_ascii=False,indent=1)+'\n',encoding='utf-8')
@@ -92,6 +92,10 @@ populate(v)
 for pl in v['schedulePlaces'].values():
  for st in v.get('platforms',[]):
   if st['minX']<=pl['x']<=st['maxX'] and st['minZ']<=pl['z']<=st['maxZ'] and pl['y']<1:pl['y']=st['y']
+# 2026-11-10: once the layout has been edited and saved in the map lab (8795/map-lab), writing it from here would throw
+# that work away. Pass --overwrite-map-lab-edits to do it anyway.
+if read('club-layout.json').get('editedInMapLab') and '--overwrite-map-lab-edits' not in sys.argv:
+ sys.exit('club-layout.json はマップ編集ラボで編集されています。上書きするなら --overwrite-map-lab-edits を付けてください。')
 write('club-layout.json',v)
 # 2026-11-03 (playtest: night was too dark to read the building): daytime with the house lights on. The coloured
 # lights stay but are weak; the rooms read by their real finishes below.

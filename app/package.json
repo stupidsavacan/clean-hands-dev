@@ -12,6 +12,7 @@
     "preview": "vite preview --host 127.0.0.1 --port 5175",
     "build:motions": "node scripts/build-motions.mjs",
     "build:all": "node scripts/build-all.mjs",
+    "map:check": "node --experimental-strip-types --no-warnings scripts/map-check.ts",
     "test:fast": "node --experimental-strip-types --no-warnings --test --test-skip-pattern=\"[Ww]alking ghost\" tests/*.test.ts",
     "docs": "node --experimental-strip-types --no-warnings scripts/spec-docs.ts",
     "spec": "npm run docs && npm run check && npm run test:fast"

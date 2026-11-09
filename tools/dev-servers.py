@@ -6,8 +6,13 @@
   8797  saves a picture posted from a lab page: POST /save?name=x with a PNG data URL -> playtest/shots/x.png
   8798  the same files as 8796, but pages keep drawing while the browser pane is hidden
         (requestAnimationFrame runs on a timer)
+
+  The map lab (8795/map-lab) reads and saves the club through 8795:
+    GET  /api/map-layout?map=club   -> {"layout": club-layout.json, "devices": club-mission.json devices}
+    POST /api/map-layout?map=club   (header X-Map-Lab: 1) the same shape: writes both files, rebuilds club-map.json
+                                    and the club page, and answers {"ok", "log"}.
 """
-import base64, functools, os, re, sys, threading, urllib.parse
+import base64, json, os, re, subprocess, sys, threading, urllib.parse
 from http.server import SimpleHTTPRequestHandler, BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
@@ -19,6 +24,74 @@ import server as playtest  # noqa: E402
 
 RAF = (b'<script>window.requestAnimationFrame=cb=>setTimeout(()=>cb(performance.now()),33);'
        b'window.cancelAnimationFrame=id=>clearTimeout(id);</script>')
+
+
+DATA = ROOT / 'app' / 'src' / 'data'
+MAPS = {'club': ('club-layout.json', 'club-mission.json')}
+
+
+def read_json(path):
+    return json.loads(path.read_text(encoding='utf-8'))
+
+
+def write_json(path, value):
+    # The club files are written by investigation/build-club-source.py: one-space indent, CRLF.
+    text = json.dumps(value, ensure_ascii=False, indent=1) + '\n'
+    path.write_bytes(text.replace('\n', '\r\n').encode('utf-8'))
+
+
+def run(args, cwd):
+    r = subprocess.run(args, cwd=str(cwd), capture_output=True, text=True, encoding='utf-8', errors='replace', shell=os.name == 'nt')
+    return r.returncode == 0, (r.stdout + r.stderr).strip()
+
+
+class Playtest(playtest.Handler):
+    def map_name(self):
+        name = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query).get('map', ['club'])[0]
+        return name if name in MAPS else None
+
+    def do_GET(self):
+        if urllib.parse.urlparse(self.path).path != '/api/map-layout':
+            return super().do_GET()
+        if not self.local():
+            return
+        name = self.map_name()
+        if not name:
+            return self.send(404, 'unknown map', 'text/plain')
+        layout, mission = MAPS[name]
+        body = {'layout': read_json(DATA / layout), 'devices': read_json(DATA / mission).get('devices', [])}
+        return self.send(200, json.dumps(body, ensure_ascii=False), 'application/json; charset=utf-8')
+
+    def do_POST(self):
+        if urllib.parse.urlparse(self.path).path != '/api/map-layout':
+            return super().do_POST()
+        if not self.local():
+            return
+        name = self.map_name()
+        if not name or self.headers.get('X-Map-Lab') != '1':
+            return self.send(404, 'not found', 'text/plain')
+        try:
+            body = json.loads(self.rfile.read(int(self.headers['Content-Length'])).decode('utf-8'))
+            layout, devices = body['layout'], body['devices']
+            if not isinstance(layout, dict) or not isinstance(devices, list) or not isinstance(layout.get('rooms'), list):
+                raise ValueError('layout')
+        except Exception:
+            return self.send(400, 'bad layout', 'text/plain')
+        layout_file, mission_file = MAPS[name]
+        # Marks the layout as edited here, so build-club-source.py does not silently write over it.
+        layout['editedInMapLab'] = True
+        write_json(DATA / layout_file, layout)
+        mission = read_json(DATA / mission_file)
+        if mission.get('devices') != devices:
+            mission['devices'] = devices
+            write_json(DATA / mission_file, mission)
+        log = []
+        ok, out = run(['node', '--experimental-strip-types', '--no-warnings', 'scripts/build-club.ts'], ROOT / 'app')
+        log.append(out)
+        if ok:
+            ok, out = run(['node', 'scripts/build-all.mjs', name], ROOT / 'app')
+            log.append(out)
+        return self.send(200 if ok else 500, json.dumps({'ok': ok, 'log': '\n'.join(log)}, ensure_ascii=False), 'application/json; charset=utf-8')
 
 
 class Files(SimpleHTTPRequestHandler):
@@ -87,11 +160,12 @@ def serve(port, handler):
 
 
 if __name__ == '__main__':
-    started = [serve(playtest.PORT, playtest.Handler), serve(8796, Files), serve(8797, Saver), serve(8798, AlwaysDrawing)]
+    started = [serve(playtest.PORT, Playtest), serve(8796, Files), serve(8797, Saver), serve(8798, AlwaysDrawing)]
     if not any(started):
         print('すべてのサーバーは、もう動いています。下のアドレスを開いてください。')
     print('CLEAN HANDS 確認用サーバー（このウィンドウを閉じると止まります）' if any(started) else 'CLEAN HANDS 確認用サーバー')
     print(f'  8795  記録つきで遊ぶ  http://{HOST}:8795/club   記録の一覧 http://{HOST}:8795/runs')
+    print(f'        マップ編集    http://{HOST}:8795/map-lab')
     print(f'  8796  ページ         http://{HOST}:8796/club-prototype.html  /animation-lab.html  /map-lab.html')
     print(f'  8797  画像の保存先    {SHOTS}')
     print(f'  8798  描画を止めない  http://{HOST}:8798/animation-lab.html')
