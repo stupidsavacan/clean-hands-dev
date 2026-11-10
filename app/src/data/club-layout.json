@@ -2569,7 +2569,7 @@
    "label": "DJ",
    "role": "waiter",
    "outfit": "dj",
-   "model": "photographer",
+   "model": "dj_experiment",
    "floor": 0,
    "route": [
     [

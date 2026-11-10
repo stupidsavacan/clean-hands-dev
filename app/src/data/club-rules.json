@@ -291,7 +291,7 @@
    "technician": "delivery",
    "bottle_server": "sommelier",
    "manager": "guest_suit",
-   "dj": "photographer"
+   "dj": "dj_experiment"
   },
   "_uniformHidesNote": "制服を着たとき隠すプレイヤー自身の部品。帽子の役は髪、サングラスの役は眼鏡。",
   "_undressedNote": "服を奪われた体が着ている下着のモデル。肌の色と体形で選ぶ。null は着替えない（プール客はもとから水着）。",
@@ -308,7 +308,8 @@
     "pool_guest_lean": null,
     "pool_guest_resort": null,
     "pool_guest_swimsuit": null,
-    "pool_guest_swimshorts": null
+    "pool_guest_swimshorts": null,
+    "dj_experiment": "underwear_dark"
    }
   },
   "uniformHides": {

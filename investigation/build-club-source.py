@@ -192,7 +192,9 @@ for name in ['rules','detection','mission','actions']:
   a['clothes']=[dict(id='cloak-uniform',disguise='bartender',pos=dict(x=11.1,y=0,z=6.7)),dict(id='kitchen-uniform',disguise='chef',pos=dict(x=12.4,y=0,z=33))];a['acts']=[]
  if name=='rules':
   for key,label in [('bartender','バーテンダー'),('technician','技術係'),('vip_guest','招待客'),('bottle_server','ボトル係'),('manager','店長'),('dj','DJ')]:a['disguises'][key]=dict(a['disguises']['suit'],label=label)
-  a['m4']['uniformModels'].update(bartender='waiter',technician='delivery',bottle_server='sommelier',manager='guest_suit',dj='photographer')
+  a['m4']['uniformModels'].update(bartender='waiter',technician='delivery',bottle_server='sommelier',manager='guest_suit',dj='dj_experiment')
+  # 2026-11-10: the DJ wears Astra's DJ (character-revision dj_experiment); its body is the dark-skinned one.
+  a['m4']['undressed']['byModel']['dj_experiment']='underwear_dark'
   # All security in black suits: the bouncer's uniform is the bodyguards' suit and sunglasses (2026-11-03).
   a['m4']['uniformModels']['guard']='bodyguard';a['m4']['uniformHides']['guard']=a['m4']['uniformHides']['bodyguard']
   for key,label in dict(guard='用心棒',bodyguard='護衛',chef='料理人',cleaner='皿洗い',beachbar='バー係').items():

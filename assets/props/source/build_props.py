@@ -276,13 +276,17 @@ def build_dj_desk():
 
     # Recessed panels and stepped fins give the front a readable silhouette in club lighting.
     box(-2.36, 2.36, 0, .09, -.45, .43, GRAPHITE)
-    box(-2.32, 2.32, .085, .76, -.43, .41, GRAPHITE)
+    # The body and top stop at a lower shelf on the DJ's right (x 1.25-1.88), where the laptop stands (2026-11-10).
+    for x0, x1, top in ((-2.32, 1.25, .76), (1.25, 1.88, .70), (1.88, 2.32, .76)):
+        box(x0, x1, .085, top, -.43, .41, GRAPHITE)
     for x in (-1.78, -.9, 0, .9, 1.78):
         box(x-.36, x+.36, .145, .705, -.474, -.426, STEELBLUE)
         box(x-.335, x+.335, .17, .68, -.485, -.47, GRAPHITE)
         for rib in (-.24, -.12, 0, .12, .24):
             box(x+rib-.025, x+rib+.025, .23, .63, -.498, -.481, STEELBLUE)
-    box(-2.49, 2.49, .75, .815, -.5, .48, GRAPHITE)
+    box(-2.49, 1.25, .75, .815, -.5, .48, GRAPHITE)
+    box(1.88, 2.49, .75, .815, -.5, .48, GRAPHITE)
+    box(1.25, 1.88, .685, .70, -.5, .48, GRAPHITE)                       # the laptop shelf
     box(-2.38, 2.38, .715, .751, -.489, -.452, METAL)
 
     for x in (-.89, .89):
@@ -313,15 +317,37 @@ def build_dj_desk():
     for i in range(5):
         box(-.042, .042, .926, .932, -.21+i*.044, -.19+i*.044, TEAL if i<4 else YELLOW)
 
-    # Low-profile laptop and wedge stand fit under the one-metre sightline.
-    box(1.27, 1.88, .813, .856, -.49, -.28, STEELBLUE)
-    box(1.295, 1.855, .855, .875, -.482, -.269, GRAPHITE)
-    box(1.31, 1.84, .873, .882, -.446, -.28, METAL)
-    m.solid([[point(y,z,x) for x,z in ((1.295,front),(1.855,front),(1.855,back),(1.295,back))]
-             for y,back,front in ((.873,-.484,-.468),(1.011,-.499,-.478))], GRAPHITE)
-    m.face([point(.884,-.467,1.839),point(.884,-.467,1.311),
-            point(1.001,-.477,1.311),point(1.001,-.477,1.839)], BLUE)
-    box(1.551, 1.599, .943, .974, -.5, -.496, PAPER)
+    # The laptop on its stand, from the Claude version of the desk (2026-11-10, the user's choice): stand, keyboard,
+    # touchpad and a lid leaning back 22 degrees, the screen toward the DJ, a lit logo on the lid's back toward the
+    # audience. Written in that version's frame (the DJ at z -1, the audience at +z), which is this one turned half
+    # round: C(x, y, z) is this desk's (-x, y, -z).
+    SHELF = .70
+    C = lambda x, y, z: point(y, -z, -x)
+    def turned(cx, cz, yaw):
+        s, k = math.sin(yaw), math.cos(yaw)
+        return lambda lx, y, lz: C(cx + lx * k + lz * s, y, cz - lx * s + lz * k)
+    cx, cz = -1.565, -.24
+    lap = turned(cx, cz, math.atan2(cx, 1.0 + cz))                     # its front turned to the DJ
+    rise = lambda lz: .79 + (lz + .11) * (.04 / .22)                   # the stand's top, rising away from the DJ
+    for lx in (-.12, .12):
+        m.solid([[lap(lx - .006, SHELF, -.11), lap(lx - .006, SHELF, .11), lap(lx - .006, rise(.11), .11), lap(lx - .006, rise(-.11), -.11)],
+                 [lap(lx + .006, SHELF, -.11), lap(lx + .006, SHELF, .11), lap(lx + .006, rise(.11), .11), lap(lx + .006, rise(-.11), -.11)]], METAL)
+    def slab(x0, x1, z0, z1, lift, thick, c):
+        m.solid([[lap(x0, rise(z0) + lift, z0), lap(x1, rise(z0) + lift, z0), lap(x1, rise(z1) + lift, z1), lap(x0, rise(z1) + lift, z1)],
+                 [lap(x0, rise(z0) + lift + thick, z0), lap(x1, rise(z0) + lift + thick, z0), lap(x1, rise(z1) + lift + thick, z1), lap(x0, rise(z1) + lift + thick, z1)]], c)
+    slab(-.14, .14, -.11, .11, -.008, .008, METAL)                     # stand plate
+    slab(-.15, .15, -.105, .105, 0, .014, STEELBLUE)                   # laptop base
+    slab(-.13, .13, -.02, .095, .013, .002, GRAPHITE)                  # keyboard
+    slab(-.04, .04, -.095, -.03, .013, .0015, METAL)                   # touchpad
+    hinge_z, hinge_y, lean, tall = .105, rise(.105) + .014, math.radians(22), .165
+    s, k = math.sin(lean), math.cos(lean)
+    lid = lambda lx, u, w: lap(lx, hinge_y + u * k - w * s, hinge_z + u * s + w * k)
+    def lid_box(x0, x1, u0, u1, w0, w1, c):
+        m.solid([[lid(x0, u0, w0), lid(x1, u0, w0), lid(x1, u1, w0), lid(x0, u1, w0)],
+                 [lid(x0, u0, w1), lid(x1, u0, w1), lid(x1, u1, w1), lid(x0, u1, w1)]], c)
+    lid_box(-.15, .15, 0, tall, 0, .008, STEELBLUE)                    # lid
+    lid_box(-.137, .137, .01, tall - .012, -.0015, .001, BLUE)         # screen, toward the DJ
+    lid_box(-.025, .025, .06, .11, .007, .0095, CYAN)                  # lit logo on the back
 
     for x in (-2.13, 2.13):
         box(x-.243, x+.243, .814, 1.013, -.407, .058, GRAPHITE)
