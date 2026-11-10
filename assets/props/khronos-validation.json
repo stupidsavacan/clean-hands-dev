@@ -21,6 +21,15 @@
         "2 NODE_EMPTY /nodes/4"
       ]
     },
+    "moving_head": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/1"
+      ]
+    },
     "phone": {
       "errors": 0,
       "warnings": 0,
@@ -37,6 +46,17 @@
       "messages": [
         "2 NODE_EMPTY /nodes/0",
         "2 NODE_EMPTY /nodes/2"
+      ]
+    },
+    "sink": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 4,
+      "messages": [
+        "2 NODE_EMPTY /nodes/0",
+        "2 NODE_EMPTY /nodes/1",
+        "2 NODE_EMPTY /nodes/3",
+        "2 NODE_EMPTY /nodes/4"
       ]
     },
     "tv": {

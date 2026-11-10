@@ -194,6 +194,71 @@ def build_sink():
                'DRAIN': drain, 'STAND': fz(.64, 0)}
 
 
+def build_moving_head(root, material):
+    # Z is up in Blender. Each mesh is built in its own pivot space.
+    deck, arms, lamp = Mesh(), Mesh(), Mesh()
+    deck.solid([sink_ring(w, d, d, z, .018) for w, d, z in (
+        (.148, .101, -.154), (.169, .121, -.141), (.169, .121, -.052), (.155, .108, -.042),
+    )], GRAPHITE)
+    # A single saddle clamp with a silver shoe, hooked jaw and screw.
+    deck.box((-.046, -.033, -.047), (.046, .033, -.032), METAL)
+    deck.side([(-.032, -.036), (.025, -.036), (.047, -.023), (.047, 0),
+               (.025, 0), (.025, -.017), (-.022, -.017), (-.022, -.005),
+               (-.038, -.005), (-.038, -.026)], .031, METAL)
+    deck.tube((0, .021, -.02), (0, .059, -.02), .009, 8, STEELBLUE)
+    deck.box((-.025, -.122, -.126), (.025, -.119, -.104), METAL)
+    deck.box((-.015, -.123, -.12), (.015, -.120, -.11), BLUE)
+    for x in (-.117, .117):
+        for z in (-.117, -.093):
+            deck.box((x - .024, -.122, z), (x + .024, -.120, z + .006), METAL)
+
+    pan = -.165
+    pivot = -.194
+    arms.tube((0, 0, -.017), (0, 0, .015), .061, 12, METAL)
+    arms.solid([sink_ring(w, d, d, z, .02) for w, d, z in (
+        (.145, .056, -.057), (.152, .061, -.047), (.137, .05, -.013),
+    )], GRAPHITE)
+    for side in (-1, 1):
+        first_arm_face = len(arms.c)
+        arms.side([(-.058, -.035), (.058, -.035), (.069, -.074),
+                   (.058, -.202), (.043, -.235), (-.043, -.235),
+                   (-.058, -.202), (-.069, -.074)], .017, GRAPHITE, side * .138)
+        for bevel in (1, 3, 5, 7):
+            arms.c[first_arm_face + bevel] = METAL
+        arms.tube((side * .096, 0, pivot), (side * .129, 0, pivot), .025, 6, METAL)
+        arms.tube((side * .153, 0, pivot), (side * .160, 0, pivot), .038, 10, METAL)
+        arms.tube((side * .159, 0, pivot), (side * .165, 0, pivot), .023, 8, GRAPHITE)
+
+    # The front rim rolls into the recessed lens; the lens rises slightly towards its centre.
+    profile = [(.068, -.113), (.088, -.119), (.102, -.105), (.106, -.057),
+               (.106, .029), (.091, .064), (.067, .077)]
+    lamp.solid([[(r * math.cos(a * math.tau / 12), r * math.sin(a * math.tau / 12), z)
+                 for a in range(12)] for r, z in profile], GRAPHITE)
+    lamp.c[:12] = [METAL] * 12
+    lens_z = -.116
+    lamp.solid([[(r * math.cos(a * math.tau / 12), r * math.sin(a * math.tau / 12), z)
+                 for a in range(12)] for r, z in ((.057, lens_z), (.068, -.111), (.069, -.109))], CYAN)
+    lamp.c[:12] = [BLUE] * 12
+    lamp.c[-2] = STEELBLUE
+    for y in (-.034, 0, .034):
+        lamp.box((-.045, y - .003, .075), (.045, y + .003, .081), METAL)
+
+    base_node = deck.build('base', material)
+    base_node.parent = root
+    yoke_node = arms.build('yoke', material)
+    yoke_node.parent = base_node
+    yoke_node.location.z = pan
+    head_node = lamp.build('head', material)
+    head_node.parent = yoke_node
+    head_node.location.z = pivot
+    hang = (0, 0, 0)
+    empty('HANG', hang, base_node)
+    empty('BEAM', (0, 0, lens_z), head_node)
+    vertices = deck.v + [(x, y, z + pan) for x, y, z in arms.v]
+    vertices += [(x, y, z + pan + pivot) for x, y, z in lamp.v]
+    return vertices, {'HANG': hang, 'BEAM': (0, 0, lens_z + pan + pivot)}
+
+
 PROPS = {
     'phone': ('hand', build_phone, 'スマートフォン'),
     'wine_glass': ('hand', build_wine_glass, 'ワイングラス'),
@@ -203,22 +268,27 @@ PROPS = {
     'tv': ('furniture', build_tv, 'テレビ'),
     'vacuum': ('furniture', build_vacuum, '掃除機'),
     'sink': ('furniture', build_sink, '洗面台'),
+    'moving_head': ('furniture', build_moving_head, 'ムービングライト'),
 }
 
 
 def make(aid):
     kind, fn, label = PROPS[aid]
     bpy.ops.wm.read_factory_settings(use_empty=True)
-    mesh, anchors = fn()
     root = bpy.data.objects.new(aid, None); bpy.context.collection.objects.link(root)
-    ob = mesh.build(aid + '_mesh', base.palette_material()); ob.parent = root
-    for name, p in anchors.items(): empty(name, p, root)
+    if aid == 'moving_head':
+        vertices, anchors = fn(root, base.palette_material())
+    else:
+        mesh, anchors = fn()
+        ob = mesh.build(aid + '_mesh', base.palette_material()); ob.parent = root
+        for name, p in anchors.items(): empty(name, p, root)
+        vertices = mesh.v
     folder = OUT / 'models' / aid; folder.mkdir(parents=True, exist_ok=True)
     glb = folder / (aid + '.glb')
     bpy.ops.export_scene.gltf(filepath=str(glb), export_format='GLB', export_yup=True, export_apply=True)
     j, tris, size = glb_info(glb)
     to_gl = lambda p: [round(p[0], 4), round(p[2], 4), round(-p[1], 4)]
-    xs = [v[0] for v in mesh.v]; ys = [v[1] for v in mesh.v]; zs = [v[2] for v in mesh.v]
+    xs, ys, zs = zip(*vertices)
     return {'id': aid, 'kind': kind, 'label': label, 'triangles': tris, 'bytes': size,
             'size_m': [round(max(xs) - min(xs), 3), round(max(zs) - min(zs), 3), round(max(ys) - min(ys), 3)],
             'anchors': {k: to_gl(v) for k, v in anchors.items()}}
@@ -230,5 +300,5 @@ if __name__ == '__main__':
     path = OUT / 'build-info.json'
     old = {e['id']: e for e in json.loads(path.read_text(encoding='utf-8'))} if path.exists() and args else {}
     old.update({e['id']: e for e in info})
-    path.write_text(json.dumps([old[a] for a in PROPS if a in old], ensure_ascii=False, indent=2), encoding='utf-8')
+    path.write_text(json.dumps([old[a] for a in PROPS if a in old], ensure_ascii=False, indent=2), encoding='utf-8', newline='\r\n')
     for e in info: print('BUILT', e['id'], e['triangles'], 'tris', e['bytes'], 'bytes', e['size_m'])

@@ -17,6 +17,7 @@ import crowd from '../data/club-crowd.json';
 import stage3 from '../data/club-stage3.json';
 import {ClubChances} from './chances';
 import {ClubShow} from './show';
+import {itemModel,loadItemModels} from '../item-models';
 import type {CrowdData} from '../engine/crowd';
 import type {ChancesData} from '../chances';
 
@@ -50,7 +51,9 @@ runGame({
   let show:ClubShow|undefined;
   return {
    spin:ball,animated:dots,
-   afterFreeze:()=>{show=new ClubShow(scene,hemi);},
+   afterFreeze:()=>{void loadItemModels().then(()=>{
+    show=new ClubShow(scene,hemi,itemModel('moving_head'));
+   });},
    step:(seconds,frame,dark,mission)=>{
     ball.rotation.y+=frame*.25;show?.step(seconds,dark);
     dots.forEach((dot,i)=>{dot.position.x=18+i%6*2.5+Math.sin(mission*.4+i)*.5;dot.position.z=15+Math.floor(i/6)*2.5+Math.cos(mission*.4+i)*.5;});
