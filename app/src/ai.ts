@@ -114,7 +114,7 @@ export class Npc{
  get navigationStatus(){return this.busy?'busy':this.routeStatus;}
  navigationDebug(){return {status:this.navigationStatus,destination:this.pathGoal&&{...this.pathGoal},path:this.path.map(p=>({...p}))};}
  private path:Position[]=[];private pathGoal:Position|null=null;private lastPos:Position|null=null;private repath=0;private stuck=0;private noticed=false;
- constructor(def:NpcDef,level:Level,shared=new Set<string>()){this.id=def.id;this.role=def.role as Role;this.label=def.label;this.route=def.route.map(r=>[...r]);this.look=def.look&&[...def.look];this.knowsFaces=def.knowsFaces??[];this.post=def.post===undefined?[]:[def.post].flat();this.target=!!def.target;this.outfit=def.outfit;this.shared=shared;const r=def.route[0];this.homeY=plateY(level,def.floor);this.pos={x:r[0],y:this.homeY,z:r[1]};
+ constructor(def:NpcDef,level:Level,shared=new Set<string>()){this.id=def.id;this.role=def.role as Role;this.label=def.label;this.route=def.route.map(r=>[...r]);this.look=def.look&&[...def.look];this.knowsFaces=[...def.knowsFaces??[]];this.post=def.post===undefined?[]:[def.post].flat();this.target=!!def.target;this.outfit=def.outfit;this.shared=shared;const r=def.route[0];this.homeY=plateY(level,def.floor);this.pos={x:r[0],y:this.homeY,z:r[1]};
   this.faction=def.faction??'';this.securityRole=def.securityRole??'';this.combatProfile=def.combatProfile;this.loadout=def.loadout;this.disguiseId=def.disguiseId??def.outfit;
   const next=def.route[1]??def.look;this.heading=next?Math.atan2(next[0]-r[0],next[1]-r[1]):0;}
  knowsFace(disguise:string,outfitOwner?:string){return this.id===outfitOwner||this.knowsFaces.includes(disguise);}

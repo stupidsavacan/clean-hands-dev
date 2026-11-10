@@ -329,6 +329,27 @@ test('club searching (on 2026-11-10): a murdered body found makes every guard se
  assert.equal(g.log.filter(e=>e.type==='flag.set'&&e.id==='search_enforcers').length,1);
 });
 
+// HD16 (2026-11-10): as in HITMAN (Hitman Wiki "Alert Levels": guards become enforcers searching around "a crime/dead
+// or unconscious body"; accidental deaths and knockouts do not), a knocked-out body found starts the search too.
+test('HD16 club searching: an unconscious body found (not an accident) starts it as well',()=>{
+ const g=club({x:2,y:0,z:20});
+ g.events.emit({type:'body.found',time:g.clock.elapsed,id:'guest_01',life:'unconscious',judgement:'murder'});
+ assert.ok(g.log.some(e=>e.type==='flag.set'&&e.id==='search_enforcers'));
+ const h=club({x:2,y:0,z:20});
+ h.events.emit({type:'body.found',time:h.clock.elapsed,id:'guest_01',life:'unconscious',judgement:'accident'});
+ assert.ok(!h.log.some(e=>e.type==='flag.set'&&e.id==='search_enforcers'),'an accidental knockout does not');
+});
+
+// Playtest 2026-11-10: after a search, "最初からやり直す" started every guard already seeing through the suit. The search
+// wrote into the map's own knowsFaces lists, which the next run's people were made from.
+test('club searching: the next run starts with the map\'s own outfits, not the last run\'s search',()=>{
+ const first=club({x:2,y:0,z:20});
+ first.events.emit({type:'body.found',time:first.clock.elapsed,id:'guest_01',life:'dead',judgement:'murder'});
+ assert.ok(first.director.npcs.filter(n=>n.guard&&n.active).every(n=>n.knowsFace('suit')));
+ const next=club({x:2,y:0,z:20});
+ assert.ok(next.director.npcs.every(n=>!n.knowsFace('suit')),'nobody knows the suit at the start');
+});
+
 test('club VIP escort check: a quietly downed investor is looked for after the set time',()=>{
  const g=club({x:2,y:0,z:20});
  g.investor.pos={x:2,y:0,z:26};

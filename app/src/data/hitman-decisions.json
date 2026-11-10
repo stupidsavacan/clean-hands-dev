@@ -267,6 +267,23 @@
     "tests/combat-motion.test.ts",
     "tests/visual-state.test.ts"
    ]
+  },
+  {
+   "id": "HD16",
+   "topic": "捜索中に見破る人になる条件",
+   "refs": [
+    "investigation/hitman-vip-security-research-20261103.md 2.2"
+   ],
+   "hitman": "犯行の跡（死体か気絶した体、爆発など）が見つかると捜索になり、警備は見破る人になる。事故の死亡や事故の気絶では、そうならない（Hitman Wiki「Alert Levels」）。",
+   "ours": "クラブでは、死体か気絶した体が見つかると（事故は除く）、120 秒の間、警備は全員どの服でも見破る（club-stage3.json vip.searchEnforcers）。",
+   "decision": "align",
+   "by": "claude",
+   "date": "2026-11-10",
+   "status": "done",
+   "reason": "気絶した体でも捜索が始まるのはバグではないかと利用者が確かめ、HITMAN に合わせると決めた（2026-11-10）。メモの「殺しの死体」を直した。",
+   "tests": [
+    "tests/club-stage3.test.ts"
+   ]
   }
  ]
 }

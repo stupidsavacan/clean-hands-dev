@@ -6,7 +6,8 @@
 //  - escortCheck: the target down (dead or out cold): after `seconds` the nearest guard goes to look; if the body is
 //    still not found, `widenGuards` more search round the spot.
 //  - escape (off in the club): after `afterLockdowns` lockdowns the target runs for `exit` instead; reaching it fails.
-//  - searchEnforcers (off in the club): a murdered body found makes every guard see through every outfit for a while.
+//  - searchEnforcers (on in the club since 2026-11-10): a dead or unconscious body found (not an accident) makes every
+//    guard see through every outfit for a while (HD16).
 import type {Director,Npc} from '../ai.ts';
 import type {M3System} from '../m3.ts';
 import type {MissionClock} from '../schedule.ts';
