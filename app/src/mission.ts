@@ -3,10 +3,14 @@ import type {MissionEvents} from './events.ts';
 /** Mission progress: eliminate every target, then leave by any of the exits. Failure is being caught (the agent's
  * death once gunfights exist) or a target escaping (evacuation at hotel alert 3 arrives with 5.7). */
 export type FailReason='caught'|'killed'|'target_escaped';
+/** The word for the place in shared sentences, until a map names its own (GameDef.text.venue). */
+export const VENUE='ホテル';
+/** A shared sentence with {場所} put in as this map's place word. */
+export const venueText=(text:string,venue=VENUE)=>text.replaceAll('{場所}',venue);
 export const FAIL_TEXT:Record<FailReason,{title:string;text:string}>={
  caught:{title:'捕まった。',text:'警戒した警備員に追いつかれた。見つかったら視界を切り、疑惑が下がるのを待つ。'},
  killed:{title:'倒れた。',text:'撃ち合いで力尽きた。'},
- target_escaped:{title:'ターゲットに逃げられた。',text:'騒ぎが大きくなり、ターゲットが避難してホテルを離れた。'},
+ target_escaped:{title:'ターゲットに逃げられた。',text:'騒ぎが大きくなり、ターゲットが避難して{場所}を離れた。'},
 };
 export class MissionFlow{
  phase:'targets'|'escape'|'over'='targets';outcome:{success:boolean;exit?:string;reason?:FailReason;time:number}|null=null;

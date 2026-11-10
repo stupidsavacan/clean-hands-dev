@@ -100,7 +100,9 @@ export type GameDef={
  // Words on screen that name the map.
  text:{mapTitle:string;mapLabel:string;pause:string;help:string;prepEyebrow:string;loadSmall:string;loading:string;brief:string;targetDown:string;
   // The standing hint at the bottom of the HUD while nothing more urgent is shown.
-  hint?:string};
+  hint?:string;
+  // The place word put into shared sentences for {場所} (failure screen, body notice). Without it: ホテル.
+  venue?:string};
  // Practice set-ups behind the debug panel's buttons (none: the buttons are hidden).
  training?:{m3?:TrainingDef;m4?:TrainingDef};
 };

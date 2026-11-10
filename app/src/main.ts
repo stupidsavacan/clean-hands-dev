@@ -42,7 +42,7 @@ import killsData from './data/kills.json';
 import scoringData from './data/scoring.json';
 import missionData from './data/mission.json';
 import {ScoreLedger,computeResult,type MissionResult} from './score';
-import {MissionFlow,FAIL_TEXT} from './mission';
+import {MissionFlow,FAIL_TEXT,venueText} from './mission';
 import combatData from './data/combat.json';
 import weaponsData from './data/weapons.json';
 import {CombatSystem,type CombatRules,type WeaponDef} from './combat';
@@ -357,7 +357,7 @@ function endMission(){const o=flow.outcome;if(!o)return;missionOver=o.success?'w
  $('#result-eyebrow').textContent=o.success?'MISSION COMPLETE':'MISSION FAILED';
  $('#result-title').textContent=o.success?(r.ghost?'ゴースト。誰にも気づかれなかった。':r.rank==='A'?'静かに終わらせた。':r.rank==='B'?'痕跡は残った。':'騒ぎの中を抜けた。'):FAIL_TEXT[o.reason!].title;
  $('#result-rank').textContent=r.rank;$('#result-rank').dataset.rank=r.rank;
- $('#result-text').textContent=o.success?`${exit?`${exit.id} ${exit.label}`:'出口'}から脱出した。ミッション時間 ${clock2}。${r.ghost?'ゴーストの条件をすべて満たした。':`ゴースト不成立：${r.ghostBrokenBy.map(k=>r.lines.find(l=>l.key===k)?.label??k).join('、')}。`}`:`${FAIL_TEXT[o.reason!].text}（${clock2}）`;
+ $('#result-text').textContent=o.success?`${exit?`${exit.id} ${exit.label}`:'出口'}から脱出した。ミッション時間 ${clock2}。${r.ghost?'ゴーストの条件をすべて満たした。':`ゴースト不成立：${r.ghostBrokenBy.map(k=>r.lines.find(l=>l.key===k)?.label??k).join('、')}。`}`:`${venueText(FAIL_TEXT[o.reason!].text)}（${clock2}）`;
  const row=(label:string,count:string,points:number|string,cls='')=>`<tr class="${cls}"><th>${label}</th><td>${count}</td><td>${typeof points==='number'?(points>0&&cls!=='total'?'+':'')+points.toLocaleString():points}</td></tr>`;
  $('#result-lines').innerHTML=row('基本点','',scoringData.base,'base')+r.lines.filter(l=>l.count).map(l=>row(l.label,l.key==='loud_shot_once'?'あり':`${l.count}`,l.points)).join('')+(o.success?row(`時間ボーナス（${Math.round(scoringData.timeBonus.under/60)}分未満）`,'',r.timeBonus?r.timeBonus:'—'):'')+row('合計','',o.success?r.total:'—','total');
  $('#result-stats').innerHTML=[['ターゲット',missionData.targets.map(id=>{const n=director.npcs.find(n=>n.id===id)!;return `${n.label}：${n.life!=='dead'?'生存':n.deathKind==='accident'?'事故死':'排除'}`;}).join(' / ')],['チャンス',m53.chances.snapshot(clock.time,clock.rules.loop).filter(c=>c.status!=='undiscovered').map(c=>`${c.title} ${c.status==='complete'?'達成':c.status==='lost'?'消滅':c.stage+'/3'}`).join(' / ')||'発見なし'],['監視カメラ',detection.recorded?`記録が残った（${detection.recordReason}）`:detection.destroyed.size?`記録なし · 壊したカメラ${detection.destroyed.size}台`:'記録なし'],['撃ち合い',combat.fights.length?`${combat.fights.length}回 · 被弾${combat.fights.reduce((s,f)=>s+f.hits,0)}発 · 潜入に戻れた ${combat.fights.filter(f=>f.returned).length}回`:'なし'],['持ち込み',[...loadout.tools.map(id=>missionData.tools.find(x=>x.id===id)?.label??id),...(loadout.pistol?[weaponDefs[loadout.pistol].label]:[])].join('、')||'なし']].map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join('');

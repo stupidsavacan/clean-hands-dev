@@ -4,6 +4,7 @@ import { segmentClear } from './sight.ts';
 import {isWireVariant, meleeOf, MELEE_REACH, PUNCH_SECONDS, FINISH_SECONDS, BRAWL_WINDOW, BRAWL_KEYS, keyLabel } from './melee.ts';
 import { BRAWL_FINISH } from './brawl-motion.ts';
 import { BodyRescue } from './body-rescue.ts';
+import { VENUE } from './mission.ts';
 
 export type HideDef={id:string;label:string;x:number;y:number;z:number;heading:number;capacity:number;spareClothes?:boolean;approach:{x:number;z:number};size:{w:number;h:number;d:number}};
 export type M3Rules={distance:number;backAngle:number;koSeconds:number;killSeconds:number;hideSeconds:number;dragSpeed:number;hideRadius:number;discoverSeconds:number;cooldownSeconds:number};
@@ -46,7 +47,9 @@ export class M3System{
  // Opt-in: the map says when E may hide the agent (only when no other E action is offered there). Unset, lockers only take bodies.
  canHide?: ()=>boolean;
  readonly slots=new Map<string,string[]>();readonly discovered=new Map<string,Set<string>>();readonly deadFound=new Set<string>();readonly unconsciousFound=new Set<string>();
- stats={knockouts:0,kills:0,hidden:0,witnesses:0};notices:string[]=[];elapsed=0;private sequence=0;private held=new Set<string>();private witnessed=new Set<string>();private discoverClock=0;
+ stats={knockouts:0,kills:0,hidden:0,witnesses:0};notices:string[]=[];elapsed=0;
+ /** The map's word for the place, in the notices (GameDef.text.venue). */
+ venue=VENUE;private sequence=0;private held=new Set<string>();private witnessed=new Set<string>();private discoverClock=0;
  readonly director:Director;readonly hides:HideDef[];readonly rules:M3Rules;
  readonly rescue:BodyRescue;
  constructor(director:Director,hides:HideDef[],rules:M3Rules){this.director=director;this.hides=hides;this.rules=rules;this.rescue=new BodyRescue(director);for(const h of hides)this.slots.set(h.id,[]);}
@@ -173,7 +176,7 @@ export class M3System{
     if(body.life==='dead'){this.deadFound.add(body.id);if(body.deathKind==='murder'&&n.guard)this.hotel.discover(body.id);}else this.unconsciousFound.add(body.id);if(first)this.onFound?.(body,n);
     if(body.life==='dead'&&body.deathKind==='combat')continue;
     if(body.life==='dead'&&body.deathKind==='accident'){if(first){this.notices.push('事故だ！ 警備が現場を立入禁止にする。');this.onAccidentFound?.(body,n);}continue;}
-    if(first)this.notices.push(body.life==='dead'?'死体が発見された。ホテル警戒度が上がった。':'気絶した人が発見された。');
+    if(first)this.notices.push(body.life==='dead'?`死体が発見された。${this.venue}警戒度が上がった。`:'気絶した人が発見された。');
     // Evidence alone identifies a location, never the perpetrator.
     if(n.state!=='alert'&&n.state!=='search'){if(n.guard){if(!this.rescue.assigned(n))n.radio(body.pos,this.director.rules);}else{n.state='report';n.timer=this.director.rules.timers.report;this.director.reports++;if(body.life==='unconscious'&&!n.witness||body.life==='dead'&&body.deathKind==='murder')n.witness={what:body.life==='unconscious'?'unconscious':'body',at:{...body.pos},key:body.id,incident};}
      this.onReaction?.(n,n.guard?'investigate':n.witness?'report':'alert',body.life==='dead'?'body':'unconscious_body',body.pos);}
