@@ -166,7 +166,7 @@ const coverIds=coveredIds(map.blockers as Block[]);
 type Prefab='safe'|'bookshelf'|'cabinet'|'locker'|'none';
 const prefabOf=(b:Block&{prefab?:string}):Prefab|undefined=>b.prefab as Prefab|undefined??(b.id.startsWith('shelf-')?'cabinet':undefined);
 const drawnBySystem=new Set([...(map.hides as {id:string}[]).map(h=>h.id),...(rawMap.devices??(missionData as {devices?:DeviceDef[]}).devices??[]).map(d=>d.id)]);
-for(const b of map.blockers){const prefab=prefabOf(b);if(prefab==='none'||prefab==='locker'||drawnBySystem.has(b.id)||seeThrough(b.id)||coverIds.has(b.id))continue;const color=PROP.find(([k])=>b.id.startsWith(k))?.[1]??'#8b9c88',parent=group(b.floor??0);
+for(const b of map.blockers){const prefab=prefabOf(b);if(prefab==='none'||prefab==='locker'||drawnBySystem.has(b.id)||def.decoratedBlockers?.has(b.id)||seeThrough(b.id)||coverIds.has(b.id))continue;const color=PROP.find(([k])=>b.id.startsWith(k))?.[1]??'#8b9c88',parent=group(b.floor??0);
  if(prefab==='safe'){
   const t=.06,shelf=.42,color='#303840';
   for(const sign of [-1,1])box('safe-side',b.x+sign*(b.w-t)/2,b.y,b.z,t,b.h,b.d,color,parent);

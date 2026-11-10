@@ -96,6 +96,8 @@ export type GameDef={
  createSchedule?:(ctx:ScheduleContext)=>EngineSchedule;
  // Only what the map has: missing members get stand-ins (engine/script.ts).
  createScript(ctx:ScriptContext):Partial<MissionScript>;
+ // Blockers whose visuals are supplied by the map's decoration. Physics still uses the map.
+ decoratedBlockers?:ReadonlySet<string>;
  decorate?(ctx:DecorContext):Decor;
  // Words on screen that name the map.
  text:{mapTitle:string;mapLabel:string;pause:string;help:string;prepEyebrow:string;loadSmall:string;loading:string;brief:string;targetDown:string;

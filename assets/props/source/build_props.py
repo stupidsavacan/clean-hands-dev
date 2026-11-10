@@ -259,6 +259,80 @@ def build_moving_head(root, material):
     return vertices, {'HANG': hang, 'BEAM': (0, 0, lens_z + pan + pivot)}
 
 
+def build_dj_desk():
+    m = Mesh()
+
+    def point(y, z, x):
+        return fz(z, y, x)
+
+    def box(x0, x1, y0, y1, z0, z1, color):
+        m.box(point(y0, z1, x0), point(y1, z0, x1), color)
+
+    def disk(x, z, radius, bottom, top, color, sides=24):
+        def row(y):
+            return [point(y, z-radius*math.sin(i*math.tau/sides),
+                          x+radius*math.cos(i*math.tau/sides)) for i in range(sides)]
+        m.solid([row(bottom), row(top)], color)
+
+    # Recessed panels and stepped fins give the front a readable silhouette in club lighting.
+    box(-2.36, 2.36, 0, .09, -.45, .43, GRAPHITE)
+    box(-2.32, 2.32, .085, .76, -.43, .41, GRAPHITE)
+    for x in (-1.78, -.9, 0, .9, 1.78):
+        box(x-.36, x+.36, .145, .705, -.474, -.426, STEELBLUE)
+        box(x-.335, x+.335, .17, .68, -.485, -.47, GRAPHITE)
+        for rib in (-.24, -.12, 0, .12, .24):
+            box(x+rib-.025, x+rib+.025, .23, .63, -.498, -.481, STEELBLUE)
+    box(-2.49, 2.49, .75, .815, -.5, .48, GRAPHITE)
+    box(-2.38, 2.38, .715, .751, -.489, -.452, METAL)
+
+    for x in (-.89, .89):
+        box(x-.41, x+.41, .813, .89, -.38, .39, GRAPHITE)
+        box(x-.39, x+.39, .886, .9, -.355, .365, METAL)
+        disk(x-.055, -.015, .272, .9, .924, STEELBLUE)
+        disk(x-.055, -.015, .255, .924, .937, GRAPHITE)
+        disk(x-.055, -.015, .067, .937, .941, TEAL if x < 0 else RED, 12)
+        disk(x-.055, -.015, .012, .941, .952, PAPER, 8)
+        pivot = x+.295
+        disk(pivot, -.22, .042, .9, .96, GRAPHITE, 12)
+        m.tube(point(.963, -.22, pivot), point(.963, .09, pivot), .013, 6, METAL)
+        m.tube(point(.963, .09, pivot), point(.947, .171, x+.22), .013, 6, METAL)
+        box(x+.193, x+.238, .93, .954, .163, .212, PAPER)
+        box(x-.345, x-.256, .898, .915, .237, .306, TEAL)
+
+    # The DJ's palms are slightly below the wrist targets. Keep the control-free lip
+    # underneath the grip point, and put the raised controls out of its path.
+    box(-.43, .43, .813, .917, -.36, .70, GRAPHITE)
+    box(-.414, .414, .916, .927, -.346, .695, STEELBLUE)
+    for x in (-.27, -.14, .14, .27):
+        for z in (-.27, -.16):
+            disk(x, z, .031, .926, .953, GRAPHITE, 8)
+            box(x-.007, x+.007, .952, .957, z-.005, z+.022, PAPER)
+    for x in (-.14, .14):
+        box(x-.013, x+.013, .926, .930, -.08, .15, GRAPHITE)
+        box(x-.035, x+.035, .929, .945, .055, .088, PAPER)
+    for i in range(5):
+        box(-.042, .042, .926, .932, -.21+i*.044, -.19+i*.044, TEAL if i<4 else YELLOW)
+
+    # Low-profile laptop and wedge stand fit under the one-metre sightline.
+    box(1.27, 1.88, .813, .856, -.49, -.28, STEELBLUE)
+    box(1.295, 1.855, .855, .875, -.482, -.269, GRAPHITE)
+    box(1.31, 1.84, .873, .882, -.446, -.28, METAL)
+    m.solid([[point(y,z,x) for x,z in ((1.295,front),(1.855,front),(1.855,back),(1.295,back))]
+             for y,back,front in ((.873,-.484,-.468),(1.011,-.499,-.478))], GRAPHITE)
+    m.face([point(.884,-.467,1.839),point(.884,-.467,1.311),
+            point(1.001,-.477,1.311),point(1.001,-.477,1.839)], BLUE)
+    box(1.551, 1.599, .943, .974, -.5, -.496, PAPER)
+
+    for x in (-2.13, 2.13):
+        box(x-.243, x+.243, .814, 1.013, -.407, .058, GRAPHITE)
+        box(x-.219, x+.219, .829, 1.002, -.421, -.402, STEELBLUE)
+        for offset, radius in ((-.085,.07),(.099,.048)):
+            m.tube(point(.918,-.425,x+offset), point(.918,-.437,x+offset), radius, 16, GRAPHITE)
+            m.tube(point(.918,-.436,x+offset), point(.918,-.444,x+offset), radius*.45, 12, METAL)
+        box(x+.154, x+.186, .847, .859, -.426, -.421, TEAL)
+    return m, {}
+
+
 PROPS = {
     'phone': ('hand', build_phone, 'スマートフォン'),
     'wine_glass': ('hand', build_wine_glass, 'ワイングラス'),
@@ -269,6 +343,7 @@ PROPS = {
     'vacuum': ('furniture', build_vacuum, '掃除機'),
     'sink': ('furniture', build_sink, '洗面台'),
     'moving_head': ('furniture', build_moving_head, 'ムービングライト'),
+    'dj_desk': ('furniture', build_dj_desk, 'DJ卓'),
 }
 
 

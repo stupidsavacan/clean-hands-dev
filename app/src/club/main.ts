@@ -26,6 +26,7 @@ runGame({
  chances:chances as ChancesData,crowd:crowd as CrowdData,
  // The investor, the drop, the meeting and VIP protection.
  createScript:c=>new ClubChances(c.director,c.m3,c.m4,c.clock,c.events,c.chances,c.schedule),
+ decoratedBlockers:new Set(['desk-dj']),
  decorate:({scene,hemi,group,box})=>{
   // The mirror ball over the dance floor (it spins).
   const ball=new T.Mesh(new T.SphereGeometry(.35,16,10),new T.MeshStandardMaterial({color:look.mirrorBall.color,emissive:look.mirrorBall.emissive,emissiveIntensity:look.mirrorBall.emissiveIntensity,metalness:.7,roughness:.3}));ball.position.set(24,5.7,22);group(0).add(ball);
@@ -36,7 +37,7 @@ runGame({
    const parts:[number,number,number,number,number,number,string][]=[
     [14.6,.8,32.2,.32,.075,.28,'#20282c'],[14.51,.875,32.2,.10,.065,.25,'#131719'],
     [14.68,.875,32.15,.038,.009,.04,'#73d397'],[14.68,.805,30.9,.2,.012,.27,'#e8dcb6'],
-    [25.3,1,31.58,.22,.09,.22,'#ed605e'],[31.45,.82,31.3,.40,.16,.10,'#39444a'],
+    [31.45,.82,31.3,.40,.16,.10,'#39444a'],
     [32,1.4,33.2,.48,.06,.35,'#384e59'],
    ];
    const geometry=parts.map(([x,y,z,w,h,d,color])=>{
@@ -52,6 +53,12 @@ runGame({
   return {
    spin:ball,animated:dots,
    afterFreeze:()=>{void loadItemModels().then(()=>{
+    const desk=itemModel('dj_desk');
+    const block=mapData.blockers.find(b=>b.id==='desk-dj')!;
+    if(desk){
+     desk.position.set(block.x,block.y,block.z);
+     group(block.floor??0).add(desk);
+    }else box('COL_'+block.id,block.x,block.y,block.z,block.w,block.h,block.d,'#5d5f5a',group(block.floor??0));
     show=new ClubShow(scene,hemi,itemModel('moving_head'));
    });},
    step:(seconds,frame,dark,mission)=>{
