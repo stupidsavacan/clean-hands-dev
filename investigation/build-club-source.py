@@ -3,10 +3,16 @@ from math import atan2, hypot, pi
 from random import Random
 from runpy import run_path
 from club_population import populate
-import json,sys
+import argparse,json
 P=Path(__file__).resolve().parent; D=P.parent/'app/src/data'
-def read(n):return json.loads((D/n).read_text(encoding='utf-8'))
-def write(n,v):(D/n).write_text(json.dumps(v,ensure_ascii=False,indent=1)+'\n',encoding='utf-8')
+parser=argparse.ArgumentParser(description='Preview the legacy club generator against the current game data.')
+parser.add_argument('--output-dir',type=Path,help='Write candidates to a new directory for review.')
+args=parser.parse_args()
+generated={}
+def read(n):
+ if n in generated:return generated[n]
+ return json.loads((D/n).read_text(encoding='utf-8'))
+def write(n,v):generated[n]=v
 def rect(a,b,c,d):return dict(minX=a,minZ=b,maxX=c,maxZ=d)
 # 2026-11-03 re-plan (playtest: the plan did not read as a real building). Front of house runs street -> lobby ->
 # hall; the smoking yard and the toilets open off the lobby; the VIP mezzanine sits over a lounge on the west with
@@ -92,10 +98,6 @@ populate(v)
 for pl in v['schedulePlaces'].values():
  for st in v.get('platforms',[]):
   if st['minX']<=pl['x']<=st['maxX'] and st['minZ']<=pl['z']<=st['maxZ'] and pl['y']<1:pl['y']=st['y']
-# 2026-11-10: once the layout has been edited and saved in the map lab (8795/map-lab), writing it from here would throw
-# that work away. Pass --overwrite-map-lab-edits to do it anyway.
-if read('club-layout.json').get('editedInMapLab') and '--overwrite-map-lab-edits' not in sys.argv:
- sys.exit('club-layout.json はマップ編集ラボで編集されています。上書きするなら --overwrite-map-lab-edits を付けてください。')
 write('club-layout.json',v)
 # 2026-11-03 (playtest: night was too dark to read the building): daytime with the house lights on. The coloured
 # lights stay but are weak; the rooms read by their real finishes below.
@@ -293,4 +295,16 @@ for id,zone,x,z,width,depth,count,heading,pose in [
  if len(points)<count*2:raise ValueError(f'{id}: {len(points)} free positions for {count*2}')
  crowd.append(dict(id=id,zone=zone,x=x,z=z,width=width,depth=depth,count=count,heading=heading,pose=pose,floor=0,points=points))
 write('club-crowd.json',dict(places=crowd,ghostWitness=True,hear=15,see=8,calm=8,guardHear=12))
-run_path(str(P/'build-club-stage3.py'),run_name='__main__')
+run_path(str(P/'build-club-stage3.py'))['build'](read,write)
+
+if args.output_dir:
+ try:args.output_dir.mkdir()
+ except FileExistsError:parser.error(f'Output directory already exists: {args.output_dir}')
+ for name,value in generated.items():
+  (args.output_dir/name).write_text(json.dumps(value,ensure_ascii=False,indent=1)+'\n',encoding='utf-8')
+else:
+ for name,value in sorted(generated.items()):
+  path=D/name
+  status='new' if not path.exists() else 'unchanged' if value==json.loads(path.read_text(encoding='utf-8')) else 'differs'
+  print(f'{status:9} {name}')
+ print('Preview only. Use --output-dir to review the generated JSON separately.')

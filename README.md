@@ -815,7 +815,7 @@ node scripts/standalone-party.mjs
 - フロア40人、バー12人、ラウンジ8人の群衆を追加しました。従来の34人は予定どおりに動きます。
 - 群衆に混ざると見つかりにくくなります。銃声や近くの犯行で、群衆が悲鳴を上げて逃げます。
 - `playtest\server.py` の起動後、[クラブのプレイテスト](http://127.0.0.1:8795/club) を開いてください。
-- 群衆の設定は `app/src/data/club-crowd.json` にあります。生成元は `investigation/build-club-source.py` です。
+- 群衆の設定は `app/src/data/club-crowd.json` にあります。旧生成スクリプト `investigation/build-club-source.py` では比較用の候補を確認できます。
 - 写真、性能、分析の使い方は `investigation/club-crowd-report-20261103.md` にまとめました。
 
 第2.5段階のプレイテスト後に、群衆の服と姿勢、職員から取得する服、視線の記録を修正しました。比較写真と確認結果は `investigation/club-crowd-fix-report-20261103.md` にあります。

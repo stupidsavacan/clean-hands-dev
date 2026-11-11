@@ -1,16 +1,6 @@
 """Generate the club's stage-three mission data without moving the existing map."""
-from pathlib import Path
-import json
 
-DATA = Path(__file__).resolve().parents[1] / 'app/src/data'
-
-def read(name):
-    return json.loads((DATA / name).read_text(encoding='utf-8'))
-
-def write(name, value):
-    (DATA / name).write_text(json.dumps(value, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
-
-def build():
+def build(read, write):
     config = read('club-stage3.json')
     drop, meet = config['drop'], config['meet']
     layout = read('club-layout.json')
@@ -68,4 +58,4 @@ def build():
     ))
 
 if __name__ == '__main__':
-    build()
+    raise SystemExit('Use build-club-source.py to preview generated data or export candidates.')
