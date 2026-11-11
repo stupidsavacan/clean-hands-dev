@@ -5,7 +5,8 @@ import { sampleTraversal, traversalSeconds, type Traversal } from '../party/trav
 
 // 2026-11-10 (Issue #1): any scheduled NPC can use any ladder, drainpipe or window the map lists them on
 // (`users` on the traversal), with the same generic motion as the player (ladder-motion.ts). Everyone else, and every
-// trip that stays on one floor, keeps to the walking grid and its stairs.
+// trip that stays on one floor, keeps to the walking grid and its stairs. Pursuit uses walking routes,
+// so a guard following an alert does not take a player ladder shortcut.
 export type NpcTraversal = Traversal & { users?: string[] };
 type Climb = { link: NpcTraversal; reverse: boolean; elapsed: number; seconds: number };
 

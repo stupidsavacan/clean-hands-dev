@@ -1,5 +1,6 @@
 import { inside, floorOf, plateY, type CollisionWorld, type Level, type Position } from './world.ts';
 import type { NavGrid } from './nav.ts';
+import type {DoorSystem,GuardDoorRoute} from './doors.ts';
 import { segmentClear, type Aabb } from './sight.ts';
 import type {CoinPickup} from './coin-pickup.ts';
 import type {TraversalFrame} from './party/traversal.ts';
@@ -230,7 +231,7 @@ export class Npc{
   this.suspicion=Math.max(this.suspicion,75);this.state='investigate';this.goal={...point};this.evidenceGoal={...point};this.arrived=false;
   // Looking round a reported spot takes longer than a glance (P1-C): rules.timers.evidenceLook, default 6 s.
   this.timer=rules.timers.evidenceLook??Math.max(rules.timers.lookAround,6);}
- move(dt:number,world:CollisionWorld,nav:NavGrid,rules:Rules,p:PlayerView){const sp=rules.speeds;let want:Position|null=null,speed=sp.walk,face:number|null=null;
+ move(dt:number,world:CollisionWorld,nav:NavGrid,rules:Rules,p:PlayerView,doors?:DoorSystem){const sp=rules.speeds;let want:Position|null=null,speed=sp.walk,face:number|null=null;
   const toward=(q:{x:number;z:number})=>Math.atan2(q.x-this.pos.x,q.z-this.pos.z);
   const reached=(q:Position,range:number)=>flat(this.pos,q)<range&&Math.abs(this.pos.y-q.y)<.45;
   switch(this.state){
@@ -246,9 +247,9 @@ export class Npc{
    // "I don't know your face": walk up to the agent and stop at arm's length.
    case 'verify':speed=sp.investigate;if(this.lastSeen){if(flat(this.pos,this.lastSeen)>(rules.m4?.enforcerSpeed?.verifyStop??1.4))want=this.lastSeen;else face=toward(this.lastSeen);}break;
    // Detaining: run at the agent. Warning: walk up to speaking distance and face them.
-   case 'alert':{const at=this.visibility>0?{x:p.x,y:p.y,z:p.z}:this.lastSeen;speed=sp.chase;if(!this.arrest&&at&&this.visibility>0){speed=sp.investigate;if(flat(this.pos,at)>(rules.arrest??ARREST).warnDistance)want=at;else face=toward(at);}else want=at;break;}
+   case 'alert':{const at=this.visibility>0?{x:p.x,y:p.y,z:p.z}:this.lastSeen;speed=sp.chase;if(!this.arrest&&at&&this.visibility>0){speed=sp.investigate;if(!reached(at,(rules.arrest??ARREST).warnDistance))want=at;else face=toward(at);}else want=at;break;}
    // In a gunfight: run to the chosen spot (cover, or closer), and keep facing the agent.
-   case 'combat':speed=sp.chase;if(this.combatGoal&&flat(this.pos,this.combatGoal)>.4)want=this.combatGoal;else if(this.lastSeen)face=toward(this.lastSeen);break;
+   case 'combat':speed=sp.chase;if(this.combatGoal&&!reached(this.combatGoal,.4))want=this.combatGoal;else if(this.lastSeen)face=toward(this.lastSeen);break;
    case 'flee':speed=sp.chase*1.1;if(this.goal&&!this.arrived){want=this.goal;if(reached(this.goal,.6))this.arrived=true;}break;
    default:speed=this.state==='search'?sp.search:sp.investigate;if(this.goal&&!this.arrived){want=this.goal;if(reached(this.goal,.6)){this.arrived=true;this.scanBase=this.heading;this.scanT=0;}}
   }
@@ -256,18 +257,21 @@ export class Npc{
   if(this.arrived&&this.state!=='patrol'&&this.state!=='alert'&&this.state!=='flee'&&this.state!=='combat'&&!want){this.scanT+=dt;face=this.scanBase+Math.sin(this.scanT*1.7)*1.1+(this.state==='search'||this.evidenceGoal?Math.floor(this.scanT/1.6)*Math.PI/2:0);}
   // AI report P1-C (2026-11-05): at a body or a search spot the look-round also turns a quarter every 1.6 s, so it covers
   // all sides instead of the same ±63° (a coin is still only glanced at).
-  if(this.state==='alert'&&want&&flat(this.pos,want)<.5)want=null;
+  if(this.state==='alert'&&want&&reached(want,.5))want=null;
   // Progress is judged on where the body actually got since the last step, after the crowd pushed it: two people
   // heading for the same waypoint push each other back every frame, each stepping forward, and otherwise never stop.
   const net=this.lastPos?Math.hypot(this.pos.x-this.lastPos.x,this.pos.z-this.lastPos.z):Infinity;this.lastPos={...this.pos};
-  if(want){const moved=Math.min(this.travel(dt,world,nav,want,speed),net);if(moved<.002*dt*60){this.stuck+=dt;if(this.stuck>1.2){this.path=[];this.pathGoal=null;this.stuck=0;if(this.routeStatus==='moving')this.routeStatus='blocked';if(this.state==='patrol')this.wait=.5;else this.arrived=true;}}else this.stuck=0;}
+  if(want){const moved=Math.min(this.travel(dt,world,nav,want,speed,this.guard?doors:undefined),net);if(moved<.002*dt*60){this.stuck+=dt;if(this.stuck>1.2){this.path=[];this.pathGoal=null;this.stuck=0;if(this.routeStatus==='moving')this.routeStatus='blocked';if(this.state==='patrol')this.wait=.5;else this.arrived=true;}}else this.stuck=0;}
   else{this.routeStatus='idle';this.speed=Math.max(0,this.speed-6*dt);this.path=[];this.pathGoal=null;}
   if(face!==null)this.turn(face,dt,4);}
  private turn(target:number,dt:number,rate:number){const d=wrap(target-this.heading);this.heading=wrap(this.heading+clamp(d,-rate*dt,rate*dt));}
  private routeRevision=0;
- private travel(dt:number,world:CollisionWorld,nav:NavGrid,target:Position,speed:number){this.repath-=dt;
+ private doorRoute:GuardDoorRoute|null=null;
+ private travel(dt:number,world:CollisionWorld,nav:NavGrid,target:Position,speed:number,doors?:DoorSystem){this.repath-=dt;
   if(this.routeRevision!==world.revision){this.routeRevision=world.revision;this.pathGoal=null;this.path=[];}
-  if(!this.pathGoal||flat(this.pathGoal,target)>.6||Math.abs(this.pathGoal.y-target.y)>.3||(this.state==='alert'&&this.repath<=0)){const found=nav.findSoon(this.pos,target);if(found===undefined){this.routeStatus='waiting';this.stuck=0;return 1;}this.routeStatus=found?.length?'moving':'no-route';this.path=found??[];this.pathGoal={...target};this.repath=.4;}
+  if(!this.pathGoal||flat(this.pathGoal,target)>.6||Math.abs(this.pathGoal.y-target.y)>.3||(this.state==='alert'&&this.repath<=0)){const found=nav.findSoon(this.pos,target);if(found===undefined){this.routeStatus='waiting';this.stuck=0;return 1;}this.doorRoute=found?null:doors?.guardRoute(nav,this.pos,target)??null;this.path=found??this.doorRoute?.path??[];this.routeStatus=this.path.length?'moving':'no-route';this.pathGoal={...target};this.repath=.4;}
+  const doorRoute=this.doorRoute;
+  if(doorRoute&&doors&&flat(this.pos,doorRoute.approach)<.2&&doors.openForGuard(doorRoute.door,this.pos))return 1;
   while(this.path.length>1&&Math.hypot(this.pos.x-this.path[0].x,this.pos.y-this.path[0].y,this.pos.z-this.path[0].z)<.1&&nav.clear(this.pos,this.path[1]))this.path.shift();const next=this.path[0];if(!next)return 0;
   const dx=next.x-this.pos.x,dz=next.z-this.pos.z,d=Math.hypot(dx,dz),left=Math.hypot(this.pos.x-target.x,this.pos.y-target.y,this.pos.z-target.z);
   // Ease into a stop so the gait settles instead of snapping.
@@ -277,6 +281,7 @@ export class Npc{
 
 export class Director{
  readonly incidents=new IncidentLog();
+ doors?:DoorSystem;
  soundClear?:(at:Position,listener:Position)=>boolean;
  readonly npcs:Npc[];frame=0;time=0;caught=false;alerts=0;reports=0;
  // Someone recognised the agent as an intruder (alerted on them, ran to report them, or saw them do something).
@@ -294,7 +299,9 @@ export class Director{
  // in a crowd, and a party route passed only through that).
  crowdAt(x:number,z:number,y?:number){return this.npcs.filter(n=>n.active&&!n.guard&&(y===undefined||Math.abs(n.pos.y-y)<1.5)&&Math.hypot(n.pos.x-x,n.pos.z-z)<=this.rules.multipliers.crowdRadius).length;}
  zone(p:PlayerView){return zoneAt(this.mission.zones,p.x,p.z,p.floor);}
- step(dt:number,p:PlayerView){this.nav.frame(this.lod.planMs??4);const events:AiEvent[]=[],zone=this.zone(p),perm=permission(this.rules,p.disguise,zone),stimuli=this.captureStimuli?[] as string[]:undefined,base=baseRate(this.rules,p,p.restricted?'deny':perm,zone?.type,stimuli),crowd=this.crowdAt(p.x,p.z,p.y);this.frame++;this.time+=dt;
+ step(dt:number,p:PlayerView){
+  if(this.doors?.hasPendingClosure)this.doors.step(dt,[p,...this.npcs.filter(n=>n.active).map(n=>n.pos)]);
+  this.nav.frame(this.lod.planMs??4);const events:AiEvent[]=[],zone=this.zone(p),perm=permission(this.rules,p.disguise,zone),stimuli=this.captureStimuli?[] as string[]:undefined,base=baseRate(this.rules,p,p.restricted?'deny':perm,zone?.type,stimuli),crowd=this.crowdAt(p.x,p.z,p.y);this.frame++;this.time+=dt;
   const trespass=!!p.restricted||perm==='deny',s:Situation={base,trespass,hostile:trespass&&!!zone&&(this.rules.arrest??ARREST).hostileZones.includes(zone.type),crime:!!(p.tampering||p.weaponDrawn||p.illegalVisibleCarry),time:this.time};
   // Perception is tiered by distance and staggered so the NPCs do not all cast rays on the same step.
   this.npcs.forEach((n,i)=>{n.witnessCooldown=Math.max(0,n.witnessCooldown-dt);if(!n.active||n.busy)return;n.tier=this.tier(n,p);n.outdoor=this.outdoorAt(n.pos);const every=n.tier==='mid'?this.lod.midEvery:this.lod.nearEvery;
@@ -323,7 +330,7 @@ export class Director{
     const seen=visibleCarry(e.npc,p,this.boxes,this.rules);if(seen.weaponDrawn||seen.illegalVisibleCarry)continue;
     const c=e.npc.cause,named=c!=='trespass'&&c!=='suspicious',crime=c==='crime';this.reports++;if(named)this.onSpotted?.(e.npc);
     e.npc.witness={what:crime?'act':'suspect',at:{...at},key:(crime?'act:':'suspect:')+e.npc.id,disguise:named?p.disguise:undefined};}}
-  for(const n of this.npcs)if(n.active&&!n.busy)n.move(dt,this.world,this.nav,this.rules,p);
+  for(const n of this.npcs)if(n.active&&!n.busy)n.move(dt,this.world,this.nav,this.rules,p,this.doors);
   // Keep bodies from overlapping one another.
   for(let i=0;i<this.npcs.length;i++)for(let j=i+1;j<this.npcs.length;j++){const a=this.npcs[i],b=this.npcs[j];if(!a.active||!b.active||a.busy||b.busy)continue;const dx=b.pos.x-a.pos.x,dz=b.pos.z-a.pos.z;if(Math.abs(dx)>=.55||Math.abs(dz)>=.55||Math.abs(a.pos.y-b.pos.y)>=1)continue;const d=Math.hypot(dx,dz);if(d>1e-3&&d<.55){const push=(.55-d)/2;a.pos=this.world.move(a.pos,-dx/d*push,-dz/d*push);b.pos=this.world.move(b.pos,dx/d*push,dz/d*push);}}
   // F04: caught only by a guard who is detaining (not warning), knows who the agent is and reaches them. A gun in hand

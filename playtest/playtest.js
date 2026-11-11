@@ -141,12 +141,18 @@
  }
  function finish(c, why, unloading = false) {
   if (!run || run.end) return;
-  drainClub(c);
-  if (MAP === 'club') c.clubTrace?.(false);
-  const m = safe(() => c.mission()) ?? {}, st = safe(() => c.state()) ?? {};
-  run.end = {why, outcome: m.outcome || st.missionOver || why, phase: m.phase, remaining: clone(m.remaining), result: clone(m.result ?? null), provisionalScore: m.result ? null : clone(safe(() => c.score())),
-   counts: clone(m.counts), kills: clone(safe(() => c.killLog())), chances: clone(safe(() => c.chances())), detection: clone(safe(() => c.detection())),
-   combat: clone(safe(() => { const s = c.combat(); return {hp: s.hp, fights: s.fights, waves: s.waves}; })), clock: clone(safe(() => c.clock())), endedAt: new Date().toISOString()};
+  const endedAt = new Date().toISOString();
+  if (safe(() => c.eventBus()) === bus) {
+   drainClub(c);
+   if (MAP === 'club') c.clubTrace?.(false);
+   const m = safe(() => c.mission()) ?? {}, st = safe(() => c.state()) ?? {};
+   run.end = {why, outcome: m.outcome || st.missionOver || why, phase: m.phase, remaining: clone(m.remaining), result: clone(m.result ?? null), provisionalScore: m.result ? null : clone(safe(() => c.score())),
+    counts: clone(m.counts), kills: clone(safe(() => c.killLog())), chances: clone(safe(() => c.chances())), detection: clone(safe(() => c.detection())),
+    combat: clone(safe(() => { const s = c.combat(); return {hp: s.hp, fights: s.fights, waves: s.waves}; })), clock: clone(safe(() => c.clock())), endedAt};
+  } else {
+   // An older game page may reset without notifying the recorder.
+   run.end = {why, outcome: why, endedAt};
+  }
   if (unloading) saveEnd(); else save(true);
  }
  // A mission played with the debug panel (F9) is not a playtest: once anything is changed there, or when a mission
@@ -337,7 +343,9 @@
   }
   requestAnimationFrame(loop);
  }
- addEventListener('pagehide', () => { const c = C(); if (run && !run.end && c) finish(c, 'page closed', true); });
+ // Game getters read the active mission, so finish while they still point at this run.
+ addEventListener('clean-hands:before-reset', () => finish(C(), 'abandoned'));
+ addEventListener('pagehide', () => finish(C(), 'page closed', true));
  // Leaving the tab (or starting to close it) saves everything while the page can still send a full run.
  document.addEventListener('visibilitychange', () => { if (document.hidden && run && !run.end) save(); });
  Promise.all([fetch('/api/chances' + Q).then(r => r.json()), fetch('/api/schedule' + Q).then(r => r.json())]).then(([j, sch]) => { chances = j; schedule = sch.actors ?? {}; document.body.append(pick, memoBox); openPicker(); badge(); requestAnimationFrame(loop); });
