@@ -54,13 +54,28 @@ def summary(run):
     v = run.get('verdict')
     if v and not res:  # a chance run: judged when its target died
         res = {'ghost': v.get('ghost'), 'ghostBrokenBy': v.get('ghostBrokenBy'), 'rank': ('成立・' if v.get('chanceComplete') else 'チャンス外・') + {'accident': '事故', 'murder': '殺人', 'combat': '戦闘'}.get(v.get('judgement'), str(v.get('judgement') or '?'))}
-    kills = [f"{k.get('victim')}:{(k.get('judgement') or {}).get('kind', '')}" for k in end.get('kills') or []]
+    # The kill log carries detailed judgements, while the event stream also covers combat
+    # and runs that closed before their final state was saved.
+    event_kills = {}
+    for event in run.get('events') or []:
+        victim = event.get('id')
+        if not victim:
+            continue
+        if event.get('type') == 'npc.killed':
+            event_kills[victim] = event.get('judgement') or ''
+        elif event.get('type') == 'kill.rejudged' and victim in event_kills:
+            event_kills[victim] = event.get('judgement') or event_kills[victim]
+    kills = {k['victim']: (k.get('judgement') or {}).get('kind') or event_kills.get(k['victim'], '')
+             for k in end.get('kills') or [] if k.get('victim')}
+    for victim, judgement in event_kills.items():
+        kills.setdefault(victim, judgement)
     return {
         'scenario': m.get('scenarioTitle', ''), 'started': local_time(m.get('startedAt', '')),
         'seconds': round((run.get('samples') or [{}])[-1].get('play', 0)) if run.get('samples') else 0,
         'outcome': outcome(end), 'rank': res.get('rank', ''),
         'ghost': res.get('ghost'), 'broken': ','.join(res.get('ghostBrokenBy') or []),
-        'events': len(run.get('events') or []), 'kills': ' '.join(kills), 'memos': len(run.get('memos') or []),
+        'events': len(run.get('events') or []), 'kills': ' '.join(f'{victim}:{kind}' for victim, kind in kills.items()),
+        'memos': len(run.get('memos') or []),
     }
 
 
@@ -133,7 +148,7 @@ class Handler(BaseHTTPRequestHandler):
             page = page.replace('</body>', tag + '</body>') if '</body>' in page else page + tag
             return self.send(200, page, 'text/html; charset=utf-8')
         # The two lab stages (2026-11-04): plain pages, no play recording.
-        if path in ('/ai-lab', '/animation-lab', '/item-lab', '/map-lab', '/ui-lab', '/test-stage'):
+        if path in ('/ai-lab', '/animation-lab', '/item-lab', '/outfit-lab', '/map-lab', '/ui-lab', '/test-stage'):
             return self.send(200, (HERE.parent / (path[1:] + '.html')).read_text(encoding='utf-8'), 'text/html; charset=utf-8')
         if path in ('/playtest.js', '/debug.js'):
             return self.send(200, (HERE / path[1:]).read_bytes(), 'text/javascript; charset=utf-8')

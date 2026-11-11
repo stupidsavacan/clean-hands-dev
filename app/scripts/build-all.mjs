@@ -9,7 +9,7 @@ export const TARGETS=[
  {name:'party',config:'vite.party.config.ts',standalone:'scripts/standalone-party.mjs',out:'party-prototype.html'},
  {name:'club',config:'vite.club.config.ts',standalone:'scripts/standalone-club.mjs',out:'club-prototype.html'},
  {name:'mobile',config:'vite.mobile.config.ts',standalone:'scripts/standalone-mobile.mjs',out:'clean-hands-mobile.html'},
- ...['ai-lab','animation-lab','item-lab','ui-lab','map-lab','test-stage'].map(lab=>({name:lab,config:'vite.labs.config.ts',env:{LAB:lab},standalone:'scripts/standalone-labs.mjs',args:[lab],out:lab+'.html'})),
+ ...['ai-lab','animation-lab','item-lab','outfit-lab','ui-lab','map-lab','test-stage'].map(lab=>({name:lab,config:'vite.labs.config.ts',env:{LAB:lab},standalone:'scripts/standalone-labs.mjs',args:[lab],out:lab+'.html'})),
 ];
 const run=(cmd,args,env)=>{const r=spawnSync(cmd,args,{stdio:['ignore','pipe','pipe'],shell:process.platform==='win32',env:{...process.env,...env},encoding:'utf8'});return {ok:r.status===0,out:(r.stdout??'')+(r.stderr??'')};};
 if(process.argv[1]?.replace(/\\/g,'/').endsWith('scripts/build-all.mjs')){

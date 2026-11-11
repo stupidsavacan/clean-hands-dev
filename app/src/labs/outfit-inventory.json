@@ -1,0 +1,1586 @@
+[
+ {
+  "id": "wardrobe",
+  "label": "標準エージェント",
+  "group": "主人公",
+  "top": "白シャツ",
+  "jacket": "スーツ（ネクタイ有無）",
+  "bottom": "スラックス",
+  "shoes": "革靴",
+  "extras": "眼鏡・手袋・ネクタイ",
+  "template": "suit"
+ },
+ {
+  "id": "architect",
+  "label": "アーキテクト",
+  "group": "主人公",
+  "top": "白シャツ",
+  "jacket": "黒スーツ",
+  "bottom": "スラックス",
+  "shoes": "黒い靴",
+  "extras": "金縁眼鏡・赤手袋",
+  "template": "suit"
+ },
+ {
+  "id": "operative",
+  "label": "オペレーティブ",
+  "group": "主人公",
+  "top": "白シャツ",
+  "jacket": "紺のスーツ",
+  "bottom": "スラックス",
+  "shoes": "黒い靴",
+  "extras": "黒手袋",
+  "template": "suit"
+ },
+ {
+  "id": "veteran",
+  "label": "ベテラン",
+  "group": "主人公",
+  "top": "白シャツ",
+  "jacket": "グレーのスーツ",
+  "bottom": "スラックス",
+  "shoes": "黒い靴",
+  "extras": "黒手袋",
+  "template": "suit"
+ },
+ {
+  "id": "agent47",
+  "label": "Agent 47",
+  "group": "主人公",
+  "top": "白シャツ",
+  "jacket": "黒スーツ",
+  "bottom": "スラックス",
+  "shoes": "黒い靴",
+  "extras": "赤ネクタイ・黒手袋",
+  "template": "suit"
+ },
+ {
+  "id": "beachbar",
+  "label": "バー係",
+  "group": "制服",
+  "top": "柄入り半袖シャツ",
+  "jacket": "なし",
+  "bottom": "薄色パンツ",
+  "shoes": "黒い靴",
+  "extras": "腰エプロン",
+  "template": "",
+  "cast": [
+   {
+    "map": "ホテル",
+    "id": "beachbar_1",
+    "label": "ビーチバー店員"
+   },
+   {
+    "map": "ホテル",
+    "id": "beachbar_2",
+    "label": "ビーチバー店員"
+   }
+  ]
+ },
+ {
+  "id": "bodyguard",
+  "label": "護衛",
+  "group": "警備",
+  "top": "シャツ",
+  "jacket": "黒スーツ",
+  "bottom": "黒スラックス",
+  "shoes": "黒い靴",
+  "extras": "ネクタイ・サングラス・イヤピース",
+  "template": "suit",
+  "cast": [
+   {
+    "map": "ホテル",
+    "id": "bodyguard_captain",
+    "label": "護衛隊長"
+   },
+   {
+    "map": "ホテル",
+    "id": "bodyguard_1",
+    "label": "私設護衛"
+   },
+   {
+    "map": "ホテル",
+    "id": "bodyguard_2",
+    "label": "私設護衛"
+   },
+   {
+    "map": "ホテル",
+    "id": "bodyguard_relief",
+    "label": "交代の私設護衛"
+   },
+   {
+    "map": "クラブ",
+    "id": "escort",
+    "label": "投資家の護衛"
+   },
+   {
+    "map": "クラブ",
+    "id": "gate_frisk",
+    "label": "入口の検査役"
+   },
+   {
+    "map": "クラブ",
+    "id": "gate_watch",
+    "label": "列の監視役"
+   },
+   {
+    "map": "クラブ",
+    "id": "vip_guard",
+    "label": "VIP階段の護衛"
+   },
+   {
+    "map": "クラブ",
+    "id": "patrol",
+    "label": "巡回の用心棒"
+   },
+   {
+    "map": "クラブ",
+    "id": "stage_guard",
+    "label": "舞台前の用心棒"
+   },
+   {
+    "map": "クラブ",
+    "id": "back_patrol",
+    "label": "裏の巡回"
+   },
+   {
+    "map": "夜会",
+    "id": "G05",
+    "label": "護衛隊長"
+   },
+   {
+    "map": "夜会",
+    "id": "G07",
+    "label": "書斎護衛"
+   },
+   {
+    "map": "夜会",
+    "id": "G08",
+    "label": "寝室護衛"
+   },
+   {
+    "map": "夜会",
+    "id": "G10",
+    "label": "交代護衛"
+   },
+   {
+    "map": "検証ステージ",
+    "id": "bodyguard",
+    "label": "主催者の護衛"
+   },
+   {
+    "map": "検証ステージ",
+    "id": "warden",
+    "label": "見回り"
+   }
+  ]
+ },
+ {
+  "id": "chef",
+  "label": "料理人",
+  "group": "制服",
+  "top": "ダブルの白いコック服",
+  "jacket": "なし",
+  "bottom": "グレーパンツ",
+  "shoes": "黒い靴",
+  "extras": "首布・前掛け・コック帽",
+  "template": "",
+  "cast": [
+   {
+    "map": "ホテル",
+    "id": "head_chef",
+    "label": "料理長"
+   },
+   {
+    "map": "ホテル",
+    "id": "sous_chef",
+    "label": "副料理長"
+   },
+   {
+    "map": "ホテル",
+    "id": "cook_1",
+    "label": "料理人"
+   },
+   {
+    "map": "ホテル",
+    "id": "cook_2",
+    "label": "料理人"
+   },
+   {
+    "map": "ホテル",
+    "id": "cook_3",
+    "label": "料理人"
+   },
+   {
+    "map": "クラブ",
+    "id": "chef",
+    "label": "料理人"
+   }
+  ]
+ },
+ {
+  "id": "cleaner",
+  "label": "皿洗い・清掃",
+  "group": "制服",
+  "top": "襟付き作業着",
+  "jacket": "なし",
+  "bottom": "グレーパンツ",
+  "shoes": "黒い靴",
+  "extras": "前掛け・ポケット",
+  "template": "",
+  "cast": [
+   {
+    "map": "ホテル",
+    "id": "head_cleaner",
+    "label": "清掃主任"
+   },
+   {
+    "map": "ホテル",
+    "id": "cleaner_1",
+    "label": "清掃員"
+   },
+   {
+    "map": "ホテル",
+    "id": "cleaner_2",
+    "label": "清掃員"
+   },
+   {
+    "map": "ホテル",
+    "id": "laundry_1",
+    "label": "ランドリー係"
+   },
+   {
+    "map": "ホテル",
+    "id": "laundry_2",
+    "label": "ランドリー係"
+   },
+   {
+    "map": "クラブ",
+    "id": "cleaner",
+    "label": "皿洗い"
+   },
+   {
+    "map": "夜会",
+    "id": "W02",
+    "label": "清掃係"
+   },
+   {
+    "map": "夜会",
+    "id": "W04",
+    "label": "用具係"
+   },
+   {
+    "map": "夜会",
+    "id": "W13",
+    "label": "庭師"
+   },
+   {
+    "map": "夜会",
+    "id": "W14",
+    "label": "庭師"
+   },
+   {
+    "map": "夜会",
+    "id": "W15",
+    "label": "地下係"
+   },
+   {
+    "map": "夜会",
+    "id": "W16",
+    "label": "地下係"
+   }
+  ]
+ },
+ {
+  "id": "delivery",
+  "label": "配達員・技術係",
+  "group": "制服",
+  "top": "作業シャツ",
+  "jacket": "反射ベスト",
+  "bottom": "作業パンツ",
+  "shoes": "黒い靴",
+  "extras": "キャップ",
+  "template": "",
+  "cast": [
+   {
+    "map": "ホテル",
+    "id": "dock_clerk",
+    "label": "搬入係"
+   },
+   {
+    "map": "ホテル",
+    "id": "mover_1",
+    "label": "搬入業者"
+   },
+   {
+    "map": "ホテル",
+    "id": "mover_2",
+    "label": "搬入業者"
+   },
+   {
+    "map": "クラブ",
+    "id": "technician",
+    "label": "技術係"
+   },
+   {
+    "map": "検証ステージ",
+    "id": "rigger",
+    "label": "照明係"
+   }
+  ]
+ },
+ {
+  "id": "dj_experiment",
+  "label": "DJ",
+  "group": "カジュアル",
+  "top": "黒インナー",
+  "jacket": "青緑の短丈ジャケット",
+  "bottom": "黒パンツ",
+  "shoes": "白い靴",
+  "extras": "金チェーン・大型ヘッドホン",
+  "template": "bomber",
+  "cast": [
+   {
+    "map": "クラブ",
+    "id": "dj",
+    "label": "DJ"
+   }
+  ]
+ },
+ {
+  "id": "driver",
+  "label": "運転手",
+  "group": "制服",
+  "top": "シャツ",
+  "jacket": "グレーの制服ジャケット",
+  "bottom": "グレーパンツ",
+  "shoes": "黒い靴",
+  "extras": "制帽・ネクタイ・白手袋",
+  "template": "suit",
+  "cast": [
+   {
+    "map": "ホテル",
+    "id": "driver_1",
+    "label": "運転手"
+   },
+   {
+    "map": "ホテル",
+    "id": "driver_2",
+    "label": "運転手"
+   }
+  ]
+ },
+ {
+  "id": "fisher",
+  "label": "漁師",
+  "group": "制服",
+  "top": "作業着",
+  "jacket": "前開き作業ジャケット",
+  "bottom": "暗色パンツ",
+  "shoes": "ブーツ",
+  "extras": "ニット帽・胸ポケット",
+  "template": "field",
+  "cast": [
+   {
+    "map": "ホテル",
+    "id": "harbor_master",
+    "label": "港湾事務所の所長"
+   },
+   {
+    "map": "ホテル",
+    "id": "harbor_1",
+    "label": "港湾係"
+   },
+   {
+    "map": "ホテル",
+    "id": "harbor_2",
+    "label": "港湾係"
+   }
+  ]
+ },
+ {
+  "id": "guard",
+  "label": "警備員",
+  "group": "警備",
+  "top": "制服シャツ",
+  "jacket": "青系の制服上着",
+  "bottom": "青系パンツ",
+  "shoes": "黒い靴",
+  "extras": "制帽",
+  "template": "suit",
+  "cast": [
+   {
+    "map": "ホテル",
+    "id": "security_chief",
+    "label": "警備主任"
+   },
+   {
+    "map": "ホテル",
+    "id": "monitor_watcher",
+    "label": "警備室の監視員"
+   },
+   {
+    "map": "ホテル",
+    "id": "guard_check_lobby",
+    "label": "大階段の検問"
+   },
+   {
+    "map": "ホテル",
+    "id": "guard_check_marina",
+    "label": "マリーナの検問"
+   },
+   {
+    "map": "ホテル",
+    "id": "guard_parking",
+    "label": "駐車場の警備員"
+   },
+   {
+    "map": "ホテル",
+    "id": "guard_front",
+    "label": "車寄せの警備員"
+   },
+   {
+    "map": "ホテル",
+    "id": "guard_garden",
+    "label": "庭の警備員"
+   },
+   {
+    "map": "ホテル",
+    "id": "guard_dock",
+    "label": "搬入口の警備員"
+   },
+   {
+    "map": "ホテル",
+    "id": "guard_yard",
+    "label": "裏庭の警備員"
+   },
+   {
+    "map": "ホテル",
+    "id": "guard_pool",
+    "label": "プールの警備員"
+   },
+   {
+    "map": "ホテル",
+    "id": "guard_terrace",
+    "label": "テラスの警備員"
+   },
+   {
+    "map": "ホテル",
+    "id": "guard_beach_n",
+    "label": "浜辺の警備員"
+   },
+   {
+    "map": "ホテル",
+    "id": "guard_beach_s",
+    "label": "浜辺の警備員"
+   },
+   {
+    "map": "ホテル",
+    "id": "guard_promenade",
+    "label": "遊歩道の警備員"
+   },
+   {
+    "map": "ホテル",
+    "id": "guard_boardwalk",
+    "label": "桟橋の警備員"
+   },
+   {
+    "map": "ホテル",
+    "id": "guard_corridor",
+    "label": "客室廊下の警備員"
+   },
+   {
+    "map": "ホテル",
+    "id": "guard_banquet",
+    "label": "宴会場の警備員"
+   },
+   {
+    "map": "ホテル",
+    "id": "guard_heliport",
+    "label": "屋上の警備員"
+   },
+   {
+    "map": "ホテル",
+    "id": "guard_penthouse",
+    "label": "ペントハウスの護衛"
+   },
+   {
+    "map": "マリーナ",
+    "id": "guard-lobby",
+    "label": "ロビー警備員"
+   },
+   {
+    "map": "マリーナ",
+    "id": "guard-service",
+    "label": "裏通路の警備員"
+   },
+   {
+    "map": "マリーナ",
+    "id": "guard-pool",
+    "label": "プール警備員"
+   },
+   {
+    "map": "夜会",
+    "id": "G01",
+    "label": "正門の警備"
+   },
+   {
+    "map": "夜会",
+    "id": "G02",
+    "label": "制服入口の警備"
+   },
+   {
+    "map": "夜会",
+    "id": "G03",
+    "label": "搬入路の警備"
+   },
+   {
+    "map": "夜会",
+    "id": "G04",
+    "label": "庭の警備"
+   },
+   {
+    "map": "夜会",
+    "id": "G06",
+    "label": "保守の警備"
+   },
+   {
+    "map": "夜会",
+    "id": "G09",
+    "label": "玄関警備の警備"
+   }
+  ]
+ },
+ {
+  "id": "guest_dress",
+  "label": "ドレスの客",
+  "group": "来客",
+  "top": "ドレス一体",
+  "jacket": "なし",
+  "bottom": "ドレスの裾",
+  "shoes": "黒い靴",
+  "extras": "つば広帽",
+  "template": "",
+  "cast": [
+   {
+    "map": "ホテル",
+    "id": "guest_lobby_a_2",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_lobby_a_4",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_lobby_b_3",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_lobby_b_4",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_bar_a_2",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_bar_a_3",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_bar_a_4",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_bar_b_4",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_terrace_a_2",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_terrace_a_3",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_terrace_b_1",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_terrace_b_2",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_terrace_c_1",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_terrace_c_2",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_banquet_a_1",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_banquet_a_2",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_banquet_a_3",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_banquet_a_4",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_banquet_b_1",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_stroll_1",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_stroll_5",
+    "label": "招待客"
+   },
+   {
+    "map": "マリーナ",
+    "id": "guest-a",
+    "label": "招待客"
+   },
+   {
+    "map": "クラブ",
+    "id": "guest_02",
+    "label": "客 2"
+   },
+   {
+    "map": "クラブ",
+    "id": "guest_08",
+    "label": "客 8"
+   },
+   {
+    "map": "クラブ",
+    "id": "guest_14",
+    "label": "客 14"
+   },
+   {
+    "map": "クラブ",
+    "id": "vip_2",
+    "label": "招待客 2"
+   },
+   {
+    "map": "クラブ",
+    "id": "vip_4",
+    "label": "招待客 4"
+   },
+   {
+    "map": "検証ステージ",
+    "id": "clerk",
+    "label": "事務員"
+   }
+  ]
+ },
+ {
+  "id": "guest_suit",
+  "label": "スーツの客",
+  "group": "来客",
+  "top": "シャツ",
+  "jacket": "青緑系スーツ",
+  "bottom": "暗色パンツ",
+  "shoes": "黒い靴",
+  "extras": "襟元の装飾",
+  "template": "suit",
+  "cast": [
+   {
+    "map": "ホテル",
+    "id": "guest_lobby_a_1",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_lobby_a_3",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_lobby_b_1",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_lobby_b_2",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_bar_a_1",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_terrace_a_1",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_terrace_a_4",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_terrace_b_3",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_terrace_b_4",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_terrace_c_3",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_banquet_b_2",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_banquet_b_3",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_banquet_b_4",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_stroll_2",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_stroll_4",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_stroll_6",
+    "label": "招待客"
+   },
+   {
+    "map": "マリーナ",
+    "id": "guest-stroll",
+    "label": "招待客"
+   },
+   {
+    "map": "クラブ",
+    "id": "guest_01",
+    "label": "客 1"
+   },
+   {
+    "map": "クラブ",
+    "id": "guest_07",
+    "label": "客 7"
+   },
+   {
+    "map": "クラブ",
+    "id": "guest_13",
+    "label": "客 13"
+   },
+   {
+    "map": "クラブ",
+    "id": "vip_1",
+    "label": "招待客 1"
+   },
+   {
+    "map": "クラブ",
+    "id": "vip_3",
+    "label": "招待客 3"
+   },
+   {
+    "map": "クラブ",
+    "id": "manager",
+    "label": "店長"
+   }
+  ]
+ },
+ {
+  "id": "investor",
+  "label": "投資家",
+  "group": "要人",
+  "top": "白Tシャツ",
+  "jacket": "茶系ジャケット",
+  "bottom": "明色パンツ",
+  "shoes": "白い靴",
+  "extras": "サングラス・ピアス",
+  "template": "field",
+  "cast": [
+   {
+    "map": "ホテル",
+    "id": "investor",
+    "label": "C 若き投資家"
+   },
+   {
+    "map": "クラブ",
+    "id": "investor",
+    "label": "投資家"
+   },
+   {
+    "map": "検証ステージ",
+    "id": "host",
+    "label": "主催者"
+   }
+  ]
+ },
+ {
+  "id": "lawyer",
+  "label": "弁護士",
+  "group": "要人",
+  "top": "シャツ",
+  "jacket": "濃紺スーツ",
+  "bottom": "濃紺スラックス",
+  "shoes": "黒い靴",
+  "extras": "ネクタイ・眼鏡",
+  "template": "suit",
+  "cast": [
+   {
+    "map": "ホテル",
+    "id": "lawyer",
+    "label": "B 元顧問弁護士"
+   },
+   {
+    "map": "クラブ",
+    "id": "guest_04",
+    "label": "客 4"
+   },
+   {
+    "map": "クラブ",
+    "id": "guest_10",
+    "label": "客 10"
+   },
+   {
+    "map": "クラブ",
+    "id": "guest_16",
+    "label": "客 16"
+   }
+  ]
+ },
+ {
+  "id": "masseuse",
+  "label": "マッサージ師",
+  "group": "制服",
+  "top": "白い半袖ユニフォーム",
+  "jacket": "なし",
+  "bottom": "薄緑パンツ",
+  "shoes": "黒い靴",
+  "extras": "肩タオル・胸の印",
+  "template": "",
+  "cast": [
+   {
+    "map": "ホテル",
+    "id": "masseuse",
+    "label": "マッサージ師"
+   }
+  ]
+ },
+ {
+  "id": "photographer",
+  "label": "カメラマン",
+  "group": "制服",
+  "top": "襟付きシャツ",
+  "jacket": "ポケット付きベスト",
+  "bottom": "ベージュパンツ",
+  "shoes": "黒い靴",
+  "extras": "カメラ",
+  "template": "",
+  "cast": [
+   {
+    "map": "ホテル",
+    "id": "photographer",
+    "label": "カメラマン"
+   },
+   {
+    "map": "クラブ",
+    "id": "guest_03",
+    "label": "客 3"
+   },
+   {
+    "map": "クラブ",
+    "id": "guest_09",
+    "label": "客 9"
+   },
+   {
+    "map": "クラブ",
+    "id": "guest_15",
+    "label": "客 15"
+   }
+  ]
+ },
+ {
+  "id": "pilot",
+  "label": "操縦士",
+  "group": "制服",
+  "top": "ハイネック",
+  "jacket": "茶系フライトジャケット",
+  "bottom": "暗色パンツ",
+  "shoes": "黒い靴",
+  "extras": "ヘッドセット",
+  "template": "bomber",
+  "cast": [
+   {
+    "map": "ホテル",
+    "id": "pilot",
+    "label": "パイロット"
+   }
+  ]
+ },
+ {
+  "id": "pool_guest_lean",
+  "label": "プール客・細身男性",
+  "group": "水着",
+  "top": "上半身は肌",
+  "jacket": "なし",
+  "bottom": "アンバー色のスイムショーツ",
+  "shoes": "裸足",
+  "extras": "なし",
+  "template": "",
+  "cast": [
+   {
+    "map": "ホテル",
+    "id": "guest_pool_a_2",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_pool_a_3",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_beach_a_1",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_beach_b_2",
+    "label": "招待客"
+   },
+   {
+    "map": "マリーナ",
+    "id": "guest-f",
+    "label": "招待客"
+   }
+  ]
+ },
+ {
+  "id": "pool_guest_resort",
+  "label": "プール客・リゾート服",
+  "group": "水着",
+  "top": "リゾートドレス",
+  "jacket": "なし",
+  "bottom": "ドレスの裾",
+  "shoes": "裸足",
+  "extras": "帯・飾り",
+  "template": "",
+  "cast": [
+   {
+    "map": "ホテル",
+    "id": "guest_pool_b_1",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_pool_b_3",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_pool_c_4",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_extra_2",
+    "label": "招待客"
+   },
+   {
+    "map": "マリーナ",
+    "id": "guest-c",
+    "label": "招待客"
+   },
+   {
+    "map": "クラブ",
+    "id": "guest_06",
+    "label": "客 6"
+   },
+   {
+    "map": "クラブ",
+    "id": "guest_12",
+    "label": "客 12"
+   }
+  ]
+ },
+ {
+  "id": "pool_guest_slim",
+  "label": "プール客・細身女性",
+  "group": "水着",
+  "top": "ティールのワンピース水着",
+  "jacket": "なし",
+  "bottom": "水着一体",
+  "shoes": "裸足",
+  "extras": "ミント色の縁取り",
+  "template": "",
+  "cast": [
+   {
+    "map": "ホテル",
+    "id": "guest_pool_a_1",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_pool_c_1",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_beach_a_2",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_beach_b_1",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_stroll_3",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_extra_3",
+    "label": "招待客"
+   },
+   {
+    "map": "マリーナ",
+    "id": "guest-e",
+    "label": "招待客"
+   }
+  ]
+ },
+ {
+  "id": "pool_guest_swimshorts",
+  "label": "プール客・男性",
+  "group": "水着",
+  "top": "上半身は肌",
+  "jacket": "なし",
+  "bottom": "スイムショーツ",
+  "shoes": "裸足",
+  "extras": "なし",
+  "template": "",
+  "cast": [
+   {
+    "map": "ホテル",
+    "id": "guest_pool_c_2",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_pool_c_3",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_beach_a_3",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_beach_a_4",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_beach_b_3",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_extra_1",
+    "label": "招待客"
+   },
+   {
+    "map": "マリーナ",
+    "id": "guest-b",
+    "label": "招待客"
+   }
+  ]
+ },
+ {
+  "id": "pool_guest_swimsuit",
+  "label": "プール客・女性",
+  "group": "水着",
+  "top": "ワンピース水着",
+  "jacket": "なし",
+  "bottom": "水着一体",
+  "shoes": "裸足",
+  "extras": "肩のストラップ",
+  "template": "",
+  "cast": [
+   {
+    "map": "ホテル",
+    "id": "guest_pool_b_2",
+    "label": "招待客"
+   },
+   {
+    "map": "ホテル",
+    "id": "guest_beach_b_4",
+    "label": "招待客"
+   },
+   {
+    "map": "マリーナ",
+    "id": "guest-d",
+    "label": "招待客"
+   }
+  ]
+ },
+ {
+  "id": "response",
+  "label": "増援部隊",
+  "group": "警備",
+  "top": "戦闘服",
+  "jacket": "防弾プレートキャリア",
+  "bottom": "戦闘パンツ",
+  "shoes": "暗色の靴",
+  "extras": "ヘルメット・ポーチ・膝当て・手袋",
+  "template": ""
+ },
+ {
+  "id": "sommelier",
+  "label": "ソムリエ",
+  "group": "制服",
+  "top": "シャツ",
+  "jacket": "暗色の給仕服",
+  "bottom": "黒パンツ",
+  "shoes": "黒い靴",
+  "extras": "蝶ネクタイ・長い前掛け・試飲杯",
+  "template": "",
+  "cast": [
+   {
+    "map": "ホテル",
+    "id": "sommelier",
+    "label": "ソムリエ"
+   },
+   {
+    "map": "クラブ",
+    "id": "bottle_server",
+    "label": "ボトル係"
+   }
+  ]
+ },
+ {
+  "id": "underwear",
+  "label": "下着・標準",
+  "group": "着替え用",
+  "top": "白い肌着",
+  "jacket": "なし",
+  "bottom": "下着ショーツ",
+  "shoes": "黒い靴",
+  "extras": "なし",
+  "template": ""
+ },
+ {
+  "id": "underwear_dark",
+  "label": "下着・濃い肌色",
+  "group": "着替え用",
+  "top": "白い肌着",
+  "jacket": "なし",
+  "bottom": "下着ショーツ",
+  "shoes": "黒い靴",
+  "extras": "なし",
+  "template": ""
+ },
+ {
+  "id": "underwear_female",
+  "label": "下着・女性",
+  "group": "着替え用",
+  "top": "白い肌着",
+  "jacket": "なし",
+  "bottom": "下着ショーツ",
+  "shoes": "黒い靴",
+  "extras": "なし",
+  "template": ""
+ },
+ {
+  "id": "waiter",
+  "label": "給仕",
+  "group": "制服",
+  "top": "白い給仕服",
+  "jacket": "なし",
+  "bottom": "暗色パンツ",
+  "shoes": "黒い靴",
+  "extras": "襟元の装飾",
+  "template": "",
+  "cast": [
+   {
+    "map": "ホテル",
+    "id": "head_waiter",
+    "label": "給仕長"
+   },
+   {
+    "map": "ホテル",
+    "id": "bartender",
+    "label": "バーテンダー"
+   },
+   {
+    "map": "ホテル",
+    "id": "beachbar_manager",
+    "label": "ビーチバーの店長"
+   },
+   {
+    "map": "ホテル",
+    "id": "waiter_1",
+    "label": "ウェイター"
+   },
+   {
+    "map": "ホテル",
+    "id": "waiter_2",
+    "label": "ウェイター"
+   },
+   {
+    "map": "ホテル",
+    "id": "waiter_3",
+    "label": "ウェイター"
+   },
+   {
+    "map": "ホテル",
+    "id": "waiter_4",
+    "label": "ウェイター"
+   },
+   {
+    "map": "ホテル",
+    "id": "waiter_5",
+    "label": "ウェイター"
+   },
+   {
+    "map": "ホテル",
+    "id": "waiter_6",
+    "label": "ウェイター"
+   },
+   {
+    "map": "ホテル",
+    "id": "receptionist",
+    "label": "受付係"
+   },
+   {
+    "map": "ホテル",
+    "id": "room_service",
+    "label": "ルームサービス係"
+   },
+   {
+    "map": "マリーナ",
+    "id": "waiter",
+    "label": "給仕長"
+   },
+   {
+    "map": "クラブ",
+    "id": "bartender_1",
+    "label": "バーテンダー 1"
+   },
+   {
+    "map": "クラブ",
+    "id": "bartender_2",
+    "label": "バーテンダー 2"
+   },
+   {
+    "map": "夜会",
+    "id": "W01",
+    "label": "給仕長"
+   },
+   {
+    "map": "夜会",
+    "id": "W03",
+    "label": "配膳係"
+   },
+   {
+    "map": "夜会",
+    "id": "W05",
+    "label": "ワイン係"
+   },
+   {
+    "map": "夜会",
+    "id": "W06",
+    "label": "給仕"
+   },
+   {
+    "map": "夜会",
+    "id": "W07",
+    "label": "給仕"
+   },
+   {
+    "map": "夜会",
+    "id": "W08",
+    "label": "書斎係"
+   },
+   {
+    "map": "夜会",
+    "id": "W09",
+    "label": "給仕"
+   },
+   {
+    "map": "夜会",
+    "id": "W10",
+    "label": "給仕"
+   },
+   {
+    "map": "夜会",
+    "id": "W11",
+    "label": "厨房係"
+   },
+   {
+    "map": "夜会",
+    "id": "W12",
+    "label": "厨房係"
+   },
+   {
+    "map": "夜会",
+    "id": "W17",
+    "label": "厨房係"
+   }
+  ]
+ },
+ {
+  "id": "wine_merchant",
+  "label": "ワイン商",
+  "group": "要人",
+  "top": "シャツ",
+  "jacket": "えんじのスーツ",
+  "bottom": "黒パンツ",
+  "shoes": "黒い靴",
+  "extras": "ポケットチーフ",
+  "template": "suit",
+  "cast": [
+   {
+    "map": "ホテル",
+    "id": "wine_merchant",
+    "label": "A ワイン商"
+   },
+   {
+    "map": "クラブ",
+    "id": "guest_05",
+    "label": "客 5"
+   },
+   {
+    "map": "クラブ",
+    "id": "guest_11",
+    "label": "客 11"
+   }
+  ]
+ },
+ {
+  "id": "guest_male",
+  "label": "夜会の男性客（代替表示）",
+  "group": "来客",
+  "top": "主人公の衣装に従う",
+  "jacket": "主人公の衣装に従う",
+  "bottom": "主人公の衣装に従う",
+  "shoes": "主人公の衣装に従う",
+  "extras": "主人公の衣装に従う",
+  "template": "suit",
+  "cast": [
+   {
+    "map": "夜会",
+    "id": "host",
+    "label": "館の主人"
+   },
+   {
+    "map": "夜会",
+    "id": "P01",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P02",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P03",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P04",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P05",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P06",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P07",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P08",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P09",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P10",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P11",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P12",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P13",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P14",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P15",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P16",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P17",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P18",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P19",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P20",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P21",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P22",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P23",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P24",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P25",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P26",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P27",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P28",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P29",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P30",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P31",
+    "label": "招待客"
+   },
+   {
+    "map": "夜会",
+    "id": "P32",
+    "label": "招待客"
+   }
+  ]
+ }
+]

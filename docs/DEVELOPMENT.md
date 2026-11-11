@@ -45,7 +45,7 @@
 2. 持ち方：`app/src/hold-pose.ts` の `HOLD_KIND`（small / long / hang）。棒のように持つ物は `GRIP` に `along` と書きます。
 3. 武器にするなら `app/src/melee.ts` の `MELEE` に書きます。ポケットに入らない大きい物は `LARGE_ITEMS`、背中に背負う物は `BACK_ITEMS` です。
 4. 地図ごとの決まり（合法・違法・隠せるか）を書きます。
-   - クラブ：`investigation/build-club-source.py` の items。`python investigation/build-club-source.py` のあと `node --experimental-strip-types --no-warnings app/scripts/build-club.ts` を実行します。
+   - クラブ：`app/src/data/club-detection.json` の items。
    - ほかの地図：`app/src/data/*detection.json` の items。
 5. 置き場所：同じ所の `worldItems`（id・item・x・z・floor）。
 6. `npm run docs` と `npm run test:fast` を実行します。`tests/items.test.ts` が、足りない所を名前つきで出します。手が届かない置き場所も見つけます。
@@ -73,6 +73,11 @@
 
 ## 開発補助ラボ
 
+- [服装ラボ](../outfit-lab.html) は標準体型の共通リグに Tシャツ・パンツ・上着・アクセサリーを組み合わせ、色と歩行を確認して GLB を書き出します。「既存キャラクターの衣装」では部位の内訳と元モデルを確認できます。衣装台帳は `app/src/labs/outfit-inventory.json`、パーツの再生成は `app/scripts/build-outfit-catalog.py`、単独ビルドは `npm run build:all -- outfit-lab` です。
+  - 服装JSONは `version: 1`、`pieces`、`mark` の構成です。`pieces` の部位IDは `TShirt`、`Jeans`、`Jacket`、`Sunglasses`。各部位は `model` と `color` を持ち、上着は `collar` と `long` も指定できます。マークは `text`、`color`、任意の `png`（256 KB以内のPNGのデータURL）です。
+  - マークは「服の表面に置く」で正面・背面・袖をクリックして配置します。保存される `mark.placement` は `slot`（`TShirt` または `Jacket`）、バインド姿勢でのローカル座標 `point` と法線 `normal`、メートル単位の `size`、度単位の `angle` です。位置指定なしのレシピでは従来の胸位置を使います。
+  - Codexなどからは、ブラウザの `window.__outfitLab` で `listParts()`、`getInventory()`、`findInventory('DJ')`、`getRecipe()` を読めます。`setPart('Jacket', {model:'Bomber', collar:true, long:true})` と `setMark({text:'07'})` は画面に即時反映されます。`setRecipe(json)` は設定を一括で読み込み、`await exportGLB()` は選択した部品とマークを含むバイナリを返します。
+
 - [モーション実験ステージ](../animation-lab.html) の「はしご」は、どの地図のはしご・雨どいにも使う汎用の動き（`app/src/ladder-motion.ts`）を、どの地図のものでもない見本のはしごで再生します。取り付く（下・上）、登る、降りる、上で降りる、下で離れる、通しの8本です。地図のはしごはデータに経路（と、横木が +z 以外を向く時は `facing`）を書くだけで、長さは高さから決まります（`seconds` は書きません）。「窓・縁」は今も地図ごとの経路で再生します。緑の点と線で手足の目標と実位置の距離を表示し、ゲームと同じ経路サンプルとIK処理を呼びます。
 - マップ編集（2026-11-10 作り直し）：http://127.0.0.1:8795/map-lab 。上から見た図をマウスで編集します。
   - 左の道具で部屋・壁・家具・扉・階段・台はドラッグで描き、NPC・予定の場所・隠れ場所・出口・設備・はしごはクリックで置きます。
@@ -80,7 +85,7 @@
   - 戻す・進む（Ctrl+Z / Ctrl+Y）、複製（Ctrl+D）、削除（Delete）、矢印で0.1m（Shiftで1m）。右ドラッグかSpace+ドラッグで移動、ホイールで拡大。
   - 「経路と視線を調べる」（R）で2点をクリックすると、ゲームと同じ衝突・歩ける所で、歩いて行けるか・何mか・目の高さで見えるかを出します。
   - 「問題」には、壁に重なって立てない巡回点・予定の場所、開始地点から行けない所、重複した id、無い場所を使う予定などが出ます。押すとその場所へ移ります。
-  - 「保存してゲームに反映」で `app/src/data/club-layout.json`（設備は `club-mission.json`）に書き、`club-map.json` とクラブのページを作り直します。保存した後は `investigation/build-club-source.py` がレイアウトを上書きしません（上書きするなら `--overwrite-map-lab-edits`）。
+  - ゲームと地図ラボが使う正本は `app/src/data` のクラブ用 JSON です。旧生成スクリプト `python investigation/build-club-source.py` は差分の有無を表示します。`--output-dir` にまだ存在しないディレクトリを指定すると、比較用の候補を出力できます。
   - 「新しい地図（白紙）」は書き出し（JSON）だけです。
 - Claude から使う時：ページでは `window.__mapLab` に、画面と同じ操作があります（`list` `find` `get` `select` `add` `set` `move` `remove` `undo` `redo` `check` `route` `floor` `layers` `save` `picture`）。ブラウザなしでは `npm run map:check`（問題の一覧。`-- --json` でJSON、`-- --route 22,2,0 36,30,1` で2点の経路と視線）。中身は `app/src/map-editor/`（`core.ts` 編集と経路、`checks.ts` 検査）で、ページ・コマンド・試験（`tests/map-editor.test.ts`）が同じものを使います。
 - [AI実験ステージ](../ai-lab.html) は、クラブの通常予定、F8の記録JSONの判断・経路・中断と復帰、性能サンプルの比較を表示します。ミッションチャンスは条件を編集し、読み込んだ記録のイベントで判定できます。記録は再生入力を含むリプレイ形式ではありません。
