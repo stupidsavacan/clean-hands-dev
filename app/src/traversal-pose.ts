@@ -2,16 +2,21 @@ import * as T from 'three';
 import poses from './data/party-motions.json' with {type:'json'};
 import type {TraversalFrame} from './party/traversal.ts';
 import {LADDER} from './ladder-motion.ts';
+import {Locomotion} from './locomotion.ts';
 import {reach} from './motion-runtime.ts';
 import {twoBone} from './gestures.ts';
 import type {Rig} from './rig.ts';
 
 const base=new T.Quaternion(),target=new T.Vector3(),pole=new T.Vector3();
+const ladderBasePose=new Locomotion().update(0,{speed:0,crouch:0,slope:0,turn:0,distance:0});
 
 /** The traversal layer on top of the normal rig, the same for the player, NPCs and the lab. The frame's heading is
  * the body's whole heading (the game keeps the player's heading in step with it, so nothing snaps at the end). */
 export function applyTraversalPose(rig:Rig,avatar:T.Object3D,lean:T.Object3D,frame:TraversalFrame){
  avatar.rotation.y=frame.heading;
+ // The walking pose may have planted its feet on a floor below the opening.
+ // Start every ladder frame from the same flat pose, then solve contacts on the rungs.
+ if(frame.ladder){rig.apply(ladderBasePose);lean.rotation.x=lean.rotation.z=0;}
  const {weight,cycle,vault}=frame;
  if(weight<=0&&frame.hands<=0&&frame.feet<=0){avatar.updateMatrixWorld(true);return;}
  const pose=poses[vault?'vault':'climb'];

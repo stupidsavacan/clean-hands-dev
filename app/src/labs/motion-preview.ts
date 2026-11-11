@@ -85,7 +85,7 @@ export function poseMotionPreview<A extends PreviewActor>(
   group.position.set(offset,-.025,0);
   const local=(point:{x:number;y:number;z:number})=>({x:point.x-p.x+offset,y:point.y-p.y,z:point.z-p.z});
   const hand=frame.hand,foot=frame.foot;
-  rig.apply(gait(0,0));
+  if(!frame.ladder)rig.apply(gait(0,0));
   applyTraversalPose(rig,group,model,{...frame,hand:hand&&((side)=>local(hand(side))),foot:foot&&((side)=>local(foot(side)))});
   return;
  }

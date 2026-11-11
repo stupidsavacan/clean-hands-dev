@@ -4,7 +4,8 @@ import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
 import {PLAYER_BASE64} from '../src/player-data.ts';
 import {Rig} from '../src/rig.ts';
 import {neutral} from '../src/motion-runtime.ts';
-import {applyTraversalPose} from '../src/traversal-pose.ts';
+import {Locomotion} from '../src/locomotion.ts';
+import {applyTraversalPose,traversalContacts} from '../src/traversal-pose.ts';
 import assert from 'node:assert/strict';
 import club from '../src/data/club-map.json' with {type:'json'};
 import layout from '../src/data/club-layout.json' with {type:'json'};
@@ -105,7 +106,7 @@ test('the editor and club builder compile the same geometry without any club ide
  assert.throws(()=>assertMapLayout({...small,ground:{minX:2,maxX:1,minZ:0,maxZ:1}}));
 });
 
-test('on the ladder the knees bend forward toward the rungs and the elbows stay near 100 degrees',async()=>{
+test('on the ladder the knees bend forward toward the rungs and the elbows stay near 100 degrees',async t=>{
  const scene=(await new GLTFLoader().register(()=>({name:'pose-only-no-textures',loadTexture:()=>Promise.resolve(null)})).parseAsync(Uint8Array.from(atob(PLAYER_BASE64),c=>c.charCodeAt(0)).buffer,'')).scene;
  const avatar=new T.Group(),lean=new T.Group();avatar.add(lean);lean.add(scene);const rig=new Rig(scene);
  const at=(n:string)=>rig.joints.get(n)!.bone.getWorldPosition(new T.Vector3());
@@ -121,4 +122,18 @@ test('on the ladder the knees bend forward toward the rungs and the elbows stay 
    if(part.kind==='climb')assert.ok(Math.abs(angle('upperarm'+s,'forearm'+s,'hand'+s)-95)<=22,id+' elbow '+s+' '+angle('upperarm'+s,'forearm'+s,'hand'+s).toFixed(0));
   }
  }
+ await t.test('the Club X1 descent ignores the walking pose planted on the floor below',()=>{
+  const link=ladders.find(link=>link.id==='X1')!;
+  const descend=traversalParts(link,true)!.find(part=>part.kind==='descend')!;
+  const frame=sampleTraversal(link,true,(descend.start+.03*descend.seconds)/traversalSeconds(link));
+  const {x,y,z}=frame.position;
+  avatar.position.set(x,y-.025,z);
+  const walking=new Locomotion().update(1/60,{speed:0,crouch:0,slope:0,turn:0,distance:0,ground:()=>-y});
+  assert.ok(walking.hip< -2,'walking has planted the feet on the ground floor');
+  rig.apply(walking);
+  applyTraversalPose(rig,avatar,lean,frame);
+  const contacts=traversalContacts(rig,frame);
+  assert.equal(contacts.length,4);
+  for(const contact of contacts)assert.ok(contact.error<.15,contact.kind+' missed the rung by '+contact.error+' m');
+ });
 });

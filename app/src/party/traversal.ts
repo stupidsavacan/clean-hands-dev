@@ -53,7 +53,7 @@ export type TraversalFrame={
  position:Position;heading:number;phase:TraversalPhase;
  // The traversal layer (body pose and lean), the hands' and the feet's IK.
  weight:number;hands:number;feet:number;cycle:number;
- vault:boolean;hand?:(side:Side)=>Position;foot?:(side:Side)=>Position;
+ vault:boolean;ladder?:true;hand?:(side:Side)=>Position;foot?:(side:Side)=>Position;
 };
 
 // A polyline walked by distance.
@@ -109,7 +109,7 @@ function sampleLadder(link:Traversal,reverse:boolean,progress:number,ladder:Ladd
  let t=clamp(progress)*plan.seconds,k=0;
  while(k<plan.parts.length-1&&t>plan.parts[k].seconds){t-=plan.parts[k].seconds;k++;}
  const part=plan.parts[k],u=part.seconds>0?clamp(t/part.seconds):1;
- const still={weight:0,hands:0,feet:0,cycle:0,vault:false};
+ const still={weight:0,hands:0,feet:0,cycle:0,vault:false,ladder:true as const};
  if(part.kind==='walk-before'){const w=walk(plan.before,t*WALK_SPEED);return {...w,phase:'walk',...still};}
  if(part.kind==='walk-after'){const w=walk(plan.after,plan.exitStep+t*WALK_SPEED);return {...w,phase:'walk',...still};}
  const {height,facing:f}=ladder;
@@ -127,7 +127,7 @@ function sampleLadder(link:Traversal,reverse:boolean,progress:number,ladder:Ladd
  }
  // Hanging back from the rungs (opposite the way the climber faces on the ladder).
  position={...position,x:position.x-Math.sin(f)*pose.hang,z:position.z-Math.cos(f)*pose.hang};
- return {position,heading,phase:part.kind,weight:pose.weight,hands:pose.hands,feet:pose.feet,cycle:pose.y/(2*LADDER.rung),vault:false,
+ return {position,heading,phase:part.kind,weight:pose.weight,hands:pose.hands,feet:pose.feet,cycle:pose.y/(2*LADDER.rung),vault:false,ladder:true,
   hand:side=>toWorld(ladder,pose.hand(side)),foot:side=>toWorld(ladder,pose.foot(side))};
 }
 
