@@ -104,6 +104,9 @@ export class VipProtection{
  }
  step(time:number){
   const v=this.config,n=this.target,d=this.director,l=this.lockdown;
+  // A stalled path sets arrived even when the target is still outside the safe room or exit.
+  if(n.active&&n.arrived&&(l?.holdUntil===null||this.fleeing&&!this.escaped)
+   &&(n.navigationStatus==='blocked'||n.navigationStatus==='no-route'))n.arrived=false;
   if(l){
    if(n.life!=='active')this.endLockdown();
    else if(l.holdUntil===null&&Math.hypot(n.pos.x-l.room.at.x,n.pos.z-l.room.at.z)<1&&Math.abs(n.pos.y-l.room.at.y)<.5)l.holdUntil=time+v.lockdown.holdSeconds;

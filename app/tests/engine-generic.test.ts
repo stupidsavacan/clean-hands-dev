@@ -100,6 +100,11 @@ test('VIP protection runs on any map: its own target, escort and safe room, then
  vip.alarm({x:26,y:0,z:21},'gunshot','small');
  assert.ok(vip.lockedDown);assert.equal(g.npc('mayor').state,'flee');
  assert.ok(errands.holds(g.npc('aide'),'vip'),'their own escort takes a post first');
+ const nav=g.director.nav,find=nav.findSoon.bind(nav),resumeAt=g.clock.elapsed+2;
+ nav.findSoon=(from,to)=>to===g.npc('mayor').goal&&g.clock.elapsed<resumeAt?null:find(from,to);
+ step(2);
+ assert.equal(g.npc('mayor').navigationStatus,'no-route');
+ assert.equal(g.npc('mayor').arrived,false,'the VIP retries a temporarily unavailable route');
  for(let i=0;i<60&&Math.hypot(g.npc('mayor').pos.x-room.at.x,g.npc('mayor').pos.z-room.at.z)>=1;i++)step(1);
  assert.ok(Math.hypot(g.npc('mayor').pos.x-room.at.x,g.npc('mayor').pos.z-room.at.z)<1.2,JSON.stringify(g.npc('mayor').pos));
  step(22);
