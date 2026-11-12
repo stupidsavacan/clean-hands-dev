@@ -244,6 +244,12 @@ def build(path):
     new_mode = path.parent.resolve() == (ASSETS/'recipes'/'new').resolve()
     if new_mode and not re.fullmatch(r'new_[a-f0-9]{32}', recipe['id']):
         raise ValueError('New recipes require a server-assigned id')
+    # Live previews in the outfit lab (2026-11-12): built like a new character, kept apart under preview/.
+    preview_mode = path.parent.resolve() == (ASSETS/'recipes'/'preview').resolve()
+    if preview_mode and not re.fullmatch(r'preview_[a-f0-9]{32}', recipe['id']):
+        raise ValueError('Preview recipes require a server-assigned id')
+    folder = 'new' if new_mode else 'preview' if preview_mode else ''
+    new_mode = new_mode or preview_mode
     objects = []
     for name, mesh in meshes.items():
         if mesh.v:
@@ -277,7 +283,7 @@ def build(path):
         ob.select_set(True)
     bpy.context.view_layer.objects.active = rig
     track.mute = False
-    dest = ASSETS / 'models' / ('new' if new_mode else '') / recipe['id'] / (recipe['id'] + '.glb')
+    dest = ASSETS / 'models' / folder / recipe['id'] / (recipe['id'] + '.glb')
     dest.parent.mkdir(parents=True, exist_ok=True)
     bpy.ops.export_scene.gltf(filepath=str(dest), export_format='GLB', use_selection=True,
         export_yup=True, export_animations=True, export_animation_mode='NLA_TRACKS',

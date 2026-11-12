@@ -77,7 +77,14 @@ python tools/outfit-preview.py --port 8891
 
 体型→頭/顔/髪→服の部品→役割ごとの色/文字/PNGマーク→「保存して作る」で、新しいレシピとGLBを作れます。Blender生成後、アニメーションラボと同じ歩き・しゃがみ・ダンス・仕事を確認できます。文字/PNGは服をクリックして配置でき、GLBにも骨ウェイト付きの面と画像を保存します。
 
-既存38レシピは保護され、新規は `recipes/new/`、生成物は `models/new/<id>/` に別IDで保存します。固定資産とaliasは編集しません。画面での変更は編集中と表示し、Blenderで作成した結果をプレビューします。
+既存38レシピは保護され、新規は `recipes/new/`、生成物は `models/new/<id>/` に別IDで保存します。固定資産とaliasは編集しません。
+
+画面（2026-11-12 作り直し）は、左の部位の列・真ん中の3D・右の部品カードと色の、キャラクリの形です。部品・色・仕立てを変えるたびに、`POST /api/outfit/preview`（ヘッダー `X-Outfit-Lab: 1`、本文 `{"recipe": …}`）がその場でBlenderで組み立て、本物のモデルを表示します。
+
+- サーバーはBlenderを1つ起動したままにして（`source/preview_worker.py`）、1回 0.3〜0.7 秒で作ります。体型違い（`pool.variant.*`）は、プール客の作り方を書き換えるので、毎回新しいBlenderで作ります（約 2.5 秒）。
+- 同じレシピは同じファイルを使い回します（`recipes/preview/`・`models/preview/`。git には入れません。300件を超えると古い物から消します）。
+- 起動したままのBlenderで作ったGLBは、新しいBlenderで作った物とバイト単位で同じことを、10種類の体型で確かめました。
+- マーク（文字・PNG）は、画面では服に投影して見せ、「保存して作る」でGLBに入ります。置き場所を決めていない時は、いちばん外の服（上着があれば上着）の左胸に置きます。
 
 `window.__outfitLab` はgetRecipe/setRecipe/setPart/setMark/getInventory/findInventory/listParts/exportGLBを保持し、loadRecipe/setBody/selectPart/saveAndBuild/setMotion/status/readyも提供します。旧version:1のJSONとsetPartの旧部位名・襟/丈も移行できます。
 

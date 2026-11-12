@@ -23,3 +23,6 @@ __pycache__/
 Thumbs.db
 # Pictures saved by the labs through port 8797
 /playtest/shots/
+# Outfit lab live previews (rebuilt on demand by tools/outfit_service.py)
+assets/characters/recipes/preview/
+assets/characters/models/preview/

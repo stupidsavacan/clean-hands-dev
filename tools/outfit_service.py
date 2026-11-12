@@ -22,6 +22,7 @@ CAPACITY=threading.BoundedSemaphore(3)
 LOCK=threading.Lock()
 JOBS={}
 NEW=re.compile(r'^new_[a-f0-9]{32}$')
+PREVIEW=re.compile(r'^preview_[a-f0-9]{32}$')
 HEX=re.compile(r'^#[0-9a-fA-F]{6}$')
 
 
@@ -98,7 +99,7 @@ def work(id,recipe):
         with LOCK:JOBS[id]['state']='running'
         path=ASSETS/'recipes/new'/(id+'.json');path.parent.mkdir(parents=True,exist_ok=True)
         path.write_bytes((json.dumps(recipe,ensure_ascii=False,indent=2)+'\n').encode())
-        run=subprocess.run([str(BLENDER),'-b','--python-exit-code','1','-P',str(ASSETS/'source/build_recipe.py'),'--',str(path)],cwd=ROOT,capture_output=True,timeout=120,shell=False)
+        run=subprocess.run([str(BLENDER),'-b','--factory-startup','--python-exit-code','1','-P',str(ASSETS/'source/build_recipe.py'),'--',str(path)],cwd=ROOT,capture_output=True,timeout=120,shell=False)
         log=(run.stdout+run.stderr).decode('utf-8',errors='replace')
         (path.parent/(id+'.log')).write_text(log,encoding='utf-8')
         model=ASSETS/'models/new'/id/(id+'.glb')
@@ -107,6 +108,54 @@ def work(id,recipe):
     except Exception as exc:
         with LOCK:JOBS[id].update(state='error',error=str(exc))
     finally:CAPACITY.release()
+
+
+# Live preview (2026-11-12): every change in the outfit lab is built by Blender at once, so the preview is the real
+# model. One Blender stays running (assets/characters/source/preview_worker.py); body variants, which patch the pool
+# builder for a whole process, get a fresh one. Same recipe, same file: built previews are reused.
+VARIANT_BODIES=('pool.variant.slim.v1','pool.variant.lean.v1','pool.variant.strong.v1')
+PREVIEW_LOCK=threading.Lock()
+PREVIEW_KEEP=300
+worker=None
+
+
+def worker_build(path):
+    global worker
+    for attempt in (0,1):
+        if worker is None or worker.poll() is not None:
+            worker=subprocess.Popen([str(BLENDER),'-b','--factory-startup','--python-exit-code','1','-P',str(ASSETS/'source/preview_worker.py')],
+                cwd=ROOT,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,shell=False,text=True,encoding='utf-8',errors='replace',bufsize=1)
+            for line in worker.stdout:
+                if line.startswith('WORKER_READY'):break
+        try:
+            worker.stdin.write(str(path)+'\n');worker.stdin.flush()
+            for line in worker.stdout:
+                if line.startswith('WORKER_DONE '):return
+                if line.startswith('WORKER_ERROR '):raise RuntimeError(line[13:].strip())
+        except (BrokenPipeError,OSError):pass
+        worker=None
+    raise RuntimeError('プレビューの Blender が止まりました。')
+
+
+def preview(recipe):
+    recipe={k:v for k,v in recipe.items() if k not in ('surfaceMark','mark')}
+    key=hashlib.sha256(json.dumps(recipe,sort_keys=True,ensure_ascii=False).encode()).hexdigest()[:32]
+    id='preview_'+key;recipe.update(id=id,label='preview')
+    model=ASSETS/'models/preview'/id/(id+'.glb')
+    with PREVIEW_LOCK:
+        if not model.is_file():
+            path=ASSETS/'recipes/preview'/(id+'.json');path.parent.mkdir(parents=True,exist_ok=True)
+            path.write_bytes((json.dumps(recipe,ensure_ascii=False,indent=2)+'\n').encode())
+            if recipe['body']['profile'] in VARIANT_BODIES:
+                run=subprocess.run([str(BLENDER),'-b','--factory-startup','--python-exit-code','1','-P',str(ASSETS/'source/build_recipe.py'),'--',str(path)],cwd=ROOT,capture_output=True,timeout=120,shell=False)
+                if run.returncode or not model.is_file():raise RuntimeError((run.stdout+run.stderr).decode('utf-8',errors='replace')[-1500:])
+            else:worker_build(path)
+            old=sorted((ASSETS/'models/preview').iterdir(),key=lambda d:d.stat().st_mtime)
+            for folder in old[:-PREVIEW_KEEP]:
+                for f in folder.iterdir():f.unlink()
+                folder.rmdir();(ASSETS/'recipes/preview'/(folder.name+'.json')).unlink(missing_ok=True)
+        else:model.parent.touch()
+    return {'id':id,'modelUrl':'/api/outfit/models/'+id}
 
 
 def handle(h,method):
@@ -129,6 +178,8 @@ def handle(h,method):
             id=path.rsplit('/',1)[1];model='/models/' in path
             if NEW.fullmatch(id):
                 file=ASSETS/'models/new'/id/(id+'.glb') if model else ASSETS/'recipes/new'/(id+'.json')
+            elif PREVIEW.fullmatch(id):
+                file=ASSETS/'models/preview'/id/(id+'.glb') if model else ASSETS/'recipes/preview'/(id+'.json')
             elif id in known:
                 recipe=known[id]
                 if recipe['assetMode']=='alias':recipe=known[recipe['aliasOf']]
@@ -136,6 +187,11 @@ def handle(h,method):
             else:raise ValueError('不明なキャラクターです。')
             if not file.is_file():reply(h,404,{'error':'まだ作成されていません。'})
             else:reply(h,200,file.read_bytes(),'model/gltf-binary' if model else 'application/json; charset=utf-8')
+        elif method=='POST' and path=='/api/outfit/preview':
+            if h.headers.get('X-Outfit-Lab')!='1':reply(h,403,{'error':'専用ヘッダーが必要です。'});return True
+            length=int(h.headers.get('Content-Length','0'))
+            if not 0<length<=768*1024:raise ValueError('レシピが大きすぎます。')
+            reply(h,200,preview(validate(json.loads(h.rfile.read(length)).get('recipe'))))
         elif method=='POST' and path=='/api/outfit/jobs':
             if h.headers.get('X-Outfit-Lab')!='1':reply(h,403,{'error':'専用ヘッダーが必要です。'});return True
             length=int(h.headers.get('Content-Length','0'))
