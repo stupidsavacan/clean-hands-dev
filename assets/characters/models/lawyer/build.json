@@ -1,0 +1,29 @@
+{
+  "id": "lawyer",
+  "recipe": "recipes/lawyer.json",
+  "output": "models/lawyer/lawyer.glb",
+  "sha256": "497a0784fb66c1511cafe3e4ddacc20d02f6f7887461ad8a31ba34149ec6cff2",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Body": {
+      "vertices": 99,
+      "triangles": 146
+    },
+    "Outfit": {
+      "vertices": 252,
+      "triangles": 478
+    },
+    "Hair": {
+      "vertices": 32,
+      "triangles": 38
+    },
+    "Accessories": {
+      "vertices": 56,
+      "triangles": 36
+    },
+    "Face": {
+      "vertices": 28,
+      "triangles": 14
+    }
+  }
+}

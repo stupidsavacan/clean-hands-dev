@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "assetMode": "generated",
+  "id": "masseuse",
+  "rig": "cast.shared22.v1",
+  "body": {
+    "profile": "cast.male.v1",
+    "parameters": {}
+  },
+  "identity": {
+    "head": "cast.head.male.v1",
+    "face": "cast.face.male.v1",
+    "hair": {
+      "kind": "parted",
+      "cell": 9
+    }
+  },
+  "palette": {
+    "id": "uniform.palette.v1",
+    "overrides": {},
+    "imageName": "CLEAN_HANDS_Palette_256"
+  },
+  "parts": [
+    {
+      "part": "cast.head.male.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.face.male.v1",
+      "mesh": "Face",
+      "colors": {
+        "hair": 9
+      },
+      "parameters": {}
+    },
+    {
+      "part": "uniform.torso.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "color": 1
+      },
+      "parameters": {}
+    },
+    {
+      "part": "uniform.short-sleeves.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "skin": 7
+      },
+      "parameters": {
+        "cut": 0.474
+      }
+    },
+    {
+      "part": "cast.legs.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "color": 10,
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.hands.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.hair.v1",
+      "mesh": "Hair",
+      "colors": {
+        "color": 9
+      },
+      "parameters": {
+        "kind": "parted"
+      }
+    },
+    {
+      "part": "uniform.dress.masseuse.v1",
+      "mesh": "Accessories",
+      "colors": {},
+      "parameters": {}
+    }
+  ],
+  "specialOperations": [
+    {
+      "operation": "cast.face-morphs.v1",
+      "phase": "afterObjects",
+      "mesh": "Face"
+    },
+    {
+      "operation": "skin-roots.normalize.v1",
+      "phase": "afterExport"
+    }
+  ],
+  "output": {
+    "meshOrder": [
+      "Body",
+      "Outfit",
+      "Hair",
+      "Accessories",
+      "Face"
+    ],
+    "animationProfile": "cast.walk1.v1",
+    "exportProfile": "blender42.cast-nla.v1"
+  },
+  "reference": {
+    "baselineId": "masseuse",
+    "sha256": "4741276e4ab51c1b9c951ef1b8b45c35ebeb7b487e5d8bb79bff32066f4c7e6c"
+  }
+}

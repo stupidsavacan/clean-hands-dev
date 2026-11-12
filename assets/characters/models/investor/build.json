@@ -1,0 +1,29 @@
+{
+  "id": "investor",
+  "recipe": "recipes/investor.json",
+  "output": "models/investor/investor.glb",
+  "sha256": "574bb1db18b1599698ce0d136ec65c8c19bd3f92d08b60863df48feca1b69570",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Body": {
+      "vertices": 107,
+      "triangles": 162
+    },
+    "Outfit": {
+      "vertices": 388,
+      "triangles": 494
+    },
+    "Hair": {
+      "vertices": 25,
+      "triangles": 40
+    },
+    "Accessories": {
+      "vertices": 28,
+      "triangles": 16
+    },
+    "Face": {
+      "vertices": 38,
+      "triangles": 24
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "guest_dress",
+  "recipe": "recipes/guest_dress.json",
+  "output": "models/guest_dress/guest_dress.glb",
+  "sha256": "600ba737e0d02ccde429cf5c87ab2c45209a593dd090a1db5430d91f5c41b67c",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Body": {
+      "vertices": 107,
+      "triangles": 162
+    },
+    "Outfit": {
+      "vertices": 236,
+      "triangles": 430
+    },
+    "Hair": {
+      "vertices": 24,
+      "triangles": 22
+    },
+    "Accessories": {
+      "vertices": 52,
+      "triangles": 70
+    },
+    "Face": {
+      "vertices": 38,
+      "triangles": 24
+    }
+  }
+}

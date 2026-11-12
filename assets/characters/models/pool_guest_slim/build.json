@@ -1,0 +1,37 @@
+{
+  "id": "pool_guest_slim",
+  "recipe": "recipes/pool_guest_slim.json",
+  "output": "models/pool_guest_slim/pool_guest_slim.glb",
+  "sha256": "91f028179f65053e1a3059a7cd0ffbc7f111a25d85411ea42e321236ab935eb7",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Head": {
+      "vertices": 69,
+      "triangles": 112
+    },
+    "Body": {
+      "vertices": 120,
+      "triangles": 230
+    },
+    "Legs": {
+      "vertices": 160,
+      "triangles": 292
+    },
+    "Hands": {
+      "vertices": 40,
+      "triangles": 64
+    },
+    "Hair": {
+      "vertices": 56,
+      "triangles": 82
+    },
+    "Details": {
+      "vertices": 8,
+      "triangles": 4
+    },
+    "Face": {
+      "vertices": 38,
+      "triangles": 24
+    }
+  }
+}

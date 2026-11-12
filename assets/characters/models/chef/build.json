@@ -1,0 +1,29 @@
+{
+  "id": "chef",
+  "recipe": "recipes/chef.json",
+  "output": "models/chef/chef.glb",
+  "sha256": "cfb92f01283d571d0b0e645ce2cb008e04307aae1e6ef05eaad83f98289fd9cc",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Body": {
+      "vertices": 99,
+      "triangles": 146
+    },
+    "Outfit": {
+      "vertices": 252,
+      "triangles": 478
+    },
+    "Hair": {
+      "vertices": 24,
+      "triangles": 22
+    },
+    "Accessories": {
+      "vertices": 117,
+      "triangles": 137
+    },
+    "Face": {
+      "vertices": 28,
+      "triangles": 14
+    }
+  }
+}

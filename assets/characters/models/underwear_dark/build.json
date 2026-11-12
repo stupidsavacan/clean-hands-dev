@@ -1,0 +1,25 @@
+{
+  "id": "underwear_dark",
+  "recipe": "recipes/underwear_dark.json",
+  "output": "models/underwear_dark/underwear_dark.glb",
+  "sha256": "a3ff708865da32a5763f9534abbbd7ade1c20a8105aa54015914406be1d37f90",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Body": {
+      "vertices": 99,
+      "triangles": 146
+    },
+    "Outfit": {
+      "vertices": 300,
+      "triangles": 542
+    },
+    "Hair": {
+      "vertices": 24,
+      "triangles": 22
+    },
+    "Face": {
+      "vertices": 28,
+      "triangles": 14
+    }
+  }
+}

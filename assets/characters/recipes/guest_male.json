@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "assetMode": "alias",
+  "id": "guest_male",
+  "aliasOf": "wardrobe",
+  "lookPolicy": "party-initial-agent-look",
+  "labPreviewLook": "DEFAULT_LOOK"
+}

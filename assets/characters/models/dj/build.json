@@ -1,0 +1,29 @@
+{
+  "id": "dj",
+  "recipe": "recipes/dj.json",
+  "output": "models/dj/dj.glb",
+  "sha256": "7ee93023031a0d79923df8983ba87d80eed07fb3d692d62bae07f5725c1742c1",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Body": {
+      "vertices": 99,
+      "triangles": 146
+    },
+    "Outfit": {
+      "vertices": 264,
+      "triangles": 502
+    },
+    "Hair": {
+      "vertices": 24,
+      "triangles": 12
+    },
+    "Accessories": {
+      "vertices": 108,
+      "triangles": 188
+    },
+    "Face": {
+      "vertices": 28,
+      "triangles": 14
+    }
+  }
+}

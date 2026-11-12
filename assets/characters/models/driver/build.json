@@ -1,0 +1,29 @@
+{
+  "id": "driver",
+  "recipe": "recipes/driver.json",
+  "output": "models/driver/driver.glb",
+  "sha256": "da39dd49b60c014a369979cb78cba422f852c77d0c68f23d77c179049363b34e",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Body": {
+      "vertices": 99,
+      "triangles": 146
+    },
+    "Outfit": {
+      "vertices": 252,
+      "triangles": 478
+    },
+    "Hair": {
+      "vertices": 24,
+      "triangles": 22
+    },
+    "Accessories": {
+      "vertices": 77,
+      "triangles": 79
+    },
+    "Face": {
+      "vertices": 28,
+      "triangles": 14
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "delivery",
+  "recipe": "recipes/delivery.json",
+  "output": "models/delivery/delivery.glb",
+  "sha256": "33cf03be95bcd3dd363ad4930ea6a9e7547103a19cff9ae35fb99813938757ae",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Body": {
+      "vertices": 99,
+      "triangles": 146
+    },
+    "Outfit": {
+      "vertices": 492,
+      "triangles": 554
+    },
+    "Hair": {
+      "vertices": 24,
+      "triangles": 22
+    },
+    "Accessories": {
+      "vertices": 28,
+      "triangles": 46
+    },
+    "Face": {
+      "vertices": 28,
+      "triangles": 14
+    }
+  }
+}

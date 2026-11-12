@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "assetMode": "generated",
+  "id": "pool_guest_swimshorts",
+  "rig": "cast.shared22.v1",
+  "body": {
+    "profile": "pool.shorts.v1",
+    "parameters": {}
+  },
+  "identity": {
+    "head": "pool.head.v1",
+    "face": "pool.face.v1",
+    "hair": {
+      "kind": "shorts",
+      "cell": 9
+    }
+  },
+  "palette": {
+    "id": "pool.palette.v1",
+    "overrides": {},
+    "imageName": "palette"
+  },
+  "parts": [
+    {
+      "part": "pool.head.v1",
+      "mesh": "Head",
+      "colors": {
+        "skin": 8
+      },
+      "parameters": {
+        "kind": "shorts"
+      }
+    },
+    {
+      "part": "pool.face.v1",
+      "mesh": "Face",
+      "colors": {
+        "hc": 9
+      },
+      "parameters": {
+        "kind": "shorts"
+      }
+    },
+    {
+      "part": "pool.hair.v1",
+      "mesh": "Hair",
+      "colors": {
+        "hc": 9
+      },
+      "parameters": {
+        "kind": "shorts"
+      }
+    },
+    {
+      "part": "pool.torso.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 8
+      },
+      "parameters": {
+        "kind": "shorts"
+      }
+    },
+    {
+      "part": "pool.legs.v1",
+      "mesh": "Legs",
+      "colors": {
+        "skin": 8
+      },
+      "parameters": {
+        "kind": "shorts"
+      }
+    },
+    {
+      "part": "pool.hands.v1",
+      "mesh": "Hands",
+      "colors": {
+        "skin": 8
+      },
+      "parameters": {}
+    },
+    {
+      "part": "pool.details.v1",
+      "mesh": "Details",
+      "colors": {},
+      "parameters": {
+        "kind": "shorts"
+      }
+    }
+  ],
+  "specialOperations": [
+    {
+      "operation": "cast.face-morphs.v1",
+      "phase": "afterObjects",
+      "mesh": "Face"
+    },
+    {
+      "operation": "skin-roots.normalize.v1",
+      "phase": "afterExport"
+    }
+  ],
+  "output": {
+    "meshOrder": [
+      "Head",
+      "Body",
+      "Legs",
+      "Hands",
+      "Hair",
+      "Details",
+      "Face"
+    ],
+    "animationProfile": "cast.walk1.v1",
+    "exportProfile": "blender42.cast-nla.v1"
+  },
+  "reference": {
+    "baselineId": "pool_guest_swimshorts",
+    "sha256": "bc545e7d53fdc4739c07d29d98cd183382bd5bb27cb4b6708361814a2db51927"
+  }
+}

@@ -11,14 +11,14 @@
     "head": "cast.head.male.v1",
     "face": "cast.face.male.v1",
     "hair": {
-      "part": "cast.hair.v1",
-      "cell": 9,
-      "kind": "swept"
+      "kind": "swept",
+      "cell": 9
     }
   },
   "palette": {
     "id": "uniform.palette.v1",
-    "overrides": {}
+    "overrides": {},
+    "imageName": "CLEAN_HANDS_Palette_256"
   },
   "parts": [
     {

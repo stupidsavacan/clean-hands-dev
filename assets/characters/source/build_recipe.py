@@ -8,6 +8,8 @@ import hashlib
 import json
 from pathlib import Path
 import sys
+import re
+from functools import partial
 
 import bpy
 
@@ -19,8 +21,9 @@ import build_uniforms as bu
 from normalize_skin_roots import normalize
 
 ASSETS = HERE.parent
-CAST = ('cast.male.v1',)
-POOL = ('pool.resort.v1',)
+CAST = ('cast.male.v1', 'cast.female.v1')
+POOL = ('pool.resort.v1', 'pool.swimsuit.v1', 'pool.shorts.v1', 'pool.variant.slim.v1', 'pool.variant.lean.v1', 'pool.variant.strong.v1')
+VARIANTS = {'pool.variant.slim.v1': 'pool_guest_slim', 'pool.variant.lean.v1': 'pool_guest_lean', 'pool.variant.strong.v1': 'pool_guest_strong'}
 
 
 def photographer_inlay(mesh, vest, pocket):
@@ -37,35 +40,121 @@ PARTS = {
     'uniform.torso.v1': (bu.uniform_torso, CAST, {'color': ('cell',)}, {}),
     'cast.legs.v1': (bc.legs, CAST, {'color': ('cell',), 'skin': ('cell',)}, {}),
     'cast.hands.v1': (bc.hands, CAST, {'skin': ('cell',)}, {}),
-    'cast.hair.v1': (bc.hair, CAST, {'color': ('cell',)}, {'kind': ('parted', 'swept')}),
-    'cast.chest-details.v1': (bc.chest_details, CAST, {'color': ('cell',)}, {'kind': ('waiter',)}),
+    'cast.hair.v1': (bc.hair, CAST, {'color': ('cell',)}, {'kind': ('parted', 'swept', 'short', 'bob')}),
+    'cast.chest-details.v1': (bc.chest_details, CAST, {'color': ('cell',)}, {'kind': ('waiter', 'suit', 'guard', 'guest', 'dress')}),
     'photographer.vest-inlay.v1': (photographer_inlay, CAST, {'vest': ('cell',), 'pocket': ('cell',)}, {}),
     'uniform.collar.v1': (bu.collar, CAST, {'c': ('cell',)}, {}),
     'uniform.camera.v1': (bu.camera, CAST, {}, {}),
-    'pool.head.v1': (bp.pool_head, POOL, {'skin': ('cell',)}, {'kind': ('resort',)}),
-    'pool.face.v1': (bp.pool_face, POOL, {'hc': ('cell',)}, {'kind': ('resort',)}),
-    'pool.hair.v1': (bp.pool_hair, POOL, {'hc': ('cell',)}, {'kind': ('resort',)}),
-    'pool.torso.v1': (bp.pool_torso, POOL, {'skin': ('cell',)}, {'kind': ('resort',)}),
-    'pool.legs.v1': (bp.pool_legs, POOL, {'skin': ('cell',)}, {'kind': ('resort',)}),
+    'pool.head.v1': (bp.pool_head, POOL, {'skin': ('cell',)}, {'kind': ('resort', 'swimsuit', 'shorts')}),
+    'pool.face.v1': (lambda m, hc, kind: bp.pool_face(m, hc, kind), POOL, {'hc': ('cell',)}, {'kind': ('resort', 'swimsuit', 'shorts')}),
+    'pool.hair.v1': (lambda m, hc, kind: bp.pool_hair(m, hc, kind), POOL, {'hc': ('cell',)}, {'kind': ('resort', 'swimsuit', 'shorts')}),
+    'pool.torso.v1': (bp.pool_torso, POOL, {'skin': ('cell',)}, {'kind': ('resort', 'swimsuit', 'shorts')}),
+    'pool.legs.v1': (bp.pool_legs, POOL, {'skin': ('cell',)}, {'kind': ('resort', 'swimsuit', 'shorts')}),
     'pool.hands.v1': (bp.hands, POOL, {'skin': ('cell',)}, {}),
-    'pool.details.v1': (bp.pool_details, POOL, {}, {'kind': ('resort',)}),
+    'pool.details.v1': (bp.pool_details, POOL, {}, {'kind': ('resort', 'swimsuit', 'shorts')}),
+}
+
+
+
+def female_hands(mesh, skin):
+    start = len(mesh.v)
+    bc.hands(mesh, skin)
+    bc.female_hands(mesh, start)
+
+
+def lower_head(meshes):
+    for m in meshes.values():
+        for i, (x, y, z) in enumerate(m.v):
+            if 'head' in m.w[i] or (m.name == 'Body' and 'neck' in m.w[i]):
+                m.v[i] = (x, y, z-.018)
+
+
+def delivery_inlay(mesh, vest, stripe):
+    bu.garment_inlay(mesh, [(-.165,-.035,1.0,1.42,vest,False),(.035,.165,1.0,1.42,vest,False),
+        (-.165,.165,1.0,1.42,vest,True),(-.165,-.035,1.12,1.16,stripe,False),
+        (.035,.165,1.12,1.16,stripe,False),(-.165,.165,1.12,1.16,stripe,True)])
+
+
+def swimsuit_hip_fit(mesh, skin):
+    # The adopted GLB has a .082/.100 top leg ring; the archived generator
+    # still says .072/.083. Preserve that adopted geometry as a named part.
+    for i, (x, y, z) in enumerate(mesh.v):
+        if abs(z-.94) < 1e-7:
+            center = .095 if x > 0 else -.095
+            mesh.v[i] = (center+(x-center)*(.082/.072), y*(.100/.083), z)
+    # Adopted cap faces are skin-coloured, unlike the archived source's blue cap.
+    for i, face in enumerate(mesh.f):
+        if all(abs(mesh.v[j][2]-.94) < 1e-7 for j in face):
+            mesh.c[i] = skin
+
+
+PARTS.update({
+    'pool.swimsuit-hip-fit.v1': (swimsuit_hip_fit, ('pool.swimsuit.v1',), {'skin': ('cell',)}, {}),
+    'cast.head.female.v1': (bc.female_head, ('cast.female.v1',), {'skin': ('cell',)}, {}),
+    'cast.face.female.v1': (bc.female_face, ('cast.female.v1',), {}, {}),
+    'cast.hands.female.v1': (female_hands, ('cast.female.v1',), {'skin': ('cell',)}, {}),
+    'cast.female-outfit.v1': (bc.female_outfit, ('cast.female.v1',), {}, {}),
+    'cast.dress-legs.v1': (lambda m, color, skin: bc.legs(m, color, skin, True), ('cast.female.v1',), {'color': ('cell',), 'skin': ('cell',)}, {}),
+    'cast.glasses.v1': (bc.glasses, CAST, {}, {}),
+    'cast.hat.v1': (bc.hat, CAST, {}, {'kind': ('guard', 'wide')}),
+    'uniform.delivery-inlay.v1': (delivery_inlay, CAST, {'vest': ('cell',), 'stripe': ('cell',)}, {}),
+    'uniform.short-sleeves.v1': (bu.short_sleeves, CAST, {'skin': ('cell',)}, {'cut': (.474, .28)}),
+    'uniform.feet.v1': (bu.recolor_feet, CAST, {'c': ('cell',)}, {}),
+    'uniform.big-build.v1': (bu.big_build, CAST, {}, {}),
+    'uniform.tee.v1': (bu.tee_front, CAST, {'c': ('cell',)}, {'female': (False, True)}),
+    'uniform.bald.v1': (bu.bald, CAST, {'skin': ('cell',)}, {}),
+    'uniform.slick.v1': (bu.slick, CAST, {'c': ('cell',)}, {}),
+    'uniform.spiky.v1': (bu.spiky, CAST, {'c': ('cell',)}, {}),
+    'response.torso.v1': (bu.response_torso, CAST, {'c': ('cell',)}, {}),
+    'response.legs.v1': (bu.response_legs, CAST, {'c': ('cell',)}, {}),
+})
+# Keep role-specific decoration intact until it can be split without geometry changes.
+for role in ('chef','cleaner','delivery','fisher','bodyguard','sommelier','driver','beachbar',
+             'pilot','masseuse','underwear','underwear_dark','underwear_female',
+             'wine_merchant','lawyer','investor','response'):
+    PARTS['uniform.dress.'+role+'.v1'] = (partial(bu.dress, role), CAST, {}, {})
+
+BEFORE_OBJECTS = {
+    'cast.lower-head.v1': lower_head,
+    'dj.customize.v1': bu.dj_customize,
+    'dj.experiment-customize.v1': bu.dj_experiment_customize,
+    'dj.cast-customize.v1': bu.dj_cast_customize,
 }
 
 
 def validate(recipe):
+    if recipe['schemaVersion'] != 1:
+        raise ValueError('Unknown recipe version')
+    if recipe['assetMode'] == 'fixed':
+        sources = {'wardrobe': '../player-wardrobe/models/player_wardrobe.glb',
+                   **{id: '../protagonist-studies-20261028/models/'+id+'.glb' for id in ('architect','operative','veteran','agent47')}}
+        if recipe['source'] != sources.get(recipe['id']) or not re.fullmatch(r'[0-9a-f]{64}', recipe['sha256']):
+            raise ValueError('Invalid fixed asset reference')
+        return
+    if recipe['assetMode'] == 'alias':
+        if recipe['id'] != 'guest_male' or recipe['aliasOf'] != 'wardrobe':
+            raise ValueError('Unknown alias')
+        return
     if recipe['schemaVersion'] != 1 or recipe['assetMode'] != 'generated':
-        raise ValueError('Only generated v1 pilot recipes are supported')
+        raise ValueError('Only generated v1 recipes are supported')
     if recipe['rig'] != 'cast.shared22.v1':
         raise ValueError('Unknown rig')
-    if recipe['id'] not in ('waiter', 'photographer', 'pool_guest_resort'):
-        raise ValueError('Only the three approved pilot outputs may be written')
+    if not re.fullmatch(r'[a-z][a-z0-9_]*', recipe['id']) or recipe['id'] in ('wardrobe','architect','operative','veteran','agent47','guest_male'):
+        raise ValueError('Invalid output id')
     if recipe['body']['profile'] not in CAST + POOL:
         raise ValueError('Unknown body profile')
     if recipe['body'].get('parameters'):
         raise ValueError('Pilot body profiles have no free parameters')
     palette = recipe['palette']
-    if palette['id'] not in ('cast.palette.v1', 'uniform.palette.v1', 'pool.palette.v1') or palette.get('overrides'):
-        raise ValueError('Unknown/modified pilot palette')
+    if palette['id'] not in ('cast.palette.v1', 'uniform.palette.v1', 'pool.palette.v1'):
+        raise ValueError('Unknown palette')
+    for cell, value in palette.get('overrides', {}).items():
+        if cell not in {str(i) for i in range(16)} or not re.fullmatch(r'[0-9a-f]{6}', value):
+            raise ValueError('Invalid palette override')
+    if palette.get('imageName', 'palette') not in ('palette', 'CLEAN_HANDS_Palette_256'):
+        raise ValueError('Unknown palette image name')
+    if palette.get('overrides') and palette['id'] != 'uniform.palette.v1':
+        raise ValueError('Overrides require uniform palette')
     output = recipe['output']
     if output['animationProfile'] != 'cast.walk1.v1' or output['exportProfile'] != 'blender42.cast-nla.v1':
         raise ValueError('Unknown export profile')
@@ -86,7 +175,11 @@ def validate(recipe):
         for k, v in p['parameters'].items():
             if v not in parameters[k]:
                 raise ValueError('Invalid part parameter value')
-    if recipe['specialOperations'] != [
+    operations = recipe['specialOperations']
+    before = [op for op in operations if op.get('phase') == 'beforeObjects']
+    if any(set(op) != {'operation', 'phase'} or op['operation'] not in BEFORE_OBJECTS for op in before):
+        raise ValueError('Unknown pre-object operation')
+    if operations != before + [
         {'operation': 'cast.face-morphs.v1', 'phase': 'afterObjects', 'mesh': 'Face'},
         {'operation': 'skin-roots.normalize.v1', 'phase': 'afterExport'}]:
         raise ValueError('Unknown/incorrect operation order')
@@ -95,6 +188,15 @@ def validate(recipe):
 def build(path):
     recipe = json.loads(path.read_text(encoding='utf-8'))
     validate(recipe)
+    if recipe['assetMode'] == 'alias':
+        return build(ASSETS / 'recipes' / (recipe['aliasOf']+'.json'))
+    if recipe['assetMode'] == 'fixed':
+        source = ASSETS.parents[1] / recipe['source']
+        if hashlib.sha256(source.read_bytes()).hexdigest() != recipe['sha256']:
+            raise ValueError('Fixed asset SHA-256 mismatch')
+        result = {'id': recipe['id'], 'assetMode': 'fixed', 'source': recipe['source'], 'sha256': recipe['sha256']}
+        print('FIXED_ASSET '+json.dumps(result), flush=True)
+        return result
     # Importing the copied helpers must never reach outside this source folder.
     for module in (bc, bp, bu):
         if Path(module.__file__).resolve().parent != HERE:
@@ -102,12 +204,23 @@ def build(path):
     bpy.ops.wm.read_factory_settings(use_empty=True)
     family = bp if recipe['body']['profile'] in POOL else bc
     palettes = {'cast.palette.v1': bc.palette, 'uniform.palette.v1': bu.palette, 'pool.palette.v1': bp.palette}
-    mat = palettes[recipe['palette']['id']]()
+    palette_id = recipe['palette']['id']
+    mat = palettes[palette_id]({int(k): v for k, v in recipe['palette'].get('overrides', {}).items()}) if palette_id == 'uniform.palette.v1' else palettes[palette_id]()
+    if palette_id in ('cast.palette.v1', 'pool.palette.v1'):
+        next(n.image for n in mat.node_tree.nodes if n.type == 'TEX_IMAGE').name = 'palette'
+    if 'imageName' in recipe['palette']:
+        next(n.image for n in mat.node_tree.nodes if n.type == 'TEX_IMAGE').name = recipe['palette']['imageName']
+    if recipe['body']['profile'] in VARIANTS:
+        import build_body_variants as variant
+        variant.active = VARIANTS[recipe['body']['profile']]
     rig = family.rig_create()
     meshes = {name: family.Mesh(name) for name in recipe['output']['meshOrder']}
     for p in recipe['parts']:
         fn = PARTS[p['part']][0]
         fn(meshes[p['mesh']], **p['colors'], **p['parameters'])
+    for op in recipe['specialOperations']:
+        if op['phase'] == 'beforeObjects':
+            BEFORE_OBJECTS[op['operation']](meshes)
     objects = []
     for name, mesh in meshes.items():
         if mesh.v:

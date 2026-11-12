@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "assetMode": "fixed",
+  "id": "agent47",
+  "source": "../protagonist-studies-20261028/models/agent47.glb",
+  "sha256": "88a9400b778f490602f8338b15d966a2d71c4d9c0761070a233ada4fdfd68675",
+  "description": {
+    "policy": "Preserve the original GLB byte-for-byte. No reconstruction or player parts in the catalog.",
+    "meshes": [
+      {
+        "name": "Barcode",
+        "cells": [
+          0
+        ],
+        "triangles": 414,
+        "morphs": []
+      },
+      {
+        "name": "Body",
+        "cells": [
+          0,
+          7,
+          8
+        ],
+        "triangles": 362,
+        "morphs": []
+      },
+      {
+        "name": "Details",
+        "cells": [
+          0,
+          1,
+          2,
+          15
+        ],
+        "triangles": 112,
+        "morphs": []
+      },
+      {
+        "name": "Face",
+        "cells": [
+          0,
+          6,
+          7,
+          8,
+          9,
+          11
+        ],
+        "triangles": 134,
+        "morphs": [
+          "calm",
+          "curious",
+          "alert",
+          "brow_sharp",
+          "brow_soft"
+        ]
+      },
+      {
+        "name": "Outfit",
+        "cells": [
+          0
+        ],
+        "triangles": 478,
+        "morphs": []
+      }
+    ],
+    "palette": [
+      "22262c",
+      "ddd9cf",
+      "c22f21",
+      "f2c14e",
+      "17776c",
+      "3b5b8a",
+      "86abcf",
+      "c9a58d",
+      "aa8a75",
+      "56463a",
+      "b99a84",
+      "c8d7cf",
+      "ddd0b8",
+      "a9bcc9",
+      "f2d7c4",
+      "343941"
+    ],
+    "animations": []
+  }
+}

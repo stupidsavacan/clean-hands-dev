@@ -1,0 +1,29 @@
+{
+  "id": "masseuse",
+  "recipe": "recipes/masseuse.json",
+  "output": "models/masseuse/masseuse.glb",
+  "sha256": "4741276e4ab51c1b9c951ef1b8b45c35ebeb7b487e5d8bb79bff32066f4c7e6c",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Body": {
+      "vertices": 99,
+      "triangles": 146
+    },
+    "Outfit": {
+      "vertices": 252,
+      "triangles": 478
+    },
+    "Hair": {
+      "vertices": 24,
+      "triangles": 22
+    },
+    "Accessories": {
+      "vertices": 82,
+      "triangles": 48
+    },
+    "Face": {
+      "vertices": 28,
+      "triangles": 14
+    }
+  }
+}

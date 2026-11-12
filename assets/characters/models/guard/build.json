@@ -1,0 +1,29 @@
+{
+  "id": "guard",
+  "recipe": "recipes/guard.json",
+  "output": "models/guard/guard.glb",
+  "sha256": "66f00d0640d5de137c2260240385134a2fee77dcef16f7133c9fb97fddf9eeef",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Body": {
+      "vertices": 99,
+      "triangles": 146
+    },
+    "Outfit": {
+      "vertices": 252,
+      "triangles": 478
+    },
+    "Hair": {
+      "vertices": 24,
+      "triangles": 22
+    },
+    "Accessories": {
+      "vertices": 61,
+      "triangles": 67
+    },
+    "Face": {
+      "vertices": 28,
+      "triangles": 14
+    }
+  }
+}

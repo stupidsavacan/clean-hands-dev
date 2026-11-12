@@ -1,0 +1,29 @@
+{
+  "id": "cleaner",
+  "recipe": "recipes/cleaner.json",
+  "output": "models/cleaner/cleaner.glb",
+  "sha256": "2e551a5533d715063ec41c461e0c115c0b08cb1ea6e3115503277e7a3cba226d",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Body": {
+      "vertices": 99,
+      "triangles": 146
+    },
+    "Outfit": {
+      "vertices": 252,
+      "triangles": 478
+    },
+    "Hair": {
+      "vertices": 24,
+      "triangles": 22
+    },
+    "Accessories": {
+      "vertices": 50,
+      "triangles": 46
+    },
+    "Face": {
+      "vertices": 28,
+      "triangles": 14
+    }
+  }
+}

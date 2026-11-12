@@ -2,7 +2,7 @@
   "id": "pool_guest_resort",
   "recipe": "recipes/pool_guest_resort.json",
   "output": "models/pool_guest_resort/pool_guest_resort.glb",
-  "sha256": "48c7455dda57124c1c1d541fdcf4f41038f426274ac73cd881e56352ea9dc808",
+  "sha256": "cd46e39c8980c21a363659ced272ccbe70f852ab7b6a237b42baa91892a5032c",
   "blender": "4.2.16 LTS",
   "meshes": {
     "Head": {

@@ -1,0 +1,29 @@
+{
+  "id": "response",
+  "recipe": "recipes/response.json",
+  "output": "models/response/response.glb",
+  "sha256": "a1b5394c138cc7b23db5b16aa72f08d47b0f9731fb63ffcbd953073f600e8e31",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Body": {
+      "vertices": 99,
+      "triangles": 146
+    },
+    "Outfit": {
+      "vertices": 300,
+      "triangles": 558
+    },
+    "Hair": {
+      "vertices": 24,
+      "triangles": 22
+    },
+    "Accessories": {
+      "vertices": 369,
+      "triangles": 517
+    },
+    "Face": {
+      "vertices": 28,
+      "triangles": 14
+    }
+  }
+}

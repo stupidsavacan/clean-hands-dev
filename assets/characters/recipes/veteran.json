@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "assetMode": "fixed",
+  "id": "veteran",
+  "source": "../protagonist-studies-20261028/models/veteran.glb",
+  "sha256": "1769bcae672d9c0c0426f54607f048f802ac074c3704c662d5788648975752c4",
+  "description": {
+    "policy": "Preserve the original GLB byte-for-byte. No reconstruction or player parts in the catalog.",
+    "meshes": [
+      {
+        "name": "Body",
+        "cells": [
+          0,
+          7,
+          8
+        ],
+        "triangles": 303,
+        "morphs": []
+      },
+      {
+        "name": "Details",
+        "cells": [
+          0,
+          1
+        ],
+        "triangles": 20,
+        "morphs": []
+      },
+      {
+        "name": "Face",
+        "cells": [
+          0,
+          1,
+          7,
+          8,
+          9
+        ],
+        "triangles": 45,
+        "morphs": [
+          "calm",
+          "curious",
+          "alert",
+          "brow_sharp",
+          "brow_soft"
+        ]
+      },
+      {
+        "name": "Hair",
+        "cells": [
+          9
+        ],
+        "triangles": 14,
+        "morphs": []
+      },
+      {
+        "name": "Outfit",
+        "cells": [
+          0,
+          15
+        ],
+        "triangles": 478,
+        "morphs": []
+      }
+    ],
+    "palette": [
+      "20232a",
+      "ddd9ce",
+      "c22f21",
+      "a58b55",
+      "17776c",
+      "3b5b8a",
+      "4fb8c9",
+      "d1ac93",
+      "ad8871",
+      "503f35",
+      "8b9c88",
+      "c8d7cf",
+      "ddd0b8",
+      "a9bcc9",
+      "f2d7c4",
+      "737a82"
+    ],
+    "animations": []
+  }
+}

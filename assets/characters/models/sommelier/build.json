@@ -1,0 +1,29 @@
+{
+  "id": "sommelier",
+  "recipe": "recipes/sommelier.json",
+  "output": "models/sommelier/sommelier.glb",
+  "sha256": "964e54b816520b035f682d36f418368f8ecf99e81d6269d431b931c162bd7cda",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Body": {
+      "vertices": 99,
+      "triangles": 146
+    },
+    "Outfit": {
+      "vertices": 252,
+      "triangles": 478
+    },
+    "Hair": {
+      "vertices": 24,
+      "triangles": 22
+    },
+    "Accessories": {
+      "vertices": 91,
+      "triangles": 83
+    },
+    "Face": {
+      "vertices": 28,
+      "triangles": 14
+    }
+  }
+}

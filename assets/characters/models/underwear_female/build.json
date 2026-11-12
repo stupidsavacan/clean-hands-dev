@@ -1,0 +1,25 @@
+{
+  "id": "underwear_female",
+  "recipe": "recipes/underwear_female.json",
+  "output": "models/underwear_female/underwear_female.glb",
+  "sha256": "cbe042be52072effd8368e3b520ca0a61096cdff334d5f3c2e3663824aa9740a",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Body": {
+      "vertices": 107,
+      "triangles": 162
+    },
+    "Outfit": {
+      "vertices": 300,
+      "triangles": 542
+    },
+    "Hair": {
+      "vertices": 24,
+      "triangles": 22
+    },
+    "Face": {
+      "vertices": 38,
+      "triangles": 24
+    }
+  }
+}

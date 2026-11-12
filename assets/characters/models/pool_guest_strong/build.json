@@ -1,0 +1,37 @@
+{
+  "id": "pool_guest_strong",
+  "recipe": "recipes/pool_guest_strong.json",
+  "output": "models/pool_guest_strong/pool_guest_strong.glb",
+  "sha256": "e151c0a5c09c9d2bc5b25757f2389257616aab58bbc7162779fdc9c71eb2d199",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Head": {
+      "vertices": 69,
+      "triangles": 112
+    },
+    "Body": {
+      "vertices": 120,
+      "triangles": 230
+    },
+    "Legs": {
+      "vertices": 160,
+      "triangles": 292
+    },
+    "Hands": {
+      "vertices": 40,
+      "triangles": 64
+    },
+    "Hair": {
+      "vertices": 32,
+      "triangles": 38
+    },
+    "Details": {
+      "vertices": 8,
+      "triangles": 4
+    },
+    "Face": {
+      "vertices": 38,
+      "triangles": 24
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "bodyguard",
+  "recipe": "recipes/bodyguard.json",
+  "output": "models/bodyguard/bodyguard.glb",
+  "sha256": "832819d232c215d632d0b1f03f5b8c2f32d145ebd04a365fcdef6afed41a6a3f",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Body": {
+      "vertices": 99,
+      "triangles": 146
+    },
+    "Outfit": {
+      "vertices": 252,
+      "triangles": 478
+    },
+    "Hair": {
+      "vertices": 24,
+      "triangles": 22
+    },
+    "Accessories": {
+      "vertices": 60,
+      "triangles": 38
+    },
+    "Face": {
+      "vertices": 28,
+      "triangles": 14
+    }
+  }
+}

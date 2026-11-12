@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "assetMode": "generated",
+  "id": "response",
+  "rig": "cast.shared22.v1",
+  "body": {
+    "profile": "cast.male.v1",
+    "parameters": {}
+  },
+  "identity": {
+    "head": "cast.head.male.v1",
+    "face": "cast.face.male.v1",
+    "hair": {
+      "kind": "short",
+      "cell": 0
+    }
+  },
+  "palette": {
+    "id": "uniform.palette.v1",
+    "overrides": {
+      "0": "292e31",
+      "6": "26343c",
+      "9": "3c4540",
+      "10": "505b48",
+      "11": "b4bda4",
+      "12": "8a7656",
+      "15": "353c3d"
+    },
+    "imageName": "CLEAN_HANDS_Palette_256"
+  },
+  "parts": [
+    {
+      "part": "cast.head.male.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 8
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.face.male.v1",
+      "mesh": "Face",
+      "colors": {
+        "hair": 0
+      },
+      "parameters": {}
+    },
+    {
+      "part": "response.torso.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "c": 0
+      },
+      "parameters": {}
+    },
+    {
+      "part": "response.legs.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "c": 0
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.hands.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 0
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.hair.v1",
+      "mesh": "Hair",
+      "colors": {
+        "color": 0
+      },
+      "parameters": {
+        "kind": "short"
+      }
+    },
+    {
+      "part": "uniform.dress.response.v1",
+      "mesh": "Accessories",
+      "colors": {},
+      "parameters": {}
+    }
+  ],
+  "specialOperations": [
+    {
+      "operation": "cast.face-morphs.v1",
+      "phase": "afterObjects",
+      "mesh": "Face"
+    },
+    {
+      "operation": "skin-roots.normalize.v1",
+      "phase": "afterExport"
+    }
+  ],
+  "output": {
+    "meshOrder": [
+      "Body",
+      "Outfit",
+      "Hair",
+      "Accessories",
+      "Face"
+    ],
+    "animationProfile": "cast.walk1.v1",
+    "exportProfile": "blender42.cast-nla.v1"
+  },
+  "reference": {
+    "baselineId": "response",
+    "sha256": "a1b5394c138cc7b23db5b16aa72f08d47b0f9731fb63ffcbd953073f600e8e31"
+  }
+}

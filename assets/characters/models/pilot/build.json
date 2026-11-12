@@ -1,0 +1,29 @@
+{
+  "id": "pilot",
+  "recipe": "recipes/pilot.json",
+  "output": "models/pilot/pilot.glb",
+  "sha256": "fd8e36631003efa17dee8e6b707976b5769cd60033870c4c65c46aa42370eb1d",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Body": {
+      "vertices": 99,
+      "triangles": 146
+    },
+    "Outfit": {
+      "vertices": 252,
+      "triangles": 478
+    },
+    "Hair": {
+      "vertices": 24,
+      "triangles": 22
+    },
+    "Accessories": {
+      "vertices": 110,
+      "triangles": 76
+    },
+    "Face": {
+      "vertices": 28,
+      "triangles": 14
+    }
+  }
+}

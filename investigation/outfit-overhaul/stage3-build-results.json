@@ -1,0 +1,130 @@
+[
+  {
+    "id": "agent",
+    "exitCode": 0
+  },
+  {
+    "id": "beachbar",
+    "exitCode": 0
+  },
+  {
+    "id": "bodyguard",
+    "exitCode": 0
+  },
+  {
+    "id": "chef",
+    "exitCode": 0
+  },
+  {
+    "id": "cleaner",
+    "exitCode": 0
+  },
+  {
+    "id": "delivery",
+    "exitCode": 0
+  },
+  {
+    "id": "dj",
+    "exitCode": 0
+  },
+  {
+    "id": "dj_cast",
+    "exitCode": 0
+  },
+  {
+    "id": "dj_experiment",
+    "exitCode": 0
+  },
+  {
+    "id": "driver",
+    "exitCode": 0
+  },
+  {
+    "id": "fisher",
+    "exitCode": 0
+  },
+  {
+    "id": "guard",
+    "exitCode": 0
+  },
+  {
+    "id": "guest_dress",
+    "exitCode": 0
+  },
+  {
+    "id": "guest_suit",
+    "exitCode": 0
+  },
+  {
+    "id": "investor",
+    "exitCode": 0
+  },
+  {
+    "id": "lawyer",
+    "exitCode": 0
+  },
+  {
+    "id": "masseuse",
+    "exitCode": 0
+  },
+  {
+    "id": "photographer",
+    "exitCode": 0
+  },
+  {
+    "id": "pilot",
+    "exitCode": 0
+  },
+  {
+    "id": "pool_guest_lean",
+    "exitCode": 0
+  },
+  {
+    "id": "pool_guest_resort",
+    "exitCode": 0
+  },
+  {
+    "id": "pool_guest_slim",
+    "exitCode": 0
+  },
+  {
+    "id": "pool_guest_strong",
+    "exitCode": 0
+  },
+  {
+    "id": "pool_guest_swimshorts",
+    "exitCode": 0
+  },
+  {
+    "id": "pool_guest_swimsuit",
+    "exitCode": 0
+  },
+  {
+    "id": "response",
+    "exitCode": 0
+  },
+  {
+    "id": "sommelier",
+    "exitCode": 0
+  },
+  {
+    "id": "underwear",
+    "exitCode": 0
+  },
+  {
+    "id": "underwear_dark",
+    "exitCode": 0
+  },
+  {
+    "id": "underwear_female",
+    "exitCode": 0
+  },
+  {
+    "id": "waiter",
+    "exitCode": 0
+  },
+  {
+    "id": "wine_merchant",
+    "exitCode": 0
+  }
+]

@@ -1,0 +1,29 @@
+{
+  "id": "beachbar",
+  "recipe": "recipes/beachbar.json",
+  "output": "models/beachbar/beachbar.glb",
+  "sha256": "7066a28bf9f6c080288f9bbcdf7d857a92d8b3c68c03d6518bca6e82b49dc438",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Body": {
+      "vertices": 99,
+      "triangles": 146
+    },
+    "Outfit": {
+      "vertices": 252,
+      "triangles": 478
+    },
+    "Hair": {
+      "vertices": 24,
+      "triangles": 22
+    },
+    "Accessories": {
+      "vertices": 102,
+      "triangles": 72
+    },
+    "Face": {
+      "vertices": 28,
+      "triangles": 14
+    }
+  }
+}

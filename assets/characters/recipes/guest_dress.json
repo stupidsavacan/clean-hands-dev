@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "assetMode": "generated",
+  "id": "guest_dress",
+  "rig": "cast.shared22.v1",
+  "body": {
+    "profile": "cast.female.v1",
+    "parameters": {}
+  },
+  "identity": {
+    "head": "cast.head.female.v1",
+    "face": "cast.face.female.v1",
+    "hair": {
+      "kind": "bob",
+      "cell": 0
+    }
+  },
+  "palette": {
+    "id": "cast.palette.v1",
+    "overrides": {},
+    "imageName": "palette"
+  },
+  "parts": [
+    {
+      "part": "cast.head.female.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.face.female.v1",
+      "mesh": "Face",
+      "colors": {},
+      "parameters": {}
+    },
+    {
+      "part": "cast.torso.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "color": 1
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.dress-legs.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "color": 0,
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.female-outfit.v1",
+      "mesh": "Outfit",
+      "colors": {},
+      "parameters": {}
+    },
+    {
+      "part": "cast.hands.female.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.hair.v1",
+      "mesh": "Hair",
+      "colors": {
+        "color": 0
+      },
+      "parameters": {
+        "kind": "bob"
+      }
+    },
+    {
+      "part": "cast.chest-details.v1",
+      "mesh": "Accessories",
+      "colors": {
+        "color": 0
+      },
+      "parameters": {
+        "kind": "dress"
+      }
+    },
+    {
+      "part": "cast.hat.v1",
+      "mesh": "Accessories",
+      "colors": {},
+      "parameters": {
+        "kind": "wide"
+      }
+    }
+  ],
+  "specialOperations": [
+    {
+      "operation": "cast.lower-head.v1",
+      "phase": "beforeObjects"
+    },
+    {
+      "operation": "cast.face-morphs.v1",
+      "phase": "afterObjects",
+      "mesh": "Face"
+    },
+    {
+      "operation": "skin-roots.normalize.v1",
+      "phase": "afterExport"
+    }
+  ],
+  "output": {
+    "meshOrder": [
+      "Body",
+      "Outfit",
+      "Hair",
+      "Accessories",
+      "Face"
+    ],
+    "animationProfile": "cast.walk1.v1",
+    "exportProfile": "blender42.cast-nla.v1"
+  },
+  "reference": {
+    "baselineId": "guest_dress",
+    "sha256": "600ba737e0d02ccde429cf5c87ab2c45209a593dd090a1db5430d91f5c41b67c"
+  }
+}

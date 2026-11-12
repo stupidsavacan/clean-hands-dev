@@ -2,7 +2,7 @@
   "id": "waiter",
   "recipe": "recipes/waiter.json",
   "output": "models/waiter/waiter.glb",
-  "sha256": "238928acc8c4bb221db4bf6dacad201a7ef02198bd06301b718f93f93228e1ba",
+  "sha256": "1f2db36492b32997a7dbc1a65ace73dd8f34bef0621ad7f26d8592ee45b33add",
   "blender": "4.2.16 LTS",
   "meshes": {
     "Body": {

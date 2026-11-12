@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "assetMode": "fixed",
+  "id": "operative",
+  "source": "../protagonist-studies-20261028/models/operative.glb",
+  "sha256": "863b715a10bc545309f4e051e99209048170113a565411058253d34a99aa2638",
+  "description": {
+    "policy": "Preserve the original GLB byte-for-byte. No reconstruction or player parts in the catalog.",
+    "meshes": [
+      {
+        "name": "Body",
+        "cells": [
+          0,
+          7,
+          8
+        ],
+        "triangles": 303,
+        "morphs": []
+      },
+      {
+        "name": "Details",
+        "cells": [
+          0,
+          1
+        ],
+        "triangles": 20,
+        "morphs": []
+      },
+      {
+        "name": "Face",
+        "cells": [
+          0,
+          1,
+          7,
+          8,
+          9
+        ],
+        "triangles": 43,
+        "morphs": [
+          "calm",
+          "curious",
+          "alert",
+          "brow_sharp",
+          "brow_soft"
+        ]
+      },
+      {
+        "name": "Hair",
+        "cells": [
+          0
+        ],
+        "triangles": 84,
+        "morphs": []
+      },
+      {
+        "name": "Outfit",
+        "cells": [
+          0,
+          5
+        ],
+        "triangles": 478,
+        "morphs": []
+      }
+    ],
+    "palette": [
+      "20232a",
+      "ddd9ce",
+      "c22f21",
+      "a58b55",
+      "17776c",
+      "3b5b8a",
+      "4fb8c9",
+      "d1ac93",
+      "ad8871",
+      "503f35",
+      "8b9c88",
+      "c8d7cf",
+      "ddd0b8",
+      "a9bcc9",
+      "f2d7c4",
+      "737a82"
+    ],
+    "animations": []
+  }
+}

@@ -1,5 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import {readFileSync} from 'node:fs';
+import baselines from '../../investigation/outfit-overhaul/stage2-baseline-models.json' with {type:'json'};
 import inventory from '../src/labs/outfit-inventory.json' with {type:'json'};
 import {CHARACTERS} from '../src/wardrobe.ts';
 import {NPC_MODELS} from '../src/npc-data.ts';
@@ -13,7 +15,7 @@ test('the wardrobe inventory covers every embedded character and map placement',
  const catalog=new Map(inventory.map(entry=>[entry.id,entry]));
  assert.equal(catalog.size,inventory.length);
  const maps=[['ホテル',hotel],['マリーナ',marina],['クラブ',club],['夜会',party],['検証ステージ',testStage]] as const;
- const required=new Set([...Object.keys(NPC_MODELS),...CHARACTERS.map(c=>c.id)]);
+ const required=new Set([...Object.keys(NPC_MODELS),...CHARACTERS.map(c=>c.id),...baselines.models.map(m=>m.id),...baselines.aliases.map(a=>a.id)]);
  const expected:string[]=[];
  for(const [map,level] of maps)for(const npc of level.npcs){
   required.add(npc.model);
@@ -23,4 +25,16 @@ test('the wardrobe inventory covers every embedded character and map placement',
  const actual=inventory.flatMap(entry=>(entry.cast??[]).map(npc=>[npc.map,npc.id,entry.id,npc.label].join(':')));
  assert.deepEqual(actual.sort(),expected.sort());
  for(const {top,jacket,bottom,shoes,extras} of inventory)assert.ok([top,jacket,bottom,shoes,extras].every(Boolean));
+});
+
+test('every inventory entry refers to its versioned generated, fixed or alias recipe',()=>{
+ for(const entry of inventory){
+  assert.equal(entry.recipe,`assets/characters/recipes/${entry.id}.json`);
+  const recipe=JSON.parse(readFileSync(new URL('../../'+entry.recipe,import.meta.url),'utf8'));
+  assert.equal(recipe.id,entry.id);
+  assert.equal(recipe.schemaVersion,1);
+  if(entry.id==='guest_male'){assert.equal(recipe.assetMode,'alias');assert.equal(recipe.aliasOf,'wardrobe');}
+  else if(CHARACTERS.some(c=>c.id===entry.id)){assert.equal(recipe.assetMode,'fixed');assert.match(recipe.sha256,/^[0-9a-f]{64}$/);}
+  else {assert.equal(recipe.assetMode,'generated');assert.ok(recipe.parts.length);}
+ }
 });

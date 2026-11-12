@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "assetMode": "generated",
+  "id": "underwear_female",
+  "rig": "cast.shared22.v1",
+  "body": {
+    "profile": "cast.female.v1",
+    "parameters": {}
+  },
+  "identity": {
+    "head": "cast.head.female.v1",
+    "face": "cast.face.female.v1",
+    "hair": {
+      "kind": "bob",
+      "cell": 0
+    }
+  },
+  "palette": {
+    "id": "uniform.palette.v1",
+    "overrides": {},
+    "imageName": "palette"
+  },
+  "parts": [
+    {
+      "part": "cast.head.female.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.face.female.v1",
+      "mesh": "Face",
+      "colors": {},
+      "parameters": {}
+    },
+    {
+      "part": "cast.torso.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "color": 1
+      },
+      "parameters": {}
+    },
+    {
+      "part": "uniform.short-sleeves.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "skin": 7
+      },
+      "parameters": {
+        "cut": 0.28
+      }
+    },
+    {
+      "part": "cast.legs.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "color": 7,
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.female-outfit.v1",
+      "mesh": "Outfit",
+      "colors": {},
+      "parameters": {}
+    },
+    {
+      "part": "cast.hands.female.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.hair.v1",
+      "mesh": "Hair",
+      "colors": {
+        "color": 0
+      },
+      "parameters": {
+        "kind": "bob"
+      }
+    },
+    {
+      "part": "uniform.dress.underwear_female.v1",
+      "mesh": "Outfit",
+      "colors": {},
+      "parameters": {}
+    }
+  ],
+  "specialOperations": [
+    {
+      "operation": "cast.lower-head.v1",
+      "phase": "beforeObjects"
+    },
+    {
+      "operation": "cast.face-morphs.v1",
+      "phase": "afterObjects",
+      "mesh": "Face"
+    },
+    {
+      "operation": "skin-roots.normalize.v1",
+      "phase": "afterExport"
+    }
+  ],
+  "output": {
+    "meshOrder": [
+      "Body",
+      "Outfit",
+      "Hair",
+      "Accessories",
+      "Face"
+    ],
+    "animationProfile": "cast.walk1.v1",
+    "exportProfile": "blender42.cast-nla.v1"
+  },
+  "reference": {
+    "baselineId": "underwear_female",
+    "sha256": "cbe042be52072effd8368e3b520ca0a61096cdff334d5f3c2e3663824aa9740a"
+  }
+}

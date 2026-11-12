@@ -15,12 +15,18 @@
     "file": "build_uniforms.py",
     "source": "../../../../character-revision/source/build_uniforms.py",
     "sourceSha256": "e46f749a1515628e2fbeb6ef1110e72977ad4caa2224a9181035eb181128baae",
-    "changes": "Keep geometry helpers unchanged; remove import-time output setup and legacy build/render entry points; shared palette packs image without writing palette.png. Uniforms retain only pilot dependencies."
+    "changes": "Copy all current helper functions including DJ variants unchanged; omit legacy build/render/main and import-time path setup. Dispatch from ordered recipes."
   },
   {
     "file": "normalize_skin_roots.py",
     "source": "../../../../character-revision/source/normalize_skin_roots.py",
     "sourceSha256": "6d8c0e0bba0dfd5bca2fd4b3a6f6a429f69729b3a5a6ea5aaae4765060097e61",
     "changes": "Keep geometry helpers unchanged; remove import-time output setup and legacy build/render entry points; shared palette packs image without writing palette.png. Uniforms retain only pilot dependencies."
+  },
+  {
+    "file": "build_body_variants.py",
+    "source": "../../../../character-revision/source/build_body_variants.py",
+    "sourceSha256": "682c2f6f6c46f34a8b8ef920cae5ddce7e2864f224597a7e7fdbf0b7526afe19",
+    "changes": "Reuse copied pool module instead of exec of external source; retain profiles and deformation/morph/hair overrides in original order; omit file output and main loop. Imported only for one isolated variant build."
   }
 ]

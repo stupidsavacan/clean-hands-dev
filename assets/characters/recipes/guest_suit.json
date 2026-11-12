@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "assetMode": "generated",
+  "id": "guest_suit",
+  "rig": "cast.shared22.v1",
+  "body": {
+    "profile": "cast.male.v1",
+    "parameters": {}
+  },
+  "identity": {
+    "head": "cast.head.male.v1",
+    "face": "cast.face.male.v1",
+    "hair": {
+      "kind": "short",
+      "cell": 0
+    }
+  },
+  "palette": {
+    "id": "cast.palette.v1",
+    "overrides": {},
+    "imageName": "palette"
+  },
+  "parts": [
+    {
+      "part": "cast.head.male.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.face.male.v1",
+      "mesh": "Face",
+      "colors": {
+        "hair": 0
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.torso.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "color": 4
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.legs.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "color": 0,
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.hands.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.hair.v1",
+      "mesh": "Hair",
+      "colors": {
+        "color": 0
+      },
+      "parameters": {
+        "kind": "short"
+      }
+    },
+    {
+      "part": "cast.chest-details.v1",
+      "mesh": "Accessories",
+      "colors": {
+        "color": 0
+      },
+      "parameters": {
+        "kind": "guest"
+      }
+    }
+  ],
+  "specialOperations": [
+    {
+      "operation": "cast.face-morphs.v1",
+      "phase": "afterObjects",
+      "mesh": "Face"
+    },
+    {
+      "operation": "skin-roots.normalize.v1",
+      "phase": "afterExport"
+    }
+  ],
+  "output": {
+    "meshOrder": [
+      "Body",
+      "Outfit",
+      "Hair",
+      "Accessories",
+      "Face"
+    ],
+    "animationProfile": "cast.walk1.v1",
+    "exportProfile": "blender42.cast-nla.v1"
+  },
+  "reference": {
+    "baselineId": "guest_suit",
+    "sha256": "86ecb2c205744f19f84fbca402083d2567abcd815af20b92419598cc55069ede"
+  }
+}

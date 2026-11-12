@@ -11,14 +11,14 @@
     "head": "pool.head.v1",
     "face": "pool.face.v1",
     "hair": {
-      "part": "pool.hair.v1",
-      "cell": 0,
-      "kind": "resort"
+      "kind": "resort",
+      "cell": 0
     }
   },
   "palette": {
     "id": "pool.palette.v1",
-    "overrides": {}
+    "overrides": {},
+    "imageName": "palette"
   },
   "parts": [
     {

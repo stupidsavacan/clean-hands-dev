@@ -1,0 +1,29 @@
+{
+  "id": "fisher",
+  "recipe": "recipes/fisher.json",
+  "output": "models/fisher/fisher.glb",
+  "sha256": "adfc3cd7351ec48a295faecca6b4115a0abb77f1a1354f81b048a15913e86c3b",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Body": {
+      "vertices": 99,
+      "triangles": 146
+    },
+    "Outfit": {
+      "vertices": 252,
+      "triangles": 478
+    },
+    "Hair": {
+      "vertices": 24,
+      "triangles": 22
+    },
+    "Accessories": {
+      "vertices": 150,
+      "triangles": 168
+    },
+    "Face": {
+      "vertices": 28,
+      "triangles": 14
+    }
+  }
+}

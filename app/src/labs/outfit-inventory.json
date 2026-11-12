@@ -8,7 +8,8 @@
   "bottom": "スラックス",
   "shoes": "革靴",
   "extras": "眼鏡・手袋・ネクタイ",
-  "template": "suit"
+  "template": "suit",
+  "recipe": "assets/characters/recipes/wardrobe.json"
  },
  {
   "id": "architect",
@@ -19,7 +20,8 @@
   "bottom": "スラックス",
   "shoes": "黒い靴",
   "extras": "金縁眼鏡・赤手袋",
-  "template": "suit"
+  "template": "suit",
+  "recipe": "assets/characters/recipes/architect.json"
  },
  {
   "id": "operative",
@@ -30,7 +32,8 @@
   "bottom": "スラックス",
   "shoes": "黒い靴",
   "extras": "黒手袋",
-  "template": "suit"
+  "template": "suit",
+  "recipe": "assets/characters/recipes/operative.json"
  },
  {
   "id": "veteran",
@@ -41,7 +44,8 @@
   "bottom": "スラックス",
   "shoes": "黒い靴",
   "extras": "黒手袋",
-  "template": "suit"
+  "template": "suit",
+  "recipe": "assets/characters/recipes/veteran.json"
  },
  {
   "id": "agent47",
@@ -52,7 +56,8 @@
   "bottom": "スラックス",
   "shoes": "黒い靴",
   "extras": "赤ネクタイ・黒手袋",
-  "template": "suit"
+  "template": "suit",
+  "recipe": "assets/characters/recipes/agent47.json"
  },
  {
   "id": "beachbar",
@@ -75,7 +80,8 @@
     "id": "beachbar_2",
     "label": "ビーチバー店員"
    }
-  ]
+  ],
+  "recipe": "assets/characters/recipes/beachbar.json"
  },
  {
   "id": "bodyguard",
@@ -173,7 +179,8 @@
     "id": "warden",
     "label": "見回り"
    }
-  ]
+  ],
+  "recipe": "assets/characters/recipes/bodyguard.json"
  },
  {
   "id": "chef",
@@ -216,7 +223,8 @@
     "id": "chef",
     "label": "料理人"
    }
-  ]
+  ],
+  "recipe": "assets/characters/recipes/chef.json"
  },
  {
   "id": "cleaner",
@@ -289,7 +297,8 @@
     "id": "W16",
     "label": "地下係"
    }
-  ]
+  ],
+  "recipe": "assets/characters/recipes/cleaner.json"
  },
  {
   "id": "delivery",
@@ -327,7 +336,8 @@
     "id": "rigger",
     "label": "照明係"
    }
-  ]
+  ],
+  "recipe": "assets/characters/recipes/delivery.json"
  },
  {
   "id": "dj_experiment",
@@ -345,7 +355,8 @@
     "id": "dj",
     "label": "DJ"
    }
-  ]
+  ],
+  "recipe": "assets/characters/recipes/dj_experiment.json"
  },
  {
   "id": "driver",
@@ -368,7 +379,8 @@
     "id": "driver_2",
     "label": "運転手"
    }
-  ]
+  ],
+  "recipe": "assets/characters/recipes/driver.json"
  },
  {
   "id": "fisher",
@@ -396,7 +408,8 @@
     "id": "harbor_2",
     "label": "港湾係"
    }
-  ]
+  ],
+  "recipe": "assets/characters/recipes/fisher.json"
  },
  {
   "id": "guard",
@@ -549,7 +562,8 @@
     "id": "G09",
     "label": "玄関警備の警備"
    }
-  ]
+  ],
+  "recipe": "assets/characters/recipes/guard.json"
  },
  {
   "id": "guest_dress",
@@ -702,7 +716,8 @@
     "id": "clerk",
     "label": "事務員"
    }
-  ]
+  ],
+  "recipe": "assets/characters/recipes/guest_dress.json"
  },
  {
   "id": "guest_suit",
@@ -830,7 +845,8 @@
     "id": "manager",
     "label": "店長"
    }
-  ]
+  ],
+  "recipe": "assets/characters/recipes/guest_suit.json"
  },
  {
   "id": "investor",
@@ -858,7 +874,8 @@
     "id": "host",
     "label": "主催者"
    }
-  ]
+  ],
+  "recipe": "assets/characters/recipes/investor.json"
  },
  {
   "id": "lawyer",
@@ -891,7 +908,8 @@
     "id": "guest_16",
     "label": "客 16"
    }
-  ]
+  ],
+  "recipe": "assets/characters/recipes/lawyer.json"
  },
  {
   "id": "masseuse",
@@ -909,7 +927,8 @@
     "id": "masseuse",
     "label": "マッサージ師"
    }
-  ]
+  ],
+  "recipe": "assets/characters/recipes/masseuse.json"
  },
  {
   "id": "photographer",
@@ -942,7 +961,8 @@
     "id": "guest_15",
     "label": "客 15"
    }
-  ]
+  ],
+  "recipe": "assets/characters/recipes/photographer.json"
  },
  {
   "id": "pilot",
@@ -960,7 +980,8 @@
     "id": "pilot",
     "label": "パイロット"
    }
-  ]
+  ],
+  "recipe": "assets/characters/recipes/pilot.json"
  },
  {
   "id": "pool_guest_lean",
@@ -998,7 +1019,8 @@
     "id": "guest-f",
     "label": "招待客"
    }
-  ]
+  ],
+  "recipe": "assets/characters/recipes/pool_guest_lean.json"
  },
  {
   "id": "pool_guest_resort",
@@ -1046,7 +1068,8 @@
     "id": "guest_12",
     "label": "客 12"
    }
-  ]
+  ],
+  "recipe": "assets/characters/recipes/pool_guest_resort.json"
  },
  {
   "id": "pool_guest_slim",
@@ -1094,7 +1117,8 @@
     "id": "guest-e",
     "label": "招待客"
    }
-  ]
+  ],
+  "recipe": "assets/characters/recipes/pool_guest_slim.json"
  },
  {
   "id": "pool_guest_swimshorts",
@@ -1142,7 +1166,8 @@
     "id": "guest-b",
     "label": "招待客"
    }
-  ]
+  ],
+  "recipe": "assets/characters/recipes/pool_guest_swimshorts.json"
  },
  {
   "id": "pool_guest_swimsuit",
@@ -1170,7 +1195,8 @@
     "id": "guest-d",
     "label": "招待客"
    }
-  ]
+  ],
+  "recipe": "assets/characters/recipes/pool_guest_swimsuit.json"
  },
  {
   "id": "response",
@@ -1181,7 +1207,8 @@
   "bottom": "戦闘パンツ",
   "shoes": "暗色の靴",
   "extras": "ヘルメット・ポーチ・膝当て・手袋",
-  "template": ""
+  "template": "",
+  "recipe": "assets/characters/recipes/response.json"
  },
  {
   "id": "sommelier",
@@ -1204,7 +1231,8 @@
     "id": "bottle_server",
     "label": "ボトル係"
    }
-  ]
+  ],
+  "recipe": "assets/characters/recipes/sommelier.json"
  },
  {
   "id": "underwear",
@@ -1215,7 +1243,8 @@
   "bottom": "下着ショーツ",
   "shoes": "黒い靴",
   "extras": "なし",
-  "template": ""
+  "template": "",
+  "recipe": "assets/characters/recipes/underwear.json"
  },
  {
   "id": "underwear_dark",
@@ -1226,7 +1255,8 @@
   "bottom": "下着ショーツ",
   "shoes": "黒い靴",
   "extras": "なし",
-  "template": ""
+  "template": "",
+  "recipe": "assets/characters/recipes/underwear_dark.json"
  },
  {
   "id": "underwear_female",
@@ -1237,7 +1267,8 @@
   "bottom": "下着ショーツ",
   "shoes": "黒い靴",
   "extras": "なし",
-  "template": ""
+  "template": "",
+  "recipe": "assets/characters/recipes/underwear_female.json"
  },
  {
   "id": "waiter",
@@ -1375,7 +1406,8 @@
     "id": "W17",
     "label": "厨房係"
    }
-  ]
+  ],
+  "recipe": "assets/characters/recipes/waiter.json"
  },
  {
   "id": "wine_merchant",
@@ -1403,7 +1435,8 @@
     "id": "guest_11",
     "label": "客 11"
    }
-  ]
+  ],
+  "recipe": "assets/characters/recipes/wine_merchant.json"
  },
  {
   "id": "guest_male",
@@ -1581,6 +1614,55 @@
     "id": "P32",
     "label": "招待客"
    }
-  ]
+  ],
+  "recipe": "assets/characters/recipes/guest_male.json"
+ },
+ {
+  "id": "agent",
+  "label": "共通リグのエージェント",
+  "group": "主人公の旧モデル",
+  "top": "白シャツ",
+  "jacket": "黒スーツ",
+  "bottom": "スラックス",
+  "shoes": "革靴",
+  "extras": "金縁眼鏡・赤手袋",
+  "template": "suit",
+  "recipe": "assets/characters/recipes/agent.json"
+ },
+ {
+  "id": "dj",
+  "label": "DJ（黒い半袖）",
+  "group": "カジュアル",
+  "top": "黒い半袖",
+  "jacket": "なし",
+  "bottom": "青系パンツ",
+  "shoes": "白い靴",
+  "extras": "キャップ・首掛けヘッドホン",
+  "template": "",
+  "recipe": "assets/characters/recipes/dj.json"
+ },
+ {
+  "id": "dj_cast",
+  "label": "DJ（共通体型）",
+  "group": "カジュアル",
+  "top": "青緑の上着",
+  "jacket": "なし",
+  "bottom": "黒パンツ",
+  "shoes": "白い靴",
+  "extras": "金チェーン・ヘッドホン",
+  "template": "bomber",
+  "recipe": "assets/characters/recipes/dj_cast.json"
+ },
+ {
+  "id": "pool_guest_strong",
+  "label": "筋肉質のプール客",
+  "group": "来客",
+  "top": "アンバーの水着",
+  "jacket": "なし",
+  "bottom": "水着一体",
+  "shoes": "裸足",
+  "extras": "ティールの縁取り・黒ボブ",
+  "template": "",
+  "recipe": "assets/characters/recipes/pool_guest_strong.json"
  }
 ]

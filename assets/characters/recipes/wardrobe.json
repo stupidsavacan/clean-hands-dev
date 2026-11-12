@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 1,
+  "assetMode": "fixed",
+  "id": "wardrobe",
+  "source": "../player-wardrobe/models/player_wardrobe.glb",
+  "sha256": "9e5ea2a871179195be4b06d457ecebb896b5734bccc1ba4ee8778a4ad5a1aee7",
+  "description": {
+    "policy": "Preserve the original GLB byte-for-byte. No reconstruction or player parts in the catalog.",
+    "meshes": [
+      {
+        "name": "Body",
+        "cells": [
+          2,
+          7
+        ],
+        "triangles": 146,
+        "morphs": []
+      },
+      {
+        "name": "Details_suit",
+        "cells": [
+          0,
+          1
+        ],
+        "triangles": 9,
+        "morphs": []
+      },
+      {
+        "name": "Details_tie",
+        "cells": [
+          0,
+          1,
+          15
+        ],
+        "triangles": 15,
+        "morphs": []
+      },
+      {
+        "name": "Face",
+        "cells": [
+          0,
+          1,
+          9
+        ],
+        "triangles": 14,
+        "morphs": [
+          "calm",
+          "curious",
+          "alert",
+          "brow_sharp",
+          "brow_soft"
+        ]
+      },
+      {
+        "name": "Glasses",
+        "cells": [
+          3
+        ],
+        "triangles": 46,
+        "morphs": []
+      },
+      {
+        "name": "Hair_bob",
+        "cells": [
+          0
+        ],
+        "triangles": 22,
+        "morphs": []
+      },
+      {
+        "name": "Hair_crop",
+        "cells": [
+          0
+        ],
+        "triangles": 22,
+        "morphs": []
+      },
+      {
+        "name": "Hair_long",
+        "cells": [
+          0
+        ],
+        "triangles": 38,
+        "morphs": []
+      },
+      {
+        "name": "Hair_parted",
+        "cells": [
+          0
+        ],
+        "triangles": 22,
+        "morphs": []
+      },
+      {
+        "name": "Hair_ponytail",
+        "cells": [
+          0
+        ],
+        "triangles": 82,
+        "morphs": []
+      },
+      {
+        "name": "Hair_short",
+        "cells": [
+          0
+        ],
+        "triangles": 22,
+        "morphs": []
+      },
+      {
+        "name": "Hair_skinhead",
+        "cells": [
+          7
+        ],
+        "triangles": 38,
+        "morphs": []
+      },
+      {
+        "name": "Hair_swept",
+        "cells": [
+          0
+        ],
+        "triangles": 22,
+        "morphs": []
+      },
+      {
+        "name": "Outfit_suit",
+        "cells": [
+          0
+        ],
+        "triangles": 478,
+        "morphs": []
+      },
+      {
+        "name": "Outfit_tie",
+        "cells": [
+          0,
+          15
+        ],
+        "triangles": 478,
+        "morphs": []
+      },
+      {
+        "name": "Tie_black",
+        "cells": [
+          0
+        ],
+        "triangles": 20,
+        "morphs": []
+      },
+      {
+        "name": "Tie_red",
+        "cells": [
+          2
+        ],
+        "triangles": 20,
+        "morphs": []
+      }
+    ],
+    "palette": [
+      "2b2e35",
+      "efeadf",
+      "c22f21",
+      "f2c14e",
+      "17776c",
+      "3b5b8a",
+      "4fb8c9",
+      "d9b39a",
+      "9b7053",
+      "503f35",
+      "8b9c88",
+      "c8d7cf",
+      "ddd0b8",
+      "a9bcc9",
+      "f2d7c4",
+      "737a82"
+    ],
+    "animations": []
+  }
+}

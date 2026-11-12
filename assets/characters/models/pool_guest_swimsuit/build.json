@@ -1,0 +1,37 @@
+{
+  "id": "pool_guest_swimsuit",
+  "recipe": "recipes/pool_guest_swimsuit.json",
+  "output": "models/pool_guest_swimsuit/pool_guest_swimsuit.glb",
+  "sha256": "792e310d1e1772e903c993a3a16f9ec7613ef3ef44f18385baec2cba2a4e5558",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Head": {
+      "vertices": 69,
+      "triangles": 112
+    },
+    "Body": {
+      "vertices": 120,
+      "triangles": 230
+    },
+    "Legs": {
+      "vertices": 160,
+      "triangles": 292
+    },
+    "Hands": {
+      "vertices": 40,
+      "triangles": 64
+    },
+    "Hair": {
+      "vertices": 56,
+      "triangles": 82
+    },
+    "Details": {
+      "vertices": 8,
+      "triangles": 4
+    },
+    "Face": {
+      "vertices": 38,
+      "triangles": 24
+    }
+  }
+}

@@ -11,14 +11,14 @@
     "head": "cast.head.male.v1",
     "face": "cast.face.male.v1",
     "hair": {
-      "part": "cast.hair.v1",
-      "cell": 9,
-      "kind": "parted"
+      "kind": "parted",
+      "cell": 9
     }
   },
   "palette": {
     "id": "cast.palette.v1",
-    "overrides": {}
+    "overrides": {},
+    "imageName": "palette"
   },
   "parts": [
     {

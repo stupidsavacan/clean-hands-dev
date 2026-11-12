@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "assetMode": "generated",
+  "id": "underwear",
+  "rig": "cast.shared22.v1",
+  "body": {
+    "profile": "cast.male.v1",
+    "parameters": {}
+  },
+  "identity": {
+    "head": "cast.head.male.v1",
+    "face": "cast.face.male.v1",
+    "hair": {
+      "kind": "short",
+      "cell": 0
+    }
+  },
+  "palette": {
+    "id": "uniform.palette.v1",
+    "overrides": {},
+    "imageName": "palette"
+  },
+  "parts": [
+    {
+      "part": "cast.head.male.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.face.male.v1",
+      "mesh": "Face",
+      "colors": {
+        "hair": 0
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.torso.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "color": 1
+      },
+      "parameters": {}
+    },
+    {
+      "part": "uniform.short-sleeves.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "skin": 7
+      },
+      "parameters": {
+        "cut": 0.28
+      }
+    },
+    {
+      "part": "cast.legs.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "color": 7,
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.hands.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.hair.v1",
+      "mesh": "Hair",
+      "colors": {
+        "color": 0
+      },
+      "parameters": {
+        "kind": "short"
+      }
+    },
+    {
+      "part": "uniform.dress.underwear.v1",
+      "mesh": "Outfit",
+      "colors": {},
+      "parameters": {}
+    }
+  ],
+  "specialOperations": [
+    {
+      "operation": "cast.face-morphs.v1",
+      "phase": "afterObjects",
+      "mesh": "Face"
+    },
+    {
+      "operation": "skin-roots.normalize.v1",
+      "phase": "afterExport"
+    }
+  ],
+  "output": {
+    "meshOrder": [
+      "Body",
+      "Outfit",
+      "Hair",
+      "Accessories",
+      "Face"
+    ],
+    "animationProfile": "cast.walk1.v1",
+    "exportProfile": "blender42.cast-nla.v1"
+  },
+  "reference": {
+    "baselineId": "underwear",
+    "sha256": "d7957efbba1e61352f6937ab4f01447f56caaba3d1f016feb6770d0c46da94f8"
+  }
+}

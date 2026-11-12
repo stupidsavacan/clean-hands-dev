@@ -1,0 +1,32 @@
+[
+  {
+    "file": "build_characters.py",
+    "sourceSha256": "d7f08603558eda768c6f257282f4ae1ec80a735c63195cd3a59c00e487c7ed46",
+    "copiedDefinitions": 23,
+    "geometryAndMorphDefinitionsMatch": true
+  },
+  {
+    "file": "build_pool_characters.py",
+    "sourceSha256": "ccae6ad9e2389c22585593ac90c56206a2b16543a638927f032ba105b0c1a02c",
+    "copiedDefinitions": 16,
+    "geometryAndMorphDefinitionsMatch": true
+  },
+  {
+    "file": "build_uniforms.py",
+    "sourceSha256": "e46f749a1515628e2fbeb6ef1110e72977ad4caa2224a9181035eb181128baae",
+    "copiedDefinitions": 58,
+    "geometryAndMorphDefinitionsMatch": true
+  },
+  {
+    "file": "normalize_skin_roots.py",
+    "sourceSha256": "6d8c0e0bba0dfd5bca2fd4b3a6f6a429f69729b3a5a6ea5aaae4765060097e61",
+    "copiedDefinitions": 1,
+    "geometryAndMorphDefinitionsMatch": true
+  },
+  {
+    "file": "build_body_variants.py",
+    "sourceSha256": "682c2f6f6c46f34a8b8ef920cae5ddce7e2864f224597a7e7fdbf0b7526afe19",
+    "copiedDefinitions": 7,
+    "geometryAndMorphDefinitionsMatch": true
+  }
+]

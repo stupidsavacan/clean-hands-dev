@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "assetMode": "generated",
+  "id": "investor",
+  "rig": "cast.shared22.v1",
+  "body": {
+    "profile": "cast.female.v1",
+    "parameters": {}
+  },
+  "identity": {
+    "head": "cast.head.female.v1",
+    "face": "cast.face.female.v1",
+    "hair": {
+      "kind": "spiky",
+      "cell": 3
+    }
+  },
+  "palette": {
+    "id": "uniform.palette.v1",
+    "overrides": {},
+    "imageName": "CLEAN_HANDS_Palette_256"
+  },
+  "parts": [
+    {
+      "part": "cast.head.female.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 14
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.face.female.v1",
+      "mesh": "Face",
+      "colors": {},
+      "parameters": {}
+    },
+    {
+      "part": "uniform.torso.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "color": 4
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.legs.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "color": 12,
+        "skin": 14
+      },
+      "parameters": {}
+    },
+    {
+      "part": "uniform.feet.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "c": 1
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.female-outfit.v1",
+      "mesh": "Outfit",
+      "colors": {},
+      "parameters": {}
+    },
+    {
+      "part": "uniform.tee.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "c": 1
+      },
+      "parameters": {
+        "female": true
+      }
+    },
+    {
+      "part": "cast.hands.female.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 14
+      },
+      "parameters": {}
+    },
+    {
+      "part": "uniform.spiky.v1",
+      "mesh": "Hair",
+      "colors": {
+        "c": 3
+      },
+      "parameters": {}
+    },
+    {
+      "part": "uniform.dress.investor.v1",
+      "mesh": "Accessories",
+      "colors": {},
+      "parameters": {}
+    }
+  ],
+  "specialOperations": [
+    {
+      "operation": "cast.lower-head.v1",
+      "phase": "beforeObjects"
+    },
+    {
+      "operation": "cast.face-morphs.v1",
+      "phase": "afterObjects",
+      "mesh": "Face"
+    },
+    {
+      "operation": "skin-roots.normalize.v1",
+      "phase": "afterExport"
+    }
+  ],
+  "output": {
+    "meshOrder": [
+      "Body",
+      "Outfit",
+      "Hair",
+      "Accessories",
+      "Face"
+    ],
+    "animationProfile": "cast.walk1.v1",
+    "exportProfile": "blender42.cast-nla.v1"
+  },
+  "reference": {
+    "baselineId": "investor",
+    "sha256": "574bb1db18b1599698ce0d136ec65c8c19bd3f92d08b60863df48feca1b69570"
+  }
+}

@@ -1,0 +1,21 @@
+BlenderMCP addon registered
+BlenderMCP addon unregistered
+INFO Draco mesh compression is available, use library at C:\Program Files\Blender Foundation\Blender 4.2\4.2\python\lib\site-packages\extern_draco.dll
+10:40:10 | INFO: Starting glTF 2.0 export
+10:40:10 | INFO: Extracting primitive: Accessories
+10:40:10 | INFO: Primitives created: 1
+10:40:10 | INFO: Extracting primitive: Body
+10:40:10 | INFO: Primitives created: 1
+10:40:10 | INFO: Extracting primitive: Face
+10:40:10 | INFO: Primitives created: 1
+10:40:10 | INFO: Extracting primitive: Hair
+10:40:10 | INFO: Primitives created: 1
+10:40:10 | INFO: Extracting primitive: Outfit
+10:40:10 | INFO: Primitives created: 1
+10:40:10 | INFO: Finished glTF 2.0 export in 0.10777115821838379 s
+
+RECIPE_BUILT {"id": "dj_experiment", "recipe": "recipes/dj_experiment.json", "output": "models/dj_experiment/dj_experiment.glb", "sha256": "daf3362052aa36e0320b3bafcdac1d6a1ca33056b1a54500d0db0fa76496860d", "blender": "4.2.16 LTS", "meshes": {"Body": {"vertices": 99, "triangles": 146}, "Outfit": {"vertices": 364, "triangles": 490}, "Hair": {"vertices": 24, "triangles": 22}, "Accessories": {"vertices": 152, "triangles": 206}, "Face": {"vertices": 28, "triangles": 14}}}
+Blender 4.2.16 LTS (hash 39502cae951c built 2025-11-18 01:34:37)
+
+Blender quit
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize

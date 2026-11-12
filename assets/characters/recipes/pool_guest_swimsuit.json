@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "assetMode": "generated",
+  "id": "pool_guest_swimsuit",
+  "rig": "cast.shared22.v1",
+  "body": {
+    "profile": "pool.swimsuit.v1",
+    "parameters": {}
+  },
+  "identity": {
+    "head": "pool.head.v1",
+    "face": "pool.face.v1",
+    "hair": {
+      "kind": "swimsuit",
+      "cell": 9
+    }
+  },
+  "palette": {
+    "id": "pool.palette.v1",
+    "overrides": {},
+    "imageName": "palette"
+  },
+  "parts": [
+    {
+      "part": "pool.head.v1",
+      "mesh": "Head",
+      "colors": {
+        "skin": 14
+      },
+      "parameters": {
+        "kind": "swimsuit"
+      }
+    },
+    {
+      "part": "pool.face.v1",
+      "mesh": "Face",
+      "colors": {
+        "hc": 9
+      },
+      "parameters": {
+        "kind": "swimsuit"
+      }
+    },
+    {
+      "part": "pool.hair.v1",
+      "mesh": "Hair",
+      "colors": {
+        "hc": 9
+      },
+      "parameters": {
+        "kind": "swimsuit"
+      }
+    },
+    {
+      "part": "pool.torso.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 14
+      },
+      "parameters": {
+        "kind": "swimsuit"
+      }
+    },
+    {
+      "part": "pool.legs.v1",
+      "mesh": "Legs",
+      "colors": {
+        "skin": 14
+      },
+      "parameters": {
+        "kind": "swimsuit"
+      }
+    },
+    {
+      "part": "pool.swimsuit-hip-fit.v1",
+      "mesh": "Legs",
+      "colors": {
+        "skin": 14
+      },
+      "parameters": {}
+    },
+    {
+      "part": "pool.hands.v1",
+      "mesh": "Hands",
+      "colors": {
+        "skin": 14
+      },
+      "parameters": {}
+    },
+    {
+      "part": "pool.details.v1",
+      "mesh": "Details",
+      "colors": {},
+      "parameters": {
+        "kind": "swimsuit"
+      }
+    }
+  ],
+  "specialOperations": [
+    {
+      "operation": "cast.face-morphs.v1",
+      "phase": "afterObjects",
+      "mesh": "Face"
+    },
+    {
+      "operation": "skin-roots.normalize.v1",
+      "phase": "afterExport"
+    }
+  ],
+  "output": {
+    "meshOrder": [
+      "Head",
+      "Body",
+      "Legs",
+      "Hands",
+      "Hair",
+      "Details",
+      "Face"
+    ],
+    "animationProfile": "cast.walk1.v1",
+    "exportProfile": "blender42.cast-nla.v1"
+  },
+  "reference": {
+    "baselineId": "pool_guest_swimsuit",
+    "sha256": "792e310d1e1772e903c993a3a16f9ec7613ef3ef44f18385baec2cba2a4e5558"
+  }
+}

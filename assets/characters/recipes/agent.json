@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "assetMode": "generated",
+  "id": "agent",
+  "rig": "cast.shared22.v1",
+  "body": {
+    "profile": "cast.male.v1",
+    "parameters": {}
+  },
+  "identity": {
+    "head": "cast.head.male.v1",
+    "face": "cast.face.male.v1",
+    "hair": {
+      "kind": "swept",
+      "cell": 0
+    }
+  },
+  "palette": {
+    "id": "cast.palette.v1",
+    "overrides": {},
+    "imageName": "palette"
+  },
+  "parts": [
+    {
+      "part": "cast.head.male.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.face.male.v1",
+      "mesh": "Face",
+      "colors": {
+        "hair": 0
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.torso.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "color": 0
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.legs.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "color": 0,
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.hands.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 2
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.hair.v1",
+      "mesh": "Hair",
+      "colors": {
+        "color": 0
+      },
+      "parameters": {
+        "kind": "swept"
+      }
+    },
+    {
+      "part": "cast.chest-details.v1",
+      "mesh": "Accessories",
+      "colors": {
+        "color": 0
+      },
+      "parameters": {
+        "kind": "suit"
+      }
+    },
+    {
+      "part": "cast.glasses.v1",
+      "mesh": "Accessories",
+      "colors": {},
+      "parameters": {}
+    }
+  ],
+  "specialOperations": [
+    {
+      "operation": "cast.face-morphs.v1",
+      "phase": "afterObjects",
+      "mesh": "Face"
+    },
+    {
+      "operation": "skin-roots.normalize.v1",
+      "phase": "afterExport"
+    }
+  ],
+  "output": {
+    "meshOrder": [
+      "Body",
+      "Outfit",
+      "Hair",
+      "Accessories",
+      "Face"
+    ],
+    "animationProfile": "cast.walk1.v1",
+    "exportProfile": "blender42.cast-nla.v1"
+  },
+  "reference": {
+    "baselineId": "agent",
+    "sha256": "f18a34b292ca54e300bce0315b314483b4746dac61050ed3c7737bf841a20122"
+  }
+}

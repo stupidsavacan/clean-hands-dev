@@ -1,0 +1,10 @@
+{
+  "status": "FAIL",
+  "boneTolerance": 1e-06,
+  "attributeTolerance": 1e-05,
+  "differences": [
+    "Legs/0: triangles/attributes/morphs"
+  ],
+  "reference": "..\\character-revision\\models\\pool_guest_swimsuit\\pool_guest_swimsuit.glb",
+  "candidate": "assets\\characters\\models\\pool_guest_swimsuit\\pool_guest_swimsuit.glb"
+}

@@ -1,0 +1,29 @@
+{
+  "id": "wine_merchant",
+  "recipe": "recipes/wine_merchant.json",
+  "output": "models/wine_merchant/wine_merchant.glb",
+  "sha256": "b7b36a5878345f537c6cca023093439f35cc28f39aee6ce29b01c73477771211",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Body": {
+      "vertices": 99,
+      "triangles": 146
+    },
+    "Outfit": {
+      "vertices": 252,
+      "triangles": 478
+    },
+    "Hair": {
+      "vertices": 24,
+      "triangles": 44
+    },
+    "Accessories": {
+      "vertices": 37,
+      "triangles": 21
+    },
+    "Face": {
+      "vertices": 28,
+      "triangles": 14
+    }
+  }
+}

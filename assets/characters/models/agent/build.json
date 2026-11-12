@@ -1,0 +1,29 @@
+{
+  "id": "agent",
+  "recipe": "recipes/agent.json",
+  "output": "models/agent/agent.glb",
+  "sha256": "f18a34b292ca54e300bce0315b314483b4746dac61050ed3c7737bf841a20122",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Body": {
+      "vertices": 99,
+      "triangles": 146
+    },
+    "Outfit": {
+      "vertices": 252,
+      "triangles": 478
+    },
+    "Hair": {
+      "vertices": 24,
+      "triangles": 22
+    },
+    "Accessories": {
+      "vertices": 71,
+      "triangles": 55
+    },
+    "Face": {
+      "vertices": 28,
+      "triangles": 14
+    }
+  }
+}
