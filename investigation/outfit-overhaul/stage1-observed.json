@@ -1,0 +1,4140 @@
+{
+  "protectedTrees": {
+    "character-revision": {
+      "files": 743,
+      "sha256": "ac0b19b11a379cba853d283cb44a3e4cc09299182557633c0fa11d2edf90e97c"
+    },
+    "player-wardrobe": {
+      "files": 24,
+      "sha256": "e8b2ffd3d8102a4eb6c66d0c691c4b73e1ae260e1940e0519d174f8b20463280"
+    }
+  },
+  "models": [
+    {
+      "id": "agent",
+      "source": "outputs/character-revision/models/agent/agent.glb",
+      "sha256": "f18a34b292ca54e300bce0315b314483b4746dac61050ed3c7737bf841a20122",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Accessories",
+          "cells": [
+            0,
+            1,
+            3
+          ],
+          "triangles": 55,
+          "morphs": []
+        },
+        {
+          "name": "Body",
+          "cells": [
+            2,
+            7
+          ],
+          "triangles": 146,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 14,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            0
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0
+          ],
+          "triangles": 478,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "beachbar",
+      "source": "outputs/character-revision/models/beachbar/beachbar.glb",
+      "sha256": "7066a28bf9f6c080288f9bbcdf7d857a92d8b3c68c03d6518bca6e82b49dc438",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Accessories",
+          "cells": [
+            0,
+            1,
+            3,
+            6
+          ],
+          "triangles": 72,
+          "morphs": []
+        },
+        {
+          "name": "Body",
+          "cells": [
+            7
+          ],
+          "triangles": 146,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 14,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            9
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0,
+            6,
+            7,
+            12
+          ],
+          "triangles": 478,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "bodyguard",
+      "source": "outputs/character-revision/models/bodyguard/bodyguard.glb",
+      "sha256": "832819d232c215d632d0b1f03f5b8c2f32d145ebd04a365fcdef6afed41a6a3f",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Accessories",
+          "cells": [
+            0,
+            1,
+            15
+          ],
+          "triangles": 38,
+          "morphs": []
+        },
+        {
+          "name": "Body",
+          "cells": [
+            7
+          ],
+          "triangles": 146,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 14,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            0
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0
+          ],
+          "triangles": 478,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "chef",
+      "source": "outputs/character-revision/models/chef/chef.glb",
+      "sha256": "cfb92f01283d571d0b0e645ce2cb008e04307aae1e6ef05eaad83f98289fd9cc",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Accessories",
+          "cells": [
+            0,
+            1,
+            2
+          ],
+          "triangles": 137,
+          "morphs": []
+        },
+        {
+          "name": "Body",
+          "cells": [
+            7
+          ],
+          "triangles": 146,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 14,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            0
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0,
+            1,
+            15
+          ],
+          "triangles": 478,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "cleaner",
+      "source": "outputs/character-revision/models/cleaner/cleaner.glb",
+      "sha256": "2e551a5533d715063ec41c461e0c115c0b08cb1ea6e3115503277e7a3cba226d",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Accessories",
+          "cells": [
+            1,
+            11
+          ],
+          "triangles": 46,
+          "morphs": []
+        },
+        {
+          "name": "Body",
+          "cells": [
+            8
+          ],
+          "triangles": 146,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 14,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            9
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0,
+            10,
+            15
+          ],
+          "triangles": 478,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "delivery",
+      "source": "outputs/character-revision/models/delivery/delivery.glb",
+      "sha256": "33cf03be95bcd3dd363ad4930ea6a9e7547103a19cff9ae35fb99813938757ae",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Accessories",
+          "cells": [
+            0
+          ],
+          "triangles": 46,
+          "morphs": []
+        },
+        {
+          "name": "Body",
+          "cells": [
+            8
+          ],
+          "triangles": 146,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 14,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            0
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0,
+            3,
+            11,
+            15
+          ],
+          "triangles": 554,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "dj",
+      "source": "outputs/character-revision/models/dj/dj.glb",
+      "sha256": "7ee93023031a0d79923df8983ba87d80eed07fb3d692d62bae07f5725c1742c1",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Accessories",
+          "cells": [
+            0,
+            6,
+            15
+          ],
+          "triangles": 188,
+          "morphs": []
+        },
+        {
+          "name": "Body",
+          "cells": [
+            7
+          ],
+          "triangles": 146,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 14,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            9
+          ],
+          "triangles": 12,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0,
+            1,
+            5,
+            7
+          ],
+          "triangles": 502,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "dj_cast",
+      "source": "outputs/character-revision/models/dj_cast/dj_cast.glb",
+      "sha256": "e807ff161113fd9e232e13b239d7f3edad60a3c9d1b8e25e35242f5bc0ff3c1d",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Accessories",
+          "cells": [
+            0,
+            3,
+            4
+          ],
+          "triangles": 174,
+          "morphs": []
+        },
+        {
+          "name": "Body",
+          "cells": [
+            8
+          ],
+          "triangles": 146,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 14,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            0
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0,
+            1,
+            4
+          ],
+          "triangles": 478,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "dj_experiment",
+      "source": "outputs/character-revision/models/dj_experiment/dj_experiment.glb",
+      "sha256": "daf3362052aa36e0320b3bafcdac1d6a1ca33056b1a54500d0db0fa76496860d",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Accessories",
+          "cells": [
+            0,
+            3,
+            4
+          ],
+          "triangles": 206,
+          "morphs": []
+        },
+        {
+          "name": "Body",
+          "cells": [
+            8
+          ],
+          "triangles": 146,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 14,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            0
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0,
+            1,
+            4
+          ],
+          "triangles": 490,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "driver",
+      "source": "outputs/character-revision/models/driver/driver.glb",
+      "sha256": "da39dd49b60c014a369979cb78cba422f852c77d0c68f23d77c179049363b34e",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Accessories",
+          "cells": [
+            0,
+            1,
+            3
+          ],
+          "triangles": 79,
+          "morphs": []
+        },
+        {
+          "name": "Body",
+          "cells": [
+            1,
+            7
+          ],
+          "triangles": 146,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 14,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            0
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0,
+            15
+          ],
+          "triangles": 478,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "fisher",
+      "source": "outputs/character-revision/models/fisher/fisher.glb",
+      "sha256": "adfc3cd7351ec48a295faecca6b4115a0abb77f1a1354f81b048a15913e86c3b",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Accessories",
+          "cells": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "triangles": 168,
+          "morphs": []
+        },
+        {
+          "name": "Body",
+          "cells": [
+            7
+          ],
+          "triangles": 146,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 14,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            9
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0,
+            4
+          ],
+          "triangles": 478,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "guard",
+      "source": "outputs/character-revision/models/guard/guard.glb",
+      "sha256": "66f00d0640d5de137c2260240385134a2fee77dcef16f7133c9fb97fddf9eeef",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Accessories",
+          "cells": [
+            0,
+            1,
+            3,
+            5
+          ],
+          "triangles": 67,
+          "morphs": []
+        },
+        {
+          "name": "Body",
+          "cells": [
+            8
+          ],
+          "triangles": 146,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 14,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            0
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0,
+            5
+          ],
+          "triangles": 478,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "guest_dress",
+      "source": "outputs/character-revision/models/guest_dress/guest_dress.glb",
+      "sha256": "600ba737e0d02ccde429cf5c87ab2c45209a593dd090a1db5430d91f5c41b67c",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Accessories",
+          "cells": [
+            0,
+            1,
+            12
+          ],
+          "triangles": 70,
+          "morphs": []
+        },
+        {
+          "name": "Body",
+          "cells": [
+            7
+          ],
+          "triangles": 162,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            1,
+            9
+          ],
+          "triangles": 24,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            0
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0,
+            1,
+            7
+          ],
+          "triangles": 430,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "guest_suit",
+      "source": "outputs/character-revision/models/guest_suit/guest_suit.glb",
+      "sha256": "86ecb2c205744f19f84fbca402083d2567abcd815af20b92419598cc55069ede",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Accessories",
+          "cells": [
+            1,
+            4
+          ],
+          "triangles": 9,
+          "morphs": []
+        },
+        {
+          "name": "Body",
+          "cells": [
+            7
+          ],
+          "triangles": 146,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 14,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            0
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0,
+            4
+          ],
+          "triangles": 478,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "investor",
+      "source": "outputs/character-revision/models/investor/investor.glb",
+      "sha256": "574bb1db18b1599698ce0d136ec65c8c19bd3f92d08b60863df48feca1b69570",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Accessories",
+          "cells": [
+            0,
+            3
+          ],
+          "triangles": 16,
+          "morphs": []
+        },
+        {
+          "name": "Body",
+          "cells": [
+            14
+          ],
+          "triangles": 162,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            1,
+            9
+          ],
+          "triangles": 24,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            3
+          ],
+          "triangles": 40,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            1,
+            4,
+            12
+          ],
+          "triangles": 494,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "lawyer",
+      "source": "outputs/character-revision/models/lawyer/lawyer.glb",
+      "sha256": "497a0784fb66c1511cafe3e4ddacc20d02f6f7887461ad8a31ba34149ec6cff2",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Accessories",
+          "cells": [
+            0,
+            1,
+            15
+          ],
+          "triangles": 36,
+          "morphs": []
+        },
+        {
+          "name": "Body",
+          "cells": [
+            14
+          ],
+          "triangles": 146,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9,
+            13
+          ],
+          "triangles": 14,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            13
+          ],
+          "triangles": 38,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0,
+            11
+          ],
+          "triangles": 478,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8c9023ba776f9cbd2246a9b02854727d9bd8a75dea83fca957f657623482754a",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "1c2230",
+            "ddd0b8",
+            "c9c9c2",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "masseuse",
+      "source": "outputs/character-revision/models/masseuse/masseuse.glb",
+      "sha256": "4741276e4ab51c1b9c951ef1b8b45c35ebeb7b487e5d8bb79bff32066f4c7e6c",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Accessories",
+          "cells": [
+            3,
+            4,
+            10
+          ],
+          "triangles": 48,
+          "morphs": []
+        },
+        {
+          "name": "Body",
+          "cells": [
+            7
+          ],
+          "triangles": 146,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 14,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            9
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0,
+            1,
+            7,
+            10
+          ],
+          "triangles": 478,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "photographer",
+      "source": "outputs/character-revision/models/photographer/photographer.glb",
+      "sha256": "3760efdd6826254db37c344f59140944f0f2804fac0019de9144acaf49d91b43",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Accessories",
+          "cells": [
+            0,
+            13,
+            15
+          ],
+          "triangles": 30,
+          "morphs": []
+        },
+        {
+          "name": "Body",
+          "cells": [
+            8
+          ],
+          "triangles": 146,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 14,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            9
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0,
+            9,
+            10,
+            12,
+            13
+          ],
+          "triangles": 578,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "pilot",
+      "source": "outputs/character-revision/models/pilot/pilot.glb",
+      "sha256": "fd8e36631003efa17dee8e6b707976b5769cd60033870c4c65c46aa42370eb1d",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Accessories",
+          "cells": [
+            0,
+            12,
+            15
+          ],
+          "triangles": 76,
+          "morphs": []
+        },
+        {
+          "name": "Body",
+          "cells": [
+            7
+          ],
+          "triangles": 146,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 14,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            0
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0,
+            9
+          ],
+          "triangles": 478,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "pool_guest_lean",
+      "source": "outputs/character-revision/models/pool_guest_lean/pool_guest_lean.glb",
+      "sha256": "fce6e6509da2c002e9231011dd4f2ce9d3c50805c2726d1e047e9cac9aeff84a",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Body",
+          "cells": [
+            3,
+            7
+          ],
+          "triangles": 230,
+          "morphs": []
+        },
+        {
+          "name": "Details",
+          "cells": [
+            1
+          ],
+          "triangles": 2,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 24,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            9
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Hands",
+          "cells": [
+            7
+          ],
+          "triangles": 64,
+          "morphs": []
+        },
+        {
+          "name": "Head",
+          "cells": [
+            7
+          ],
+          "triangles": 112,
+          "morphs": []
+        },
+        {
+          "name": "Legs",
+          "cells": [
+            3,
+            7
+          ],
+          "triangles": 308,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "pool_guest_resort",
+      "source": "outputs/character-revision/models/pool_guest_resort/pool_guest_resort.glb",
+      "sha256": "cd46e39c8980c21a363659ced272ccbe70f852ab7b6a237b42baa91892a5032c",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Body",
+          "cells": [
+            4,
+            7
+          ],
+          "triangles": 230,
+          "morphs": []
+        },
+        {
+          "name": "Details",
+          "cells": [
+            10,
+            12
+          ],
+          "triangles": 23,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 24,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            0
+          ],
+          "triangles": 38,
+          "morphs": []
+        },
+        {
+          "name": "Hands",
+          "cells": [
+            7
+          ],
+          "triangles": 64,
+          "morphs": []
+        },
+        {
+          "name": "Head",
+          "cells": [
+            7
+          ],
+          "triangles": 112,
+          "morphs": []
+        },
+        {
+          "name": "Legs",
+          "cells": [
+            4,
+            7
+          ],
+          "triangles": 228,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "pool_guest_slim",
+      "source": "outputs/character-revision/models/pool_guest_slim/pool_guest_slim.glb",
+      "sha256": "91f028179f65053e1a3059a7cd0ffbc7f111a25d85411ea42e321236ab935eb7",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Body",
+          "cells": [
+            4,
+            14
+          ],
+          "triangles": 230,
+          "morphs": []
+        },
+        {
+          "name": "Details",
+          "cells": [
+            11
+          ],
+          "triangles": 4,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 24,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            9
+          ],
+          "triangles": 82,
+          "morphs": []
+        },
+        {
+          "name": "Hands",
+          "cells": [
+            14
+          ],
+          "triangles": 64,
+          "morphs": []
+        },
+        {
+          "name": "Head",
+          "cells": [
+            14
+          ],
+          "triangles": 112,
+          "morphs": []
+        },
+        {
+          "name": "Legs",
+          "cells": [
+            4,
+            14
+          ],
+          "triangles": 292,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "pool_guest_strong",
+      "source": "outputs/character-revision/models/pool_guest_strong/pool_guest_strong.glb",
+      "sha256": "e151c0a5c09c9d2bc5b25757f2389257616aab58bbc7162779fdc9c71eb2d199",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Body",
+          "cells": [
+            3,
+            7
+          ],
+          "triangles": 230,
+          "morphs": []
+        },
+        {
+          "name": "Details",
+          "cells": [
+            4
+          ],
+          "triangles": 4,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 24,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            0
+          ],
+          "triangles": 38,
+          "morphs": []
+        },
+        {
+          "name": "Hands",
+          "cells": [
+            7
+          ],
+          "triangles": 64,
+          "morphs": []
+        },
+        {
+          "name": "Head",
+          "cells": [
+            7
+          ],
+          "triangles": 112,
+          "morphs": []
+        },
+        {
+          "name": "Legs",
+          "cells": [
+            3,
+            7
+          ],
+          "triangles": 292,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "pool_guest_swimshorts",
+      "source": "outputs/character-revision/models/pool_guest_swimshorts/pool_guest_swimshorts.glb",
+      "sha256": "bc545e7d53fdc4739c07d29d98cd183382bd5bb27cb4b6708361814a2db51927",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Body",
+          "cells": [
+            6,
+            8
+          ],
+          "triangles": 230,
+          "morphs": []
+        },
+        {
+          "name": "Details",
+          "cells": [
+            1
+          ],
+          "triangles": 2,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 24,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            9
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Hands",
+          "cells": [
+            8
+          ],
+          "triangles": 64,
+          "morphs": []
+        },
+        {
+          "name": "Head",
+          "cells": [
+            8
+          ],
+          "triangles": 112,
+          "morphs": []
+        },
+        {
+          "name": "Legs",
+          "cells": [
+            6,
+            8
+          ],
+          "triangles": 308,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "pool_guest_swimsuit",
+      "source": "outputs/character-revision/models/pool_guest_swimsuit/pool_guest_swimsuit.glb",
+      "sha256": "792e310d1e1772e903c993a3a16f9ec7613ef3ef44f18385baec2cba2a4e5558",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Body",
+          "cells": [
+            5,
+            14
+          ],
+          "triangles": 230,
+          "morphs": []
+        },
+        {
+          "name": "Details",
+          "cells": [
+            6
+          ],
+          "triangles": 4,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 24,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            9
+          ],
+          "triangles": 82,
+          "morphs": []
+        },
+        {
+          "name": "Hands",
+          "cells": [
+            14
+          ],
+          "triangles": 64,
+          "morphs": []
+        },
+        {
+          "name": "Head",
+          "cells": [
+            14
+          ],
+          "triangles": 112,
+          "morphs": []
+        },
+        {
+          "name": "Legs",
+          "cells": [
+            5,
+            14
+          ],
+          "triangles": 292,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "response",
+      "source": "outputs/character-revision/models/response/response.glb",
+      "sha256": "a1b5394c138cc7b23db5b16aa72f08d47b0f9731fb63ffcbd953073f600e8e31",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Accessories",
+          "cells": [
+            0,
+            6,
+            9,
+            10,
+            11,
+            12,
+            15
+          ],
+          "triangles": 517,
+          "morphs": []
+        },
+        {
+          "name": "Body",
+          "cells": [
+            0,
+            8
+          ],
+          "triangles": 146,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 14,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            0
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0,
+            15
+          ],
+          "triangles": 558,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "b447fa254e1798e7366bb177d31f38c5be7d3c9f7eed789933999ec280dbff6f",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "292e31",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "26343c",
+            "d9b39a",
+            "9b7053",
+            "3c4540",
+            "505b48",
+            "b4bda4",
+            "8a7656",
+            "a9bcc9",
+            "f2d7c4",
+            "353c3d"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "sommelier",
+      "source": "outputs/character-revision/models/sommelier/sommelier.glb",
+      "sha256": "964e54b816520b035f682d36f418368f8ecf99e81d6269d431b931c162bd7cda",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Accessories",
+          "cells": [
+            0,
+            1,
+            3,
+            9
+          ],
+          "triangles": 83,
+          "morphs": []
+        },
+        {
+          "name": "Body",
+          "cells": [
+            7
+          ],
+          "triangles": 146,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 14,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            9
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0
+          ],
+          "triangles": 478,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "underwear",
+      "source": "outputs/character-revision/models/underwear/underwear.glb",
+      "sha256": "d7957efbba1e61352f6937ab4f01447f56caaba3d1f016feb6770d0c46da94f8",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Body",
+          "cells": [
+            7
+          ],
+          "triangles": 146,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 14,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            0
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0,
+            1,
+            7,
+            13
+          ],
+          "triangles": 542,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "underwear_dark",
+      "source": "outputs/character-revision/models/underwear_dark/underwear_dark.glb",
+      "sha256": "a3ff708865da32a5763f9534abbbd7ade1c20a8105aa54015914406be1d37f90",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Body",
+          "cells": [
+            8
+          ],
+          "triangles": 146,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 14,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            0
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0,
+            1,
+            8,
+            13
+          ],
+          "triangles": 542,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "underwear_female",
+      "source": "outputs/character-revision/models/underwear_female/underwear_female.glb",
+      "sha256": "cbe042be52072effd8368e3b520ca0a61096cdff334d5f3c2e3663824aa9740a",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Body",
+          "cells": [
+            7
+          ],
+          "triangles": 162,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            1,
+            9
+          ],
+          "triangles": 24,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            0
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0,
+            1,
+            7,
+            13
+          ],
+          "triangles": 542,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "waiter",
+      "source": "outputs/character-revision/models/waiter/waiter.glb",
+      "sha256": "1f2db36492b32997a7dbc1a65ace73dd8f34bef0621ad7f26d8592ee45b33add",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Accessories",
+          "cells": [
+            0,
+            1
+          ],
+          "triangles": 4,
+          "morphs": []
+        },
+        {
+          "name": "Body",
+          "cells": [
+            7
+          ],
+          "triangles": 146,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 14,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            9
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0,
+            1
+          ],
+          "triangles": 478,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "wine_merchant",
+      "source": "outputs/character-revision/models/wine_merchant/wine_merchant.glb",
+      "sha256": "b7b36a5878345f537c6cca023093439f35cc28f39aee6ce29b01c73477771211",
+      "bones": 22,
+      "animations": [
+        "walk1"
+      ],
+      "meshes": [
+        {
+          "name": "Accessories",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 21,
+          "morphs": []
+        },
+        {
+          "name": "Body",
+          "cells": [
+            7
+          ],
+          "triangles": 146,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            7,
+            9
+          ],
+          "triangles": 14,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            7
+          ],
+          "triangles": 44,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0,
+            11
+          ],
+          "triangles": 478,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "d10d9631ac0b34316302cb1f6545f08d405c9b2cd665d98272ddad90545b2984",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d99683",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "6b2a2a",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "wardrobe",
+      "source": "outputs\\player-wardrobe\\models\\player_wardrobe.glb",
+      "sha256": "9e5ea2a871179195be4b06d457ecebb896b5734bccc1ba4ee8778a4ad5a1aee7",
+      "bones": 22,
+      "animations": [],
+      "meshes": [
+        {
+          "name": "Body",
+          "cells": [
+            2,
+            7
+          ],
+          "triangles": 146,
+          "morphs": []
+        },
+        {
+          "name": "Details_suit",
+          "cells": [
+            0,
+            1
+          ],
+          "triangles": 9,
+          "morphs": []
+        },
+        {
+          "name": "Details_tie",
+          "cells": [
+            0,
+            1,
+            15
+          ],
+          "triangles": 15,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            9
+          ],
+          "triangles": 14,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert",
+            "brow_sharp",
+            "brow_soft"
+          ]
+        },
+        {
+          "name": "Glasses",
+          "cells": [
+            3
+          ],
+          "triangles": 46,
+          "morphs": []
+        },
+        {
+          "name": "Hair_bob",
+          "cells": [
+            0
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Hair_crop",
+          "cells": [
+            0
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Hair_long",
+          "cells": [
+            0
+          ],
+          "triangles": 38,
+          "morphs": []
+        },
+        {
+          "name": "Hair_parted",
+          "cells": [
+            0
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Hair_ponytail",
+          "cells": [
+            0
+          ],
+          "triangles": 82,
+          "morphs": []
+        },
+        {
+          "name": "Hair_short",
+          "cells": [
+            0
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Hair_skinhead",
+          "cells": [
+            7
+          ],
+          "triangles": 38,
+          "morphs": []
+        },
+        {
+          "name": "Hair_swept",
+          "cells": [
+            0
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Outfit_suit",
+          "cells": [
+            0
+          ],
+          "triangles": 478,
+          "morphs": []
+        },
+        {
+          "name": "Outfit_tie",
+          "cells": [
+            0,
+            15
+          ],
+          "triangles": 478,
+          "morphs": []
+        },
+        {
+          "name": "Tie_black",
+          "cells": [
+            0
+          ],
+          "triangles": 20,
+          "morphs": []
+        },
+        {
+          "name": "Tie_red",
+          "cells": [
+            2
+          ],
+          "triangles": 20,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "8d6a457dd3a239dbe57cf755e0cc36d95ccc9b6586f8ec46f6581bebc71558f5",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "2b2e35",
+            "efeadf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d9b39a",
+            "9b7053",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "architect",
+      "source": "app/src/character-data.ts#architect",
+      "sha256": "89eaeeccc43ac573a291678e24a9e7be30bcd6ba1454c0450bd0177fad27dbbf",
+      "bones": 22,
+      "animations": [],
+      "meshes": [
+        {
+          "name": "Body",
+          "cells": [
+            2,
+            7,
+            8
+          ],
+          "triangles": 303,
+          "morphs": []
+        },
+        {
+          "name": "Details",
+          "cells": [
+            0,
+            1
+          ],
+          "triangles": 20,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            7,
+            8,
+            9
+          ],
+          "triangles": 43,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert",
+            "brow_sharp",
+            "brow_soft"
+          ]
+        },
+        {
+          "name": "Glasses",
+          "cells": [
+            3
+          ],
+          "triangles": 22,
+          "morphs": []
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            0
+          ],
+          "triangles": 84,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0
+          ],
+          "triangles": 478,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "18b4f8f8fe60390ec044b2af6ba3905238b24f37758d8f5877de943bce42274d",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "20232a",
+            "ddd9ce",
+            "c22f21",
+            "a58b55",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d1ac93",
+            "ad8871",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "operative",
+      "source": "app/src/character-data.ts#operative",
+      "sha256": "863b715a10bc545309f4e051e99209048170113a565411058253d34a99aa2638",
+      "bones": 22,
+      "animations": [],
+      "meshes": [
+        {
+          "name": "Body",
+          "cells": [
+            0,
+            7,
+            8
+          ],
+          "triangles": 303,
+          "morphs": []
+        },
+        {
+          "name": "Details",
+          "cells": [
+            0,
+            1
+          ],
+          "triangles": 20,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            7,
+            8,
+            9
+          ],
+          "triangles": 43,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert",
+            "brow_sharp",
+            "brow_soft"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            0
+          ],
+          "triangles": 84,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0,
+            5
+          ],
+          "triangles": 478,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "18b4f8f8fe60390ec044b2af6ba3905238b24f37758d8f5877de943bce42274d",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "20232a",
+            "ddd9ce",
+            "c22f21",
+            "a58b55",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d1ac93",
+            "ad8871",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "veteran",
+      "source": "app/src/character-data.ts#veteran",
+      "sha256": "1769bcae672d9c0c0426f54607f048f802ac074c3704c662d5788648975752c4",
+      "bones": 22,
+      "animations": [],
+      "meshes": [
+        {
+          "name": "Body",
+          "cells": [
+            0,
+            7,
+            8
+          ],
+          "triangles": 303,
+          "morphs": []
+        },
+        {
+          "name": "Details",
+          "cells": [
+            0,
+            1
+          ],
+          "triangles": 20,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            1,
+            7,
+            8,
+            9
+          ],
+          "triangles": 45,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert",
+            "brow_sharp",
+            "brow_soft"
+          ]
+        },
+        {
+          "name": "Hair",
+          "cells": [
+            9
+          ],
+          "triangles": 14,
+          "morphs": []
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0,
+            15
+          ],
+          "triangles": 478,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "18b4f8f8fe60390ec044b2af6ba3905238b24f37758d8f5877de943bce42274d",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "20232a",
+            "ddd9ce",
+            "c22f21",
+            "a58b55",
+            "17776c",
+            "3b5b8a",
+            "4fb8c9",
+            "d1ac93",
+            "ad8871",
+            "503f35",
+            "8b9c88",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "737a82"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "agent47",
+      "source": "app/src/character-data.ts#agent47",
+      "sha256": "88a9400b778f490602f8338b15d966a2d71c4d9c0761070a233ada4fdfd68675",
+      "bones": 22,
+      "animations": [],
+      "meshes": [
+        {
+          "name": "Barcode",
+          "cells": [
+            0
+          ],
+          "triangles": 414,
+          "morphs": []
+        },
+        {
+          "name": "Body",
+          "cells": [
+            0,
+            7,
+            8
+          ],
+          "triangles": 362,
+          "morphs": []
+        },
+        {
+          "name": "Details",
+          "cells": [
+            0,
+            1,
+            2,
+            15
+          ],
+          "triangles": 112,
+          "morphs": []
+        },
+        {
+          "name": "Face",
+          "cells": [
+            0,
+            6,
+            7,
+            8,
+            9,
+            11
+          ],
+          "triangles": 134,
+          "morphs": [
+            "calm",
+            "curious",
+            "alert",
+            "brow_sharp",
+            "brow_soft"
+          ]
+        },
+        {
+          "name": "Outfit",
+          "cells": [
+            0
+          ],
+          "triangles": 478,
+          "morphs": []
+        }
+      ],
+      "images": [
+        {
+          "sha256": "540c4c79bdf481034dba365e1e01616e50b298b057e38ca4b45eda952e92360d",
+          "size": [
+            256,
+            256
+          ],
+          "cells": [
+            "22262c",
+            "ddd9cf",
+            "c22f21",
+            "f2c14e",
+            "17776c",
+            "3b5b8a",
+            "86abcf",
+            "c9a58d",
+            "aa8a75",
+            "56463a",
+            "b99a84",
+            "c8d7cf",
+            "ddd0b8",
+            "a9bcc9",
+            "f2d7c4",
+            "343941"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "doubleSided": true,
+          "name": "Palette",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0
+          }
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "path": "../character-revision/source/build_characters.py",
+      "sha256": "d7f08603558eda768c6f257282f4ae1ec80a735c63195cd3a59c00e487c7ed46",
+      "functions": {
+        "palette": 8,
+        "Mesh": 19,
+        "octring": 46,
+        "box": 48,
+        "rig_create": 50,
+        "torso": 59,
+        "head": 91,
+        "face": 102,
+        "female_head": 109,
+        "female_face": 118,
+        "female_outfit": 126,
+        "female_hands": 145,
+        "morphs": 149,
+        "hair": 171,
+        "glasses": 184,
+        "legs": 194,
+        "hands": 205,
+        "chest_details": 210,
+        "hat": 222,
+        "pose_clear": 240,
+        "global_rotation": 242,
+        "pose": 244,
+        "walk": 257,
+        "setup_render": 266,
+        "render": 273,
+        "build": 279
+      }
+    },
+    {
+      "path": "../character-revision/source/build_pool_characters.py",
+      "sha256": "ccae6ad9e2389c22585593ac90c56206a2b16543a638927f032ba105b0c1a02c",
+      "functions": {
+        "palette": 8,
+        "Mesh": 19,
+        "octring": 46,
+        "rig_create": 48,
+        "morphs": 57,
+        "hands": 78,
+        "pose_clear": 83,
+        "global_rotation": 85,
+        "pose": 87,
+        "walk": 100,
+        "setup_render": 109,
+        "render": 116,
+        "pool_head": 123,
+        "pool_face": 132,
+        "pool_hair": 139,
+        "pool_torso": 152,
+        "pool_legs": 182,
+        "pool_details": 199,
+        "build_pool": 209
+      }
+    },
+    {
+      "path": "../character-revision/source/build_body_variants.py",
+      "sha256": "682c2f6f6c46f34a8b8ef920cae5ddce7e2864f224597a7e7fdbf0b7526afe19",
+      "functions": {
+        "mix": 19,
+        "body_width": 20,
+        "deform": 24,
+        "object_variant": 48,
+        "face_variant": 62,
+        "morph_variant": 77,
+        "hair_variant": 83
+      }
+    },
+    {
+      "path": "../character-revision/source/build_uniforms.py",
+      "sha256": "e46f749a1515628e2fbeb6ef1110e72977ad4caa2224a9181035eb181128baae",
+      "functions": {
+        "uniform_torso": 18,
+        "body_wd": 30,
+        "surface_y": 35,
+        "mix_vertex": 41,
+        "torso_faces": 47,
+        "clip": 60,
+        "panel": 68,
+        "wz": 83,
+        "garment_inlay": 89,
+        "apron": 116,
+        "dot": 137,
+        "tie": 156,
+        "bow": 159,
+        "collar": 161,
+        "short_sleeves": 163,
+        "boots": 167,
+        "shorts": 171,
+        "sunglasses": 175,
+        "earpiece": 179,
+        "peaked_cap": 182,
+        "ball_cap": 187,
+        "beanie": 190,
+        "toque": 193,
+        "camera": 196,
+        "epaulettes": 200,
+        "towel": 205,
+        "palette": 210,
+        "bald": 221,
+        "slick": 223,
+        "spiky": 228,
+        "mustache": 235,
+        "square_glasses": 239,
+        "earring": 246,
+        "big_build": 248,
+        "tee_front": 254,
+        "recolor_feet": 258,
+        "helmet": 261,
+        "carrier": 266,
+        "response_torso": 273,
+        "response_legs": 303,
+        "response_surface": 318,
+        "response_point": 329,
+        "response_plate": 347,
+        "response_carrier": 360,
+        "fitted_box": 378,
+        "response_kit": 383,
+        "response_kneepads": 420,
+        "kneepads": 425,
+        "low_toque": 429,
+        "bandana": 431,
+        "turtleneck": 436,
+        "hood_collar": 438,
+        "bib_apron": 441,
+        "headset": 444,
+        "dj_customize": 450,
+        "dj_experiment_customize": 509,
+        "dj_cast_customize": 555,
+        "dress": 623,
+        "build": 680,
+        "render": 740
+      }
+    },
+    {
+      "path": "../character-revision/source/normalize_skin_roots.py",
+      "sha256": "6d8c0e0bba0dfd5bca2fd4b3a6f6a429f69729b3a5a6ea5aaae4765060097e61",
+      "functions": {
+        "normalize": 7
+      }
+    },
+    {
+      "path": "../player-wardrobe/source/build_player_wardrobe.py",
+      "sha256": "b85404e87f9f135928887e5cd7cb59dfd5a44b4c00e2171dfddb7d0e4c1fef1c",
+      "functions": {
+        "front": 20,
+        "tie_suit_details": 23,
+        "tie": 29,
+        "skinhead": 39,
+        "fitted": 43,
+        "brow_keys": 54,
+        "astra_lighting": 62,
+        "build": 70
+      }
+    },
+    {
+      "path": "../protagonist-studies-20261028/archive-v1/source/build_studies.py",
+      "sha256": "c93f359688f48d4fe1ff8414116022599e67451620f700ed21332d4a9c158490",
+      "functions": {
+        "ring": 21,
+        "head": 25,
+        "face": 39,
+        "facial_keys": 66,
+        "hair": 82,
+        "glasses": 99,
+        "tailor": 109,
+        "details": 123,
+        "barcode": 140,
+        "build": 149
+      }
+    },
+    {
+      "path": "../protagonist-studies-20261028/archive-v1/source/shared_builder.py",
+      "sha256": "d7f08603558eda768c6f257282f4ae1ec80a735c63195cd3a59c00e487c7ed46",
+      "functions": {
+        "palette": 8,
+        "Mesh": 19,
+        "octring": 46,
+        "box": 48,
+        "rig_create": 50,
+        "torso": 59,
+        "head": 91,
+        "face": 102,
+        "female_head": 109,
+        "female_face": 118,
+        "female_outfit": 126,
+        "female_hands": 145,
+        "morphs": 149,
+        "hair": 171,
+        "glasses": 184,
+        "legs": 194,
+        "hands": 205,
+        "chest_details": 210,
+        "hat": 222,
+        "pose_clear": 240,
+        "global_rotation": 242,
+        "pose": 244,
+        "walk": 257,
+        "setup_render": 266,
+        "render": 273,
+        "build": 279
+      }
+    },
+    {
+      "path": "../protagonist-studies-20261028/source/build_studies.py",
+      "sha256": "a01bd230fc002240c512fc9b3396cb1578da15ba6dcae93a71784abc188028b9",
+      "functions": {
+        "suit47_details": 15,
+        "ref_lighting": 41,
+        "astra_lighting": 54,
+        "smooth_head": 63,
+        "build": 73
+      }
+    },
+    {
+      "path": "../protagonist-studies-20261028/source/head47.py",
+      "sha256": "9e3cb84f21c8c51eaa2072bd2aa241330a305cc58848466163fad996067ff295",
+      "functions": {
+        "Weld": 11,
+        "make_points": 32,
+        "clip": 72,
+        "build_head": 86
+      }
+    },
+    {
+      "path": "../protagonist-studies-20261028/source/style_helpers.py",
+      "sha256": "4ea1a836d29c0c06a4927d14210f205385923a1fd37a5bb4f4364ba3563c9acf",
+      "functions": {
+        "facial_keys": 12,
+        "glasses": 28,
+        "tailor": 38,
+        "details": 52,
+        "barcode": 68
+      }
+    },
+    {
+      "path": "../protagonist-studies-20261028/source/variants.json",
+      "sha256": "521c5463e06d6d2e70836baa0a55def5d7e596dc8756cad1b74e2eed47cd1b58"
+    },
+    {
+      "path": "../protagonist-studies-20261028/agent47-occiput-fix/source/build_occiput.py",
+      "sha256": "c46deed60b6d2a9737bfb625e19c68ba63ae1645bde4c4026865810b1948e81b",
+      "functions": {
+        "interp": 10,
+        "fix": 14,
+        "setup": 71,
+        "views": 76,
+        "build": 78
+      }
+    }
+  ],
+  "notes": [
+    "cells are zero-based palette indices decoded from GLB TEXCOORD_0 (glTF V/image origin), not Blender UV V.",
+    "No recipe GLB generated or compared in stage 1.",
+    "Model source attribution based on code and exact-byte match for embedded protagonist GLBs; not a regeneration equivalence claim."
+  ]
+}
