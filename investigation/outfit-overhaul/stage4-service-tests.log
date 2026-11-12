@@ -1,0 +1,10 @@
+test_fixed_alias_and_incompatible_parts_are_rejected (__main__.ServiceTests.test_fixed_alias_and_incompatible_parts_are_rejected) ... ok
+test_generated_recipe_is_data_only (__main__.ServiceTests.test_generated_recipe_is_data_only) ... ok
+test_invalid_surface_marks_are_rejected (__main__.ServiceTests.test_invalid_surface_marks_are_rejected) ... ok
+test_only_own_local_origins (__main__.ServiceTests.test_only_own_local_origins) ... ok
+test_paths_shell_strings_and_invalid_colors_cannot_be_part_parameters (__main__.ServiceTests.test_paths_shell_strings_and_invalid_colors_cannot_be_part_parameters) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.042s
+
+OK

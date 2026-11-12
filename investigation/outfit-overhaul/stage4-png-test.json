@@ -1,0 +1,6 @@
+{
+  "result": {
+    "type": "string",
+    "value": "{\"status\":{\"dirty\":false,\"busy\":false,\"sourceId\":\"new_1afa39789f20401799d513b7910780e3\",\"modelUrl\":\"http://127.0.0.1:8891/api/outfit/models/new_1afa39789f20401799d513b7910780e3\",\"step\":3},\"placement\":{\"slot\":\"TShirt\",\"point\":[0.09175431688465756,1.2131290446482594,0.1029969790859177],\"normal\":[0.02795785925251184,-0.04720154390102126,0.9984940522403608],\"size\":0.12,\"angle\":0},\"pngLength\":798}"
+  }
+}

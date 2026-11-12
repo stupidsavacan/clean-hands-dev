@@ -1,0 +1,15 @@
+{
+  "originalFolder": "../agent07-jacket",
+  "files": {
+    "agent07-jacket.blend": "c1aeb1f06f5b606beb839f26c9cb0b90acb2392ea9d4ae17721b5d16153c8593",
+    "agent07-jacket.glb": "b62a74cd4a8945588d08982d65e143d7cf69d07c50b1394035abb4a2c4cc05a5",
+    "build_jacket.py": "0be81a68474f2d5108cc552d8ff98da7c51ad832427823e5f35e194410a1fe2c",
+    "renders/agent07-jacket-walk.png": "a3c0203b5c1ce5ad1a5762fa3c0aa862fcff59e6eb95f13d35df17c9cb743287",
+    "renders/agent07-jacket.png": "d5bac27f96e087c4704bdc5bfd309d2300c9529fac977b751a9098f12d414e5a"
+  },
+  "catalogScript": {
+    "source": "app/scripts/build-outfit-catalog.py",
+    "sha256": "114e7b7971174f748189cdde14a268dc6791d42b76e68337e2af4ecfbabd3bce"
+  },
+  "adaptation": "Copied into assets/outfits/agent07-jacket. Helpers point only at assets/characters/source; optional renders and external output setup removed. A repository-only catalog script writes catalog.blend/glb."
+}

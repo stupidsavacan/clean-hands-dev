@@ -1,0 +1,26 @@
+BlenderMCP addon registered
+BlenderMCP addon unregistered
+INFO Draco mesh compression is available, use library at C:\Program Files\Blender Foundation\Blender 4.2\4.2\python\lib\site-packages\extern_draco.dll
+11:30:25 | INFO: Starting glTF 2.0 export
+11:30:25 | INFO: Extracting primitive: Body
+11:30:25 | INFO: Primitives created: 1
+11:30:25 | INFO: Extracting primitive: Face
+11:30:25 | INFO: Primitives created: 1
+11:30:25 | INFO: Extracting primitive: Hair
+11:30:25 | INFO: Primitives created: 1
+11:30:25 | INFO: Extracting primitive: Mark_Surface
+11:30:25 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+11:30:25 | INFO: Primitives created: 1
+11:30:25 | INFO: Extracting primitive: Bomber
+11:30:25 | INFO: Primitives created: 2
+11:30:25 | INFO: Extracting primitive: Trousers
+11:30:25 | INFO: Primitives created: 2
+11:30:25 | INFO: Extracting primitive: TShirt
+11:30:25 | INFO: Primitives created: 2
+11:30:25 | INFO: Finished glTF 2.0 export in 0.10413622856140137 s
+
+RECIPE_BUILT {"id": "new_9d0e28b709704d9fa1da4227c3e324e0", "recipe": "recipes/new/new_9d0e28b709704d9fa1da4227c3e324e0.json", "output": "models/new/new_9d0e28b709704d9fa1da4227c3e324e0/new_9d0e28b709704d9fa1da4227c3e324e0.glb", "sha256": "cb81f7b3a6df6f5b77add42bd4a84c3735e508ea2b1d8bdba0e3e6c5616d5cb4", "blender": "4.2.16 LTS", "meshes": {"Body": {"vertices": 99, "triangles": 146}, "Hair": {"vertices": 24, "triangles": 22}, "Face": {"vertices": 28, "triangles": 14}, "TShirt": {"vertices": 16, "triangles": 22}, "Trousers": {"vertices": 128, "triangles": 240}, "Outer": {"vertices": 244, "triangles": 260}, "Mark_Surface": {"vertices": 30, "triangles": 10}}}
+Blender 4.2.16 LTS (hash 39502cae951c built 2025-11-18 01:34:37)
+
+Blender quit
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize

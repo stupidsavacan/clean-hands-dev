@@ -1,0 +1,25 @@
+{
+  "checkedAt": "2026-11-12T11:39:26.270366+09:00",
+  "trees": {
+    "character-revision": {
+      "files": 743,
+      "status": "PASS",
+      "changes": []
+    },
+    "player-wardrobe": {
+      "files": 24,
+      "status": "PASS",
+      "changes": []
+    },
+    "agent07-jacket": {
+      "files": 5,
+      "status": "PASS",
+      "changes": []
+    }
+  },
+  "existingAssets": {
+    "files": 102,
+    "status": "PASS"
+  },
+  "status": "PASS"
+}

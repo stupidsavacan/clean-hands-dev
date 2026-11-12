@@ -1,0 +1,13 @@
+✔ body compatibility excludes male outer layers and head parts from female bodies (4.595ms)
+✔ part selection clones the source and keeps ordered structural operations (0.7154ms)
+✔ fixed assets cannot become editable recipes through selection (0.1969ms)
+✔ legacy outfit JSON retains the garment variants, colors and surface mark (1.3767ms)
+✔ build request uses the dedicated header, a JSON body and propagates rejection (35.7796ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 228.6159

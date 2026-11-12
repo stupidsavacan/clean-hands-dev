@@ -21,6 +21,7 @@ SHOTS = ROOT / 'playtest' / 'shots'
 HOST = '127.0.0.1'
 sys.path.insert(0, str(ROOT / 'playtest'))
 import server as playtest  # noqa: E402
+import outfit_service
 
 RAF = (b'<script>window.requestAnimationFrame=cb=>setTimeout(()=>cb(performance.now()),33);'
        b'window.cancelAnimationFrame=id=>clearTimeout(id);</script>')
@@ -50,7 +51,13 @@ class Playtest(playtest.Handler):
         name = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query).get('map', ['club'])[0]
         return name if name in MAPS else None
 
+    def do_OPTIONS(self):
+        if not outfit_service.handle(self, 'OPTIONS'):
+            self.send_error(404)
+
     def do_GET(self):
+        if outfit_service.handle(self, 'GET'):
+            return
         if urllib.parse.urlparse(self.path).path != '/api/map-layout':
             return super().do_GET()
         if not self.local():
@@ -63,6 +70,8 @@ class Playtest(playtest.Handler):
         return self.send(200, json.dumps(body, ensure_ascii=False), 'application/json; charset=utf-8')
 
     def do_POST(self):
+        if outfit_service.handle(self, 'POST'):
+            return
         if urllib.parse.urlparse(self.path).path != '/api/map-layout':
             return super().do_POST()
         if not self.local():

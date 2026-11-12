@@ -1,0 +1,12 @@
+Blender 4.2.16 LTS (hash 39502cae951c built 2025-11-18 01:34:37)
+BlenderMCP addon registered
+BlenderMCP addon unregistered
+
+Blender quit
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+Traceback (most recent call last):
+  File "C:\Users\gamit\Documents\Codex\2026-10-26\https-claude-ai-artifact-xacywsdv65cc1xpspq147p-page\outputs\m5-outfit-overhaul\assets\characters\source\build_recipe.py", line 13, in <module>
+    from new_character_effects import OUTERS
+ModuleNotFoundError: No module named 'new_character_effects'
+
+Error: script failed, file: 'C:\Users\gamit\Documents\Codex\2026-10-26\https-claude-ai-artifact-xacywsdv65cc1xpspq147p-page\outputs\m5-outfit-overhaul\assets\characters\source\build_recipe.py', exiting.

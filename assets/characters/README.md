@@ -1,4 +1,4 @@
-# 服装レシピ：段階3の全キャラクター
+# 服装レシピと服装ラボ
 
 ゲームへ未接続の候補です。NPC32体を生成でき、主人公5実体は固定資産、guest_maleはwardrobeの別名として扱います。
 `models/` は候補、比較の正解は段階2開始時にSHA-256を固定した外部GLBです。
@@ -66,6 +66,23 @@ python assets/characters/source/verify_all.py
 
 パレット画像はファイルに保存せず、レシピのimageNameで元の名前を再現します。pool_guest_swimsuitだけは、ソースと採用GLBの差（脚上端の幅/深さ・閉じ面の肌色）を `pool.swimsuit-hip-fit.v1` で保持します。他の水着体型には適用しません。
 
-棚卸しのrecipeが生成の参照先です。従来のtop/jacket等は現行ラボの表示用要約として残しました。部品を自由に組んで既存レシピを開くUIは段階4で作ります。現行ラボの元モデル表示は既存の埋め込みデータを使うため、今回追加したゲーム未使用4体のレシピプレビューは段階4へ残ります。ゲームの読み込み先は変更していません。
+棚卸しのrecipeが生成の参照先です。従来のtop/jacket等は表示用要約です。服装ラボは38件を開き、段階3のバイト一致結果を表示します。ゲームの読み込み先は変更していません。
 
-調査・結果一覧・既知の制限は `investigation/outfit-overhaul/stage3-all.md` を参照してください。`stage2-*` は前段階の記録です。元の保護ツリーを変更せずに検証できますが、固定資産の元ファイルが必要です。
+## 服装ラボを使う
+
+```powershell
+python tools/outfit-preview.py --port 8891
+# http://127.0.0.1:8891/outfit-lab
+```
+
+体型→頭/顔/髪→服の部品→役割ごとの色/文字/PNGマーク→「保存して作る」で、新しいレシピとGLBを作れます。Blender生成後、アニメーションラボと同じ歩き・しゃがみ・ダンス・仕事を確認できます。文字/PNGは服をクリックして配置でき、GLBにも骨ウェイト付きの面と画像を保存します。
+
+既存38レシピは保護され、新規は `recipes/new/`、生成物は `models/new/<id>/` に別IDで保存します。固定資産とaliasは編集しません。画面での変更は編集中と表示し、Blenderで作成した結果をプレビューします。
+
+`window.__outfitLab` はgetRecipe/setRecipe/setPart/setMark/getInventory/findInventory/listParts/exportGLBを保持し、loadRecipe/setBody/selectPart/saveAndBuild/setMotion/status/readyも提供します。旧version:1のJSONとsetPartの旧部位名・襟/丈も移行できます。
+
+8795用の接続は `tools/dev-servers.py` に追加済みですが、反映には再起動が必要です。既存8795〜8798は停止せず、確認には別ポートを使ってください。詳細・API・画像は `investigation/outfit-overhaul/stage4-lab.md`。既存の全員バイト一致記録はstage3-all.mdです。
+
+部品庫は `source/build_recipe.py:PARTS` から `source/export_catalog.py` でcatalog/catalog.jsonへ出力します。従来の上着の再生成は `assets/outfits/agent07-jacket/README.md`。1レシピ1Blenderプロセスを守ってください。
+
+verify_all.pyは段階4の保護manifestがあればそれを使用します。過去の段階を検査する場合は `--protection-snapshot stage3-protected-files.json --report stage3-recheck.json` のように明示できます。元GLBの比較基準と許容差は共通です。

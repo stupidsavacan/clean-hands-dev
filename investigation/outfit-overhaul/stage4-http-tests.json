@@ -1,0 +1,22 @@
+[
+  {
+    "test": "missing-header",
+    "status": 403,
+    "expected": 403
+  },
+  {
+    "test": "foreign-origin",
+    "status": 403,
+    "expected": 403
+  },
+  {
+    "test": "fixed-asset",
+    "status": 400,
+    "expected": 400
+  },
+  {
+    "test": "host-rebinding",
+    "status": 403,
+    "expected": 403
+  }
+]

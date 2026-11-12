@@ -15,6 +15,7 @@ import bpy
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
+from new_character_effects import OUTERS
 import build_characters as bc
 import build_pool_characters as bp
 import build_uniforms as bu
@@ -89,6 +90,10 @@ def swimsuit_hip_fit(mesh, skin):
 
 
 PARTS.update({
+    'outer.layer.v1': (lambda mesh, model: None, ('cast.male.v1',), {}, {'model': OUTERS}),
+    'legacy.top.v1': (lambda mesh, model: None, ('cast.male.v1',), {}, {'model': ('TShirt','Shirt')}),
+    'legacy.pants.v1': (lambda mesh, model: None, ('cast.male.v1',), {}, {'model': ('Jeans','WideJeans','Trousers')}),
+    'legacy.accessories.v1': (lambda mesh, model: None, ('cast.male.v1',), {}, {'model': ('Sunglasses','Cap','Tie')}),
     'pool.swimsuit-hip-fit.v1': (swimsuit_hip_fit, ('pool.swimsuit.v1',), {'skin': ('cell',)}, {}),
     'cast.head.female.v1': (bc.female_head, ('cast.female.v1',), {'skin': ('cell',)}, {}),
     'cast.face.female.v1': (bc.female_face, ('cast.female.v1',), {}, {}),
@@ -113,6 +118,21 @@ for role in ('chef','cleaner','delivery','fisher','bodyguard','sommelier','drive
              'pilot','masseuse','underwear','underwear_dark','underwear_female',
              'wine_merchant','lawyer','investor','response'):
     PARTS['uniform.dress.'+role+'.v1'] = (partial(bu.dress, role), CAST, {}, {})
+
+# New combinations use the body families the original fitted parts were built for.
+for name in ('cast.head.male.v1','cast.face.male.v1','uniform.collar.v1','uniform.camera.v1',
+             'photographer.vest-inlay.v1','uniform.delivery-inlay.v1','uniform.big-build.v1',
+             'uniform.bald.v1','uniform.slick.v1','response.torso.v1','response.legs.v1'):
+    fn, _, colors, params = PARTS[name]
+    PARTS[name] = (fn, ('cast.male.v1',), colors, params)
+for role in ('chef','cleaner','delivery','fisher','bodyguard','sommelier','driver','beachbar',
+             'pilot','masseuse','underwear','underwear_dark','underwear_female',
+             'wine_merchant','lawyer','investor','response'):
+    name='uniform.dress.'+role+'.v1';fn, _, colors, params=PARTS[name]
+    PARTS[name]=(fn, ('cast.female.v1',) if role in ('investor','underwear_female') else ('cast.male.v1',), colors, params)
+for name in ('uniform.spiky.v1','uniform.tee.v1'):
+    fn, _, colors, params=PARTS[name];PARTS[name]=(fn, ('cast.female.v1',), colors, params)
+PARTS['uniform.boots.v1']=(bu.boots, ('cast.male.v1',), {'c': ('cell',)}, {})
 
 BEFORE_OBJECTS = {
     'cast.lower-head.v1': lower_head,
@@ -221,6 +241,9 @@ def build(path):
     for op in recipe['specialOperations']:
         if op['phase'] == 'beforeObjects':
             BEFORE_OBJECTS[op['operation']](meshes)
+    new_mode = path.parent.resolve() == (ASSETS/'recipes'/'new').resolve()
+    if new_mode and not re.fullmatch(r'new_[a-f0-9]{32}', recipe['id']):
+        raise ValueError('New recipes require a server-assigned id')
     objects = []
     for name, mesh in meshes.items():
         if mesh.v:
@@ -228,6 +251,16 @@ def build(path):
             objects.append(ob)
             if name == 'Face':
                 family.morphs(ob, mesh)
+    if new_mode:
+        import new_character_effects as effects
+        for part in recipe['parts']:
+            if part['part'] == 'outer.layer.v1' or part['part'].startswith('legacy.'):
+                objects.append(effects.outer(rig, part['parameters']['model'], ASSETS.parents[0]/'outfits'/'agent07-jacket'/'catalog.blend', part['part']=='outer.layer.v1'))
+        effects.layer_inner(objects, recipe)
+        effects.recolor(objects, recipe)
+        stamp = effects.mark(objects, rig, recipe.get('surfaceMark'), ASSETS/'models'/'new'/recipe['id'])
+        if stamp is not None:
+            objects.append(stamp)
     action = family.walk(rig)
     rig.animation_data.action = None
     family.pose_clear(rig)
@@ -244,7 +277,7 @@ def build(path):
         ob.select_set(True)
     bpy.context.view_layer.objects.active = rig
     track.mute = False
-    dest = ASSETS / 'models' / recipe['id'] / (recipe['id'] + '.glb')
+    dest = ASSETS / 'models' / ('new' if new_mode else '') / recipe['id'] / (recipe['id'] + '.glb')
     dest.parent.mkdir(parents=True, exist_ok=True)
     bpy.ops.export_scene.gltf(filepath=str(dest), export_format='GLB', use_selection=True,
         export_yup=True, export_animations=True, export_animation_mode='NLA_TRACKS',

@@ -1,5 +1,6 @@
 """Stage 3: verify protected files, all recipes, inventory and all 37 assets."""
 import base64
+import argparse
 from datetime import datetime, timezone, timedelta
 import hashlib
 import json
@@ -24,8 +25,8 @@ def save(name, data):
     (REPORTS / name).write_bytes((json.dumps(data, ensure_ascii=False, indent=2)+'\n').encode())
 
 
-def verify():
-    snapshot = read(REPORTS/'stage3-protected-files.json')
+def verify(snapshot_name='stage3-protected-files.json', report_name='stage3-verification.json'):
+    snapshot = read(REPORTS/snapshot_name)
     baseline = read(REPORTS/'stage2-baseline-models.json')
     recipes = {p.stem: read(p) for p in sorted(RECIPES.glob('*.json'))}
     src = (ROOT/'app/src/character-data.ts').read_text(encoding='utf-8')
@@ -38,12 +39,15 @@ def verify():
         for p in sorted(base.rglob('*')):
             if p.is_file():
                 raw = p.read_bytes()
-                actual[p.relative_to(base).as_posix()] = (len(raw), sha(raw))
-        original = {x['path']: (x['bytes'], x['sha256']) for x in expected}
+                actual[p.relative_to(base).as_posix()] = sha(raw) if isinstance(expected, dict) else (len(raw), sha(raw))
+        original = expected if isinstance(expected, dict) else {x['path']: (x['bytes'], x['sha256']) for x in expected}
         changes = sorted(k for k in actual.keys() | original.keys() if actual.get(k) != original.get(k))
         result['protectedTrees'][name] = {'status': 'FAIL' if changes else 'PASS', 'files': len(actual), 'changes': changes}
-    for name, digest in snapshot['preservedUserChanges'].items():
+    for name, digest in snapshot.get('preservedUserChanges', {}).items():
         result['preservedUserChanges'][name] = 'PASS' if sha((REPORTS/name).read_bytes()) == digest else 'FAIL'
+    for path, digest in snapshot.get('existingAssets', {}).items():
+        if sha((ROOT/path).read_bytes()) != digest:
+            result['errors'].append('Protected existing asset changed: '+path)
     expected_ids = {m['id'] for m in baseline['models']} | {a['id'] for a in baseline['aliases']}
     inventory = read(ROOT/'app/src/labs/outfit-inventory.json')
     if set(recipes) != expected_ids or {e['id'] for e in inventory} != expected_ids or len(inventory) != len(expected_ids):
@@ -88,11 +92,19 @@ def verify():
     statuses = [x['status'] for x in result['assets']+result['aliases']] + [x['status'] for x in result['protectedTrees'].values()] + list(result['preservedUserChanges'].values())
     result['status'] = 'PASS' if not result['errors'] and all(s == 'PASS' for s in statuses) else 'FAIL'
     result['counts'] = {key: sum(x['classification'] == key for x in result['assets']) for key in ['byte-match', 'numeric-match', 'FAIL']}
-    save('stage3-verification.json', result)
+    save(report_name, result)
     print(json.dumps({'status': result['status'], 'counts': result['counts'], 'errors': result['errors'],
                       'failures': [x for x in result['assets'] if x['status'] == 'FAIL']}, ensure_ascii=False, indent=2))
     return 0 if result['status'] == 'PASS' else 1
 
 
 if __name__ == '__main__':
-    raise SystemExit(verify())
+    parser=argparse.ArgumentParser(description=__doc__)
+    current_snapshot='stage4-before.json' if (REPORTS/'stage4-before.json').is_file() else 'stage3-protected-files.json'
+    current_report='stage4-existing-verification.json' if current_snapshot=='stage4-before.json' else 'stage3-verification.json'
+    parser.add_argument('--protection-snapshot',default=current_snapshot,help='Manifest filename in investigation/outfit-overhaul')
+    parser.add_argument('--report',default=current_report,help='Result filename in the same folder')
+    args=parser.parse_args()
+    if any(Path(name).name != name or not name.endswith('.json') for name in (args.protection_snapshot,args.report)):
+        parser.error('Use JSON filenames, not paths')
+    raise SystemExit(verify(args.protection_snapshot,args.report))

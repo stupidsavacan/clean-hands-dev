@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "assetMode": "generated",
+  "rig": "cast.shared22.v1",
+  "body": {
+    "profile": "cast.male.v1",
+    "parameters": {}
+  },
+  "identity": {
+    "head": "cast.head.male.v1",
+    "face": "cast.face.male.v1",
+    "hair": {
+      "kind": "parted",
+      "cell": 9
+    }
+  },
+  "palette": {
+    "id": "cast.palette.v1",
+    "overrides": {},
+    "imageName": "palette"
+  },
+  "parts": [
+    {
+      "part": "cast.head.male.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.face.male.v1",
+      "mesh": "Face",
+      "colors": {
+        "hair": 9
+      },
+      "parameters": {}
+    },
+    {
+      "part": "legacy.top.v1",
+      "mesh": "Outfit",
+      "colors": {},
+      "parameters": {
+        "model": "Shirt"
+      }
+    },
+    {
+      "part": "cast.legs.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "color": 0,
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.hands.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.hair.v1",
+      "mesh": "Hair",
+      "colors": {
+        "color": 9
+      },
+      "parameters": {
+        "kind": "parted"
+      }
+    },
+    {
+      "part": "outer.layer.v1",
+      "mesh": "Accessories",
+      "colors": {},
+      "parameters": {
+        "model": "Blazer"
+      }
+    },
+    {
+      "part": "cast.chest-details.v1",
+      "mesh": "Accessories",
+      "colors": {
+        "color": 0
+      },
+      "parameters": {
+        "kind": "waiter"
+      }
+    }
+  ],
+  "specialOperations": [
+    {
+      "operation": "cast.face-morphs.v1",
+      "phase": "afterObjects",
+      "mesh": "Face"
+    },
+    {
+      "operation": "skin-roots.normalize.v1",
+      "phase": "afterExport"
+    }
+  ],
+  "output": {
+    "meshOrder": [
+      "Body",
+      "Outfit",
+      "Hair",
+      "Accessories",
+      "Face"
+    ],
+    "animationProfile": "cast.walk1.v1",
+    "exportProfile": "blender42.cast-nla.v1"
+  },
+  "appearanceColors": {
+    "outer": "#33383d"
+  },
+  "surfaceMark": {
+    "slot": "TShirt",
+    "point": [
+      0.1,
+      1.31,
+      0.12
+    ],
+    "normal": [
+      0,
+      0,
+      1
+    ],
+    "size": 0.12,
+    "angle": 0,
+    "mesh": "Outer",
+    "png": "data:image/png;base64,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"
+  },
+  "mark": {
+    "text": "API",
+    "color": "#2b2e35"
+  },
+  "id": "new_c1e6ba5ae0554db0b8aaee10bf48982e",
+  "label": "操作APIの検証キャラ"
+}

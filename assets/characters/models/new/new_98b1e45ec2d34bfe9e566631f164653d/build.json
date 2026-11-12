@@ -1,0 +1,37 @@
+{
+  "id": "new_98b1e45ec2d34bfe9e566631f164653d",
+  "recipe": "recipes/new/new_98b1e45ec2d34bfe9e566631f164653d.json",
+  "output": "models/new/new_98b1e45ec2d34bfe9e566631f164653d/new_98b1e45ec2d34bfe9e566631f164653d.glb",
+  "sha256": "d853b8c403f4e26c5a92864b817df4113680fb5e35d728b2003b9758ce9877ba",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Body": {
+      "vertices": 99,
+      "triangles": 146
+    },
+    "Hair": {
+      "vertices": 24,
+      "triangles": 22
+    },
+    "Face": {
+      "vertices": 28,
+      "triangles": 14
+    },
+    "TShirt": {
+      "vertices": 124,
+      "triangles": 238
+    },
+    "Trousers": {
+      "vertices": 128,
+      "triangles": 240
+    },
+    "Outer": {
+      "vertices": 244,
+      "triangles": 260
+    },
+    "Mark_Surface": {
+      "vertices": 30,
+      "triangles": 10
+    }
+  }
+}

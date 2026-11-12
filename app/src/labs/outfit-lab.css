@@ -82,3 +82,15 @@ fieldset:disabled{opacity:.48}
 .mark-adjust{display:grid;gap:4px;margin-top:7px}
 .mark-adjust label{display:grid;grid-template-columns:54px 1fr 45px;align-items:center;gap:6px}
 .mark-adjust output{text-align:right}
+
+/* Recipe editor: preserve the existing lab palette and two-column frame. */
+.steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}.steps button{font-size:12px;padding:6px 3px;white-space:normal}
+.piece-select,.name-label{display:grid;gap:5px;margin:9px 0}.piece-select select,.name-label input,#body{width:100%;min-width:0}
+#existing{min-width:0;flex:1;max-width:100%}select,input[type=text],#character-name{background:#252b33;color:inherit;border:1px solid #474e59;border-radius:6px;padding:7px;font:inherit}
+.motion-bar{position:absolute;bottom:65px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;width:max-content;max-width:96%;padding:8px;background:#1d2127ed;border:1px solid #474e59;border-radius:8px}
+.motion-bar input{width:110px;min-width:0}.preview-tag{max-width:calc(100% - 32px);overflow-wrap:anywhere}.camera.row{max-width:96%;flex-wrap:wrap;justify-content:center}
+.role-color{display:inline-flex;gap:9px;align-items:center;justify-content:space-between;width:48%;padding:5px 8px 5px 0}
+.mark-box{border-top:1px solid #343a44;margin-top:12px;padding-top:8px}.mark-box>label{display:flex;align-items:center;gap:8px;margin:6px 0}.mark-box input[type=range]{min-width:0;flex:1}
+#job-status{overflow-wrap:anywhere;white-space:pre-wrap;font-size:12px}#editor{min-height:150px}#source-note{font-size:12px}#mark-text{max-width:65%}
+@media(min-width:851px){.panel{padding:16px}#app{grid-template-columns:minmax(0,1fr) 425px}}
+@media(max-width:850px){.motion-bar{bottom:54px;padding:4px}.camera.row{bottom:6px}.preview-tag span{display:block;font-size:10px}.role-color{width:50%}}

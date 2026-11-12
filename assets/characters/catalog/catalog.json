@@ -1,0 +1,799 @@
+{
+  "version": 1,
+  "bodies": [
+    "cast.male.v1",
+    "cast.female.v1",
+    "pool.resort.v1",
+    "pool.swimsuit.v1",
+    "pool.shorts.v1",
+    "pool.variant.slim.v1",
+    "pool.variant.lean.v1",
+    "pool.variant.strong.v1"
+  ],
+  "parts": [
+    {
+      "id": "cast.head.male.v1",
+      "label": "cast.head.male.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [
+        "skin"
+      ],
+      "parameters": {},
+      "slot": "head"
+    },
+    {
+      "id": "cast.face.male.v1",
+      "label": "cast.face.male.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [
+        "hair"
+      ],
+      "parameters": {},
+      "slot": "face"
+    },
+    {
+      "id": "cast.torso.v1",
+      "label": "cast.torso.v1",
+      "bodies": [
+        "cast.male.v1",
+        "cast.female.v1"
+      ],
+      "colors": [
+        "color"
+      ],
+      "parameters": {},
+      "slot": "top"
+    },
+    {
+      "id": "uniform.torso.v1",
+      "label": "uniform.torso.v1",
+      "bodies": [
+        "cast.male.v1",
+        "cast.female.v1"
+      ],
+      "colors": [
+        "color"
+      ],
+      "parameters": {},
+      "slot": "top"
+    },
+    {
+      "id": "cast.legs.v1",
+      "label": "cast.legs.v1",
+      "bodies": [
+        "cast.male.v1",
+        "cast.female.v1"
+      ],
+      "colors": [
+        "color",
+        "skin"
+      ],
+      "parameters": {},
+      "slot": "pants"
+    },
+    {
+      "id": "cast.hands.v1",
+      "label": "cast.hands.v1",
+      "bodies": [
+        "cast.male.v1",
+        "cast.female.v1"
+      ],
+      "colors": [
+        "skin"
+      ],
+      "parameters": {},
+      "slot": "structure"
+    },
+    {
+      "id": "cast.hair.v1",
+      "label": "cast.hair.v1",
+      "bodies": [
+        "cast.male.v1",
+        "cast.female.v1"
+      ],
+      "colors": [
+        "color"
+      ],
+      "parameters": {
+        "kind": [
+          "parted",
+          "swept",
+          "short",
+          "bob"
+        ]
+      },
+      "slot": "hair"
+    },
+    {
+      "id": "cast.chest-details.v1",
+      "label": "cast.chest-details.v1",
+      "bodies": [
+        "cast.male.v1",
+        "cast.female.v1"
+      ],
+      "colors": [
+        "color"
+      ],
+      "parameters": {
+        "kind": [
+          "waiter",
+          "suit",
+          "guard",
+          "guest",
+          "dress"
+        ]
+      },
+      "slot": "patterns"
+    },
+    {
+      "id": "photographer.vest-inlay.v1",
+      "label": "photographer.vest-inlay.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [
+        "vest",
+        "pocket"
+      ],
+      "parameters": {},
+      "slot": "patterns"
+    },
+    {
+      "id": "uniform.collar.v1",
+      "label": "uniform.collar.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [
+        "c"
+      ],
+      "parameters": {},
+      "slot": "accessories"
+    },
+    {
+      "id": "uniform.camera.v1",
+      "label": "uniform.camera.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "accessories"
+    },
+    {
+      "id": "pool.head.v1",
+      "label": "pool.head.v1",
+      "bodies": [
+        "pool.resort.v1",
+        "pool.swimsuit.v1",
+        "pool.shorts.v1",
+        "pool.variant.slim.v1",
+        "pool.variant.lean.v1",
+        "pool.variant.strong.v1"
+      ],
+      "colors": [
+        "skin"
+      ],
+      "parameters": {
+        "kind": [
+          "resort",
+          "swimsuit",
+          "shorts"
+        ]
+      },
+      "slot": "head"
+    },
+    {
+      "id": "pool.face.v1",
+      "label": "pool.face.v1",
+      "bodies": [
+        "pool.resort.v1",
+        "pool.swimsuit.v1",
+        "pool.shorts.v1",
+        "pool.variant.slim.v1",
+        "pool.variant.lean.v1",
+        "pool.variant.strong.v1"
+      ],
+      "colors": [
+        "hc"
+      ],
+      "parameters": {
+        "kind": [
+          "resort",
+          "swimsuit",
+          "shorts"
+        ]
+      },
+      "slot": "face"
+    },
+    {
+      "id": "pool.hair.v1",
+      "label": "pool.hair.v1",
+      "bodies": [
+        "pool.resort.v1",
+        "pool.swimsuit.v1",
+        "pool.shorts.v1",
+        "pool.variant.slim.v1",
+        "pool.variant.lean.v1",
+        "pool.variant.strong.v1"
+      ],
+      "colors": [
+        "hc"
+      ],
+      "parameters": {
+        "kind": [
+          "resort",
+          "swimsuit",
+          "shorts"
+        ]
+      },
+      "slot": "hair"
+    },
+    {
+      "id": "pool.torso.v1",
+      "label": "pool.torso.v1",
+      "bodies": [
+        "pool.resort.v1",
+        "pool.swimsuit.v1",
+        "pool.shorts.v1",
+        "pool.variant.slim.v1",
+        "pool.variant.lean.v1",
+        "pool.variant.strong.v1"
+      ],
+      "colors": [
+        "skin"
+      ],
+      "parameters": {
+        "kind": [
+          "resort",
+          "swimsuit",
+          "shorts"
+        ]
+      },
+      "slot": "top"
+    },
+    {
+      "id": "pool.legs.v1",
+      "label": "pool.legs.v1",
+      "bodies": [
+        "pool.resort.v1",
+        "pool.swimsuit.v1",
+        "pool.shorts.v1",
+        "pool.variant.slim.v1",
+        "pool.variant.lean.v1",
+        "pool.variant.strong.v1"
+      ],
+      "colors": [
+        "skin"
+      ],
+      "parameters": {
+        "kind": [
+          "resort",
+          "swimsuit",
+          "shorts"
+        ]
+      },
+      "slot": "pants"
+    },
+    {
+      "id": "pool.hands.v1",
+      "label": "pool.hands.v1",
+      "bodies": [
+        "pool.resort.v1",
+        "pool.swimsuit.v1",
+        "pool.shorts.v1",
+        "pool.variant.slim.v1",
+        "pool.variant.lean.v1",
+        "pool.variant.strong.v1"
+      ],
+      "colors": [
+        "skin"
+      ],
+      "parameters": {},
+      "slot": "structure"
+    },
+    {
+      "id": "pool.details.v1",
+      "label": "pool.details.v1",
+      "bodies": [
+        "pool.resort.v1",
+        "pool.swimsuit.v1",
+        "pool.shorts.v1",
+        "pool.variant.slim.v1",
+        "pool.variant.lean.v1",
+        "pool.variant.strong.v1"
+      ],
+      "colors": [],
+      "parameters": {
+        "kind": [
+          "resort",
+          "swimsuit",
+          "shorts"
+        ]
+      },
+      "slot": "patterns"
+    },
+    {
+      "id": "outer.layer.v1",
+      "label": "outer.layer.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {
+        "model": [
+          "Jacket",
+          "JacketCollar",
+          "JacketLong",
+          "JacketLongCollar",
+          "Bomber",
+          "BomberCollar",
+          "BomberLong",
+          "BomberLongCollar",
+          "Blazer"
+        ]
+      },
+      "slot": "outer"
+    },
+    {
+      "id": "legacy.top.v1",
+      "label": "legacy.top.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {
+        "model": [
+          "TShirt",
+          "Shirt"
+        ]
+      },
+      "slot": "top"
+    },
+    {
+      "id": "legacy.pants.v1",
+      "label": "legacy.pants.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {
+        "model": [
+          "Jeans",
+          "WideJeans",
+          "Trousers"
+        ]
+      },
+      "slot": "pants"
+    },
+    {
+      "id": "legacy.accessories.v1",
+      "label": "legacy.accessories.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {
+        "model": [
+          "Sunglasses",
+          "Cap",
+          "Tie"
+        ]
+      },
+      "slot": "accessories"
+    },
+    {
+      "id": "pool.swimsuit-hip-fit.v1",
+      "label": "pool.swimsuit-hip-fit.v1",
+      "bodies": [
+        "pool.swimsuit.v1"
+      ],
+      "colors": [
+        "skin"
+      ],
+      "parameters": {},
+      "slot": "structure"
+    },
+    {
+      "id": "cast.head.female.v1",
+      "label": "cast.head.female.v1",
+      "bodies": [
+        "cast.female.v1"
+      ],
+      "colors": [
+        "skin"
+      ],
+      "parameters": {},
+      "slot": "head"
+    },
+    {
+      "id": "cast.face.female.v1",
+      "label": "cast.face.female.v1",
+      "bodies": [
+        "cast.female.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "face"
+    },
+    {
+      "id": "cast.hands.female.v1",
+      "label": "cast.hands.female.v1",
+      "bodies": [
+        "cast.female.v1"
+      ],
+      "colors": [
+        "skin"
+      ],
+      "parameters": {},
+      "slot": "structure"
+    },
+    {
+      "id": "cast.female-outfit.v1",
+      "label": "cast.female-outfit.v1",
+      "bodies": [
+        "cast.female.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "structure"
+    },
+    {
+      "id": "cast.dress-legs.v1",
+      "label": "cast.dress-legs.v1",
+      "bodies": [
+        "cast.female.v1"
+      ],
+      "colors": [
+        "color",
+        "skin"
+      ],
+      "parameters": {},
+      "slot": "pants"
+    },
+    {
+      "id": "cast.glasses.v1",
+      "label": "cast.glasses.v1",
+      "bodies": [
+        "cast.male.v1",
+        "cast.female.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "accessories"
+    },
+    {
+      "id": "cast.hat.v1",
+      "label": "cast.hat.v1",
+      "bodies": [
+        "cast.male.v1",
+        "cast.female.v1"
+      ],
+      "colors": [],
+      "parameters": {
+        "kind": [
+          "guard",
+          "wide"
+        ]
+      },
+      "slot": "accessories"
+    },
+    {
+      "id": "uniform.delivery-inlay.v1",
+      "label": "uniform.delivery-inlay.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [
+        "vest",
+        "stripe"
+      ],
+      "parameters": {},
+      "slot": "patterns"
+    },
+    {
+      "id": "uniform.short-sleeves.v1",
+      "label": "uniform.short-sleeves.v1",
+      "bodies": [
+        "cast.male.v1",
+        "cast.female.v1"
+      ],
+      "colors": [
+        "skin"
+      ],
+      "parameters": {
+        "cut": [
+          0.474,
+          0.28
+        ]
+      },
+      "slot": "structure"
+    },
+    {
+      "id": "uniform.feet.v1",
+      "label": "uniform.feet.v1",
+      "bodies": [
+        "cast.male.v1",
+        "cast.female.v1"
+      ],
+      "colors": [
+        "c"
+      ],
+      "parameters": {},
+      "slot": "shoes"
+    },
+    {
+      "id": "uniform.big-build.v1",
+      "label": "uniform.big-build.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "structure"
+    },
+    {
+      "id": "uniform.tee.v1",
+      "label": "uniform.tee.v1",
+      "bodies": [
+        "cast.female.v1"
+      ],
+      "colors": [
+        "c"
+      ],
+      "parameters": {
+        "female": [
+          false,
+          true
+        ]
+      },
+      "slot": "structure"
+    },
+    {
+      "id": "uniform.bald.v1",
+      "label": "uniform.bald.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [
+        "skin"
+      ],
+      "parameters": {},
+      "slot": "hair"
+    },
+    {
+      "id": "uniform.slick.v1",
+      "label": "uniform.slick.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [
+        "c"
+      ],
+      "parameters": {},
+      "slot": "hair"
+    },
+    {
+      "id": "uniform.spiky.v1",
+      "label": "uniform.spiky.v1",
+      "bodies": [
+        "cast.female.v1"
+      ],
+      "colors": [
+        "c"
+      ],
+      "parameters": {},
+      "slot": "hair"
+    },
+    {
+      "id": "response.torso.v1",
+      "label": "response.torso.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [
+        "c"
+      ],
+      "parameters": {},
+      "slot": "top"
+    },
+    {
+      "id": "response.legs.v1",
+      "label": "response.legs.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [
+        "c"
+      ],
+      "parameters": {},
+      "slot": "pants"
+    },
+    {
+      "id": "uniform.dress.chef.v1",
+      "label": "uniform.dress.chef.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "accessories"
+    },
+    {
+      "id": "uniform.dress.cleaner.v1",
+      "label": "uniform.dress.cleaner.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "accessories"
+    },
+    {
+      "id": "uniform.dress.delivery.v1",
+      "label": "uniform.dress.delivery.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "accessories"
+    },
+    {
+      "id": "uniform.dress.fisher.v1",
+      "label": "uniform.dress.fisher.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "accessories"
+    },
+    {
+      "id": "uniform.dress.bodyguard.v1",
+      "label": "uniform.dress.bodyguard.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "accessories"
+    },
+    {
+      "id": "uniform.dress.sommelier.v1",
+      "label": "uniform.dress.sommelier.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "accessories"
+    },
+    {
+      "id": "uniform.dress.driver.v1",
+      "label": "uniform.dress.driver.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "accessories"
+    },
+    {
+      "id": "uniform.dress.beachbar.v1",
+      "label": "uniform.dress.beachbar.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "accessories"
+    },
+    {
+      "id": "uniform.dress.pilot.v1",
+      "label": "uniform.dress.pilot.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "accessories"
+    },
+    {
+      "id": "uniform.dress.masseuse.v1",
+      "label": "uniform.dress.masseuse.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "accessories"
+    },
+    {
+      "id": "uniform.dress.underwear.v1",
+      "label": "uniform.dress.underwear.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "accessories"
+    },
+    {
+      "id": "uniform.dress.underwear_dark.v1",
+      "label": "uniform.dress.underwear_dark.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "accessories"
+    },
+    {
+      "id": "uniform.dress.underwear_female.v1",
+      "label": "uniform.dress.underwear_female.v1",
+      "bodies": [
+        "cast.female.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "accessories"
+    },
+    {
+      "id": "uniform.dress.wine_merchant.v1",
+      "label": "uniform.dress.wine_merchant.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "accessories"
+    },
+    {
+      "id": "uniform.dress.lawyer.v1",
+      "label": "uniform.dress.lawyer.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "accessories"
+    },
+    {
+      "id": "uniform.dress.investor.v1",
+      "label": "uniform.dress.investor.v1",
+      "bodies": [
+        "cast.female.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "accessories"
+    },
+    {
+      "id": "uniform.dress.response.v1",
+      "label": "uniform.dress.response.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "accessories"
+    },
+    {
+      "id": "uniform.boots.v1",
+      "label": "uniform.boots.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [
+        "c"
+      ],
+      "parameters": {},
+      "slot": "shoes"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+BlenderMCP addon registered
+BlenderMCP addon unregistered
+INFO Draco mesh compression is available, use library at C:\Program Files\Blender Foundation\Blender 4.2\4.2\python\lib\site-packages\extern_draco.dll
+11:14:41 | INFO: Starting glTF 2.0 export
+11:14:41 | INFO: Extracting primitive: Body
+11:14:41 | INFO: Primitives created: 1
+11:14:41 | INFO: Extracting primitive: Face
+11:14:41 | INFO: Primitives created: 1
+11:14:41 | INFO: Extracting primitive: Hair
+11:14:41 | INFO: Primitives created: 1
+11:14:41 | INFO: Extracting primitive: Jacket
+11:14:41 | INFO: Primitives created: 2
+11:14:41 | INFO: Extracting primitive: Trousers
+11:14:41 | INFO: Primitives created: 2
+11:14:41 | INFO: Extracting primitive: TShirt
+11:14:41 | INFO: Primitives created: 3
+11:14:41 | INFO: Finished glTF 2.0 export in 0.10072517395019531 s
+
+RECIPE_BUILT {"id": "new_4994de7caa23474b9fcdb9b6768782a8", "recipe": "recipes/new/new_4994de7caa23474b9fcdb9b6768782a8.json", "output": "models/new/new_4994de7caa23474b9fcdb9b6768782a8/new_4994de7caa23474b9fcdb9b6768782a8.glb", "sha256": "351b9918235c0e2bd856859fe4b59fb4fa73ddec341421856a5b0d63efafd6fe", "blender": "4.2.16 LTS", "meshes": {"Body": {"vertices": 99, "triangles": 146}, "Hair": {"vertices": 24, "triangles": 22}, "Face": {"vertices": 28, "triangles": 14}, "TShirt": {"vertices": 124, "triangles": 238}, "Trousers": {"vertices": 128, "triangles": 240}, "Outer": {"vertices": 322, "triangles": 274}}}
+Blender 4.2.16 LTS (hash 39502cae951c built 2025-11-18 01:34:37)
+
+Blender quit
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize

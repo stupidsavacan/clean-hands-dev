@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "assetMode": "generated",
+  "rig": "cast.shared22.v1",
+  "body": {
+    "profile": "cast.male.v1",
+    "parameters": {}
+  },
+  "identity": {
+    "head": "cast.head.male.v1",
+    "face": "cast.face.male.v1",
+    "hair": {
+      "kind": "parted",
+      "cell": 9
+    }
+  },
+  "palette": {
+    "id": "cast.palette.v1",
+    "overrides": {},
+    "imageName": "palette"
+  },
+  "parts": [
+    {
+      "part": "cast.head.male.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.face.male.v1",
+      "mesh": "Face",
+      "colors": {
+        "hair": 9
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.torso.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "color": 1
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.legs.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "color": 0,
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.hands.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.hair.v1",
+      "mesh": "Hair",
+      "colors": {
+        "color": 9
+      },
+      "parameters": {
+        "kind": "parted"
+      }
+    },
+    {
+      "part": "cast.chest-details.v1",
+      "mesh": "Accessories",
+      "colors": {
+        "color": 0
+      },
+      "parameters": {
+        "kind": "waiter"
+      }
+    }
+  ],
+  "specialOperations": [
+    {
+      "operation": "cast.face-morphs.v1",
+      "phase": "afterObjects",
+      "mesh": "Face"
+    },
+    {
+      "operation": "skin-roots.normalize.v1",
+      "phase": "afterExport"
+    }
+  ],
+  "output": {
+    "meshOrder": [
+      "Body",
+      "Outfit",
+      "Hair",
+      "Accessories",
+      "Face"
+    ],
+    "animationProfile": "cast.walk1.v1",
+    "exportProfile": "blender42.cast-nla.v1"
+  },
+  "appearanceColors": {},
+  "surfaceMark": {
+    "slot": "TShirt",
+    "point": [
+      0.09175431688465756,
+      1.2131290446482594,
+      0.1029969790859177
+    ],
+    "normal": [
+      0.02795785925251184,
+      -0.04720154390102126,
+      0.9984940522403608
+    ],
+    "size": 0.12,
+    "angle": 0,
+    "mesh": "Outfit",
+    "png": "data:image/png;base64,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"
+  },
+  "mark": {
+    "text": "",
+    "color": "#ffffff",
+    "png": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAACDUlEQVR4nO3d0VHbQBRAUcPwTRWZtEEHaYHa0gIdpI1MqkgDSQlY0q684p7zDZjZd/VkYxhuNwAAAADg63s6+wH//vrx7+zHvJrXt4/T5nLKAxn6ujFM++KGfo0Ynm8TGP4cM851aFEGf71tMGwDGP65Rp33kAAM/zFGnPvhAAz/sY6e/6EADH8NR+awOwDDX8veeUx5Gch17ArA1b+mPXPZHIDhr23rfNwC4gQQtykA6/8atszJBogTQNzdAVj/13LvvGyAOAHECSBOAHECiBNAnADiBBAngLiX20K+v/859Pm/f377kt/LTDZAnADiBBAngDgBxAkgTgBxAogTQJwA4gQQJ4A4AcQJIE4AcQKIE0CcAOIEECeAOAHECSBOAHECiBNAnADiBBAngDgBxAkgTgBxAogTQJwA4gQQJ4A4AcQJIE4AcQKIE0CcAOIEECeAOAHECSBOAHECiBNAnADiBBAngLinez/Qv4+/nte3j0/nawPECSBOAHECiBNAnADiBBAngDgBxD2P/KkS67h3XjZAnADiNgXgNnANW+ZkA8QJIG5zAG4Da9s6n10bQARr2jMXt4C43QHYAmvZO49DG0AEazgyh8O3ABE81tHzH/IcQASPMeLchz0JFMG5Rp33lHf4/A3BPKMvtCkvA22DOWac6ynv8dsI615Mp/+Shxg+Z4MCAAAAcBvtP6G0dtXE42ZTAAAAAElFTkSuQmCC",
+    "placement": {
+      "slot": "TShirt",
+      "point": [
+        0.09175431688465756,
+        1.2131290446482594,
+        0.1029969790859177
+      ],
+      "normal": [
+        0.02795785925251184,
+        -0.04720154390102126,
+        0.9984940522403608
+      ],
+      "size": 0.12,
+      "angle": 0
+    }
+  },
+  "id": "new_1afa39789f20401799d513b7910780e3",
+  "label": "PNGと表面配置の確認"
+}

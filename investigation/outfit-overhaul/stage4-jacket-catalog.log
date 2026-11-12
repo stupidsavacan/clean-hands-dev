@@ -1,0 +1,75 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+BlenderMCP addon registered
+情報: 「catalog.blend」を保存
+INFO Draco mesh compression is available, use library at C:\Program Files\Blender Foundation\Blender 4.2\4.2\python\lib\site-packages\extern_draco.dll
+11:36:15 | INFO: Starting glTF 2.0 export
+11:36:15 | INFO: Extracting primitive: Blazer
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: Body
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: Bomber
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: BomberCollar
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: BomberLong
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: BomberLongCollar
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: Cap
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: Face
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: Hair
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: Jacket
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: JacketCollar
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: JacketLong
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: JacketLongCollar
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: Jeans
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: Mark_Blazer
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: Mark_Bomber
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: Mark_BomberCollar
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: Mark_BomberLong
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: Mark_BomberLongCollar
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: Mark_Jacket
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: Mark_JacketCollar
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: Mark_JacketLong
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: Mark_JacketLongCollar
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: Mark_Shirt
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: Mark_TShirt
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: Shirt
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: Sunglasses
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: Tie
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: Trousers
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: TShirt
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Extracting primitive: WideJeans
+11:36:15 | INFO: Primitives created: 1
+11:36:15 | INFO: Finished glTF 2.0 export in 0.16470789909362793 s
+
+Layered asset: Blazer, Body, Bomber, BomberCollar, BomberLong, BomberLongCollar, Cap, Face, Hair, Jacket, JacketCollar, JacketLong, JacketLongCollar, Jeans, Mark_Blazer, Mark_Bomber, Mark_BomberCollar, Mark_BomberLong, Mark_BomberLongCollar, Mark_Jacket, Mark_JacketCollar, Mark_JacketLong, Mark_JacketLongCollar, Mark_Shirt, Mark_TShirt, Shirt, Sunglasses, TShirt, Tie, Trousers, WideJeans
+BlenderMCP addon unregistered
+Blender 4.2.16 LTS (hash 39502cae951c built 2025-11-18 01:34:37)
+Read blend: "C:\Users\gamit\Documents\Codex\2026-10-26\https-claude-ai-artifact-xacywsdv65cc1xpspq147p-page\outputs\m5-outfit-overhaul\assets\outfits\agent07-jacket\agent07-jacket.blend"
+
+Blender quit
