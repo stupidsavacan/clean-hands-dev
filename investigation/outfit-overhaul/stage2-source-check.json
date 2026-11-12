@@ -1,0 +1,26 @@
+[
+  {
+    "file": "build_characters.py",
+    "copiedDefinitions": 23,
+    "geometryDefinitionsMatchSource": true,
+    "paletteChange": "remove file save only"
+  },
+  {
+    "file": "build_pool_characters.py",
+    "copiedDefinitions": 16,
+    "geometryDefinitionsMatchSource": true,
+    "paletteChange": "remove file save only"
+  },
+  {
+    "file": "build_uniforms.py",
+    "copiedDefinitions": 10,
+    "geometryDefinitionsMatchSource": true,
+    "paletteChange": "remove file save only"
+  },
+  {
+    "file": "normalize_skin_roots.py",
+    "copiedDefinitions": 1,
+    "geometryDefinitionsMatchSource": true,
+    "paletteChange": null
+  }
+]

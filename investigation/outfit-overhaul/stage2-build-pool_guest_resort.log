@@ -1,0 +1,25 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+BlenderMCP addon registered
+BlenderMCP addon unregistered
+INFO Draco mesh compression is available, use library at C:\Program Files\Blender Foundation\Blender 4.2\4.2\python\lib\site-packages\extern_draco.dll
+10:27:41 | INFO: Starting glTF 2.0 export
+10:27:41 | INFO: Extracting primitive: Body
+10:27:41 | INFO: Primitives created: 1
+10:27:41 | INFO: Extracting primitive: Details
+10:27:41 | INFO: Primitives created: 1
+10:27:41 | INFO: Extracting primitive: Face
+10:27:41 | INFO: Primitives created: 1
+10:27:41 | INFO: Extracting primitive: Hair
+10:27:41 | INFO: Primitives created: 1
+10:27:41 | INFO: Extracting primitive: Hands
+10:27:41 | INFO: Primitives created: 1
+10:27:41 | INFO: Extracting primitive: Head
+10:27:41 | INFO: Primitives created: 1
+10:27:41 | INFO: Extracting primitive: Legs
+10:27:41 | INFO: Primitives created: 1
+10:27:41 | INFO: Finished glTF 2.0 export in 0.08989095687866211 s
+
+RECIPE_BUILT {"id": "pool_guest_resort", "recipe": "recipes/pool_guest_resort.json", "output": "models/pool_guest_resort/pool_guest_resort.glb", "sha256": "48c7455dda57124c1c1d541fdcf4f41038f426274ac73cd881e56352ea9dc808", "blender": "4.2.16 LTS", "meshes": {"Head": {"vertices": 69, "triangles": 112}, "Body": {"vertices": 120, "triangles": 230}, "Legs": {"vertices": 136, "triangles": 228}, "Hands": {"vertices": 40, "triangles": 64}, "Hair": {"vertices": 32, "triangles": 38}, "Details": {"vertices": 29, "triangles": 23}, "Face": {"vertices": 38, "triangles": 24}}}
+Blender 4.2.16 LTS (hash 39502cae951c built 2025-11-18 01:34:37)
+
+Blender quit

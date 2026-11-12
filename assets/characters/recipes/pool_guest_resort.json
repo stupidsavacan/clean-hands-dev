@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "assetMode": "generated",
+  "id": "pool_guest_resort",
+  "rig": "cast.shared22.v1",
+  "body": {
+    "profile": "pool.resort.v1",
+    "parameters": {}
+  },
+  "identity": {
+    "head": "pool.head.v1",
+    "face": "pool.face.v1",
+    "hair": {
+      "part": "pool.hair.v1",
+      "cell": 0,
+      "kind": "resort"
+    }
+  },
+  "palette": {
+    "id": "pool.palette.v1",
+    "overrides": {}
+  },
+  "parts": [
+    {
+      "part": "pool.head.v1",
+      "mesh": "Head",
+      "colors": {
+        "skin": 7
+      },
+      "parameters": {
+        "kind": "resort"
+      }
+    },
+    {
+      "part": "pool.face.v1",
+      "mesh": "Face",
+      "colors": {
+        "hc": 0
+      },
+      "parameters": {
+        "kind": "resort"
+      }
+    },
+    {
+      "part": "pool.hair.v1",
+      "mesh": "Hair",
+      "colors": {
+        "hc": 0
+      },
+      "parameters": {
+        "kind": "resort"
+      }
+    },
+    {
+      "part": "pool.torso.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 7
+      },
+      "parameters": {
+        "kind": "resort"
+      }
+    },
+    {
+      "part": "pool.legs.v1",
+      "mesh": "Legs",
+      "colors": {
+        "skin": 7
+      },
+      "parameters": {
+        "kind": "resort"
+      }
+    },
+    {
+      "part": "pool.hands.v1",
+      "mesh": "Hands",
+      "colors": {
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "pool.details.v1",
+      "mesh": "Details",
+      "colors": {},
+      "parameters": {
+        "kind": "resort"
+      }
+    }
+  ],
+  "specialOperations": [
+    {
+      "operation": "cast.face-morphs.v1",
+      "phase": "afterObjects",
+      "mesh": "Face"
+    },
+    {
+      "operation": "skin-roots.normalize.v1",
+      "phase": "afterExport"
+    }
+  ],
+  "output": {
+    "meshOrder": [
+      "Head",
+      "Body",
+      "Legs",
+      "Hands",
+      "Hair",
+      "Details",
+      "Face"
+    ],
+    "animationProfile": "cast.walk1.v1",
+    "exportProfile": "blender42.cast-nla.v1"
+  },
+  "reference": {
+    "baselineId": "pool_guest_resort",
+    "sha256": "cd46e39c8980c21a363659ced272ccbe70f852ab7b6a237b42baa91892a5032c"
+  }
+}

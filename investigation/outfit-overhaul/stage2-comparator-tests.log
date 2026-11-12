@@ -1,0 +1,20 @@
+test_ambiguous_tolerance_uses_complete_matching (__main__.ComparisonTests.test_ambiguous_tolerance_uses_complete_matching) ... ok
+test_bone_name_parent_bind_and_rest_mutations (__main__.ComparisonTests.test_bone_name_parent_bind_and_rest_mutations) ... ok
+test_joint_index_mutation (__main__.ComparisonTests.test_joint_index_mutation) ... ok
+test_material_image_pixels (__main__.ComparisonTests.test_material_image_pixels) ... ok
+test_material_roughness (__main__.ComparisonTests.test_material_roughness) ... ok
+test_missing_mesh_and_animation_fail (__main__.ComparisonTests.test_missing_mesh_and_animation_fail) ... ok
+test_morph_position_and_normal (__main__.ComparisonTests.test_morph_position_and_normal) ... ok
+test_nonfinite_is_rejected (__main__.ComparisonTests.test_nonfinite_is_rejected) ... ok
+test_normalized_sparse_and_interleaved_accessor (__main__.ComparisonTests.test_normalized_sparse_and_interleaved_accessor) ... ok
+test_position_normal_uv_weight_mutations (__main__.ComparisonTests.test_position_normal_uv_weight_mutations) ... ok
+test_self_all_three (__main__.ComparisonTests.test_self_all_three) ... ok
+test_triangle_order_only (__main__.ComparisonTests.test_triangle_order_only) ... ok
+test_walk_values_and_times (__main__.ComparisonTests.test_walk_values_and_times) ... ok
+test_winding_and_duplicate_faces_fail (__main__.ComparisonTests.test_winding_and_duplicate_faces_fail) ... ok
+test_within_and_beyond_tolerance (__main__.ComparisonTests.test_within_and_beyond_tolerance) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 1.533s
+
+OK

@@ -1,0 +1,204 @@
+{
+  "checkedAt": "2026-11-12T10:27:44.564807+09:00",
+  "protectedTrees": {
+    "character-revision": {
+      "status": "PASS",
+      "files": 743,
+      "changes": []
+    },
+    "player-wardrobe": {
+      "status": "PASS",
+      "files": 24,
+      "changes": []
+    }
+  },
+  "baselines": [
+    {
+      "id": "agent",
+      "status": "PASS"
+    },
+    {
+      "id": "beachbar",
+      "status": "PASS"
+    },
+    {
+      "id": "bodyguard",
+      "status": "PASS"
+    },
+    {
+      "id": "chef",
+      "status": "PASS"
+    },
+    {
+      "id": "cleaner",
+      "status": "PASS"
+    },
+    {
+      "id": "delivery",
+      "status": "PASS"
+    },
+    {
+      "id": "dj",
+      "status": "PASS"
+    },
+    {
+      "id": "dj_cast",
+      "status": "PASS"
+    },
+    {
+      "id": "dj_experiment",
+      "status": "PASS"
+    },
+    {
+      "id": "driver",
+      "status": "PASS"
+    },
+    {
+      "id": "fisher",
+      "status": "PASS"
+    },
+    {
+      "id": "guard",
+      "status": "PASS"
+    },
+    {
+      "id": "guest_dress",
+      "status": "PASS"
+    },
+    {
+      "id": "guest_suit",
+      "status": "PASS"
+    },
+    {
+      "id": "investor",
+      "status": "PASS"
+    },
+    {
+      "id": "lawyer",
+      "status": "PASS"
+    },
+    {
+      "id": "masseuse",
+      "status": "PASS"
+    },
+    {
+      "id": "photographer",
+      "status": "PASS"
+    },
+    {
+      "id": "pilot",
+      "status": "PASS"
+    },
+    {
+      "id": "pool_guest_lean",
+      "status": "PASS"
+    },
+    {
+      "id": "pool_guest_resort",
+      "status": "PASS"
+    },
+    {
+      "id": "pool_guest_slim",
+      "status": "PASS"
+    },
+    {
+      "id": "pool_guest_strong",
+      "status": "PASS"
+    },
+    {
+      "id": "pool_guest_swimshorts",
+      "status": "PASS"
+    },
+    {
+      "id": "pool_guest_swimsuit",
+      "status": "PASS"
+    },
+    {
+      "id": "response",
+      "status": "PASS"
+    },
+    {
+      "id": "sommelier",
+      "status": "PASS"
+    },
+    {
+      "id": "underwear",
+      "status": "PASS"
+    },
+    {
+      "id": "underwear_dark",
+      "status": "PASS"
+    },
+    {
+      "id": "underwear_female",
+      "status": "PASS"
+    },
+    {
+      "id": "waiter",
+      "status": "PASS"
+    },
+    {
+      "id": "wine_merchant",
+      "status": "PASS"
+    },
+    {
+      "id": "wardrobe",
+      "status": "PASS"
+    },
+    {
+      "id": "architect",
+      "status": "PASS"
+    },
+    {
+      "id": "operative",
+      "status": "PASS"
+    },
+    {
+      "id": "veteran",
+      "status": "PASS"
+    },
+    {
+      "id": "agent47",
+      "status": "PASS"
+    }
+  ],
+  "pilots": [
+    {
+      "status": "PASS",
+      "boneTolerance": 1e-06,
+      "attributeTolerance": 1e-05,
+      "differences": [],
+      "id": "waiter",
+      "reference": "../character-revision/models/waiter/waiter.glb",
+      "candidate": "assets/characters/models/waiter/waiter.glb",
+      "referenceSha256": "1f2db36492b32997a7dbc1a65ace73dd8f34bef0621ad7f26d8592ee45b33add",
+      "candidateSha256": "238928acc8c4bb221db4bf6dacad201a7ef02198bd06301b718f93f93228e1ba",
+      "recipeSha256": "16915a63fa8a2de7f41ac15d373120e4f7d04041369610ee998b85d875a5b33a"
+    },
+    {
+      "status": "PASS",
+      "boneTolerance": 1e-06,
+      "attributeTolerance": 1e-05,
+      "differences": [],
+      "id": "photographer",
+      "reference": "../character-revision/models/photographer/photographer.glb",
+      "candidate": "assets/characters/models/photographer/photographer.glb",
+      "referenceSha256": "3760efdd6826254db37c344f59140944f0f2804fac0019de9144acaf49d91b43",
+      "candidateSha256": "3760efdd6826254db37c344f59140944f0f2804fac0019de9144acaf49d91b43",
+      "recipeSha256": "05516df92ff594759e1df760a0a9cf5d328d92d1fc0b2639bbc489352f4d9850"
+    },
+    {
+      "status": "PASS",
+      "boneTolerance": 1e-06,
+      "attributeTolerance": 1e-05,
+      "differences": [],
+      "id": "pool_guest_resort",
+      "reference": "../character-revision/models/pool_guest_resort/pool_guest_resort.glb",
+      "candidate": "assets/characters/models/pool_guest_resort/pool_guest_resort.glb",
+      "referenceSha256": "cd46e39c8980c21a363659ced272ccbe70f852ab7b6a237b42baa91892a5032c",
+      "candidateSha256": "48c7455dda57124c1c1d541fdcf4f41038f426274ac73cd881e56352ea9dc808",
+      "recipeSha256": "7b1a78c223799d7b8714bcd1f40782f8cff72a6a391944e0d1fe69c308bc7545"
+    }
+  ],
+  "status": "PASS"
+}

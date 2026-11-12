@@ -1,0 +1,29 @@
+{
+  "id": "photographer",
+  "recipe": "recipes/photographer.json",
+  "output": "models/photographer/photographer.glb",
+  "sha256": "3760efdd6826254db37c344f59140944f0f2804fac0019de9144acaf49d91b43",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Body": {
+      "vertices": 99,
+      "triangles": 146
+    },
+    "Outfit": {
+      "vertices": 544,
+      "triangles": 578
+    },
+    "Hair": {
+      "vertices": 24,
+      "triangles": 22
+    },
+    "Accessories": {
+      "vertices": 30,
+      "triangles": 30
+    },
+    "Face": {
+      "vertices": 28,
+      "triangles": 14
+    }
+  }
+}

@@ -1,0 +1,14 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+test_all_pilot_recipes_validate (__main__.RecipeTests.test_all_pilot_recipes_validate) ... ok
+test_external_sources_not_imported (__main__.RecipeTests.test_external_sources_not_imported) ... ok
+test_reject_unsupported_operations_and_parameters (__main__.RecipeTests.test_reject_unsupported_operations_and_parameters) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.313s
+
+OK
+BlenderMCP addon registered
+BlenderMCP addon unregistered
+Blender 4.2.16 LTS (hash 39502cae951c built 2025-11-18 01:34:37)
+
+Blender quit

@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "assetMode": "generated",
+  "id": "photographer",
+  "rig": "cast.shared22.v1",
+  "body": {
+    "profile": "cast.male.v1",
+    "parameters": {}
+  },
+  "identity": {
+    "head": "cast.head.male.v1",
+    "face": "cast.face.male.v1",
+    "hair": {
+      "part": "cast.hair.v1",
+      "cell": 9,
+      "kind": "swept"
+    }
+  },
+  "palette": {
+    "id": "uniform.palette.v1",
+    "overrides": {}
+  },
+  "parts": [
+    {
+      "part": "cast.head.male.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 8
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.face.male.v1",
+      "mesh": "Face",
+      "colors": {
+        "hair": 9
+      },
+      "parameters": {}
+    },
+    {
+      "part": "uniform.torso.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "color": 13
+      },
+      "parameters": {}
+    },
+    {
+      "part": "photographer.vest-inlay.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "vest": 10,
+        "pocket": 9
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.legs.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "color": 12,
+        "skin": 8
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.hands.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 8
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.hair.v1",
+      "mesh": "Hair",
+      "colors": {
+        "color": 9
+      },
+      "parameters": {
+        "kind": "swept"
+      }
+    },
+    {
+      "part": "uniform.collar.v1",
+      "mesh": "Accessories",
+      "colors": {
+        "c": 13
+      },
+      "parameters": {}
+    },
+    {
+      "part": "uniform.camera.v1",
+      "mesh": "Accessories",
+      "colors": {},
+      "parameters": {}
+    }
+  ],
+  "specialOperations": [
+    {
+      "operation": "cast.face-morphs.v1",
+      "phase": "afterObjects",
+      "mesh": "Face"
+    },
+    {
+      "operation": "skin-roots.normalize.v1",
+      "phase": "afterExport"
+    }
+  ],
+  "output": {
+    "meshOrder": [
+      "Body",
+      "Outfit",
+      "Hair",
+      "Accessories",
+      "Face"
+    ],
+    "animationProfile": "cast.walk1.v1",
+    "exportProfile": "blender42.cast-nla.v1"
+  },
+  "reference": {
+    "baselineId": "photographer",
+    "sha256": "3760efdd6826254db37c344f59140944f0f2804fac0019de9144acaf49d91b43"
+  }
+}

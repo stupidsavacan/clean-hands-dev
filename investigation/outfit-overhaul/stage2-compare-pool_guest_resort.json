@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "boneTolerance": 1e-06,
+  "attributeTolerance": 1e-05,
+  "differences": [],
+  "id": "pool_guest_resort",
+  "reference": "../character-revision/models/pool_guest_resort/pool_guest_resort.glb",
+  "candidate": "assets/characters/models/pool_guest_resort/pool_guest_resort.glb",
+  "referenceSha256": "cd46e39c8980c21a363659ced272ccbe70f852ab7b6a237b42baa91892a5032c",
+  "candidateSha256": "48c7455dda57124c1c1d541fdcf4f41038f426274ac73cd881e56352ea9dc808",
+  "recipeSha256": "7b1a78c223799d7b8714bcd1f40782f8cff72a6a391944e0d1fe69c308bc7545"
+}

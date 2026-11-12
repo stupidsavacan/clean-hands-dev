@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "boneTolerance": 1e-06,
+  "attributeTolerance": 1e-05,
+  "differences": [],
+  "id": "photographer",
+  "reference": "../character-revision/models/photographer/photographer.glb",
+  "candidate": "assets/characters/models/photographer/photographer.glb",
+  "referenceSha256": "3760efdd6826254db37c344f59140944f0f2804fac0019de9144acaf49d91b43",
+  "candidateSha256": "3760efdd6826254db37c344f59140944f0f2804fac0019de9144acaf49d91b43",
+  "recipeSha256": "05516df92ff594759e1df760a0a9cf5d328d92d1fc0b2639bbc489352f4d9850"
+}

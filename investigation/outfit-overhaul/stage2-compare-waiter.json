@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "boneTolerance": 1e-06,
+  "attributeTolerance": 1e-05,
+  "differences": [],
+  "id": "waiter",
+  "reference": "../character-revision/models/waiter/waiter.glb",
+  "candidate": "assets/characters/models/waiter/waiter.glb",
+  "referenceSha256": "1f2db36492b32997a7dbc1a65ace73dd8f34bef0621ad7f26d8592ee45b33add",
+  "candidateSha256": "238928acc8c4bb221db4bf6dacad201a7ef02198bd06301b718f93f93228e1ba",
+  "recipeSha256": "16915a63fa8a2de7f41ac15d373120e4f7d04041369610ee998b85d875a5b33a"
+}
