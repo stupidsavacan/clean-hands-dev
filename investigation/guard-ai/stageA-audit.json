@@ -1,0 +1,167 @@
+[
+  {
+    "name": "hotel",
+    "before": 786,
+    "total": 771,
+    "low": 512,
+    "edge": 259,
+    "invalid": 0,
+    "excluded": [
+      "stairs-grand-rail-117",
+      "stairs-grand-rail-118",
+      "stairs-service-rail-119",
+      "stairs-roof-rail-121",
+      "stairs-roof-rail-122",
+      "stairs-cellar-rail-123",
+      "stairs-cellar-rail-124",
+      "stairs-cellar-rail-125"
+    ],
+    "reinforcement": [
+      {
+        "entry": "REINF_parking",
+        "checked": 130,
+        "samples": [
+          {
+            "distance": 16,
+            "block": "car-p1-4",
+            "range": 16
+          },
+          {
+            "distance": 24,
+            "block": "car-p1-4",
+            "range": 24
+          },
+          {
+            "distance": 16,
+            "block": "car-p1-4",
+            "range": 16.037767924496226
+          },
+          {
+            "distance": 24,
+            "block": "car-p1-4",
+            "range": 24
+          },
+          {
+            "distance": 16,
+            "block": "car-p1-4",
+            "range": 16.037767924496226
+          },
+          {
+            "distance": 24,
+            "block": "car-p1-4",
+            "range": 24
+          }
+        ]
+      },
+      {
+        "entry": "REINF_dock",
+        "checked": 54,
+        "samples": [
+          {
+            "distance": 8,
+            "block": "crate-dock-1",
+            "range": 8
+          },
+          {
+            "distance": 8,
+            "block": "crate-dock-1",
+            "range": 8.121576201698781
+          },
+          {
+            "distance": 16,
+            "block": "crate-dock-1",
+            "range": 16.061133210331082
+          },
+          {
+            "distance": 8,
+            "block": "crate-dock-3",
+            "range": 8
+          },
+          {
+            "distance": 16,
+            "block": "crate-dock-3",
+            "range": 16
+          },
+          {
+            "distance": 24,
+            "block": "crate-dock-3",
+            "range": 23.999999999999993
+          }
+        ]
+      }
+    ],
+    "selection10": {
+      "mean": 0.5986169999999982,
+      "p95": 1.529700000000048,
+      "max": 5.900899999999979
+    }
+  },
+  {
+    "name": "party",
+    "before": 372,
+    "total": 349,
+    "low": 8,
+    "edge": 341,
+    "invalid": 0,
+    "excluded": [
+      "stair-cheek-S1-0--1",
+      "stair-cheek-S1-0-1",
+      "stair-cheek-S1-1--1",
+      "stair-cheek-S1-1-1",
+      "stair-cheek-S2-0--1",
+      "stair-cheek-S2-0-1",
+      "stair-cheek-S2-1-1",
+      "stair-cheek-S3-0--1",
+      "stair-cheek-S3-0-1",
+      "stair-cheek-S3-1--1",
+      "stair-cheek-S3-1-1",
+      "stair-cheek-S4-0--1",
+      "stair-cheek-S4-0-1",
+      "stair-cheek-S5-0--1",
+      "stair-cheek-S5-0-1"
+    ],
+    "reinforcement": [],
+    "selection10": {
+      "mean": 0.5219454999999948,
+      "p95": 1.5138999999999214,
+      "max": 4.659200000000055
+    }
+  },
+  {
+    "name": "club",
+    "before": 233,
+    "total": 209,
+    "low": 114,
+    "edge": 95,
+    "invalid": 0,
+    "excluded": [
+      "stair-cheek-S1-0--1",
+      "stair-cheek-S1-0-1",
+      "stair-cheek-S2-14--1",
+      "stair-cheek-S2-14-1",
+      "stair-cheek-S2-15-1",
+      "stair-cheek-SA-0--1",
+      "stair-cheek-SA-0-1",
+      "stair-cheek-SA-7--1",
+      "stair-cheek-SA-7-1",
+      "stair-cheek-SA-14-1",
+      "stair-cheek-SA-15-1",
+      "stair-cheek-SB-0--1",
+      "stair-cheek-SB-0-1",
+      "stair-cheek-SB-7--1",
+      "stair-cheek-SB-7-1",
+      "stair-cheek-SB-14--1",
+      "stair-cheek-SB-15--1",
+      "rail-s1-west-0",
+      "rail-s2-0",
+      "rail-walk-back-0",
+      "rail-walk-west-0"
+    ],
+    "reinforcement": [],
+    "selection10": {
+      "mean": 0.5762864999999919,
+      "p95": 1.4851999999998498,
+      "max": 3.2348000000001775
+    }
+  }
+]

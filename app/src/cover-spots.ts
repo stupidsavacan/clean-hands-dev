@@ -1,6 +1,6 @@
-import {segmentClear,type Aabb} from './sight.ts';
+import {segmentClear,sightBoxes,type Aabb} from './sight.ts';
 import type {NavGrid} from './nav.ts';
-import {floorOf,type Block,type CollisionWorld,type Level,type Position} from './world.ts';
+import {floorOf,inside,type Block,type CollisionWorld,type Level,type Position} from './world.ts';
 /** Guard AI stage 1 (2026-11-13, investigation/guard-ai-policy-20261113.md): where a guard in a gunfight can hide.
  * Made once from the map, as in HITMAN, where guards hide behind what the level already has:
  *  - 'low': beside a waist- to chest-high solid (a crate, a counter, a car). The guard kneels there and rises to shoot over it.
@@ -11,10 +11,11 @@ export type CoverSpot={id:number;kind:'low'|'edge';x:number;y:number;z:number;fl
  // Unit vector from the spot toward the solid that covers it.
  nx:number;nz:number;
  // Where the guard shoots from: the spot itself for 'low', a step out past the end for 'edge'.
- peek:Position};
+ peek:Position;solid:Aabb[]};
 export type CoverRules={
  // Heights (m) of a solid that gives low cover, and from which a solid is tall enough to stand behind.
  lowMin:number;lowMax:number;tallMin:number;
+ excludeIds?:string[];
  // Low cover wider or deeper than this (a stage, a pool) is not furniture to crouch behind.
  maxSize:number;
  // Distance of a spot from the face, spacing of the spots along a face, and how far past a wall end the guard steps.
@@ -30,19 +31,25 @@ const tall=(b:Block,r:CoverRules)=>b.h>=r.tallMin;
 
 export function buildCoverSpots(level:Level,world:CollisionWorld,nav:NavGrid,rules:Partial<CoverRules>={}):CoverSpot[]{
  const r={...COVER_DEFAULTS,...rules},out:CoverSpot[]=[];
+ const eligible=(b:Block)=>!(r.excludeIds??[]).some(prefix=>b.id.startsWith(prefix));
+ const solids=new Map<Block,Aabb[]>();
+ const onStair=(p:Position)=>level.stairs.some(s=>inside(s,p.x,p.z)&&p.y>=s.low-.01&&p.y<=s.high+.01);
  const add=(kind:CoverSpot['kind'],b:Block,x:number,z:number,nx:number,nz:number,peek?:{x:number;z:number})=>{
   const floor=b.floor??0,base={x,y:b.y,z},i=nav.nearest(base);if(i<0)return;const node=nav.nodes[i];
   if(Math.hypot(node.x-x,node.z-z)>.35||floorOf(node.y)!==floor)return;
   const at={x,y:node.y,z},to=peek?{x:peek.x,y:node.y,z:peek.z}:at;
+  if(onStair(at)||onStair(to))return;
   if(world.blocked(at.x,at.y,at.z)||peek&&(world.blocked(to.x,to.y,to.z)||!nav.clear(at,to)))return;
   if(out.some(s=>s.floor===floor&&Math.hypot(s.x-x,s.z-z)<.5))return;
-  out.push({id:out.length,kind,x,y:node.y,z,floor,block:b.id,nx,nz,peek:to});};
+  let solid=solids.get(b);if(!solid){solid=sightBoxes({...level,walls:level.walls.includes(b)?[b]:[],blockers:level.blockers.includes(b)?[b]:[],floors:[],stairs:[]});solids.set(b,solid);}
+  if(!solid.length)return;
+  out.push({solid,id:out.length,kind,x,y:node.y,z,floor,block:b.id,nx,nz,peek:to});};
  // Each face of an axis-aligned box: its outward normal, half extents along the normal and along the face.
  const faces=(b:Block)=>[[1,0,b.w/2,b.d/2],[-1,0,b.w/2,b.d/2],[0,1,b.d/2,b.w/2],[0,-1,b.d/2,b.w/2]] as const;
- for(const b of level.blockers)if(lowCover(b,r))for(const [nx,nz,hn,ht] of faces(b)){
+ for(const b of level.blockers)if(eligible(b)&&lowCover(b,r))for(const [nx,nz,hn,ht] of faces(b)){
   const tx=-nz,tz=nx,count=Math.max(1,Math.round(2*ht/r.spacing));
   for(let k=0;k<count;k++){const s=-ht+(k+.5)*2*ht/count;add('low',b,b.x+nx*(hn+r.gap)+tx*s,b.z+nz*(hn+r.gap)+tz*s,-nx,-nz);}}
- for(const b of [...level.walls,...level.blockers.filter(b=>tall(b,r))])for(const [nx,nz,hn,ht] of faces(b)){
+ for(const b of [...level.walls,...level.blockers.filter(b=>tall(b,r))].filter(eligible))for(const [nx,nz,hn,ht] of faces(b)){
   // Only along faces long enough to stand beside (not the 20 cm end of a wall), at both ends.
   if(2*ht<.6)continue;const tx=-nz,tz=nx;
   for(const end of [1,-1]){const cx=b.x+nx*(hn+r.gap)+tx*ht*end,cz=b.z+nz*(hn+r.gap)+tz*ht*end;
@@ -52,7 +59,8 @@ export function buildCoverSpots(level:Level,world:CollisionWorld,nav:NavGrid,rul
 /** A line from the agent's eyes to the guard's body at the spot is blocked at every tested point. */
 export function hiddenFrom(spot:CoverSpot,threat:Position,crouched:boolean,boxes:Aabb[]){
  const eye={x:threat.x,y:threat.y+(crouched?1.05:1.55),z:threat.z};
- return BODY[spot.kind==='low'?'kneel':'stand'].every(h=>!segmentClear(boxes,eye,{x:spot.x,y:spot.y+h,z:spot.z}));
+ return BODY[spot.kind==='low'?'kneel':'stand'].every(h=>{const to={x:spot.x,y:spot.y+h,z:spot.z};
+  return !segmentClear(spot.solid,eye,to)&&!segmentClear(boxes,eye,to);});
 }
 /** From where the guard shoots (standing up behind low cover, or stepped out past the end), some of the agent is in view. */
 export function shootsFrom(spot:CoverSpot,threat:Position,crouched:boolean,boxes:Aabb[],eye:number){
