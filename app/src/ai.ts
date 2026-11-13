@@ -98,7 +98,7 @@ export class Npc{
  hp=100;weapon='';kind:'guard'|'bodyguard'|'response'|'civilian'='civilian';reinforcement=false;combatGoal:Position|null=null;reactT=0;fireT=0;coverT=0;shotAt=-Infinity;
  // Guard AI stage 1 (2026-11-13): how the body stands in a fight (kneeling behind low cover, risen to shoot over it), when
  // that last changed and from what (NpcView animates the change), and the cover plan CombatSystem keeps.
- posture:Posture='stand';posturePrev:Posture='stand';postureAt=-Infinity;tactic:CoverPlan|null=null;
+ flashThrowAt=-Infinity;flashThrowCover=false;posture:Posture='stand';posturePrev:Posture='stand';postureAt=-Infinity;tactic:CoverPlan|null=null;
  // M5.6: a bystander who saw a crime or a body and is running to tell a guard (what, where, and a key so it counts once).
  witnessCooldown=0;
  // suspect: they only saw someone behaving oddly (a guard comes to look; the outfit is not blown); disguise: the outfit

@@ -9,6 +9,7 @@ import {DeviceSystem,type DeviceDef} from '../devices.ts';
 import {ChoreSystem} from '../chores.ts';
 import {DoorSystem} from '../doors.ts';
 import {CollisionWorld,type Block,type Position} from '../world.ts';
+import {flankAngle} from '../guard-team.ts';
 import {hiddenFrom} from '../cover-spots.ts';
 import {NavGrid} from '../nav.ts';
 import {segmentClear,sightBoxes} from '../sight.ts';
@@ -97,6 +98,18 @@ function watchCover(r:Run,ids:string[]){const w=watched(r);
   if(t&&w.spots[w.spots.length-1]!==t.spot.id&&ids.length===1)w.spots.push(t.spot.id);
   w.postures.add(n.posture);
   if(n.shotAt!==(w.shotAt.get(id)??-Infinity)){w.shotAt.set(id,n.shotAt);w.shots++;if(t?.phase==='hide')w.hiddenShots++;}}}
+
+// Team-combat observations stay outside the game state.
+type TeamWatch={first:string;successor:string;max:number;angle:number;moved:boolean;early:boolean;down:boolean};
+const teamWatches=new WeakMap<Run,TeamWatch>();
+const teamWatch=(r:Run)=>{let w=teamWatches.get(r);if(!w)teamWatches.set(r,w={first:'',successor:'',max:0,angle:0,moved:false,early:false,down:false});return w;};
+const teamCrates=[crate('hold',-11,-6,1.2,3),crate('step',-9,-11,1.2,1.2),crate('bridge',-5,-12,2.4,1.2),crate('side',0,-12,2.4,1.2),crate('agent',-2.5,-6,1,2,.9)];
+const flashCrates=[...teamCrates.filter(b=>b.id!=='crate-agent'),crate('flash-agent',-3,-6,.6,2,1.05)];
+function teamStart(r:Run){draw(r);for(const n of r.director.npcs)r.combat!.engage(n,r.player,0);}
+function watchTeam(r:Run,replace=false){const w=teamWatch(r),c=r.combat!,flankers=r.director.npcs.filter(n=>c.teams.role(n)==='flank');w.max=Math.max(w.max,flankers.length);if(r.time<8&&flankers.length)w.early=true;
+ for(const n of flankers){if(!w.first)w.first=n.id;else if(n.id!==w.first&&w.down)w.successor=n.id;
+  if(n.tactic&&n.tactic.phase!=='move'&&Math.abs(n.pos.z+6)>5){w.moved=true;const ref=r.director.npcs.find(g=>c.teams.role(g)==='suppress');if(ref)w.angle=Math.max(w.angle,flankAngle(n.pos,ref.pos,r.player));}}
+ if(replace&&!w.down&&w.first&&r.time>10){markDead(npc(r,w.first),'test',{kind:'combat',witnesses:[],cameras:[],illegal:false,reasons:[]});w.down=true;}}
 
 export const SCENARIOS:Scenario[]=[
  {id:'sight-front',group:'視認',title:'正面の立入禁止は見つかる',expect:'職員室にいるスーツ姿を6m先の警備が見て、振り向き→確かめに来る',
@@ -239,6 +252,24 @@ export const SCENARIOS:Scenario[]=[
   step:r=>{watchCover(r,['g1','g2']);const a=npc(r,'g1').tactic?.spot,b=npc(r,'g2').tactic?.spot;if(a&&a===b)watched(r).clash++;},
   judge:r=>{const w=watched(r),a=npc(r,'g1').tactic,b=npc(r,'g2').tactic;
    return {pass:w.clash===0&&!!a&&!!b&&a.spot!==b.spot&&a.phase!=='move'&&b.phase!=='move',detail:`g1 ${a?a.phase+'#'+a.spot.id:'なし'} · g2 ${b?b.phase+'#'+b.spot.id:'なし'} · 重なり ${w.clash}`};}},
+ {id:'team-corner',group:'戦闘',title:'角で待つと1人が回り込む',expect:'同じ遮蔽に8秒いると、2人のうち1人が遮蔽を伝って横へ移る。足止めと60度以上の角度を取る。',
+ npcs:[guard('g1',-13,-6,Math.PI/2),guard('g2',-13,-9,Math.PI/2)],seconds:24,combat:true,blockers:teamCrates,player:()=>player(-1,-6,{weaponDrawn:true}),start:teamStart,step:r=>watchTeam(r),
+ judge:r=>{const w=teamWatch(r);return {pass:!w.early&&w.max===1&&w.moved&&w.angle>=60,detail:JSON.stringify(w)};}},
+ {id:'team-limit',group:'戦闘',title:'3人でも回り込みは1人だけ',expect:'3人の撃ち合いでも回り込みは1人、残りが足止めする。',
+ npcs:[guard('g1',-13,-6,Math.PI/2),guard('g2',-13,-9,Math.PI/2),guard('g3',-14,-8,Math.PI/2)],seconds:24,combat:true,blockers:teamCrates,player:()=>player(-1,-6,{weaponDrawn:true}),start:teamStart,step:r=>watchTeam(r),
+ judge:r=>{const w=teamWatch(r);return {pass:!w.early&&w.max===1&&w.moved,detail:JSON.stringify(w)};}},
+ {id:'team-replace',group:'戦闘',title:'回り込みの人が倒れると引き継ぐ',expect:'回り込み役が倒れると、生きている別の警備が引き継ぐ。',
+ npcs:[guard('g1',-13,-6,Math.PI/2),guard('g2',-13,-9,Math.PI/2),guard('g3',-14,-8,Math.PI/2)],seconds:26,combat:true,blockers:teamCrates,player:()=>player(-1,-6,{weaponDrawn:true}),start:teamStart,step:r=>watchTeam(r,true),
+ judge:r=>{const w=teamWatch(r);return {pass:w.down&&!!w.successor&&w.first!==w.successor&&w.max===1,detail:JSON.stringify(w)};}},
+ {id:'flash-camp',group:'戦闘',title:'遮蔽に居座るとフラッシュを投げる',expect:'同じ遮蔽に12秒いると警備が1個投げ、時間を置いて発光する。近いエージェントの照準が一時的にぶれる。',
+ npcs:[guard('g1',-13,-6,Math.PI/2)],seconds:20,combat:true,blockers:flashCrates,player:()=>player(-1,-6,{weaponDrawn:true}),start:teamStart,
+ judge:r=>({pass:r.combat!.flashes.thrown===1&&r.combat!.flashes.burst===1&&r.combat!.events.recent.some(e=>e.type==='player.flashed'),detail:`投擲 ${r.combat!.flashes.thrown} / 発光 ${r.combat!.flashes.burst}`})},
+ {id:'flash-wall',group:'戦闘',title:'壁の向こうへフラッシュを投げない',expect:'長く居座っていても、壁に遮られている間は投げない。',
+ npcs:[guard('g1',-13,-6,Math.PI/2)],seconds:20,combat:true,blockers:[...flashCrates,{...crate('wall',-6,-6,.4,8),h:4}],player:()=>player(-1,-6,{weaponDrawn:true}),start:teamStart,
+ judge:r=>({pass:r.combat!.flashes.thrown===0,detail:`壁越しの投擲 ${r.combat!.flashes.thrown}`})},
+ {id:'flash-limit',group:'戦闘',title:'フラッシュは1人1個まで',expect:'同じ撃ち合いで45秒居座っても、同じ警備は2個目を投げない。',
+ npcs:[guard('g1',-13,-6,Math.PI/2)],seconds:45,combat:true,blockers:flashCrates,player:()=>player(-1,-6,{weaponDrawn:true}),start:teamStart,
+ judge:r=>({pass:r.combat!.flashes.thrown===1&&(r.combat!.flashes.used.get(npc(r,'g1'))??0)===1,detail:`投擲 ${r.combat!.flashes.thrown}`})},
  {id:'search-lose',group:'捜索',title:'見失うと捜索し、やがて戻る',expect:'警戒させてから視界の外へ消えると、捜索 → 落ち着いて持ち場へ',
   npcs:[guard('g1',13,-10,0)],seconds:40,player:(_t,r)=>npc(r,'g1').state==='alert'&&!r.log.includes('逃げた')?(r.log.push('逃げた'),player(-17,12)):r.log.includes('逃げた')?player(-17,12):player(13,-5,{speed:1}),
   done:r=>has(r,'calm')&&r.log.includes('逃げた'),

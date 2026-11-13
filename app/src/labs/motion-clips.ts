@@ -1,3 +1,4 @@
+import {FLASH_THROW_SECONDS} from '../flash-motion.ts';
 import party from '../data/party.json' with {type:'json'};
 import {ladderOf,traversalParts,traversalSeconds,type Traversal} from '../party/traversal.ts';
 import type {LadderMove} from '../ladder-motion.ts';
@@ -13,7 +14,7 @@ export type Clip={id:string;group:string;label:string;seconds:number;loop:boolea
  loco?:{speed:number;crouch:number};gesture?:string;m3?:MotionKind;combat?:CombatKind;
  // A tool in the right hand (hold-pose.ts), with the walk in `loco`.
  item?:string;
- coinPickup?:true;weaponPickup?:true;traversal?:{link:Traversal;reverse:boolean;from:number};
+ flashThrow?:'stand'|'walk'|'cover';coinPickup?:true;weaponPickup?:true;traversal?:{link:Traversal;reverse:boolean;from:number};
  // 2026-11-06: one swing or stab with the item (hold-pose.ts strikePose, melee.ts), as the game plays it.
  strike?:'blunt'|'blade';
  // 2026-11-08 (M06): hands up for a fake surrender (hold-pose.ts surrenderPose), as the game plays it.
@@ -33,6 +34,7 @@ const LADDER_CLIPS:[string,string,boolean,LadderMove|null][]=[
 /** Where a traversal clip is at t seconds of itself (0..1 of its whole link). */
 export const clipTraversalProgress=(clip:Clip,t:number)=>clip.traversal?(clip.traversal.from+Math.min(t,clip.seconds))/traversalSeconds(clip.traversal.link):0;
 export const CLIPS:Clip[]=[
+ ...(['stand','walk','cover'] as const).map((mode)=>({id:'flash-throw-'+mode,group:'警備の投擲',label:'フラッシュを投げる・'+({stand:'立ち',walk:'歩きから',cover:'遮蔽から'}[mode]),seconds:FLASH_THROW_SECONDS,loop:false,flashThrow:mode})),
  ...LOCO.map(([id,label,speed,crouch])=>({id:'loco-'+id,group:'移動',label,seconds:2,loop:true,loco:{speed,crouch}})),
  // 2026-11-05: carrying a tool (HITMAN WoA carry research): the same walk, the right arm holds it.
  ...[['wrench','スパナ'],['bottle','ボトル'],['mop','モップ'],['briefcase','ブリーフケース'],['toolbox','工具箱'],['katana','刀']].flatMap(([item,name])=>LOCO.map(([id,label,speed,crouch])=>({id:`item-${item}-${id}`,group:'持ち物',label:`${name}・${label}`,seconds:2,loop:true,loco:{speed,crouch},item}))),

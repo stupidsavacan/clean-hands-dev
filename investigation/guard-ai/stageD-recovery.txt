@@ -1,0 +1,3 @@
+combat: SMG remains on floor; pistol unchanged
+combat interrupts an existing recovery without equipping the SMG
+patrol: SMG is collected as evidence; pistol unchanged

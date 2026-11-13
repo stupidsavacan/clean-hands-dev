@@ -1,3 +1,4 @@
+import {flashMesh,placeHeldFlash,poseFlashThrow} from '../flash-motion.ts';
 import {sampleTraversal} from '../party/traversal.ts';
 import {clipTraversalProgress} from './motion-clips.ts';
 import {applyTraversalPose} from '../traversal-pose.ts';
@@ -37,11 +38,11 @@ type PreviewOptions<A>={
 
 // Shared by the visible preview and the headless scan. Visual props do not drive the rig.
 export const SPACING=1.15;
-const DT=1/60;
+const DT=1/60;const flashProps=new WeakMap<PreviewActor,T.Group>();
 export function poseMotionPreview<A extends PreviewActor>(
  a:A,actors:readonly A[],clip:Clip,t:number,{role,gun,tuning,variant,visuals}:PreviewOptions<A>,
 ){
- const {rig,model,group}=a,cls=gun.cls;
+ const {rig,model,group}=a,cls=gun.cls;const oldFlash=flashProps.get(a);if(oldFlash)oldFlash.visible=false;
  neutral(rig);model.position.set(0,0,0);model.rotation.set(0,0,0);
  visuals?.clearPickup(a,clip);
  // Pair clips stand the first two actors face to face; the rest keep their places in the row.
@@ -89,6 +90,7 @@ export function poseMotionPreview<A extends PreviewActor>(
   applyTraversalPose(rig,group,model,{...frame,hand:hand&&((side)=>local(hand(side))),foot:foot&&((side)=>local(foot(side)))});
   return;
  }
+ if(clip.flashThrow){rig.apply(gait(clip.flashThrow==='walk'?1.4:0,0));poseFlashThrow(rig,group,model,progress,clip.flashThrow==='cover');let prop=flashProps.get(a);if(!prop){prop=flashMesh();group.add(prop);flashProps.set(a,prop);}placeHeldFlash(prop,rig,group,t);return;}
  if(clip.loco){const p=gait(clip.loco.speed,clip.loco.crouch);if(clip.item)holdPose(p,holdKind(clip.item));if(clip.strike)strikePose(p,clip.strike,progress);if(clip.surrender)surrenderPose(p,progress*clip.seconds);rig.apply(p);return;}
  // Gestures: the body layer on the standing pose, then the hands reach their targets (gestures.ts, as in the game).
  if(clip.gesture){const p=gait(0,0),g=gesturePose(p,clip.gesture,t);rig.apply(p);applyGesture(rig,group,g);visuals?.gesture(a,g);return;}

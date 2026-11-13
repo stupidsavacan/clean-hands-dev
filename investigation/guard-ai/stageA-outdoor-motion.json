@@ -1,0 +1,54 @@
+[
+  {
+    "entry": "REINF_parking",
+    "attempts": 1,
+    "start": {
+      "x": -19.75,
+      "z": -36.15
+    },
+    "player": {
+      "x": -50.5,
+      "z": -34.65
+    },
+    "end": {
+      "x": -28.0811660066337,
+      "y": 0,
+      "z": -34.77687910735269
+    },
+    "weapon": "rifle_npc",
+    "cover": "car-p1-5",
+    "range": 22.41919302584281,
+    "phases": [
+      "move",
+      "hide",
+      "peek"
+    ],
+    "shots": 55
+  },
+  {
+    "entry": "REINF_dock",
+    "attempts": 1,
+    "start": {
+      "x": -48.25,
+      "z": -6.149999999999999
+    },
+    "player": {
+      "x": -40.6,
+      "z": -33.85
+    },
+    "end": {
+      "x": -48.53696149395578,
+      "y": 0,
+      "z": -11.440051951376693
+    },
+    "weapon": "rifle_npc",
+    "cover": "truck-dock",
+    "range": 23.773959058148733,
+    "phases": [
+      "move",
+      "hide",
+      "peek"
+    ],
+    "shots": 35
+  }
+]
