@@ -94,6 +94,8 @@ export function suspicionRate(rules:Rules,base:number,o:{distance:number;visibil
 export class Npc{
  fallOrigin:Position|null=null;fallSeconds=.6;
  deathKind:'accident'|'murder'|'combat'='murder';deathMethod='direct';scriptedGoal:Position|null=null;scriptedAction='';scriptedHeading:number|null=null;scriptedImmune=false;
+ // 2026-11-13: this NPC opens unlocked doors (and locked ones that list them in `access`) on the way, as guards do.
+ usesDoors=false;
  // M5.5 gunfights: health, the gun carried (guards), where to stand, and timers CombatSystem keeps.
  hp=100;weapon='';kind:'guard'|'bodyguard'|'response'|'civilian'='civilian';reinforcement=false;combatGoal:Position|null=null;reactT=0;fireT=0;coverT=0;shotAt=-Infinity;
  // Guard AI stage 1 (2026-11-13): how the body stands in a fight (kneeling behind low cover, risen to shoot over it), when
@@ -282,7 +284,7 @@ export class Npc{
   // Progress is judged on where the body actually got since the last step, after the crowd pushed it: two people
   // heading for the same waypoint push each other back every frame, each stepping forward, and otherwise never stop.
   const net=this.lastPos?Math.hypot(this.pos.x-this.lastPos.x,this.pos.z-this.lastPos.z):Infinity;this.lastPos={...this.pos};
-  if(want){const moved=Math.min(this.travel(dt,world,nav,want,speed,this.guard?doors:undefined),net);if(moved<.002*dt*60){this.stuck+=dt;if(this.stuck>1.2){this.path=[];this.pathGoal=null;this.stuck=0;if(this.routeStatus==='moving')this.routeStatus='blocked';if(this.state==='patrol')this.wait=.5;else this.arrived=true;}}else this.stuck=0;}
+  if(want){const moved=Math.min(this.travel(dt,world,nav,want,speed,this.guard||this.usesDoors?doors:undefined),net);if(moved<.002*dt*60){this.stuck+=dt;if(this.stuck>1.2){this.path=[];this.pathGoal=null;this.stuck=0;if(this.routeStatus==='moving')this.routeStatus='blocked';if(this.state==='patrol')this.wait=.5;else this.arrived=true;}}else this.stuck=0;}
   else{this.routeStatus='idle';this.speed=Math.max(0,this.speed-6*dt);this.path=[];this.pathGoal=null;}
   if(face!==null)this.turn(face,dt,4);}
  private turn(target:number,dt:number,rate:number){const d=wrap(target-this.heading);this.heading=wrap(this.heading+clamp(d,-rate*dt,rate*dt));}
@@ -290,9 +292,9 @@ export class Npc{
  private doorRoute:GuardDoorRoute|null=null;
  private travel(dt:number,world:CollisionWorld,nav:NavGrid,target:Position,speed:number,doors?:DoorSystem){this.repath-=dt;
   if(this.routeRevision!==world.revision){this.routeRevision=world.revision;this.pathGoal=null;this.path=[];}
-  if(!this.pathGoal||flat(this.pathGoal,target)>.6||Math.abs(this.pathGoal.y-target.y)>.3||(this.state==='alert'&&this.repath<=0)){const found=nav.findSoon(this.pos,target);if(found===undefined){this.routeStatus='waiting';this.stuck=0;return 1;}this.doorRoute=found?null:doors?.guardRoute(nav,this.pos,target)??null;this.path=found??this.doorRoute?.path??[];this.routeStatus=this.path.length?'moving':'no-route';this.pathGoal={...target};this.repath=.4;}
+  if(!this.pathGoal||flat(this.pathGoal,target)>.6||Math.abs(this.pathGoal.y-target.y)>.3||(this.state==='alert'&&this.repath<=0)){const found=nav.findSoon(this.pos,target);if(found===undefined){this.routeStatus='waiting';this.stuck=0;return 1;}this.doorRoute=found?null:doors?.guardRoute(nav,this.pos,target,this)??null;this.path=found??this.doorRoute?.path??[];this.routeStatus=this.path.length?'moving':'no-route';this.pathGoal={...target};this.repath=.4;}
   const doorRoute=this.doorRoute;
-  if(doorRoute&&doors&&flat(this.pos,doorRoute.approach)<.2&&doors.openForGuard(doorRoute.door,this.pos))return 1;
+  if(doorRoute&&doors&&flat(this.pos,doorRoute.approach)<.2&&doors.openForGuard(doorRoute.door,this.pos,this))return 1;
   while(this.path.length>1&&Math.hypot(this.pos.x-this.path[0].x,this.pos.y-this.path[0].y,this.pos.z-this.path[0].z)<.1&&nav.clear(this.pos,this.path[1]))this.path.shift();const next=this.path[0];if(!next)return 0;
   const dx=next.x-this.pos.x,dz=next.z-this.pos.z,d=Math.hypot(dx,dz),left=Math.hypot(this.pos.x-target.x,this.pos.y-target.y,this.pos.z-target.z);
   // Ease into a stop so the gait settles instead of snapping.
@@ -304,6 +306,8 @@ export class Director{
  readonly incidents=new IncidentLog();
  doors?:DoorSystem;
  soundClear?:(at:Position,listener:Position)=>boolean;
+ // 2026-11-13: how much of the normal hearing distance is left where a listener stands (rain, thunder). Without it: 1.
+ hearing?:(listener:Position)=>number;
  readonly npcs:Npc[];frame=0;time=0;caught=false;alerts=0;reports=0;
  // Someone recognised the agent as an intruder (alerted on them, ran to report them, or saw them do something).
  onSpotted?:(n:Npc)=>void;
@@ -395,7 +399,7 @@ export class Director{
  // last one stays), or, alone, the agent is not near it (rules.noise.postLeave m). Otherwise they only turn.
  // radius: how far it is heard (a coin by default; a loud machine further, devices.ts).
  noise(point:Position,p?:PlayerView,radius=this.rules.noise.coin,eligible?:(n:Npc)=>boolean,incident?:IncidentRef){let turned:Npc|undefined;
-  for(const n of this.npcs.filter(n=>n.active&&!n.busy&&Math.abs(n.pos.y-point.y)<1.5&&flat(n.pos,point)<=radius&&(!eligible||eligible(n))&&this.soundClear?.(point,n.pos)!==false).sort((a,b)=>flat(a.pos,point)-flat(b.pos,point))){
+  for(const n of this.npcs.filter(n=>n.active&&!n.busy&&Math.abs(n.pos.y-point.y)<1.5&&flat(n.pos,point)<=radius*(this.hearing?.(n.pos)??1)&&(!eligible||eligible(n))&&this.soundClear?.(point,n.pos)!==false).sort((a,b)=>flat(a.pos,point)-flat(b.pos,point))){
    if(p&&n.visibility>0&&['patrol','curious','distracted'].includes(n.state)){this.sawThrow(n,p,incident??this.incidents.identify(point,'noise'));return n;}
    const go=this.mayLeavePost(n,p);if(!n.hear(point,this.rules,false,go))continue;
    incident??=this.incidents.identify(point,'noise');

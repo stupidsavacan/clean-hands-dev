@@ -1,0 +1,49 @@
+{
+ "_note": "天文台の作戦データ。vip は要人警護（engine/vip.ts）、acts は E 長押しの場所（engine/hold-actions.ts）。acts の id は observatory/script.ts が意味を決める。",
+ "vip": {
+  "target": "director",
+  "escort": "aide",
+  "lockdown": {
+   "enabled": true, "guards": 2, "guardRadius": 30, "gunshotSmall": 10, "gunshotLoud": 30, "screamRadius": 14, "holdSeconds": 75,
+   "rooms": [{"id": "office", "label": "所長室", "at": {"x": 15.5, "y": 0, "z": 35.6}, "posts": [{"x": 15, "y": 0, "z": 34}, {"x": 17.4, "y": 0, "z": 34.4}]}]
+  },
+  "escortCheck": {"enabled": true, "seconds": 40, "widenSeconds": 25, "widenGuards": 1, "widenRadius": 4},
+  "escape": {"enabled": false, "afterLockdowns": 2, "exit": {"x": 28, "y": 0, "z": 1}},
+  "searchEnforcers": {"enabled": false, "seconds": 0}
+ },
+ "radius": 1.3,
+ "acts": [
+  {"id": "brk_vent", "label": "", "at": {"x": 29.3, "y": 0, "z": 28.4}, "seconds": 2, "repeat": true},
+  {"id": "brk_lights", "label": "", "at": {"x": 29.3, "y": 0, "z": 29.5}, "seconds": 2, "repeat": true},
+  {"id": "brk_compressor", "label": "", "at": {"x": 29.3, "y": 0, "z": 30.6}, "seconds": 2, "repeat": true},
+  {"id": "brk_dome", "label": "", "at": {"x": 33.5, "y": 0, "z": 36.6}, "seconds": 2, "repeat": true},
+  {"id": "line_switch", "label": "", "at": {"x": 8.6, "y": 0, "z": 27}, "seconds": 4, "repeat": true},
+  {"id": "gen_fuel", "label": "", "at": {"x": 4.1, "y": 0, "z": 34.8}, "seconds": 3, "repeat": true},
+  {"id": "ln2_valve", "label": "", "at": {"x": 22.3, "y": 0, "z": 31.6}, "seconds": 3, "repeat": true},
+  {"id": "o2_sensor", "label": "", "at": {"x": 26.4, "y": 0, "z": 25.6}, "seconds": 2.5, "repeat": true},
+  {"id": "ground_cable", "label": "", "at": {"x": 30, "y": 0, "z": 38.6}, "seconds": 8, "repeat": true, "tool": {"item": "wrench", "label": "スパナで避雷針の接地線を外す", "seconds": 3}},
+  {"id": "dome_console", "label": "操作卓でドームのシャッターを開ける（手動）", "at": {"x": 11.2, "y": 0, "z": 29.6}, "seconds": 2.5, "repeat": true},
+  {"id": "weather_monitor", "label": "気象モニターで雷の予報を読む", "at": {"x": 44.6, "y": 3.5, "z": 35.6}, "seconds": 1, "repeat": true},
+  {"id": "keycard", "label": "予備のカードキーを取る", "at": {"x": 40, "y": 0, "z": 31.8}, "seconds": 1},
+  {"id": "note_safety", "label": "掲示を読む", "at": {"x": 22.6, "y": 0, "z": 24.6}, "seconds": 0.5, "repeat": true},
+  {"id": "note_dome", "label": "保守メモを読む", "at": {"x": 30.6, "y": 0, "z": 34}, "seconds": 0.5, "repeat": true},
+  {"id": "note_power", "label": "配電の系統図を読む", "at": {"x": 34.6, "y": 0, "z": 32.4}, "seconds": 0.5, "repeat": true}
+ ],
+ "repair": {
+  "noticeSeconds": 18, "workSeconds": 8, "arrival": 0.9,
+  "places": {
+   "panel": {"x": 29.6, "y": 0, "z": 29.5, "heading": -1.5708},
+   "dome": {"x": 33.5, "y": 0, "z": 36.6, "heading": 1.5708},
+   "line": {"x": 8.6, "y": 0, "z": 27, "heading": 1.5708},
+   "generator": {"x": 5.2, "y": 0, "z": 33.6, "heading": 3.1416},
+   "valve": {"x": 22.3, "y": 0, "z": 31.6, "heading": -1.5708}
+  }
+ },
+ "duties": {"detectorDelay": 10, "detectorStay": 45, "crankDelay": 8},
+ "comfort": {"checkSeconds": 5, "guardBreakSeconds": 40, "guardBreakEvery": 150, "shelterRain": 0.8, "shelterEnd": 0.6, "warmPlaces": 12},
+ "notes": {
+  "note_safety": "掲示「酸素濃度計が鳴ったら入室禁止。液体窒素は気化すると酸素を押し出す。換気が止まっている時は弁に触るな」",
+  "note_dome": "保守メモ「シャッターの電動が止まったら、所長が自分でキャットウォークの手回しを回しに行く。雨が望遠鏡に入るのを何より嫌う」",
+  "note_power": "系統図「停電時は発電機が8秒で起動。容量が足りないので暖房から順に切る。避雷針の接地線は北壁の外」"
+ }
+}

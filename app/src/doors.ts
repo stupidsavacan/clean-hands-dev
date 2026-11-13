@@ -2,9 +2,13 @@ import {bounds,RADIUS,type Block,type CollisionWorld,type Position} from './worl
 import type {NavGrid} from './nav.ts';
 import {invalidateSight,segmentClear,type Aabb} from './sight.ts';
 
-export type DoorDef=Block&{label:string;startsClosed?:boolean;key?:string;pryable?:boolean;guardAccess?:boolean};
+export type DoorDef=Block&{label:string;startsClosed?:boolean;key?:string;pryable?:boolean;guardAccess?:boolean;
+ // 2026-11-13: ids of NPCs who carry this door's key (they pass it locked, and it locks again behind them).
+ access?:string[]};
 export type DoorState={def:DoorDef;closed:boolean;locked:boolean;box:Aabb};
 
+/** Who is at the door: guards pass `guardAccess` doors, anyone listed in a door's `access` passes that door. */
+export type DoorUser={id:string;guard:boolean};
 export type GuardDoorRoute={door:DoorState;approach:Position;path:Position[]};
 
 export class DoorSystem{
@@ -26,27 +30,34 @@ export class DoorSystem{
     y:def.y+1,z:def.w<def.d?def.z:(p.z<def.z?box.minZ-.02:box.maxZ+.02)}));
  }
  /** Try an operable door when the ordinary walking grid cannot reach the destination. */
- guardRoute(nav:NavGrid,from:Position,to:Position):GuardDoorRoute|null{
+ guardRoute(nav:NavGrid,from:Position,to:Position,who?:DoorUser,depth=0,skip?:ReadonlySet<DoorState>):GuardDoorRoute|null{
   const route=(a:Position,b:Position)=>{
    if(nav.clear(a,b))return [b];
    const path=nav.find(a,b),end=path?.at(-1);
    return path&&end&&nav.clear(end,b)?[...path,b]:null;
   };
+  // 2026-11-13: doors that can be reached but do not lead straight to the destination (another closed door is behind).
+  const partial:{found:GuardDoorRoute;exit:Position;cost:number}[]=[];
   for(const door of this.doors){
-   if(!this.guardCanOpen(door))continue;
+   if(skip?.has(door)||!this.guardCanOpen(door,who))continue;
    const {x,y,z,w,d}=door.def;
    const offset=Math.min(w,d)/2+RADIUS+.18;
    const dx=w<d?offset:0,dz=w<d?0:offset;
    for(const side of [1,-1]){
     const approach={x:x+dx*side,y,z:z+dz*side},exit={x:x-dx*side,y,z:z-dz*side};
     const path=route(from,approach);
-    if(path&&route(exit,to))return {door,approach,path};
+    if(!path)continue;
+    if(route(exit,to))return {door,approach,path};
+    partial.push({found:{door,approach,path},exit,cost:Math.hypot(from.x-approach.x,from.z-approach.z)+Math.hypot(exit.x-to.x,exit.z-to.z)});
    }
   }
+  // Up to three doors in a row (a plant room, a corridor, a switch room): open the first one that leads on.
+  if(depth<2)for(const p of partial.sort((a,b)=>a.cost-b.cost).slice(0,4))
+   if(this.guardRoute(nav,p.exit,to,who,depth+1,new Set([...skip??[],p.found.door])))return p.found;
   return null;
  }
- openForGuard(door:DoorState,at:Position){
-  if(!this.guardCanOpen(door)||Math.abs(at.y-door.def.y)>.35
+ openForGuard(door:DoorState,at:Position,who?:DoorUser){
+  if(!this.guardCanOpen(door,who)||Math.abs(at.y-door.def.y)>.35
    ||Math.hypot(at.x-door.def.x,at.z-door.def.z)>1.35)return false;
   this.guardClosures.set(door,{remaining:2,relock:door.locked});
   door.locked=false;
@@ -62,7 +73,7 @@ export class DoorSystem{
    this.setClosed(door,true);
   }
  }
- private guardCanOpen(door:DoorState){return door.closed&&(!door.locked||door.def.guardAccess===true);}
+ private guardCanOpen(door:DoorState,who?:DoorUser){return door.closed&&(!door.locked||door.def.guardAccess===true&&(who?who.guard:true)||!!who&&!!door.def.access?.includes(who.id));}
  soundClear(at:Position,listener:Position){
   return this.soundBoxes.length===0||segmentClear(this.soundBoxes,{...at,y:at.y+1},{...listener,y:listener.y+1});
  }

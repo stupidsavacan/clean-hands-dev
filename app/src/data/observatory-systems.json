@@ -1,0 +1,85 @@
+{
+ "_note": "天文台の世界シミュレーションの定義（天候・電力・空気・設備）。数値を変えればコードを触らずに調整できる。",
+ "weather": {
+  "seed": 3732,
+  "front": [[0,0.4],[150,0.75],[300,0.95],[420,0.6],[500,0.15],[640,0.15],[720,0.7],[840,1],[1080,1],[1260,0.7],[1500,0.45],[1800,0.4]],
+  "temperature": {"calm": 7, "storm": 1},
+  "lightning": {"threshold": 0.5, "meanGap": 16, "minGap": 6, "rod": 0.3, "line": 0.1, "maxLine": 2},
+  "hearing": {"rain": 0.55, "thunder": 0.15, "indoorThunder": 0.35}
+ },
+ "power": {
+  "bms": "it",
+  "line": {"outageSeconds": 240},
+  "generator": {"kw": 30, "startSeconds": 8, "fuelSeconds": 3600, "overloadSeconds": 5, "stopAfterLine": 10},
+  "ups": {"seconds": 150, "rechargeRate": 0.5},
+  "breakerTripSeconds": 3,
+  "circuits": [
+   {"id": "lights-public", "label": "照明（ロビー・談話室）", "kw": 3, "shed": 0},
+   {"id": "lights-staff", "label": "照明（職員区画）", "kw": 3, "shed": 0},
+   {"id": "lights-dome", "label": "照明（ドーム・屋外）", "kw": 4, "shed": 3},
+   {"id": "heating", "label": "暖房", "kw": 14, "shed": 5},
+   {"id": "ventilation", "label": "換気", "kw": 5, "shed": 1},
+   {"id": "dome", "label": "ドーム駆動", "kw": 0.5, "rating": 8, "shed": 2},
+   {"id": "compressor", "label": "検出器の冷凍機", "kw": 5, "shed": 0},
+   {"id": "sockets", "label": "コンセント", "kw": 1.5, "rating": 6, "shed": 4},
+   {"id": "safety", "label": "保安（酸素計・電気錠）", "kw": 1, "shed": 0, "ups": true},
+   {"id": "it", "label": "管制・サーバー", "kw": 5, "shed": 0, "ups": true}
+  ]
+ },
+ "air": {
+  "setpoint": 21,
+  "heaterGain": 0.02,
+  "rooms": [
+   {"id": "out", "volume": 100000, "loss": 0, "vent": 0, "heat": 0, "outdoor": true},
+   {"id": "lounge", "volume": 307, "loss": 0.0022, "vent": 0.5, "heat": 0.05, "stove": 0.03},
+   {"id": "lobby", "volume": 768, "loss": 0.0026, "vent": 0.9, "heat": 0.05},
+   {"id": "wc", "volume": 154, "loss": 0.0024, "vent": 0.3, "heat": 0.05},
+   {"id": "store", "volume": 154, "loss": 0.0024, "vent": 0.2, "heat": 0.04},
+   {"id": "hall", "volume": 346, "loss": 0.0022, "vent": 0.5, "heat": 0.05},
+   {"id": "control", "volume": 256, "loss": 0.0024, "vent": 0.4, "heat": 0.05},
+   {"id": "office", "volume": 160, "loss": 0.0024, "vent": 0.3, "heat": 0.05},
+   {"id": "cryo", "volume": 205, "loss": 0.0012, "vent": 5, "heat": 0.04},
+   {"id": "server", "volume": 205, "loss": 0.0018, "vent": 0.5, "heat": 0.04},
+   {"id": "staffroom", "volume": 205, "loss": 0.0024, "vent": 0.4, "heat": 0.05},
+   {"id": "pier", "volume": 256, "loss": 0.003, "vent": 0.2, "heat": 0.03},
+   {"id": "plant", "volume": 160, "loss": 0.002, "vent": 0.2, "heat": 0.06},
+   {"id": "gen", "volume": 154, "loss": 0.004, "vent": 0, "heat": 0},
+   {"id": "obs", "volume": 1536, "loss": 0.0035, "vent": 0.6, "heat": 0.03},
+   {"id": "upper", "volume": 192, "loss": 0.0026, "vent": 0.3, "heat": 0.05}
+  ],
+  "links": [
+   {"id": "front", "a": "lobby", "b": "out", "flow": 0.5},
+   {"id": "lobby-lounge", "a": "lobby", "b": "lounge", "flow": 1.5},
+   {"id": "lobby-wc", "a": "lobby", "b": "wc", "flow": 0.6},
+   {"id": "lobby-hall", "a": "lobby", "b": "hall", "flow": 1.8},
+   {"id": "lounge-hall", "a": "lounge", "b": "hall", "flow": 0.6},
+   {"id": "stairs", "a": "hall", "b": "upper", "flow": 0.8},
+   {"id": "d-store", "a": "hall", "b": "store", "flow": 0.6, "leak": 0.02, "door": "d-store"},
+   {"id": "d-west", "a": "hall", "b": "out", "flow": 1.2, "leak": 0.02, "door": "d-west"},
+   {"id": "d-control", "a": "hall", "b": "control", "flow": 0.6, "leak": 0.02, "door": "d-control"},
+   {"id": "d-office", "a": "control", "b": "office", "flow": 0.6, "leak": 0.02, "door": "d-office"},
+   {"id": "d-cryo", "a": "hall", "b": "cryo", "flow": 0.9, "leak": 0.004, "door": "d-cryo"},
+   {"id": "d-server", "a": "hall", "b": "server", "flow": 0.6, "leak": 0.02, "door": "d-server"},
+   {"id": "d-staff", "a": "hall", "b": "staffroom", "flow": 0.6, "leak": 0.02, "door": "d-staff"},
+   {"id": "d-pier", "a": "server", "b": "pier", "flow": 0.6, "leak": 0.02, "door": "d-pier"},
+   {"id": "d-pier-out", "a": "pier", "b": "out", "flow": 1.2, "leak": 0.03, "door": "d-pier-out"},
+   {"id": "d-plant", "a": "staffroom", "b": "plant", "flow": 0.6, "leak": 0.02, "door": "d-plant"},
+   {"id": "d-gen", "a": "gen", "b": "out", "flow": 1.2, "leak": 0.05, "door": "d-gen"},
+   {"id": "d-obs", "a": "upper", "b": "obs", "flow": 0.6, "leak": 0.02, "door": "d-obs"},
+   {"id": "d-catwalk", "a": "obs", "b": "out", "flow": 1.5, "leak": 0.03, "door": "d-catwalk"}
+  ]
+ },
+ "lights": {
+  "lights-public": ["lounge", "lobby", "wc"],
+  "lights-staff": ["store", "hall", "control", "office", "cryo", "server", "staffroom", "pier", "plant", "gen", "S1"],
+  "lights-dome": ["obs", "upper", "catwalk", "yard", "west", "east", "north"]
+ },
+ "sight": {"dark": 0.35, "emergency": 0.6, "stormOutdoor": 0.7, "outdoorDark": 0.45},
+ "nitrogen": {"room": "cryo", "flow": 1.5, "gas": 320, "chill": 0.6},
+ "oxygen": {"alarm": 19, "dizzy": 14, "collapse": 11, "collapseSeconds": 4, "deathSeconds": 30, "playerDamage": 9},
+ "detector": {"cold": -110, "warmRate": 0.3, "coolRate": 0.5, "alarm": -95},
+ "dome": {"motorSeconds": 14, "crankSeconds": 150, "motorKw": 5, "skyFlow": 7, "lullBelow": 0.2, "wetRain": 0.3, "overrideSeconds": 150},
+ "heaters": {"rooms": ["staffroom", "control", "lobby"], "kw": 2, "onBelow": 15, "offAbove": 19, "circuit": "sockets"},
+ "comfort": {"cold": 13, "warmRoom": "lounge"},
+ "surge": {"trips": ["dome", "lights-dome"]}
+}

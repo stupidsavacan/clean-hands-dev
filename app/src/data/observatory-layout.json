@@ -1,0 +1,2769 @@
+{
+ "version": 1,
+ "name": "星見岳天文台",
+ "ground": {
+  "minX": 0,
+  "minZ": 0,
+  "maxX": 56,
+  "maxZ": 44
+ },
+ "spawn": {
+  "x": 28,
+  "z": 2
+ },
+ "spawnHeading": 0,
+ "rooms": [
+  {
+   "id": "gen",
+   "label": "発電機小屋",
+   "floor": 0,
+   "type": "staff",
+   "minX": 2,
+   "minZ": 28,
+   "maxX": 8,
+   "maxZ": 36,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "technician",
+    "guard",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "yard",
+   "label": "前庭",
+   "floor": 0,
+   "type": "public",
+   "minX": 0,
+   "minZ": 0,
+   "maxX": 56,
+   "maxZ": 10,
+   "surface": "asphalt",
+   "indoor": false,
+   "allowedDisguises": []
+  },
+  {
+   "id": "west",
+   "label": "西の裏手",
+   "floor": 0,
+   "type": "staff",
+   "minX": 0,
+   "minZ": 10,
+   "maxX": 10,
+   "maxZ": 44,
+   "surface": "asphalt",
+   "indoor": false,
+   "allowedDisguises": [
+    "technician",
+    "guard",
+    "bodyguard",
+    "manager",
+    "cleaner",
+    "bartender"
+   ]
+  },
+  {
+   "id": "east",
+   "label": "東の裏手",
+   "floor": 0,
+   "type": "staff",
+   "minX": 46,
+   "minZ": 10,
+   "maxX": 56,
+   "maxZ": 44,
+   "surface": "asphalt",
+   "indoor": false,
+   "allowedDisguises": [
+    "technician",
+    "guard",
+    "bodyguard",
+    "manager",
+    "cleaner",
+    "bartender"
+   ]
+  },
+  {
+   "id": "north",
+   "label": "崖側の通路",
+   "floor": 0,
+   "type": "staff",
+   "minX": 10,
+   "minZ": 38,
+   "maxX": 46,
+   "maxZ": 44,
+   "surface": "asphalt",
+   "indoor": false,
+   "allowedDisguises": [
+    "technician",
+    "guard",
+    "bodyguard",
+    "manager",
+    "cleaner",
+    "bartender"
+   ]
+  },
+  {
+   "id": "lounge",
+   "label": "談話室",
+   "floor": 0,
+   "type": "public",
+   "minX": 10,
+   "minZ": 10,
+   "maxX": 18,
+   "maxZ": 22,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": []
+  },
+  {
+   "id": "lobby",
+   "label": "展示ロビー",
+   "floor": 0,
+   "type": "public",
+   "minX": 18,
+   "minZ": 10,
+   "maxX": 38,
+   "maxZ": 22,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": []
+  },
+  {
+   "id": "wc",
+   "label": "化粧室",
+   "floor": 0,
+   "type": "public",
+   "minX": 38,
+   "minZ": 10,
+   "maxX": 46,
+   "maxZ": 16,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": []
+  },
+  {
+   "id": "store",
+   "label": "倉庫",
+   "floor": 0,
+   "type": "staff",
+   "minX": 38,
+   "minZ": 16,
+   "maxX": 46,
+   "maxZ": 22,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "technician",
+    "guard",
+    "bodyguard",
+    "manager",
+    "cleaner",
+    "bartender"
+   ]
+  },
+  {
+   "id": "hall",
+   "label": "職員廊下",
+   "floor": 0,
+   "type": "staff",
+   "minX": 10,
+   "minZ": 22,
+   "maxX": 46,
+   "maxZ": 25,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "technician",
+    "guard",
+    "bodyguard",
+    "manager",
+    "cleaner",
+    "bartender"
+   ]
+  },
+  {
+   "id": "control",
+   "label": "管制室",
+   "floor": 0,
+   "type": "secure",
+   "minX": 10,
+   "minZ": 25,
+   "maxX": 20,
+   "maxZ": 33,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": [
+    "guard",
+    "bodyguard",
+    "manager"
+   ]
+  },
+  {
+   "id": "office",
+   "label": "所長室",
+   "floor": 0,
+   "type": "secure",
+   "minX": 10,
+   "minZ": 33,
+   "maxX": 20,
+   "maxZ": 38,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": [
+    "guard",
+    "bodyguard",
+    "manager"
+   ]
+  },
+  {
+   "id": "cryo",
+   "label": "低温実験室",
+   "floor": 0,
+   "type": "staff",
+   "minX": 20,
+   "minZ": 25,
+   "maxX": 28,
+   "maxZ": 33,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "technician",
+    "manager",
+    "guard",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "server",
+   "label": "電気・サーバー室",
+   "floor": 0,
+   "type": "staff",
+   "minX": 28,
+   "minZ": 25,
+   "maxX": 36,
+   "maxZ": 33,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "technician",
+    "manager",
+    "guard",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "S1",
+   "label": "階段",
+   "floor": 0,
+   "type": "staff",
+   "minX": 36,
+   "minZ": 25,
+   "maxX": 38,
+   "maxZ": 32,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "technician",
+    "guard",
+    "bodyguard",
+    "manager",
+    "cleaner",
+    "bartender"
+   ]
+  },
+  {
+   "id": "staffroom",
+   "label": "職員休憩室",
+   "floor": 0,
+   "type": "staff",
+   "minX": 38,
+   "minZ": 25,
+   "maxX": 46,
+   "maxZ": 33,
+   "surface": "carpet",
+   "indoor": true,
+   "allowedDisguises": [
+    "technician",
+    "guard",
+    "bodyguard",
+    "manager",
+    "cleaner",
+    "bartender"
+   ]
+  },
+  {
+   "id": "pier",
+   "label": "架台室",
+   "floor": 0,
+   "type": "staff",
+   "minX": 20,
+   "minZ": 33,
+   "maxX": 36,
+   "maxZ": 38,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "technician",
+    "manager",
+    "guard",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "plant",
+   "label": "機械室",
+   "floor": 0,
+   "type": "staff",
+   "minX": 36,
+   "minZ": 33,
+   "maxX": 46,
+   "maxZ": 38,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "technician",
+    "guard",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "obs",
+   "label": "観測室（ドーム）",
+   "floor": 1,
+   "type": "staff",
+   "minX": 20,
+   "minZ": 22,
+   "maxX": 36,
+   "maxZ": 38,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "technician",
+    "manager",
+    "guard",
+    "bodyguard"
+   ]
+  },
+  {
+   "id": "upper",
+   "label": "2階通路",
+   "floor": 1,
+   "type": "staff",
+   "minX": 36,
+   "minZ": 32,
+   "maxX": 46,
+   "maxZ": 38,
+   "surface": "service",
+   "indoor": true,
+   "allowedDisguises": [
+    "technician",
+    "guard",
+    "bodyguard",
+    "manager",
+    "cleaner",
+    "bartender"
+   ]
+  },
+  {
+   "id": "catwalk",
+   "label": "ドーム外のキャットウォーク",
+   "floor": 1,
+   "type": "staff",
+   "minX": 20,
+   "minZ": 38,
+   "maxX": 36,
+   "maxZ": 40,
+   "surface": "service",
+   "indoor": false,
+   "allowedDisguises": [
+    "technician",
+    "manager",
+    "guard",
+    "bodyguard"
+   ]
+  }
+ ],
+ "walls": [
+  {
+   "id": "outer-south-0",
+   "x": 18.4,
+   "z": 10,
+   "w": 16.8,
+   "d": 0.2,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "outer-south-1",
+   "x": 37.6,
+   "z": 10,
+   "w": 16.8,
+   "d": 0.2,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "outer-north-0",
+   "x": 17.75,
+   "z": 38,
+   "w": 15.5,
+   "d": 0.2,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "outer-north-1",
+   "x": 36.25,
+   "z": 38,
+   "w": 19.5,
+   "d": 0.2,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "outer-west-0",
+   "x": 10,
+   "z": 16.5,
+   "w": 0.2,
+   "d": 13,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "outer-west-1",
+   "x": 10,
+   "z": 31,
+   "w": 0.2,
+   "d": 14,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "outer-east-0",
+   "x": 46,
+   "z": 24,
+   "w": 0.2,
+   "d": 28,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "lounge-lobby-0",
+   "x": 18,
+   "z": 12.4,
+   "w": 0.2,
+   "d": 4.8,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "lounge-lobby-1",
+   "x": 18,
+   "z": 19.6,
+   "w": 0.2,
+   "d": 4.8,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "lobby-east-0",
+   "x": 38,
+   "z": 11.2,
+   "w": 0.2,
+   "d": 2.4,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "lobby-east-1",
+   "x": 38,
+   "z": 17.8,
+   "w": 0.2,
+   "d": 8.4,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "wc-store-0",
+   "x": 42,
+   "z": 16,
+   "w": 8,
+   "d": 0.2,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "hall-south-0",
+   "x": 11.65,
+   "z": 22,
+   "w": 3.3,
+   "d": 0.2,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "hall-south-1",
+   "x": 20.6,
+   "z": 22,
+   "w": 11.8,
+   "d": 0.2,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "hall-south-2",
+   "x": 35.5,
+   "z": 22,
+   "w": 12,
+   "d": 0.2,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "hall-south-3",
+   "x": 44.25,
+   "z": 22,
+   "w": 3.5,
+   "d": 0.2,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "hall-north-0",
+   "x": 12.25,
+   "z": 25,
+   "w": 4.5,
+   "d": 0.2,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "hall-north-1",
+   "x": 19.5,
+   "z": 25,
+   "w": 8,
+   "d": 0.2,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "hall-north-2",
+   "x": 28,
+   "z": 25,
+   "w": 7,
+   "d": 0.2,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "hall-north-3",
+   "x": 34.325,
+   "z": 25,
+   "w": 3.65,
+   "d": 0.2,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "hall-north-4",
+   "x": 39.675,
+   "z": 25,
+   "w": 3.65,
+   "d": 0.2,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "hall-north-5",
+   "x": 44.25,
+   "z": 25,
+   "w": 3.5,
+   "d": 0.2,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "control-cryo-0",
+   "x": 20,
+   "z": 31.5,
+   "w": 0.2,
+   "d": 13,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "cryo-server-0",
+   "x": 28,
+   "z": 29,
+   "w": 0.2,
+   "d": 8,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "server-stairs-0",
+   "x": 36,
+   "z": 31.5,
+   "w": 0.2,
+   "d": 13,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "stairs-staff-0",
+   "x": 38,
+   "z": 29,
+   "w": 0.2,
+   "d": 8,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "north-row-0",
+   "x": 12.25,
+   "z": 33,
+   "w": 4.5,
+   "d": 0.2,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "north-row-1",
+   "x": 23.5,
+   "z": 33,
+   "w": 16,
+   "d": 0.2,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "north-row-2",
+   "x": 37.8,
+   "z": 33,
+   "w": 10.6,
+   "d": 0.2,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "north-row-3",
+   "x": 45.05,
+   "z": 33,
+   "w": 1.9,
+   "d": 0.2,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "shed-south-0",
+   "x": 5,
+   "z": 28,
+   "w": 6,
+   "d": 0.2,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "shed-north-0",
+   "x": 5,
+   "z": 36,
+   "w": 6,
+   "d": 0.2,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "shed-west-0",
+   "x": 2,
+   "z": 32,
+   "w": 0.2,
+   "d": 8,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "shed-east-0",
+   "x": 8,
+   "z": 29.75,
+   "w": 0.2,
+   "d": 3.5,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "shed-east-1",
+   "x": 8,
+   "z": 34.25,
+   "w": 0.2,
+   "d": 3.5,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "dome-south-0",
+   "x": 28,
+   "z": 22,
+   "w": 16,
+   "d": 0.2,
+   "h": 2.4,
+   "y": 3.5,
+   "floor": 1
+  },
+  {
+   "id": "dome-west-0",
+   "x": 20,
+   "z": 30,
+   "w": 0.2,
+   "d": 16,
+   "h": 2.4,
+   "y": 3.5,
+   "floor": 1
+  },
+  {
+   "id": "dome-north-0",
+   "x": 23.75,
+   "z": 38,
+   "w": 7.5,
+   "d": 0.2,
+   "h": 2.4,
+   "y": 3.5,
+   "floor": 1
+  },
+  {
+   "id": "dome-north-1",
+   "x": 32.25,
+   "z": 38,
+   "w": 7.5,
+   "d": 0.2,
+   "h": 2.4,
+   "y": 3.5,
+   "floor": 1
+  },
+  {
+   "id": "dome-east-0",
+   "x": 36,
+   "z": 28.25,
+   "w": 0.2,
+   "d": 12.5,
+   "h": 2.4,
+   "y": 3.5,
+   "floor": 1
+  },
+  {
+   "id": "dome-east-1",
+   "x": 36,
+   "z": 36.75,
+   "w": 0.2,
+   "d": 2.5,
+   "h": 2.4,
+   "y": 3.5,
+   "floor": 1
+  },
+  {
+   "id": "upper-south-0",
+   "x": 42,
+   "z": 32,
+   "w": 8,
+   "d": 0.2,
+   "h": 2.4,
+   "y": 3.5,
+   "floor": 1
+  },
+  {
+   "id": "upper-east-0",
+   "x": 46,
+   "z": 35,
+   "w": 0.2,
+   "d": 6,
+   "h": 2.4,
+   "y": 3.5,
+   "floor": 1
+  },
+  {
+   "id": "upper-north-0",
+   "x": 41,
+   "z": 38,
+   "w": 10,
+   "d": 0.2,
+   "h": 2.4,
+   "y": 3.5,
+   "floor": 1
+  },
+  {
+   "id": "rail-catwalk-north-0",
+   "x": 26.75,
+   "z": 40,
+   "w": 13.5,
+   "d": 0.08,
+   "h": 1.05,
+   "y": 3.5,
+   "floor": 1
+  },
+  {
+   "id": "rail-catwalk-north-1",
+   "x": 35.25,
+   "z": 40,
+   "w": 1.5,
+   "d": 0.08,
+   "h": 1.05,
+   "y": 3.5,
+   "floor": 1
+  },
+  {
+   "id": "rail-catwalk-west-0",
+   "x": 20,
+   "z": 39,
+   "w": 0.08,
+   "d": 2,
+   "h": 1.05,
+   "y": 3.5,
+   "floor": 1
+  },
+  {
+   "id": "rail-catwalk-east-0",
+   "x": 36,
+   "z": 39,
+   "w": 0.08,
+   "d": 2,
+   "h": 1.05,
+   "y": 3.5,
+   "floor": 1
+  }
+ ],
+ "furniture": [
+  {
+   "id": "car-visitor-1",
+   "x": 12,
+   "z": 4.2,
+   "w": 1.9,
+   "d": 4.2,
+   "h": 1.3,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "car-visitor-2",
+   "x": 16,
+   "z": 4.2,
+   "w": 1.9,
+   "d": 4.2,
+   "h": 1.3,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "car-director",
+   "x": 40,
+   "z": 4.6,
+   "w": 1.9,
+   "d": 4.4,
+   "h": 1.3,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "truck-service",
+   "x": 47,
+   "z": 5,
+   "w": 2.3,
+   "d": 5.4,
+   "h": 2.3,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "planter-front-w",
+   "x": 24.5,
+   "z": 9.2,
+   "w": 2.4,
+   "d": 0.8,
+   "h": 0.6,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "planter-front-e",
+   "x": 31.5,
+   "z": 9.2,
+   "w": 2.4,
+   "d": 0.8,
+   "h": 0.6,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "tank-fuel",
+   "x": 5,
+   "z": 25.6,
+   "w": 2.6,
+   "d": 1.4,
+   "h": 1.5,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "crate-west-1",
+   "x": 8.8,
+   "z": 15,
+   "w": 1.2,
+   "d": 1.2,
+   "h": 1.1,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "crate-west-2",
+   "x": 8.8,
+   "z": 16.4,
+   "w": 1.2,
+   "d": 1.2,
+   "h": 1.1,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "pole-line",
+   "x": 9.2,
+   "z": 27,
+   "w": 0.35,
+   "d": 0.35,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "tank-nitrogen",
+   "x": 47.6,
+   "z": 29,
+   "w": 1.6,
+   "d": 1.6,
+   "h": 3,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "mast-weather",
+   "x": 51,
+   "z": 36,
+   "w": 0.4,
+   "d": 0.4,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "crate-east-1",
+   "x": 47.2,
+   "z": 19,
+   "w": 1.2,
+   "d": 1.2,
+   "h": 1.1,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "crate-north-1",
+   "x": 14,
+   "z": 39.2,
+   "w": 1.2,
+   "d": 1.2,
+   "h": 1.1,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "crate-north-2",
+   "x": 41,
+   "z": 39.2,
+   "w": 1.4,
+   "d": 1.2,
+   "h": 1.1,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "stove-lounge",
+   "x": 10.9,
+   "z": 16,
+   "w": 1,
+   "d": 1.1,
+   "h": 1.2,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "sofa-lounge-a",
+   "x": 13.2,
+   "z": 13.4,
+   "w": 2.4,
+   "d": 0.9,
+   "h": 0.8,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "table-lounge-a",
+   "x": 13.2,
+   "z": 14.9,
+   "w": 1.4,
+   "d": 0.8,
+   "h": 0.5,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "sofa-lounge-b",
+   "x": 13.2,
+   "z": 18.6,
+   "w": 2.4,
+   "d": 0.9,
+   "h": 0.8,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "table-lounge-b",
+   "x": 13.2,
+   "z": 17.2,
+   "w": 1.4,
+   "d": 0.8,
+   "h": 0.5,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "counter-lounge",
+   "x": 16.9,
+   "z": 20.3,
+   "w": 1.4,
+   "d": 2.6,
+   "h": 1.1,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "counter-reception",
+   "x": 23,
+   "z": 12.4,
+   "w": 3.6,
+   "d": 0.8,
+   "h": 1.1,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "orrery-lobby",
+   "x": 28,
+   "z": 16.5,
+   "w": 2.6,
+   "d": 2.6,
+   "h": 0.9,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "case-meteorite",
+   "x": 33.5,
+   "z": 13.2,
+   "w": 1.2,
+   "d": 1.2,
+   "h": 1.2,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "case-lens",
+   "x": 34.5,
+   "z": 19,
+   "w": 1.6,
+   "d": 0.8,
+   "h": 1.2,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "sofa-lobby",
+   "x": 21.5,
+   "z": 20.8,
+   "w": 2.6,
+   "d": 0.8,
+   "h": 0.8,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "case-model",
+   "x": 20.2,
+   "z": 15,
+   "w": 0.8,
+   "d": 2.4,
+   "h": 1.2,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "toilet-partition",
+   "x": 42,
+   "z": 11.2,
+   "w": 0.15,
+   "d": 2.2,
+   "h": 2,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "counter-wash-toilet",
+   "x": 44.6,
+   "z": 14.2,
+   "w": 2.4,
+   "d": 0.7,
+   "h": 0.9,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "shelf-store-1",
+   "x": 45.5,
+   "z": 19,
+   "w": 0.6,
+   "d": 4.4,
+   "h": 1.9,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "crate-store-1",
+   "x": 40.2,
+   "z": 17.2,
+   "w": 1.2,
+   "d": 1.2,
+   "h": 1.1,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "crate-store-2",
+   "x": 40.2,
+   "z": 20.6,
+   "w": 1.2,
+   "d": 1.2,
+   "h": 1.1,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "desk-control-a",
+   "x": 12,
+   "z": 27,
+   "w": 2.6,
+   "d": 1,
+   "h": 0.9,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "desk-control-b",
+   "x": 12,
+   "z": 30.5,
+   "w": 2.6,
+   "d": 1,
+   "h": 0.9,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "rack-control",
+   "x": 19.4,
+   "z": 29,
+   "w": 0.8,
+   "d": 2.6,
+   "h": 2,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "table-control",
+   "x": 16.8,
+   "z": 31.2,
+   "w": 1.6,
+   "d": 1,
+   "h": 0.75,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "desk-director",
+   "x": 13.5,
+   "z": 36.4,
+   "w": 2.4,
+   "d": 1,
+   "h": 0.85,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "safe-office",
+   "x": 10.5,
+   "z": 34,
+   "w": 0.7,
+   "d": 0.8,
+   "h": 1.3,
+   "y": 0,
+   "floor": 0,
+   "prefab": "safe"
+  },
+  {
+   "id": "shelf-office",
+   "x": 19.6,
+   "z": 35.5,
+   "w": 0.6,
+   "d": 3.4,
+   "h": 1.9,
+   "y": 0,
+   "floor": 0,
+   "prefab": "bookshelf"
+  },
+  {
+   "id": "dewar-cryo",
+   "x": 21.3,
+   "z": 31.6,
+   "w": 1.2,
+   "d": 1.2,
+   "h": 1.7,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "bench-cryo",
+   "x": 25.5,
+   "z": 31.8,
+   "w": 2.6,
+   "d": 0.9,
+   "h": 0.9,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "machine-cryostat",
+   "x": 27,
+   "z": 27.4,
+   "w": 1.2,
+   "d": 1.4,
+   "h": 1.6,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "rack-cryo",
+   "x": 20.5,
+   "z": 27.2,
+   "w": 0.7,
+   "d": 1.8,
+   "h": 1.9,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "panel-main",
+   "x": 28.5,
+   "z": 29.5,
+   "w": 0.5,
+   "d": 3.2,
+   "h": 2.1,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "rack-server-a",
+   "x": 33,
+   "z": 30.6,
+   "w": 2.6,
+   "d": 0.9,
+   "h": 2,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "rack-server-b",
+   "x": 33,
+   "z": 28.2,
+   "w": 2.6,
+   "d": 0.9,
+   "h": 2,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "machine-ups",
+   "x": 35.3,
+   "z": 26,
+   "w": 0.9,
+   "d": 1.2,
+   "h": 1.5,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "table-staff",
+   "x": 42,
+   "z": 29.4,
+   "w": 1.8,
+   "d": 1.1,
+   "h": 0.6,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "sofa-staff",
+   "x": 45.3,
+   "z": 29.4,
+   "w": 0.9,
+   "d": 2.4,
+   "h": 0.8,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "counter-staff",
+   "x": 40,
+   "z": 32.5,
+   "w": 3,
+   "d": 0.7,
+   "h": 0.9,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "pier-concrete",
+   "x": 28,
+   "z": 35.6,
+   "w": 2.6,
+   "d": 2.6,
+   "h": 3.4,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "machine-drive",
+   "x": 34.6,
+   "z": 36.6,
+   "w": 1.4,
+   "d": 1.2,
+   "h": 1.8,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "crate-pier",
+   "x": 22,
+   "z": 36.8,
+   "w": 1.4,
+   "d": 1.2,
+   "h": 1.1,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "machine-boiler",
+   "x": 44.4,
+   "z": 36.4,
+   "w": 1.8,
+   "d": 1.6,
+   "h": 2,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "machine-airhandler",
+   "x": 39.4,
+   "z": 36.9,
+   "w": 2.8,
+   "d": 1.2,
+   "h": 1.9,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "machine-generator",
+   "x": 4.6,
+   "z": 31,
+   "w": 2.2,
+   "d": 3.4,
+   "h": 1.5,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "tank-day",
+   "x": 3.2,
+   "z": 34.8,
+   "w": 1,
+   "d": 1,
+   "h": 1.3,
+   "y": 0,
+   "floor": 0
+  },
+  {
+   "id": "mount-telescope",
+   "x": 28,
+   "z": 30,
+   "w": 2.4,
+   "d": 2.4,
+   "h": 1.3,
+   "y": 3.5,
+   "floor": 1
+  },
+  {
+   "id": "desk-observer",
+   "x": 21.4,
+   "z": 26,
+   "w": 1,
+   "d": 2.6,
+   "h": 0.9,
+   "y": 3.5,
+   "floor": 1
+  },
+  {
+   "id": "rack-dome",
+   "x": 34.9,
+   "z": 25,
+   "w": 1.2,
+   "d": 0.8,
+   "h": 1.9,
+   "y": 3.5,
+   "floor": 1
+  },
+  {
+   "id": "desk-weather",
+   "x": 44.6,
+   "z": 36.6,
+   "w": 2,
+   "d": 1,
+   "h": 0.9,
+   "y": 3.5,
+   "floor": 1
+  },
+  {
+   "id": "shelf-upper",
+   "x": 40,
+   "z": 37.5,
+   "w": 2.4,
+   "d": 0.6,
+   "h": 1.9,
+   "y": 3.5,
+   "floor": 1
+  },
+  {
+   "id": "locker-staff",
+   "x": 38.55,
+   "z": 27.5,
+   "w": 0.65,
+   "d": 1.2,
+   "h": 1.9,
+   "y": 0,
+   "floor": 0,
+   "prefab": "locker"
+  },
+  {
+   "id": "locker-store",
+   "x": 38.55,
+   "z": 19,
+   "w": 0.65,
+   "d": 1.2,
+   "h": 1.9,
+   "y": 0,
+   "floor": 0,
+   "prefab": "locker"
+  },
+  {
+   "id": "locker-gen",
+   "x": 7.45,
+   "z": 35,
+   "w": 0.65,
+   "d": 1.2,
+   "h": 1.9,
+   "y": 0,
+   "floor": 0,
+   "prefab": "locker"
+  },
+  {
+   "id": "locker-pier",
+   "x": 20.55,
+   "z": 34.6,
+   "w": 0.65,
+   "d": 1.2,
+   "h": 1.9,
+   "y": 0,
+   "floor": 0,
+   "prefab": "locker"
+  }
+ ],
+ "doors": [
+  {
+   "id": "d-west",
+   "label": "西の通用口",
+   "x": 10,
+   "z": 23.5,
+   "w": 0.14,
+   "d": 1,
+   "y": 0,
+   "h": 2.2,
+   "floor": 0,
+   "startsClosed": true
+  },
+  {
+   "id": "d-store",
+   "label": "倉庫の扉",
+   "x": 42,
+   "z": 22,
+   "w": 1,
+   "d": 0.14,
+   "y": 0,
+   "h": 2.2,
+   "floor": 0,
+   "startsClosed": true
+  },
+  {
+   "id": "d-control",
+   "label": "管制室の電気錠",
+   "x": 15,
+   "z": 25,
+   "w": 1,
+   "d": 0.14,
+   "y": 0,
+   "h": 2.2,
+   "floor": 0,
+   "key": "keycard",
+   "guardAccess": true,
+   "access": [
+    "director",
+    "researcher_b",
+    "tech"
+   ]
+  },
+  {
+   "id": "d-office",
+   "label": "所長室の電気錠",
+   "x": 15,
+   "z": 33,
+   "w": 1,
+   "d": 0.14,
+   "y": 0,
+   "h": 2.2,
+   "floor": 0,
+   "key": "keycard",
+   "guardAccess": true,
+   "access": [
+    "director"
+   ]
+  },
+  {
+   "id": "d-cryo",
+   "label": "低温実験室の気密扉",
+   "x": 24,
+   "z": 25,
+   "w": 1,
+   "d": 0.14,
+   "y": 0,
+   "h": 2.2,
+   "floor": 0,
+   "startsClosed": true
+  },
+  {
+   "id": "d-server",
+   "label": "電気室の扉",
+   "x": 32,
+   "z": 25,
+   "w": 1,
+   "d": 0.14,
+   "y": 0,
+   "h": 2.2,
+   "floor": 0,
+   "startsClosed": true
+  },
+  {
+   "id": "d-staff",
+   "label": "休憩室の扉",
+   "x": 42,
+   "z": 25,
+   "w": 1,
+   "d": 0.14,
+   "y": 0,
+   "h": 2.2,
+   "floor": 0
+  },
+  {
+   "id": "d-pier",
+   "label": "架台室の扉",
+   "x": 32,
+   "z": 33,
+   "w": 1,
+   "d": 0.14,
+   "y": 0,
+   "h": 2.2,
+   "floor": 0,
+   "startsClosed": true
+  },
+  {
+   "id": "d-pier-out",
+   "label": "架台室の裏口",
+   "x": 26,
+   "z": 38,
+   "w": 1,
+   "d": 0.14,
+   "y": 0,
+   "h": 2.2,
+   "floor": 0,
+   "startsClosed": true
+  },
+  {
+   "id": "d-plant",
+   "label": "機械室の扉",
+   "x": 43.6,
+   "z": 33,
+   "w": 1,
+   "d": 0.14,
+   "y": 0,
+   "h": 2.2,
+   "floor": 0,
+   "startsClosed": true
+  },
+  {
+   "id": "d-gen",
+   "label": "発電機小屋の扉",
+   "x": 8,
+   "z": 32,
+   "w": 0.14,
+   "d": 1,
+   "y": 0,
+   "h": 2.2,
+   "floor": 0,
+   "startsClosed": true
+  },
+  {
+   "id": "d-obs",
+   "label": "観測室の扉",
+   "x": 36,
+   "z": 35,
+   "w": 0.14,
+   "d": 1,
+   "y": 3.5,
+   "h": 2.2,
+   "floor": 1,
+   "startsClosed": true
+  },
+  {
+   "id": "d-catwalk",
+   "label": "キャットウォークの扉",
+   "x": 28,
+   "z": 38,
+   "w": 1,
+   "d": 0.14,
+   "y": 3.5,
+   "h": 2.2,
+   "floor": 1,
+   "startsClosed": true
+  }
+ ],
+ "openings": [
+  {
+   "id": "front",
+   "axis": "z",
+   "at": 28,
+   "k": 10,
+   "width": 2.4
+  }
+ ],
+ "stairs": [
+  {
+   "id": "S1",
+   "minX": 36,
+   "minZ": 25,
+   "maxX": 38,
+   "maxZ": 32,
+   "low": 0,
+   "high": 3.5,
+   "rise": "+z",
+   "floor": 0
+  }
+ ],
+ "traversals": [
+  {
+   "id": "L1",
+   "a": "north",
+   "b": "catwalk",
+   "kind": "ladder",
+   "users": [],
+   "start": {
+    "x": 34,
+    "y": 0,
+    "z": 40.7
+   },
+   "via": [
+    {
+     "x": 34,
+     "y": 3.5,
+     "z": 40.7
+    }
+   ],
+   "end": {
+    "x": 34,
+    "y": 3.5,
+    "z": 39.3
+   },
+   "facing": 3.141592653589793
+  }
+ ],
+ "traversalRules": {
+  "radius": 0.8,
+  "suspicionPerSecond": 6
+ },
+ "npcs": [
+  {
+   "id": "director",
+   "label": "所長",
+   "role": "guest",
+   "outfit": "vip_guest",
+   "model": "investor",
+   "floor": 0,
+   "route": [
+    [
+     13,
+     28.6,
+     0
+    ]
+   ],
+   "look": [
+    14,
+    28.6
+   ],
+   "faction": "club",
+   "securityRole": "",
+   "combatProfile": "civilian",
+   "disguiseId": "vip_guest",
+   "knowsFaces": [],
+   "target": true
+  },
+  {
+   "id": "aide",
+   "label": "所長の護衛",
+   "role": "guard",
+   "outfit": "bodyguard",
+   "model": "bodyguard",
+   "floor": 0,
+   "route": [
+    [
+     14.5,
+     28.6,
+     0
+    ]
+   ],
+   "look": [
+    15.5,
+    28.6
+   ],
+   "faction": "club_security",
+   "securityRole": "escort",
+   "combatProfile": "guard",
+   "disguiseId": "bodyguard",
+   "knowsFaces": [
+    "bodyguard"
+   ],
+   "loadout": "pistol_guard"
+  },
+  {
+   "id": "guard_gate",
+   "label": "玄関の警備員",
+   "role": "guard",
+   "outfit": "guard",
+   "model": "bodyguard",
+   "floor": 0,
+   "route": [
+    [
+     26.2,
+     11.6,
+     0
+    ]
+   ],
+   "look": [
+    26.2,
+    5
+   ],
+   "faction": "club_security",
+   "securityRole": "gate",
+   "combatProfile": "guard",
+   "disguiseId": "guard",
+   "knowsFaces": [],
+   "loadout": "pistol_guard"
+  },
+  {
+   "id": "guard_hall",
+   "label": "廊下の警備員",
+   "role": "guard",
+   "outfit": "guard",
+   "model": "bodyguard",
+   "floor": 0,
+   "route": [
+    [
+     13,
+     23.5,
+     0
+    ],
+    [
+     44,
+     23.5,
+     0
+    ]
+   ],
+   "look": [
+    14,
+    23.5
+   ],
+   "faction": "club_security",
+   "securityRole": "patrol",
+   "combatProfile": "guard",
+   "disguiseId": "guard",
+   "knowsFaces": [
+    "technician"
+   ],
+   "loadout": "pistol_guard"
+  },
+  {
+   "id": "guard_control",
+   "label": "管制室前の警備員",
+   "role": "guard",
+   "outfit": "guard",
+   "model": "bodyguard",
+   "floor": 0,
+   "route": [
+    [
+     16.6,
+     24.2,
+     0
+    ]
+   ],
+   "look": [
+    16.6,
+    20
+   ],
+   "faction": "club_security",
+   "securityRole": "post",
+   "combatProfile": "guard",
+   "disguiseId": "guard",
+   "knowsFaces": [
+    "manager",
+    "guard"
+   ],
+   "loadout": "pistol_guard"
+  },
+  {
+   "id": "guard_yard",
+   "label": "外回りの警備員",
+   "role": "guard",
+   "outfit": "guard",
+   "model": "bodyguard",
+   "floor": 0,
+   "route": [
+    [
+     6,
+     8,
+     0
+    ],
+    [
+     5,
+     22,
+     0
+    ],
+    [
+     12,
+     41.5,
+     0
+    ],
+    [
+     44,
+     41.5,
+     0
+    ],
+    [
+     51,
+     22,
+     0
+    ],
+    [
+     50,
+     8,
+     0
+    ]
+   ],
+   "look": [
+    7,
+    8
+   ],
+   "faction": "club_security",
+   "securityRole": "patrol",
+   "combatProfile": "guard",
+   "disguiseId": "guard",
+   "knowsFaces": [],
+   "loadout": "pistol_guard"
+  },
+  {
+   "id": "guard_dome",
+   "label": "ドームの警備員",
+   "role": "guard",
+   "outfit": "guard",
+   "model": "bodyguard",
+   "floor": 1,
+   "route": [
+    [
+     40,
+     34,
+     3.5
+    ]
+   ],
+   "look": [
+    36,
+    35
+   ],
+   "faction": "club_security",
+   "securityRole": "post",
+   "combatProfile": "guard",
+   "disguiseId": "guard",
+   "knowsFaces": [],
+   "loadout": "pistol_guard"
+  },
+  {
+   "id": "tech",
+   "label": "設備技師",
+   "role": "waiter",
+   "outfit": "technician",
+   "model": "delivery",
+   "floor": 0,
+   "route": [
+    [
+     41,
+     35,
+     0
+    ]
+   ],
+   "look": [
+    42,
+    35
+   ],
+   "faction": "club",
+   "securityRole": "",
+   "combatProfile": "civilian",
+   "disguiseId": "technician",
+   "knowsFaces": []
+  },
+  {
+   "id": "researcher_a",
+   "label": "研究員（観測）",
+   "role": "waiter",
+   "outfit": "manager",
+   "model": "lawyer",
+   "floor": 1,
+   "route": [
+    [
+     22.6,
+     26,
+     3.5
+    ]
+   ],
+   "look": [
+    23.6,
+    26
+   ],
+   "faction": "club",
+   "securityRole": "",
+   "combatProfile": "civilian",
+   "disguiseId": "manager",
+   "knowsFaces": [
+    "manager"
+   ]
+  },
+  {
+   "id": "researcher_b",
+   "label": "研究員（検出器）",
+   "role": "waiter",
+   "outfit": "manager",
+   "model": "guest_dress",
+   "floor": 0,
+   "route": [
+    [
+     25.5,
+     30.6,
+     0
+    ]
+   ],
+   "look": [
+    26.5,
+    30.6
+   ],
+   "faction": "club",
+   "securityRole": "",
+   "combatProfile": "civilian",
+   "disguiseId": "manager",
+   "knowsFaces": []
+  },
+  {
+   "id": "cook",
+   "label": "食堂係",
+   "role": "waiter",
+   "outfit": "bartender",
+   "model": "waiter",
+   "floor": 0,
+   "route": [
+    [
+     15.8,
+     20.3,
+     0
+    ]
+   ],
+   "look": [
+    16.8,
+    20.3
+   ],
+   "faction": "club",
+   "securityRole": "",
+   "combatProfile": "civilian",
+   "disguiseId": "bartender",
+   "knowsFaces": []
+  },
+  {
+   "id": "cleaner",
+   "label": "清掃員",
+   "role": "waiter",
+   "outfit": "cleaner",
+   "model": "cleaner",
+   "floor": 0,
+   "route": [
+    [
+     40,
+     13,
+     0
+    ]
+   ],
+   "look": [
+    41,
+    13
+   ],
+   "faction": "club",
+   "securityRole": "",
+   "combatProfile": "civilian",
+   "disguiseId": "cleaner",
+   "knowsFaces": []
+  },
+  {
+   "id": "donor_a",
+   "label": "後援会の客",
+   "role": "guest",
+   "outfit": "suit",
+   "model": "guest_suit",
+   "floor": 0,
+   "route": [
+    [
+     14.8,
+     13.6,
+     0
+    ]
+   ],
+   "look": [
+    15.8,
+    13.6
+   ],
+   "faction": "club",
+   "securityRole": "",
+   "combatProfile": "civilian",
+   "disguiseId": "suit",
+   "knowsFaces": []
+  },
+  {
+   "id": "donor_b",
+   "label": "後援会の客",
+   "role": "guest",
+   "outfit": "suit",
+   "model": "guest_dress",
+   "floor": 0,
+   "route": [
+    [
+     14.8,
+     18.4,
+     0
+    ]
+   ],
+   "look": [
+    15.8,
+    18.4
+   ],
+   "faction": "club",
+   "securityRole": "",
+   "combatProfile": "civilian",
+   "disguiseId": "suit",
+   "knowsFaces": []
+  },
+  {
+   "id": "donor_c",
+   "label": "写真家",
+   "role": "guest",
+   "outfit": "suit",
+   "model": "photographer",
+   "floor": 0,
+   "route": [
+    [
+     30.5,
+     16.5,
+     0
+    ]
+   ],
+   "look": [
+    31.5,
+    16.5
+   ],
+   "faction": "club",
+   "securityRole": "",
+   "combatProfile": "civilian",
+   "disguiseId": "suit",
+   "knowsFaces": []
+  },
+  {
+   "id": "donor_d",
+   "label": "後援会の客",
+   "role": "guest",
+   "outfit": "suit",
+   "model": "wine_merchant",
+   "floor": 0,
+   "route": [
+    [
+     32,
+     13.6,
+     0
+    ]
+   ],
+   "look": [
+    33,
+    13.6
+   ],
+   "faction": "club",
+   "securityRole": "",
+   "combatProfile": "civilian",
+   "disguiseId": "suit",
+   "knowsFaces": []
+  },
+  {
+   "id": "donor_e",
+   "label": "後援会の客",
+   "role": "guest",
+   "outfit": "suit",
+   "model": "pool_guest_resort",
+   "floor": 0,
+   "route": [
+    [
+     22,
+     19.4,
+     0
+    ]
+   ],
+   "look": [
+    23,
+    19.4
+   ],
+   "faction": "club",
+   "securityRole": "",
+   "combatProfile": "civilian",
+   "disguiseId": "suit",
+   "knowsFaces": []
+  }
+ ],
+ "schedulePlaces": {
+  "dir_console": {
+   "x": 13,
+   "y": 0,
+   "z": 28.6,
+   "heading": 3.141592653589793,
+   "label": "管制室",
+   "outdoor": false
+  },
+  "dir_desk": {
+   "x": 13.5,
+   "y": 0,
+   "z": 35,
+   "heading": 0,
+   "label": "所長室",
+   "outdoor": false
+  },
+  "dir_dome": {
+   "x": 25.5,
+   "y": 3.5,
+   "z": 27.5,
+   "heading": 0,
+   "label": "観測室",
+   "outdoor": false
+  },
+  "dir_lounge": {
+   "x": 15.6,
+   "y": 0,
+   "z": 15.9,
+   "heading": -1.5707963267948966,
+   "label": "談話室",
+   "outdoor": false
+  },
+  "dir_lobby": {
+   "x": 26.6,
+   "y": 0,
+   "z": 18.2,
+   "heading": 1.5707963267948966,
+   "label": "展示ロビー",
+   "outdoor": false
+  },
+  "tech_plant": {
+   "x": 41,
+   "y": 0,
+   "z": 35,
+   "heading": 0,
+   "label": "機械室",
+   "outdoor": false
+  },
+  "tech_panel": {
+   "x": 29.6,
+   "y": 0,
+   "z": 29.5,
+   "heading": -1.5707963267948966,
+   "label": "電気室",
+   "outdoor": false
+  },
+  "tech_staff": {
+   "x": 42,
+   "y": 0,
+   "z": 28.2,
+   "heading": 0,
+   "label": "休憩室",
+   "outdoor": false
+  },
+  "tech_gen": {
+   "x": 5.2,
+   "y": 0,
+   "z": 33.6,
+   "heading": 3.141592653589793,
+   "label": "発電機小屋",
+   "outdoor": false
+  },
+  "ra_desk": {
+   "x": 22.6,
+   "y": 3.5,
+   "z": 26,
+   "heading": -1.5707963267948966,
+   "label": "観測室",
+   "outdoor": false
+  },
+  "ra_scope": {
+   "x": 26,
+   "y": 3.5,
+   "z": 30,
+   "heading": 1.5707963267948966,
+   "label": "観測室",
+   "outdoor": false
+  },
+  "ra_weather": {
+   "x": 44.6,
+   "y": 3.5,
+   "z": 35.4,
+   "heading": 0,
+   "label": "2階通路",
+   "outdoor": false
+  },
+  "rb_bench": {
+   "x": 25.5,
+   "y": 0,
+   "z": 30.6,
+   "heading": 0,
+   "label": "低温実験室",
+   "outdoor": false
+  },
+  "rb_console": {
+   "x": 13.6,
+   "y": 0,
+   "z": 31.4,
+   "heading": -1.5707963267948966,
+   "label": "管制室",
+   "outdoor": false
+  },
+  "rb_staff": {
+   "x": 43.4,
+   "y": 0,
+   "z": 29.4,
+   "heading": -1.5707963267948966,
+   "label": "休憩室",
+   "outdoor": false
+  },
+  "cook_counter": {
+   "x": 15.8,
+   "y": 0,
+   "z": 20.3,
+   "heading": 1.5707963267948966,
+   "label": "談話室",
+   "outdoor": false
+  },
+  "cook_table": {
+   "x": 14.6,
+   "y": 0,
+   "z": 15,
+   "heading": -1.5707963267948966,
+   "label": "談話室",
+   "outdoor": false
+  },
+  "cook_store": {
+   "x": 41.6,
+   "y": 0,
+   "z": 19,
+   "heading": -1.5707963267948966,
+   "label": "倉庫",
+   "outdoor": false
+  },
+  "cl_wc": {
+   "x": 40,
+   "y": 0,
+   "z": 13,
+   "heading": 1.5707963267948966,
+   "label": "化粧室",
+   "outdoor": false
+  },
+  "cl_lobby": {
+   "x": 30,
+   "y": 0,
+   "z": 20.4,
+   "heading": 3.141592653589793,
+   "label": "展示ロビー",
+   "outdoor": false
+  },
+  "cl_hall": {
+   "x": 34,
+   "y": 0,
+   "z": 23.5,
+   "heading": -1.5707963267948966,
+   "label": "職員廊下",
+   "outdoor": false
+  },
+  "cl_store": {
+   "x": 41.4,
+   "y": 0,
+   "z": 17.4,
+   "heading": -1.5707963267948966,
+   "label": "倉庫",
+   "outdoor": false
+  },
+  "da_sofa": {
+   "x": 14.8,
+   "y": 0,
+   "z": 13.6,
+   "heading": -1.5707963267948966,
+   "label": "談話室",
+   "outdoor": false
+  },
+  "da_orrery": {
+   "x": 26.1,
+   "y": 0,
+   "z": 15.6,
+   "heading": 1.5707963267948966,
+   "label": "展示ロビー",
+   "outdoor": false
+  },
+  "da_wc": {
+   "x": 44.8,
+   "y": 0,
+   "z": 12.4,
+   "heading": 1.5707963267948966,
+   "label": "化粧室",
+   "outdoor": false
+  },
+  "db_sofa": {
+   "x": 14.8,
+   "y": 0,
+   "z": 18.4,
+   "heading": -1.5707963267948966,
+   "label": "談話室",
+   "outdoor": false
+  },
+  "db_case": {
+   "x": 32.2,
+   "y": 0,
+   "z": 14.6,
+   "heading": 1.5707963267948966,
+   "label": "展示ロビー",
+   "outdoor": false
+  },
+  "db_stove": {
+   "x": 12.4,
+   "y": 0,
+   "z": 16,
+   "heading": -1.5707963267948966,
+   "label": "談話室",
+   "outdoor": false
+  },
+  "dc_orrery": {
+   "x": 30.5,
+   "y": 0,
+   "z": 16.5,
+   "heading": -1.5707963267948966,
+   "label": "展示ロビー",
+   "outdoor": false
+  },
+  "dc_front": {
+   "x": 28,
+   "y": 0,
+   "z": 12,
+   "heading": 3.141592653589793,
+   "label": "展示ロビー",
+   "outdoor": false
+  },
+  "dc_lens": {
+   "x": 34.4,
+   "y": 0,
+   "z": 17.8,
+   "heading": 0,
+   "label": "展示ロビー",
+   "outdoor": false
+  },
+  "dc_lounge": {
+   "x": 16,
+   "y": 0,
+   "z": 12,
+   "heading": -1.5707963267948966,
+   "label": "談話室",
+   "outdoor": false
+  },
+  "dd_meteor": {
+   "x": 32,
+   "y": 0,
+   "z": 13.6,
+   "heading": 1.5707963267948966,
+   "label": "展示ロビー",
+   "outdoor": false
+  },
+  "dd_counter": {
+   "x": 23,
+   "y": 0,
+   "z": 13.6,
+   "heading": 3.141592653589793,
+   "label": "展示ロビー",
+   "outdoor": false
+  },
+  "dd_lounge": {
+   "x": 15.2,
+   "y": 0,
+   "z": 17.2,
+   "heading": -1.5707963267948966,
+   "label": "談話室",
+   "outdoor": false
+  },
+  "de_sofa": {
+   "x": 22,
+   "y": 0,
+   "z": 19.4,
+   "heading": 0,
+   "label": "展示ロビー",
+   "outdoor": false
+  },
+  "de_model": {
+   "x": 21.4,
+   "y": 0,
+   "z": 15,
+   "heading": -1.5707963267948966,
+   "label": "展示ロビー",
+   "outdoor": false
+  },
+  "de_wc": {
+   "x": 43.4,
+   "y": 0,
+   "z": 12.8,
+   "heading": 1.5707963267948966,
+   "label": "化粧室",
+   "outdoor": false
+  },
+  "warm_0": {
+   "x": 11.4,
+   "y": 0,
+   "z": 14.4,
+   "heading": -0.30288486837497147,
+   "label": "談話室",
+   "outdoor": false
+  },
+  "warm_1": {
+   "x": 11.4,
+   "y": 0,
+   "z": 17.6,
+   "heading": -2.838707785214822,
+   "label": "談話室",
+   "outdoor": false
+  },
+  "warm_2": {
+   "x": 14.6,
+   "y": 0,
+   "z": 16.1,
+   "heading": -1.597816775982162,
+   "label": "談話室",
+   "outdoor": false
+  },
+  "warm_3": {
+   "x": 15.6,
+   "y": 0,
+   "z": 14.2,
+   "heading": -1.2050490255325519,
+   "label": "談話室",
+   "outdoor": false
+  },
+  "warm_4": {
+   "x": 15.6,
+   "y": 0,
+   "z": 17.8,
+   "heading": -1.9365436280572415,
+   "label": "談話室",
+   "outdoor": false
+  },
+  "warm_5": {
+   "x": 16.6,
+   "y": 0,
+   "z": 16,
+   "heading": -1.5707963267948966,
+   "label": "談話室",
+   "outdoor": false
+  },
+  "warm_6": {
+   "x": 12,
+   "y": 0,
+   "z": 12,
+   "heading": -0.2683662109059068,
+   "label": "談話室",
+   "outdoor": false
+  },
+  "warm_7": {
+   "x": 12,
+   "y": 0,
+   "z": 20,
+   "heading": -2.8732264426838863,
+   "label": "談話室",
+   "outdoor": false
+  },
+  "warm_8": {
+   "x": 14,
+   "y": 0,
+   "z": 11.6,
+   "heading": -0.6137700950165682,
+   "label": "談話室",
+   "outdoor": false
+  },
+  "warm_9": {
+   "x": 16.4,
+   "y": 0,
+   "z": 12.4,
+   "heading": -0.9912323415015734,
+   "label": "談話室",
+   "outdoor": false
+  },
+  "warm_10": {
+   "x": 14.2,
+   "y": 0,
+   "z": 20.6,
+   "heading": -2.519289782402586,
+   "label": "談話室",
+   "outdoor": false
+  },
+  "warm_11": {
+   "x": 11.6,
+   "y": 0,
+   "z": 18.8,
+   "heading": -2.8966139904629293,
+   "label": "談話室",
+   "outdoor": false
+  },
+  "shelter_yard": {
+   "x": 26,
+   "y": 0,
+   "z": 9,
+   "heading": 3.141592653589793,
+   "label": "玄関のひさし",
+   "outdoor": true
+  },
+  "crank": {
+   "x": 28,
+   "y": 3.5,
+   "z": 39.2,
+   "heading": 3.141592653589793,
+   "label": "キャットウォーク",
+   "outdoor": true
+  },
+  "crank_wait": {
+   "x": 35,
+   "y": 3.5,
+   "z": 36.4,
+   "heading": -1.5707963267948966,
+   "label": "観測室",
+   "outdoor": false
+  },
+  "detector": {
+   "x": 26.4,
+   "y": 0,
+   "z": 30.6,
+   "heading": 0,
+   "label": "低温実験室",
+   "outdoor": false
+  },
+  "detector_wait": {
+   "x": 24.6,
+   "y": 0,
+   "z": 23.6,
+   "heading": 0,
+   "label": "職員廊下",
+   "outdoor": false
+  },
+  "breakroom": {
+   "x": 40.2,
+   "y": 0,
+   "z": 27,
+   "heading": 1.5707963267948966,
+   "label": "休憩室",
+   "outdoor": false
+  }
+ },
+ "hides": [
+  {
+   "id": "locker-staff",
+   "label": "休憩室のロッカー",
+   "spareClothes": true,
+   "x": 38.55,
+   "y": 0,
+   "z": 27.5,
+   "heading": 1.5707963267948966,
+   "capacity": 1,
+   "approach": {
+    "x": 1,
+    "z": 0
+   },
+   "size": {
+    "w": 0.65,
+    "d": 1.2,
+    "h": 1.9
+   }
+  },
+  {
+   "id": "locker-store",
+   "label": "倉庫のロッカー",
+   "x": 38.55,
+   "y": 0,
+   "z": 19,
+   "heading": 1.5707963267948966,
+   "capacity": 1,
+   "approach": {
+    "x": 1,
+    "z": 0
+   },
+   "size": {
+    "w": 0.65,
+    "d": 1.2,
+    "h": 1.9
+   }
+  },
+  {
+   "id": "locker-gen",
+   "label": "発電機小屋の物入れ",
+   "x": 7.45,
+   "y": 0,
+   "z": 35,
+   "heading": -1.5707963267948966,
+   "capacity": 1,
+   "approach": {
+    "x": -1,
+    "z": 0
+   },
+   "size": {
+    "w": 0.65,
+    "d": 1.2,
+    "h": 1.9
+   }
+  },
+  {
+   "id": "locker-pier",
+   "label": "架台室の物入れ",
+   "x": 20.55,
+   "y": 0,
+   "z": 34.6,
+   "heading": 1.5707963267948966,
+   "capacity": 1,
+   "approach": {
+    "x": 1,
+    "z": 0
+   },
+   "size": {
+    "w": 0.65,
+    "d": 1.2,
+    "h": 1.9
+   }
+  }
+ ],
+ "markers": [],
+ "checkpoints": [],
+ "uniformGates": [],
+ "platforms": [],
+ "exits": [
+  {
+   "id": "X1",
+   "label": "正門",
+   "x": 28,
+   "z": 1,
+   "floor": 0,
+   "radius": 1.1
+  },
+  {
+   "id": "X2",
+   "label": "西の登山道",
+   "x": 1.4,
+   "z": 14,
+   "floor": 0,
+   "radius": 1.1
+  }
+ ],
+ "geometry": {
+  "floors": [
+   {
+    "floor": 1,
+    "y": 3.5
+   }
+  ],
+  "shafts": []
+ }
+}

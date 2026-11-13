@@ -1,0 +1,488 @@
+{
+ "actors": {
+  "director": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 200,
+     "place": "dir_console",
+     "do": "work"
+    },
+    {
+     "from": 200,
+     "to": 330,
+     "place": "dir_lounge",
+     "do": "chat"
+    },
+    {
+     "from": 330,
+     "to": 520,
+     "place": "dir_desk",
+     "do": "phone"
+    },
+    {
+     "from": 520,
+     "to": 660,
+     "place": "dir_dome",
+     "do": "work"
+    },
+    {
+     "from": 660,
+     "to": 900,
+     "place": "dir_console",
+     "do": "work"
+    },
+    {
+     "from": 900,
+     "to": 1040,
+     "place": "dir_lobby",
+     "do": "chat"
+    },
+    {
+     "from": 1040,
+     "to": 1260,
+     "place": "dir_desk",
+     "do": "phone"
+    },
+    {
+     "from": 1260,
+     "to": 1500,
+     "place": "dir_console",
+     "do": "work"
+    },
+    {
+     "from": 1500,
+     "to": 1680,
+     "place": "dir_lounge",
+     "do": "chat"
+    },
+    {
+     "from": 1680,
+     "to": 1800,
+     "place": "dir_console",
+     "do": "work"
+    }
+   ]
+  },
+  "aide": {
+   "plan": [],
+   "follow": "director",
+   "offset": [
+    1.2,
+    0.9
+   ]
+  },
+  "tech": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 240,
+     "place": "tech_plant",
+     "do": "work"
+    },
+    {
+     "from": 240,
+     "to": 420,
+     "place": "tech_staff",
+     "do": "drink"
+    },
+    {
+     "from": 420,
+     "to": 600,
+     "place": "tech_panel",
+     "do": "work"
+    },
+    {
+     "from": 600,
+     "to": 960,
+     "place": "tech_plant",
+     "do": "work"
+    },
+    {
+     "from": 960,
+     "to": 1140,
+     "place": "tech_gen",
+     "do": "work"
+    },
+    {
+     "from": 1140,
+     "to": 1380,
+     "place": "tech_staff",
+     "do": "drink"
+    },
+    {
+     "from": 1380,
+     "to": 1560,
+     "place": "tech_panel",
+     "do": "work"
+    },
+    {
+     "from": 1560,
+     "to": 1800,
+     "place": "tech_plant",
+     "do": "work"
+    }
+   ]
+  },
+  "researcher_a": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 300,
+     "place": "ra_desk",
+     "do": "work"
+    },
+    {
+     "from": 300,
+     "to": 480,
+     "place": "ra_weather",
+     "do": "work"
+    },
+    {
+     "from": 480,
+     "to": 700,
+     "place": "ra_scope",
+     "do": "work"
+    },
+    {
+     "from": 700,
+     "to": 1100,
+     "place": "ra_desk",
+     "do": "work"
+    },
+    {
+     "from": 1100,
+     "to": 1300,
+     "place": "ra_weather",
+     "do": "work"
+    },
+    {
+     "from": 1300,
+     "to": 1800,
+     "place": "ra_desk",
+     "do": "work"
+    }
+   ]
+  },
+  "researcher_b": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 260,
+     "place": "rb_bench",
+     "do": "work"
+    },
+    {
+     "from": 260,
+     "to": 440,
+     "place": "rb_console",
+     "do": "work"
+    },
+    {
+     "from": 440,
+     "to": 620,
+     "place": "rb_staff",
+     "do": "drink"
+    },
+    {
+     "from": 620,
+     "to": 1000,
+     "place": "rb_bench",
+     "do": "work"
+    },
+    {
+     "from": 1000,
+     "to": 1200,
+     "place": "rb_console",
+     "do": "work"
+    },
+    {
+     "from": 1200,
+     "to": 1400,
+     "place": "rb_staff",
+     "do": "drink"
+    },
+    {
+     "from": 1400,
+     "to": 1800,
+     "place": "rb_bench",
+     "do": "work"
+    }
+   ]
+  },
+  "cook": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 360,
+     "place": "cook_counter",
+     "do": "work"
+    },
+    {
+     "from": 360,
+     "to": 480,
+     "place": "cook_table",
+     "do": "clean"
+    },
+    {
+     "from": 480,
+     "to": 840,
+     "place": "cook_counter",
+     "do": "work"
+    },
+    {
+     "from": 840,
+     "to": 960,
+     "place": "cook_store",
+     "do": "work"
+    },
+    {
+     "from": 960,
+     "to": 1320,
+     "place": "cook_counter",
+     "do": "work"
+    },
+    {
+     "from": 1320,
+     "to": 1440,
+     "place": "cook_table",
+     "do": "clean"
+    },
+    {
+     "from": 1440,
+     "to": 1800,
+     "place": "cook_counter",
+     "do": "work"
+    }
+   ]
+  },
+  "cleaner": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 300,
+     "place": "cl_wc",
+     "do": "clean"
+    },
+    {
+     "from": 300,
+     "to": 600,
+     "place": "cl_lobby",
+     "do": "clean"
+    },
+    {
+     "from": 600,
+     "to": 900,
+     "place": "cl_hall",
+     "do": "clean"
+    },
+    {
+     "from": 900,
+     "to": 1200,
+     "place": "cl_store",
+     "do": "clean"
+    },
+    {
+     "from": 1200,
+     "to": 1500,
+     "place": "cl_wc",
+     "do": "clean"
+    },
+    {
+     "from": 1500,
+     "to": 1800,
+     "place": "cl_lobby",
+     "do": "clean"
+    }
+   ]
+  },
+  "donor_a": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 400,
+     "place": "da_sofa",
+     "do": "chat"
+    },
+    {
+     "from": 400,
+     "to": 640,
+     "place": "da_orrery",
+     "do": "idle"
+    },
+    {
+     "from": 640,
+     "to": 760,
+     "place": "da_wc",
+     "do": "idle"
+    },
+    {
+     "from": 760,
+     "to": 1300,
+     "place": "da_sofa",
+     "do": "drink"
+    },
+    {
+     "from": 1300,
+     "to": 1520,
+     "place": "da_orrery",
+     "do": "idle"
+    },
+    {
+     "from": 1520,
+     "to": 1800,
+     "place": "da_sofa",
+     "do": "chat"
+    }
+   ]
+  },
+  "donor_b": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 280,
+     "place": "db_sofa",
+     "do": "chat"
+    },
+    {
+     "from": 280,
+     "to": 520,
+     "place": "db_stove",
+     "do": "idle"
+    },
+    {
+     "from": 520,
+     "to": 800,
+     "place": "db_case",
+     "do": "idle"
+    },
+    {
+     "from": 800,
+     "to": 1400,
+     "place": "db_sofa",
+     "do": "drink"
+    },
+    {
+     "from": 1400,
+     "to": 1800,
+     "place": "db_stove",
+     "do": "idle"
+    }
+   ]
+  },
+  "donor_c": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 220,
+     "place": "dc_orrery",
+     "do": "idle"
+    },
+    {
+     "from": 220,
+     "to": 420,
+     "place": "dc_front",
+     "do": "phone"
+    },
+    {
+     "from": 420,
+     "to": 700,
+     "place": "dc_lens",
+     "do": "idle"
+    },
+    {
+     "from": 700,
+     "to": 1100,
+     "place": "dc_lounge",
+     "do": "drink"
+    },
+    {
+     "from": 1100,
+     "to": 1450,
+     "place": "dc_orrery",
+     "do": "idle"
+    },
+    {
+     "from": 1450,
+     "to": 1800,
+     "place": "dc_front",
+     "do": "phone"
+    }
+   ]
+  },
+  "donor_d": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 340,
+     "place": "dd_meteor",
+     "do": "idle"
+    },
+    {
+     "from": 340,
+     "to": 560,
+     "place": "dd_counter",
+     "do": "chat"
+    },
+    {
+     "from": 560,
+     "to": 1000,
+     "place": "dd_lounge",
+     "do": "drink"
+    },
+    {
+     "from": 1000,
+     "to": 1380,
+     "place": "dd_meteor",
+     "do": "idle"
+    },
+    {
+     "from": 1380,
+     "to": 1800,
+     "place": "dd_lounge",
+     "do": "chat"
+    }
+   ]
+  },
+  "donor_e": {
+   "plan": [
+    {
+     "from": 0,
+     "to": 380,
+     "place": "de_sofa",
+     "do": "phone"
+    },
+    {
+     "from": 380,
+     "to": 600,
+     "place": "de_model",
+     "do": "idle"
+    },
+    {
+     "from": 600,
+     "to": 720,
+     "place": "de_wc",
+     "do": "idle"
+    },
+    {
+     "from": 720,
+     "to": 1240,
+     "place": "de_sofa",
+     "do": "idle"
+    },
+    {
+     "from": 1240,
+     "to": 1500,
+     "place": "de_model",
+     "do": "idle"
+    },
+    {
+     "from": 1500,
+     "to": 1800,
+     "place": "de_sofa",
+     "do": "phone"
+    }
+   ]
+  }
+ }
+}

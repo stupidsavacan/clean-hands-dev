@@ -148,7 +148,7 @@ export class CombatSystem{
   * noiseLoudOutdoor when both are outdoors, else noiseLoudIndoor. One floor apart scales it by noiseFloorFactor, two
   * floors are out of reach, and a wall or floor between them scales it by noiseWallFactor. */
  canHearGunshot(n:Npc,origin:Position,kind:'small'|'loud',outdoor:boolean){const R=this.rules,df=Math.abs(floorOf(n.pos.y)-floorOf(origin.y));if(df>1)return false;
-  let range=kind==='small'?R.noiseSmall:outdoor&&n.outdoor?R.noiseLoudOutdoor:R.noiseLoudIndoor??R.noiseLoudOutdoor;if(df===1)range*=R.noiseFloorFactor??.5;
+  let range=kind==='small'?R.noiseSmall:outdoor&&n.outdoor?R.noiseLoudOutdoor:R.noiseLoudIndoor??R.noiseLoudOutdoor;if(df===1)range*=R.noiseFloorFactor??.5;range*=this.director.hearing?.(n.pos)??1;
   const d=Math.hypot(n.pos.x-origin.x,n.pos.y-origin.y,n.pos.z-origin.z);if(d>range)return false;
   return d<=range*(R.noiseWallFactor??.5)||segmentClear(this.director.boxes,{x:origin.x,y:origin.y+1.4,z:origin.z},{x:n.pos.x,y:n.pos.y+1.6,z:n.pos.z});}
  /** Who hears a shot, and what they do: guards come to look where it was, bystanders run. The list is returned. */

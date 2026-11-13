@@ -6,8 +6,10 @@ import {readFileSync} from 'node:fs';
 import {checkMap} from '../src/map-editor/checks.ts';
 import {probeOf,routeBetween,type Doc} from '../src/map-editor/core.ts';
 const read=(n:string)=>JSON.parse(readFileSync(new URL('../src/data/'+n,import.meta.url),'utf8'));
-const doc={...read('club-layout.json'),devices:read('club-mission.json').devices} as Doc;
-const args=process.argv.slice(2),probe=probeOf(doc);
+// --map <name> checks another map's layout (2026-11-13; default: club).
+const args=process.argv.slice(2),mapAt=args.indexOf('--map'),mapName=mapAt>=0?args.splice(mapAt,2)[1]:'club';
+const doc={...read(mapName+'-layout.json'),devices:mapName==='club'?read('club-mission.json').devices:[]} as Doc;
+const probe=probeOf(doc);
 const at=(s:string)=>{const [x,z,floor=0]=s.split(',').map(Number);return {x,z,floor};};
 if(args[0]==='--route'){
  const r=routeBetween(doc,probe,at(args[1]),at(args[2]));

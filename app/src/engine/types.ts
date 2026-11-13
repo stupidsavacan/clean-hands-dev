@@ -14,6 +14,7 @@ import type {CrowdData} from './crowd';
 import type {CombatRules} from '../combat';
 import type {DialogueData,DialogueRules} from '../dialogue';
 import type {Traversal} from '../party/traversal';
+import type {DoorSystem} from '../doors';
 
 // What the engine asks of a map's mission script (the club's is club/chances.ts). Optional members are features a
 // map may leave out.
@@ -40,7 +41,10 @@ export interface MissionScript {
  alarm?(at:Position,reason:'gunshot'|'scream'|'body'|'witness',kind?:'small'|'loud'):void;
  bodyFound?(body:Npc,witness:Npc):void;
 }
-export type ScriptContext={director:Director;m3:M3System;m4:M4System;clock:MissionClock;events:MissionEvents;chances:ChancesData;schedule:ScheduleSystem};
+export type ScriptContext={director:Director;m3:M3System;m4:M4System;clock:MissionClock;events:MissionEvents;chances:ChancesData;schedule:ScheduleSystem;
+ // 2026-11-13: the map's doors (a script can read which are open and lock or unlock them), and a way to hurt the
+ // player from the world itself (bad air, a live wire).
+ doors:DoorSystem;hurt:(amount:number)=>void};
 
 // Drawing helpers the engine lends to decorate() (the same ones it builds the map with).
 export type DecorContext={
@@ -55,7 +59,8 @@ export type Decor={
  spin?:T.Object3D;animated?:T.Object3D[];
  // Called once the static scenery is frozen (things added now keep animating).
  afterFreeze?():void;
- step?(seconds:number,frameSeconds:number,dark:boolean,missionSeconds:number):void;
+ // `view` (2026-11-13): the camera and where the player stands, for effects that follow them (rain).
+ step?(seconds:number,frameSeconds:number,dark:boolean,missionSeconds:number,view?:{camera:T.Camera;player:Position;floor:number}):void;
  blackout?(dark:boolean,lights:{points:T.PointLight[];emitters:Map<string,T.Mesh>}):void;
  dressNpc?(view:NpcView):void;
 };
