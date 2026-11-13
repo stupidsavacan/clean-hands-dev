@@ -53,7 +53,11 @@ function body(id:string):Body{let b=bodies.get(id);if(b)return b;
  const c=document.createElement('canvas');c.width=256;c.height=64;const tagTex=new T.CanvasTexture(c);const tag=new T.Sprite(new T.SpriteMaterial({map:tagTex,depthTest:false}));tag.scale.set(3,.75,1);tag.position.y=2.4;root.add(tag);
  scene.add(root);b={root,figure,mat,cone,tag,tagCtx:c.getContext('2d')!,tagTex};bodies.set(id,b);return b;}
 const playerMesh=new T.Mesh(new T.CapsuleGeometry(.28,1.1,4,10),new T.MeshStandardMaterial({color:'#4f8cff'}));scene.add(playerMesh);
-const marks:T.Mesh[]=[],doorLeaves:T.Mesh[]=[];
+const marks:T.Mesh[]=[],doorLeaves:T.Mesh[]=[],crates:T.Mesh[]=[];
+const crateMat=new T.MeshStandardMaterial({color:'#8a6a45'});
+// Solids a scenario puts in the hall (the cover tests' crates).
+function placeCrates(s:Scenario){for(const m of crates.splice(0)){m.removeFromParent();m.geometry.dispose();}
+ for(const b of s.blockers??[]){const m=new T.Mesh(new T.BoxGeometry(b.w,b.h,b.d),crateMat);m.position.set(b.x,b.y+b.h/2,b.z);scene.add(m);crates.push(m);}}
 function clearMarks(){
  for(const m of marks.splice(0))m.removeFromParent();
  for(const m of doorLeaves.splice(0)){m.removeFromParent();m.geometry.dispose();}
@@ -74,12 +78,13 @@ function drawRun(r:Run){
   const down=n.life!=='active',rescuing=rescues.some(x=>x.guard===n),pickingUp=!!n.coinPickup;
   b.figure.rotation.x=down ? Math.PI/2 : rescuing||pickingUp ? .24 : 0;
   b.figure.position.set(0,down ? .28 : 0,down ? -.83 : 0);
-  b.figure.scale.y=rescuing||pickingUp ? .72 : 1;
+  // Guard AI stage 1: kneeling behind cover is drawn lower.
+  b.figure.scale.y=rescuing||pickingUp ? .72 : n.posture==='cover' ? .62 : 1;
   b.tag.position.y=down ? .95 : 2.4;
   b.tag.scale.set(r.m3 ? 1.55 : 3,r.m3 ? .39 : .75,1);
   const status=r.m3
    ? (down?'気絶':rescuing?'救助中':r.outfit?.m4.isUndressed(n)?'着替えへ':n.state==='investigate'?'調査中':n.guard?'待機':'復帰')
-   : pickingUp?'拾う':down?(n.life==='unconscious'?'気絶':'死亡'):`${n.state} ${Math.round(n.suspicion)}`;
+   : pickingUp?'拾う':down?(n.life==='unconscious'?'気絶':'死亡'):n.tactic?({move:'遮蔽へ',hide:'隠れる',peek:'撃つ'} as const)[n.tactic.phase]:`${n.state} ${Math.round(n.suspicion)}`;
   const g=b.tagCtx;g.clearRect(0,0,256,64);g.fillStyle='rgba(0,0,0,.6)';g.fillRect(0,0,256,64);g.fillStyle='#fff';g.font='26px sans-serif';g.textAlign='center';g.fillText(`${n.id} ${status}`,128,42);b.tagTex.needsUpdate=true;}
  playerMesh.position.set(r.player.x,r.player.y+.83,r.player.z);(playerMesh.material as T.MeshStandardMaterial).color.set(r.player.weaponDrawn?'#ff5a4a':'#4f8cff');playerMesh.visible=!r.player.hidden&&r.director.npcs.length!==0;
  while(marks.length<r.marks.length){const p=r.marks[marks.length],m=new T.Mesh(new T.CylinderGeometry(.18,.18,.06,12),new T.MeshBasicMaterial({color:'#ffd34d'}));m.position.set(p.x,.05,p.z);scene.add(m);marks.push(m);}
@@ -89,7 +94,7 @@ function drawRun(r:Run){
 // --- running
 const results=new Map<string,{pass:boolean;detail:string}>();
 let current:{s:Scenario;r:Run;over:boolean}|null=null;
-function start(s:Scenario){clearMarks();const r=begin(s);current={s,r,over:s.seconds<=0};if(current.over)finish();renderList();showDetail();}
+function start(s:Scenario){clearMarks();placeCrates(s);const r=begin(s);current={s,r,over:s.seconds<=0};if(current.over)finish();renderList();showDetail();}
 function finish(){if(!current)return;current.over=true;results.set(current.s.id,current.s.judge(current.r));renderList();showDetail();}
 function verdict(s:Scenario){const v=results.get(s.id);if(!v)return {icon:'・',cls:''};if(v.pass)return {icon:'✓',cls:'pass'};return s.known?{icon:'!',cls:'known'}:{icon:'✗',cls:'fail'};}
 function renderList(){

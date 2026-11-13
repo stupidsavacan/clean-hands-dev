@@ -1,12 +1,13 @@
 import {carryPointVisible} from './carry-sight.ts';
 import combatPose from './data/combat-pose.json' with {type:'json'};
-import type {Director,Knowledge,Npc,NpcDef,PlayerView} from './ai.ts';
+import type {CoverPlan,Director,Knowledge,Npc,NpcDef,PlayerView,Posture} from './ai.ts';
 import {defaultCarry,evaluateItemLegality,itemMaster,type ItemMaster} from './items.ts';
 import type {MissionEvents} from './events.ts';
 import type {HotelAlert} from './m3.ts';
 import {markDead,markUnconscious} from './kills.ts';
 import {segmentClear} from './sight.ts';
-import {floorOf,type Block,type Position} from './world.ts';
+import {floorOf,type Position} from './world.ts';
+import {buildCoverSpots,hiddenFrom,shootsFrom,type CoverRules,type CoverSpot} from './cover-spots.ts';
 /** M5.5 guns and gunfights ("the trump card when things fall apart").
  * The agent's pistol is concealed until drawn; a drawn gun seen by a guard starts a fight, by a bystander a flight.
  * Shots are hitscan with a noise radius; guards in a fight take cover, react after a delay and fire with a
@@ -16,9 +17,18 @@ import {floorOf,type Block,type Position} from './world.ts';
 export type WeaponDef={label:string;class:'pistol'|'long';concealable:boolean;legality:string;noise:'small'|'loud';damage:number;headshot:number;mag:number;reserve:number|number[];rate:number;npcOnly?:boolean;allowedFor?:string[];playerPickupId?:string;
  // A dart gun (2026-11-06): the hit person falls asleep after sedateSeconds instead of being hurt.
  sedative?:boolean;sedateSeconds?:number};
+/** Guard AI stage 1 (2026-11-13, investigation/guard-ai-policy-20261113.md): hiding behind cover, rising or stepping out to
+ * shoot, and keeping a distance instead of charging. HITMAN publishes no numbers for any of it: these are CLEAN HANDS values.
+ * ranges: the distance (m) each weapon class likes to fight at. search: how far (m) a guard looks for cover around them.
+ * rethink: seconds between choosing again. hide / peek: seconds behind cover and shooting from it (random in the range).
+ * hop: the longest dash (m) toward the agent when there is no cover on the way. back: how far (m) a guard backs off when
+ * too close. minToAgent: no cover closer than this (m) to the agent. top: the highest point (m) of the body in each posture,
+ * where a shot can still hit (kneeling is lower). */
+export type Tactics=CoverRules&{ranges:Record<'pistol'|'long',number[]>;search:number;rethink:number;hide:number[];peek:number[];hop:number;back:number;minToAgent:number;top:Record<Posture,number>};
+export const TACTICS:Tactics={lowMin:.7,lowMax:1.6,tallMin:1.8,maxSize:12,gap:.55,spacing:1.2,stepOut:.55,ranges:{pistol:[5,12],long:[7,18]},search:9,rethink:2.5,hide:[1.2,2.2],peek:[1.2,2],hop:8,back:5,minToAgent:4,top:{stand:1.85,cover:1.36,peek:1.67}};
 type LocalResponse={radius:number;count:number;seconds:number;protectedRoles:string[];protectedIds?:string[]};
 export type CombatRules={player:{health:number;regen:{delay:number;perSecond:number}};enemies:Record<string,{health:number;weapon?:string;hit?:number}>;accuracy:{near:number[];far:number[]};coverMultiplier:number;reactionTime:number;
- localResponse?:LocalResponse;
+ localResponse?:LocalResponse;tactics?:Partial<Tactics>;
  reinforcements:{atAlert:number;spawn:string[];size:number;waves:number;interval:number;firstDelay?:number;model?:string;sweepSeconds?:number};placed?:{gun:string;x:number;y:number;z:number;where:string}[];compromised:{clearDistance:number};reloadSeconds:number;range:number;noiseSmall:number;noiseLoudOutdoor:number;noiseLoudIndoor?:number;noiseFloorFactor?:number;noiseWallFactor?:number;loseSeconds:number;endSeconds:number;coverSearch:number;fleeDistance:number;cowerSeconds:number;closedExitsAtAlert3:string[];alert3After?:number};
 export type Gun={id:string;mag:number;reserve:number};
 export type Dropped={key:number;gun:Gun;pos:Position;stocked?:true;beingLiftedBy?:Npc};
@@ -44,12 +54,14 @@ export class CombatSystem{
  items:ItemMaster;
  waves=0;nextWave=Infinity;private lastEngage=-Infinity;private nextKey=1;private spawned=0;private lastKnown:Position|null=null;private lastSighted=-Infinity;
  readonly director:Director;readonly events:MissionEvents;readonly hotel:HotelAlert;readonly rules:CombatRules;readonly weapons:Record<string,WeaponDef>;readonly points:{id:string;x:number;z:number}[];readonly rng:()=>number;
- private readonly cover:Block[];
+ readonly tactics:Tactics;
+ /** Guard AI stage 1: every place to hide, made once from the map, and which guard has taken which. */
+ readonly spots:CoverSpot[];private readonly taken=new Map<CoverSpot,Npc>();
  private readonly responders=new Map<Npc,Position>();
  constructor(director:Director,events:MissionEvents,hotel:HotelAlert,rules:CombatRules,weapons:Record<string,WeaponDef>,points:{id:string;x:number;z:number}[],rng:()=>number=Math.random){
   this.director=director;this.events=events;this.hotel=hotel;this.rules=rules;this.weapons=weapons;this.points=points.filter(p=>rules.reinforcements.spawn.includes(p.id));this.rng=rng;this.hp=rules.player.health;this.items=itemMaster(weapons);
-  // Waist- to chest-high solids are cover: cars, crates, planters, counters, tables.
-  this.cover=director.mission.blockers.filter(b=>b.h>=.7&&b.h<=1.6&&b.w<12&&b.d<12&&!b.id.startsWith('water')&&b.id!=='pool');
+  this.tactics={...TACTICS,...rules.tactics,ranges:{...TACTICS.ranges,...rules.tactics?.ranges},top:{...TACTICS.top,...rules.tactics?.top}};
+  this.spots=buildCoverSpots(director.mission,director.world,director.nav,this.tactics);
   for(const n of director.npcs)this.arm(n);}
  private arm(n:Npc){n.kind=kindOf(n);const e=this.rules.enemies[n.kind]??this.rules.enemies.civilian;n.hp=e.health;n.weapon=n.loadout??e.weapon??'';}
  def(id:string){return this.weapons[id];}
@@ -84,8 +96,8 @@ export class CombatSystem{
   for(const n of this.director.npcs){if(!n.active||n.scheduledAway||n.bodyMode==='hidden')continue;
    // Closest approach of the line to the person's vertical axis, then the height there.
    const ox=n.pos.x-from.x,oz=n.pos.z-from.z,h2=u.x*u.x+u.z*u.z;if(h2<1e-6)continue;const t=(ox*u.x+oz*u.z)/h2;if(t<near||t>bestT)continue;
-   const cx=from.x+u.x*t-n.pos.x,cz=from.z+u.z*t-n.pos.z;if(cx*cx+cz*cz>.32*.32)continue;const y=from.y+u.y*t-n.pos.y;if(y<0||y>1.85)continue;
-   if(!segmentClear(this.director.boxes,from,{x:from.x+u.x*t,y:from.y+u.y*t,z:from.z+u.z*t}))continue;best=n;bestT=t;head=y>1.5;}
+   const cx=from.x+u.x*t-n.pos.x,cz=from.z+u.z*t-n.pos.z;if(cx*cx+cz*cz>.32*.32)continue;const y=from.y+u.y*t-n.pos.y,top=this.tactics.top[n.posture]??1.85;if(y<0||y>top)continue;
+   if(!segmentClear(this.director.boxes,from,{x:from.x+u.x*t,y:from.y+u.y*t,z:from.z+u.z*t}))continue;best=n;bestT=t;head=y>top-.35;}
   return {npc:best,t:bestT,head};}
  /** What the crosshair is on: the first person or solid along the view ray (camera or cursor). The shot is then fired
   * from the agent's chest at that point, so it lands where the crosshair is, not parallel to it. */
@@ -177,6 +189,8 @@ export class CombatSystem{
   if(time-this.lastHit>=this.rules.player.regen.delay)this.hp=Math.min(this.rules.player.health,this.hp+this.rules.player.regen.perSecond*dt);
   // A gun in hand is seen at once; a long gun on the back first fills the watcher's gauge (ai.ts baseRate).
   const drawn=!!this.hand,shown=this.shown(p.disguise),target={x:p.x,y:p.y,z:p.z};
+  // Guard AI stage 1: out of the fight (down, searching, arrested...), out of cover and standing again.
+  for(const n of this.director.npcs)if((n.tactic||n.posture!=='stand')&&(!n.active||n.state!=='combat'))this.leaveCover(n,time);
   for(const n of this.director.npcs){if(!n.active||n.busy||n.scheduledAway)continue;
    // Being seen with a gun out, or noticed with a gun on the back (or by a guard while the fight is on, in the blown outfit) starts or joins the fight.
    if(n.visibility>0&&n.state!=='combat'){
@@ -231,23 +245,55 @@ export class CombatSystem{
    this.responders.set(n,goal);
   }
  }
- private fightStep(n:Npc,p:PlayerView,dt:number,time:number){const seen=n.visibility>0&&(this.illegalIn(p.disguise)||n.hasConfirmedIdentity(p));
-  if(seen){n.lastSeen={x:p.x,y:p.y,z:p.z};this.lastKnown={...n.lastSeen};this.lastSighted=time;n.loseT=0;n.reactT+=dt;n.fireT-=dt;n.coverT-=dt;const d=flat(n.pos,p);
-   // Find cover once in a while: the far side of a nearby low solid, as seen from the agent; else close in when far.
-   if(n.coverT<=0){n.coverT=3;n.combatGoal=this.coverPoint(n,p)??(d>16?{x:p.x+(n.pos.x-p.x)/d*10,y:n.pos.y,z:p.z+(n.pos.z-p.z)/d*10}:null);}
-   const e=this.rules.enemies[n.kind]??this.rules.enemies.guard,w=this.def(n.weapon);
-   if(w&&n.reactT>=this.rules.reactionTime&&n.fireT<=0){n.fireT=1/w.rate*(.8+.4*this.rng());n.shotAt=time;const chance=hitChance(this.rules,d)*(n.visibility<1?this.rules.coverMultiplier:1),hit=this.rng()<chance;
-    const from={x:n.pos.x,y:n.pos.y+1.4,z:n.pos.z};this.tracers.push({from,to:hit?chest(p,p.crouched):{x:p.x+(this.rng()-.5)*1.2,y:p.y+.5+this.rng(),z:p.z+(this.rng()-.5)*1.2},time,npc:true,hit});
-    this.onReaction?.(n,'shoot',p.weaponDrawn?'gun_drawn':'confirmed_identity','sight',p);
-    if(hit){this.hp-=e.hit??10;this.lastHit=time;if(this.fight){this.fight.hits++;this.fight.damage+=e.hit??10;}this.events.emit({type:'player.hit',time,id:n.id,value:e.hit});}
-    if(w.noise==='loud'&&this.rng()<.25)this.noise(from,'loud',p,time);}}
-  else{n.loseT+=dt;n.reactT=0;n.combatGoal=n.lastSeen&&{...n.lastSeen};
-   if(n.loseT>this.rules.loseSeconds){n.state='search';n.goal=n.lastSeen&&{...n.lastSeen};n.arrived=false;n.timer=this.director.rules.timers.search;n.combatGoal=null;}}}
- private coverPoint(n:Npc,p:PlayerView){let best:Position|null=null,score=Infinity;
-  for(const b of this.cover){if((b.floor??0)!==floorOf(n.pos.y))continue;const c={x:b.x,z:b.z},d=flat(c,n.pos);if(d>this.rules.coverSearch)continue;
-   const away=Math.hypot(c.x-p.x,c.z-p.z)||1,r=Math.max(b.w,b.d)/2+.6,spot={x:c.x+(c.x-p.x)/away*r,y:n.pos.y,z:c.z+(c.z-p.z)/away*r};
-   if(this.director.world.blocked(spot.x,spot.y,spot.z)||flat(spot,p)<4)continue;const s=flat(spot,n.pos);if(s<score){score=s;best=spot;}}
-  return best;}
+ private fightStep(n:Npc,p:PlayerView,dt:number,time:number){const seen=n.visibility>0&&(this.illegalIn(p.disguise)||n.hasConfirmedIdentity(p));let plan=n.tactic;
+  if(seen){n.lastSeen={x:p.x,y:p.y,z:p.z};this.lastKnown={...n.lastSeen};this.lastSighted=time;n.loseT=0;n.reactT+=dt;}
+  // Behind cover is not losing the agent: they know where the agent was and look again when they come up.
+  else if(plan?.phase!=='hide'){n.loseT+=dt;n.reactT=0;
+   if(n.loseT>this.rules.loseSeconds){this.leaveCover(n,time);n.state='search';n.goal=n.lastSeen&&{...n.lastSeen};n.arrived=false;n.timer=this.director.rules.timers.search;n.combatGoal=null;return;}}
+  const threat=n.lastSeen??{x:p.x,y:p.y,z:p.z};n.fireT-=dt;n.coverT-=dt;
+  // Guard AI stage 1: choose again now and then, and at once when the agent has come round so the spot no longer hides them.
+  const exposed=!!plan&&plan.phase!=='move'&&seen&&!hiddenFrom(plan.spot,p,p.crouched,this.director.boxes);
+  if(n.coverT<=0||exposed){n.coverT=this.tactics.rethink;this.choose(n,threat,p.crouched,time);plan=n.tactic;}
+  if(plan)this.coverStep(n,plan,dt,time);
+  // Down behind cover they do not shoot; risen, stepped out, on the way or in the open they do.
+  const e=this.rules.enemies[n.kind]??this.rules.enemies.guard,w=this.def(n.weapon),d=flat(n.pos,p);
+  if(seen&&plan?.phase!=='hide'&&w&&n.reactT>=this.rules.reactionTime&&n.fireT<=0){n.fireT=1/w.rate*(.8+.4*this.rng());n.shotAt=time;const chance=hitChance(this.rules,d)*(n.visibility<1?this.rules.coverMultiplier:1),hit=this.rng()<chance;
+   const from={x:n.pos.x,y:n.pos.y+1.4,z:n.pos.z};this.tracers.push({from,to:hit?chest(p,p.crouched):{x:p.x+(this.rng()-.5)*1.2,y:p.y+.5+this.rng(),z:p.z+(this.rng()-.5)*1.2},time,npc:true,hit});
+   this.onReaction?.(n,'shoot',p.weaponDrawn?'gun_drawn':'confirmed_identity','sight',p);
+   if(hit){this.hp-=e.hit??10;this.lastHit=time;if(this.fight){this.fight.hits++;this.fight.damage+=e.hit??10;}this.events.emit({type:'player.hit',time,id:n.id,value:e.hit});}
+   if(w.noise==='loud'&&this.rng()<.25)this.noise(from,'loud',p,time);}}
+ /** Guard AI stage 1: the best free cover within reach that hides the guard from where the agent is (or was last seen)
+  * and from which the agent can be shot, preferring the weapon's distance and a short run. Without one, the distance is
+  * kept in the open: too close, they back off; too far, they close in by one dash, never straight on to the agent. */
+ private choose(n:Npc,threat:Position,crouched:boolean,time:number){const T=this.tactics,cls=this.def(n.weapon)?.class??'pistol',[near,far]=T.ranges[cls],floor=floorOf(n.pos.y),boxes=this.director.boxes,eye=this.director.rules.vision.eye,cur=n.tactic?.spot;
+  let best:CoverSpot|null=null,score=Infinity;
+  for(const s of this.spots){if(s.floor!==floor)continue;const travel=flat(s,n.pos);if(travel>T.search)continue;const owner=this.taken.get(s);if(owner&&owner!==n&&owner.active&&owner.state==='combat')continue;
+   const at=flat(s,threat);if(at<T.minToAgent)continue;
+   // The cheap part first (distance and run), then the two sight tests. Being out of the weapon's distance weighs more
+   // than the run, so a guard too far away moves on to the next cover instead of staying; staying put is only kept when
+   // the spot is already at a good distance.
+   const band=at<near?near-at:at>far?at-far:0,v=band*3+travel*.3-(s===cur&&band===0?1:0);if(v>=score)continue;
+   if(!hiddenFrom(s,threat,crouched,boxes)||!shootsFrom(s,threat,crouched,boxes,eye))continue;best=s;score=v;}
+  if(best){if(best!==cur){this.release(n);this.taken.set(best,n);n.tactic={spot:best,phase:'move',t:0};this.setPosture(n,'stand',time);n.combatGoal={x:best.x,y:best.y,z:best.z};}return;}
+  this.leaveCover(n,time);const d=flat(n.pos,threat);
+  if(d<near)n.combatGoal=this.away(n,threat,T.back);
+  else if(d>far){const k=Math.max(far-1,d-T.hop)/d;n.combatGoal={x:threat.x+(n.pos.x-threat.x)*k,y:n.pos.y,z:threat.z+(n.pos.z-threat.z)*k};}
+  else n.combatGoal=null;}
+ /** Behind the spot, rising (low cover) or stepping out past the end (a wall) to shoot, then down again. */
+ private coverStep(n:Npc,plan:CoverPlan,dt:number,time:number){const T=this.tactics,s=plan.spot,low=s.kind==='low',rand=(r:number[])=>r[0]+(r[1]-r[0])*this.rng();
+  if(plan.phase==='move'){n.combatGoal={x:s.x,y:s.y,z:s.z};if(flat(n.pos,s)<.45&&Math.abs(n.pos.y-s.y)<.45){plan.phase='hide';plan.t=rand(T.hide);this.setPosture(n,low?'cover':'stand',time);}else return;}
+  else{plan.t-=dt;
+   if(plan.phase==='hide'&&plan.t<=0){plan.phase='peek';plan.t=rand(T.peek);if(low)this.setPosture(n,'peek',time);}
+   else if(plan.phase==='peek'&&plan.t<=0){plan.phase='hide';plan.t=rand(T.hide);if(low)this.setPosture(n,'cover',time);}}
+  n.combatGoal=low?null:plan.phase==='peek'?{...s.peek}:{x:s.x,y:s.y,z:s.z};}
+ /** A walkable point about `dist` further from the threat, turning aside if straight back is a wall. */
+ private away(n:Npc,threat:Position,dist:number){const nav=this.director.nav,a=Math.atan2(n.pos.x-threat.x,n.pos.z-threat.z),floor=floorOf(n.pos.y);
+  for(const turn of [0,.6,-.6,1.2,-1.2])for(const k of [1,.6]){const t={x:n.pos.x+Math.sin(a+turn)*dist*k,y:n.pos.y,z:n.pos.z+Math.cos(a+turn)*dist*k},j=nav.nearest(t);if(j<0)continue;const q=nav.nodes[j];
+   if(floorOf(q.y)===floor&&Math.hypot(q.x-t.x,q.z-t.z)<.6&&flat(q,threat)>flat(n.pos,threat)+1)return {x:q.x,y:q.y,z:q.z};}
+  return null;}
+ private setPosture(n:Npc,posture:Posture,time:number){if(n.posture===posture)return;n.posturePrev=n.posture;n.posture=posture;n.postureAt=time;}
+ private release(n:Npc){for(const [s,o] of this.taken)if(o===n)this.taken.delete(s);}
+ private leaveCover(n:Npc,time:number){this.release(n);n.tactic=null;this.setPosture(n,'stand',time);}
  /** F11: a spawn point the agent cannot see from close by, else any (the waves are finite either way). */
  private spawnPoint(k:number,p?:PlayerView){const pts=this.points.map((_,j)=>this.points[(this.waves+k+j)%this.points.length]);
   return pts.find(at=>!p||Math.hypot(at.x-p.x,at.z-p.z)>12||!segmentClear(this.director.boxes,{x:at.x,y:1.5,z:at.z},{x:p.x,y:p.y+1.5,z:p.z}))??pts[0];}
@@ -258,5 +304,6 @@ export class CombatSystem{
    const def:NpcDef={id:`response_${i}`,role:'guard',label:'増援部隊',floor:0,model:R.model??'guard',route:[[x,z]],faction:'response_team',securityRole:'response',combatProfile:'response',loadout:this.rules.enemies.response?.weapon,disguiseId:'guard'};const n=this.director.addNpc(def);this.arm(n);n.reinforcement=true;
    if(goal){n.state='search';n.goal={...goal};n.lastSeen={...goal};n.arrived=false;n.timer=this.director.rules.timers.search*2;n.suspicion=100;}}
   this.events.emit({type:'alert.level',time,value:this.hotel.level,reason:'reinforcements'});}
- snapshot(){return {hp:Math.round(this.hp),hand:this.hand,guns:this.guns.map(g=>({...g})),reloading:this.reloadT>0,armed:this.armed,fight:this.fight&&{...this.fight},fights:this.fights.map(f=>({...f})),waves:this.waves,dropped:this.dropped.map(d=>({id:d.gun.id,pos:d.pos})),closedExits:this.closedExits(),reinforcementWave:this.waves,reinforcementRemaining:Math.max(0,this.rules.reinforcements.waves-this.waves)*this.rules.reinforcements.size,inCombat:this.director.npcs.filter(n=>n.active&&n.state==='combat').map(n=>n.id),fleeing:this.director.npcs.filter(n=>n.active&&n.state==='flee').length};}
+ snapshot(){return {hp:Math.round(this.hp),hand:this.hand,guns:this.guns.map(g=>({...g})),reloading:this.reloadT>0,armed:this.armed,fight:this.fight&&{...this.fight},fights:this.fights.map(f=>({...f})),waves:this.waves,dropped:this.dropped.map(d=>({id:d.gun.id,pos:d.pos})),closedExits:this.closedExits(),reinforcementWave:this.waves,reinforcementRemaining:Math.max(0,this.rules.reinforcements.waves-this.waves)*this.rules.reinforcements.size,inCombat:this.director.npcs.filter(n=>n.active&&n.state==='combat').map(n=>n.id),fleeing:this.director.npcs.filter(n=>n.active&&n.state==='flee').length,
+  cover:this.director.npcs.filter(n=>n.tactic).map(n=>({id:n.id,phase:n.tactic!.phase,posture:n.posture,spot:n.tactic!.spot.id,kind:n.tactic!.spot.kind}))};}
 }

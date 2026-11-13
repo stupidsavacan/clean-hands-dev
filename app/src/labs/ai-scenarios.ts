@@ -8,7 +8,8 @@ import {coinMesh} from '../coin-pickup-pose.ts';
 import {DeviceSystem,type DeviceDef} from '../devices.ts';
 import {ChoreSystem} from '../chores.ts';
 import {DoorSystem} from '../doors.ts';
-import {CollisionWorld,type Position} from '../world.ts';
+import {CollisionWorld,type Block,type Position} from '../world.ts';
+import {hiddenFrom} from '../cover-spots.ts';
 import {NavGrid} from '../nav.ts';
 import {segmentClear,sightBoxes} from '../sight.ts';
 import {Director,type AiEvent,type Mission,type NpcDef,type PlayerView,type Rules} from '../ai.ts';
@@ -16,7 +17,7 @@ import {MissionEvents} from '../events.ts';
 import {M3System,type HideDef} from '../m3.ts';
 import {M4System} from '../m4.ts';
 import {MissionClock,ScheduleSystem} from '../schedule.ts';
-import {CombatSystem,type CombatRules,type WeaponDef} from '../combat.ts';
+import {CombatSystem,TACTICS,type CombatRules,type Tactics,type WeaponDef} from '../combat.ts';
 import rulesData from '../data/club-rules.json' with {type:'json'};
 import combatData from '../data/club-combat.json' with {type:'json'};
 import weaponsData from '../data/weapons.json' with {type:'json'};
@@ -53,7 +54,7 @@ export const ARENA:Mission={
 export const rules=rulesData as unknown as Rules;
 const combatRules=combatData as unknown as CombatRules,weapons=weaponsData as unknown as Record<string,WeaponDef>;
 let shared:{world:CollisionWorld;nav:NavGrid;boxes:ReturnType<typeof sightBoxes>}|undefined;
-function newArena(){const world=new CollisionWorld(ARENA);return {world,nav:new NavGrid(world),boxes:sightBoxes(ARENA)};}
+function newArena(mission:Mission=ARENA){const world=new CollisionWorld(mission);return {world,nav:new NavGrid(world),boxes:sightBoxes(mission)};}
 export function arena(){return shared??=newArena();}
 
 // A guard standing at x,z facing `heading` (radians, 0 = +z), or walking `route`.
@@ -66,6 +67,8 @@ export type Run={vipShotAt?:number;vip?:{protection:VipProtection;clock:MissionC
 export type Scenario={
  id:string;group:'視認'|'聴覚'|'無線'|'戦闘'|'捜索'|'経路探索'|'立入禁止'|'検問'|'救助'|'設備'|'要人';title:string;expect:string;
  npcs:NpcDef[];seconds:number;combat?:boolean;isolated?:boolean;
+ // Solids put in the hall for this scenario only (crates for the cover tests); the arena is then built afresh.
+ blockers?:Block[];
  // A finding the lab turned up that the AI does not meet yet (the test suite lists it as todo, not as a failure).
  known?:string;
  // Called once before the first step (throw a coin, start a radio call…).
@@ -81,6 +84,19 @@ export type Scenario={
 const has=(r:Run,type:string,id?:string)=>r.events.some(e=>e.type===type&&(!id||e.npc.id===id));
 const npc=(r:Run,id:string)=>r.director.npcs.find(n=>n.id===id)!;
 const flat=(a:Position,b:Position)=>Math.hypot(a.x-b.x,a.z-b.z);
+// Guard AI stage 1 helpers: a crate in the hall, the agent's silenced pistol out, and what the guards did behind cover.
+export const TACTICS_RULES:Tactics={...TACTICS,...combatRules.tactics,ranges:{...TACTICS.ranges,...combatRules.tactics?.ranges},top:{...TACTICS.top,...combatRules.tactics?.top}};
+const crate=(id:string,x:number,z:number,w:number,d:number,h=1.2):Block=>({id:'crate-'+id,x,z,w,d,y:0,h,floor:0});
+const draw=(r:Run)=>{const c=r.combat!;c.equip('pistol_silenced');c.hand='pistol_silenced';};
+type CoverWatch={phases:string[];spots:number[];postures:Set<string>;shots:number;hiddenShots:number;closest:number;clash:number;last:Map<string,string>;shotAt:Map<string,number>};
+const watches=new WeakMap<Run,CoverWatch>();
+const watched=(r:Run)=>{let w=watches.get(r);if(!w)watches.set(r,w={phases:[],spots:[],postures:new Set(),shots:0,hiddenShots:0,closest:Infinity,clash:0,last:new Map(),shotAt:new Map()});return w;};
+function watchCover(r:Run,ids:string[]){const w=watched(r);
+ for(const id of ids){const n=npc(r,id),t=n.tactic,key=t?`${id} ${t.phase}`:`${id} open`;
+  if(w.last.get(id)!==key){w.last.set(id,key);if(t){w.phases.push(key);r.log.push(`${key}#${t.spot.id}`);}}
+  if(t&&w.spots[w.spots.length-1]!==t.spot.id&&ids.length===1)w.spots.push(t.spot.id);
+  w.postures.add(n.posture);
+  if(n.shotAt!==(w.shotAt.get(id)??-Infinity)){w.shotAt.set(id,n.shotAt);w.shots++;if(t?.phase==='hide')w.hiddenShots++;}}}
 
 export const SCENARIOS:Scenario[]=[
  {id:'sight-front',group:'視認',title:'正面の立入禁止は見つかる',expect:'職員室にいるスーツ姿を6m先の警備が見て、振り向き→確かめに来る',
@@ -188,6 +204,35 @@ export const SCENARIOS:Scenario[]=[
   done:r=>npc(r,'g1').state==='combat',
   judge:r=>({pass:!r.log.includes('見えない拳銃に反応')&&r.time>=1.5&&npc(r,'g1').state==='combat',detail:npc(r,'g1').state==='combat'?'銃が見えて戦闘へ':'戦闘に入らなかった'}),
  },
+ // Guard AI stage 1 (2026-11-13, investigation/guard-ai-policy-20261113.md): cover, peeking and keeping a distance.
+ {id:'cover-peek',group:'戦闘',title:'低い箱の裏に隠れ、立ち上がって撃つ',expect:'銃を構えると、警備は近くの低い箱（1.2 m）の裏へ行き、しゃがんで隠れる。立ち上がって撃ち、またしゃがむ。しゃがんでいる間は撃たない。',
+  npcs:[guard('g1',-13,-10,Math.PI/2)],seconds:12,combat:true,blockers:[crate('a',-10,-10,1.2,1.2)],
+  player:()=>player(-2,-10,{weaponDrawn:true}),start:draw,step:r=>watchCover(r,['g1']),
+  judge:r=>{const w=watched(r),g=npc(r,'g1'),spot=g.tactic?.spot;
+   const ok=w.phases.includes('g1 hide')&&w.phases.includes('g1 peek')&&w.phases.lastIndexOf('g1 hide')>w.phases.indexOf('g1 peek')&&w.postures.has('cover')&&w.postures.has('peek')&&w.shots>0&&w.hiddenShots===0&&!!spot&&spot.kind==='low'&&spot.x<-10.6;
+   return {pass:ok,detail:`${w.phases.join(' → ')} · 撃った ${w.shots} 回（しゃがみ中 ${w.hiddenShots}）`};}},
+ {id:'cover-flanked',group:'戦闘',title:'回り込まれたら、次の遮蔽へ移る',expect:'箱の裏に隠れた警備の横へエージェントが回り込むと、箱が盾にならなくなる。警備は、今のエージェントから隠れる別の場所へ移る。',
+  npcs:[guard('g1',-13,-10,Math.PI/2)],seconds:16,combat:true,blockers:[crate('a',-10,-10,1.2,1.2)],
+  player:t=>{const k=Math.min(1,Math.max(0,(t-5)/3));return player(-2-9*k,-10+7*k,{weaponDrawn:true});},start:draw,step:r=>watchCover(r,['g1']),
+  judge:r=>{const w=watched(r),g=npc(r,'g1'),spot=g.tactic?.spot,first=w.spots[0],moved=w.spots.length>=2;
+   const hidden=!!spot&&g.tactic!.phase!=='move'&&hiddenFrom(spot,r.player,false,r.director.boxes);
+   return {pass:first!==undefined&&moved&&hidden,detail:`遮蔽 ${w.spots.join(' → ')||'なし'} · 今の場所は${hidden?'隠れている':'丸見え'}`};}},
+ {id:'cover-advance',group:'戦闘',title:'遠いと遮蔽を伝って詰める',expect:'13.9 m 先で銃を構えると、警備は拳銃の距離（12 m 以内）になる所まで詰め、エージェントから隠れる箱の裏に入る。エージェントまで走り込まない。',
+  npcs:[guard('g1',-15.4,-8,Math.PI/2)],seconds:10,combat:true,blockers:[crate('a',-14.2,-8.4,1.2,1.2),crate('b',-9,-8.4,1.2,1.2)],
+  player:()=>player(-1.5,-8,{weaponDrawn:true}),start:draw,step:r=>{watchCover(r,['g1']);const w=watched(r);w.closest=Math.min(w.closest,flat(npc(r,'g1').pos,r.player));},
+  judge:r=>{const w=watched(r),d=flat(npc(r,'g1').pos,r.player),ranges=TACTICS_RULES.ranges.pistol;
+   const t=npc(r,'g1').tactic;
+   return {pass:!!t&&t.phase!=='move'&&hiddenFrom(t.spot,r.player,false,r.director.boxes)&&d<=ranges[1]&&w.closest>=ranges[0],detail:`遮蔽 ${w.spots.join(' → ')||'なし'} · 今 ${d.toFixed(1)} m · いちばん近づいた ${w.closest.toFixed(1)} m`};}},
+ {id:'cover-backoff',group:'戦闘',title:'近すぎると下がる',expect:'3 m の所で銃を構えると、警備は突っ込まずに下がり、拳銃の距離（5 m 以上）を取る。',
+  npcs:[guard('g1',-10,-10,Math.PI/2)],seconds:6,combat:true,
+  player:()=>player(-7,-10,{weaponDrawn:true}),start:draw,
+  judge:r=>{const g=npc(r,'g1'),d=flat(g.pos,r.player);return {pass:g.state==='combat'&&d>=TACTICS_RULES.ranges.pistol[0]-.5,detail:`警備 ${g.state} · 距離 ${d.toFixed(1)} m`};}},
+ {id:'cover-share',group:'戦闘',title:'2人で同じ場所に隠れない',expect:'横に長い箱の裏に2人が隠れる。1人1か所で、同じ場所を取り合わない。',
+  npcs:[guard('g1',-13,-10.6,Math.PI/2),guard('g2',-13,-9.4,Math.PI/2)],seconds:8,combat:true,blockers:[crate('a',-10,-10,1.2,2.4)],
+  player:()=>player(-2,-10,{weaponDrawn:true}),start:draw,
+  step:r=>{watchCover(r,['g1','g2']);const a=npc(r,'g1').tactic?.spot,b=npc(r,'g2').tactic?.spot;if(a&&a===b)watched(r).clash++;},
+  judge:r=>{const w=watched(r),a=npc(r,'g1').tactic,b=npc(r,'g2').tactic;
+   return {pass:w.clash===0&&!!a&&!!b&&a.spot!==b.spot&&a.phase!=='move'&&b.phase!=='move',detail:`g1 ${a?a.phase+'#'+a.spot.id:'なし'} · g2 ${b?b.phase+'#'+b.spot.id:'なし'} · 重なり ${w.clash}`};}},
  {id:'search-lose',group:'捜索',title:'見失うと捜索し、やがて戻る',expect:'警戒させてから視界の外へ消えると、捜索 → 落ち着いて持ち場へ',
   npcs:[guard('g1',13,-10,0)],seconds:40,player:(_t,r)=>npc(r,'g1').state==='alert'&&!r.log.includes('逃げた')?(r.log.push('逃げた'),player(-17,12)):r.log.includes('逃げた')?player(-17,12):player(13,-5,{speed:1}),
   done:r=>has(r,'calm')&&r.log.includes('逃げた'),
@@ -366,8 +411,8 @@ function stepVip(r:Run){const v=r.vip!;v.clock.step(DT);v.protection.step(v.cloc
 
 // One scenario, stepped by the caller (the lab page animates it; run() finishes it at once).
 export function begin(s:Scenario):Run{
- const {world,nav,boxes}=s.isolated?newArena():arena();
- const director=new Director({...ARENA,npcs:structuredClone(s.npcs)},world,nav,boxes,structuredClone(rules));
+ const mission:Mission={...ARENA,blockers:s.blockers??ARENA.blockers},{world,nav,boxes}=s.isolated||s.blockers?newArena(mission):arena();
+ const director=new Director({...mission,npcs:structuredClone(s.npcs)},world,nav,boxes,structuredClone(rules));
  const r:Run={director,events:[],log:[],time:0,player:player(0,0),marks:[]};r.player=s.player(0,r);
  if(s.combat){const m3=new M3System(director,[],rulesData.m3 as never);r.combat=new CombatSystem(director,new MissionEvents(),m3.hotel,combatRules,weapons,[],()=>0);}
  s.start?.(r);

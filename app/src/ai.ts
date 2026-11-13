@@ -6,7 +6,12 @@ import type {CoinPickup} from './coin-pickup.ts';
 import type {TraversalFrame} from './party/traversal.ts';
 import {visibleCarry,type CarrySight} from './carry-sight.ts';
 import {IncidentLog,type IncidentRef} from './incidents.ts';
+import type {CoverSpot} from './cover-spots.ts';
 export type Role='guard'|'guest'|'waiter';
+// Guard AI stage 1: 'cover' kneels behind low cover, 'peek' has risen over it to shoot. Standing behind a wall end is 'stand'.
+export type Posture='stand'|'cover'|'peek';
+// move: on the way to the spot. hide: behind it, not shooting. peek: shooting from it (risen, or stepped out past the end).
+export type CoverPlan={spot:CoverSpot;phase:'move'|'hide'|'peek';t:number};
 // combat: a guard in a gunfight (driven by CombatSystem); flee: a bystander running from gunfire, then cowering.
 export type State='patrol'|'curious'|'investigate'|'alert'|'search'|'report'|'distracted'|'verify'|'combat'|'flee';
 export type ZoneType='public'|'staff'|'secure'|'outer';
@@ -85,6 +90,9 @@ export class Npc{
  deathKind:'accident'|'murder'|'combat'='murder';deathMethod='direct';scriptedGoal:Position|null=null;scriptedAction='';scriptedHeading:number|null=null;scriptedImmune=false;
  // M5.5 gunfights: health, the gun carried (guards), where to stand, and timers CombatSystem keeps.
  hp=100;weapon='';kind:'guard'|'bodyguard'|'response'|'civilian'='civilian';reinforcement=false;combatGoal:Position|null=null;reactT=0;fireT=0;coverT=0;shotAt=-Infinity;
+ // Guard AI stage 1 (2026-11-13): how the body stands in a fight (kneeling behind low cover, risen to shoot over it), when
+ // that last changed and from what (NpcView animates the change), and the cover plan CombatSystem keeps.
+ posture:Posture='stand';posturePrev:Posture='stand';postureAt=-Infinity;tactic:CoverPlan|null=null;
  // M5.6: a bystander who saw a crime or a body and is running to tell a guard (what, where, and a key so it counts once).
  witnessCooldown=0;
  // suspect: they only saw someone behaving oddly (a guard comes to look; the outfit is not blown); disguise: the outfit

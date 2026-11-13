@@ -29,6 +29,8 @@
  "loseSeconds": 4,
  "endSeconds": 6,
  "coverSearch": 7,
+ "_tacticsNote": "警備AIの第1段（2026-11-13、investigation/guard-ai-policy-20261113.md）。遮蔽に隠れ、立ち上がる・壁の端から出て撃ち、武器ごとの距離を保つ。HITMAN の数値は見つからないので、すべて CLEAN HANDS 独自の値。ranges：武器の種類ごとの戦う距離（m）。遠い方は警備の視界（14 m）より内側にする（見えない所までは詰めずに捜索になるため）。search：遮蔽を探す半径（m、coverSearch の代わり）。rethink：選び直す秒。hide・peek：隠れる秒・撃つ秒（範囲の中で乱数）。hop：遮蔽がない時に一度に詰める距離（m）。back：近すぎる時に下がる距離（m）。minToAgent：エージェントにこれより近い遮蔽は使わない（m）。top：姿勢ごとの体の上端（m、撃たれる高さ）。lowMin・lowMax：低い遮蔽になる物の高さ。tallMin：横から覗く高い物の高さ。gap：遮蔽から立つ位置までの距離。spacing：遮蔽の面に沿った間隔。stepOut：壁の端から出る距離。",
+ "tactics": { "ranges": { "pistol": [5, 12], "long": [7, 18] }, "search": 9, "rethink": 2.5, "hide": [1.2, 2.2], "peek": [1.2, 2], "hop": 8, "back": 5, "minToAgent": 4, "top": { "stand": 1.85, "cover": 1.36, "peek": 1.67 }, "lowMin": 0.7, "lowMax": 1.6, "tallMin": 1.8, "maxSize": 12, "gap": 0.55, "spacing": 1.2, "stepOut": 0.55 },
  "fleeDistance": 18,
  "cowerSeconds": 25,
  "alert3After": 15,

@@ -49,7 +49,12 @@ export class CombatView{
  /** Hooked into NpcView: guards in a fight aim their own gun; bystanders run with their arms over their heads, then cower. */
  npc(view:NpcView,time:number){const n=view.npc;let w=this.npcGuns.get(view);
   if(n.active&&!n.busy&&n.state==='combat'&&n.weapon){if(!w){w=this.weapon(n.weapon,view.group);if(w)this.npcGuns.set(view,w);}if(!w)return;const since=time-n.shotAt;
-   poseCombat(view.rig,view.group,view.body,since<COMBAT_SECONDS.fire?sampleCombat('fire',w.cls,since/COMBAT_SECONDS.fire):sampleCombat('aim',w.cls,(time/COMBAT_SECONDS.aim)%1),w);w.object.visible=true;return;}
+   // Guard AI stage 1: kneeling behind low cover, rising over it to shoot (coverAim) and going down again (coverAim backwards).
+   const change=time-n.postureAt,rise=COMBAT_SECONDS.coverAim;
+   const frame=n.posture==='cover'?(n.posturePrev==='peek'&&change<rise?sampleCombat('coverAim',w.cls,1-change/rise):sampleCombat('cover',w.cls,(time/COMBAT_SECONDS.cover)%1))
+    :n.posture==='peek'?sampleCombat('coverAim',w.cls,Math.min(1,change/rise))
+    :since<COMBAT_SECONDS.fire?sampleCombat('fire',w.cls,since/COMBAT_SECONDS.fire):sampleCombat('aim',w.cls,(time/COMBAT_SECONDS.aim)%1);
+   poseCombat(view.rig,view.group,view.body,frame,w);w.object.visible=true;return;}
   if(w)w.object.visible=false;
   if(n.active&&n.state==='flee'){if(!n.arrived)layerUpper(view.rig,sampleCombat('flee','pistol',(performance.now()/800)%1).pose);else applyMotion(view.rig,view.body,sampleCombat('duck','pistol',1).pose);}}
  /** A gun an armed NPC carries while not fighting, in the actor's own space: a pistol muzzle-down in a holster on the
