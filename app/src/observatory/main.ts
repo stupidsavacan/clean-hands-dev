@@ -19,7 +19,7 @@ import type {CrowdData} from '../engine/crowd';
 import type {LookData} from '../engine/types';
 import {ObservatoryWorld,type SystemsDef} from './world';
 import {ObservatoryScript,type ObservatoryConfig} from './script';
-import {buildScenery} from './scenery';
+import {buildScenery,rainSettings} from './scenery';
 import {Panel} from './panel';
 import {Sound} from './sound';
 
@@ -34,6 +34,9 @@ const {clothes,...mission}=brief;
 
 // The world and script of the mission being played (a restart makes new ones); the picture, panel and sound read them.
 let live:{world:ObservatoryWorld;script:ObservatoryScript}|undefined;
+// The room the picture is lit for when it is not the player's (the movie page sets it to where its camera looks).
+let focus='';
+const OUTSIDE=new Set(['yard','west','east','north','catwalk']);
 const sound=new Sound(),panel=new Panel(on=>sound.set(on));
 
 runGame({
@@ -50,7 +53,7 @@ runGame({
  // Drawn by scenery.ts instead of as plain boxes.
  decoratedBlockers:new Set(['mount-telescope','machine-generator','tank-day','tank-fuel','tank-nitrogen','dewar-cryo','stove-lounge','orrery-lobby','panel-main','mast-weather','pole-line']),
  decorate:ctx=>{
-  const scenery=buildScenery(ctx,layout.rooms,config.acts,()=>live&&{world:live.world,here:{room:live.script.zone(position),outdoor:live.script.here.outdoor}});
+  const scenery=buildScenery(ctx,layout.rooms,config.acts,()=>live&&(focus?{world:live.world,here:{room:focus,outdoor:OUTSIDE.has(focus)}}:{world:live.world,here:{room:live.script.zone(position),outdoor:live.script.here.outdoor}}));
   const position={x:28,y:0,z:2};
   return {
    afterFreeze:scenery.afterFreeze,
@@ -74,4 +77,4 @@ runGame({
   hint:'黄色い輪で E 長押し：ブレーカー・弁・ケーブル。掲示と保守メモ、2階の気象モニターが手がかり。',
  },
 });
-Object.assign(window,{__observatory:{snapshot:()=>live?.script.snapshot(),operate:(id:string)=>live?.script.operate(id),world:()=>live?.world}});
+Object.assign(window,{__observatory:{snapshot:()=>live?.script.snapshot(),operate:(id:string)=>live?.script.operate(id),world:()=>live?.world,focus:(room:string)=>{focus=room;},rain:rainSettings}});

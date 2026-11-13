@@ -14,6 +14,10 @@ export type Live={world:ObservatoryWorld;here:{room:string;outdoor:boolean}}|und
 type Spot={id:string;at:Position};
 
 const DOME={x:28,z:30,base:5.9,radius:8.4};
+/** How much rain is drawn and how far round the camera (the movie page raises these for wide shots). */
+/** Parts the movie page dresses differently (film-set.ts). */
+export const filmHandles:{domeShell?:T.MeshStandardMaterial}={};
+export const rainSettings={count:1600,box:46,top:16,width:.012,length:.7,opacity:1};
 const BUILDING={minX:10,maxX:46,minZ:10,maxZ:38},SHED={minX:2,maxX:8,minZ:28,maxZ:36};
 const inside=(r:{minX:number;maxX:number;minZ:number;maxZ:number},x:number,z:number)=>x>r.minX&&x<r.maxX&&z>r.minZ&&z<r.maxZ;
 
@@ -41,11 +45,24 @@ export function buildScenery(ctx:DecorContext,rooms:Rect[],spots:Spot[],live:()=
  const background=scene.background as T.Color,fog=scene.fog as T.Fog;
  fog.near=45;fog.far=110;
  const g0=group(0),g1=group(1);
+ const screens:T.Mesh[]=[],rackLeds:T.Mesh[]=[],ledMats=new Map<string,T.MeshStandardMaterial>();
+ const lampOnFor=(color:string)=>{let m=ledMats.get(color);if(!m){m=glow(color,1.5);ledMats.set(color,m);}return m;};
  const steel=std('#8c98a3',{metalness:.5,roughness:.45}),dark=std('#22272d'),white=std('#dfe6ea',{roughness:.5});
 
- // ---- the mountain around the map: dark slopes so the yard does not end in nothing --------------------------
+ // ---- the night sky and the mountain top: a sky that is a little lighter at the horizon, so the slopes read ------
+ const skyMaterial=new T.MeshBasicMaterial({vertexColors:true,side:T.BackSide,fog:false,depthWrite:false});
  {
-  const rock=std('#11161d',{roughness:1});
+  const geo=new T.SphereGeometry(140,24,12),pos=geo.getAttribute('position'),colors=new Float32Array(pos.count*3);
+  const low=new T.Color('#2a3650'),high=new T.Color('#05070c'),c=new T.Color();
+  for(let i=0;i<pos.count;i++){const k=Math.max(0,Math.min(1,pos.getY(i)/140*2.2+.08));c.copy(low).lerp(high,Math.sqrt(k));colors.set([c.r,c.g,c.b],i*3);}
+  geo.setAttribute('color',new T.BufferAttribute(colors,3));
+  const sky=mesh(geo,skyMaterial,28,-4,24,scene);sky.renderOrder=-10;
+  // Bare rock round the buildings, falling away at the edge.
+  const rockTop=mesh(new T.CylinderGeometry(78,96,6,20),std('#171c23',{roughness:1}),28,-3.06,22,scene);rockTop.receiveShadow=true;
+ }
+ {
+  // Unlit, so the slopes stay silhouettes against the sky when lightning lights it.
+  const rock=new T.MeshBasicMaterial({color:'#090c11'});
   for(const [x,z,r,h] of [[-40,72,30,26],[28,96,40,34],[98,70,32,28],[-44,8,24,14],[102,2,26,16]] as number[][]){
    const cone=mesh(new T.ConeGeometry(r,h,7),rock,x,h/2-6,z,scene);cone.rotation.y=x*.37;
   }
@@ -54,6 +71,7 @@ export function buildScenery(ctx:DecorContext,rooms:Rect[],spots:Spot[],live:()=
  // ---- the dome ---------------------------------------------------------------------------------------------
  const shell=new T.MeshStandardMaterial({color:'#d8e1e6',roughness:.35,metalness:.3,transparent:true,opacity:.2,depthWrite:false,side:T.DoubleSide});
  // The shutter's opening runs from the zenith down the north side; the shell leaves it out.
+ filmHandles.domeShell=shell;
  const slitHalf=.2;
  mesh(new T.SphereGeometry(DOME.radius,28,10,Math.PI/2+slitHalf,Math.PI*2-slitHalf*2,0,Math.PI/2),shell,DOME.x,DOME.base,DOME.z,g1);
  const ribs=std('#aeb9c1',{metalness:.5,roughness:.4});
@@ -140,18 +158,34 @@ export function buildScenery(ctx:DecorContext,rooms:Rect[],spots:Spot[],live:()=
  mesh(new T.BoxGeometry(.3,.5,.3),std('#59626a'),28,3.5+.25,39.75,g1);
  const crankWheel=mesh(new T.TorusGeometry(.22,.035,5,12),std('#c0392b'),28,3.5+.75,39.55,g1);
  const monitor=mesh(new T.BoxGeometry(.7,.45,.05),glow('#3fa7d6',1.1),44.6,3.5+1.25,36.9,g1);monitor.rotation.x=-.2;
+ // Screens on the control desks, lamps on the racks, a lamp on the reception desk.
+ const screen=glow('#4fb3e8',1.3),screenAlt=glow('#7fe0b0',1.1),bezel=std('#14181d');
+ for(const [dz,z] of [[0,27],[1,30.5]] as number[][])for(let i=0;i<3;i++){
+  const m=mesh(new T.BoxGeometry(.62,.4,.04),bezel,11.2+i*.8,1.2,z-.25,g0);m.rotation.x=-.12;
+  const face=mesh(new T.BoxGeometry(.56,.34,.02),(i+dz)%2?screenAlt:screen,11.2+i*.8,1.2,z-.22,g0);face.rotation.x=-.12;screens.push(face);
+  mesh(new T.BoxGeometry(.06,.2,.06),bezel,11.2+i*.8,.98,z-.28,g0);
+  mesh(new T.BoxGeometry(.4,.02,.15),bezel,11.2+i*.8,.91,z+.15,g0);
+ }
+ for(const z of [28.2,30.6])for(let i=0;i<7;i++)for(let j=0;j<5;j++)
+  rackLeds.push(mesh(new T.BoxGeometry(.05,.03,.02),(i*3+j)%4?lampOnFor('#58d68d'):lampOnFor('#f5b041'),31.95+i*.35,.5+j*.3,z+.46,g0));
+ {const m=mesh(new T.BoxGeometry(.7,.42,.04),bezel,23.6,1.42,12.2,g0);m.rotation.x=.1;const f=mesh(new T.BoxGeometry(.64,.36,.02),screen,23.6,1.42,12.23,g0);f.rotation.x=.1;screens.push(f);}
+ mesh(new T.CylinderGeometry(.09,.14,.22,8),glow('#ffd9a0',1.6),21.8,1.3,12.4,g0);
+ // The director's desk lamp and the staff room's.
+ mesh(new T.CylinderGeometry(.08,.13,.2,8),glow('#ffd9a0',1.6),12.7,1.05,36.4,g0);
+ mesh(new T.CylinderGeometry(.08,.13,.2,8),glow('#ffd9a0',1.4),42.6,.8,29.4,g0);
  // A small amber marker at every place the player can work on something.
  const beacon=new T.MeshBasicMaterial({color:'#ffcf5a',transparent:true,opacity:.75,depthWrite:false});
  for(const s of spots){const b=mesh(new T.RingGeometry(.2,.26,20),beacon,s.at.x,s.at.y+.035,s.at.z,s.at.y>1?g1:g0);b.rotation.x=-Math.PI/2;}
 
  // ---- built after the static freeze: everything that moves or changes ---------------------------------------
- let rain:T.LineSegments|undefined,rainData:Float32Array,rainSeeds:Float32Array;
- let bolt:T.Line|undefined,boltUntil=0,lastStrike:Strike|undefined;
- let shutters:T.Mesh[]=[],cups:T.Group|undefined,fog0:T.Mesh|undefined,fogHall:T.Mesh|undefined,plume:T.Mesh|undefined,exhaust:T.Mesh|undefined,cableLoose:T.Mesh|undefined,cableOn:T.Mesh|undefined;
+ let rain:T.Mesh|undefined,rainData:Float32Array,rainSeeds:Float32Array;
+ let bolt:T.Mesh|undefined,boltUntil=0,lastStrike:Strike|undefined;
+ const BOLT=13;
+ let shutters:T.Mesh[]=[],cups:T.Group|undefined,fog0:T.Mesh|undefined,fogHall:T.Mesh|undefined,plume:T.Group|undefined,exhaust:T.Mesh|undefined,cableLoose:T.Mesh|undefined,cableOn:T.Mesh|undefined;
  const pools:{room:Rect;mesh:T.Mesh;lamp:T.Mesh;level:number}[]=[];
  let roomLight:T.PointLight|undefined,stoveLight:T.PointLight|undefined;
  const warm=new T.Color('#ffdcae'),cool=new T.Color('#cfe2ff'),red=new T.Color('#ff4a3a');
- const RAIN=1400;
+ const RAIN_MAX=12000;
 
  function afterFreeze(){
   // Light pools and ceiling lamps, one per room.
@@ -183,32 +217,43 @@ export function buildScenery(ctx:DecorContext,rooms:Rect[],spots:Spot[],live:()=
   cups=new T.Group();cups.position.set(51,7,36);g0.add(cups);
   for(let i=0;i<3;i++){const a=i*Math.PI*2/3;tube(new T.Vector3(0,0,0),new T.Vector3(Math.cos(a)*.45,0,Math.sin(a)*.45),.015,steel,cups,4);mesh(new T.SphereGeometry(.09,8,5),dark,Math.cos(a)*.45,0,Math.sin(a)*.45,cups);}
   // Nitrogen: fog lying on the lab floor (and leaking into the hall), and the plume at the valve.
-  const fogMat=()=>new T.MeshBasicMaterial({color:'#e9f3f7',transparent:true,opacity:0,depthWrite:false});
+  const fogMat=()=>new T.MeshBasicMaterial({color:'#b9c9d3',transparent:true,opacity:0,depthWrite:false});
   fog0=mesh(new T.BoxGeometry(7.7,.5,7.7),fogMat(),24,.27,29,g0);
   fogHall=mesh(new T.BoxGeometry(5,.25,2.6),fogMat(),24,.14,23.5,g0);
-  plume=mesh(new T.ConeGeometry(.5,1.4,8,1,true),fogMat(),22.3,.7,31.6,g0);plume.rotation.z=-Math.PI/2;
+  // The jet at the valve: soft puffs that swell, sink and fade as they leave it.
+  plume=new T.Group();g0.add(plume);
+  for(let i=0;i<9;i++)mesh(new T.SphereGeometry(.5,10,7),fogMat(),0,0,0,plume);
   exhaust=mesh(new T.SphereGeometry(.35,7,5),new T.MeshBasicMaterial({color:'#8d9499',transparent:true,opacity:0,depthWrite:false}),4,3.6,32,g0);
   // The earth cable's last metre: on its clamp, or hanging loose.
   cableOn=tube(new T.Vector3(30,1.2,38.14),new T.Vector3(30,.2,38.3),.025,copper,g0,5);
   cableLoose=tube(new T.Vector3(30,1.2,38.14),new T.Vector3(30.7,.75,38.5),.025,copper,g0,5);cableLoose.visible=false;
-  // Rain: short streaks in a box that follows the player. None falls inside the building's outline.
-  rainData=new Float32Array(RAIN*6);rainSeeds=new Float32Array(RAIN*3);
-  for(let i=0;i<RAIN*3;i++)rainSeeds[i]=Math.random();
+  // Rain: thin streaks (two crossed quads each) in a box round the camera. None falls inside the building's outline.
+  rainData=new Float32Array(RAIN_MAX*24);rainSeeds=new Float32Array(RAIN_MAX*3);
+  for(let i=0;i<RAIN_MAX*3;i++)rainSeeds[i]=Math.random();
   const geo=new T.BufferGeometry();geo.setAttribute('position',new T.BufferAttribute(rainData,3));
-  rain=new T.LineSegments(geo,new T.LineBasicMaterial({color:'#b9c7dc',transparent:true,opacity:.35,depthWrite:false}));
+  const index=new Uint32Array(RAIN_MAX*12);
+  for(let i=0;i<RAIN_MAX*2;i++){const v=i*4,o=i*6;index.set([v,v+1,v+2,v+2,v+1,v+3],o);}
+  geo.setIndex(new T.BufferAttribute(index,1));
+  rain=new T.Mesh(geo,new T.MeshBasicMaterial({color:'#c3d0e4',transparent:true,opacity:.35,depthWrite:false,side:T.DoubleSide}));
   rain.frustumCulled=false;scene.add(rain);
-  // Lightning: a jagged line, redrawn for each strike.
-  bolt=new T.Line(new T.BufferGeometry().setAttribute('position',new T.BufferAttribute(new Float32Array(14*3),3)),new T.LineBasicMaterial({color:'#f2f6ff'}));
+  // Lightning: a jagged ribbon (two crossed strips), redrawn for each strike.
+  const boltGeo=new T.BufferGeometry();boltGeo.setAttribute('position',new T.BufferAttribute(new Float32Array(BOLT*2*4*3),3));
+  const boltIndex:number[]=[];for(let i=0;i<BOLT*2;i++){const v=i*4;boltIndex.push(v,v+1,v+2,v+2,v+1,v+3);}
+  boltGeo.setIndex(boltIndex);
+  bolt=new T.Mesh(boltGeo,new T.MeshBasicMaterial({color:'#ffffff',side:T.DoubleSide,fog:false}));
   bolt.frustumCulled=false;bolt.visible=false;scene.add(bolt);
  }
 
  function drawBolt(s:Strike){
   if(!bolt)return;
-  const end=s.kind==='rod'?new T.Vector3(DOME.x,DOME.base+DOME.radius+2.6,DOME.z):s.kind==='line'?new T.Vector3(-6,9,27):new T.Vector3(28+Math.cos(s.bearing)*70,6,26+Math.sin(s.bearing)*70);
-  const start=end.clone().add(new T.Vector3((Math.random()-.5)*14,42,(Math.random()-.5)*14)),p=bolt.geometry.getAttribute('position') as T.BufferAttribute;
-  for(let i=0;i<14;i++){
-   const k=i/13,v=start.clone().lerp(end,k),j=i&&i<13?(s.kind==='far'?5:2.2):0;
-   p.setXYZ(i,v.x+(Math.random()-.5)*j,v.y,v.z+(Math.random()-.5)*j);
+  const end=s.kind==='rod'?new T.Vector3(DOME.x,DOME.base+DOME.radius+2.6,DOME.z):s.kind==='line'?new T.Vector3(9.2,6.4,27):new T.Vector3(28+Math.cos(s.bearing)*70,6,26+Math.sin(s.bearing)*70);
+  const start=end.clone().add(new T.Vector3((Math.random()-.5)*16,46,(Math.random()-.5)*16)),p=bolt.geometry.getAttribute('position') as T.BufferAttribute;
+  const jitter=s.kind==='far'?5:2.4,half=s.kind==='far'?.3:.09;
+  const points=Array.from({length:BOLT+1},(_,i)=>{const v=start.clone().lerp(end,i/BOLT),j=i&&i<BOLT?jitter:0;v.x+=(Math.random()-.5)*j;v.z+=(Math.random()-.5)*j;return v;});
+  for(let i=0;i<BOLT;i++){
+   const a=points[i],b=points[i+1],o=i*8;
+   p.setXYZ(o,a.x-half,a.y,a.z);p.setXYZ(o+1,a.x+half,a.y,a.z);p.setXYZ(o+2,b.x-half,b.y,b.z);p.setXYZ(o+3,b.x+half,b.y,b.z);
+   p.setXYZ(o+4,a.x,a.y,a.z-half);p.setXYZ(o+5,a.x,a.y,a.z+half);p.setXYZ(o+6,b.x,b.y,b.z-half);p.setXYZ(o+7,b.x,b.y,b.z+half);
   }
   p.needsUpdate=true;bolt.visible=true;
  }
@@ -218,13 +263,14 @@ export function buildScenery(ctx:DecorContext,rooms:Rect[],spots:Spot[],live:()=
   const w=l.world,t=w.time,weather=w.weather.at(t),flash=w.weather.flash(t),g=w.grid;
   // Sky and ambient: darker as the storm builds, white for the blink of a flash.
   const gloom=1-.3*weather.intensity;
-  background.copy(skyColor).multiplyScalar(gloom).lerp(flashColor,flash*.8);fog.color.copy(background);
+  background.copy(skyColor).multiplyScalar(gloom).lerp(flashColor,flash*.12);fog.color.copy(background);
+  skyMaterial.color.setScalar(gloom*(1+flash*5));
   const here=pools.find(p=>p.room.id===l.here.room);
   const lit=here?w.lit(here.room.id):false;
-  hemi.intensity=baseAmbient*(gloom*(l.here.outdoor?1:lit?1.25:.72))+flash*2.2;
+  hemi.intensity=baseAmbient*(gloom*(l.here.outdoor?1:lit?1.25:.72))+flash*1.3;
   // Strikes.
   let last:Strike|undefined;for(const s of w.weather.strikes){if(s.time>t)break;last=s;}
-  if(last&&last!==lastStrike&&t-last.time<.4){lastStrike=last;drawBolt(last);boltUntil=seconds+.22;}
+  if(last&&last!==lastStrike&&t-last.time<.4){lastStrike=last;drawBolt(last);boltUntil=seconds+.26;}
   if(bolt&&bolt.visible&&seconds>boltUntil)bolt.visible=false;
   // Room lights follow their circuits; an unlit room under emergency power gets a dim red pool.
   const emergency=g.powered('safety');
@@ -249,6 +295,9 @@ export function buildScenery(ctx:DecorContext,rooms:Rect[],spots:Spot[],live:()=
   driveLamp.material=g.powered('dome')?lampOn:g.breakers.get('dome')!.closed?lampOff:lampTrip;
   o2Lamp.material=w.o2Alarm&&Math.sin(seconds*12)>0?lampTrip:w.sensorConnected&&g.powered('safety')?lampOn:lampOff;
   monitor.visible=g.powered('it');
+  const it=g.powered('it');
+  for(const m of screens)m.visible=it;
+  for(let i=0;i<rackLeds.length;i++)rackLeds[i].visible=it&&(i*7+Math.floor(seconds*3))%11!==0;
   // Machines.
   for(const p of planets)p.arm.rotation.y+=frame*p.speed*.25;
   if(cups)cups.rotation.y+=frame*(1+weather.wind*14);
@@ -259,28 +308,41 @@ export function buildScenery(ctx:DecorContext,rooms:Rect[],spots:Spot[],live:()=
   if(exhaust){const k=seconds*.9%1;(exhaust.material as T.MeshBasicMaterial).opacity=running?.35*(1-k):0;exhaust.position.y=3.5+k*1.6;exhaust.scale.setScalar(.6+k*1.6);}
   // Nitrogen.
   const air=w.air.rooms,lack=(room:string)=>Math.max(0,Math.min(1,(20.9-(air.get(room)?.o2??.209)*100)/9));
-  if(fog0)(fog0.material as T.MeshBasicMaterial).opacity=lack('cryo')*.5;
+  if(fog0)(fog0.material as T.MeshBasicMaterial).opacity=lack('cryo')*.3;
   if(fogHall)(fogHall.material as T.MeshBasicMaterial).opacity=lack('hall')*.5;
-  if(plume){const venting=w.valveOpen&&w.gasLeft>0;(plume.material as T.MeshBasicMaterial).opacity=venting?.55+Math.sin(seconds*17)*.1:0;plume.scale.setScalar(1+Math.sin(seconds*5)*.08);}
+  if(plume){
+   const venting=w.valveOpen&&w.gasLeft>0;plume.visible=venting;
+   if(venting)plume.children.forEach((puff,i)=>{
+    const k=(seconds*.55+i/9)%1,wob=Math.sin(seconds*3+i*2.1)*.08;
+    puff.position.set(22.05+k*1.9,1.22-k*k*1.05,31.6+wob+(i%3-1)*.12*k);
+    puff.scale.setScalar(.22+k*1.25);
+    ((puff as T.Mesh).material as T.MeshBasicMaterial).opacity=.34*(1-k)*Math.min(1,k*8);
+   });
+  }
   valveWheel.rotation.x=w.valveOpen?Math.PI/2:0;
   if(cableOn&&cableLoose){cableOn.visible=w.groundCable;cableLoose.visible=!w.groundCable;}
   // Rain.
-  const centre=view?.player??{x:28,y:0,z:20},count=Math.floor(RAIN*Math.min(1,weather.rain*1.15)),tilt=weather.wind*5.5,speed=17+weather.rain*8;
+  const cam=view?.camera.position,centre=cam?{x:cam.x,z:cam.z}:{x:28,z:20},box=rainSettings.box,top=rainSettings.top,half=rainSettings.width/2;
+  const count=Math.floor(Math.min(RAIN_MAX,rainSettings.count)*Math.min(1,weather.rain*1.15)),tilt=weather.wind*5.5,speed=17+weather.rain*8;
   const upstairs=(view?.floor??0)>=1;
-  for(let i=0;i<RAIN;i++){
-   const o=i*6;
-   if(i>=count){rainData[o+1]=rainData[o+4]=-50;continue;}
-   const x=centre.x+(rainSeeds[i*3]-.5)*46,z=centre.z+(rainSeeds[i*3+1]-.5)*46;
-   const y=16-((seconds*speed+rainSeeds[i*3+2]*16)%16);
+  for(let i=0;i<RAIN_MAX;i++){
+   const o=i*24;
+   if(i>=count){if(rainData[o+1]>-40)for(let k=1;k<24;k+=3)rainData[o+k]=-50;continue;}
+   // Streaks keep their place in the world while the box moves with the camera.
+   const x=centre.x+(((rainSeeds[i*3]*box-centre.x)%box+box)%box)-box/2,z=centre.z+(((rainSeeds[i*3+1]*box-centre.z)%box+box)%box)-box/2;
+   const y=top-((seconds*speed+rainSeeds[i*3+2]*top)%top);
    // The picture has no roofs, so rain over a room would fall on the people in it: keep it outside the walls.
-   const roof=inside(BUILDING,x+tilt*.02*y,z)||inside(SHED,x,z);
-   if(roof&&!(upstairs&&z>38)){rainData[o+1]=rainData[o+4]=-50;continue;}
-   const lean=tilt*(16-y)/17;
-   rainData[o]=x+lean;rainData[o+1]=y;rainData[o+2]=z;
-   rainData[o+3]=x+lean+tilt*.035;rainData[o+4]=y+.55;rainData[o+5]=z;
+   const lean=tilt*(top-y)/17,dx=tilt*.035*rainSettings.length/.7,len=rainSettings.length*(.8+weather.rain*.4);
+   const roof=inside(BUILDING,x+lean,z)||inside(SHED,x+lean,z);
+   // Nor right in front of the lens.
+   const close=cam?(x+lean-cam.x)**2+(z-cam.z)**2<9&&Math.abs(y-cam.y)<4:false;
+   if(close||roof&&!(upstairs&&z>38)){for(let k=1;k<24;k+=3)rainData[o+k]=-50;continue;}
+   // Two quads at right angles: bottom-left, bottom-right, top-left, top-right.
+   rainData.set([x+lean-half,y,z, x+lean+half,y,z, x+lean+dx-half,y+len,z, x+lean+dx+half,y+len,z,
+    x+lean,y,z-half, x+lean,y,z+half, x+lean+dx,y+len,z-half, x+lean+dx,y+len,z+half],o);
   }
   (rain.geometry.getAttribute('position') as T.BufferAttribute).needsUpdate=true;
-  (rain.material as T.LineBasicMaterial).opacity=.22+.25*weather.rain+flash*.4;
+  (rain.material as T.MeshBasicMaterial).opacity=(.2+.22*weather.rain+flash*.4)*rainSettings.opacity;
  }
  return {afterFreeze,step};
 }

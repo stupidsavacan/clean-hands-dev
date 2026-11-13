@@ -24,3 +24,9 @@ Thumbs.db
 # Pictures saved by the labs through port 8797
 /playtest/shots/
 /observatory.html
+/observatory-trailer.html
+/movie/frames/
+/movie/work/
+/movie/*.mp4
+/movie/capture.log
+/movie/superseded-before-codex/
