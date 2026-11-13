@@ -11,6 +11,7 @@ import {DoorSystem} from '../doors.ts';
 import {CollisionWorld,type Block,type Position} from '../world.ts';
 import {flankAngle} from '../guard-team.ts';
 import {hiddenFrom} from '../cover-spots.ts';
+import {FLASH_DEFAULTS} from '../guard-flash.ts';
 import {NavGrid} from '../nav.ts';
 import {segmentClear,sightBoxes} from '../sight.ts';
 import {Director,type AiEvent,type Mission,type NpcDef,type PlayerView,type Rules} from '../ai.ts';
@@ -68,6 +69,8 @@ export type Run={vipShotAt?:number;vip?:{protection:VipProtection;clock:MissionC
 export type Scenario={
  id:string;group:'視認'|'聴覚'|'無線'|'戦闘'|'捜索'|'経路探索'|'立入禁止'|'検問'|'救助'|'設備'|'要人';title:string;expect:string;
  npcs:NpcDef[];seconds:number;combat?:boolean;isolated?:boolean;
+ // Guards may throw flashbangs (off in the game until the screen effect is approved in the UI lab; on for the flash tests).
+ flash?:boolean;
  // Solids put in the hall for this scenario only (crates for the cover tests); the arena is then built afresh.
  blockers?:Block[];
  // A finding the lab turned up that the AI does not meet yet (the test suite lists it as todo, not as a failure).
@@ -262,13 +265,13 @@ export const SCENARIOS:Scenario[]=[
  npcs:[guard('g1',-13,-6,Math.PI/2),guard('g2',-13,-9,Math.PI/2),guard('g3',-14,-8,Math.PI/2)],seconds:26,combat:true,blockers:teamCrates,player:()=>player(-1,-6,{weaponDrawn:true}),start:teamStart,step:r=>watchTeam(r,true),
  judge:r=>{const w=teamWatch(r);return {pass:w.down&&!!w.successor&&w.first!==w.successor&&w.max===1,detail:JSON.stringify(w)};}},
  {id:'flash-camp',group:'戦闘',title:'遮蔽に居座るとフラッシュを投げる',expect:'同じ遮蔽に12秒いると警備が1個投げ、時間を置いて発光する。近いエージェントの照準が一時的にぶれる。',
- npcs:[guard('g1',-13,-6,Math.PI/2)],seconds:20,combat:true,blockers:flashCrates,player:()=>player(-1,-6,{weaponDrawn:true}),start:teamStart,
+ npcs:[guard('g1',-13,-6,Math.PI/2)],seconds:20,combat:true,flash:true,blockers:flashCrates,player:()=>player(-1,-6,{weaponDrawn:true}),start:teamStart,
  judge:r=>({pass:r.combat!.flashes.thrown===1&&r.combat!.flashes.burst===1&&r.combat!.events.recent.some(e=>e.type==='player.flashed'),detail:`投擲 ${r.combat!.flashes.thrown} / 発光 ${r.combat!.flashes.burst}`})},
  {id:'flash-wall',group:'戦闘',title:'壁の向こうへフラッシュを投げない',expect:'長く居座っていても、壁に遮られている間は投げない。',
- npcs:[guard('g1',-13,-6,Math.PI/2)],seconds:20,combat:true,blockers:[...flashCrates,{...crate('wall',-6,-6,.4,8),h:4}],player:()=>player(-1,-6,{weaponDrawn:true}),start:teamStart,
+ npcs:[guard('g1',-13,-6,Math.PI/2)],seconds:20,combat:true,flash:true,blockers:[...flashCrates,{...crate('wall',-6,-6,.4,8),h:4}],player:()=>player(-1,-6,{weaponDrawn:true}),start:teamStart,
  judge:r=>({pass:r.combat!.flashes.thrown===0,detail:`壁越しの投擲 ${r.combat!.flashes.thrown}`})},
  {id:'flash-limit',group:'戦闘',title:'フラッシュは1人1個まで',expect:'同じ撃ち合いで45秒居座っても、同じ警備は2個目を投げない。',
- npcs:[guard('g1',-13,-6,Math.PI/2)],seconds:45,combat:true,blockers:flashCrates,player:()=>player(-1,-6,{weaponDrawn:true}),start:teamStart,
+ npcs:[guard('g1',-13,-6,Math.PI/2)],seconds:45,combat:true,flash:true,blockers:flashCrates,player:()=>player(-1,-6,{weaponDrawn:true}),start:teamStart,
  judge:r=>({pass:r.combat!.flashes.thrown===1&&(r.combat!.flashes.used.get(npc(r,'g1'))??0)===1,detail:`投擲 ${r.combat!.flashes.thrown}`})},
  {id:'search-lose',group:'捜索',title:'見失うと捜索し、やがて戻る',expect:'警戒させてから視界の外へ消えると、捜索 → 落ち着いて持ち場へ',
   npcs:[guard('g1',13,-10,0)],seconds:40,player:(_t,r)=>npc(r,'g1').state==='alert'&&!r.log.includes('逃げた')?(r.log.push('逃げた'),player(-17,12)):r.log.includes('逃げた')?player(-17,12):player(13,-5,{speed:1}),
@@ -451,7 +454,7 @@ export function begin(s:Scenario):Run{
  const mission:Mission={...ARENA,blockers:s.blockers??ARENA.blockers},{world,nav,boxes}=s.isolated||s.blockers?newArena(mission):arena();
  const director=new Director({...mission,npcs:structuredClone(s.npcs)},world,nav,boxes,structuredClone(rules));
  const r:Run={director,events:[],log:[],time:0,player:player(0,0),marks:[]};r.player=s.player(0,r);
- if(s.combat){const m3=new M3System(director,[],rulesData.m3 as never);r.combat=new CombatSystem(director,new MissionEvents(),m3.hotel,combatRules,weapons,[],()=>0);}
+ if(s.combat){const m3=new M3System(director,[],rulesData.m3 as never);r.combat=new CombatSystem(director,new MissionEvents(),m3.hotel,s.flash?{...combatRules,flash:{...combatRules.flash,perGuard:FLASH_DEFAULTS.perGuard}}:combatRules,weapons,[],()=>0);}
  s.start?.(r);
  return r;
 }
