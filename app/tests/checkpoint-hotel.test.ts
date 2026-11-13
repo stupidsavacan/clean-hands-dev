@@ -21,8 +21,12 @@ test('Hotel checkpoint B away from the line gives the line instruction',()=>{con
 test('Hotel marina: walk behind the attendant, knock out, then B reports no attendant without breaking ghost',()=>{const c=hotel.checkpoints[1],S=setup(c);behind(S,c.guardId);S.hold('KeyF',rules.m3.koSeconds+prior.simulation.holdSlackSeconds);assert.equal(S.npc(c.guardId).life,'unconscious');walk(S,line(c));S.tick(new Set(['KeyB']));assert.equal(S.m4.action,null);assert.deepEqual(S.m4.notices,['検査担当の警備員が近くにいません。']);assert.equal(S.m4.stats.frisks,0);clean(S);});
 // A witnessed knockout is intentionally a failure case. After caught, exercise only the checkpoint input;
 // the successful routes above, rather than this isolated post-failure check, establish ghost traversal.
+// 2026-11-13 (vision "the further, the slower"): the pool guard sees the knockout and radios; the bodyguards searching
+// across the lobby (16-18 m) now see the agent and come, so the knockout is cut short. The attendant is then put down
+// directly for the isolated B check.
 test('Hotel lobby: witnessed walking knockout leaves no attendant; isolated B input after caught gives the right message',()=>{const c=hotel.checkpoints[0],S=setup(c),r=routes.lobbyKnockout;
- assert.equal(S.d.noise(r.distractChief)?.id,'security_chief');assert.equal(S.d.noise(r.distractAttendant)?.id,c.guardId);wait(S,r.waitSeconds);behind(S,c.guardId);S.hold('KeyF',rules.m3.koSeconds+prior.simulation.holdSlackSeconds);assert.equal(S.npc(c.guardId).life,'unconscious');
+ assert.equal(S.d.noise(r.distractChief)?.id,'security_chief');assert.equal(S.d.noise(r.distractAttendant)?.id,c.guardId);wait(S,r.waitSeconds);behind(S,c.guardId);S.hold('KeyF',rules.m3.koSeconds+prior.simulation.holdSlackSeconds);
+ if(S.npc(c.guardId).life==='active')S.m3.down(S.npc(c.guardId),'ko');assert.equal(S.npc(c.guardId).life,'unconscious');
  const path=nav.find(S.p,line(c));assert.ok(path);for(const q of path)go(S,q);assert.equal(S.flow.outcome?.reason,'caught');assert.equal(computeResult(scoring,S.ledger.counts,S.c.elapsed,false).ghost,false);assert.ok(S.ledger.count('spotted')>0);
  S.m4.step(prior.simulation.step,{...S.p,disguise:S.m4.disguise},S.heading,new Set(['KeyB']));assert.equal(S.m4.action,null);assert.deepEqual(S.m4.notices,['検査担当の警備員が近くにいません。']);assert.equal(S.m4.stats.frisks,0);assert.equal(S.d.npcs.length,hotel.npcs.length);
 });

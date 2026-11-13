@@ -187,6 +187,11 @@
    "guest": 20,
    "waiter": 20
   },
+  "_farNote": "2026-11-13（利用者の選択「遠いほど遅く気づく」）。range（屋外は outdoor）までは今まで通りの速さで気づく。その先は range × far まで見えるが、疑いのたまる速さは遠いほど落ち、いちばん遠い所で farMin 倍になる。この遠い所では、もう注目している人（振り向いた・警戒中・捜索中・撃ち合い中など）だけがエージェントをはっきり見る。死体・床の銃・汚れに気づく距離は range のまま。combat：撃ち合い中の警備が見える距離（m、射程と同じ）。scale：全体の倍率（難易度の設定用。1 は変えない）。どれも CLEAN HANDS 独自の値。",
+  "far": { "guard": 2.1, "guest": 1, "waiter": 1 },
+  "farMin": 0.15,
+  "combat": 60,
+  "scale": { "range": 1, "half": 1, "sensitivity": 1 },
   "peripheral": {
    "range": 3.5,
    "half": 95

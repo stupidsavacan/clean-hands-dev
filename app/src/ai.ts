@@ -26,9 +26,15 @@ export type NpcDef={id:string;role:string;label:string;floor:number;model?:strin
 // rooms: indoor rooms shorten sight; outdoors (no indoor room around) uses the longer outdoor ranges.
 export type Mission=Level&{zones:Zone[];npcs:NpcDef[];rooms?:(Zone&{indoor:boolean})[];objectives:{panel:{x:number;z:number;radius:number;seconds:number;label:string};exit:{x:number;z:number;radius:number;label:string}}};
 type Vision={range:number;half:number;sensitivity:number};
+/** Vision (2026-11-13, the user's choice: "the further, the slower they notice"). range: the clear distance, noticed at the
+ * full rate (and the distance for bodies, guns on the floor and messes). far: the furthest distance, range x far[role];
+ * between the two the gauge fills more slowly, down to farMin at the far end, and only someone already paying attention
+ * (curious, alerted, searching, fighting...) sees the agent there outright. combat: how far a guard in a gunfight sees.
+ * scale: multipliers over everything, kept for difficulty settings. */
+export type VisionNow={range:number;far:number;half:number;sensitivity:number};
 export type Rules={disguises:Record<string,Record<string,string>>;rates:{run:number;crouchPublic:number;deny:number;caution:number;tamper:number;unseen:number;weapon?:number};
  multipliers:{crowd:number;crowdCount:number;crowdRadius:number;stillOrCover:number;nearMax:number;nearFull:number;nearNone:number};thresholds:{curious:number;investigate:number;alert:number};
- vision:{guard:Vision;guest:Vision;waiter:Vision;outdoor?:Record<Role,number>;peripheral:{range:number;half:number};touch:number;eye:number};speeds:{walk:number;investigate:number;chase:number;search:number};
+ vision:{guard:Vision;guest:Vision;waiter:Vision;outdoor?:Record<Role,number>;far?:Partial<Record<Role,number>>;farMin?:number;combat?:number;scale?:{range?:number;half?:number;sensitivity?:number};peripheral:{range:number;half:number};touch:number;eye:number};speeds:{walk:number;investigate:number;chase:number;search:number};
  timers:{curiousHold:number;lookAround:number;evidenceLook?:number;lose:number;search:number;report:number;noiseLook:number};noise:{coin:number;coins:number;throw:number;postLeave?:number};catch:number;radio:number;
  lod?:Lod;m4?:{enforcerSpeed?:EnforcerSpeed};arrest?:Arrest;
  // Who recognises a reported outfit on sight: everyone (default) or only guards, as in HITMAN, where a guest who saw
@@ -151,24 +157,31 @@ export class Npc{
  get active(){return this.life==='active'&&!this.scheduledAway;}
  get guard(){return this.role==='guard';}
  visionScale=1;
- vision(rules:Rules){const v=rules.vision[this.role],far=this.outdoor?rules.vision.outdoor?.[this.role]:undefined;
-  return this.visionScale===1?(far?{...v,range:far}:v):{...v,range:(far??v.range)*this.visionScale,sensitivity:v.sensitivity*this.visionScale};}
+ vision(rules:Rules):VisionNow{const r=rules.vision,v=r[this.role],k=r.scale??{},range=(this.outdoor?r.outdoor?.[this.role]??v.range:v.range)*(k.range??1)*this.visionScale;
+  return {range,far:range*Math.max(1,r.far?.[this.role]??1),half:v.half*(k.half??1),sensitivity:v.sensitivity*(k.sensitivity??1)*this.visionScale};}
+ /** Beyond the clear distance the gauge fills more slowly: x1 at range, down to farMin at far. */
+ farFactor(rules:Rules,d:number){const v=this.vision(rules);if(d<=v.range||v.far<=v.range)return 1;const min=rules.vision.farMin??1;return 1+(min-1)*clamp((d-v.range)/(v.far-v.range),0,1);}
+ /** Paying attention to something already: beyond the clear distance they see the agent outright, not only slowly. */
+ get attentive(){return !['patrol','distracted'].includes(this.state);}
+ // What was glimpsed beyond the clear distance by someone not paying attention: it only fills the gauge (slowly).
+ farSight=0;
  // Eye-to-body rays inside the view cone. The club recorder can inspect this same decision without updating memory.
  crowdOcclusion?: (eye:Position,body:Position)=>string|undefined;
  perceive(p:PlayerView,boxes:Aabb[],rules:Rules,inspect?:{reason:string;visibility:number;distance:number;blockedBy:string[]}){const v=this.vision(rules),pv=rules.vision.peripheral,dx=p.x-this.pos.x,dz=p.z-this.pos.z,d=Math.hypot(dx,dz);
   const off=Math.abs(wrap(Math.atan2(dx,dz)-this.heading))*180/Math.PI,dy=Math.abs(p.y-this.pos.y);
   if(inspect)inspect.distance=d;else{this.distance=d;this.off=off;}
-  const peripheralRange=pv.range*this.visionScale;
-  const inCone=!p.hidden&&dy<2.6&&(d<=v.range&&off<=v.half||d<=peripheralRange&&off<=pv.half||d<=rules.vision.touch);
-  if(!inCone){if(inspect)inspect.reason=dy>=2.6?'height':d>Math.max(v.range,peripheralRange,rules.vision.touch)?'distance':'outside_cone';else this.visibility=0;return;}
+  const peripheralRange=pv.range*this.visionScale,far=this.state==='combat'?Math.max(v.far,rules.vision.combat??0):v.far;
+  const inCone=!p.hidden&&dy<2.6&&(d<=far&&off<=v.half||d<=peripheralRange&&off<=pv.half||d<=rules.vision.touch);
+  if(!inCone){if(inspect)inspect.reason=dy>=2.6?'height':d>Math.max(far,peripheralRange,rules.vision.touch)?'distance':'outside_cone';else this.visibility=this.farSight=0;return;}
+  const glimpse=d>v.range&&!this.attentive;
   const eye={x:this.pos.x,y:this.pos.y+rules.vision.eye,z:this.pos.z};let n=0;
   for(const h of p.crouched?[1.05,.78,.5]:[1.55,1.15,.82]){
    const body={x:p.x,y:p.y+h,z:p.z};if(!segmentClear(boxes,eye,body))continue;
    const crowd=this.crowdOcclusion?.(eye,body);
    if(!crowd)n++;else if(inspect&&!inspect.blockedBy.includes(crowd))inspect.blockedBy.push(crowd);
   }
-  if(inspect){inspect.visibility=n/3;inspect.reason=n?'sight':inspect.blockedBy.length?'crowd':'solid';return;}
-  this.visibility=n/3;if(n&&(!['alert','search'].includes(this.state)||this.hasConfirmedIdentity(p)||this.state==='alert'&&!this.arrest))this.lastSeen={x:p.x,y:p.y,z:p.z};}
+  if(inspect){inspect.visibility=glimpse?0:n/3;inspect.reason=n?glimpse?'far':'sight':inspect.blockedBy.length?'crowd':'solid';return;}
+  this.visibility=glimpse?0:n/3;this.farSight=glimpse?n/3:0;if(n&&!glimpse&&(!['alert','search'].includes(this.state)||this.hasConfirmedIdentity(p)||this.state==='alert'&&!this.arrest))this.lastSeen={x:p.x,y:p.y,z:p.z};}
  think(dt:number,p:PlayerView,base:number,crowd:number,rules:Rules,s?:Situation):AiEvent['type'][]{const out:AiEvent['type'][]=[],t=rules.thresholds,a=rules.arrest??ARREST,known=this.hasConfirmedIdentity(p),warning=this.state==='alert'&&!this.arrest;
   if(s)this.now=s.time;const seen=this.visibility>0&&(!['alert','search'].includes(this.state)||known||base>=rules.rates.deny||warning);
   const go=(s:State,goal:Position|null,timer:number)=>{this.state=s;this.goal=goal&&{...goal};this.arrived=false;this.timer=timer;};
@@ -185,7 +198,7 @@ export class Npc{
    else if(this.arrived&&(this.timer-=dt)<=0){this.suspicion=t.investigate-1;calm();}
    return out;}
   if(this.state==='report'){if(this.witness)return out;if((this.timer-=dt)<=0){this.suspicion=t.investigate-1;this.state='patrol';}return out;}
-  this.suspicion=clamp(this.suspicion+suspicionRate(rules,base,{distance:this.distance,visibility:this.visibility,still:p.speed<.15,crowd,sensitivity:this.vision(rules).sensitivity})*dt,0,100);
+  this.suspicion=clamp(this.suspicion+suspicionRate(rules,base,{distance:this.distance,visibility:this.visibility||this.farSight,still:p.speed<.15,crowd,sensitivity:this.vision(rules).sensitivity*this.farFactor(rules,this.distance)})*dt,0,100);
   // An outfit this person knows to be the intruder's is recognised on sight.
   if(this.visibility>0&&known)this.suspicion=100;
   if(this.suspicion>=t.alert){

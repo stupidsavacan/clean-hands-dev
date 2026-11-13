@@ -25,7 +25,7 @@ export type WeaponDef={label:string;class:'pistol'|'long';concealable:boolean;le
  * too close. minToAgent: no cover closer than this (m) to the agent. top: the highest point (m) of the body in each posture,
  * where a shot can still hit (kneeling is lower). */
 export type Tactics=CoverRules&{ranges:Record<'pistol'|'long',number[]>;search:number;rethink:number;hide:number[];peek:number[];hop:number;back:number;minToAgent:number;top:Record<Posture,number>};
-export const TACTICS:Tactics={lowMin:.7,lowMax:1.6,tallMin:1.8,maxSize:12,gap:.55,spacing:1.2,stepOut:.55,ranges:{pistol:[5,12],long:[7,18]},search:9,rethink:2.5,hide:[1.2,2.2],peek:[1.2,2],hop:8,back:5,minToAgent:4,top:{stand:1.85,cover:1.36,peek:1.67}};
+export const TACTICS:Tactics={lowMin:.7,lowMax:1.6,tallMin:1.8,maxSize:12,gap:.55,spacing:1.2,stepOut:.55,ranges:{pistol:[6,16],long:[8,24]},search:9,rethink:2.5,hide:[1.2,2.2],peek:[1.2,2],hop:8,back:5,minToAgent:4,top:{stand:1.85,cover:1.36,peek:1.67}};
 type LocalResponse={radius:number;count:number;seconds:number;protectedRoles:string[];protectedIds?:string[]};
 export type CombatRules={player:{health:number;regen:{delay:number;perSecond:number}};enemies:Record<string,{health:number;weapon?:string;hit?:number}>;accuracy:{near:number[];far:number[]};coverMultiplier:number;reactionTime:number;
  localResponse?:LocalResponse;tactics?:Partial<Tactics>;

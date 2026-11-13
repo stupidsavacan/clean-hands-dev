@@ -108,6 +108,12 @@ export const SCENARIOS:Scenario[]=[
  {id:'sight-wall',group:'視認',title:'壁の向こうは見えない',expect:'ホールの衝立の裏で武器を構えても、反対側の警備は反応しない',
   npcs:[guard('g1',-10,0,Math.PI/2)],seconds:6,player:()=>player(-3,0,{weaponDrawn:true}),
   judge:r=>{const clear=segmentClear(arena().boxes,{x:-10,y:1.6,z:0},{x:-3,y:1.4,z:0}),s=npc(r,'g1').suspicion;return {pass:!clear&&s<1&&!has(r,'alert'),detail:`視線 ${clear?'通る':'遮られる'} · 疑い ${s.toFixed(1)}`};}},
+ {id:'sight-far',group:'視認',title:'遠いほど、ゆっくり気づく',expect:'ホールで走ると、8 m 先の警備も 22 m 先の警備も気づく。22 m 先の警備のほうが遅い（はっきり見える 14 m の先は、遠いほど疑いがゆっくりたまる）。',
+  npcs:[guard('near',-10,-10,-Math.PI/2),guard('far',4,-10,-Math.PI/2)],seconds:8,player:()=>player(-18,-10,{speed:4.8,running:true}),
+  step:r=>{for(const id of ['near','far'])if(npc(r,id).state!=='patrol'&&!r.log.some(l=>l.startsWith(id+' ')))r.log.push(`${id} ${r.time.toFixed(2)}s`);},
+  done:r=>['near','far'].every(id=>r.log.some(l=>l.startsWith(id+' '))),
+  judge:r=>{const at=(id:string)=>Number(r.log.find(l=>l.startsWith(id+' '))?.split(' ')[1].replace('s','')??NaN);const a=at('near'),b=at('far');
+   return {pass:a>0&&b>a+.5,detail:`8 m：${isNaN(a)?'気づかない':a.toFixed(2)+' 秒'} · 22 m：${isNaN(b)?'気づかない':b.toFixed(2)+' 秒'}`};}},
  {id:'sight-crouch-run',group:'視認',title:'走ると目立つ',expect:'ホールで走ると、正面の警備が振り向く（公共の場でも）',
   npcs:[guard('g1',-14,-8,0)],seconds:4,player:t=>player(-17+t*4.8,-2,{speed:4.8,running:true}),
   judge:r=>({pass:has(r,'curious')&&!has(r,'alert'),detail:`反応：${r.log.join(' → ')||'なし'}`})},
@@ -217,13 +223,13 @@ export const SCENARIOS:Scenario[]=[
   judge:r=>{const w=watched(r),g=npc(r,'g1'),spot=g.tactic?.spot,first=w.spots[0],moved=w.spots.length>=2;
    const hidden=!!spot&&g.tactic!.phase!=='move'&&hiddenFrom(spot,r.player,false,r.director.boxes);
    return {pass:first!==undefined&&moved&&hidden,detail:`遮蔽 ${w.spots.join(' → ')||'なし'} · 今の場所は${hidden?'隠れている':'丸見え'}`};}},
- {id:'cover-advance',group:'戦闘',title:'遠いと遮蔽を伝って詰める',expect:'13.9 m 先で銃を構えると、警備は拳銃の距離（12 m 以内）になる所まで詰め、エージェントから隠れる箱の裏に入る。エージェントまで走り込まない。',
-  npcs:[guard('g1',-15.4,-8,Math.PI/2)],seconds:10,combat:true,blockers:[crate('a',-14.2,-8.4,1.2,1.2),crate('b',-9,-8.4,1.2,1.2)],
-  player:()=>player(-1.5,-8,{weaponDrawn:true}),start:draw,step:r=>{watchCover(r,['g1']);const w=watched(r);w.closest=Math.min(w.closest,flat(npc(r,'g1').pos,r.player));},
+ {id:'cover-advance',group:'戦闘',title:'遠いと遮蔽を伝って詰める',expect:'21 m 先で銃を構えると、警備は遠くからでも気づき、箱から箱へ移って拳銃の距離（16 m 以内）まで詰めて隠れる。エージェントまで走り込まない。',
+  npcs:[guard('g1',-19,-8,Math.PI/2)],seconds:16,combat:true,blockers:[crate('a',-14,-8.4,1.2,1.2),crate('b',-8,-8.4,1.2,1.2),crate('c',-3,-8.4,1.2,1.2)],
+  player:()=>player(2,-8,{weaponDrawn:true}),start:draw,step:r=>{watchCover(r,['g1']);const w=watched(r);w.closest=Math.min(w.closest,flat(npc(r,'g1').pos,r.player));},
   judge:r=>{const w=watched(r),d=flat(npc(r,'g1').pos,r.player),ranges=TACTICS_RULES.ranges.pistol;
    const t=npc(r,'g1').tactic;
    return {pass:!!t&&t.phase!=='move'&&hiddenFrom(t.spot,r.player,false,r.director.boxes)&&d<=ranges[1]&&w.closest>=ranges[0],detail:`遮蔽 ${w.spots.join(' → ')||'なし'} · 今 ${d.toFixed(1)} m · いちばん近づいた ${w.closest.toFixed(1)} m`};}},
- {id:'cover-backoff',group:'戦闘',title:'近すぎると下がる',expect:'3 m の所で銃を構えると、警備は突っ込まずに下がり、拳銃の距離（5 m 以上）を取る。',
+ {id:'cover-backoff',group:'戦闘',title:'近すぎると下がる',expect:'3 m の所で銃を構えると、警備は突っ込まずに下がり、拳銃の距離（6 m 以上）を取る。',
   npcs:[guard('g1',-10,-10,Math.PI/2)],seconds:6,combat:true,
   player:()=>player(-7,-10,{weaponDrawn:true}),start:draw,
   judge:r=>{const g=npc(r,'g1'),d=flat(g.pos,r.player);return {pass:g.state==='combat'&&d>=TACTICS_RULES.ranges.pistol[0]-.5,detail:`警備 ${g.state} · 距離 ${d.toFixed(1)} m`};}},
