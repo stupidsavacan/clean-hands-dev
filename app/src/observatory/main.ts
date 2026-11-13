@@ -12,9 +12,9 @@ import look from '../data/observatory-look.json';
 // Rules, weapons and items are shared game settings.
 import rules from '../data/club-rules.json';
 import combat from '../data/club-combat.json';
-import detection from '../data/club-detection.json';
+import detection from '../data/observatory-detection.json';
+import brief from '../data/observatory-brief.json';
 import crowd from '../data/club-crowd.json';
-import clubMission from '../data/club-mission.json';
 import type {CrowdData} from '../engine/crowd';
 import type {LookData} from '../engine/types';
 import {ObservatoryWorld,type SystemsDef} from './world';
@@ -30,24 +30,7 @@ Object.assign(stageRules.disguises.suit,{label:'来館者'});Object.assign(stage
 Object.assign(stageRules.disguises.technician,{label:'設備技師'});Object.assign(stageRules.disguises.bartender,{label:'食堂係'});
 Object.assign(stageRules.disguises.cleaner,{label:'清掃員'});Object.assign(stageRules.disguises.guard,{label:'警備員'});
 
-const mission={
- title:'嵐の観望会',targets:['director'],
- briefing:[{id:'director',label:'所長',text:'衛星追跡データを横流ししている天文台の所長。台風で観望会は中止、後援者たちと山上に閉じ込められている。嵐・電気・空気を使え。'}],
- tools:clubMission.tools,toolSlots:clubMission.toolSlots,fixedTools:clubMission.fixedTools,pistols:clubMission.pistols,
- starts:[{id:'S1',label:'正門',open:true,note:'前庭の駐車場から'}],
- pickups:[{id:'P1',label:'西の裏手の木箱',note:'発電機小屋へ向かう途中',x:7.6,z:15.6,floor:0}],
- cases:clubMission.cases,cleaners:['cleaner'],devices:[],
-};
-const worldItems=[
- {id:'wrench-gen',item:'wrench',x:6.6,z:33.4,floor:0},{id:'crowbar-pier',item:'crowbar',x:23.6,z:36.9,floor:0},
- {id:'hammer-plant',item:'hammer',x:38.2,z:34.4,floor:0},{id:'brick-north',item:'brick',x:16,z:40.6,floor:0},
- {id:'knife-lounge',item:'kitchen_knife',x:16.9,z:18.6,floor:0},
-];
-const clothes=[
- {id:'uniform-tech',disguise:'technician',pos:{x:6.4,y:0,z:29},},
- {id:'coat-researcher',disguise:'manager',pos:{x:41.6,y:0,z:20.8}},
- {id:'uniform-cleaner',disguise:'cleaner',pos:{x:44.8,y:0,z:17.2}},
-];
+const {clothes,...mission}=brief;
 
 // The world and script of the mission being played (a restart makes new ones); the picture, panel and sound read them.
 let live:{world:ObservatoryWorld;script:ObservatoryScript}|undefined;
@@ -55,7 +38,7 @@ const sound=new Sound(),panel=new Panel(on=>sound.set(on));
 
 runGame({
  map,schedule,mission,look:look as unknown as LookData,rules:stageRules,
- detection:{...detection,worldItems,blend:[],monitor:{...detection.monitor,id:''}},
+ detection,
  combat:{...combat,placed:[]},dialogue:{},actions:{radius:1.3,clothes,acts:[]},chances:{},
  crowd:{...crowd,places:[]} as CrowdData,
  createScript:c=>{

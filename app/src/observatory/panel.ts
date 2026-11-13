@@ -1,13 +1,15 @@
 // The observatory's own read-out (2026-11-13): a small panel that shows what the world simulation is doing where the
 // player stands — the storm, where the power comes from, this room's light, temperature and oxygen — and, once the
 // weather monitor has been read, when lightning will next hit the rod. It only reads the world.
-// This is a new stage's own panel, not one of the game's shared screens; it sits under the game's top-left status.
+// This is a new stage's own panel, not one of the game's shared screens; it sits on the right, under the map and the
+// recorder's fold-out, with the sound switch below it.
 import type {ObservatoryWorld} from './world';
 
 export type PanelState={world:ObservatoryWorld;here:{label:string;temp:number;o2:number;lit:boolean;outdoor:boolean};forecast:boolean};
 
 const CSS=`
-#obs-panel{position:fixed;right:12px;top:300px;z-index:6;width:212px;padding:9px 11px 10px;border-radius:10px;background:rgba(12,17,24,.78);
+#obs-wrap{position:fixed;right:12px;top:332px;z-index:6;display:flex;flex-direction:column;align-items:flex-end;gap:6px;pointer-events:none}
+#obs-panel{width:212px;padding:9px 11px 10px;border-radius:10px;background:rgba(12,17,24,.78);
  border:1px solid rgba(160,185,215,.22);color:#dbe5ef;font:12px/1.45 system-ui,"Hiragino Sans","Yu Gothic UI",sans-serif;pointer-events:none;
  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
 #obs-panel .row{display:flex;justify-content:space-between;align-items:center;gap:8px;white-space:nowrap}
@@ -20,7 +22,7 @@ const CSS=`
 #obs-panel .tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
 #obs-panel .tag{padding:1px 6px;border-radius:8px;background:rgba(255,207,90,.16);color:#ffcf5a;font-size:11px}
 #obs-panel .tag.bad{background:rgba(255,122,102,.18);color:#ff8f7d}
-#obs-sound{position:fixed;right:12px;top:30px;z-index:7;padding:3px 9px;border-radius:9px;border:1px solid rgba(160,185,215,.3);background:rgba(12,17,24,.78);
+#obs-sound{pointer-events:auto;padding:5px 12px;border-radius:9px;border:1px solid rgba(160,185,215,.3);background:rgba(12,17,24,.78);
  color:#dbe5ef;font:12px system-ui,sans-serif;cursor:pointer}
 @media (max-width:1100px){#obs-panel{width:190px;font-size:11px}}
 `;
@@ -32,10 +34,11 @@ export class Panel{
  private last='';private lastAt=0;
  constructor(onSound:(on:boolean)=>void){
   const style=document.createElement('style');style.textContent=CSS;document.head.append(style);
-  this.root=document.createElement('div');this.root.id='obs-panel';document.body.append(this.root);
+  const wrap=document.createElement('div');wrap.id='obs-wrap';document.body.append(wrap);
+  this.root=document.createElement('div');this.root.id='obs-panel';wrap.append(this.root);
   const button=document.createElement('button');button.id='obs-sound';button.textContent='音 切';let on=false;
   button.addEventListener('click',()=>{on=!on;button.textContent=on?'音 入':'音 切';onSound(on);button.blur();});
-  document.body.append(button);
+  wrap.append(button);
  }
  update(s:PanelState,now:number){
   if(now-this.lastAt<.25)return;

@@ -16,6 +16,7 @@ export const MAPS=[
  {id:'club',label:'クラブ',map:'club-map.json',detection:'club-detection.json',mission:'club-mission.json'},
  {id:'party',label:'夜会',map:'party.json',detection:'party-detection.json',mission:'party-mission.json'},
  {id:'hotel',label:'ホテル',map:'hotel.json',detection:'detection.json',mission:'mission.json'},
+ {id:'observatory',label:'天文台',map:'observatory-map.json',detection:'observatory-detection.json',mission:'observatory-brief.json'},
 ] as const;
 const weapons=data('weapons.json') as Record<string,{label?:string}>,guns=new Set(Object.keys(weapons).filter(k=>!k.startsWith('_')));
 

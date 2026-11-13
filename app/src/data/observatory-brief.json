@@ -1,0 +1,108 @@
+{
+ "_note": "作戦準備の画面に出る内容。scripts/build-observatory.ts が作る。",
+ "title": "嵐の観望会",
+ "targets": [
+  "director"
+ ],
+ "briefing": [
+  {
+   "id": "director",
+   "label": "所長",
+   "text": "衛星追跡データを横流ししている天文台の所長。台風で観望会は中止、後援者たちと山上に閉じ込められている。嵐・電気・空気を使え。"
+  }
+ ],
+ "tools": [
+  {
+   "id": "coin",
+   "label": "コイン",
+   "note": "3枚"
+  },
+  {
+   "id": "poison_lethal",
+   "label": "毒",
+   "note": "検査を通る"
+  }
+ ],
+ "toolSlots": 2,
+ "fixedTools": [
+  {
+   "id": "wire",
+   "label": "ワイヤー",
+   "note": "検査を通る"
+  }
+ ],
+ "pistols": [
+  {
+   "id": "",
+   "label": "持ち込まない"
+  },
+  {
+   "id": "pistol_silenced",
+   "label": "消音ピストル",
+   "note": "入口の検査で止められる"
+  },
+  {
+   "id": "tranq_pistol",
+   "label": "鎮静ダーツ銃",
+   "note": "当てると数秒で眠る（殺さない）。1発ずつ、予備4発。入口の検査で止められる"
+  }
+ ],
+ "starts": [
+  {
+   "id": "S1",
+   "label": "正門",
+   "open": true,
+   "note": "前庭の駐車場から"
+  }
+ ],
+ "pickups": [
+  {
+   "id": "P1",
+   "label": "西の裏手の木箱",
+   "note": "発電機小屋へ向かう途中",
+   "x": 7.6,
+   "z": 15.6,
+   "floor": 0
+  }
+ ],
+ "cases": [
+  {
+   "id": "briefcase",
+   "label": "ブリーフケース",
+   "note": "手に持って始める。殴る・投げる・銃を1丁入れられる"
+  }
+ ],
+ "cleaners": [
+  "cleaner"
+ ],
+ "devices": [],
+ "clothes": [
+  {
+   "id": "uniform-tech",
+   "disguise": "technician",
+   "pos": {
+    "x": 6.4,
+    "y": 0,
+    "z": 29
+   }
+  },
+  {
+   "id": "coat-researcher",
+   "disguise": "manager",
+   "pos": {
+    "x": 41.6,
+    "y": 0,
+    "z": 20.8
+   }
+  },
+  {
+   "id": "uniform-cleaner",
+   "disguise": "cleaner",
+   "pos": {
+    "x": 44.8,
+    "y": 0,
+    "z": 17.2
+   }
+  }
+ ]
+}

@@ -75,8 +75,8 @@
   "lights-dome": ["obs", "upper", "catwalk", "yard", "west", "east", "north"]
  },
  "sight": {"dark": 0.35, "emergency": 0.6, "stormOutdoor": 0.7, "outdoorDark": 0.45},
- "nitrogen": {"room": "cryo", "flow": 1.5, "gas": 320, "chill": 0.6},
- "oxygen": {"alarm": 19, "dizzy": 14, "collapse": 11, "collapseSeconds": 4, "deathSeconds": 30, "playerDamage": 9},
+ "nitrogen": {"room": "cryo", "flow": 1.5, "gas": 320, "chill": 0.08},
+ "oxygen": {"alarm": 19, "dizzy": 14, "collapse": 11, "collapseSeconds": 4, "deathSeconds": 30, "playerDamage": 6},
  "detector": {"cold": -110, "warmRate": 0.3, "coolRate": 0.5, "alarm": -95},
  "dome": {"motorSeconds": 14, "crankSeconds": 150, "motorKw": 5, "skyFlow": 7, "lullBelow": 0.2, "wetRain": 0.3, "overrideSeconds": 150},
  "heaters": {"rooms": ["staffroom", "control", "lobby"], "kw": 2, "onBelow": 15, "offAbove": 19, "circuit": "sockets"},

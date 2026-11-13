@@ -179,11 +179,13 @@ export class ObservatoryScript{
 
  // ---- the world moves, then people answer it ---------------------------------------------------------------
  beforeAi(){
-  const time=this.clock.elapsed,dt=Math.max(0,Math.min(1,time-this.lastTime));
+  // The world keeps the mission clock's time, also across a jump in time (fast-forward, the debug console).
+  const time=this.clock.elapsed;
+  let gap=time-this.lastTime;
   this.lastTime=time;
-  if(dt>0){
+  if(gap>0){
    const open=new Map(this.doors.doors.map(s=>[s.def.id,!s.closed]));
-   this.world.step(dt,id=>open.get(id)??true);
+   for(;gap>1e-6;gap-=.5)this.world.step(Math.min(.5,gap),id=>open.get(id)??true);
   }
   for(const e of this.world.drain())this.onWorld(e.type,e.id);
   for(const e of this.world.grid.events.splice(0))this.onPower(e.type,e.id);

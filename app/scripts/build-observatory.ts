@@ -17,7 +17,8 @@
 //
 // Upper floor (y 3.5): the dome room over hall/cryo/server/pier (x 20..36, z 22..38), the upper corridor east of it
 // (x 36..46, z 32..38) at the top of the stairs, and the steel catwalk outside the dome's north wall (z 38..40).
-import {writeFileSync} from 'node:fs';
+import {readFileSync,writeFileSync} from 'node:fs';
+import {buildGameMap,type MapLayout} from '../src/map-layout.ts';
 
 type Gap=[at:number,width:number];
 type Block={id:string;x:number;z:number;w:number;d:number;h:number;y:number;floor:number;prefab?:string};
@@ -250,4 +251,29 @@ const layout={
 const out=(name:string,data:unknown)=>writeFileSync(new URL(`../src/data/${name}.json`,import.meta.url),JSON.stringify(data,null,1)+'\n');
 out('observatory-layout',layout);
 out('observatory-schedule',{actors});
+// The compiled game map (what tests and the item checks read), and the stage's own item placements and briefing on top
+// of the shared item rules and loadout (club-detection.json, club-mission.json).
+out('observatory-map',buildGameMap(layout as unknown as MapLayout&Record<string,unknown>,{section:{id:'observatory',label:'天文台',surface:'asphalt'}}));
+const shared=(name:string)=>JSON.parse(readFileSync(new URL(`../src/data/${name}.json`,import.meta.url),'utf8'));
+const detection=shared('club-detection'),club=shared('club-mission');
+out('observatory-detection',{...detection,_note:'持ち物の決まりはクラブと共通（club-detection.json から写す）。worldItems だけが天文台のもの。scripts/build-observatory.ts が作る。',
+ worldItems:[
+  {id:'wrench-gen',item:'wrench',x:6.6,z:33.4,floor:0},{id:'crowbar-pier',item:'crowbar',x:23.6,z:36.9,floor:0},
+  {id:'hammer-plant',item:'hammer',x:38.2,z:34.4,floor:0},{id:'brick-north',item:'brick',x:16,z:40.6,floor:0},
+  {id:'knife-lounge',item:'kitchen_knife',x:16.9,z:18.4,floor:0},
+ ],blend:[],monitor:{...detection.monitor,id:''}});
+out('observatory-brief',{
+ _note:'作戦準備の画面に出る内容。scripts/build-observatory.ts が作る。',
+ title:'嵐の観望会',targets:['director'],
+ briefing:[{id:'director',label:'所長',text:'衛星追跡データを横流ししている天文台の所長。台風で観望会は中止、後援者たちと山上に閉じ込められている。嵐・電気・空気を使え。'}],
+ tools:club.tools,toolSlots:club.toolSlots,fixedTools:club.fixedTools,pistols:club.pistols,
+ starts:[{id:'S1',label:'正門',open:true,note:'前庭の駐車場から'}],
+ pickups:[{id:'P1',label:'西の裏手の木箱',note:'発電機小屋へ向かう途中',x:7.6,z:15.6,floor:0}],
+ cases:club.cases,cleaners:['cleaner'],devices:[],
+ clothes:[
+  {id:'uniform-tech',disguise:'technician',pos:{x:6.4,y:0,z:29}},
+  {id:'coat-researcher',disguise:'manager',pos:{x:41.6,y:0,z:20.8}},
+  {id:'uniform-cleaner',disguise:'cleaner',pos:{x:44.8,y:0,z:17.2}},
+ ],
+});
 console.log(JSON.stringify({rooms:rooms.length,walls:walls.length,furniture:furniture.length,doors:doors.length,npcs:npcs.length,places:Object.keys(places).length}));
