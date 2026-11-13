@@ -104,6 +104,7 @@ type TeamWatch={first:string;successor:string;max:number;angle:number;moved:bool
 const teamWatches=new WeakMap<Run,TeamWatch>();
 const teamWatch=(r:Run)=>{let w=teamWatches.get(r);if(!w)teamWatches.set(r,w={first:'',successor:'',max:0,angle:0,moved:false,early:false,down:false});return w;};
 const teamCrates=[crate('hold',-11,-6,1.2,3),crate('step',-9,-11,1.2,1.2),crate('bridge',-5,-12,2.4,1.2),crate('side',0,-12,2.4,1.2),crate('agent',-2.5,-6,1,2,.9)];
+const flashCrates=[...teamCrates.filter(b=>b.id!=='crate-agent'),crate('flash-agent',-3,-6,.6,2,1.05)];
 function teamStart(r:Run){draw(r);for(const n of r.director.npcs)r.combat!.engage(n,r.player,0);}
 function watchTeam(r:Run,replace=false){const w=teamWatch(r),c=r.combat!,flankers=r.director.npcs.filter(n=>c.teams.role(n)==='flank');w.max=Math.max(w.max,flankers.length);if(r.time<8&&flankers.length)w.early=true;
  for(const n of flankers){if(!w.first)w.first=n.id;else if(n.id!==w.first&&w.down)w.successor=n.id;
@@ -260,6 +261,15 @@ export const SCENARIOS:Scenario[]=[
  {id:'team-replace',group:'戦闘',title:'回り込みの人が倒れると引き継ぐ',expect:'回り込み役が倒れると、生きている別の警備が引き継ぐ。',
  npcs:[guard('g1',-13,-6,Math.PI/2),guard('g2',-13,-9,Math.PI/2),guard('g3',-14,-8,Math.PI/2)],seconds:26,combat:true,blockers:teamCrates,player:()=>player(-1,-6,{weaponDrawn:true}),start:teamStart,step:r=>watchTeam(r,true),
  judge:r=>{const w=teamWatch(r);return {pass:w.down&&!!w.successor&&w.first!==w.successor&&w.max===1,detail:JSON.stringify(w)};}},
+ {id:'flash-camp',group:'戦闘',title:'遮蔽に居座るとフラッシュを投げる',expect:'同じ遮蔽に12秒いると警備が1個投げ、時間を置いて発光する。近いエージェントの照準が一時的にぶれる。',
+ npcs:[guard('g1',-13,-6,Math.PI/2)],seconds:20,combat:true,blockers:flashCrates,player:()=>player(-1,-6,{weaponDrawn:true}),start:teamStart,
+ judge:r=>({pass:r.combat!.flashes.thrown===1&&r.combat!.flashes.burst===1&&r.combat!.events.recent.some(e=>e.type==='player.flashed'),detail:`投擲 ${r.combat!.flashes.thrown} / 発光 ${r.combat!.flashes.burst}`})},
+ {id:'flash-wall',group:'戦闘',title:'壁の向こうへフラッシュを投げない',expect:'長く居座っていても、壁に遮られている間は投げない。',
+ npcs:[guard('g1',-13,-6,Math.PI/2)],seconds:20,combat:true,blockers:[...flashCrates,{...crate('wall',-6,-6,.4,8),h:4}],player:()=>player(-1,-6,{weaponDrawn:true}),start:teamStart,
+ judge:r=>({pass:r.combat!.flashes.thrown===0,detail:`壁越しの投擲 ${r.combat!.flashes.thrown}`})},
+ {id:'flash-limit',group:'戦闘',title:'フラッシュは1人1個まで',expect:'同じ撃ち合いで45秒居座っても、同じ警備は2個目を投げない。',
+ npcs:[guard('g1',-13,-6,Math.PI/2)],seconds:45,combat:true,blockers:flashCrates,player:()=>player(-1,-6,{weaponDrawn:true}),start:teamStart,
+ judge:r=>({pass:r.combat!.flashes.thrown===1&&(r.combat!.flashes.used.get(npc(r,'g1'))??0)===1,detail:`投擲 ${r.combat!.flashes.thrown}`})},
  {id:'search-lose',group:'捜索',title:'見失うと捜索し、やがて戻る',expect:'警戒させてから視界の外へ消えると、捜索 → 落ち着いて持ち場へ',
   npcs:[guard('g1',13,-10,0)],seconds:40,player:(_t,r)=>npc(r,'g1').state==='alert'&&!r.log.includes('逃げた')?(r.log.push('逃げた'),player(-17,12)):r.log.includes('逃げた')?player(-17,12):player(13,-5,{speed:1}),
   done:r=>has(r,'calm')&&r.log.includes('逃げた'),

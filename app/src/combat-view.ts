@@ -1,3 +1,5 @@
+import {flashPosition} from './guard-flash.ts';
+import {flashMesh,placeHeldFlash,poseFlashThrow,FLASH_THROW_SECONDS} from './flash-motion.ts';
 import * as T from 'three';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
 import {COMBAT_MODELS} from './combat-data.ts';
@@ -14,6 +16,7 @@ const CLASS:Record<string,WeaponClass>={tranq_pistol:'pistol',pistol_silenced:'p
  * and cowering, muzzle flashes, tracers and guns lying on the floor. Simulation lives in CombatSystem. */
 export class CombatView{
  readonly root=new T.Group();private templates=new Map<string,T.Object3D>();private mine=new Map<string,Weapon>();private npcGuns=new Map<NpcView,Weapon>();
+ private visualFrom=new Map<object,T.Vector3>();private throwProps=new Map<NpcView,T.Group>();private thrownProps=new Map<object,T.Group>();
  private stowed=new Map<NpcView,{id:string;object:T.Object3D}>();
  private flash?:T.Object3D;private npcFlashes:T.Object3D[]=[];private tracers:T.LineSegments;private floor=new Map<number,T.Object3D>();
  private anim:{kind:CombatKind;start:number;gun:string}={kind:'aim',start:-1e9,gun:''};
@@ -29,7 +32,7 @@ export class CombatView{
  warm(compile:()=>void){const shown=[this.flash,...this.npcFlashes,...Object.keys(CLASS).filter(id=>id!=='rifle_npc').map(id=>this.mineFor(id)?.object)].filter((o):o is T.Object3D=>!!o);for(const o of shown)o.visible=true;compile();for(const o of shown)o.visible=false;}
  private make(id:string){const t=this.templates.get(id);return t?t.clone(true):undefined;}
  private weapon(id:string,parent:T.Object3D){const s=this.make(id);if(!s)return undefined;parent.add(s);return prepareWeapon(s,CLASS[id]??'pistol');}
- reset(){for(const s of this.stowed.values())s.object.removeFromParent();this.stowed.clear();for(const w of this.mine.values())w.object.visible=false;for(const [v,w] of this.npcGuns){w.object.removeFromParent();this.npcGuns.delete(v);}for(const o of this.floor.values())o.removeFromParent();this.floor.clear();this.anim={kind:'aim',start:-1e9,gun:''};}
+ reset(){for(const p of [...this.throwProps.values(),...this.thrownProps.values()])p.removeFromParent();this.throwProps.clear();this.thrownProps.clear();this.visualFrom.clear();for(const s of this.stowed.values())s.object.removeFromParent();this.stowed.clear();for(const w of this.mine.values())w.object.visible=false;for(const [v,w] of this.npcGuns){w.object.removeFromParent();this.npcGuns.delete(v);}for(const o of this.floor.values())o.removeFromParent();this.floor.clear();this.anim={kind:'aim',start:-1e9,gun:''};}
  /** The agent's moves: draw, holster, a shot and a reload start their short clips. */
  play(kind:CombatKind,now:number,gun:string){this.anim={kind,start:now,gun};}
  private mineFor(id:string){let w=this.mine.get(id);if(!w){w=this.weapon(id,this.root);if(w)this.mine.set(id,w);}return w;}
@@ -47,8 +50,8 @@ export class CombatView{
   poseCombat(rig,actor,model,sampleCombat(kind,cls,t,true,this.pistolTuning),w,crouch,still);w.object.visible=weaponVisible(kind,cls,t,true);
   if(this.flash&&a.kind==='fire'&&since<.06){this.flash.visible=true;this.flash.position.copy(muzzle(w));this.flash.quaternion.copy(w.object.quaternion);this.flash.scale.setScalar(cls==='long'?1.4:1);}}
  /** Hooked into NpcView: guards in a fight aim their own gun; bystanders run with their arms over their heads, then cower. */
- npc(view:NpcView,time:number){const n=view.npc;let w=this.npcGuns.get(view);
-  if(n.active&&!n.busy&&n.state==='combat'&&n.weapon){if(!w){w=this.weapon(n.weapon,view.group);if(w)this.npcGuns.set(view,w);}if(!w)return;const since=time-n.shotAt;
+ npc(view:NpcView,time:number){const n=view.npc;const prop=this.throwProps.get(view);if(prop)prop.visible=false;let w=this.npcGuns.get(view);
+  if(n.active&&!n.busy&&n.state==='combat'&&n.weapon){if(!w){w=this.weapon(n.weapon,view.group);if(w)this.npcGuns.set(view,w);}if(!w)return;const since=time-n.shotAt;const throwing=time-n.flashThrowAt;if(throwing>=0&&throwing<FLASH_THROW_SECONDS){poseFlashThrow(view.rig,view.group,view.body,throwing/FLASH_THROW_SECONDS,n.flashThrowCover);let held=this.throwProps.get(view);if(!held){held=flashMesh();view.group.add(held);this.throwProps.set(view,held);}placeHeldFlash(held,view.rig,view.group,throwing);w.object.visible=false;return;}
    // Guard AI stage 1: kneeling behind low cover, rising over it to shoot (coverAim) and going down again (coverAim backwards).
    const change=time-n.postureAt,rise=COMBAT_SECONDS.coverAim;
    const frame=n.posture==='cover'?(n.posturePrev==='peek'&&change<rise?sampleCombat('coverAim',w.cls,1-change/rise):sampleCombat('cover',w.cls,(time/COMBAT_SECONDS.cover)%1))
@@ -69,6 +72,9 @@ export class CombatView{
   return g;}
  /** Tracers and flashes of the last instants, and guns lying where they fell. */
  render(c:CombatSystem,time:number,npcViews:NpcView[]){
+  for(const [v,p] of this.throwProps)if(!v.npc.active||v.npc.busy||v.npc.state!=='combat'||time-v.npc.flashThrowAt>=FLASH_THROW_SECONDS)p.visible=false;
+  for(const [t,p] of this.thrownProps)if(!c.flashes.active.includes(t as never)){p.removeFromParent();this.thrownProps.delete(t);this.visualFrom.delete(t);}
+  for(const t of c.flashes.active){if(!t.released)continue;let p=this.thrownProps.get(t);if(!p){p=flashMesh();this.root.add(p);this.thrownProps.set(t,p);}let from=this.visualFrom.get(t);if(!from){const held=[...this.throwProps].find(([v])=>v.npc===t.owner)?.[1];from=held?held.getWorldPosition(new T.Vector3()):new T.Vector3(t.from.x,t.from.y,t.from.z);this.visualFrom.set(t,from);}const at=t.stopped?t.pos:flashPosition(from,t.target,(time-t.release)/c.flashes.rules.flight,c.flashes.rules.arc);p.position.set(at.x,at.y,at.z);p.rotation.z=(time-t.release)*8;}
   // NpcView can skip posing down, hidden, busy or distant people; clear their last held gun every frame.
   for(const [v,w] of this.npcGuns)if(!v.npc.active||v.npc.busy||v.npc.state!=='combat'||!v.npc.weapon||!v.group.visible)w.object.visible=false;
   const live=c.tracers.filter(t=>time-t.time<=.12),pos=this.tracers.geometry.getAttribute('position') as T.BufferAttribute;let k=0;

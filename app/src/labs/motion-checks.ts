@@ -1,3 +1,4 @@
+import {sampleFlashThrow} from '../flash-motion.ts';
 import * as T from 'three';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
 import {AGENT_PISTOL_VARIANTS,COMBAT_SECONDS,sampleCombat,weaponVisible,type CombatKind} from '../combat-motion.ts';
@@ -104,7 +105,9 @@ function* gestures(){
  }
 }
 
+function* flashThrows(){for(const cover of [false,true])for(let i=0;i<=200;i++)yield motionSample(sampleFlashThrow(i/200,cover),`flash/${cover?'cover':'stand'} ${i/2}%`);}
 export const ELBOW_CHECKS=[
+ {label:'警備のフラッシュ投擲',samples:flashThrows},
  {label:'銃の動き',samples:gunplay},
  {label:'格闘・刀・変装・検査',samples:pairedActions},
  {label:'登り・乗り越え',samples:traversal},

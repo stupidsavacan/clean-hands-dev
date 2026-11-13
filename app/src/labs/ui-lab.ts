@@ -1,3 +1,4 @@
+import {runFlashPreview} from './flash-ui-preview';
 // UI Lab (2026-11-06): the HITMAN-style planning screen, pause menu, result (menus.ts) and in-game HUD with the
 // inventory strip (hud-hitman.ts, moved out of the game 2026-11-07) on their own, at the PC and
 // iPad (9th gen, landscape) sizes, with automatic checks. The game keeps its earlier screens until every check here passes
@@ -11,8 +12,8 @@ import clubMap from '../data/club-map.json';
 import {HitmanHud,type HudState} from '../hud-hitman';
 
 const mission={...club,toolPickupEnabled:true} as unknown as PlanMission;
-const SIZES:{id:string;label:string;w:number;h:number}[]=[{id:'pc',label:'PC 1280×720',w:1280,h:720},{id:'ipad',label:'iPad 横 1080×810',w:1080,h:810}];
-const SCREENS:{id:string;label:string}[]=[{id:'plan',label:'作戦準備'},{id:'pause',label:'一時停止'},{id:'result',label:'結果'},{id:'hud',label:'ゲーム中の HUD'}];
+const SIZES:{id:string;label:string;w:number;h:number}[]=[{id:'pc',label:'PC 1280×720',w:1280,h:720},{id:'ipad',label:'iPad 横 1080×810',w:1080,h:810},{id:'fullhd',label:'PC 1920×1080',w:1920,h:1080}];
+const SCREENS:{id:string;label:string}[]=[{id:'plan',label:'作戦準備'},{id:'pause',label:'一時停止'},{id:'result',label:'結果'},{id:'hud',label:'ゲーム中の HUD'},{id:'flash',label:'閃光の表現（未反映）'}];
 type Check={name:string;ok:boolean;detail:string};
 const params=new URLSearchParams(location.search),embed=params.get('embed');
 const app=document.querySelector<HTMLDivElement>('#app')!;
@@ -26,7 +27,8 @@ function runEmbed(screen:string){
  const post=(data:object)=>parent!==window&&parent.postMessage({source:'ui-lab',screen,...data},'*');
  let checks:()=>Check[]=()=>[];
  if(params.get('touch'))document.body.classList.add('touch-enabled');
- if(screen==='hud'){checks=runHud();}
+ if(screen==='flash'){checks=runFlashPreview(app,params);}
+ else if(screen==='hud'){checks=runHud();}
  else if(screen==='plan'){
   const plan=new PlanScreen(app,mission,{eyebrow:'クラブ · 準備',agent:()=>'47'});
   plan.onLook=()=>toast('ゲームでは姿を変える画面が開く');plan.onStart=l=>{toast('作戦開始：'+describe(l));post({started:l});};
@@ -146,7 +148,7 @@ function runShell(){
 <section><h2>決まり</h2><ul><li>銃は1丁まで。身につけて持ち込むか、持ち込みの場所に先に置くか。</li><li>持ち込み場所には、選んだ銃か道具枠の道具を1つ置ける。</li><li>道具 1・2 に同じ物は入らない。ワイヤーはいつも持つ。</li><li>PC と iPad 横で、はみ出さず、スクロールなしで「作戦開始」が見え、ボタンは 44px 以上。</li></ul></section>
 <section><h2>残っている課題</h2><ul><li>済み（11/8）：GHOST の表示を地図の上の外に出した。iPad では「持ち物ボタンで選ぶ」と出す。</li><li>ゲームに入れる時：操作の表（controls.ts）に持ち物の列のキーとタッチの「持ち物」ボタンを戻す。</li><li>HUD：ゲームに入れる時、状況・体力・GHOST・持ち物の作り方を game.ts に戻す（docs/DEVELOPMENT.md）。</li><li>iPad の実機（タッチ）ではまだ見ていない。</li></ul></section>
 <section><h2>今の装備</h2><pre id="loadout">—</pre></section>
-<section><h2>自動判定</h2><button id="run">すべて判定（4画面 × 2サイズ）</button><div id="summary"></div><div id="results"></div></section></aside></div>`;
+<section><h2>自動判定</h2><button id="run">すべて判定（5画面 × 3サイズ）</button><div id="summary"></div><div id="results"></div></section></aside></div>`;
  const style=document.createElement('style');style.textContent=`html,body,#app{overflow:hidden}#lab{display:grid;grid-template-columns:1fr 380px;height:100vh}
 main{display:flex;flex-direction:column;min-width:0}#bar{display:flex;gap:10px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--faint);flex-wrap:wrap}#bar .sub{color:var(--dim);font-size:12px;flex:1}
 #bar select,#panel button{font:13px var(--jp);background:#161b20;color:var(--paper);border:1px solid var(--faint);padding:6px 10px}

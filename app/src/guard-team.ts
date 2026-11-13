@@ -14,6 +14,9 @@ export class GuardTeams{
  readonly flanks=new Map<Npc,Flank>();private readonly suppressors=new Set<Npc>();private readonly groups=new Map<number,Group>();
  private readonly director:Director;private readonly spots:CoverSpot[];readonly rules:TeamRules;private readonly free:(s:CoverSpot,n:Npc)=>boolean;
  constructor(director:Director,spots:CoverSpot[],rules:TeamRules,free:(s:CoverSpot,n:Npc)=>boolean){this.director=director;this.spots=spots;this.rules=rules;this.free=free;}
+ camped(n:Npc,time:number,hold:number){const g=this.groups.get(floorOf(n.pos.y));return g&&time-g.since>=hold?g.anchor:null;}
+ covered(n:Npc,known:Position){const near=this.director.boxes.filter(b=>Math.hypot(Math.max(b.minX-known.x,0,known.x-b.maxX),Math.max(b.minZ-known.z,0,known.z-b.maxZ))<=2&&b.maxY>known.y+.5&&b.minY<known.y+1.6);
+  return !segmentClear(near,{x:n.pos.x,y:n.pos.y+this.director.rules.vision.eye,z:n.pos.z},{x:known.x,y:known.y+.78,z:known.z});}
  role(n:Npc){return this.flanks.has(n)?'flank':this.suppressors.has(n)?'suppress':null;}
  available(s:CoverSpot,n:Npc){return this.free(s,n)&&![...this.flanks].some(([other,f])=>other!==n&&(f.final===s||f.route[0]===s));}
  private clear(n:Npc){if(this.flanks.delete(n))n.coverT=0;this.suppressors.delete(n);}
@@ -29,8 +32,7 @@ export class GuardTeams{
    if(guards.length<2||time-group.since<this.rules.hold){for(const n of guards)this.clear(n);continue;}
    if(time<group.next)continue;group.next=time+this.rules.recheck;
    // The obstacle must be near the agent, rather than the guard's own cover.
-   const near=this.director.boxes.filter(b=>Math.hypot(Math.max(b.minX-known.x,0,known.x-b.maxX),Math.max(b.minZ-known.z,0,known.z-b.maxZ))<=2&&b.maxY>known.y+.5&&b.minY<known.y+1.6);
-   const covered=guards.some(n=>!segmentClear(near,{x:n.pos.x,y:n.pos.y+this.director.rules.vision.eye,z:n.pos.z},{x:known.x,y:known.y+.78,z:known.z}));
+   const covered=guards.some(n=>this.covered(n,known));
    if(!covered){for(const n of guards)this.clear(n);continue;}
    const max=this.rules.counts.reduce((value,[count,limit])=>guards.length>=count?limit:value,0),failed=new Set<Npc>();
    for(const n of guards){const plan=this.flanks.get(n);if(plan&&(!this.valid(plan.final,known,p.crouched,n)||!this.valid(plan.route[0],known,p.crouched,n))){this.clear(n);failed.add(n);}}
