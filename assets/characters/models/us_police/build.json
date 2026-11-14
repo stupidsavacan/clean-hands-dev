@@ -1,0 +1,29 @@
+{
+  "id": "us_police",
+  "recipe": "recipes/us_police.json",
+  "output": "models/us_police/us_police.glb",
+  "sha256": "f8ca41f2273027ed2057ca43fae3ba27e50f4f1942c130913a566653a753dafc",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Body": {
+      "vertices": 99,
+      "triangles": 146
+    },
+    "Outfit": {
+      "vertices": 252,
+      "triangles": 478
+    },
+    "Hair": {
+      "vertices": 24,
+      "triangles": 22
+    },
+    "Accessories": {
+      "vertices": 177,
+      "triangles": 211
+    },
+    "Face": {
+      "vertices": 28,
+      "triangles": 14
+    }
+  }
+}

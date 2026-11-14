@@ -134,6 +134,12 @@ for name in ('uniform.spiky.v1','uniform.tee.v1'):
     fn, _, colors, params=PARTS[name];PARTS[name]=(fn, ('cast.female.v1',), colors, params)
 PARTS['uniform.boots.v1']=(bu.boots, ('cast.male.v1',), {'c': ('cell',)}, {})
 
+import stage_costumes
+PARTS['stage.sunglasses.v1']=(stage_costumes.magnate_sunglasses, ('cast.male.v1',), {}, {})
+for role in ('us_police','movie_star','ferry_captain','professor','oil_magnate'):
+    PARTS['stage.dress.'+role+'.v1']=(partial(stage_costumes.dress, role=role), ('cast.male.v1',), {}, {})
+PARTS['stage.thobe-legs.v1']=(stage_costumes.thobe_legs, ('cast.male.v1',), {'color': ('cell',), 'skin': ('cell',)}, {})
+
 BEFORE_OBJECTS = {
     'cast.lower-head.v1': lower_head,
     'dj.customize.v1': bu.dj_customize,
@@ -238,6 +244,14 @@ def build(path):
     for p in recipe['parts']:
         fn = PARTS[p['part']][0]
         fn(meshes[p['mesh']], **p['colors'], **p['parameters'])
+    garment_metadata = {}
+    for part in recipe['parts']:
+        if part['part'] in stage_costumes.GARMENTS:
+            name, make, metadata = stage_costumes.GARMENTS[part['part']]
+            garment = family.Mesh(name)
+            make(garment)
+            meshes[name] = garment
+            garment_metadata[name] = metadata
     for op in recipe['specialOperations']:
         if op['phase'] == 'beforeObjects':
             BEFORE_OBJECTS[op['operation']](meshes)
@@ -255,6 +269,15 @@ def build(path):
         if mesh.v:
             ob = mesh.object(rig, mat)
             objects.append(ob)
+            if name in garment_metadata:
+                import bmesh
+                bm = bmesh.new(); bm.from_mesh(ob.data)
+                # The generator already supplies the density the drape runtime needs.
+                bmesh.ops.triangulate(bm, faces=list(bm.faces))
+                bm.to_mesh(ob.data); bm.free(); ob.data.update()
+                ob['garment'] = garment_metadata[name]
+                ob.data.materials[0] = mat.copy()
+                ob.data.materials[0].use_backface_culling = False
             if name == 'Face':
                 family.morphs(ob, mesh)
     if new_mode:

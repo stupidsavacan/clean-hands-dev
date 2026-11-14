@@ -1,0 +1,5 @@
+
+> clean-hands-m5@0.1.0 build:all
+> node scripts/build-all.mjs outfit-lab
+
+✓ outfit-lab → outfit-lab.html (2.0s)

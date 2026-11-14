@@ -1,0 +1,29 @@
+{
+  "id": "ferry_captain",
+  "recipe": "recipes/ferry_captain.json",
+  "output": "models/ferry_captain/ferry_captain.glb",
+  "sha256": "d18f8b08a0ba157f882d071a6fb07d299dd108505451b15b7777de3c3a83a5cd",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Body": {
+      "vertices": 99,
+      "triangles": 146
+    },
+    "Outfit": {
+      "vertices": 252,
+      "triangles": 478
+    },
+    "Hair": {
+      "vertices": 24,
+      "triangles": 22
+    },
+    "Accessories": {
+      "vertices": 232,
+      "triangles": 252
+    },
+    "Face": {
+      "vertices": 28,
+      "triangles": 14
+    }
+  }
+}

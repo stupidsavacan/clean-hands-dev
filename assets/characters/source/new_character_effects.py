@@ -50,7 +50,9 @@ def recolor(objects, recipe):
             cell_uv = uv.data[polygon.loop_indices[0]].uv
             cell = int(cell_uv.x*4)+4*int((1-cell_uv.y)*4)
             groups = {ob.vertex_groups[g.group].name for i in polygon.vertices for g in ob.data.vertices[i].groups if g.weight > 0}
-            if ob.name == 'Outer':
+            if ob.get('garment'):
+                role = 'outer' if cell == 0 else 'accessories'
+            elif ob.name == 'Outer':
                 role = 'outer' if cell == 4 else None
             elif ob.name == 'Hair':
                 role = 'hair'

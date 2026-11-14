@@ -1,0 +1,42 @@
+[
+  {
+    "id": "us_police",
+    "bytes": 124760,
+    "preview": {
+      "id": "preview_b6bba6d764fc477c5de294ca9e7b9be9",
+      "modelUrl": "/api/outfit/models/preview_b6bba6d764fc477c5de294ca9e7b9be9"
+    }
+  },
+  {
+    "id": "movie_star",
+    "bytes": 106528,
+    "preview": {
+      "id": "preview_2e393af6bdb8c1fec49f1dcd17a4a282",
+      "modelUrl": "/api/outfit/models/preview_2e393af6bdb8c1fec49f1dcd17a4a282"
+    }
+  },
+  {
+    "id": "ferry_captain",
+    "bytes": 129688,
+    "preview": {
+      "id": "preview_796d269c2682871d1bd5ea4a251a8143",
+      "modelUrl": "/api/outfit/models/preview_796d269c2682871d1bd5ea4a251a8143"
+    }
+  },
+  {
+    "id": "professor",
+    "bytes": 110880,
+    "preview": {
+      "id": "preview_ac544983a629a8164fac39a5dad398ee",
+      "modelUrl": "/api/outfit/models/preview_ac544983a629a8164fac39a5dad398ee"
+    }
+  },
+  {
+    "id": "oil_magnate",
+    "bytes": 125120,
+    "preview": {
+      "id": "preview_b4a5206a0faa9505dc25731e7c887d4f",
+      "modelUrl": "/api/outfit/models/preview_b4a5206a0faa9505dc25731e7c887d4f"
+    }
+  }
+]

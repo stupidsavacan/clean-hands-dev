@@ -1,0 +1,829 @@
+{
+  "poses": [
+    {
+      "pose": "bind",
+      "time": 0,
+      "off": {
+        "legs": 0,
+        "other": 44,
+        "bones": {
+          "chest": 44
+        }
+      },
+      "on": {
+        "legs": 0,
+        "other": 44,
+        "bones": {
+          "chest": 44
+        }
+      },
+      "maxCorrection": 0,
+      "maxEdgeRatio": 1,
+      "remaining": 0,
+      "capped": 0,
+      "milliseconds": 0.503
+    },
+    {
+      "pose": "loco-idle",
+      "time": 0,
+      "off": {
+        "legs": 0,
+        "other": 90,
+        "bones": {
+          "chest": 46,
+          "upper_armL": 2,
+          "forearmL": 20,
+          "forearmR": 20,
+          "upper_armR": 2
+        }
+      },
+      "on": {
+        "legs": 0,
+        "other": 80,
+        "bones": {
+          "chest": 46,
+          "forearmL": 18,
+          "forearmR": 16
+        }
+      },
+      "maxCorrection": 0.0416,
+      "maxEdgeRatio": 1.265,
+      "remaining": 0,
+      "capped": 0,
+      "milliseconds": 0.588
+    },
+    {
+      "pose": "loco-idle",
+      "time": 0.4,
+      "off": {
+        "legs": 51,
+        "other": 88,
+        "bones": {
+          "chest": 46,
+          "forearmL": 20,
+          "upper_armL": 1,
+          "forearmR": 20,
+          "upper_armR": 1,
+          "thighR": 32,
+          "shinR": 19
+        }
+      },
+      "on": {
+        "legs": 0,
+        "other": 88,
+        "bones": {
+          "chest": 46,
+          "forearmL": 24,
+          "forearmR": 18
+        }
+      },
+      "maxCorrection": 0.079,
+      "maxEdgeRatio": 1.488,
+      "remaining": 0,
+      "capped": 0,
+      "milliseconds": 0.51
+    },
+    {
+      "pose": "loco-idle",
+      "time": 0.8,
+      "off": {
+        "legs": 67,
+        "other": 85,
+        "bones": {
+          "chest": 46,
+          "forearmL": 26,
+          "upper_armL": 1,
+          "forearmR": 12,
+          "thighR": 41,
+          "shinR": 26
+        }
+      },
+      "on": {
+        "legs": 0,
+        "other": 83,
+        "bones": {
+          "chest": 46,
+          "upper_armL": 1,
+          "forearmL": 26,
+          "forearmR": 10
+        }
+      },
+      "maxCorrection": 0.108,
+      "maxEdgeRatio": 1.635,
+      "remaining": 0,
+      "capped": 0,
+      "milliseconds": 0.51
+    },
+    {
+      "pose": "loco-idle",
+      "time": 1.2,
+      "off": {
+        "legs": 107,
+        "other": 85,
+        "bones": {
+          "chest": 46,
+          "forearmL": 26,
+          "upper_armL": 1,
+          "forearmR": 12,
+          "thighR": 71,
+          "shinR": 36
+        }
+      },
+      "on": {
+        "legs": 0,
+        "other": 82,
+        "bones": {
+          "chest": 46,
+          "upper_armL": 2,
+          "forearmL": 26,
+          "forearmR": 8
+        }
+      },
+      "maxCorrection": 0.1205,
+      "maxEdgeRatio": 1.719,
+      "remaining": 0,
+      "capped": 0,
+      "milliseconds": 0.469
+    },
+    {
+      "pose": "loco-idle",
+      "time": 2,
+      "off": {
+        "legs": 107,
+        "other": 83,
+        "bones": {
+          "chest": 46,
+          "upper_armL": 2,
+          "forearmL": 26,
+          "forearmR": 8,
+          "upper_armR": 1,
+          "thighR": 71,
+          "shinR": 36
+        }
+      },
+      "on": {
+        "legs": 0,
+        "other": 82,
+        "bones": {
+          "chest": 46,
+          "upper_armL": 3,
+          "forearmL": 27,
+          "forearmR": 6
+        }
+      },
+      "maxCorrection": 0.1205,
+      "maxEdgeRatio": 1.719,
+      "remaining": 0,
+      "capped": 0,
+      "milliseconds": 0.459
+    },
+    {
+      "pose": "loco-walk",
+      "time": 0,
+      "off": {
+        "legs": 10,
+        "other": 89,
+        "bones": {
+          "chest": 46,
+          "forearmL": 26,
+          "upper_armL": 1,
+          "forearmR": 14,
+          "upper_armR": 2,
+          "thighL": 5,
+          "shinL": 5
+        }
+      },
+      "on": {
+        "legs": 0,
+        "other": 93,
+        "bones": {
+          "thumbL": 11,
+          "chest": 46,
+          "upper_armL": 2,
+          "forearmL": 24,
+          "forearmR": 10
+        }
+      },
+      "maxCorrection": 0.05,
+      "maxEdgeRatio": 1.219,
+      "remaining": 0,
+      "capped": 0,
+      "milliseconds": 0.473
+    },
+    {
+      "pose": "loco-walk",
+      "time": 0.4,
+      "off": {
+        "legs": 148,
+        "other": 70,
+        "bones": {
+          "thumbR": 13,
+          "chest": 46,
+          "upper_armL": 4,
+          "upper_armR": 7,
+          "thighL": 49,
+          "shinL": 43,
+          "thighR": 35,
+          "shinR": 21
+        }
+      },
+      "on": {
+        "legs": 0,
+        "other": 59,
+        "bones": {
+          "thumbR": 6,
+          "chest": 46,
+          "upper_armR": 7
+        }
+      },
+      "maxCorrection": 0.2751,
+      "maxEdgeRatio": 2.228,
+      "remaining": 0,
+      "capped": 0,
+      "milliseconds": 0.483
+    },
+    {
+      "pose": "loco-walk",
+      "time": 0.8,
+      "off": {
+        "legs": 146,
+        "other": 70,
+        "bones": {
+          "thumbL": 13,
+          "chest": 46,
+          "upper_armL": 7,
+          "upper_armR": 4,
+          "thighL": 41,
+          "shinL": 18,
+          "thighR": 41,
+          "shinR": 46
+        }
+      },
+      "on": {
+        "legs": 0,
+        "other": 53,
+        "bones": {
+          "chest": 46,
+          "upper_armL": 7
+        }
+      },
+      "maxCorrection": 0.2559,
+      "maxEdgeRatio": 2.052,
+      "remaining": 0,
+      "capped": 0,
+      "milliseconds": 0.521
+    },
+    {
+      "pose": "loco-walk",
+      "time": 1.2,
+      "off": {
+        "legs": 150,
+        "other": 73,
+        "bones": {
+          "thumbR": 15,
+          "chest": 46,
+          "upper_armL": 2,
+          "forearmL": 5,
+          "upper_armR": 5,
+          "thighL": 41,
+          "shinL": 47,
+          "thighR": 45,
+          "shinR": 17
+        }
+      },
+      "on": {
+        "legs": 0,
+        "other": 51,
+        "bones": {
+          "chest": 46,
+          "upper_armR": 5
+        }
+      },
+      "maxCorrection": 0.2561,
+      "maxEdgeRatio": 2.052,
+      "remaining": 0,
+      "capped": 0,
+      "milliseconds": 0.487
+    },
+    {
+      "pose": "loco-walk",
+      "time": 2,
+      "off": {
+        "legs": 154,
+        "other": 68,
+        "bones": {
+          "thumbR": 15,
+          "chest": 46,
+          "upper_armR": 7,
+          "thighL": 63,
+          "shinL": 35,
+          "thighR": 35,
+          "shinR": 21
+        }
+      },
+      "on": {
+        "legs": 0,
+        "other": 59,
+        "bones": {
+          "thumbR": 6,
+          "chest": 46,
+          "upper_armR": 7
+        }
+      },
+      "maxCorrection": 0.2824,
+      "maxEdgeRatio": 2.297,
+      "remaining": 0,
+      "capped": 0,
+      "milliseconds": 0.473
+    },
+    {
+      "pose": "loco-crouch",
+      "time": 0,
+      "off": {
+        "legs": 361,
+        "other": 58,
+        "bones": {
+          "neck": 12,
+          "chest": 46,
+          "thighL": 77,
+          "shinL": 49,
+          "footL": 12,
+          "thighR": 104,
+          "shinR": 98,
+          "footR": 21
+        }
+      },
+      "on": {
+        "legs": 0,
+        "other": 88,
+        "bones": {
+          "neck": 12,
+          "chest": 46,
+          "upper_armL": 1,
+          "forearmL": 29
+        }
+      },
+      "maxCorrection": 0.4388,
+      "maxEdgeRatio": 5.602,
+      "remaining": 0,
+      "capped": 0,
+      "milliseconds": 0.602
+    },
+    {
+      "pose": "loco-crouch",
+      "time": 0.4,
+      "off": {
+        "legs": 347,
+        "other": 73,
+        "bones": {
+          "neck": 12,
+          "spine": 7,
+          "chest": 54,
+          "thighL": 91,
+          "shinL": 106,
+          "footL": 15,
+          "thighR": 71,
+          "shinR": 51,
+          "footR": 13
+        }
+      },
+      "on": {
+        "legs": 0,
+        "other": 72,
+        "bones": {
+          "neck": 12,
+          "chest": 54,
+          "spine": 6
+        }
+      },
+      "maxCorrection": 0.2876,
+      "maxEdgeRatio": 3.866,
+      "remaining": 0,
+      "capped": 0,
+      "milliseconds": 0.486
+    },
+    {
+      "pose": "loco-crouch",
+      "time": 0.8,
+      "off": {
+        "legs": 311,
+        "other": 61,
+        "bones": {
+          "neck": 12,
+          "chest": 49,
+          "thighL": 81,
+          "shinL": 67,
+          "thighR": 89,
+          "shinR": 70,
+          "footR": 4
+        }
+      },
+      "on": {
+        "legs": 0,
+        "other": 61,
+        "bones": {
+          "neck": 12,
+          "chest": 49
+        }
+      },
+      "maxCorrection": 0.3603,
+      "maxEdgeRatio": 2.715,
+      "remaining": 0,
+      "capped": 0,
+      "milliseconds": 0.391
+    },
+    {
+      "pose": "loco-crouch",
+      "time": 1.2,
+      "off": {
+        "legs": 331,
+        "other": 58,
+        "bones": {
+          "neck": 12,
+          "chest": 46,
+          "thighL": 69,
+          "shinL": 37,
+          "footL": 16,
+          "thighR": 96,
+          "shinR": 93,
+          "footR": 20
+        }
+      },
+      "on": {
+        "legs": 0,
+        "other": 58,
+        "bones": {
+          "neck": 12,
+          "chest": 46
+        }
+      },
+      "maxCorrection": 0.3263,
+      "maxEdgeRatio": 4.396,
+      "remaining": 0,
+      "capped": 0,
+      "milliseconds": 0.497
+    },
+    {
+      "pose": "loco-crouch",
+      "time": 2,
+      "off": {
+        "legs": 328,
+        "other": 64,
+        "bones": {
+          "neck": 12,
+          "chest": 52,
+          "thighL": 97,
+          "shinL": 62,
+          "footL": 17,
+          "thighR": 81,
+          "shinR": 47,
+          "footR": 24
+        }
+      },
+      "on": {
+        "legs": 0,
+        "other": 63,
+        "bones": {
+          "neck": 12,
+          "chest": 51
+        }
+      },
+      "maxCorrection": 0.3947,
+      "maxEdgeRatio": 5.975,
+      "remaining": 1,
+      "capped": 0,
+      "milliseconds": 1.026
+    },
+    {
+      "pose": "gesture-dance",
+      "time": 0,
+      "off": {
+        "legs": 0,
+        "other": 46,
+        "bones": {
+          "chest": 46
+        }
+      },
+      "on": {
+        "legs": 0,
+        "other": 46,
+        "bones": {
+          "chest": 46
+        }
+      },
+      "maxCorrection": 0.0416,
+      "maxEdgeRatio": 1.265,
+      "remaining": 0,
+      "capped": 0,
+      "milliseconds": 0.472
+    },
+    {
+      "pose": "gesture-dance",
+      "time": 0.4,
+      "off": {
+        "legs": 51,
+        "other": 46,
+        "bones": {
+          "chest": 46,
+          "thighR": 32,
+          "shinR": 19
+        }
+      },
+      "on": {
+        "legs": 0,
+        "other": 46,
+        "bones": {
+          "chest": 46
+        }
+      },
+      "maxCorrection": 0.079,
+      "maxEdgeRatio": 1.488,
+      "remaining": 0,
+      "capped": 0,
+      "milliseconds": 0.492
+    },
+    {
+      "pose": "gesture-dance",
+      "time": 0.8,
+      "off": {
+        "legs": 67,
+        "other": 51,
+        "bones": {
+          "chest": 46,
+          "upper_armL": 5,
+          "thighR": 41,
+          "shinR": 26
+        }
+      },
+      "on": {
+        "legs": 0,
+        "other": 51,
+        "bones": {
+          "chest": 46,
+          "upper_armL": 5
+        }
+      },
+      "maxCorrection": 0.108,
+      "maxEdgeRatio": 1.635,
+      "remaining": 0,
+      "capped": 0,
+      "milliseconds": 0.467
+    },
+    {
+      "pose": "gesture-dance",
+      "time": 1.2,
+      "off": {
+        "legs": 107,
+        "other": 46,
+        "bones": {
+          "chest": 46,
+          "thighR": 71,
+          "shinR": 36
+        }
+      },
+      "on": {
+        "legs": 0,
+        "other": 46,
+        "bones": {
+          "chest": 46
+        }
+      },
+      "maxCorrection": 0.1205,
+      "maxEdgeRatio": 1.719,
+      "remaining": 0,
+      "capped": 0,
+      "milliseconds": 0.453
+    },
+    {
+      "pose": "gesture-dance",
+      "time": 2,
+      "off": {
+        "legs": 107,
+        "other": 51,
+        "bones": {
+          "chest": 46,
+          "upper_armR": 5,
+          "thighR": 71,
+          "shinR": 36
+        }
+      },
+      "on": {
+        "legs": 0,
+        "other": 51,
+        "bones": {
+          "chest": 46,
+          "upper_armR": 5
+        }
+      },
+      "maxCorrection": 0.1205,
+      "maxEdgeRatio": 1.719,
+      "remaining": 0,
+      "capped": 0,
+      "milliseconds": 0.456
+    },
+    {
+      "pose": "gesture-work",
+      "time": 0,
+      "off": {
+        "legs": 0,
+        "other": 59,
+        "bones": {
+          "chest": 46,
+          "upper_armL": 4,
+          "upper_armR": 8,
+          "forearmR": 1
+        }
+      },
+      "on": {
+        "legs": 0,
+        "other": 58,
+        "bones": {
+          "chest": 46,
+          "upper_armL": 4,
+          "upper_armR": 8
+        }
+      },
+      "maxCorrection": 0.0416,
+      "maxEdgeRatio": 1.265,
+      "remaining": 0,
+      "capped": 0,
+      "milliseconds": 0.462
+    },
+    {
+      "pose": "gesture-work",
+      "time": 0.4,
+      "off": {
+        "legs": 51,
+        "other": 59,
+        "bones": {
+          "chest": 46,
+          "upper_armL": 8,
+          "forearmL": 1,
+          "upper_armR": 4,
+          "thighR": 32,
+          "shinR": 19
+        }
+      },
+      "on": {
+        "legs": 0,
+        "other": 58,
+        "bones": {
+          "chest": 46,
+          "upper_armL": 8,
+          "upper_armR": 4
+        }
+      },
+      "maxCorrection": 0.079,
+      "maxEdgeRatio": 1.488,
+      "remaining": 0,
+      "capped": 0,
+      "milliseconds": 0.475
+    },
+    {
+      "pose": "gesture-work",
+      "time": 0.8,
+      "off": {
+        "legs": 67,
+        "other": 64,
+        "bones": {
+          "chest": 46,
+          "upper_armL": 8,
+          "forearmL": 10,
+          "thighR": 41,
+          "shinR": 26
+        }
+      },
+      "on": {
+        "legs": 0,
+        "other": 54,
+        "bones": {
+          "chest": 46,
+          "upper_armL": 8
+        }
+      },
+      "maxCorrection": 0.108,
+      "maxEdgeRatio": 1.635,
+      "remaining": 0,
+      "capped": 0,
+      "milliseconds": 0.466
+    },
+    {
+      "pose": "gesture-work",
+      "time": 1.2,
+      "off": {
+        "legs": 107,
+        "other": 64,
+        "bones": {
+          "chest": 46,
+          "upper_armL": 9,
+          "forearmL": 9,
+          "thighR": 71,
+          "shinR": 36
+        }
+      },
+      "on": {
+        "legs": 0,
+        "other": 54,
+        "bones": {
+          "chest": 46,
+          "upper_armL": 8
+        }
+      },
+      "maxCorrection": 0.1205,
+      "maxEdgeRatio": 1.719,
+      "remaining": 0,
+      "capped": 0,
+      "milliseconds": 0.462
+    },
+    {
+      "pose": "gesture-work",
+      "time": 2,
+      "off": {
+        "legs": 107,
+        "other": 64,
+        "bones": {
+          "chest": 46,
+          "upper_armL": 8,
+          "forearmL": 10,
+          "thighR": 71,
+          "shinR": 36
+        }
+      },
+      "on": {
+        "legs": 0,
+        "other": 54,
+        "bones": {
+          "chest": 46,
+          "upper_armL": 8
+        }
+      },
+      "maxCorrection": 0.1205,
+      "maxEdgeRatio": 1.719,
+      "remaining": 0,
+      "capped": 0,
+      "milliseconds": 0.459
+    }
+  ],
+  "motion": [
+    {
+      "style": "dynamic",
+      "pose": "loco-walk",
+      "legCrossings": 0,
+      "remaining": 0,
+      "maxCorrection": 0.426,
+      "maxStepLimbs": 0.0996,
+      "maxStepCloth": 0.0819,
+      "activity": 0.00786
+    },
+    {
+      "style": "dynamic",
+      "pose": "loco-crouch",
+      "legCrossings": 0,
+      "remaining": 14,
+      "maxCorrection": 0.458,
+      "maxStepLimbs": 0.1465,
+      "maxStepCloth": 0.2916,
+      "activity": 0.01374
+    },
+    {
+      "style": "dynamic",
+      "pose": "gesture-dance",
+      "legCrossings": 0,
+      "remaining": 0,
+      "maxCorrection": 0.121,
+      "maxStepLimbs": 0.0976,
+      "maxStepCloth": 0.0094,
+      "activity": 0.00004
+    },
+    {
+      "style": "calm",
+      "pose": "loco-walk",
+      "legCrossings": 0,
+      "remaining": 0,
+      "maxCorrection": 0.255,
+      "maxStepLimbs": 0.1571,
+      "maxStepCloth": 0.0553,
+      "activity": 0.00376
+    },
+    {
+      "style": "calm",
+      "pose": "loco-crouch",
+      "legCrossings": 0,
+      "remaining": 0,
+      "maxCorrection": 0.572,
+      "maxStepLimbs": 0.0999,
+      "maxStepCloth": 0.2904,
+      "activity": 0.01275
+    },
+    {
+      "style": "calm",
+      "pose": "gesture-dance",
+      "legCrossings": 0,
+      "remaining": 0,
+      "maxCorrection": 0.118,
+      "maxStepLimbs": 0.0976,
+      "maxStepCloth": 0.0092,
+      "activity": 0.00008
+    }
+  ]
+}

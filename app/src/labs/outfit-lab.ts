@@ -6,7 +6,8 @@ import * as T from 'three';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
 import {Rig} from '../rig';
-import {Locomotion} from '../locomotion';
+import {GarmentRuntime,type DrapeStyle} from '../garment-runtime';
+import {Locomotion,NEUTRAL} from '../locomotion';
 import {applyLook} from '../appearance';
 import {DEFAULT_LOOK} from '../wardrobe';
 import {CLIPS} from './motion-clips';
@@ -47,6 +48,8 @@ Object.assign(modelLabels,{waiter:'給仕',suit:'スーツ',guard:'警備',guest
 const paramTitle=(key:string)=>({model:'種類・襟・丈',kind:'形',cut:'袖の長さ',female:'形'} as Record<string,string>)[key]??'仕立て';
 // Plain names for the cards (the ids stay as they are in recipes and in window.__outfitLab).
 const PART_NAMES:Record<string,string>={
+ 'stage.sunglasses.v1':'金縁アビエーター',
+ 'stage.dress.us_police.v1':'アメリカ警察の装備','stage.dress.movie_star.v1':'スターの礼装小物','stage.dress.ferry_captain.v1':'船長の帽子・階級章','stage.dress.professor.v1':'教授の眼鏡・装飾','stage.dress.oil_magnate.v1':'ビシュト・グトラ','stage.thobe-legs.v1':'トーブの裾',
  'cast.head.male.v1':'男性の頭','cast.head.female.v1':'女性の頭','pool.head.v1':'プール客の頭','cast.face.male.v1':'男性の顔','cast.face.female.v1':'女性の顔','pool.face.v1':'プール客の顔',
  'cast.hair.v1':'髪型','pool.hair.v1':'プール客の髪','uniform.bald.v1':'スキンヘッド','uniform.slick.v1':'オールバック','uniform.spiky.v1':'つんつん頭',
  'cast.torso.v1':'長袖（共通）','uniform.torso.v1':'制服の長袖','pool.torso.v1':'水着・リゾート服','legacy.top.v1':'Tシャツ・シャツ','response.torso.v1':'特殊部隊の上着',
@@ -84,6 +87,7 @@ app.innerHTML=`<header class="topbar">
   <div class="controls">
    <div class="segment" role="group" aria-label="動き">${[['loco-idle','立ち'],['loco-walk','歩き'],['loco-crouch','しゃがみ'],['gesture-dance','ダンス'],['gesture-work','仕事']].map(([id,l])=>`<button data-motion="${id}">${l}</button>`).join('')}</div>
    <div class="segment" role="group" aria-label="向き">${[['0','正面'],['35','35°'],['90','横'],['180','背面']].map(([a,l])=>`<button data-view="${a}">${l}</button>`).join('')}</div>
+   <div class="segment" role="group" aria-label="布の動き">${[['calm','布：落ち着き'],['dynamic','布：機敏']].map(([id,l])=>`<button data-drape="${id}" aria-pressed="${id==='calm'}">${l}</button>`).join('')}</div>
    <div class="segment time"><button id="pause" aria-label="一時停止">${svg('<path d="M8 5v14M16 5v14"/>',18)}</button><input id="time" aria-label="動きの時刻" type="range" min="0" max="8" step=".02" value="0"></div>
   </div>
  </section>
@@ -112,6 +116,7 @@ const apiBase=['8795','8890','8891','8892','8893','8894','8895','8896','8897','8
 let catalog:OutfitCatalog,recipes:Record<string,CharacterRecipe>={},results:Record<string,string>={};
 let draft:CharacterRecipe,sourceId='waiter',cat='outer',role='outer',dirty=false,busy=false,mark:Mark=structuredClone(defaultMark),markMesh='Outfit';
 const history:CharacterRecipe[]=[],future:CharacterRecipe[]=[];
+let garments:GarmentRuntime|undefined,drape:DrapeStyle='calm';
 let modelUrl='',actor:PreviewActor|undefined,projected:T.SkinnedMesh|null=null,placing=false;
 let paused=false,time=0,last=0,request=0,motion='loco-idle',previewTimer=0,previewStamp=0;
 
@@ -131,17 +136,19 @@ new ResizeObserver(resize).observe($('#view'));resize();aim(.25);
 function resetTime(){time=0;if(actor)actor.sim=-1;}
 function tick(now:number){const dt=Math.min(.05,(now-last)/1000||0);last=now;const clip=CLIPS.find(c=>c.id===motion)!;
  if(!paused)time=(time+dt)%clip.seconds;
- if(actor)poseMotionPreview(actor,[actor],clip,time,{role:'giver',gun:{id:'pistol',cls:'pistol'},variant:'standard'});
+ if(actor){poseMotionPreview(actor,[actor],clip,time,{role:'giver',gun:{id:'pistol',cls:'pistol'},variant:'standard'});actor.group.updateMatrixWorld(true);garments?.update(paused?undefined:dt);}
  $<HTMLInputElement>('#time').max=String(clip.seconds);$<HTMLInputElement>('#time').value=String(time);controls.update();renderer.render(scene,camera);requestAnimationFrame(tick);
 }requestAnimationFrame(tick);
-function destroy(){projected?.removeFromParent();projected?.geometry.dispose();projected=null;if(actor){scene.remove(actor.group);actor.model.traverse(o=>{const mesh=o as T.Mesh;if(mesh.isMesh){mesh.geometry.dispose();for(const mat of Array.isArray(mesh.material)?mesh.material:[mesh.material]){(mat as T.MeshStandardMaterial).map?.dispose();mat.dispose();}}});}actor=undefined;}
+// The cloth style also sets how the wearer walks: a long robe is walked in with shorter, lower steps.
+function applyDrape(){if(!garments||!actor)return;garments.style=drape;garments.reset();const gait=garments.gait;actor.loco.style=gait?{...NEUTRAL,stride:gait.stride,bounce:gait.bounce}:NEUTRAL;}
+function destroy(){garments?.dispose();garments=undefined;projected?.removeFromParent();projected?.geometry.dispose();projected=null;if(actor){scene.remove(actor.group);actor.model.traverse(o=>{const mesh=o as T.Mesh;if(mesh.isMesh){mesh.geometry.dispose();for(const mat of Array.isArray(mesh.material)?mesh.material:[mesh.material]){(mat as T.MeshStandardMaterial).map?.dispose();mat.dispose();}}});}actor=undefined;}
 // Swaps in a model. A live-preview swap keeps the motion's time, so the figure does not jump back to the start.
 async function showModel(url:string,id:string,keepTime=false){const stamp=++request;if(!actor){$('#preview-status').hidden=false;$('#preview-status').textContent='モデルを読み込んでいます…';}
  const gltf=await new GLTFLoader().loadAsync(url);if(stamp!==request)return;destroy();
  const model=gltf.scene;if(id==='wardrobe'||id==='guest_male')applyLook(model,DEFAULT_LOOK);
  let triangles=0;model.traverse(o=>{const m=o as T.Mesh;if(m.isMesh){o.frustumCulled=false;const g=m.geometry;triangles+=(g.index?g.index.count:g.attributes.position.count)/3;}});
  const group=new T.Group();group.add(model);scene.add(group);
- actor={def:{id},group,model,rig:new Rig(model),loco:new Locomotion(),sim:-1,weapons:{}};if(keepTime)actor.sim=-1;else resetTime();
+ actor={def:{id},group,model,rig:new Rig(model),loco:new Locomotion(),sim:-1,weapons:{}};garments=new GarmentRuntime(model);applyDrape();if(keepTime)actor.sim=-1;else resetTime();
  $('#model-info').textContent=`三角形 ${Math.round(triangles)} · 共通リグ 22 骨`;$('#preview-status').hidden=true;void previewMark().catch(fail);
 }
 
@@ -296,6 +303,7 @@ function randomize(){if(!editable())return;const pick=<V>(a:readonly V[])=>a[Mat
 // --- wiring
 app.querySelectorAll<HTMLButtonElement>('[data-cat]').forEach(b=>b.onclick=()=>{cat=b.dataset.cat!;if(CAT_ROLE[cat])role=CAT_ROLE[cat];refresh();});
 app.querySelectorAll<HTMLButtonElement>('[data-motion]').forEach(b=>b.onclick=()=>{motion=b.dataset.motion!;resetTime();refresh();});
+app.querySelectorAll<HTMLButtonElement>('[data-drape]').forEach(b=>b.onclick=()=>{drape=b.dataset.drape as DrapeStyle;applyDrape();if(actor)actor.sim=-1;app.querySelectorAll<HTMLButtonElement>('[data-drape]').forEach(o=>o.setAttribute('aria-pressed',String(o===b)));});
 app.querySelectorAll<HTMLButtonElement>('[data-view]').forEach(b=>b.onclick=()=>{view=Number(b.dataset.view);aim(T.MathUtils.degToRad(view));refresh();});
 $('#pause').onclick=()=>{paused=!paused;$('#pause').setAttribute('aria-label',paused?'再生':'一時停止');$('#pause').innerHTML=paused?svg('<path d="M7 4l12 8-12 8Z"/>',18):svg('<path d="M8 5v14M16 5v14"/>',18);};
 $<HTMLInputElement>('#time').oninput=()=>{time=Number($<HTMLInputElement>('#time').value);paused=true;$('#pause').innerHTML=svg('<path d="M7 4l12 8-12 8Z"/>',18);if(actor)actor.sim=-1;};
@@ -322,5 +330,5 @@ const stepOf=()=>CATS.findIndex(c=>c.id===cat);
 Object.assign(window,{__outfitLabView:{scene,actor:()=>actor,projected:()=>projected,mark:()=>mark}});
 Object.assign(window,{__outfitLab:{ready,getRecipe:()=>structuredClone({...draft,mark}),setRecipe,loadRecipe:async(value:string|CharacterRecipe)=>{await ready;if(typeof value==='string')await openExisting(value);else setRecipe(value);},setBody,selectPart:(slot:string,id:string,params={})=>changed(selectPiece(draft,catalog,slot,id,params)),
  setPart:(slot:string,patch:{model?:string;part?:string;color?:string;collar?:boolean;long?:boolean})=>{const translated=({TShirt:'top',Jeans:'pants',Jacket:'outer',Sunglasses:'accessories'} as Record<string,string>)[slot]??slot;if(patch.part)changed(selectPiece(draft,catalog,translated,patch.part));else if(patch.model!==undefined||patch.collar!==undefined||patch.long!==undefined){let model=patch.model??String(draft.parts?.find(p=>p.part==='outer.layer.v1')?.parameters.model??'Jacket');if(translated==='outer'&&model&&(model.startsWith('Jacket')||model.startsWith('Bomber'))){const base=model.startsWith('Bomber')?'Bomber':'Jacket';model=base+((patch.long??model.includes('Long'))?'Long':'')+((patch.collar??model.includes('Collar'))?'Collar':'');}const id=({top:'legacy.top.v1',pants:'legacy.pants.v1',outer:'outer.layer.v1',accessories:'legacy.accessories.v1'} as Record<string,string>)[translated];changed(selectPiece(draft,catalog,translated,model?id:'',{model}));}if(patch.color)changed({...draft,appearanceColors:{...draft.appearanceColors,[translated]:patch.color}});},
- setMark,getInventory:()=>structuredClone(inventory),findInventory:(q:string)=>structuredClone(inventory.filter(e=>JSON.stringify(e).toLocaleLowerCase().includes(q.toLocaleLowerCase()))),listParts:()=>structuredClone(catalog.parts),saveAndBuild,exportGLB:async()=>{if(!modelUrl||dirty)throw new Error('先に保存して作ってください。');return (await fetch(modelUrl)).arrayBuffer();},
+ garmentDiagnostics:()=>garments?.diagnostics,setMark,getInventory:()=>structuredClone(inventory),findInventory:(q:string)=>structuredClone(inventory.filter(e=>JSON.stringify(e).toLocaleLowerCase().includes(q.toLocaleLowerCase()))),listParts:()=>structuredClone(catalog.parts),saveAndBuild,exportGLB:async()=>{if(!modelUrl||dirty)throw new Error('先に保存して作ってください。');return (await fetch(modelUrl)).arrayBuffer();},
  setMotion:(id:string,at=0)=>{if(!CLIPS.some(c=>c.id===id))throw new Error('不明な動きです。');motion=id;time=at;paused=true;$('#pause').innerHTML=svg('<path d="M7 4l12 8-12 8Z"/>',18);if(actor)actor.sim=-1;refresh();},status:()=>({dirty,busy,sourceId,modelUrl,step:stepOf()})}});

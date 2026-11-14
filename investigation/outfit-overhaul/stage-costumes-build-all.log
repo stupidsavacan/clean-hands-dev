@@ -1,0 +1,15 @@
+
+> clean-hands-m5@0.1.0 build:all
+> node scripts/build-all.mjs
+
+✓ hotel → index.html (2.3s)
+✓ party → party-prototype.html (2.1s)
+✓ club → club-prototype.html (2.4s)
+✓ mobile → clean-hands-mobile.html (2.3s)
+✓ ai-lab → ai-lab.html (2.0s)
+✓ animation-lab → animation-lab.html (2.4s)
+✓ item-lab → item-lab.html (2.0s)
+✓ outfit-lab → outfit-lab.html (2.0s)
+✓ ui-lab → ui-lab.html (1.8s)
+✓ map-lab → map-lab.html (1.8s)
+✓ test-stage → test-stage.html (2.2s)

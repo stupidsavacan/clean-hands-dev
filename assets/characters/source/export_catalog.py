@@ -7,6 +7,8 @@ sys.path.insert(0,str(HERE))
 from build_recipe import PARTS, CAST, POOL
 
 def slot(name,mesh=''):
+    if name=='stage.dress.oil_magnate.v1':return 'outer'
+    if name=='stage.thobe-legs.v1':return 'pants'
     if name.startswith('legacy.'):return name.split('.')[1]
     if 'head.' in name:return 'head'
     if 'face.' in name:return 'face'

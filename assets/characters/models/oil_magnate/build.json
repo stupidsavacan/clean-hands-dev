@@ -1,0 +1,33 @@
+{
+  "id": "oil_magnate",
+  "recipe": "recipes/oil_magnate.json",
+  "output": "models/oil_magnate/oil_magnate.glb",
+  "sha256": "55d5d59a1510196f197d011a046321e2a3bef49e05ec4e29b6a3e31f8700a85e",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Body": {
+      "vertices": 99,
+      "triangles": 146
+    },
+    "Outfit": {
+      "vertices": 300,
+      "triangles": 542
+    },
+    "Hair": {
+      "vertices": 24,
+      "triangles": 22
+    },
+    "Accessories": {
+      "vertices": 148,
+      "triangles": 182
+    },
+    "Face": {
+      "vertices": 28,
+      "triangles": 14
+    },
+    "Garment_Bisht": {
+      "vertices": 434,
+      "triangles": 528
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "professor",
+  "recipe": "recipes/professor.json",
+  "output": "models/professor/professor.glb",
+  "sha256": "9924e3f0387fd6f194e795689da6fb35734889014888a6b467ed30dfcb04a55b",
+  "blender": "4.2.16 LTS",
+  "meshes": {
+    "Body": {
+      "vertices": 99,
+      "triangles": 146
+    },
+    "Outfit": {
+      "vertices": 252,
+      "triangles": 478
+    },
+    "Hair": {
+      "vertices": 24,
+      "triangles": 22
+    },
+    "Accessories": {
+      "vertices": 100,
+      "triangles": 74
+    },
+    "Face": {
+      "vertices": 28,
+      "triangles": 14
+    }
+  }
+}

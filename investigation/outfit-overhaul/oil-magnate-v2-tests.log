@@ -1,0 +1,15 @@
+✔ the wardrobe inventory covers every embedded character and map placement (6.0956ms)
+✔ every inventory entry refers to its versioned generated, fixed or alias recipe (20.542ms)
+✔ body compatibility excludes male outer layers and head parts from female bodies (8.0633ms)
+✔ part selection clones the source and keeps ordered structural operations (0.8811ms)
+✔ fixed assets cannot become editable recipes through selection (1.7163ms)
+✔ legacy outfit JSON retains the garment variants, colors and surface mark (6.5428ms)
+✔ build request uses the dedicated header, a JSON body and propagates rejection (51.8053ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 449.6303

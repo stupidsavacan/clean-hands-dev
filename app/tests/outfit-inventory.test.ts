@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import {readFileSync} from 'node:fs';
+import {readFileSync,readdirSync} from 'node:fs';
 import baselines from '../../investigation/outfit-overhaul/stage2-baseline-models.json' with {type:'json'};
 import inventory from '../src/labs/outfit-inventory.json' with {type:'json'};
 import {CHARACTERS} from '../src/wardrobe.ts';
@@ -16,6 +16,9 @@ test('the wardrobe inventory covers every embedded character and map placement',
  assert.equal(catalog.size,inventory.length);
  const maps=[['ホテル',hotel],['マリーナ',marina],['クラブ',club],['夜会',party],['検証ステージ',testStage]] as const;
  const required=new Set([...Object.keys(NPC_MODELS),...CHARACTERS.map(c=>c.id),...baselines.models.map(m=>m.id),...baselines.aliases.map(a=>a.id)]);
+ // The lab also contains authored costumes awaiting a stage placement.
+ for(const name of readdirSync(new URL('../../assets/characters/recipes/',import.meta.url)))
+  if(name.endsWith('.json'))required.add(name.slice(0,-5));
  const expected:string[]=[];
  for(const [map,level] of maps)for(const npc of level.npcs){
   required.add(npc.model);

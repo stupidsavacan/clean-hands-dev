@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "assetMode": "generated",
+  "id": "oil_magnate",
+  "rig": "cast.shared22.v1",
+  "body": {
+    "profile": "cast.male.v1",
+    "parameters": {}
+  },
+  "identity": {
+    "head": "cast.head.male.v1",
+    "face": "cast.face.male.v1",
+    "hair": {
+      "kind": "short",
+      "cell": 0
+    },
+    "costumeRevision": 3
+  },
+  "palette": {
+    "id": "uniform.palette.v1",
+    "overrides": {},
+    "imageName": "CLEAN_HANDS_Palette_256"
+  },
+  "parts": [
+    {
+      "part": "cast.head.male.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.face.male.v1",
+      "mesh": "Face",
+      "colors": {
+        "hair": 0
+      },
+      "parameters": {}
+    },
+    {
+      "part": "uniform.torso.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "color": 1
+      },
+      "parameters": {}
+    },
+    {
+      "part": "stage.thobe-legs.v1",
+      "mesh": "Outfit",
+      "colors": {
+        "color": 1,
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.hands.v1",
+      "mesh": "Body",
+      "colors": {
+        "skin": 7
+      },
+      "parameters": {}
+    },
+    {
+      "part": "cast.hair.v1",
+      "mesh": "Hair",
+      "colors": {
+        "color": 0
+      },
+      "parameters": {
+        "kind": "short"
+      }
+    },
+    {
+      "part": "stage.dress.oil_magnate.v1",
+      "mesh": "Accessories",
+      "colors": {},
+      "parameters": {}
+    },
+    {
+      "part": "stage.sunglasses.v1",
+      "mesh": "Accessories",
+      "colors": {},
+      "parameters": {}
+    }
+  ],
+  "specialOperations": [
+    {
+      "operation": "cast.face-morphs.v1",
+      "phase": "afterObjects",
+      "mesh": "Face"
+    },
+    {
+      "operation": "skin-roots.normalize.v1",
+      "phase": "afterExport"
+    }
+  ],
+  "output": {
+    "meshOrder": [
+      "Body",
+      "Outfit",
+      "Hair",
+      "Accessories",
+      "Face"
+    ],
+    "animationProfile": "cast.walk1.v1",
+    "exportProfile": "blender42.cast-nla.v1"
+  },
+  "label": "アラブの石油王"
+}

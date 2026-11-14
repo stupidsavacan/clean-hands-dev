@@ -1,0 +1,20 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+test_all_recipes_validate (__main__.RecipeTests.test_all_recipes_validate) ... ok
+test_external_sources_not_imported (__main__.RecipeTests.test_external_sources_not_imported) ... ok
+FIXED_ASSET {"id": "wardrobe", "assetMode": "fixed", "source": "../player-wardrobe/models/player_wardrobe.glb", "sha256": "9e5ea2a871179195be4b06d457ecebb896b5734bccc1ba4ee8778a4ad5a1aee7"}
+FIXED_ASSET {"id": "architect", "assetMode": "fixed", "source": "../protagonist-studies-20261028/models/architect.glb", "sha256": "89eaeeccc43ac573a291678e24a9e7be30bcd6ba1454c0450bd0177fad27dbbf"}
+FIXED_ASSET {"id": "operative", "assetMode": "fixed", "source": "../protagonist-studies-20261028/models/operative.glb", "sha256": "863b715a10bc545309f4e051e99209048170113a565411058253d34a99aa2638"}
+FIXED_ASSET {"id": "veteran", "assetMode": "fixed", "source": "../protagonist-studies-20261028/models/veteran.glb", "sha256": "1769bcae672d9c0c0426f54607f048f802ac074c3704c662d5788648975752c4"}
+FIXED_ASSET {"id": "agent47", "assetMode": "fixed", "source": "../protagonist-studies-20261028/models/agent47.glb", "sha256": "88a9400b778f490602f8338b15d966a2d71c4d9c0761070a233ada4fdfd68675"}
+FIXED_ASSET {"id": "wardrobe", "assetMode": "fixed", "source": "../player-wardrobe/models/player_wardrobe.glb", "sha256": "9e5ea2a871179195be4b06d457ecebb896b5734bccc1ba4ee8778a4ad5a1aee7"}
+test_fixed_assets_and_alias_do_not_generate_files (__main__.RecipeTests.test_fixed_assets_and_alias_do_not_generate_files) ... ok
+test_reject_fixed_hash_mismatch_and_alias_redirection (__main__.RecipeTests.test_reject_fixed_hash_mismatch_and_alias_redirection) ... ok
+test_reject_unsupported_operations_and_parameters (__main__.RecipeTests.test_reject_unsupported_operations_and_parameters) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 5.864s
+
+OK
+Blender 4.2.16 LTS (hash 39502cae951c built 2025-11-18 01:34:37)
+
+Blender quit

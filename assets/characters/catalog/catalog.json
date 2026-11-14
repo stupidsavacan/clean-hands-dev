@@ -794,6 +794,79 @@
       ],
       "parameters": {},
       "slot": "shoes"
+    },
+    {
+      "id": "stage.sunglasses.v1",
+      "label": "stage.sunglasses.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "accessories"
+    },
+    {
+      "id": "stage.dress.us_police.v1",
+      "label": "stage.dress.us_police.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "accessories"
+    },
+    {
+      "id": "stage.dress.movie_star.v1",
+      "label": "stage.dress.movie_star.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "accessories"
+    },
+    {
+      "id": "stage.dress.ferry_captain.v1",
+      "label": "stage.dress.ferry_captain.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "accessories"
+    },
+    {
+      "id": "stage.dress.professor.v1",
+      "label": "stage.dress.professor.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "accessories"
+    },
+    {
+      "id": "stage.dress.oil_magnate.v1",
+      "label": "stage.dress.oil_magnate.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [],
+      "parameters": {},
+      "slot": "outer"
+    },
+    {
+      "id": "stage.thobe-legs.v1",
+      "label": "stage.thobe-legs.v1",
+      "bodies": [
+        "cast.male.v1"
+      ],
+      "colors": [
+        "color",
+        "skin"
+      ],
+      "parameters": {},
+      "slot": "pants"
     }
   ]
 }

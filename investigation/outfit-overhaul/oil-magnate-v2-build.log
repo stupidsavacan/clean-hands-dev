@@ -1,0 +1,19 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+INFO Draco mesh compression is available, use library at C:\Program Files\Blender Foundation\Blender 4.2\4.2\python\lib\site-packages\extern_draco.dll
+17:14:17 | INFO: Starting glTF 2.0 export
+17:14:17 | INFO: Extracting primitive: Accessories
+17:14:17 | INFO: Primitives created: 1
+17:14:17 | INFO: Extracting primitive: Body
+17:14:17 | INFO: Primitives created: 1
+17:14:17 | INFO: Extracting primitive: Face
+17:14:17 | INFO: Primitives created: 1
+17:14:17 | INFO: Extracting primitive: Hair
+17:14:17 | INFO: Primitives created: 1
+17:14:17 | INFO: Extracting primitive: Outfit
+17:14:17 | INFO: Primitives created: 1
+17:14:17 | INFO: Finished glTF 2.0 export in 0.08614826202392578 s
+
+RECIPE_BUILT {"id": "oil_magnate", "recipe": "recipes/oil_magnate.json", "output": "models/oil_magnate/oil_magnate.glb", "sha256": "c8ea3185cbf9f5034cb6bf64a64a0ee038cb16430834261f65aa9cb4cc3873b7", "blender": "4.2.16 LTS", "meshes": {"Body": {"vertices": 99, "triangles": 146}, "Outfit": {"vertices": 300, "triangles": 542}, "Hair": {"vertices": 24, "triangles": 22}, "Accessories": {"vertices": 268, "triangles": 318}, "Face": {"vertices": 28, "triangles": 14}}}
+Blender 4.2.16 LTS (hash 39502cae951c built 2025-11-18 01:34:37)
+
+Blender quit
